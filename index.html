@@ -36,6 +36,7 @@ body{margin:0; background:var(--bg-body); color:var(--secondary); font-family:'I
 .hero .eyebrow{text-transform:uppercase; letter-spacing:.1em; font-size:.78rem; font-weight:700; opacity:.85;}
 .hero h1{font-size:1.8rem; font-weight:800; margin:.6rem 0 .5rem;}
 .hero p{max-width:640px; margin:0 auto .8rem; opacity:.92; font-size:.98rem;}
+.racha-chip{display:inline-flex; align-items:center; gap:.4rem; background:rgba(255,255,255,.15); border:1px solid rgba(255,255,255,.3); padding:.4rem .9rem; border-radius:999px; font-weight:700; font-size:.85rem; margin-top:.3rem;}
 
 .search-wrap{max-width:520px; margin:0 auto -1.5rem; padding:0 1rem; position:relative; z-index:5;}
 #search-box{width:100%; padding:.85rem 1.1rem; border:1px solid var(--border-light); border-radius:14px; background:var(--bg-card); color:var(--primary); font-size:.95rem; font-family:inherit; box-shadow:var(--shadow-md);}
@@ -70,6 +71,27 @@ body{margin:0; background:var(--bg-body); color:var(--secondary); font-family:'I
 
 .empty-note{margin-top:2.5rem; text-align:center; color:var(--muted); font-size:.9rem; border:1px dashed var(--border-dark); border-radius:16px; padding:2rem;}
 footer{text-align:center; color:var(--muted); font-size:.8rem; padding:2.5rem 1rem 0;}
+
+/* RUTA DE APRENDIZAJE (estilo Duolingo) */
+.path-nombre-wrap{display:flex; gap:.6rem; flex-wrap:wrap; margin-bottom:1.5rem; align-items:center;}
+.path-nombre-wrap input{flex:1; min-width:200px; padding:.6rem .8rem; border:1px solid var(--border-light); border-radius:10px; background:var(--bg-card); color:var(--primary); font-size:.88rem; font-family:inherit;}
+.path-nombre-wrap button{background:var(--navy); color:#fff; border:none; padding:.6rem 1.1rem; border-radius:10px; font-weight:700; font-size:.85rem; cursor:pointer; font-family:inherit;}
+.path-hint{font-size:.78rem; color:var(--muted); margin:-1rem 0 1.25rem;}
+.path{position:relative; padding:1rem 0;}
+.path-node{position:relative; display:flex; align-items:center; gap:1rem; margin-bottom:.4rem; padding-bottom:1.6rem;}
+.path-node:not(:last-child)::before{content:""; position:absolute; left:27px; top:56px; width:4px; height:calc(100% - 20px); background:var(--border-light); z-index:0;}
+.path-node.completado:not(:last-child)::before{background:var(--green);}
+.path-circle{position:relative; z-index:1; flex-shrink:0; width:56px; height:56px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.4rem; font-weight:800; border:3px solid var(--border-light); background:var(--bg-card); color:var(--muted);}
+.path-node.completado .path-circle{background:var(--green); border-color:var(--green); color:#fff;}
+.path-node.actual .path-circle{background:var(--gold); border-color:var(--gold); color:#2a1e00; box-shadow:0 0 0 6px rgba(224,169,79,.25);}
+.path-node.bloqueado .path-circle{opacity:.55;}
+.path-info{flex:1; background:var(--bg-card); border:1px solid var(--border-light); border-radius:14px; padding:.9rem 1.1rem; box-shadow:var(--shadow-sm);}
+.path-node.bloqueado .path-info{opacity:.6;}
+.path-info .p-badge{font-size:.68rem; font-weight:800; text-transform:uppercase; letter-spacing:.04em; color:var(--gold);}
+.path-info h4{margin:.15rem 0 .3rem; font-size:.98rem; color:var(--primary);}
+.path-info .p-estado{font-size:.78rem; color:var(--muted);}
+.path-info a{display:inline-block; margin-top:.5rem; font-size:.82rem; font-weight:700; color:var(--navy); text-decoration:none;}
+.path-node.bloqueado .path-info a{pointer-events:none; color:var(--muted);}
 </style>
 </head>
 <body>
@@ -124,9 +146,12 @@ var INSTITUCIONES = [
       },
       {
         nombre: "Planificación Estratégica en la Gestión Pública",
+        esSecuencial: true,
+        cursoId: "planificacion-estrategica",
         practicas: [
           {
             badge: "Unidad I",
+            unidad: "u1",
             titulo: "Planificación Estratégica Institucional",
             desc: "PEI, Ciclo de Gestión y Gestión por Resultados (GbR) aplicado a una institución pública real.",
             duracion: "4 horas",
@@ -136,6 +161,7 @@ var INSTITUCIONES = [
           },
           {
             badge: "Unidad II",
+            unidad: "u2",
             titulo: "Diagnóstico Contextual e Institucional",
             desc: "Contexto internacional/nacional, marco normativo, FODA, Matriz CAME y árbol de problemas.",
             duracion: "4 horas",
@@ -145,6 +171,7 @@ var INSTITUCIONES = [
           },
           {
             badge: "Unidad III",
+            unidad: "u3",
             titulo: "Viabilidad Financiera y Riesgos",
             desc: "Costeo de un producto estratégico, clasificación de costos y valoración de riesgos (NOBACI).",
             duracion: "4:30 horas",
@@ -154,6 +181,7 @@ var INSTITUCIONES = [
           },
           {
             badge: "Unidad IV",
+            unidad: "u4",
             titulo: "Estrategia de Socialización del PEI",
             desc: "Grupos de interés, mensajes clave CREAM, canales de socialización, cronograma e indicadores.",
             duracion: "3 horas",
@@ -163,6 +191,7 @@ var INSTITUCIONES = [
           },
           {
             badge: "Unidad V",
+            unidad: "u5",
             titulo: "Seguimiento, Monitoreo y Evaluación del PEI",
             desc: "Matriz de indicadores, formatos de reporte, resumen ejecutivo y metodología CAD-OCDE.",
             duracion: "2 horas",
@@ -172,6 +201,7 @@ var INSTITUCIONES = [
           },
           {
             badge: "Trabajo Final",
+            unidad: "final",
             titulo: "Diseño Integral de un PEI",
             desc: "Integra las 5 unidades: diagnóstico, marco estratégico, cadena de valor, costeo, socialización.",
             duracion: "8 secciones",
@@ -225,6 +255,108 @@ function abrirQrGrande(url, titulo){
 document.getElementById('qr-modal-close').addEventListener('click', function(){ qrModal.classList.remove('open'); });
 qrModal.addEventListener('click', function(e){ if(e.target === qrModal) qrModal.classList.remove('open'); });
 
+/* ---------- RUTA DE APRENDIZAJE (estilo Duolingo) ---------- */
+var AI_VERIFY_URL = 'https://n8n-inap.167.88.36.13.sslip.io/webhook/inap-verificar-progreso';
+
+function fetchConTimeout(url, options, timeoutMs){
+  var controller = new AbortController();
+  var timer = setTimeout(function(){ controller.abort(); }, timeoutMs);
+  return fetch(url, Object.assign({}, options, { signal: controller.signal }))
+    .finally(function(){ clearTimeout(timer); });
+}
+
+function verificarUnidad(nombre, curso, unidadActual){
+  return fetchConTimeout(AI_VERIFY_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ nombre: nombre, curso: curso, unidad_actual: unidadActual })
+  }, 15000).then(function(res){
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    return res.json();
+  }).catch(function(){ return { ok:false, desbloqueado:false }; });
+}
+
+function construirRuta(curso){
+  var wrap = document.createElement('div');
+  var nombreGuardado = localStorage.getItem('portal_nombre_estudiante') || '';
+  wrap.innerHTML =
+    '<div class="path-nombre-wrap">' +
+      '<input type="text" id="ruta-nombre" placeholder="Tu nombre completo (para ver tu progreso real)" value="' + nombreGuardado.replace(/"/g,'&quot;') + '">' +
+      '<button type="button" id="ruta-verificar">🔍 Ver mi progreso</button>' +
+    '</div>' +
+    '<p class="path-hint">Escribe tu nombre igual a como lo usaste al completar cada unidad, para ver cuáles ya aprobaste.</p>' +
+    '<div id="ruta-resumen"></div>' +
+    '<div class="path" id="ruta-nodos"></div>';
+
+  var nodosEl = wrap.querySelector('#ruta-nodos');
+  function pintarNodos(estados){
+    nodosEl.innerHTML = '';
+    curso.practicas.forEach(function(p, i){
+      var estado = estados ? estados[i] : (i === 0 ? 'actual' : 'bloqueado');
+      var node = document.createElement('div');
+      node.className = 'path-node ' + estado;
+      var icono = estado === 'completado' ? '✔' : (estado === 'actual' ? (i+1) : '🔒');
+      node.innerHTML =
+        '<div class="path-circle">' + icono + '</div>' +
+        '<div class="path-info">' +
+          '<span class="p-badge">' + p.badge + '</span>' +
+          '<h4>' + p.titulo + '</h4>' +
+          '<p class="p-estado">' + (estado === 'completado' ? '✅ Ya aprobada' : (estado === 'actual' ? '▶️ Disponible ahora' : '🔒 Completa la unidad anterior primero')) + '</p>' +
+          (estado !== 'bloqueado' ? '<a href="' + p.url + '" target="_blank" rel="noopener">Abrir práctica →</a>' : '') +
+        '</div>';
+      nodosEl.appendChild(node);
+    });
+  }
+  pintarNodos(null);
+
+  wrap.querySelector('#ruta-verificar').addEventListener('click', function(){
+    var nombre = (wrap.querySelector('#ruta-nombre').value || '').trim();
+    var resumenEl = wrap.querySelector('#ruta-resumen');
+    if(!nombre){
+      wrap.querySelector('#ruta-nombre').focus();
+      return;
+    }
+    localStorage.setItem('portal_nombre_estudiante', nombre);
+    resumenEl.innerHTML = '<p style="color:var(--muted); font-size:.85rem;">Consultando tu progreso…</p>';
+
+    var practicas = curso.practicas;
+    var chequeos = [];
+    // La unidad 1 nunca requiere prerequisito -- se asume disponible.
+    // Para saber si la unidad i fue APROBADA, se verifica si la unidad i+1 quedo desbloqueada.
+    for(var i = 1; i < practicas.length; i++){
+      chequeos.push(verificarUnidad(nombre, curso.cursoId, practicas[i].unidad));
+    }
+
+    Promise.all(chequeos).then(function(resultados){
+      // resultados[i] indica si la unidad de indice i (0 = u1) ya fue aprobada
+      // (se infiere consultando si la unidad SIGUIENTE quedo desbloqueada).
+      // La ultima practica (Trabajo Final) nunca tiene una "siguiente" que confirme
+      // si ella misma fue aprobada -- por eso solo se marca completado hasta donde
+      // hay evidencia real, y se deja "actual" (disponible) en vez de inventar un
+      // estado que no podemos verificar.
+      var estados = [];
+      var completadas = 0;
+      var yaHayActual = false;
+      for(var i = 0; i < practicas.length; i++){
+        var aprobada = i < resultados.length && !!resultados[i].desbloqueado;
+        if(aprobada){
+          estados[i] = 'completado';
+          completadas++;
+        } else if(!yaHayActual){
+          estados[i] = 'actual';
+          yaHayActual = true;
+        } else {
+          estados[i] = 'bloqueado';
+        }
+      }
+      pintarNodos(estados);
+      resumenEl.innerHTML = '<span class="racha-chip" style="color:var(--gold); border-color:var(--gold); background:rgba(224,169,79,.12);">🔥 ' + completadas + ' de ' + (practicas.length - 1) + ' unidades completadas</span>';
+    });
+  });
+
+  return wrap;
+}
+
 var instEl = document.getElementById('instituciones');
 
 function render(filtro){
@@ -256,6 +388,11 @@ function render(filtro){
       groupTitle.className = 'group-title';
       groupTitle.textContent = curso.nombre;
       instBlock.appendChild(groupTitle);
+
+      if(curso.esSecuencial && !filtro){
+        instBlock.appendChild(construirRuta(curso));
+        return;
+      }
 
       var cardsWrap = document.createElement('div');
       cardsWrap.className = 'cards';
