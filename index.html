@@ -10,6 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <style>
 :root{
   --navy:#003877; --navy-dark:#002a5c; --gold:#c9982f;
@@ -56,7 +57,16 @@ body{margin:0; background:var(--bg-body); color:var(--secondary); font-family:'I
 .btn-open:hover{filter:brightness(1.08);}
 .btn-share{flex-shrink:0; background:var(--bg-body); border:1px solid var(--border-light); color:var(--secondary); border-radius:12px; width:42px; font-size:1.05rem; cursor:pointer;}
 .btn-share:hover{border-color:var(--navy); color:var(--navy);}
+.qr-wrap{flex-shrink:0; background:#fff; border-radius:10px; padding:5px; border:1px solid var(--border-light); width:56px; height:56px; cursor:pointer;}
+.qr-wrap img, .qr-wrap canvas, .qr-wrap table{display:block; width:100% !important; height:100% !important;}
 .copied-msg{position:fixed; bottom:1.5rem; left:50%; transform:translateX(-50%); background:var(--green-bg); color:var(--green); border:1px solid var(--green); padding:.6rem 1.2rem; border-radius:999px; font-size:.85rem; font-weight:700; box-shadow:var(--shadow-md); z-index:2000; display:none;}
+.qr-modal{position:fixed; inset:0; background:rgba(0,0,0,.75); z-index:3000; display:none; align-items:center; justify-content:center; padding:1.5rem;}
+.qr-modal.open{display:flex;}
+.qr-modal-inner{background:#fff; border-radius:20px; padding:1.75rem; text-align:center; max-width:320px; width:100%;}
+.qr-modal-inner h4{color:#0f172a; margin:0 0 1rem; font-size:1rem;}
+.qr-modal-inner .qr-big{width:220px; height:220px; margin:0 auto;}
+.qr-modal-inner .qr-big img, .qr-modal-inner .qr-big canvas{width:100% !important; height:100% !important;}
+.qr-modal-close{margin-top:1.1rem; background:var(--navy); color:#fff; border:none; padding:.6rem 1.4rem; border-radius:10px; font-weight:700; cursor:pointer; font-family:inherit;}
 
 .empty-note{margin-top:2.5rem; text-align:center; color:var(--muted); font-size:.9rem; border:1px dashed var(--border-dark); border-radius:16px; padding:2rem;}
 footer{text-align:center; color:var(--muted); font-size:.8rem; padding:2.5rem 1rem 0;}
@@ -81,6 +91,14 @@ footer{text-align:center; color:var(--muted); font-size:.8rem; padding:2.5rem 1r
 </div>
 
 <div class="copied-msg" id="copied-msg">✅ Enlace copiado</div>
+
+<div class="qr-modal" id="qr-modal">
+  <div class="qr-modal-inner">
+    <h4 id="qr-modal-title"></h4>
+    <div class="qr-big" id="qr-big"></div>
+    <button class="qr-modal-close" id="qr-modal-close" type="button">Cerrar</button>
+  </div>
+</div>
 
 <script>
 (function(){
@@ -194,6 +212,19 @@ function compartir(url, titulo){
   }
 }
 
+var qrModal = document.getElementById('qr-modal');
+var qrBig = document.getElementById('qr-big');
+function abrirQrGrande(url, titulo){
+  document.getElementById('qr-modal-title').textContent = titulo;
+  qrBig.innerHTML = '';
+  if(window.QRCode){
+    new QRCode(qrBig, { text: url, width: 220, height: 220, colorDark: '#003877', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.M });
+  }
+  qrModal.classList.add('open');
+}
+document.getElementById('qr-modal-close').addEventListener('click', function(){ qrModal.classList.remove('open'); });
+qrModal.addEventListener('click', function(e){ if(e.target === qrModal) qrModal.classList.remove('open'); });
+
 var instEl = document.getElementById('instituciones');
 
 function render(filtro){
@@ -230,6 +261,7 @@ function render(filtro){
       cardsWrap.className = 'cards';
       curso.practicas.forEach(function(p){
         totalVisible++;
+        var qrId = 'qr-' + (totalVisible);
         var card = document.createElement('div');
         card.className = 'card';
         card.innerHTML =
@@ -245,11 +277,19 @@ function render(filtro){
             '<div class="card-actions">' +
               '<a class="btn-open" href="' + p.url + '" target="_blank" rel="noopener">📤 Abrir</a>' +
               '<button class="btn-share" type="button" title="Compartir enlace" aria-label="Compartir enlace">🔗</button>' +
+              '<div class="qr-wrap" id="' + qrId + '" title="Toca para ampliar el QR"></div>' +
             '</div>' +
           '</div>';
         card.querySelector('.btn-share').addEventListener('click', function(){
           compartir(p.url, p.titulo);
         });
+        var qrEl = card.querySelector('#' + qrId);
+        if(window.QRCode){
+          new QRCode(qrEl, { text: p.url, width: 56, height: 56, colorDark: '#003877', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.M });
+        } else {
+          qrEl.style.display = 'none';
+        }
+        qrEl.addEventListener('click', function(){ abrirQrGrande(p.url, p.titulo); });
         cardsWrap.appendChild(card);
       });
       instBlock.appendChild(cardsWrap);
