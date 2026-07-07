@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Portal de Prácticas — Johan Tapia, PhD</title>
-<meta name="description" content="Portal de prácticas autocalificables con Tutor Virtual IA.">
+<meta name="description" content="Portal central de prácticas autocalificables con Tutor Virtual IA, organizadas por institución y curso.">
 <meta name="color-scheme" content="light dark">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8E%93%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,6 +15,7 @@
   --navy:#003877; --navy-dark:#002a5c; --gold:#c9982f;
   --primary:#0f172a; --secondary:#334155; --muted:#64748b;
   --bg-body:#f4f7fb; --bg-card:#ffffff; --border-light:#e2e8f0; --border-dark:#cbd5e1;
+  --green:#16a34a; --green-bg:#f0fdf4;
   --shadow-sm:0 1px 2px rgba(0,0,0,.06);
   --shadow-md:0 4px 6px -1px rgba(0,0,0,.1), 0 2px 4px -2px rgba(0,0,0,.1);
   --shadow-lg:0 10px 15px -3px rgba(0,0,0,.12), 0 4px 6px -4px rgba(0,0,0,.1);
@@ -22,6 +23,7 @@
 [data-theme="dark"]{
   --navy:#5b9bd8; --primary:#f1f5f9; --secondary:#cbd5e1; --muted:#94a3b8;
   --bg-body:#0b1220; --bg-card:#151f2f; --border-light:#283249; --border-dark:#3a4666;
+  --green-bg:#0c2417;
   --shadow-sm:0 1px 2px rgba(0,0,0,.4); --shadow-md:0 4px 6px -1px rgba(0,0,0,.5); --shadow-lg:0 10px 15px -3px rgba(0,0,0,.5);
 }
 *{box-sizing:border-box;}
@@ -29,23 +31,32 @@ body{margin:0; background:var(--bg-body); color:var(--secondary); font-family:'I
 .wrap{max-width:980px; margin:0 auto; padding:0 1rem 4rem;}
 .icon-btn{position:fixed; top:1rem; right:1rem; background:var(--bg-card); border:1px solid var(--border-light); width:38px; height:38px; border-radius:10px; cursor:pointer; font-size:1.05rem; box-shadow:var(--shadow-sm); z-index:10;}
 
-.hero{background:linear-gradient(135deg,var(--navy),var(--navy-dark)); color:#fff; padding:3rem 1.5rem 2.5rem; text-align:center; border-radius:0 0 24px 24px; margin-bottom:2.5rem; box-shadow:var(--shadow-lg);}
+.hero{background:linear-gradient(135deg,var(--navy),var(--navy-dark)); color:#fff; padding:2.5rem 1.5rem 2rem; text-align:center; border-radius:0 0 24px 24px; margin-bottom:1.5rem; box-shadow:var(--shadow-lg);}
 .hero .eyebrow{text-transform:uppercase; letter-spacing:.1em; font-size:.78rem; font-weight:700; opacity:.85;}
-.hero h1{font-size:2rem; font-weight:800; margin:.6rem 0 .5rem;}
-.hero p{max-width:640px; margin:0 auto; opacity:.92; font-size:1.02rem;}
+.hero h1{font-size:1.8rem; font-weight:800; margin:.6rem 0 .5rem;}
+.hero p{max-width:640px; margin:0 auto .8rem; opacity:.92; font-size:.98rem;}
 
-.group-title{font-size:1.1rem; font-weight:800; color:var(--primary); margin:2rem 0 1rem;}
-.cards{display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:1.5rem;}
+.search-wrap{max-width:520px; margin:0 auto -1.5rem; padding:0 1rem; position:relative; z-index:5;}
+#search-box{width:100%; padding:.85rem 1.1rem; border:1px solid var(--border-light); border-radius:14px; background:var(--bg-card); color:var(--primary); font-size:.95rem; font-family:inherit; box-shadow:var(--shadow-md);}
+#search-box:focus{outline:none; border-color:var(--navy);}
+
+.inst-block{margin-top:2.5rem;}
+.inst-title{font-size:.78rem; font-weight:800; text-transform:uppercase; letter-spacing:.06em; color:var(--gold); margin-bottom:.3rem;}
+.group-title{font-size:1.15rem; font-weight:800; color:var(--primary); margin:0 0 1rem;}
+.cards{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1.25rem; margin-bottom:1.5rem;}
 .card{background:var(--bg-card); border:1px solid var(--border-light); border-radius:16px; box-shadow:var(--shadow-sm); overflow:hidden; display:flex; flex-direction:column;}
-.card-body{padding:1.5rem; flex:1; display:flex; flex-direction:column;}
-.card .badge{display:inline-flex; align-self:flex-start; background:#eff6ff; color:var(--navy); border:1px solid #3b82f6; font-weight:700; font-size:.7rem; text-transform:uppercase; letter-spacing:.04em; padding:.25rem .65rem; border-radius:999px; margin-bottom:.75rem;}
-.card h2{font-size:1.25rem; font-weight:800; color:var(--primary); margin:0 0 .5rem;}
-.card p.desc{font-size:.92rem; color:var(--secondary); margin:0 0 1rem;}
-.meta-row{display:flex; flex-wrap:wrap; gap:.5rem; margin-bottom:1.25rem;}
-.meta-chip{background:var(--bg-body); border:1px solid var(--border-light); border-radius:999px; padding:.3rem .7rem; font-size:.75rem; font-weight:600; color:var(--secondary);}
-.card-actions{margin-top:auto;}
-.btn-open{display:block; text-align:center; background:linear-gradient(135deg,var(--navy),var(--navy-dark)); color:#fff; text-decoration:none; padding:.85rem 1rem; border-radius:12px; font-weight:700; font-size:.95rem; box-shadow:var(--shadow-md);}
+.card-body{padding:1.35rem; flex:1; display:flex; flex-direction:column;}
+.card .badge{display:inline-flex; align-self:flex-start; background:#eff6ff; color:var(--navy); border:1px solid #3b82f6; font-weight:700; font-size:.68rem; text-transform:uppercase; letter-spacing:.04em; padding:.25rem .6rem; border-radius:999px; margin-bottom:.65rem;}
+.card h3{font-size:1.08rem; font-weight:800; color:var(--primary); margin:0 0 .4rem;}
+.card p.desc{font-size:.86rem; color:var(--secondary); margin:0 0 .85rem;}
+.meta-row{display:flex; flex-wrap:wrap; gap:.4rem; margin-bottom:1.1rem;}
+.meta-chip{background:var(--bg-body); border:1px solid var(--border-light); border-radius:999px; padding:.25rem .6rem; font-size:.7rem; font-weight:600; color:var(--secondary);}
+.card-actions{margin-top:auto; display:flex; gap:.5rem;}
+.btn-open{flex:1; text-align:center; background:linear-gradient(135deg,var(--navy),var(--navy-dark)); color:#fff; text-decoration:none; padding:.7rem .8rem; border-radius:12px; font-weight:700; font-size:.85rem; box-shadow:var(--shadow-md);}
 .btn-open:hover{filter:brightness(1.08);}
+.btn-share{flex-shrink:0; background:var(--bg-body); border:1px solid var(--border-light); color:var(--secondary); border-radius:12px; width:42px; font-size:1.05rem; cursor:pointer;}
+.btn-share:hover{border-color:var(--navy); color:var(--navy);}
+.copied-msg{position:fixed; bottom:1.5rem; left:50%; transform:translateX(-50%); background:var(--green-bg); color:var(--green); border:1px solid var(--green); padding:.6rem 1.2rem; border-radius:999px; font-size:.85rem; font-weight:700; box-shadow:var(--shadow-md); z-index:2000; display:none;}
 
 .empty-note{margin-top:2.5rem; text-align:center; color:var(--muted); font-size:.9rem; border:1px dashed var(--border-dark); border-radius:16px; padding:2rem;}
 footer{text-align:center; color:var(--muted); font-size:.8rem; padding:2.5rem 1rem 0;}
@@ -57,30 +68,100 @@ footer{text-align:center; color:var(--muted); font-size:.8rem; padding:2.5rem 1r
 <div class="hero">
   <p class="eyebrow">Johan Tapia, PhD</p>
   <h1>🎓 Portal de Prácticas Autocalificables</h1>
-  <p>Seleccione su práctica, complétela desde su celular, tableta o computadora, y reciba su calificación al instante con retroalimentación del Tutor Virtual.</p>
+  <p>Busca la práctica, ábrela o comparte el enlace directo con tus estudiantes.</p>
+</div>
+
+<div class="search-wrap">
+  <input type="text" id="search-box" placeholder="🔍 Buscar por curso, institución o práctica…">
 </div>
 
 <div class="wrap">
-  <div id="grupos"></div>
+  <div id="instituciones" style="margin-top:2.5rem;"></div>
   <footer>Portal de prácticas · Desarrollado por Johan Tapia, PhD</footer>
 </div>
+
+<div class="copied-msg" id="copied-msg">✅ Enlace copiado</div>
 
 <script>
 (function(){
 "use strict";
 
-var CURSOS = [
+var INSTITUCIONES = [
   {
-    nombre: "Informática Forense",
-    practicas: [
+    nombre: "INAP — Instituto Nacional de Administración Pública",
+    cursos: [
       {
-        badge: "Módulo III",
-        titulo: "Caso Práctico: Informática Forense",
-        desc: "Análisis de un caso de fraude contable con evidencia digital. Ejercicio cronometrado, 40 minutos.",
-        duracion: "40 minutos",
-        puntos: "100 pts",
-        aprobacion: "70% mínimo",
-        url: "informatica-forense/"
+        nombre: "Informática Forense",
+        practicas: [
+          {
+            badge: "Módulo III",
+            titulo: "Caso Práctico: Informática Forense",
+            desc: "Análisis de un caso de fraude contable con evidencia digital. Ejercicio cronometrado, 40 minutos.",
+            duracion: "40 minutos",
+            puntos: "100 pts",
+            aprobacion: "70% mínimo",
+            url: "https://johantbueno.github.io/practicas-web/informatica-forense/"
+          }
+        ]
+      },
+      {
+        nombre: "Planificación Estratégica en la Gestión Pública",
+        practicas: [
+          {
+            badge: "Unidad I",
+            titulo: "Planificación Estratégica Institucional",
+            desc: "PEI, Ciclo de Gestión y Gestión por Resultados (GbR) aplicado a una institución pública real.",
+            duracion: "4 horas",
+            puntos: "100 pts",
+            aprobacion: "70% mínimo",
+            url: "https://planificacion.plataforma.cfd/"
+          },
+          {
+            badge: "Unidad II",
+            titulo: "Diagnóstico Contextual e Institucional",
+            desc: "Contexto internacional/nacional, marco normativo, FODA, Matriz CAME y árbol de problemas.",
+            duracion: "4 horas",
+            puntos: "100 pts",
+            aprobacion: "70% mínimo",
+            url: "https://diagnostico.plataforma.cfd/"
+          },
+          {
+            badge: "Unidad III",
+            titulo: "Viabilidad Financiera y Riesgos",
+            desc: "Costeo de un producto estratégico, clasificación de costos y valoración de riesgos (NOBACI).",
+            duracion: "4:30 horas",
+            puntos: "15 pts del curso",
+            aprobacion: "70% mínimo",
+            url: "https://viabilidad.plataforma.cfd/"
+          },
+          {
+            badge: "Unidad IV",
+            titulo: "Estrategia de Socialización del PEI",
+            desc: "Grupos de interés, mensajes clave CREAM, canales de socialización, cronograma e indicadores.",
+            duracion: "3 horas",
+            puntos: "10 pts del curso",
+            aprobacion: "70% mínimo",
+            url: "https://socializacion.plataforma.cfd/"
+          },
+          {
+            badge: "Unidad V",
+            titulo: "Seguimiento, Monitoreo y Evaluación del PEI",
+            desc: "Matriz de indicadores, formatos de reporte, resumen ejecutivo y metodología CAD-OCDE.",
+            duracion: "2 horas",
+            puntos: "100 pts",
+            aprobacion: "70% mínimo",
+            url: "https://evaluacion.plataforma.cfd/"
+          },
+          {
+            badge: "Trabajo Final",
+            titulo: "Diseño Integral de un PEI",
+            desc: "Integra las 5 unidades: diagnóstico, marco estratégico, cadena de valor, costeo, socialización.",
+            duracion: "8 secciones",
+            puntos: "30% de la nota final",
+            aprobacion: "70% mínimo",
+            url: "https://peifinal.plataforma.cfd/"
+          }
+        ]
       }
     ]
   }
@@ -97,36 +178,94 @@ themeBtn.addEventListener('click', function(){
   applyTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
 });
 
-var gruposEl = document.getElementById('grupos');
-if(!CURSOS.length){
-  gruposEl.innerHTML = '<div class="empty-note">Aún no hay prácticas publicadas. Vuelva pronto.</div>';
+function mostrarCopiado(){
+  var msg = document.getElementById('copied-msg');
+  msg.style.display = 'block';
+  setTimeout(function(){ msg.style.display = 'none'; }, 1800);
 }
-CURSOS.forEach(function(curso){
-  var titulo = document.createElement('h2');
-  titulo.className = 'group-title';
-  titulo.textContent = curso.nombre;
-  gruposEl.appendChild(titulo);
 
-  var cardsWrap = document.createElement('div');
-  cardsWrap.className = 'cards';
-  curso.practicas.forEach(function(p){
-    var card = document.createElement('div');
-    card.className = 'card';
-    card.innerHTML =
-      '<div class="card-body">' +
-        '<span class="badge">' + p.badge + '</span>' +
-        '<h2>' + p.titulo + '</h2>' +
-        '<p class="desc">' + p.desc + '</p>' +
-        '<div class="meta-row">' +
-          '<span class="meta-chip">⏱️ ' + p.duracion + '</span>' +
-          '<span class="meta-chip">🧮 ' + p.puntos + '</span>' +
-          '<span class="meta-chip">✅ ' + p.aprobacion + '</span>' +
-        '</div>' +
-        '<div class="card-actions"><a class="btn-open" href="' + p.url + '">📤 Abrir la práctica</a></div>' +
-      '</div>';
-    cardsWrap.appendChild(card);
+function compartir(url, titulo){
+  if(navigator.share){
+    navigator.share({ title: titulo, url: url }).catch(function(){});
+  } else if(navigator.clipboard){
+    navigator.clipboard.writeText(url).then(mostrarCopiado);
+  } else {
+    prompt('Copia el enlace:', url);
+  }
+}
+
+var instEl = document.getElementById('instituciones');
+
+function render(filtro){
+  filtro = (filtro || '').toLowerCase().trim();
+  instEl.innerHTML = '';
+  var totalVisible = 0;
+
+  INSTITUCIONES.forEach(function(inst){
+    var cursosConResultados = inst.cursos.map(function(curso){
+      var practicasFiltradas = curso.practicas.filter(function(p){
+        if(!filtro) return true;
+        var texto = (inst.nombre + ' ' + curso.nombre + ' ' + p.titulo + ' ' + p.badge + ' ' + p.desc).toLowerCase();
+        return texto.indexOf(filtro) !== -1;
+      });
+      return { nombre: curso.nombre, practicas: practicasFiltradas };
+    }).filter(function(c){ return c.practicas.length > 0; });
+
+    if(!cursosConResultados.length) return;
+
+    var instBlock = document.createElement('div');
+    instBlock.className = 'inst-block';
+    var instTitle = document.createElement('p');
+    instTitle.className = 'inst-title';
+    instTitle.textContent = inst.nombre;
+    instBlock.appendChild(instTitle);
+
+    cursosConResultados.forEach(function(curso){
+      var groupTitle = document.createElement('h2');
+      groupTitle.className = 'group-title';
+      groupTitle.textContent = curso.nombre;
+      instBlock.appendChild(groupTitle);
+
+      var cardsWrap = document.createElement('div');
+      cardsWrap.className = 'cards';
+      curso.practicas.forEach(function(p){
+        totalVisible++;
+        var card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML =
+          '<div class="card-body">' +
+            '<span class="badge">' + p.badge + '</span>' +
+            '<h3>' + p.titulo + '</h3>' +
+            '<p class="desc">' + p.desc + '</p>' +
+            '<div class="meta-row">' +
+              '<span class="meta-chip">⏱️ ' + p.duracion + '</span>' +
+              '<span class="meta-chip">🧮 ' + p.puntos + '</span>' +
+              '<span class="meta-chip">✅ ' + p.aprobacion + '</span>' +
+            '</div>' +
+            '<div class="card-actions">' +
+              '<a class="btn-open" href="' + p.url + '" target="_blank" rel="noopener">📤 Abrir</a>' +
+              '<button class="btn-share" type="button" title="Compartir enlace" aria-label="Compartir enlace">🔗</button>' +
+            '</div>' +
+          '</div>';
+        card.querySelector('.btn-share').addEventListener('click', function(){
+          compartir(p.url, p.titulo);
+        });
+        cardsWrap.appendChild(card);
+      });
+      instBlock.appendChild(cardsWrap);
+    });
+
+    instEl.appendChild(instBlock);
   });
-  gruposEl.appendChild(cardsWrap);
+
+  if(!totalVisible){
+    instEl.innerHTML = '<div class="empty-note">No se encontraron prácticas que coincidan con "' + filtro + '".</div>';
+  }
+}
+
+render('');
+document.getElementById('search-box').addEventListener('input', function(e){
+  render(e.target.value);
 });
 })();
 </script>
