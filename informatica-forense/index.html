@@ -10,6 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 <style>
 :root{
   --navy:#5b9bd8; --navy-dark:#3a7bc0; --gold:#e0a94f;
@@ -115,6 +116,13 @@ textarea{min-height:130px; resize:vertical; line-height:1.6;}
 .crit-fill.mid{background:var(--amber);}
 .crit-fill.lo{background:var(--red);}
 .crit p.note{margin:0; font-size:.85rem; color:var(--muted);}
+
+@keyframes medal-pop{0%{transform:scale(.4) rotate(-8deg); opacity:0;}60%{transform:scale(1.08) rotate(3deg); opacity:1;}100%{transform:scale(1) rotate(0deg); opacity:1;}}
+.medal-card{margin-top:1.5rem; text-align:center; padding:2rem 1.5rem; border-radius:var(--radius-lg); border:1px solid var(--border-light); background:radial-gradient(circle at top, rgba(224,169,79,.12), transparent 70%), var(--bg-card);}
+.medal-icon{font-size:4rem; display:inline-block; animation:medal-pop .6s cubic-bezier(.34,1.56,.64,1);filter:drop-shadow(0 6px 14px rgba(224,169,79,.45));}
+.medal-title{font-size:1.3rem; font-weight:800; color:var(--gold); margin:.6rem 0 .2rem;}
+.medal-sub{font-size:.9rem; color:var(--muted); margin:0 0 1.25rem;}
+.medal-actions{display:flex; gap:.7rem; justify-content:center; flex-wrap:wrap;}
 
 footer.tp-footer{text-align:center; color:var(--muted); font-size:.8rem; padding:2rem 1rem; border-top:1px solid var(--border-light); margin-top:1rem;}
 
@@ -255,6 +263,7 @@ footer.tp-footer{text-align:center; color:var(--muted); font-size:.8rem; padding
     </div>
     <div id="crit-list"></div>
     <div id="ai-review" class="alert info" style="display:none;"></div>
+    <div id="medal-zone" style="display:none;"></div>
   </section>
 
   <footer class="tp-footer">Caso Práctico de Informática Forense · Módulo III · Desarrollado por Johan Tapia, PhD</footer>
@@ -462,6 +471,147 @@ function renderResults(result){
       '</div>';
   }).join('');
   document.getElementById('results').classList.add('show');
+
+  if(result.total >= 70){
+    reproducirSonidoExito();
+    lanzarConfeti();
+    mostrarMedalla(result.total);
+  } else {
+    document.getElementById('medal-zone').style.display = 'none';
+  }
+}
+
+/* ---------- SONIDO DE EXITO (sintetizado, sin archivos externos) ---------- */
+function reproducirSonidoExito(){
+  try{
+    var Ctx = window.AudioContext || window.webkitAudioContext;
+    var ctx = new Ctx();
+    var notas = [523.25, 659.25, 783.99, 1046.50];
+    notas.forEach(function(freq, i){
+      var osc = ctx.createOscillator();
+      var gain = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.value = freq;
+      var inicio = ctx.currentTime + i * 0.11;
+      gain.gain.setValueAtTime(0, inicio);
+      gain.gain.linearRampToValueAtTime(0.18, inicio + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.0001, inicio + 0.35);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(inicio);
+      osc.stop(inicio + 0.4);
+    });
+  }catch(e){ /* audio no disponible, silenciar sin romper la practica */ }
+}
+
+/* ---------- CONFETI ---------- */
+function lanzarConfeti(){
+  if(!window.confetti) return;
+  var colores = ['#e0a94f', '#5b9bd8', '#22c55e'];
+  confetti({ particleCount: 90, spread: 75, origin: { y: 0.35 }, colors: colores });
+  setTimeout(function(){
+    confetti({ particleCount: 50, angle: 60, spread: 60, origin: { x: 0 }, colors: colores });
+    confetti({ particleCount: 50, angle: 120, spread: 60, origin: { x: 1 }, colors: colores });
+  }, 300);
+}
+
+/* ---------- MEDALLAS ---------- */
+var NIVELES_MEDALLA = [
+  { min: 90, icono: '🥇', titulo: 'Perito Digital Élite', color: '#e0a94f' },
+  { min: 80, icono: '🥈', titulo: 'Analista Forense Certificado', color: '#c0c0c0' },
+  { min: 70, icono: '🥉', titulo: 'Investigador Forense en Formación', color: '#cd7f32' }
+];
+
+function obtenerNivelMedalla(total){
+  for(var i = 0; i < NIVELES_MEDALLA.length; i++){
+    if(total >= NIVELES_MEDALLA[i].min) return NIVELES_MEDALLA[i];
+  }
+  return null;
+}
+
+function dibujarInsignia(nivel, nombre, total){
+  var canvas = document.createElement('canvas');
+  canvas.width = 800; canvas.height = 500;
+  var ctx = canvas.getContext('2d');
+
+  var grad = ctx.createLinearGradient(0, 0, 800, 500);
+  grad.addColorStop(0, '#0b1220');
+  grad.addColorStop(1, '#151f2f');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, 800, 500);
+
+  ctx.strokeStyle = nivel.color;
+  ctx.lineWidth = 6;
+  ctx.strokeRect(20, 20, 760, 460);
+
+  ctx.textAlign = 'center';
+  ctx.font = '120px sans-serif';
+  ctx.fillText(nivel.icono, 400, 190);
+
+  ctx.fillStyle = nivel.color;
+  ctx.font = 'bold 40px Georgia, serif';
+  ctx.fillText(nivel.titulo, 400, 250);
+
+  ctx.fillStyle = '#f1f5f9';
+  ctx.font = 'bold 30px Arial';
+  ctx.fillText(nombre || 'Estudiante', 400, 310);
+
+  ctx.fillStyle = '#94a3b8';
+  ctx.font = '22px Arial';
+  ctx.fillText('Caso Práctico: Informática Forense · Módulo III', 400, 350);
+  ctx.fillText('Calificación preliminar: ' + total + ' / 100 pts', 400, 385);
+
+  ctx.fillStyle = '#64748b';
+  ctx.font = 'italic 18px Arial';
+  ctx.fillText('Desarrollado por Johan Tapia, PhD', 400, 460);
+
+  return canvas;
+}
+
+function mostrarMedalla(total){
+  var nivel = obtenerNivelMedalla(total);
+  var zone = document.getElementById('medal-zone');
+  if(!nivel){ zone.style.display = 'none'; return; }
+
+  var nombre = (document.getElementById('est_nombre').value || '').trim() || 'Estudiante';
+  var canvas = dibujarInsignia(nivel, nombre, total);
+
+  zone.style.display = 'block';
+  zone.innerHTML =
+    '<div class="medal-card">' +
+      '<span class="medal-icon">' + nivel.icono + '</span>' +
+      '<div class="medal-title">' + nivel.titulo + '</div>' +
+      '<p class="medal-sub">¡Ganaste tu insignia! Compártela con tus colegas.</p>' +
+      '<div class="medal-actions">' +
+        '<button class="btn-primary" id="btn-compartir-medalla" type="button">📤 Compartir insignia</button>' +
+        '<button class="btn-secondary" id="btn-descargar-medalla" type="button">⬇️ Descargar</button>' +
+      '</div>' +
+    '</div>';
+
+  document.getElementById('btn-descargar-medalla').addEventListener('click', function(){
+    var a = document.createElement('a');
+    a.download = 'insignia-informatica-forense-' + nombre.toLowerCase().replace(/[^a-z0-9]+/g,'-') + '.png';
+    a.href = canvas.toDataURL('image/png');
+    a.click();
+  });
+
+  document.getElementById('btn-compartir-medalla').addEventListener('click', function(){
+    canvas.toBlob(function(blob){
+      var archivo = new File([blob], 'insignia-informatica-forense.png', { type: 'image/png' });
+      if(navigator.canShare && navigator.canShare({ files: [archivo] })){
+        navigator.share({
+          files: [archivo],
+          title: nivel.titulo,
+          text: '¡Obtuve la insignia "' + nivel.titulo + '" en el Caso Práctico de Informática Forense!'
+        }).catch(function(){});
+      } else {
+        var a = document.createElement('a');
+        a.download = 'insignia-informatica-forense.png';
+        a.href = canvas.toDataURL('image/png');
+        a.click();
+      }
+    }, 'image/png');
+  });
 }
 
 function fetchWithTimeout(url, options, timeoutMs){
