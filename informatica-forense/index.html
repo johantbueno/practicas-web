@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Caso Práctico: Informática Forense | Módulo III</title>
+<meta name="description" content="Caso práctico autocalificable de Informática Forense: análisis de un caso de fraude contable con evidencia digital, con Tutor Virtual y calificación por rúbrica.">
+<meta name="color-scheme" content="dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%94%8D%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#5b9bd8; --navy-dark:#3a7bc0; --gold:#e0a94f;
+  --primary:#f1f5f9; --secondary:#cbd5e1; --muted:#94a3b8;
+  --bg-body:#0b1220; --bg-card:#151f2f; --border-light:#283249; --border-dark:#3a4666;
+  --green:#22c55e; --green-bg:#0c2417; --green-border:#16a34a;
+  --amber:#f59e0b; --amber-bg:#2a2108; --amber-border:#b45309;
+  --red:#ef4444; --red-bg:#2a1212; --red-border:#b91c1c;
+  --blue-bg:#13233f; --blue-border:#3b82f6;
+  --radius-lg:16px; --radius-md:12px; --radius-sm:8px;
+  --shadow-md:0 4px 6px -1px rgba(0,0,0,.4), 0 2px 4px -2px rgba(0,0,0,.4);
+  --shadow-lg:0 10px 15px -3px rgba(0,0,0,.5), 0 4px 6px -4px rgba(0,0,0,.4);
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{margin:0; background:var(--bg-body); color:var(--secondary); font-family:'Inter',ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif; line-height:1.7;}
+a{color:var(--navy);}
+.wrapper{display:none; max-width:900px; margin:0 auto; padding:1.5rem 1rem 5rem;}
+.wrapper.show{display:block;}
+
+#intake-screen{max-width:640px; margin:3rem auto; padding:0 1rem; text-align:center;}
+#intake-screen .icon-circle{width:88px; height:88px; border-radius:50%; background:var(--amber-bg); border:1px solid var(--amber-border); display:flex; align-items:center; justify-content:center; font-size:2.4rem; margin:0 auto 1.25rem;}
+.badge{display:inline-block; background:var(--amber-bg); color:var(--gold); border:1px solid var(--amber-border); font-weight:700; font-size:.75rem; text-transform:uppercase; letter-spacing:.05em; padding:.35rem .9rem; border-radius:999px; margin-bottom:1rem;}
+#intake-screen h1{font-size:1.9rem; font-weight:800; color:#fff; margin:.3rem 0 .5rem;}
+#intake-screen .sub{color:var(--muted); font-size:1rem; margin-bottom:1.5rem;}
+.icon-row{display:flex; justify-content:center; gap:.6rem; margin-bottom:1.75rem;}
+.icon-row span{width:34px; height:34px; border-radius:50%; background:var(--blue-bg); border:1px solid var(--blue-border); display:flex; align-items:center; justify-content:center; font-size:.95rem;}
+
+.card{background:var(--bg-card); padding:2rem; border-radius:var(--radius-lg); box-shadow:var(--shadow-md); border:1px solid var(--border-light); margin-bottom:1.5rem; text-align:left;}
+@media (max-width:640px){ .card{padding:1.35rem;} }
+.card h2{font-size:1.15rem; font-weight:700; color:var(--primary); margin:0 0 1rem; padding-bottom:.6rem; border-bottom:1px solid var(--border-light);}
+
+.field{margin-bottom:1.1rem; text-align:left;}
+.field label{display:block; font-weight:700; font-size:.85rem; color:var(--primary); margin-bottom:.4rem;}
+.field .hint{font-size:.78rem; color:var(--muted); font-weight:400; margin-left:.4rem;}
+input[type=text], textarea{
+  width:100%; padding:.65rem .8rem; border:1px solid var(--border-light); border-radius:var(--radius-sm);
+  font-size:.92rem; font-family:inherit; background:#0f1830; color:var(--primary);
+}
+input:focus, textarea:focus{border-color:var(--navy); outline:none;}
+textarea{min-height:130px; resize:vertical; line-height:1.6;}
+
+.btn-primary{background:linear-gradient(135deg,var(--gold),#c9982f); color:#2a1e00; border:none; padding:.9rem 1.8rem; border-radius:var(--radius-md); font-weight:800; font-size:1rem; cursor:pointer; box-shadow:var(--shadow-md); font-family:inherit;}
+.btn-primary:hover{filter:brightness(1.08);}
+.btn-primary:disabled{opacity:.5; cursor:not-allowed;}
+.btn-secondary{background:transparent; color:var(--navy); border:1px solid var(--navy); padding:.7rem 1.2rem; border-radius:var(--radius-md); font-weight:700; font-size:.88rem; cursor:pointer; font-family:inherit;}
+
+#timer-bar{position:sticky; top:0; z-index:800; background:var(--bg-card); border-bottom:1px solid var(--border-light); padding:.85rem 1rem; display:flex; align-items:center; gap:1rem; box-shadow:var(--shadow-md);}
+#timer-clock{font-size:1.6rem; font-weight:800; color:var(--gold); font-variant-numeric:tabular-nums; min-width:5rem;}
+#timer-clock.low{color:var(--red);}
+#timer-track{flex:1; height:6px; border-radius:999px; background:var(--border-light); overflow:hidden;}
+#timer-fill{height:100%; background:linear-gradient(90deg,var(--navy),var(--gold)); width:100%; transition:width 1s linear;}
+#timer-name{font-size:.82rem; color:var(--muted); white-space:nowrap;}
+
+.eyebrow{text-transform:uppercase; letter-spacing:.08em; font-size:.75rem; font-weight:700; color:var(--gold);}
+.case-title{font-size:1.5rem; font-weight:800; color:#fff; margin:.3rem 0 1rem;}
+.case-card p{margin:0 0 1rem;}
+
+.timeline{list-style:none; margin:0; padding:0;}
+.timeline li{position:relative; padding:0 0 1.1rem 1.6rem; border-left:2px solid var(--border-light); margin-left:.6rem;}
+.timeline li:last-child{border-left-color:transparent; padding-bottom:0;}
+.timeline li::before{content:""; position:absolute; left:-6px; top:2px; width:10px; height:10px; border-radius:50%; background:var(--gold);}
+.timeline .t{font-weight:700; color:var(--gold); font-size:.82rem; display:block; margin-bottom:.15rem;}
+.timeline .d{font-size:.9rem;}
+
+.evidence-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:.9rem;}
+.evidence-item{border:1px solid var(--border-light); border-radius:var(--radius-md); padding:.9rem 1rem; background:#0f1830;}
+.evidence-item .e-icon{font-size:1.3rem; margin-bottom:.4rem; display:block;}
+.evidence-item strong{color:var(--primary); font-size:.88rem; display:block; margin-bottom:.2rem;}
+.evidence-item span{font-size:.8rem; color:var(--muted);}
+
+.q-card{border:1px solid var(--border-light); background:var(--bg-card); border-radius:var(--radius-lg); padding:1.75rem; margin-bottom:1.5rem;}
+.q-head{display:flex; align-items:flex-start; gap:.9rem; margin-bottom:.9rem;}
+.q-num{flex-shrink:0; width:36px; height:36px; border-radius:50%; background:var(--amber-bg); border:1px solid var(--amber-border); color:var(--gold); font-weight:800; display:flex; align-items:center; justify-content:center;}
+.q-head h3{margin:0; font-size:1.05rem; color:var(--primary); font-weight:700;}
+.q-guide{font-size:.85rem; color:var(--muted); margin:.4rem 0 .9rem 3rem;}
+.q-card textarea{margin-left:0;}
+
+.alert{border-radius:var(--radius-md); padding:1rem 1.25rem; margin:1rem 0; border:1px solid; font-size:.92rem;}
+.alert.info{background:var(--blue-bg); border-color:var(--blue-border);}
+.alert.success{background:var(--green-bg); border-color:var(--green-border);}
+.alert.warn{background:var(--red-bg); border-color:var(--red-border);}
+
+.results{display:none;}
+.results.show{display:block;}
+.score-hero{display:flex; flex-wrap:wrap; align-items:center; gap:1.75rem; padding:1.5rem; border-radius:var(--radius-lg); border:1px solid; margin-bottom:1.5rem;}
+.score-hero.pass{background:var(--green-bg); border-color:var(--green-border);}
+.score-hero.warn{background:var(--amber-bg); border-color:var(--amber-border);}
+.score-hero.fail{background:var(--red-bg); border-color:var(--red-border);}
+.score-circle{width:110px; height:110px; border-radius:50%; display:flex; flex-direction:column; align-items:center; justify-content:center; background:var(--bg-card); box-shadow:var(--shadow-md); flex-shrink:0;}
+.score-circle .num{font-size:1.9rem; font-weight:800; color:#fff; line-height:1;}
+.score-circle .den{font-size:.72rem; color:var(--muted); font-weight:700;}
+.score-verdict h3{margin:0 0 .3rem; font-size:1.15rem; color:#fff;}
+.score-verdict p{margin:0; font-size:.92rem;}
+
+.crit{border:1px solid var(--border-light); border-radius:var(--radius-md); padding:1.1rem 1.25rem; margin-bottom:1rem; background:#0f1830;}
+.crit-head{display:flex; justify-content:space-between; align-items:center; gap:1rem; margin-bottom:.5rem; flex-wrap:wrap;}
+.crit-head strong{color:var(--primary); font-size:.95rem;}
+.crit-score{font-weight:800; font-size:.9rem; color:var(--gold); white-space:nowrap;}
+.crit-track{height:8px; border-radius:999px; background:var(--border-light); overflow:hidden; margin-bottom:.6rem;}
+.crit-fill{height:100%; border-radius:999px;}
+.crit-fill.hi{background:var(--green);}
+.crit-fill.mid{background:var(--amber);}
+.crit-fill.lo{background:var(--red);}
+.crit p.note{margin:0; font-size:.85rem; color:var(--muted);}
+
+footer.tp-footer{text-align:center; color:var(--muted); font-size:.8rem; padding:2rem 1rem; border-top:1px solid var(--border-light); margin-top:1rem;}
+
+.advisor-fab{position:fixed; bottom:1.5rem; left:1.5rem; z-index:900; background:linear-gradient(135deg,var(--navy),var(--navy-dark)); color:#fff; border:none; border-radius:999px; padding:.85rem 1.2rem; display:flex; align-items:center; gap:.5rem; font-weight:700; font-size:.9rem; cursor:pointer; box-shadow:var(--shadow-lg); font-family:inherit;}
+.advisor-fab:hover{filter:brightness(1.1);}
+.proftapia-fab{position:fixed; bottom:1.5rem; right:1.5rem; z-index:900; background:linear-gradient(135deg,var(--gold),#c9982f); color:#2a1e00; text-decoration:none; border-radius:999px; padding:.85rem 1.2rem; display:flex; align-items:center; gap:.5rem; font-weight:700; font-size:.9rem; box-shadow:var(--shadow-lg); font-family:inherit;}
+.proftapia-fab:hover{filter:brightness(1.05);}
+.advisor-panel{position:fixed; bottom:5.2rem; left:1.5rem; width:min(360px,90vw); max-height:min(560px,70vh); background:var(--bg-card); border:1px solid var(--border-light); border-radius:var(--radius-lg); box-shadow:var(--shadow-lg); z-index:900; display:none; flex-direction:column; overflow:hidden;}
+.advisor-panel.open{display:flex;}
+.advisor-header{background:linear-gradient(135deg,var(--navy),var(--navy-dark)); color:#fff; padding:.9rem 1.1rem; display:flex; align-items:center; gap:.6rem;}
+.advisor-title{margin:0; font-weight:800; font-size:.95rem;}
+.advisor-header button{margin-left:auto; background:rgba(255,255,255,.15); border:none; color:#fff; width:28px; height:28px; border-radius:8px; cursor:pointer;}
+.advisor-body{flex:1; overflow-y:auto; padding:1rem; display:flex; flex-direction:column; gap:.6rem; background:var(--bg-body);}
+.advisor-msg{max-width:85%; padding:.6rem .85rem; border-radius:12px; font-size:.86rem; line-height:1.5;}
+.advisor-msg-bot{background:var(--bg-card); border:1px solid var(--border-light); align-self:flex-start; border-bottom-left-radius:2px; color:var(--secondary);}
+.advisor-msg-user{background:var(--navy); color:#fff; align-self:flex-end; border-bottom-right-radius:2px;}
+.advisor-suggest{display:flex; flex-wrap:wrap; gap:.4rem; padding:0 1rem .75rem;}
+.advisor-suggest button{background:var(--blue-bg); border:1px solid var(--blue-border); color:var(--navy); font-size:.72rem; padding:.35rem .6rem; border-radius:999px; cursor:pointer; font-family:inherit;}
+.advisor-form{display:flex; gap:.5rem; padding:.75rem; border-top:1px solid var(--border-light); background:var(--bg-card);}
+.advisor-form input{flex:1;}
+.advisor-form button{background:var(--navy); color:#fff; border:none; width:38px; border-radius:var(--radius-sm); cursor:pointer; font-size:1rem;}
+</style>
+</head>
+<body>
+
+<!-- ACCESO (filtro simple, no es seguridad real -- ver SKILL.md github-pages-practicas) -->
+<div id="access-gate" style="position:fixed;inset:0;background:#0b1220;z-index:9999;display:flex;align-items:center;justify-content:center;padding:1.5rem;font-family:'Inter',ui-sans-serif,system-ui,sans-serif;">
+  <div style="background:#151f2f;border:1px solid #283249;border-radius:16px;padding:2rem;max-width:380px;width:100%;text-align:center;">
+    <div style="font-size:2rem;margin-bottom:.75rem;">🔒</div>
+    <h1 style="color:#fff;font-size:1.2rem;margin:0 0 .5rem;">Acceso restringido</h1>
+    <p style="color:#94a3b8;font-size:.9rem;margin:0 0 1.25rem;">Escribe la clave que te compartió tu facilitador.</p>
+    <input type="password" id="access-code" placeholder="Clave de acceso" style="width:100%;padding:.65rem .8rem;border:1px solid #283249;border-radius:8px;background:#0f1830;color:#f1f5f9;font-size:.95rem;margin-bottom:.9rem;box-sizing:border-box;">
+    <button id="access-btn" type="button" style="width:100%;background:linear-gradient(135deg,#e0a94f,#c9982f);color:#2a1e00;border:none;padding:.75rem;border-radius:10px;font-weight:800;cursor:pointer;font-size:.95rem;">Entrar</button>
+    <p id="access-error" style="color:#ef4444;font-size:.82rem;margin-top:.75rem;display:none;">Clave incorrecta, intenta de nuevo.</p>
+  </div>
+</div>
+<script>
+(function(){
+  var CLAVE = 'Forense2026';
+  var KEY = 'acceso_informatica_forense_caso1';
+  if(sessionStorage.getItem(KEY) === 'ok'){ document.getElementById('access-gate').remove(); return; }
+  function intentar(){
+    var val = document.getElementById('access-code').value;
+    if(val === CLAVE){
+      sessionStorage.setItem(KEY, 'ok');
+      document.getElementById('access-gate').remove();
+    } else {
+      document.getElementById('access-error').style.display = 'block';
+    }
+  }
+  document.getElementById('access-btn').addEventListener('click', intentar);
+  document.getElementById('access-code').addEventListener('keydown', function(e){
+    if(e.key === 'Enter') intentar();
+  });
+})();
+</script>
+
+<!-- PANTALLA DE INICIO -->
+<div id="intake-screen">
+  <div class="icon-circle">🔍</div>
+  <div class="badge">Ejercicio práctico · 40 minutos</div>
+  <h1>Caso Práctico: Informática Forense</h1>
+  <p class="sub">Análisis de un caso de fraude contable con evidencia digital</p>
+  <div class="icon-row">
+    <span>📋</span><span>🔒</span><span>⚠️</span><span>💬</span><span>💻</span>
+  </div>
+  <div class="card" style="max-width:420px; margin:0 auto;">
+    <div class="field">
+      <label for="est_nombre">Nombre completo</label>
+      <input type="text" id="est_nombre" placeholder="Escriba su nombre completo">
+    </div>
+    <div class="field">
+      <label for="est_grupo">Grupo / sección (opcional)</label>
+      <input type="text" id="est_grupo" placeholder="Ej. Grupo 1">
+    </div>
+    <p style="font-size:.85rem; color:var(--muted); margin-bottom:1.25rem;">Tendrás <strong>40 minutos</strong> para leer el caso y responder 7 preguntas abiertas. El cronómetro comienza al presionar "Comenzar".</p>
+    <button class="btn-primary" id="btn-start" type="button" style="width:100%;">Comenzar el ejercicio</button>
+  </div>
+</div>
+
+<!-- BARRA DE TIEMPO -->
+<div id="timer-bar" style="display:none;">
+  <div id="timer-clock">40:00</div>
+  <div id="timer-track"><div id="timer-fill"></div></div>
+  <div id="timer-name"></div>
+</div>
+
+<div class="wrapper" id="wrapper">
+
+  <section class="card case-card">
+    <p class="eyebrow">Caso práctico</p>
+    <h2 class="case-title" style="border:none; padding:0;">Pagos a Proveedor Fantasma en TesorGlobal, S.A.</h2>
+    <h3 style="color:var(--primary); font-size:1rem;">Escenario</h3>
+    <p>TesorGlobal, S.A. es una empresa de servicios financieros con oficinas en Santo Domingo y Santiago. Rosa Almonte, de 29 años, es analista senior de Cuentas por Pagar y tiene acceso al módulo de aprobación de pagos del sistema ERP corporativo, con permiso para autorizar transferencias de hasta RD$2,000,000 sin doble firma.</p>
+    <p>El sábado 4 de julio, a las 3:12 a.m., el ERP registra la aprobación de un pago de RD$1,850,000 a "Suministros Ferreira EIRL", un proveedor dado de alta apenas cinco días antes y sin historial de facturación previo. La aprobación se hizo con las credenciales de Rosa, desde una dirección IP que no corresponde a la red corporativa ni a su VPN habitual.</p>
+    <p>La factura adjunta al pago es un PDF que, a simple vista, luce igual a las demás facturas de proveedores reales. El lunes 6 de julio, Rosa entrega su renuncia con efecto inmediato "por motivos personales", sin previo aviso. Su laptop corporativa queda apagada sobre su escritorio.</p>
+    <p>El martes 7 de julio, Contabilidad detecta que "Suministros Ferreira EIRL" no aparece en el registro de proveedores homologados de Compras, y que el número de cuenta bancaria de destino del pago pertenece a un banco distinto al que declaró el "proveedor" en su formulario de alta. El Gerente Financiero, alarmado, escribe al grupo de WhatsApp de la gerencia: "Necesito que Sistemas entre al correo y la laptop de Rosa YA MISMO y me diga qué hizo. Esto no puede salir de este grupo hasta que sepamos qué pasó." Nadie de Legal ni de Recursos Humanos participa de esa conversación.</p>
+    <p>Ese mismo martes, Ramón Objío, técnico de soporte de Sistemas, retira la laptop del escritorio de Rosa, la enciende, entra con la contraseña genérica de administrador de dominio, y revisa manualmente las carpetas "Documentos" y "Descargas" y la bandeja de correo enviados, buscando "algo raro". No encuentra nada evidente a simple vista, cierra la sesión y reporta a Gerencia: "No vi nada extraño."</p>
+    <p>El miércoles 8 de julio, a las 9:00 a.m., te llaman a ti — como perito informático externo — para confirmar si Rosa participó en el fraude y con qué evidencia se puede sustentar esto ante un tribunal, sin que la empresa incurra en un problema legal adicional por cómo se manejó todo hasta este momento.</p>
+  </section>
+
+  <section class="card">
+    <h2>Línea de tiempo</h2>
+    <ul class="timeline">
+      <li><span class="t">Sáb 4 jul · 3:12 a.m.</span><span class="d">El ERP registra la aprobación del pago a "Suministros Ferreira EIRL" con las credenciales de Rosa, desde una IP externa no habitual.</span></li>
+      <li><span class="t">Lun 6 jul</span><span class="d">Rosa entrega su renuncia con efecto inmediato. Su laptop queda apagada en su escritorio.</span></li>
+      <li><span class="t">Mar 7 jul</span><span class="d">Contabilidad detecta que el proveedor no está homologado y que la cuenta bancaria de destino no coincide con la declarada.</span></li>
+      <li><span class="t">Mar 7 jul</span><span class="d">El Gerente Financiero autoriza por WhatsApp revisar la laptop y el correo, sin pasar por Legal ni RRHH.</span></li>
+      <li><span class="t">Mar 7 jul</span><span class="d">Sistemas enciende la laptop y navega manualmente por las carpetas y el correo enviado.</span></li>
+      <li><span class="t">Mié 8 jul · 9:00 a.m.</span><span class="d">Te llaman a ti como perito externo para tomar el caso.</span></li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>Evidencia disponible</h2>
+    <div class="evidence-grid">
+      <div class="evidence-item"><span class="e-icon">🖥️</span><strong>Registro del ERP (logs)</strong><span>Quién aprobó el pago, con qué credencial, desde qué IP y a qué hora exacta.</span></div>
+      <div class="evidence-item"><span class="e-icon">📄</span><strong>Factura en PDF</strong><span>El archivo adjunto al pago, con sus metadatos ocultos.</span></div>
+      <div class="evidence-item"><span class="e-icon">💻</span><strong>Laptop de Rosa</strong><span>Ahora apagada, ya manipulada una vez por Sistemas.</span></div>
+      <div class="evidence-item"><span class="e-icon">📧</span><strong>Correo enviado</strong><span>Bandeja de enviados revisada manualmente por Ramón.</span></div>
+      <div class="evidence-item"><span class="e-icon">🏦</span><strong>Datos del "proveedor"</strong><span>Formulario de alta con número de cuenta bancaria discordante.</span></div>
+      <div class="evidence-item"><span class="e-icon">💬</span><strong>Mensaje de WhatsApp</strong><span>Autorización verbal del Gerente Financiero.</span></div>
+    </div>
+  </section>
+
+  <div id="preguntas"></div>
+
+  <section class="card" id="submit-zone" style="text-align:center;">
+    <p>Revisa que hayas respondido las 7 preguntas antes de enviar.</p>
+    <button class="btn-primary" id="btn-submit" type="button">Enviar respuestas</button>
+  </section>
+
+  <section class="card results" id="results">
+    <h2>Resultado</h2>
+    <div class="score-hero" id="score-hero">
+      <div class="score-circle"><span class="num" id="score-num">0</span><span class="den">/ 100</span></div>
+      <div class="score-verdict"><h3 id="score-title"></h3><p id="score-desc"></p></div>
+    </div>
+    <div id="crit-list"></div>
+    <div id="ai-review" class="alert info" style="display:none;"></div>
+  </section>
+
+  <footer class="tp-footer">Caso Práctico de Informática Forense · Módulo III · Desarrollado por Johan Tapia, PhD</footer>
+</div>
+
+<!-- TUTOR VIRTUAL -->
+<button id="advisor-toggle" class="advisor-fab" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="advisor-panel" title="Abrir Tutor Virtual">
+  🎓 <span>Tutor Virtual</span>
+</button>
+
+<!-- PROF. JOHAN TAPIA -->
+<a href="https://prof.johan.plataforma.cfd/" target="_blank" rel="noopener" class="proftapia-fab" title="Abrir el asistente del Prof. Johan Tapia en una ventana nueva">
+  👨‍🏫 <span>Prof. Johan Tapia</span>
+</a>
+<div id="advisor-panel" class="advisor-panel" role="dialog" aria-labelledby="advisor-title-el">
+  <div class="advisor-header">
+    <span style="font-size:1.2rem;">🎓</span>
+    <p id="advisor-title-el" class="advisor-title">Tutor Virtual</p>
+    <button id="advisor-close" type="button" aria-label="Cerrar Tutor Virtual">✕</button>
+  </div>
+  <div id="advisor-body" class="advisor-body">
+    <div class="advisor-msg advisor-msg-bot">¡Hola! Soy el Tutor Virtual de Informática Forense. Pregúntame sobre cadena de custodia, principios forenses, marco legal dominicano, herramientas, o cómo se califica este caso.</div>
+  </div>
+  <div class="advisor-suggest">
+    <button type="button" data-q="¿cómo se califica esta práctica?">¿Cómo se califica?</button>
+    <button type="button" data-q="diferencia entre auditoria forense e informatica forense">Auditoría vs. informática forense</button>
+    <button type="button" data-q="que leyes dominicanas aplican a la evidencia digital">Marco legal aplicable</button>
+  </div>
+  <form id="advisor-form" class="advisor-form">
+    <input type="text" id="advisor-input" placeholder="Escribe tu pregunta…" aria-label="Escribe tu pregunta al Tutor Virtual">
+    <button type="submit" aria-label="Enviar pregunta">➤</button>
+  </form>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+var AI_BASE = 'https://n8n-inap.167.88.36.13.sslip.io/webhook';
+var AI_CHAT_URL = AI_BASE + '/inap-tutor-chat';
+var AI_GRADE_URL = AI_BASE + '/inap-grade';
+var AI_CHAT_TIMEOUT = 60000;
+var AI_GRADE_TIMEOUT = 650000;
+var CURSO = 'informatica-forense';
+var UNIDAD = 'caso1';
+var TIEMPO_TOTAL_SEG = 40 * 60;
+
+var RUBRICA = [
+  { n:1, key:'paso1', criterio:'Identificación de la evidencia', pts:15, minWords:100 },
+  { n:2, key:'paso2', criterio:'Errores ya cometidos', pts:15, minWords:90 },
+  { n:3, key:'paso3', criterio:'Procedimiento correcto desde este punto', pts:15, minWords:90 },
+  { n:4, key:'paso4', criterio:'Marco legal aplicable', pts:20, minWords:100 },
+  { n:5, key:'paso5', criterio:'Cadena de custodia', pts:10, minWords:70 },
+  { n:6, key:'paso6', criterio:'Herramientas forenses', pts:15, minWords:80 },
+  { n:7, key:'paso7', criterio:'Conclusión pericial', pts:10, minWords:70 }
+];
+
+var PREGUNTAS = [
+  {
+    titulo:'Identificación de la evidencia',
+    enunciado:'Con base en el relato, identifica al menos cuatro (4) piezas de evidencia digital distintas que podrían usarse en este caso. Para cada una indica: (a) en qué sistema o dispositivo se encuentra, y (b) qué demuestra literalmente por sí sola (no lo que tú crees que pasó).',
+    guia:'Guía: no te limites a la laptop — revisa también el ERP, el PDF de la factura, y el correo enviado mencionados en el caso.'
+  },
+  {
+    titulo:'Errores ya cometidos',
+    enunciado:'Ramón (Sistemas) hizo tres cosas antes de que nadie preservara nada: encendió la laptop, inició sesión con una contraseña de administrador, y navegó manualmente por carpetas y correo. Explica el efecto técnico de cada una sobre la evidencia, y qué principio forense visto en clase fue violado en cada caso.',
+    guia:'Guía: piensa en qué cambia dentro de un sistema operativo con solo encenderlo y navegar, aunque nadie borre nada a propósito.'
+  },
+  {
+    titulo:'Procedimiento correcto desde este punto',
+    enunciado:'La laptop está ahora en tus manos como perito, ya encendida una vez por error. Describe, en orden, los pasos que seguirías desde este momento para manejarla correctamente.',
+    guia:'Guía: tu respuesta debe incluir al menos: qué haces físicamente con el equipo antes de analizarlo, qué técnica usarías para no alterar más el disco, cómo generarías una copia de trabajo, y cómo demostrarías matemáticamente que esa copia es idéntica al original.'
+  },
+  {
+    titulo:'Marco legal aplicable',
+    enunciado:'El Gerente Financiero autorizó la revisión solo de forma verbal, por WhatsApp, sin pasar por Legal ni RRHH. Explica qué ley(es) dominicanas vistas en clase (53-07, 172-13, Código Procesal Penal, Convenio de Budapest) son relevantes aquí, y en qué punto exacto del relato aplicaría cada una.',
+    guia:'Guía: piensa por separado en (a) el acto de acceder al correo y la laptop de una extrabajadora sin autorización formal, y (b) el hecho de que ahí probablemente también hay correos personales de Rosa sin relación con el caso.'
+  },
+  {
+    titulo:'Cadena de custodia',
+    enunciado:'Redacta el contenido que anotarías en un formulario de cadena de custodia al recibir la laptop. Incluye como mínimo: fecha y hora exacta de recepción, descripción física del equipo, quién te lo entregó, en qué condición lo recibiste, y qué harás con él a continuación.',
+    guia:'Guía: escribe como si esta hoja fuera a mostrarse ante un juez que no sabe nada de tecnología — debe quedar clarísimo quién tuvo el equipo en cada momento.'
+  },
+  {
+    titulo:'Herramientas forenses',
+    enunciado:'Indica qué herramienta usarías para cada una de estas tres tareas, y justifica cada elección: (a) crear una copia forense exacta del disco de la laptop, (b) confirmar desde qué IP exacta se aprobó el pago en el ERP y a qué hora, (c) verificar si el correo enviado por Rosa el día del pago fue realmente enviado por ella o pudo haber sido alterado/falsificado.',
+    guia:'Guía: revisa las categorías de herramientas vistas en clase (adquisición, análisis de disco, análisis de red, OSINT, etc.) — no uses la misma herramienta para las tres tareas.'
+  },
+  {
+    titulo:'Conclusión pericial',
+    enunciado:'Redacta el párrafo de conclusión de tu informe pericial, dirigido a la Gerencia y a un eventual juez, resumiendo: qué evidencia técnica sustenta (o no sustenta aún) que Rosa participó intencionalmente en el fraude, y qué riesgo legal corre la empresa por cómo Ramón manejó la laptop el martes.',
+    guia:'Guía: sé honesto — si el manejo inicial de la evidencia fue defectuoso, un buen perito lo dice claramente en vez de ocultarlo, porque ocultarlo perjudica más al caso.'
+  }
+];
+
+/* ---------- RENDER DE PREGUNTAS ---------- */
+var cont = document.getElementById('preguntas');
+PREGUNTAS.forEach(function(p, i){
+  var n = i + 1;
+  var div = document.createElement('section');
+  div.className = 'q-card';
+  div.innerHTML =
+    '<div class="q-head"><span class="q-num">' + n + '</span><h3>' + p.titulo + '</h3></div>' +
+    '<p style="margin-left:3rem;">' + p.enunciado + '</p>' +
+    '<p class="q-guide">' + p.guia + '</p>' +
+    '<textarea id="resp_paso' + n + '" placeholder="Escribe tu respuesta aquí…"></textarea>';
+  cont.appendChild(div);
+});
+
+/* ---------- TEMPORIZADOR ---------- */
+var timerInterval = null;
+var segRestantes = TIEMPO_TOTAL_SEG;
+
+function formatearTiempo(seg){
+  var m = Math.floor(seg / 60);
+  var s = seg % 60;
+  return (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+}
+
+function actualizarTimer(){
+  var clock = document.getElementById('timer-clock');
+  var fill = document.getElementById('timer-fill');
+  clock.textContent = formatearTiempo(segRestantes);
+  fill.style.width = Math.max(0, (segRestantes / TIEMPO_TOTAL_SEG) * 100) + '%';
+  if(segRestantes <= 300) clock.classList.add('low');
+  if(segRestantes <= 0){
+    clearInterval(timerInterval);
+    clock.textContent = '00:00';
+    document.getElementById('btn-submit').click();
+  }
+  segRestantes--;
+}
+
+function iniciarPractica(){
+  var nombre = (document.getElementById('est_nombre').value || '').trim();
+  if(!nombre){
+    document.getElementById('est_nombre').focus();
+    alert('Por favor escribe tu nombre completo antes de comenzar.');
+    return;
+  }
+  document.getElementById('intake-screen').style.display = 'none';
+  document.getElementById('timer-bar').style.display = 'flex';
+  document.getElementById('timer-name').textContent = nombre;
+  document.getElementById('wrapper').classList.add('show');
+  actualizarTimer();
+  timerInterval = setInterval(actualizarTimer, 1000);
+}
+document.getElementById('btn-start').addEventListener('click', iniciarPractica);
+
+/* ---------- CALIFICACION LOCAL (heuristica por extension de respuesta) ---------- */
+function contarPalabras(texto){
+  return (texto || '').trim().split(/\s+/).filter(Boolean).length;
+}
+function clamp01(x){ return Math.max(0, Math.min(1, x)); }
+
+function runGrading(){
+  var criteria = RUBRICA.map(function(r){
+    var texto = (document.getElementById('resp_' + r.key).value || '').trim();
+    var palabras = contarPalabras(texto);
+    var frac = clamp01(palabras / r.minWords);
+    var score = Math.round(r.pts * frac * 10) / 10;
+    var nota;
+    if(frac >= 0.85) nota = 'Respuesta extensa y desarrollada.';
+    else if(frac >= 0.4) nota = 'Respuesta parcial — puede profundizarse más.';
+    else nota = 'Respuesta muy breve o incompleta.';
+    return { key:r.key, criterio:r.criterio, maxPoints:r.pts, score:score, nota:nota, texto:texto };
+  });
+  var total = Math.round(criteria.reduce(function(a,c){ return a + c.score; }, 0) * 10) / 10;
+  return { criteria:criteria, total:total };
+}
+
+function critFillClass(pct){
+  if(pct >= 80) return 'hi';
+  if(pct >= 50) return 'mid';
+  return 'lo';
+}
+
+function renderResults(result){
+  var hero = document.getElementById('score-hero');
+  var title = document.getElementById('score-title');
+  var desc = document.getElementById('score-desc');
+  var num = document.getElementById('score-num');
+  num.textContent = result.total;
+  hero.classList.remove('pass','warn','fail');
+  if(result.total >= 70){
+    hero.classList.add('pass');
+    title.textContent = '✅ Aprobado — ' + result.total + ' / 100 pts';
+    desc.textContent = 'Tu caso cumple con la aprobación mínima (70%). Esta nota es preliminar; tu facilitador la confirmará.';
+  } else if(result.total >= 55){
+    hero.classList.add('warn');
+    title.textContent = '🟠 Cerca de aprobar — ' + result.total + ' / 100 pts';
+    desc.textContent = 'Estás por debajo del 70% mínimo. Esta nota es preliminar; tu facilitador la confirmará.';
+  } else {
+    hero.classList.add('fail');
+    title.textContent = '🔴 Necesita trabajo adicional — ' + result.total + ' / 100 pts';
+    desc.textContent = 'Faltan varias respuestas por completar o desarrollar. Esta nota es preliminar; tu facilitador la confirmará.';
+  }
+  var listEl = document.getElementById('crit-list');
+  listEl.innerHTML = result.criteria.map(function(c){
+    var pct = Math.round((c.score / c.maxPoints) * 100);
+    return '<div class="crit">' +
+      '<div class="crit-head"><strong>' + c.criterio + '</strong><span class="crit-score">' + c.score + ' / ' + c.maxPoints + ' pts</span></div>' +
+      '<div class="crit-track"><div class="crit-fill ' + critFillClass(pct) + '" style="width:' + pct + '%;"></div></div>' +
+      '<p class="note">' + c.nota + '</p>' +
+      '</div>';
+  }).join('');
+  document.getElementById('results').classList.add('show');
+}
+
+function fetchWithTimeout(url, options, timeoutMs){
+  var controller = new AbortController();
+  var timer = setTimeout(function(){ controller.abort(); }, timeoutMs);
+  return fetch(url, Object.assign({}, options, { signal: controller.signal }))
+    .finally(function(){ clearTimeout(timer); });
+}
+
+function escapeHtml(s){
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function gatherGradingPayload(result){
+  var pasos = {};
+  result.criteria.forEach(function(c){
+    pasos[c.key] = {
+      criterio: c.criterio,
+      max: c.maxPoints,
+      respuestas: { respuesta: c.texto }
+    };
+  });
+  return {
+    estudiante: { nombre: document.getElementById('est_nombre').value || '', correo: '' },
+    institucion: document.getElementById('est_grupo').value || '',
+    curso: CURSO,
+    unidad: UNIDAD,
+    pasos: pasos,
+    local: {
+      total: result.total,
+      criterios: result.criteria.map(function(c){ return { titulo: c.criterio, puntaje: c.score, max: c.maxPoints }; })
+    }
+  };
+}
+
+function renderAIReview(data){
+  var box = document.getElementById('ai-review');
+  box.className = 'alert success';
+  var rows = data.criterios.map(function(c, i){
+    var nombre = RUBRICA[i] ? RUBRICA[i].criterio : ('Criterio ' + (i+1));
+    return '<li><strong>' + escapeHtml(nombre) + ':</strong> ' + c.puntaje + '/' + c.max + ' pts — ' + escapeHtml(c.comentario) + '</li>';
+  }).join('');
+  box.innerHTML = '<strong>🤖 Evaluación del Tutor IA:</strong> ' + data.total + ' / 100 pts.<br>' +
+    (data.comentario_general ? '<p style="margin:.5rem 0;">' + escapeHtml(data.comentario_general) + '</p>' : '') +
+    '<ul style="margin:.5rem 0 0; padding-left:1.2rem; font-size:.85rem;">' + rows + '</ul>' +
+    '<p style="margin:.6rem 0 0; font-size:.72rem; color:var(--muted);">Esta evaluación es preliminar y no reemplaza la nota oficial de tu facilitador, quien la confirmará después de revisar tus respuestas.</p>';
+}
+
+function requestAIGrading(result){
+  var box = document.getElementById('ai-review');
+  box.style.display = 'block';
+  box.className = 'alert info';
+  box.innerHTML = '<strong>🤖 Tutor IA:</strong> analizando el contenido de tus respuestas (puede tardar hasta 10 minutos) y notificando a tu facilitador por correo. Tu nota preliminar ya quedó registrada arriba…';
+  fetchWithTimeout(AI_GRADE_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(gatherGradingPayload(result))
+  }, AI_GRADE_TIMEOUT).then(function(res){
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    return res.json();
+  }).then(function(data){
+    if(!data || !data.ok || !Array.isArray(data.criterios)) throw new Error((data && data.error) || 'respuesta inválida');
+    renderAIReview(data);
+  }).catch(function(){
+    box.className = 'alert warn';
+    box.innerHTML = '<strong>🤖 Tutor IA:</strong> no se pudo contactar el servicio de evaluación en este momento. Se muestra únicamente la nota preliminar local de esta página, que sigue siendo válida.';
+  });
+}
+
+document.getElementById('btn-submit').addEventListener('click', function(){
+  clearInterval(timerInterval);
+  var result = runGrading();
+  renderResults(result);
+  document.getElementById('results').scrollIntoView({ behavior:'smooth', block:'start' });
+  requestAIGrading(result);
+  document.getElementById('btn-submit').disabled = true;
+});
+
+/* ---------- TUTOR VIRTUAL ---------- */
+var CONTEXTO_CASO = 'MARCO CONCEPTUAL DE REFERENCIA (Módulo III - Informática Forense y Análisis de Evidencia Digital):\\n' +
+  'Auditoría forense: proceso investigativo que reconstruye el "qué, cuándo, cómo y quién" de un fraude o irregularidad, con miras a un litigio.\\n' +
+  'Informática forense: aplicación de técnicas científicas a dispositivos y datos digitales para identificar, preservar, analizar y documentar evidencia confiable, garantizando integridad, autenticidad y trazabilidad.\\n' +
+  'Marco legal dominicano: Ley 53-07 (Crímenes y Delitos de Alta Tecnología), Ley 172-13 (Protección de Datos Personales), Código Procesal Penal (requisitos de cadena de custodia), Convenio de Budapest (cooperación internacional).\\n' +
+  'Metodología de 5 fases: identificación, preservación (aislar, no alterar), recolección (imagen forense bit a bit + hash), análisis (sobre la copia, nunca el original), documentación y presentación.\\n' +
+  'Principios forenses: preservación, integridad (hash MD5/SHA-256), autenticidad, trazabilidad (cadena de custodia), reproducibilidad, proporcionalidad, confidencialidad.\\n' +
+  'Herramientas: FTK Imager/Guymager (adquisición), Autopsy/EnCase/X-Ways (análisis de disco), Volatility (memoria RAM), Wireshark/NetworkMiner (red), Cellebrite/Magnet AXIOM (móviles), Maltego/Shodan (OSINT).\\n' +
+  'Riesgos legales: "spoliation" (destrucción/alteración de evidencia), acceso no autorizado, ruptura de cadena de custodia, exceso de alcance ("pesca" de datos irrelevantes), conclusiones no sustentadas.';
+
+var toggle = document.getElementById('advisor-toggle');
+var panel = document.getElementById('advisor-panel');
+var closeBtn = document.getElementById('advisor-close');
+var body = document.getElementById('advisor-body');
+var form = document.getElementById('advisor-form');
+var input = document.getElementById('advisor-input');
+
+toggle.addEventListener('click', function(){
+  var open = panel.classList.toggle('open');
+  toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  if(open) input.focus();
+});
+closeBtn.addEventListener('click', function(){
+  panel.classList.remove('open');
+  toggle.setAttribute('aria-expanded', 'false');
+});
+
+function addMsg(texto, esUsuario){
+  var div = document.createElement('div');
+  div.className = 'advisor-msg ' + (esUsuario ? 'advisor-msg-user' : 'advisor-msg-bot');
+  div.textContent = texto;
+  body.appendChild(div);
+  body.scrollTop = body.scrollHeight;
+}
+
+function askTutorAI(q){
+  return fetchWithTimeout(AI_CHAT_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ message: q, contexto: CONTEXTO_CASO, curso: 'Informática Forense' })
+  }, AI_CHAT_TIMEOUT).then(function(res){
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    return res.json();
+  }).then(function(data){
+    return (data && data.response) || 'No pude generar una respuesta en este momento. Intenta de nuevo en unos segundos.';
+  });
+}
+
+function enviarPregunta(q){
+  if(!q || !q.trim()) return;
+  addMsg(q, true);
+  var pensando = document.createElement('div');
+  pensando.className = 'advisor-msg advisor-msg-bot';
+  pensando.textContent = 'Pensando…';
+  body.appendChild(pensando);
+  body.scrollTop = body.scrollHeight;
+  askTutorAI(q).then(function(respuesta){
+    pensando.textContent = respuesta;
+  }).catch(function(){
+    pensando.textContent = 'No pude conectar con el Tutor Virtual en este momento. Intenta de nuevo en unos segundos.';
+  });
+}
+
+form.addEventListener('submit', function(e){
+  e.preventDefault();
+  var q = input.value;
+  input.value = '';
+  enviarPregunta(q);
+});
+document.querySelectorAll('.advisor-suggest button').forEach(function(btn){
+  btn.addEventListener('click', function(){ enviarPregunta(btn.getAttribute('data-q')); });
+});
+
+})();
+</script>
+</body>
+</html>

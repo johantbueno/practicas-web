@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portal de Prácticas — Johan Tapia, PhD</title>
+<meta name="description" content="Portal de prácticas autocalificables con Tutor Virtual IA.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8E%93%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#003877; --navy-dark:#002a5c; --gold:#c9982f;
+  --primary:#0f172a; --secondary:#334155; --muted:#64748b;
+  --bg-body:#f4f7fb; --bg-card:#ffffff; --border-light:#e2e8f0; --border-dark:#cbd5e1;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.06);
+  --shadow-md:0 4px 6px -1px rgba(0,0,0,.1), 0 2px 4px -2px rgba(0,0,0,.1);
+  --shadow-lg:0 10px 15px -3px rgba(0,0,0,.12), 0 4px 6px -4px rgba(0,0,0,.1);
+}
+[data-theme="dark"]{
+  --navy:#5b9bd8; --primary:#f1f5f9; --secondary:#cbd5e1; --muted:#94a3b8;
+  --bg-body:#0b1220; --bg-card:#151f2f; --border-light:#283249; --border-dark:#3a4666;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.4); --shadow-md:0 4px 6px -1px rgba(0,0,0,.5); --shadow-lg:0 10px 15px -3px rgba(0,0,0,.5);
+}
+*{box-sizing:border-box;}
+body{margin:0; background:var(--bg-body); color:var(--secondary); font-family:'Inter',ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif; line-height:1.7; transition:background-color .25s ease;}
+.wrap{max-width:980px; margin:0 auto; padding:0 1rem 4rem;}
+.icon-btn{position:fixed; top:1rem; right:1rem; background:var(--bg-card); border:1px solid var(--border-light); width:38px; height:38px; border-radius:10px; cursor:pointer; font-size:1.05rem; box-shadow:var(--shadow-sm); z-index:10;}
+
+.hero{background:linear-gradient(135deg,var(--navy),var(--navy-dark)); color:#fff; padding:3rem 1.5rem 2.5rem; text-align:center; border-radius:0 0 24px 24px; margin-bottom:2.5rem; box-shadow:var(--shadow-lg);}
+.hero .eyebrow{text-transform:uppercase; letter-spacing:.1em; font-size:.78rem; font-weight:700; opacity:.85;}
+.hero h1{font-size:2rem; font-weight:800; margin:.6rem 0 .5rem;}
+.hero p{max-width:640px; margin:0 auto; opacity:.92; font-size:1.02rem;}
+
+.group-title{font-size:1.1rem; font-weight:800; color:var(--primary); margin:2rem 0 1rem;}
+.cards{display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:1.5rem;}
+.card{background:var(--bg-card); border:1px solid var(--border-light); border-radius:16px; box-shadow:var(--shadow-sm); overflow:hidden; display:flex; flex-direction:column;}
+.card-body{padding:1.5rem; flex:1; display:flex; flex-direction:column;}
+.card .badge{display:inline-flex; align-self:flex-start; background:#eff6ff; color:var(--navy); border:1px solid #3b82f6; font-weight:700; font-size:.7rem; text-transform:uppercase; letter-spacing:.04em; padding:.25rem .65rem; border-radius:999px; margin-bottom:.75rem;}
+.card h2{font-size:1.25rem; font-weight:800; color:var(--primary); margin:0 0 .5rem;}
+.card p.desc{font-size:.92rem; color:var(--secondary); margin:0 0 1rem;}
+.meta-row{display:flex; flex-wrap:wrap; gap:.5rem; margin-bottom:1.25rem;}
+.meta-chip{background:var(--bg-body); border:1px solid var(--border-light); border-radius:999px; padding:.3rem .7rem; font-size:.75rem; font-weight:600; color:var(--secondary);}
+.card-actions{margin-top:auto;}
+.btn-open{display:block; text-align:center; background:linear-gradient(135deg,var(--navy),var(--navy-dark)); color:#fff; text-decoration:none; padding:.85rem 1rem; border-radius:12px; font-weight:700; font-size:.95rem; box-shadow:var(--shadow-md);}
+.btn-open:hover{filter:brightness(1.08);}
+
+.empty-note{margin-top:2.5rem; text-align:center; color:var(--muted); font-size:.9rem; border:1px dashed var(--border-dark); border-radius:16px; padding:2rem;}
+footer{text-align:center; color:var(--muted); font-size:.8rem; padding:2.5rem 1rem 0;}
+</style>
+</head>
+<body>
+<button class="icon-btn" id="theme-toggle" type="button" title="Cambiar tema" aria-label="Cambiar tema claro/oscuro">🌙</button>
+
+<div class="hero">
+  <p class="eyebrow">Johan Tapia, PhD</p>
+  <h1>🎓 Portal de Prácticas Autocalificables</h1>
+  <p>Seleccione su práctica, complétela desde su celular, tableta o computadora, y reciba su calificación al instante con retroalimentación del Tutor Virtual.</p>
+</div>
+
+<div class="wrap">
+  <div id="grupos"></div>
+  <footer>Portal de prácticas · Desarrollado por Johan Tapia, PhD</footer>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+var CURSOS = [
+  {
+    nombre: "Informática Forense",
+    practicas: [
+      {
+        badge: "Módulo III",
+        titulo: "Caso Práctico: Informática Forense",
+        desc: "Análisis de un caso de fraude contable con evidencia digital. Ejercicio cronometrado, 40 minutos.",
+        duracion: "40 minutos",
+        puntos: "100 pts",
+        aprobacion: "70% mínimo",
+        url: "informatica-forense/"
+      }
+    ]
+  }
+];
+
+var themeBtn = document.getElementById('theme-toggle');
+function applyTheme(t){
+  document.documentElement.setAttribute('data-theme', t);
+  themeBtn.textContent = t === 'dark' ? '☀️' : '🌙';
+  localStorage.setItem('portal_theme', t);
+}
+applyTheme(localStorage.getItem('portal_theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+themeBtn.addEventListener('click', function(){
+  applyTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+});
+
+var gruposEl = document.getElementById('grupos');
+if(!CURSOS.length){
+  gruposEl.innerHTML = '<div class="empty-note">Aún no hay prácticas publicadas. Vuelva pronto.</div>';
+}
+CURSOS.forEach(function(curso){
+  var titulo = document.createElement('h2');
+  titulo.className = 'group-title';
+  titulo.textContent = curso.nombre;
+  gruposEl.appendChild(titulo);
+
+  var cardsWrap = document.createElement('div');
+  cardsWrap.className = 'cards';
+  curso.practicas.forEach(function(p){
+    var card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML =
+      '<div class="card-body">' +
+        '<span class="badge">' + p.badge + '</span>' +
+        '<h2>' + p.titulo + '</h2>' +
+        '<p class="desc">' + p.desc + '</p>' +
+        '<div class="meta-row">' +
+          '<span class="meta-chip">⏱️ ' + p.duracion + '</span>' +
+          '<span class="meta-chip">🧮 ' + p.puntos + '</span>' +
+          '<span class="meta-chip">✅ ' + p.aprobacion + '</span>' +
+        '</div>' +
+        '<div class="card-actions"><a class="btn-open" href="' + p.url + '">📤 Abrir la práctica</a></div>' +
+      '</div>';
+    cardsWrap.appendChild(card);
+  });
+  gruposEl.appendChild(cardsWrap);
+});
+})();
+</script>
+</body>
+</html>
