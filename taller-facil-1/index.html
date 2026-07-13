@@ -241,36 +241,6 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
 </style>
 </head>
 <body>
-<div id="access-gate" style="position:fixed;inset:0;background:#0b1220;z-index:9999;display:flex;align-items:center;justify-content:center;padding:1.5rem;font-family:'Inter',ui-sans-serif,system-ui,sans-serif;">
-  <div style="background:#151f2f;border:1px solid #283249;border-radius:16px;padding:2rem;max-width:380px;width:100%;text-align:center;">
-    <div style="font-size:2rem;margin-bottom:.75rem;">🔒</div>
-    <h1 style="color:#fff;font-size:1.2rem;margin:0 0 .5rem;">Acceso restringido</h1>
-    <p style="color:#94a3b8;font-size:.9rem;margin:0 0 1.25rem;">Escribe la clave que te compartió tu facilitador.</p>
-    <input type="password" id="access-code" placeholder="Clave de acceso" style="width:100%;padding:.65rem .8rem;border:1px solid #283249;border-radius:8px;background:#0f1830;color:#f1f5f9;font-size:.95rem;margin-bottom:.9rem;box-sizing:border-box;">
-    <button id="access-btn" type="button" style="width:100%;background:linear-gradient(135deg,#e0a94f,#c9982f);color:#2a1e00;border:none;padding:.75rem;border-radius:10px;font-weight:800;cursor:pointer;font-size:.95rem;">Entrar</button>
-    <p id="access-error" style="color:#ef4444;font-size:.82rem;margin-top:.75rem;display:none;">Clave incorrecta, intenta de nuevo.</p>
-  </div>
-</div>
-<script>
-(function(){
-  var CLAVE = 'Equipo2026';
-  var KEY = 'acceso_taller_facil_1';
-  if(sessionStorage.getItem(KEY) === 'ok'){ document.getElementById('access-gate').remove(); return; }
-  function intentar(){
-    var val = document.getElementById('access-code').value;
-    if(val === CLAVE){
-      sessionStorage.setItem(KEY, 'ok');
-      document.getElementById('access-gate').remove();
-    } else {
-      document.getElementById('access-error').style.display = 'block';
-    }
-  }
-  document.getElementById('access-btn').addEventListener('click', intentar);
-  document.getElementById('access-code').addEventListener('keydown', function(e){
-    if(e.key === 'Enter') intentar();
-  });
-})();
-</script>
 <a href="#main-content" class="skip-link">Saltar al contenido</a>
 <div id="progress-wrap"><div id="progress-bar"></div></div>
 
