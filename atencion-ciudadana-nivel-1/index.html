@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Prestación de Servicio y Atención a la Ciudadanía — Nivel 1 (En Equipo)</title>
-<meta name="description" content="Taller introductorio en equipo, en lenguaje sencillo, para dar los primeros pasos en planificación estratégica usando una organización que el grupo ya conoce. Se puede responder escribiendo o por nota de voz. Incluye Tutor Virtual y calificación automática.">
+<meta name="description" content="Taller introductorio en equipo, en lenguaje sencillo, para dar los primeros pasos en planificación estratégica usando una organización que el grupo ya conoce. Se puede responder escribiendo o por nota de voz. Incluye a Daniella, la asistente virtual del Dr. Johan Tapia, y calificación automática.">
 <meta name="color-scheme" content="light dark">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8F%9B%EF%B8%8F%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -195,7 +195,7 @@ ol.ins-list li{margin-bottom:.5rem;}
 
 footer.tp-footer{text-align:center; color:var(--muted); font-size:.8rem; padding:2rem 1rem; border-top:1px solid var(--border-light); margin-top:1rem;}
 
-/* ADVISOR (Tutor Virtual) */
+/* ADVISOR (Daniella, asistente del Dr. Johan Tapia) */
 .advisor-fab{position:fixed; bottom:1.5rem; left:1.5rem; z-index:900; background:linear-gradient(135deg,var(--navy),var(--navy-dark)); color:#fff; border:none; border-radius:999px; padding:.85rem 1.2rem; display:flex; align-items:center; gap:.5rem; font-weight:700; font-size:.9rem; cursor:pointer; box-shadow:var(--shadow-lg); font-family:inherit;}
 .advisor-fab:hover{filter:brightness(1.1);}
 .advisor-panel{position:fixed; bottom:5.2rem; left:1.5rem; width:min(360px,90vw); max-height:min(560px,70vh); background:var(--bg-card); border:1px solid var(--border-light); border-radius:var(--radius-lg); box-shadow:var(--shadow-lg); z-index:900; display:none; flex-direction:column; overflow:hidden;}
@@ -303,7 +303,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
         <span class="cover-chip">🎯 100 pts · 70% aprobación</span>
       </div>
       <button class="speak-btn" data-speak-section="portada-speak" type="button" style="margin-top:1.1rem;">🔊 Escuchar la bienvenida</button>
-      <span id="portada-speak" hidden>Bienvenidos a Prestación de Servicio y Atención a la Ciudadanía, Nivel 1, para completar en equipo. Esta actividad dura entre tres y cuatro horas y se puede hacer en varias sesiones. En cada pregunta pueden escribir la respuesta, o grabar una nota de voz que el sistema convierte en texto automáticamente. Si no saben leer o escribir bien, no hay ningún problema: pueden escuchar cada pregunta presionando el botón que dice Escuchar, y responder hablando. Si tienen dudas, pueden escribirle al Tutor Virtual del profesor Johan Tapia.</span>
+      <span id="portada-speak" hidden>Bienvenidos a Prestación de Servicio y Atención a la Ciudadanía, Nivel 1, para completar en equipo. Esta actividad dura entre tres y cuatro horas y se puede hacer en varias sesiones. En cada pregunta pueden escribir la respuesta, o grabar una nota de voz que el sistema convierte en texto automáticamente. Si no saben leer o escribir bien, no hay ningún problema: pueden escuchar cada pregunta presionando el botón que dice Escuchar, y responder hablando. Si tienen dudas, pueden preguntarle a Daniella, la asistente virtual del Dr. Johan Tapia.</span>
     </section>
 
     <section class="card" id="tutorial">
@@ -333,9 +333,9 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
         <span style="font-size:1.6rem;">💬</span>
         <div>
           <strong>¿Tienen dudas mientras trabajan?</strong><br>
-          Pueden escribirle al Tutor Virtual del Prof. Johan Tapia en
+          Pueden escribirle a Daniella, la asistente virtual del Dr. Johan Tapia, en
           <a href="https://prof.johan.plataforma.cfd/" target="_blank" rel="noopener">prof.johan.plataforma.cfd</a>,
-          o usar el botón "🎓 Tutor Virtual" de esta misma página.
+          o usar el botón "🎓 Daniella" de esta misma página.
         </div>
       </div>
     </section>
@@ -377,7 +377,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
     <section id="marco-conceptual" class="card">
       <span class="step-badge">📚 Referencia</span>
       <h1 style="font-size:1.35rem;">Palabras que vamos a usar</h1>
-      <p>No hace falta memorizar esto — pueden volver a leerlo cuando quieran, o preguntarle al Tutor Virtual.</p>
+      <p>No hace falta memorizar esto — pueden volver a leerlo cuando quieran, o preguntarle a Daniella.</p>
       <dl class="glossary-grid">
         <div class="gloss-item"><dt>Servicio público</dt><dd>Lo que hace el Estado para atender las necesidades de la gente: emitir una cédula, atender en un hospital, resolver un trámite.</dd></div>
         <div class="gloss-item"><dt>Servidor público</dt><dd>La persona que trabaja para el Estado y atiende directamente al ciudadano. Es la cara visible de la institución.</dd></div>
@@ -581,18 +581,18 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
   </main>
 </div>
 
-<!-- TUTOR VIRTUAL -->
-<button id="advisor-toggle" class="advisor-fab" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="advisor-panel" title="Abrir Tutor Virtual">
-  🎓 <span>Tutor Virtual</span>
+<!-- DANIELLA (asistente virtual del Dr. Johan Tapia) -->
+<button id="advisor-toggle" class="advisor-fab" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="advisor-panel" title="Abrir a Daniella">
+  🎓 <span>Daniella</span>
 </button>
 <div id="advisor-panel" class="advisor-panel" role="dialog" aria-labelledby="advisor-title-el">
   <div class="advisor-header">
     <span style="font-size:1.2rem;">🎓</span>
-    <p id="advisor-title-el" class="advisor-title">Tutor Virtual</p>
-    <button id="advisor-close" type="button" aria-label="Cerrar Tutor Virtual">✕</button>
+    <p id="advisor-title-el" class="advisor-title">Daniella</p>
+    <button id="advisor-close" type="button" aria-label="Cerrar a Daniella">✕</button>
   </div>
   <div id="advisor-body" class="advisor-body">
-    <div class="advisor-msg advisor-msg-bot">¡Hola equipo! Soy el Tutor Virtual de este taller. Pregúntame sobre servicio público, derechos del ciudadano, la Ley 107-13, valores del servidor público, la rúbrica o cómo se califica.</div>
+    <div class="advisor-msg advisor-msg-bot">¡Hola equipo! Soy Daniella, la asistente virtual del Dr. Johan Tapia. Pregúntame sobre servicio público, derechos del ciudadano, la Ley 107-13, valores del servidor público, la rúbrica o cómo se califica.</div>
   </div>
   <div class="advisor-suggest">
     <button type="button" data-q="¿cómo se califica este taller?">¿Cómo se califica?</button>
@@ -600,7 +600,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
     <button type="button" data-q="que es la ley 107-13">¿Qué es la Ley 107-13?</button>
   </div>
   <form id="advisor-form" class="advisor-form">
-    <input type="text" id="advisor-input" placeholder="Escribe tu pregunta…" aria-label="Escribe tu pregunta al Tutor Virtual">
+    <input type="text" id="advisor-input" placeholder="Escribe tu pregunta…" aria-label="Escribe tu pregunta a Daniella">
     <button type="submit" aria-label="Enviar pregunta">➤</button>
   </form>
 </div>
@@ -609,7 +609,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
 (function(){
 "use strict";
 
-/* ---------- TUTOR IA (n8n + Ollama en VPS) ---------- */
+/* ---------- DANIELLA, ASISTENTE VIRTUAL (n8n en VPS) ---------- */
 /* Si el VPS no responde (sin internet, servicio caído, etc.), la página
    sigue funcionando 100% con el motor de reglas y la calificación heurística local. */
 var AI_BASE = 'https://n8n-inap.167.88.36.13.sslip.io/webhook';
@@ -1050,7 +1050,7 @@ function renderResults(result){
   } else {
     hero.classList.add('fail');
     title.textContent = '🔴 Necesita trabajo adicional — ' + result.total + ' / 100 pts';
-    desc.textContent = 'Aún faltan varias secciones por completar o desarrollar. Use al Tutor Virtual y las guías de cada paso para avanzar.';
+    desc.textContent = 'Aún faltan varias secciones por completar o desarrollar. Consulte a Daniella y las guías de cada paso para avanzar.';
   }
 
   var listEl = document.getElementById('crit-list');
@@ -1100,7 +1100,7 @@ function renderAIReview(data){
     var nombre = RUBRICA[i] ? RUBRICA[i].criterio : ('Criterio ' + (i+1));
     return '<li><strong>' + escapeHtml(nombre) + ':</strong> ' + c.puntaje + '/' + c.max + ' pts — ' + escapeHtml(c.comentario) + '</li>';
   }).join('');
-  box.innerHTML = '<strong>🤖 Evaluación del Tutor IA (Ollama):</strong> ' + data.total + ' / 100 pts.<br>' +
+  box.innerHTML = '<strong>🤖 Evaluación de Daniella:</strong> ' + data.total + ' / 100 pts.<br>' +
     (data.comentario_general ? '<p style="margin:.5rem 0;">' + escapeHtml(data.comentario_general) + '</p>' : '') +
     '<ul style="margin:.5rem 0 0; padding-left:1.2rem; font-size:.85rem;">' + rows + '</ul>' +
     '<p style="margin:.6rem 0 0; font-size:.72rem; color:var(--muted);">Esta evaluación la genera un modelo de IA leyendo el contenido real de sus respuestas; es orientativa y no reemplaza la nota oficial de su facilitador.</p>';
@@ -1110,7 +1110,7 @@ function requestAIGrading(localResult){
   var box = document.getElementById('ai-review');
   box.style.display = 'block';
   box.className = 'alert info';
-  box.innerHTML = '<strong>🤖 Tutor IA:</strong> analizando el contenido de sus respuestas con inteligencia artificial (puede tardar hasta 10 minutos en este servidor, más si hay varios envíos a la vez) y notificando a su facilitador por correo. No necesita quedarse en esta pantalla — su nota automática ya quedó registrada arriba y el correo se enviará de todas formas…';
+  box.innerHTML = '<strong>🤖 Daniella:</strong> analizando el contenido de sus respuestas (puede tardar hasta 10 minutos en este servidor, más si hay varios envíos a la vez) y notificando a su facilitador por correo. No necesita quedarse en esta pantalla — su nota automática ya quedó registrada arriba y el correo se enviará de todas formas…';
   fetchWithTimeout(AI_GRADE_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -1123,7 +1123,7 @@ function requestAIGrading(localResult){
     renderAIReview(data);
   }).catch(function(){
     box.className = 'alert warn';
-    box.innerHTML = '<strong>🤖 Tutor IA:</strong> no se pudo contactar el servicio de evaluación por IA en este momento (puede estar desconectado o sin internet). Se muestra únicamente la evaluación automática local de esta página, que sigue siendo válida.';
+    box.innerHTML = '<strong>🤖 Daniella:</strong> no se pudo contactar el servicio de evaluación en este momento (puede estar desconectado o sin internet). Se muestra únicamente la evaluación automática local de esta página, que sigue siendo válida.';
   });
 }
 
@@ -1215,7 +1215,7 @@ setInterval(saveWorkTimer, 10000);
 document.addEventListener('visibilitychange', function(){ timerLastTick = Date.now(); });
 window.addEventListener('beforeunload', saveWorkTimer);
 
-/* ---------- TUTOR VIRTUAL (reglas, sin costo) ---------- */
+/* ---------- DANIELLA - respaldo con reglas (sin costo) ---------- */
 var advisorToggle = document.getElementById('advisor-toggle');
 var advisorPanel = document.getElementById('advisor-panel');
 var advisorClose = document.getElementById('advisor-close');
@@ -1273,7 +1273,7 @@ var QA = [
   { kw:['paso 4'], a:'El Paso 4 pide identificar los valores de un buen servidor público, presentes o ausentes en su experiencia. Vale 20 puntos.' },
   { kw:['paso 5', 'reflexion', 'reflexión'], a:'El Paso 5 son 4 preguntas de reflexión en equipo sobre propuestas de mejora; cada una necesita mínimo 4 oraciones para tener el crédito completo. Vale 20 puntos.' },
   { kw:['que experiencia elijo', 'cual experiencia', 'que oficina'], a:'Elijan cualquier experiencia real que algún miembro del equipo haya tenido en una oficina pública dominicana: JCE, hospital, ayuntamiento, TSS, un ministerio, etc. Puede ser una experiencia buena o mala — ambas sirven para aprender.' },
-  { kw:['hola', 'ayuda', 'que puedes hacer', 'quien eres'], a:'Soy el Tutor Virtual de este taller. Puedo explicarte qué es el servicio público, cuáles son tus derechos, qué dice la Ley 107-13 o la Constitución, y cómo funciona la calificación. No te voy a dar la respuesta ya hecha sobre la experiencia de tu equipo — eso lo construyen ustedes.' }
+  { kw:['hola', 'ayuda', 'que puedes hacer', 'quien eres'], a:'Soy Daniella, la asistente virtual del Dr. Johan Tapia. Puedo explicarte qué es el servicio público, cuáles son tus derechos, qué dice la Ley 107-13 o la Constitución, y cómo funciona la calificación. No te voy a dar la respuesta ya hecha sobre la experiencia de tu equipo — eso lo construyen ustedes.' }
 ];
 function normQ(s){ return stripAccents(s); }
 function answerFor(q){
