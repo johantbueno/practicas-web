@@ -57,6 +57,10 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .icon-btn:hover{background:var(--bg-body); border-color:var(--border-dark);}
 .nav-toggle{display:none;}
 
+.timer-box{margin-bottom:1.1rem; background:var(--bg-body); border:1px solid var(--border-light); border-radius:var(--radius-sm); padding:.7rem .85rem;}
+.timer-box .timer-row{display:flex; justify-content:space-between; align-items:baseline; font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.03em; color:var(--muted);}
+.timer-box .timer-value{font-size:1.15rem; font-weight:800; color:var(--primary); text-transform:none; letter-spacing:0;}
+.timer-box .timer-goal{font-size:.68rem; color:var(--muted); margin-top:.2rem;}
 .progress-summary{margin-bottom:1.1rem;}
 .progress-summary-row{display:flex; justify-content:space-between; font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.03em; color:var(--muted); margin-bottom:.35rem;}
 #progress-count{color:var(--primary);}
@@ -286,6 +290,10 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
     </div>
 
     <div class="sidebar-collapsible">
+      <div class="timer-box">
+        <div class="timer-row"><span>⏱ Tiempo trabajado</span><span id="timer-display" class="timer-value">0h 00min</span></div>
+        <div class="timer-goal">Meta sugerida: 3 a 4 horas, en varias sesiones. Este contador suma solo el tiempo que la página estuvo activa en pantalla, y sigue acumulando aunque cierren y vuelvan a entrar.</div>
+      </div>
       <div class="progress-summary">
         <div class="progress-summary-row"><span>Progreso general</span><span id="progress-count">0%</span></div>
         <div class="progress-track"><div class="progress-fill" id="progress-fill-el"></div></div>
@@ -1221,7 +1229,46 @@ document.getElementById('btn-clear').addEventListener('click', function(){
   var aiBox = document.getElementById('ai-review');
   aiBox.style.display = 'none';
   aiBox.innerHTML = '';
+  resetWorkTimer();
 });
+
+/* ---------- CONTADOR DE TIEMPO TRABAJADO (acumulado entre sesiones) ---------- */
+var TIMER_KEY = 'tp_facil1_tiempo_total_ms';
+var timerAccumulated = 0;
+try{ timerAccumulated = parseInt(localStorage.getItem(TIMER_KEY) || '0', 10) || 0; }catch(e){}
+var timerLastTick = Date.now();
+var timerDisplayEl = document.getElementById('timer-display');
+function formatWorkTime(ms){
+  var totalMin = Math.floor(ms / 60000);
+  var h = Math.floor(totalMin / 60);
+  var m = totalMin % 60;
+  return h + 'h ' + (m < 10 ? '0' : '') + m + 'min';
+}
+function renderWorkTimer(){
+  if(timerDisplayEl) timerDisplayEl.textContent = formatWorkTime(timerAccumulated);
+}
+function saveWorkTimer(){
+  try{ localStorage.setItem(TIMER_KEY, String(Math.round(timerAccumulated))); }catch(e){}
+}
+function resetWorkTimer(){
+  timerAccumulated = 0;
+  timerLastTick = Date.now();
+  saveWorkTimer();
+  renderWorkTimer();
+}
+function tickWorkTimer(){
+  var now = Date.now();
+  if(document.visibilityState === 'visible'){
+    timerAccumulated += (now - timerLastTick);
+    renderWorkTimer();
+  }
+  timerLastTick = now;
+}
+renderWorkTimer();
+setInterval(tickWorkTimer, 1000);
+setInterval(saveWorkTimer, 10000);
+document.addEventListener('visibilitychange', function(){ timerLastTick = Date.now(); });
+window.addEventListener('beforeunload', saveWorkTimer);
 
 /* ---------- TUTOR VIRTUAL (reglas, sin costo) ---------- */
 var advisorToggle = document.getElementById('advisor-toggle');
