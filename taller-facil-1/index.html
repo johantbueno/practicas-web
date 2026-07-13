@@ -225,6 +225,15 @@ footer.tp-footer{text-align:center; color:var(--muted); font-size:.8rem; padding
 .voice-status{font-size:.75rem; color:var(--muted);}
 .voice-status.err{color:var(--red);}
 .voice-status.ok{color:var(--green);}
+
+.speak-btn{display:inline-flex; align-items:center; gap:.4rem; background:var(--gold); color:#3a2a00; border:none; font-weight:800; font-size:.82rem; padding:.5rem .95rem; border-radius:999px; cursor:pointer; font-family:inherit; margin:.4rem 0 1rem;}
+.speak-btn:hover{filter:brightness(1.05);}
+.speak-btn.speaking{background:var(--red-border); color:#fff; animation:voicePulse 1.2s ease-in-out infinite;}
+.fontsize-controls{display:flex; align-items:center; gap:.3rem;}
+.fontsize-controls button{background:none; border:1px solid var(--border-light); width:30px; height:30px; border-radius:8px; cursor:pointer; color:var(--secondary); font-weight:800; font-size:.85rem;}
+.fontsize-controls button:hover{border-color:var(--navy); color:var(--navy);}
+html[data-fontsize="grande"] body{font-size:1.14rem;}
+html[data-fontsize="xgrande"] body{font-size:1.3rem;}
 </style>
 </head>
 <body>
@@ -267,6 +276,10 @@ footer.tp-footer{text-align:center; color:var(--muted); font-size:.8rem; padding
       <span style="font-size:1.4rem;">🌱</span>
       <p class="sidebar-title">Taller Fácil · En Equipo</p>
       <div class="header-actions">
+        <div class="fontsize-controls">
+          <button type="button" id="font-smaller" title="Letra más pequeña" aria-label="Reducir tamaño de letra">A−</button>
+          <button type="button" id="font-bigger" title="Letra más grande" aria-label="Aumentar tamaño de letra">A+</button>
+        </div>
         <button class="icon-btn" id="theme-toggle" type="button" title="Cambiar tema" aria-label="Cambiar tema claro/oscuro">🌙</button>
         <button class="icon-btn nav-toggle" id="nav-toggle" type="button" title="Abrir menú" aria-label="Abrir menú" aria-expanded="false">☰</button>
       </div>
@@ -311,11 +324,14 @@ footer.tp-footer{text-align:center; color:var(--muted); font-size:.8rem; padding
         <span class="cover-chip">👥 Modalidad en equipo</span>
         <span class="cover-chip">🎯 100 pts · 70% aprobación</span>
       </div>
+      <button class="speak-btn" data-speak-section="portada-speak" type="button" style="margin-top:1.1rem;">🔊 Escuchar la bienvenida</button>
+      <span id="portada-speak" hidden>Bienvenidos al Taller Introductorio de Planificación Estratégica, nivel fácil, para completar en equipo. Esta actividad dura entre tres y cuatro horas y se puede hacer en varias sesiones. En cada pregunta pueden escribir la respuesta, o grabar una nota de voz que el sistema convierte en texto automáticamente. Si no saben leer o escribir bien, no hay ningún problema: pueden escuchar cada pregunta presionando el botón que dice Escuchar, y responder hablando. Si tienen dudas, pueden escribirle al Tutor Virtual del profesor Johan Tapia.</span>
     </section>
 
-    <section class="card">
+    <section class="card" id="tutorial">
       <span class="step-badge">📘 Tutorial</span>
       <h1 style="font-size:1.35rem;">Cómo usar esta plataforma</h1>
+      <button class="speak-btn" data-speak-target="tutorial" type="button">🔊 Escuchar este tutorial</button>
       <p><strong>Concepto:</strong> esta es una práctica interactiva que su equipo completa directamente en el navegador, respondiendo preguntas organizadas en 5 pasos. No hay que instalar nada ni crear una cuenta.</p>
 
       <h2>Dos formas de responder cada pregunta</h2>
@@ -397,6 +413,7 @@ footer.tp-footer{text-align:center; color:var(--muted); font-size:.8rem; padding
     <section id="paso1" class="card">
       <span class="step-badge">Paso 1 · 45 min</span><span class="step-points">Vale 20 pts</span>
       <h1>Conozcamos nuestra organización</h1>
+      <button class="speak-btn" data-speak-target="paso1" type="button">🔊 Escuchar este paso</button>
       <p><strong>Idea de esta parte:</strong> antes de planificar hacia dónde ir, hay que tener claro quiénes somos hoy. Conversen en equipo y elijan una organización que todos conozcan bien.</p>
       <div class="alert info"><strong>Ejemplos de organización que pueden elegir:</strong> su escuela o liceo, una iglesia o comunidad religiosa, un club deportivo, una junta de vecinos, un negocio familiar, una cooperativa, un grupo de jóvenes o una asociación comunitaria. Cualquiera que conozcan bien sirve.</div>
 
@@ -436,6 +453,7 @@ footer.tp-footer{text-align:center; color:var(--muted); font-size:.8rem; padding
     <section id="paso2" class="card">
       <span class="step-badge">Paso 2 · 45 min</span><span class="step-points">Vale 20 pts</span>
       <h1>¿Por qué existimos? (Nuestra misión, en palabras simples)</h1>
+      <button class="speak-btn" data-speak-target="paso2" type="button">🔊 Escuchar este paso</button>
       <p><strong>Idea de esta parte:</strong> la misión es la razón de ser de la organización, explicada de forma sencilla. Vamos a construirla juntos, completando frases.</p>
       <div class="alert info">No busquen la "respuesta perfecta" — lo importante es que el equipo esté de acuerdo con lo que escriban.</div>
 
@@ -472,6 +490,7 @@ footer.tp-footer{text-align:center; color:var(--muted); font-size:.8rem; padding
     <section id="paso3" class="card">
       <span class="step-badge">Paso 3 · 45-60 min</span><span class="step-points">Vale 20 pts</span>
       <h1>¿A dónde queremos llegar?</h1>
+      <button class="speak-btn" data-speak-target="paso3" type="button">🔊 Escuchar este paso</button>
       <p><strong>Idea de esta parte:</strong> ahora que saben quiénes son hoy, van a imaginar cómo les gustaría ver a su organización en el futuro, y qué cosas ayudan o dificultan llegar ahí.</p>
 
       <h2>A. Nuestra visión de futuro</h2>
@@ -500,6 +519,7 @@ footer.tp-footer{text-align:center; color:var(--muted); font-size:.8rem; padding
     <section id="paso4" class="card">
       <span class="step-badge">Paso 4 · 45-60 min</span><span class="step-points">Vale 20 pts</span>
       <h1>¿Qué queremos lograr?</h1>
+      <button class="speak-btn" data-speak-target="paso4" type="button">🔊 Escuchar este paso</button>
       <p><strong>Idea de esta parte:</strong> van a definir 3 metas concretas para su organización. Una meta simple tiene dos partes: qué queremos lograr, y cómo vamos a saber que ya lo logramos.</p>
       <div class="alert info"><strong>Ejemplo completo de una meta:</strong> Queremos lograr → "tener uniformes nuevos para todo el equipo". Sabremos que lo logramos cuando → "cada niño tenga su uniforme completo antes del próximo torneo". Responsable → "la tesorera del club". Para cuándo → "en 6 meses".</div>
 
@@ -532,6 +552,7 @@ footer.tp-footer{text-align:center; color:var(--muted); font-size:.8rem; padding
     <section id="paso5" class="card">
       <span class="step-badge">Paso 5 · 45-60 min</span><span class="step-points">Vale 20 pts</span>
       <h1>Reflexión final en equipo</h1>
+      <button class="speak-btn" data-speak-target="paso5" type="button">🔊 Escuchar este paso</button>
       <p><strong>Idea de esta parte:</strong> siéntense juntos, conversen con calma, y respondan estas preguntas como equipo — pueden usar la nota de voz si prefieren hablarlo antes de escribirlo.</p>
 
       <div class="field">
@@ -734,6 +755,81 @@ function wireVoiceButtons(){
 
     btn.addEventListener('click', function(){
       if(recording) stopRecording(); else startRecording();
+    });
+  });
+}
+
+/* ---------- TAMAÑO DE LETRA (accesibilidad para personas mayores) ---------- */
+var FONT_LEVELS = ['normal','grande','xgrande'];
+function applyFontSize(level){
+  document.documentElement.setAttribute('data-fontsize', level);
+  try{ localStorage.setItem('tp_facil1_fontsize', level); }catch(e){}
+}
+applyFontSize(localStorage.getItem('tp_facil1_fontsize') || 'normal');
+document.getElementById('font-bigger').addEventListener('click', function(){
+  var cur = document.documentElement.getAttribute('data-fontsize') || 'normal';
+  var idx = FONT_LEVELS.indexOf(cur);
+  if(idx < FONT_LEVELS.length - 1) applyFontSize(FONT_LEVELS[idx+1]);
+});
+document.getElementById('font-smaller').addEventListener('click', function(){
+  var cur = document.documentElement.getAttribute('data-fontsize') || 'normal';
+  var idx = FONT_LEVELS.indexOf(cur);
+  if(idx > 0) applyFontSize(FONT_LEVELS[idx-1]);
+});
+
+/* ---------- LEER EN VOZ ALTA (accesibilidad para quienes no leen) ---------- */
+function stopSpeaking(){ if(window.speechSynthesis) speechSynthesis.cancel(); }
+function buildSpeakText(root){
+  var clone = root.cloneNode(true);
+  clone.querySelectorAll('button, .voice-row, .wc, script, select').forEach(function(el){ el.remove(); });
+  var text = clone.textContent || '';
+  return text.replace(/\s+/g,' ').trim();
+}
+function speak(text, btn){
+  if(!window.speechSynthesis || !text) return;
+  stopSpeaking();
+  var utter = new SpeechSynthesisUtterance(text);
+  utter.lang = 'es-ES';
+  utter.rate = 0.95;
+  var voices = speechSynthesis.getVoices();
+  var esVoice = voices.find(function(v){ return v.lang && v.lang.toLowerCase().indexOf('es') === 0; });
+  if(esVoice) utter.voice = esVoice;
+  if(btn){
+    document.querySelectorAll('.speak-btn.speaking').forEach(function(b){
+      b.classList.remove('speaking');
+      if(b.dataset.origLabel) b.textContent = b.dataset.origLabel;
+    });
+    if(!btn.dataset.origLabel) btn.dataset.origLabel = btn.textContent;
+    btn.classList.add('speaking');
+    btn.textContent = '⏹️ Detener lectura';
+    utter.onend = function(){ btn.classList.remove('speaking'); btn.textContent = btn.dataset.origLabel; };
+    utter.onerror = function(){ btn.classList.remove('speaking'); btn.textContent = btn.dataset.origLabel; };
+  }
+  speechSynthesis.speak(utter);
+}
+function wireSpeakButtons(){
+  if(!window.speechSynthesis){
+    document.querySelectorAll('.speak-btn').forEach(function(b){ b.disabled = true; b.title = 'La lectura en voz alta no está disponible en este navegador'; });
+    return;
+  }
+  document.querySelectorAll('.speak-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      if(btn.classList.contains('speaking')){
+        stopSpeaking();
+        btn.classList.remove('speaking');
+        if(btn.dataset.origLabel) btn.textContent = btn.dataset.origLabel;
+        return;
+      }
+      var sectionId = btn.getAttribute('data-speak-section');
+      var text;
+      if(sectionId){
+        var el = document.getElementById(sectionId);
+        text = el ? el.textContent.replace(/\s+/g,' ').trim() : '';
+      } else {
+        var root = document.getElementById(btn.getAttribute('data-speak-target'));
+        text = root ? buildSpeakText(root) : '';
+      }
+      speak(text, btn);
     });
   });
 }
@@ -1225,6 +1321,7 @@ document.querySelectorAll('.advisor-suggest button').forEach(function(btn){
 });
 
 wireVoiceButtons();
+wireSpeakButtons();
 
 })();
 </script>
