@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Taller Introductorio en Equipo — Primeros Pasos en Planificación Estratégica</title>
+<title>Planificación Estratégica — Nivel 1 (En Equipo)</title>
 <meta name="description" content="Taller introductorio en equipo, en lenguaje sencillo, para dar los primeros pasos en planificación estratégica usando una organización que el grupo ya conoce. Se puede responder escribiendo o por nota de voz. Incluye Tutor Virtual y calificación automática.">
 <meta name="color-scheme" content="light dark">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8F%9B%EF%B8%8F%3C/text%3E%3C/svg%3E">
@@ -248,7 +248,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
       <span style="font-size:1.4rem;">🌱</span>
-      <p class="sidebar-title">Taller Fácil · En Equipo</p>
+      <p class="sidebar-title">Planificación Estratégica · Nivel 1</p>
       <div class="header-actions">
         <div class="fontsize-controls">
           <button type="button" id="font-smaller" title="Letra más pequeña" aria-label="Reducir tamaño de letra">A−</button>
@@ -295,7 +295,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
   <main class="main" id="main-content">
 
     <section id="portada" class="card cover" style="scroll-margin-top:1.25rem;">
-      <p class="eyebrow">Taller Introductorio · Nivel Fácil</p>
+      <p class="eyebrow">Planificación Estratégica · Nivel 1</p>
       <h1>Primeros Pasos en Planificación Estratégica</h1>
       <div class="cover-chips">
         <span class="cover-chip">⏱ 3–4 horas</span>
@@ -303,7 +303,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
         <span class="cover-chip">🎯 100 pts · 70% aprobación</span>
       </div>
       <button class="speak-btn" data-speak-section="portada-speak" type="button" style="margin-top:1.1rem;">🔊 Escuchar la bienvenida</button>
-      <span id="portada-speak" hidden>Bienvenidos al Taller Introductorio de Planificación Estratégica, nivel fácil, para completar en equipo. Esta actividad dura entre tres y cuatro horas y se puede hacer en varias sesiones. En cada pregunta pueden escribir la respuesta, o grabar una nota de voz que el sistema convierte en texto automáticamente. Si no saben leer o escribir bien, no hay ningún problema: pueden escuchar cada pregunta presionando el botón que dice Escuchar, y responder hablando. Si tienen dudas, pueden escribirle al Tutor Virtual del profesor Johan Tapia.</span>
+      <span id="portada-speak" hidden>Bienvenidos a Planificación Estratégica, Nivel 1, para completar en equipo. Esta actividad dura entre tres y cuatro horas y se puede hacer en varias sesiones. En cada pregunta pueden escribir la respuesta, o grabar una nota de voz que el sistema convierte en texto automáticamente. Si no saben leer o escribir bien, no hay ningún problema: pueden escuchar cada pregunta presionando el botón que dice Escuchar, y responder hablando. Si tienen dudas, pueden escribirle al Tutor Virtual del profesor Johan Tapia.</span>
     </section>
 
     <section class="card" id="tutorial">
@@ -597,7 +597,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
     </section>
 
     <footer class="tp-footer">
-      Taller Introductorio en Equipo — Primeros Pasos en Planificación Estratégica · 3-4 horas · 100 % · Curso de Planificación Estratégica en la Gestión Pública.<br>
+      Planificación Estratégica — Nivel 1 (En Equipo) · 3-4 horas · 100 % · Curso de Planificación Estratégica en la Gestión Pública.<br>
       Herramienta de autoevaluación con fines educativos. La nota oficial del curso la determina su facilitador.<br>
       Desarrollado por Johan Tapia, PhD.
     </footer>
@@ -741,9 +741,9 @@ function wireVoiceButtons(){
 var FONT_LEVELS = ['normal','grande','xgrande'];
 function applyFontSize(level){
   document.documentElement.setAttribute('data-fontsize', level);
-  try{ localStorage.setItem('tp_facil1_fontsize', level); }catch(e){}
+  try{ localStorage.setItem('tp_nivel1_fontsize', level); }catch(e){}
 }
-applyFontSize(localStorage.getItem('tp_facil1_fontsize') || 'normal');
+applyFontSize(localStorage.getItem('tp_nivel1_fontsize') || 'normal');
 document.getElementById('font-bigger').addEventListener('click', function(){
   var cur = document.documentElement.getAttribute('data-fontsize') || 'normal';
   var idx = FONT_LEVELS.indexOf(cur);
@@ -895,7 +895,7 @@ document.querySelectorAll('.wc[data-for]').forEach(function(span){
 });
 
 /* ---------- AUTOSAVE (localStorage) ---------- */
-var STORE_KEY = 'tp_facil1_respuestas_v1';
+var STORE_KEY = 'tp_nivel1_respuestas_v1';
 var META_FIELDS = ['grp_nombre', 'grp_correo', 'grp_integrantes'];
 function allFieldIds(){
   var ids = META_FIELDS.slice();
@@ -1109,7 +1109,7 @@ function gatherGradingPayload(localResult){
     estudiante: { nombre: val('grp_nombre') || '', correo: val('grp_correo') || '', integrantes: val('grp_integrantes') || '' },
     institucion: val('p1_nombre') || '',
     curso: 'planificacion-estrategica',
-    unidad: 'facil-1',
+    unidad: 'nivel-1',
     pasos: pasos,
     local: localResult ? {
       total: localResult.total,
@@ -1180,8 +1180,8 @@ function exportTxt(){
   var blob = new Blob([lines.join('\n')], { type:'text/plain;charset=utf-8' });
   var a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
-  var name = (val('grp_nombre') || val('p1_nombre') || 'taller-facil').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
-  a.download = (name || 'taller-facil') + '.txt';
+  var name = (val('grp_nombre') || val('p1_nombre') || 'planificacion-nivel-1').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+  a.download = (name || 'planificacion-nivel-1') + '.txt';
   document.body.appendChild(a); a.click(); document.body.removeChild(a);
   URL.revokeObjectURL(a.href);
 }
@@ -1203,7 +1203,7 @@ document.getElementById('btn-clear').addEventListener('click', function(){
 });
 
 /* ---------- CONTADOR DE TIEMPO TRABAJADO (acumulado entre sesiones) ---------- */
-var TIMER_KEY = 'tp_facil1_tiempo_total_ms';
+var TIMER_KEY = 'tp_nivel1_tiempo_total_ms';
 var timerAccumulated = 0;
 try{ timerAccumulated = parseInt(localStorage.getItem(TIMER_KEY) || '0', 10) || 0; }catch(e){}
 var timerLastTick = Date.now();
