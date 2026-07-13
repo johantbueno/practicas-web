@@ -89,7 +89,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .main{flex:1; padding:1.75rem 1rem 4rem; max-width:980px; margin:0 auto; width:100%;}
 @media (min-width:1024px){ .main{padding:1.75rem 2.5rem 5rem;} }
 
-.cover{background:linear-gradient(135deg,var(--navy),var(--navy-dark)); color:#fff; border-radius:var(--radius-lg); padding:2.5rem; margin-bottom:2rem; box-shadow:var(--shadow-lg);}
+.card.cover{background:linear-gradient(135deg,var(--navy),var(--navy-dark)); color:#fff; border-radius:var(--radius-lg); padding:2.5rem; margin-bottom:2rem; box-shadow:var(--shadow-lg);}
 .cover .eyebrow{text-transform:uppercase; letter-spacing:.08em; font-size:.78rem; font-weight:700; opacity:.85;}
 .cover h1{font-size:1.9rem; font-weight:800; margin:.4rem 0 .3rem; line-height:1.25;}
 .cover p.sub{margin:0 0 1.25rem; opacity:.92; font-size:1rem;}
@@ -694,13 +694,16 @@ function wireVoiceButtons(){
         if(!res.ok) throw new Error('HTTP ' + res.status);
         return res.json();
       }).then(function(data){
-        if(!data || !data.ok || !data.texto){ throw new Error('sin texto'); }
+        if(!data || !data.ok || !data.texto){ throw new Error('SIN_TEXTO'); }
         var existing = textarea.value.trim();
         textarea.value = existing ? (existing + ' ' + data.texto) : data.texto;
         textarea.dispatchEvent(new Event('input'));
         setStatus('✔ Nota de voz agregada. Pueden revisarla y corregirla si hace falta.', 'ok');
-      }).catch(function(){
-        setStatus('No se pudo transcribir la nota de voz (puede ser un problema de conexión). Intenten de nuevo o escriban la respuesta directamente.', 'err');
+      }).catch(function(err){
+        var msg = (err && err.message === 'SIN_TEXTO')
+          ? 'No se logró entender el audio (el servicio de voz no reconoció ninguna palabra). Intenten grabar de nuevo hablando más cerca del micrófono, o escriban la respuesta directamente.'
+          : 'No se pudo conectar con el servicio de transcripción. Revisen su conexión a internet, o escriban la respuesta directamente.';
+        setStatus(msg, 'err');
       }).finally(function(){
         btn.disabled = false;
         btn.classList.remove('busy');
