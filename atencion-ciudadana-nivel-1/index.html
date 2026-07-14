@@ -623,7 +623,7 @@ var AI_CHAT_TIMEOUT = 60000;
 var AI_GRADE_TIMEOUT = 650000;
 var VOICE_TRANSCRIBE_URL = 'https://n8n-inap.167.88.36.13.sslip.io/webhook/prof-johan-tapia-transcribir';
 
-/* ---------- NOTAS DE VOZ (grabar -> transcribir -> completar el campo) ---------- */
+/* ---------- NOTAS DE VOZ (mantener presionado -> transcribir -> completar el campo) ---------- */
 function pickRecorderMime(){
   var candidates = ['audio/webm;codecs=opus','audio/webm','audio/mp4','audio/ogg;codecs=opus'];
   for(var i=0;i<candidates.length;i++){
@@ -631,6 +631,25 @@ function pickRecorderMime(){
   }
   return '';
 }
+function beepVoz(freq, dur){
+  try{
+    var Ctx = window.AudioContext || window.webkitAudioContext;
+    var ctx = new Ctx();
+    var osc = ctx.createOscillator();
+    var gain = ctx.createGain();
+    osc.type = 'sine';
+    osc.frequency.value = freq;
+    gain.gain.setValueAtTime(0.18, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + dur);
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.start();
+    osc.stop(ctx.currentTime + dur);
+    osc.onended = function(){ ctx.close(); };
+  }catch(e){}
+}
+var VOZ_MIN_MS = 400;
+var VOZ_MAX_MS = 120000;
+var VOZ_LABEL_DEFAULT = '🎤 Mantenga presionado para grabar';
 function wireVoiceButtons(){
   if(!navigator.mediaDevices || !window.MediaRecorder){
     document.querySelectorAll('.voice-btn').forEach(function(btn){
@@ -643,7 +662,9 @@ function wireVoiceButtons(){
     var textarea = document.getElementById(targetId);
     var statusEl = document.querySelector('.voice-status[data-target-status="'+targetId+'"]');
     if(!textarea) return;
-    var mediaRecorder = null, chunks = [], stream = null, recording = false;
+    btn.textContent = VOZ_LABEL_DEFAULT;
+    var mediaRecorder = null, chunks = [], stream = null, recording = false, pressActive = false;
+    var startedAt = 0, maxTimer = null, tickTimer = null;
 
     function setStatus(msg, cls){
       if(!statusEl) return;
@@ -655,8 +676,17 @@ function wireVoiceButtons(){
       if(stream){ stream.getTracks().forEach(function(t){ t.stop(); }); stream = null; }
     }
 
+    function tick(){
+      var secs = Math.floor((Date.now() - startedAt) / 1000);
+      var m = Math.floor(secs / 60), s = secs % 60;
+      btn.textContent = '🔴 Grabando ' + m + ':' + (s < 10 ? '0' : '') + s + ' — suelte para enviar';
+    }
+
     function startRecording(){
+      if(pressActive) return;
+      pressActive = true;
       navigator.mediaDevices.getUserMedia({ audio:true }).then(function(s){
+        if(!pressActive){ s.getTracks().forEach(function(t){ t.stop(); }); return; }
         stream = s;
         chunks = [];
         var mime = pickRecorderMime();
@@ -665,23 +695,38 @@ function wireVoiceButtons(){
         mediaRecorder.addEventListener('dataavailable', function(e){ if(e.data && e.data.size > 0) chunks.push(e.data); });
         mediaRecorder.addEventListener('stop', function(){
           stopStream();
+          clearTimeout(maxTimer); clearInterval(tickTimer);
+          btn.classList.remove('recording');
+          var duracion = Date.now() - startedAt;
+          if(duracion < VOZ_MIN_MS){
+            btn.textContent = VOZ_LABEL_DEFAULT;
+            setStatus('Grabación muy corta — mantenga presionado el botón mientras habla.', 'err');
+            return;
+          }
           var blob = new Blob(chunks, { type: mediaRecorder.mimeType || 'audio/webm' });
           uploadForTranscription(blob);
         });
         mediaRecorder.start();
         recording = true;
+        startedAt = Date.now();
         btn.classList.add('recording');
-        btn.textContent = '⏹️ Detener grabación';
-        setStatus('Grabando… hablen su respuesta y presionen "Detener" al terminar.', '');
+        beepVoz(880, 0.1);
+        tick();
+        tickTimer = setInterval(tick, 500);
+        setStatus('Grabando… hable su respuesta y suelte el botón al terminar.', '');
+        maxTimer = setTimeout(function(){ if(recording) stopRecording(); }, VOZ_MAX_MS);
       }).catch(function(){
+        pressActive = false;
         setStatus('No se pudo acceder al micrófono. Revisen los permisos del navegador, o simplemente escriban la respuesta.', 'err');
       });
     }
 
     function stopRecording(){
+      if(!pressActive) return;
+      pressActive = false;
       if(mediaRecorder && recording){
         recording = false;
-        btn.classList.remove('recording');
+        beepVoz(440, 0.12);
         mediaRecorder.stop();
       }
     }
@@ -711,12 +756,14 @@ function wireVoiceButtons(){
       }).finally(function(){
         btn.disabled = false;
         btn.classList.remove('busy');
-        btn.textContent = '🎤 Grabar nota de voz';
+        btn.textContent = VOZ_LABEL_DEFAULT;
       });
     }
 
-    btn.addEventListener('click', function(){
-      if(recording) stopRecording(); else startRecording();
+    btn.addEventListener('mousedown', function(e){ e.preventDefault(); startRecording(); });
+    btn.addEventListener('touchstart', function(e){ e.preventDefault(); startRecording(); }, { passive:false });
+    ['mouseup','mouseleave','touchend','touchcancel'].forEach(function(evt){
+      btn.addEventListener(evt, stopRecording);
     });
   });
 }
