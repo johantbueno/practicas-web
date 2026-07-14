@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Planificación Estratégica — Nivel 1 (En Equipo)</title>
 <meta name="description" content="Taller introductorio en equipo, en lenguaje sencillo, para dar los primeros pasos en planificación estratégica usando una organización que el grupo ya conoce. Se puede responder escribiendo o por nota de voz. Incluye a Nicole, la asistente virtual del Dr. Johan Tapia, y calificación automática.">
 <meta name="color-scheme" content="light dark">
@@ -83,11 +83,15 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   .sidebar-collapsible{display:none;}
   .sidebar.open .sidebar-collapsible{display:block;}
   .nav-toggle{display:inline-flex;}
+  .sidebar-header{flex-wrap:wrap; row-gap:.6rem;}
+  .header-actions{flex-basis:100%; justify-content:flex-end; margin-left:0;}
+  .icon-btn{width:40px; height:40px;}
+  .fontsize-controls button{width:38px; height:38px;}
 }
 
 /* MAIN */
-.main{flex:1; padding:1.75rem 1rem 4rem; max-width:980px; margin:0 auto; width:100%;}
-@media (min-width:1024px){ .main{padding:1.75rem 2.5rem 5rem;} }
+.main{flex:1; padding:1.75rem 1rem 6.5rem; max-width:980px; margin:0 auto; width:100%;}
+@media (min-width:1024px){ .main{padding:1.75rem 2.5rem 5.5rem;} }
 
 .card.cover{background:linear-gradient(135deg,var(--navy),var(--navy-dark)); color:#fff; border-radius:var(--radius-lg); padding:2.5rem; margin-bottom:2rem; box-shadow:var(--shadow-lg);}
 .cover .eyebrow{text-transform:uppercase; letter-spacing:.08em; font-size:.78rem; font-weight:700; opacity:.85;}
@@ -137,7 +141,7 @@ table.tp-table.example td{background:var(--blue-bg);}
 .hint{font-size:.78rem; color:var(--muted); margin:-.2rem 0 .5rem;}
 input[type=text], input[type=number], select, textarea{
   width:100%; padding:.55rem .75rem; border:1px solid var(--border-light); border-radius:var(--radius-sm);
-  font-size:.9rem; font-family:inherit; background:var(--bg-card); color:var(--primary); transition:border-color .15s ease;
+  font-size:1rem; font-family:inherit; background:var(--bg-card); color:var(--primary); transition:border-color .15s ease;
 }
 [data-theme="dark"] input, [data-theme="dark"] select, [data-theme="dark"] textarea{background:#0f1830;}
 input:focus, select:focus, textarea:focus{border-color:var(--navy); outline:none;}
@@ -196,9 +200,9 @@ ol.ins-list li{margin-bottom:.5rem;}
 footer.tp-footer{text-align:center; color:var(--muted); font-size:.8rem; padding:2rem 1rem; border-top:1px solid var(--border-light); margin-top:1rem;}
 
 /* ADVISOR (Nicole, asistente del Dr. Johan Tapia) */
-.advisor-fab{position:fixed; bottom:1.5rem; left:1.5rem; z-index:900; background:linear-gradient(135deg,var(--navy),var(--navy-dark)); color:#fff; border:none; border-radius:999px; padding:.85rem 1.2rem; display:flex; align-items:center; gap:.5rem; font-weight:700; font-size:.9rem; cursor:pointer; box-shadow:var(--shadow-lg); font-family:inherit;}
+.advisor-fab{position:fixed; bottom:calc(1.5rem + env(safe-area-inset-bottom)); left:1.5rem; z-index:900; background:linear-gradient(135deg,var(--navy),var(--navy-dark)); color:#fff; border:none; border-radius:999px; padding:.85rem 1.2rem; display:flex; align-items:center; gap:.5rem; font-weight:700; font-size:.9rem; cursor:pointer; box-shadow:var(--shadow-lg); font-family:inherit;}
 .advisor-fab:hover{filter:brightness(1.1);}
-.advisor-panel{position:fixed; bottom:5.2rem; left:1.5rem; width:min(360px,90vw); max-height:min(560px,70vh); background:var(--bg-card); border:1px solid var(--border-light); border-radius:var(--radius-lg); box-shadow:var(--shadow-lg); z-index:900; display:none; flex-direction:column; overflow:hidden;}
+.advisor-panel{position:fixed; bottom:calc(5.2rem + env(safe-area-inset-bottom)); left:1.5rem; width:min(360px,90vw); max-height:min(560px,70vh); background:var(--bg-card); border:1px solid var(--border-light); border-radius:var(--radius-lg); box-shadow:var(--shadow-lg); z-index:900; display:none; flex-direction:column; overflow:hidden;}
 .advisor-panel.open{display:flex;}
 .advisor-header{background:linear-gradient(135deg,var(--navy),var(--navy-dark)); color:#fff; padding:.9rem 1.1rem; display:flex; align-items:center; gap:.6rem;}
 .advisor-title{margin:0; font-weight:800; font-size:.95rem;}
@@ -221,7 +225,7 @@ footer.tp-footer{text-align:center; color:var(--muted); font-size:.8rem; padding
 }
 
 .voice-row{display:flex; align-items:center; gap:.6rem; margin-top:-.4rem; margin-bottom:.9rem; flex-wrap:wrap;}
-.voice-btn{background:var(--blue-bg); border:1px solid var(--blue-border); color:var(--navy); font-weight:700; font-size:.8rem; padding:.45rem .8rem; border-radius:999px; cursor:pointer; font-family:inherit;}
+.voice-btn{background:var(--blue-bg); border:1px solid var(--blue-border); color:var(--navy); font-weight:700; font-size:.8rem; padding:.65rem .9rem; min-height:40px; border-radius:999px; cursor:pointer; font-family:inherit;}
 .voice-btn:hover{filter:brightness(0.97);}
 .voice-btn.recording{background:var(--red-bg); border-color:var(--red-border); color:var(--red); animation:voicePulse 1.2s ease-in-out infinite;}
 .voice-btn.busy{opacity:.7; cursor:wait;}
@@ -230,7 +234,7 @@ footer.tp-footer{text-align:center; color:var(--muted); font-size:.8rem; padding
 .voice-status.err{color:var(--red);}
 .voice-status.ok{color:var(--green);}
 
-.speak-btn{display:inline-flex; align-items:center; gap:.4rem; background:var(--gold); color:#3a2a00; border:none; font-weight:800; font-size:.82rem; padding:.5rem .95rem; border-radius:999px; cursor:pointer; font-family:inherit; margin:.4rem 0 1rem;}
+.speak-btn{display:inline-flex; align-items:center; gap:.4rem; background:var(--gold); color:#3a2a00; border:none; font-weight:800; font-size:.82rem; padding:.65rem .95rem; min-height:40px; border-radius:999px; cursor:pointer; font-family:inherit; margin:.4rem 0 1rem;}
 .speak-btn:hover{filter:brightness(1.05);}
 .speak-btn.speaking{background:var(--red-border); color:#fff; animation:voicePulse 1.2s ease-in-out infinite;}
 .fontsize-controls{display:flex; align-items:center; gap:.3rem;}
