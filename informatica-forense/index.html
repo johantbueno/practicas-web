@@ -310,6 +310,9 @@ var AI_GRADE_TIMEOUT = 650000;
 var CURSO = 'informatica-forense';
 var UNIDAD = 'caso1';
 var TIEMPO_TOTAL_SEG = 40 * 60;
+var STORE_KEY = 'tp_forense1_respuestas_v1';
+var DEADLINE_KEY = 'tp_forense1_deadline_ms';
+var STARTED_KEY = 'tp_forense1_iniciada';
 
 var RUBRICA = [
   { n:1, key:'paso1', criterio:'Identificación de la evidencia', pts:15, minWords:100 },
@@ -373,9 +376,44 @@ PREGUNTAS.forEach(function(p, i){
   cont.appendChild(div);
 });
 
-/* ---------- TEMPORIZADOR ---------- */
+/* ---------- AUTOGUARDADO (localStorage): si se corta la luz/internet, no se pierde el trabajo ---------- */
+function forenseFieldIds(){
+  var ids = ['est_nombre','est_grupo'];
+  PREGUNTAS.forEach(function(p, i){ ids.push('resp_paso' + (i + 1)); });
+  return ids;
+}
+function guardarRespuestas(){
+  var data = {};
+  forenseFieldIds().forEach(function(id){
+    var el = document.getElementById(id);
+    if(el) data[id] = el.value;
+  });
+  try{ localStorage.setItem(STORE_KEY, JSON.stringify(data)); }catch(e){}
+}
+function restaurarRespuestas(){
+  var raw; try{ raw = localStorage.getItem(STORE_KEY); }catch(e){ raw = null; }
+  if(!raw) return;
+  try{
+    var data = JSON.parse(raw);
+    Object.keys(data).forEach(function(id){
+      var el = document.getElementById(id);
+      if(el) el.value = data[id];
+    });
+  }catch(e){}
+}
+restaurarRespuestas();
+var guardarRespuestasTimer = null;
+document.addEventListener('input', function(e){
+  var t = e.target;
+  if(t && t.id && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA')){
+    clearTimeout(guardarRespuestasTimer);
+    guardarRespuestasTimer = setTimeout(guardarRespuestas, 400);
+  }
+});
+
+/* ---------- TEMPORIZADOR (basado en deadline persistido, resiste corte de luz/internet) ---------- */
 var timerInterval = null;
-var segRestantes = TIEMPO_TOTAL_SEG;
+var deadlineMs = null;
 
 function formatearTiempo(seg){
   var m = Math.floor(seg / 60);
@@ -386,15 +424,25 @@ function formatearTiempo(seg){
 function actualizarTimer(){
   var clock = document.getElementById('timer-clock');
   var fill = document.getElementById('timer-fill');
+  var segRestantes = Math.max(0, Math.round((deadlineMs - Date.now()) / 1000));
   clock.textContent = formatearTiempo(segRestantes);
   fill.style.width = Math.max(0, (segRestantes / TIEMPO_TOTAL_SEG) * 100) + '%';
   if(segRestantes <= 300) clock.classList.add('low');
   if(segRestantes <= 0){
     clearInterval(timerInterval);
     clock.textContent = '00:00';
-    document.getElementById('btn-submit').click();
+    var btnSubmit = document.getElementById('btn-submit');
+    if(!btnSubmit.disabled) btnSubmit.click();
   }
-  segRestantes--;
+}
+
+function mostrarPractica(nombre){
+  document.getElementById('intake-screen').style.display = 'none';
+  document.getElementById('timer-bar').style.display = 'flex';
+  document.getElementById('timer-name').textContent = nombre || 'Estudiante';
+  document.getElementById('wrapper').classList.add('show');
+  actualizarTimer();
+  timerInterval = setInterval(actualizarTimer, 1000);
 }
 
 function iniciarPractica(){
@@ -404,14 +452,28 @@ function iniciarPractica(){
     alert('Por favor escribe tu nombre completo antes de comenzar.');
     return;
   }
-  document.getElementById('intake-screen').style.display = 'none';
-  document.getElementById('timer-bar').style.display = 'flex';
-  document.getElementById('timer-name').textContent = nombre;
-  document.getElementById('wrapper').classList.add('show');
-  actualizarTimer();
-  timerInterval = setInterval(actualizarTimer, 1000);
+  deadlineMs = Date.now() + TIEMPO_TOTAL_SEG * 1000;
+  try{
+    localStorage.setItem(DEADLINE_KEY, String(deadlineMs));
+    localStorage.setItem(STARTED_KEY, '1');
+  }catch(e){}
+  mostrarPractica(nombre);
 }
 document.getElementById('btn-start').addEventListener('click', iniciarPractica);
+
+/* ---------- REANUDAR SI HABÍA UNA PRÁCTICA EN CURSO (corte de luz/internet) ---------- */
+(function(){
+  var yaIniciada = null, deadlineGuardado = null;
+  try{
+    yaIniciada = localStorage.getItem(STARTED_KEY);
+    deadlineGuardado = parseInt(localStorage.getItem(DEADLINE_KEY), 10);
+  }catch(e){}
+  if(yaIniciada === '1' && deadlineGuardado){
+    deadlineMs = deadlineGuardado;
+    var nombreGuardado = (document.getElementById('est_nombre').value || '').trim();
+    mostrarPractica(nombreGuardado);
+  }
+})();
 
 /* ---------- CALIFICACION LOCAL (heuristica por extension de respuesta) ---------- */
 function contarPalabras(texto){
