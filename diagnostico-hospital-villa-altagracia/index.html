@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Diagnóstico Institucional — Hospital Municipal de Villa Altagracia | Planificación Estratégica en la Gestión Pública</title>
+<meta name="description" content="Práctica interactiva y autocalificable de Diagnóstico Contextual e Institucional aplicada al Hospital Municipal de Villa Altagracia. Incluye asistente virtual y calificación automática por rúbrica.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8F%9B%EF%B8%8F%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#003877; --navy-dark:#002a5c; --gold:#c9982f;
+  --primary:#0f172a; --secondary:#334155; --muted:#64748b;
+  --bg-body:#f4f7fb; --bg-card:#ffffff; --border-light:#e2e8f0; --border-dark:#cbd5e1;
+  --green:#16a34a; --green-bg:#f0fdf4; --green-border:#22c55e;
+  --amber:#b45309; --amber-bg:#fffbeb; --amber-border:#f59e0b;
+  --red:#b91c1c; --red-bg:#fef2f2; --red-border:#ef4444;
+  --blue-bg:#eff6ff; --blue-border:#3b82f6;
+  --radius-lg:16px; --radius-md:12px; --radius-sm:8px;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.06);
+  --shadow-md:0 4px 6px -1px rgba(0,0,0,.1), 0 2px 4px -2px rgba(0,0,0,.1);
+  --shadow-lg:0 10px 15px -3px rgba(0,0,0,.12), 0 4px 6px -4px rgba(0,0,0,.1);
+  --sidebar-w:300px;
+}
+[data-theme="dark"]{
+  --navy:#5b9bd8; --primary:#f1f5f9; --secondary:#cbd5e1; --muted:#94a3b8;
+  --bg-body:#0b1220; --bg-card:#151f2f; --border-light:#283249; --border-dark:#3a4666;
+  --green-bg:#0c2417; --amber-bg:#2a2108; --red-bg:#2a1212; --blue-bg:#13233f;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.4); --shadow-md:0 4px 6px -1px rgba(0,0,0,.5); --shadow-lg:0 10px 15px -3px rgba(0,0,0,.5);
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{margin:0; background:var(--bg-body); color:var(--secondary); font-family:'Inter',ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif; line-height:1.7; transition:background-color .25s ease;}
+a{color:var(--navy);}
+.skip-link{position:absolute; left:-9999px; top:0; background:var(--navy); color:#fff; padding:.85rem 1.5rem; z-index:2000; border-radius:0 0 10px 0; font-weight:700; text-decoration:none;}
+.skip-link:focus{left:0;}
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible{outline:2px solid var(--navy); outline-offset:2px; border-radius:4px;}
+
+#progress-wrap{position:fixed; top:0; left:0; right:0; height:4px; z-index:1000; background:transparent;}
+#progress-bar{height:100%; width:0%; background:linear-gradient(90deg, var(--navy), var(--gold)); transition:width .1s linear;}
+
+.wrapper{display:none; flex-direction:column; min-height:100vh; margin:0 auto;}
+.wrapper.show{display:flex;}
+@media (min-width:1024px){ .wrapper{flex-direction:row; align-items:flex-start; max-width:1440px; padding:0 1rem;} }
+
+/* GATE OVERLAY */
+#gate-overlay{position:fixed; inset:0; background:var(--bg-body); z-index:5000; display:flex; align-items:center; justify-content:center; padding:1.5rem;}
+.gate-card{background:var(--bg-card); border:1px solid var(--border-light); border-radius:var(--radius-lg); box-shadow:var(--shadow-lg); max-width:460px; width:100%; padding:2rem;}
+.gate-card h1{font-size:1.3rem; font-weight:800; color:var(--primary); margin:.5rem 0 .75rem;}
+.gate-card p{font-size:.92rem; margin:0 0 1rem;}
+.gate-card input{width:100%; padding:.65rem .8rem; border:1px solid var(--border-light); border-radius:var(--radius-sm); font-size:1rem; font-family:inherit; background:var(--bg-body); color:var(--primary); margin-bottom:1rem;}
+.gate-card .btn-primary{width:100%;}
+.gate-status{font-size:.85rem; margin-top:1rem; padding:.75rem 1rem; border-radius:var(--radius-sm); display:none;}
+.gate-status.show{display:block;}
+.gate-status.blocked{background:var(--red-bg); border:1px solid var(--red-border); color:var(--red);}
+.gate-status.warn{background:var(--amber-bg); border:1px solid var(--amber-border); color:var(--amber);}
+body.gate-locked .wrapper{display:none;}
+
+/* SIDEBAR */
+.sidebar{background:var(--bg-card); padding:1.75rem 1.5rem; border-bottom:1px solid var(--border-light);}
+@media (min-width:1024px){
+  .sidebar{width:var(--sidebar-w); flex-shrink:0; position:sticky; top:1.5rem; height:calc(100vh - 3rem); overflow-y:auto; border-radius:var(--radius-lg); border:1px solid var(--border-light); box-shadow:var(--shadow-md); margin:1.5rem 0;}
+}
+.sidebar-header{display:flex; align-items:center; gap:10px; margin-bottom:1rem; padding-bottom:1rem; border-bottom:1px solid var(--border-light);}
+.sidebar-title{color:var(--primary); font-size:1.02rem; font-weight:800; text-transform:uppercase; letter-spacing:.04em; margin:0;}
+.header-actions{margin-left:auto; display:flex; gap:.4rem;}
+.icon-btn{background:none; border:1px solid var(--border-light); width:34px; height:34px; border-radius:8px; cursor:pointer; font-size:1rem; display:flex; align-items:center; justify-content:center; color:var(--secondary);}
+.icon-btn:hover{background:var(--bg-body); border-color:var(--border-dark);}
+.nav-toggle{display:none;}
+
+.timer-box{margin-bottom:1.1rem; padding:.8rem 1rem; border-radius:var(--radius-md); background:var(--bg-body); border:1px solid var(--border-light); text-align:center;}
+.timer-label{font-size:.68rem; font-weight:700; text-transform:uppercase; letter-spacing:.03em; color:var(--muted); margin:0 0 .3rem;}
+.timer-value{font-size:1.3rem; font-weight:800; font-variant-numeric:tabular-nums; color:var(--navy); margin:0;}
+.timer-value.low{color:var(--red);}
+.progress-summary{margin-bottom:1.1rem;}
+.progress-summary-row{display:flex; justify-content:space-between; font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.03em; color:var(--muted); margin-bottom:.35rem;}
+#progress-count{color:var(--primary);}
+.progress-track{height:6px; border-radius:999px; background:var(--border-light); overflow:hidden;}
+.progress-fill{height:100%; width:0%; background:linear-gradient(90deg,var(--navy),var(--gold)); transition:width .3s ease;}
+.progress-fill.complete{background:linear-gradient(90deg,#16a34a,#22c55e);}
+
+.nav ul{list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:.2rem;}
+.nav a{text-decoration:none; color:var(--muted); font-size:.9rem; font-weight:500; display:flex; align-items:center; justify-content:space-between; gap:.5rem; padding:.55rem .8rem; border-radius:var(--radius-sm); transition:all .2s ease;}
+.nav a:hover{background:var(--bg-body); color:var(--navy); transform:translateX(3px);}
+.nav a.active,.nav a.active:hover{background:var(--navy); color:#fff; transform:translateX(3px);}
+.nav a .pct{font-size:.68rem; font-weight:700; opacity:.75;}
+.nav a.done .pct::before{content:"✓ ";}
+
+.sidebar-actions{margin-top:1.25rem; padding-top:1.25rem; border-top:1px solid var(--border-light); display:flex; flex-direction:column; gap:.5rem;}
+.btn-block{width:100%; padding:.6rem .8rem; border-radius:var(--radius-sm); border:1px solid var(--border-light); background:var(--bg-body); color:var(--secondary); font-weight:600; font-size:.82rem; cursor:pointer; font-family:inherit;}
+.btn-block:hover{border-color:var(--navy); color:var(--navy);}
+
+@media (max-width:1023px){
+  .sidebar-collapsible{display:none;}
+  .sidebar.open .sidebar-collapsible{display:block;}
+  .nav-toggle{display:inline-flex;}
+  .sidebar-header{flex-wrap:wrap; row-gap:.6rem;}
+  .header-actions{flex-basis:100%; justify-content:flex-end; margin-left:0;}
+  .icon-btn{width:40px; height:40px;}
+  .fontsize-controls button{width:38px; height:38px;}
+}
+
+/* MAIN */
+.main{flex:1; padding:1.75rem 1rem 6.5rem; max-width:980px; margin:0 auto; width:100%;}
+@media (min-width:1024px){ .main{padding:1.75rem 2.5rem 5.5rem;} }
+
+.card.cover{background:linear-gradient(135deg,var(--navy),var(--navy-dark)); color:#fff; border-radius:var(--radius-lg); padding:2.5rem; margin-bottom:2rem; box-shadow:var(--shadow-lg);}
+.cover .eyebrow{text-transform:uppercase; letter-spacing:.08em; font-size:.78rem; font-weight:700; opacity:.85;}
+.cover h1{font-size:1.9rem; font-weight:800; margin:.4rem 0 .3rem; line-height:1.25;}
+.cover p.sub{margin:0 0 1.25rem; opacity:.92; font-size:1rem;}
+.meta-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:.9rem; margin-top:1.25rem;}
+.meta-item{background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.18); border-radius:var(--radius-sm); padding:.7rem .9rem;}
+.meta-item .k{font-size:.68rem; text-transform:uppercase; letter-spacing:.05em; opacity:.8; margin-bottom:.2rem;}
+.meta-item .v{font-weight:700; font-size:.95rem;}
+
+.card{background:var(--bg-card); padding:2rem; border-radius:var(--radius-lg); box-shadow:var(--shadow-sm); border:1px solid var(--border-light); margin-bottom:2rem; scroll-margin-top:1.25rem;}
+@media (max-width:640px){ .card{padding:1.35rem;} }
+.card h1{font-size:1.7rem; font-weight:800; color:var(--primary); margin:0 0 1.1rem;}
+.card h2{font-size:1.2rem; font-weight:700; color:var(--navy); margin:1.75rem 0 .9rem; padding-bottom:.5rem; border-bottom:1px solid var(--border-light);}
+.card h2:first-child{margin-top:0;}
+.card h3{font-size:1.02rem; font-weight:700; color:var(--primary); margin:1.4rem 0 .7rem;}
+.card p{margin:0 0 1rem;}
+.step-badge{display:inline-flex; align-items:center; gap:.4rem; background:var(--blue-bg); color:var(--navy); border:1px solid var(--blue-border); font-weight:700; font-size:.72rem; text-transform:uppercase; letter-spacing:.04em; padding:.3rem .7rem; border-radius:999px; margin-bottom:.9rem;}
+
+.alert{border-radius:var(--radius-md); padding:1rem 1.25rem; margin:1rem 0; border:1px solid; font-size:.92rem;}
+.alert h3,.alert h4{margin-top:0;}
+.alert.info{background:var(--blue-bg); border-color:var(--blue-border);}
+.alert.gold{background:var(--amber-bg); border-color:var(--amber-border);}
+.alert.success{background:var(--green-bg); border-color:var(--green-border);}
+.alert.warn{background:var(--red-bg); border-color:var(--red-border);}
+
+.tbl-wrap{overflow-x:auto; margin:1rem 0; border-radius:var(--radius-sm); border:1px solid var(--border-light);}
+table.tp-table{width:100%; border-collapse:collapse; font-size:.87rem; min-width:560px;}
+table.tp-table th{background:var(--navy); color:#fff; text-align:left; padding:.6rem .7rem; font-weight:700; font-size:.78rem; text-transform:uppercase; letter-spacing:.02em;}
+table.tp-table td{padding:.55rem .7rem; border-top:1px solid var(--border-light); vertical-align:top;}
+table.tp-table tr:nth-child(even) td{background:var(--bg-body);}
+table.tp-table td.label-cell{font-weight:700; color:var(--primary); white-space:nowrap;}
+table.tp-table td.given{color:var(--muted); font-style:italic;}
+table.tp-table.example td{background:var(--blue-bg);}
+
+.field{margin-bottom:1rem;}
+.field label{display:flex; justify-content:space-between; align-items:baseline; gap:.5rem; font-weight:700; font-size:.82rem; color:var(--primary); margin-bottom:.35rem;}
+.field .wc{font-weight:600; font-size:.7rem; color:var(--muted); white-space:nowrap;}
+.field .wc.ok{color:var(--green);}
+.hint{font-size:.78rem; color:var(--muted); margin:-.2rem 0 .5rem;}
+input[type=text], input[type=number], input[type=password], select, textarea{
+  width:100%; padding:.55rem .75rem; border:1px solid var(--border-light); border-radius:var(--radius-sm);
+  font-size:1rem; font-family:inherit; background:var(--bg-card); color:var(--primary); transition:border-color .15s ease;
+}
+[data-theme="dark"] input, [data-theme="dark"] select, [data-theme="dark"] textarea{background:#0f1830;}
+input:focus, select:focus, textarea:focus{border-color:var(--navy); outline:none;}
+textarea{min-height:76px; resize:vertical;}
+textarea.tall{min-height:110px;}
+.field-grid{display:grid; grid-template-columns:1fr 1fr; gap:.9rem;}
+@media (max-width:640px){ .field-grid{grid-template-columns:1fr;} }
+.inline-cell input, .inline-cell select, .inline-cell textarea{min-width:150px;}
+
+.step-points{float:right; background:var(--gold); color:#3a2a00; font-weight:800; font-size:.72rem; padding:.25rem .6rem; border-radius:999px;}
+
+.glossary-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:.9rem; margin-top:1rem;}
+.gloss-item{border:1px solid var(--border-light); border-radius:var(--radius-md); padding:.9rem 1rem; background:var(--bg-body);}
+.gloss-item dt{font-weight:800; color:var(--navy); font-size:.85rem; margin-bottom:.3rem;}
+.gloss-item dd{margin:0; font-size:.82rem; color:var(--secondary);}
+
+ol.ins-list{padding-left:1.2rem;}
+ol.ins-list li{margin-bottom:.5rem;}
+
+.foda-grid{display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:1rem 0;}
+@media (max-width:640px){ .foda-grid{grid-template-columns:1fr;} }
+.foda-box{border-radius:var(--radius-md); padding:1.1rem; border:1px solid var(--border-light);}
+.foda-box.f{background:var(--green-bg); border-color:var(--green-border);}
+.foda-box.d{background:var(--red-bg); border-color:var(--red-border);}
+.foda-box.o{background:var(--blue-bg); border-color:var(--blue-border);}
+.foda-box.a{background:var(--amber-bg); border-color:var(--amber-border);}
+.foda-box h4{margin:0 0 .6rem; font-size:.95rem;}
+
+.arbol-box{border:1px solid var(--border-light); border-radius:var(--radius-md); padding:1rem; margin-bottom:.75rem; background:var(--bg-body);}
+.arbol-box .lbl{font-weight:800; color:var(--navy); font-size:.8rem; text-transform:uppercase; margin-bottom:.4rem;}
+.arbol-box.central{background:var(--amber-bg); border-color:var(--amber-border);}
+
+.btn-primary{background:linear-gradient(135deg,var(--navy),var(--navy-dark)); color:#fff; border:none; padding:.9rem 1.6rem; border-radius:var(--radius-md); font-weight:700; font-size:1rem; cursor:pointer; box-shadow:var(--shadow-md); font-family:inherit;}
+.btn-primary:hover{filter:brightness(1.08);}
+.btn-secondary{background:var(--bg-body); color:var(--navy); border:1px solid var(--navy); padding:.7rem 1.2rem; border-radius:var(--radius-md); font-weight:700; font-size:.88rem; cursor:pointer; font-family:inherit;}
+.btn-secondary:hover{background:var(--blue-bg);}
+.btn-row{display:flex; flex-wrap:wrap; gap:.7rem; margin-top:1.25rem;}
+
+#submit-zone{text-align:center; padding:2.25rem 1.5rem;}
+#submit-zone p{max-width:560px; margin:0 auto 1.25rem;}
+
+.results{display:none;}
+.results.show{display:block;}
+.score-hero{display:flex; flex-wrap:wrap; align-items:center; gap:1.75rem; padding:1.5rem; border-radius:var(--radius-lg); border:1px solid; margin-bottom:1.5rem;}
+.score-hero.pass{background:var(--green-bg); border-color:var(--green-border);}
+.score-hero.warn{background:var(--amber-bg); border-color:var(--amber-border);}
+.score-hero.fail{background:var(--red-bg); border-color:var(--red-border);}
+.score-circle{width:110px; height:110px; border-radius:50%; display:flex; flex-direction:column; align-items:center; justify-content:center; background:var(--bg-card); box-shadow:var(--shadow-md); flex-shrink:0;}
+.score-circle .num{font-size:1.9rem; font-weight:800; color:var(--primary); line-height:1;}
+.score-circle .den{font-size:.72rem; color:var(--muted); font-weight:700;}
+.score-verdict h3{margin:0 0 .3rem; font-size:1.15rem;}
+.score-verdict p{margin:0; font-size:.92rem;}
+
+.crit{border:1px solid var(--border-light); border-radius:var(--radius-md); padding:1.1rem 1.25rem; margin-bottom:1rem; background:var(--bg-card);}
+.crit-head{display:flex; justify-content:space-between; align-items:center; gap:1rem; margin-bottom:.5rem; flex-wrap:wrap;}
+.crit-head strong{color:var(--primary); font-size:.95rem;}
+.crit-score{font-weight:800; font-size:.9rem; color:var(--navy); white-space:nowrap;}
+.crit-track{height:8px; border-radius:999px; background:var(--border-light); overflow:hidden; margin-bottom:.75rem;}
+.crit-fill{height:100%; border-radius:999px;}
+.crit-fill.hi{background:var(--green);}
+.crit-fill.mid{background:var(--amber);}
+.crit-fill.lo{background:var(--red);}
+.crit ul{margin:.3rem 0 0; padding-left:1.15rem; font-size:.85rem;}
+.crit ul li{margin-bottom:.3rem;}
+.tag-ok{color:var(--green); font-weight:700;}
+.tag-mid{color:var(--amber); font-weight:700;}
+.tag-low{color:var(--red); font-weight:700;}
+
+footer.tp-footer{text-align:center; color:var(--muted); font-size:.8rem; padding:2rem 1rem; border-top:1px solid var(--border-light); margin-top:1rem;}
+
+.advisor-fab{position:fixed; bottom:calc(1.5rem + env(safe-area-inset-bottom)); left:1.5rem; z-index:900; background:linear-gradient(135deg,var(--navy),var(--navy-dark)); color:#fff; border:none; border-radius:999px; padding:.85rem 1.2rem; display:flex; align-items:center; gap:.5rem; font-weight:700; font-size:.9rem; cursor:pointer; box-shadow:var(--shadow-lg); font-family:inherit;}
+.advisor-fab:hover{filter:brightness(1.1);}
+.advisor-panel{position:fixed; bottom:calc(5.2rem + env(safe-area-inset-bottom)); left:1.5rem; width:min(360px,90vw); max-height:min(560px,70vh); background:var(--bg-card); border:1px solid var(--border-light); border-radius:var(--radius-lg); box-shadow:var(--shadow-lg); z-index:900; display:none; flex-direction:column; overflow:hidden;}
+.advisor-panel.open{display:flex;}
+.advisor-header{background:linear-gradient(135deg,var(--navy),var(--navy-dark)); color:#fff; padding:.9rem 1.1rem; display:flex; align-items:center; gap:.6rem;}
+.advisor-title{margin:0; font-weight:800; font-size:.95rem;}
+.advisor-header button{margin-left:auto; background:rgba(255,255,255,.15); border:none; color:#fff; width:28px; height:28px; border-radius:8px; cursor:pointer;}
+.advisor-body{flex:1; overflow-y:auto; padding:1rem; display:flex; flex-direction:column; gap:.6rem; background:var(--bg-body);}
+.advisor-msg{max-width:85%; padding:.6rem .85rem; border-radius:12px; font-size:.86rem; line-height:1.5;}
+.advisor-msg-bot{background:var(--bg-card); border:1px solid var(--border-light); align-self:flex-start; border-bottom-left-radius:2px;}
+.advisor-msg-user{background:var(--navy); color:#fff; align-self:flex-end; border-bottom-right-radius:2px;}
+.advisor-suggest{display:flex; flex-wrap:wrap; gap:.4rem; padding:0 1rem .75rem;}
+.advisor-suggest button{background:var(--blue-bg); border:1px solid var(--blue-border); color:var(--navy); font-size:.72rem; padding:.35rem .6rem; border-radius:999px; cursor:pointer; font-family:inherit;}
+.advisor-form{display:flex; gap:.5rem; padding:.75rem; border-top:1px solid var(--border-light); background:var(--bg-card);}
+.advisor-form input{flex:1;}
+.advisor-form button{background:var(--navy); color:#fff; border:none; width:38px; border-radius:var(--radius-sm); cursor:pointer; font-size:1rem;}
+
+@media print{
+  .sidebar, .advisor-fab, .advisor-panel, #progress-wrap, .btn-row, #submit-zone .btn-primary, .header-actions, #gate-overlay{display:none !important;}
+  .main{max-width:100%; padding:0;}
+  .card{box-shadow:none; border:1px solid #ccc; break-inside:avoid;}
+  body{background:#fff;}
+}
+</style>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Saltar al contenido</a>
+<div id="progress-wrap"><div id="progress-bar"></div></div>
+
+<div id="fake-login" style="max-width:440px; margin:4rem auto; padding:0 1rem; text-align:center;">
+  <div style="font-size:2.4rem; margin-bottom:.75rem;">🔐</div>
+  <span class="step-badge">Acceso a la práctica</span>
+  <h1 style="font-size:1.6rem; font-weight:800; margin:.3rem 0 .5rem;">Iniciar sesión</h1>
+  <p style="color:var(--muted); margin-bottom:1.5rem;">Ingrese su nombre y cualquier contraseña para comenzar.</p>
+  <div class="card" style="text-align:left;">
+    <div class="field"><label for="login-usuario">Usuario (su nombre completo)</label><input type="text" id="login-usuario" placeholder="Su nombre y apellido"></div>
+    <div class="field"><label for="login-clave">Contraseña</label><input type="password" id="login-clave" placeholder="Escriba cualquier contraseña"></div>
+    <button type="button" class="btn-primary" id="btn-login" style="width:100%; margin-top:.5rem;">Iniciar sesión</button>
+  </div>
+</div>
+
+<div class="wrapper">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <span style="font-size:1.4rem;">🏥</span>
+      <p class="sidebar-title">Diagnóstico · Hospital VA</p>
+      <div class="header-actions">
+        <button class="icon-btn" id="theme-toggle" type="button" title="Cambiar tema" aria-label="Cambiar tema claro/oscuro">🌙</button>
+        <button class="icon-btn nav-toggle" id="nav-toggle" type="button" title="Abrir menú" aria-label="Abrir menú" aria-expanded="false">☰</button>
+      </div>
+    </div>
+
+    <div class="sidebar-collapsible">
+      <div class="timer-box">
+        <p class="timer-label">Ciclo de trabajo (4h)</p>
+        <p class="timer-value" id="timer-value">04:00:00</p>
+      </div>
+
+      <div class="progress-summary">
+        <div class="progress-summary-row"><span>Progreso general</span><span id="progress-count">0%</span></div>
+        <div class="progress-track"><div class="progress-fill" id="progress-fill-el"></div></div>
+        <p style="margin:.5rem 0 0; font-size:.7rem; color:var(--muted);">Tus respuestas se guardan automáticamente en este navegador.</p>
+      </div>
+
+      <nav class="nav" aria-label="Navegación de la práctica">
+        <ul>
+          <li><a href="#portada">📘 Portada e instrucciones</a></li>
+          <li><a href="#paso1" data-step="paso1">Paso 1 · Contexto internacional <span class="pct" data-pct="paso1">0%</span></a></li>
+          <li><a href="#paso2" data-step="paso2">Paso 2 · Contexto nacional <span class="pct" data-pct="paso2">0%</span></a></li>
+          <li><a href="#paso3" data-step="paso3">Paso 3 · Marco normativo <span class="pct" data-pct="paso3">0%</span></a></li>
+          <li><a href="#paso4" data-step="paso4">Paso 4 · Análisis FODA <span class="pct" data-pct="paso4">0%</span></a></li>
+          <li><a href="#paso5" data-step="paso5">Paso 5 · Matriz CAME <span class="pct" data-pct="paso5">0%</span></a></li>
+          <li><a href="#paso6" data-step="paso6">Paso 6 · Árbol de problemas <span class="pct" data-pct="paso6">0%</span></a></li>
+          <li><a href="#paso7" data-step="paso7">Paso 7 · Alineación y reflexión <span class="pct" data-pct="paso7">0%</span></a></li>
+          <li><a href="#rubrica">🧮 Rúbrica de evaluación</a></li>
+          <li><a href="#resultado">📤 Enviar y calificar</a></li>
+        </ul>
+      </nav>
+
+      <div class="sidebar-actions">
+        <button class="btn-block" id="btn-print" type="button">🖨️ Imprimir / Guardar PDF</button>
+        <button class="btn-block" id="btn-export" type="button">⬇️ Descargar mis respuestas</button>
+        <button class="btn-block" id="btn-clear" type="button">🗑️ Borrar todas mis respuestas</button>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main" id="main-content">
+
+    <section id="portada" class="card cover" style="scroll-margin-top:1.25rem;">
+      <p class="eyebrow">Curso de Planificación Estratégica en la Gestión Pública</p>
+      <h1>Trabajo Práctico — Diagnóstico Institucional</h1>
+      <p class="sub">Diagnóstico Contextual e Institucional — Construcción del análisis situacional de un servicio o departamento del Hospital Municipal de Villa Altagracia</p>
+      <div class="meta-grid">
+        <div class="meta-item"><div class="k">Modalidad</div><div class="v">Individual o grupal</div></div>
+        <div class="meta-item"><div class="k">Duración estimada</div><div class="v">4 horas</div></div>
+        <div class="meta-item"><div class="k">Calificación</div><div class="v">100 % (5 pts del curso)</div></div>
+        <div class="meta-item"><div class="k">Aprobación mínima</div><div class="v">70 pts (3.50 del curso)</div></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <span class="step-badge">🎯 Objetivo y encuadre</span>
+      <h1 style="font-size:1.35rem;">Antes de empezar</h1>
+      <div class="alert info">
+        <strong>Objetivo de la actividad:</strong> diseñar el diagnóstico situacional completo de un servicio, departamento o unidad específica del Hospital Municipal de Villa Altagracia, aplicando herramientas conceptuales y metodológicas de planificación estratégica: análisis del contexto internacional y nacional, revisión del marco normativo, análisis FODA, Matriz CAME, árbol de problemas e identificación de grupos de interés.
+      </div>
+      <div class="alert gold">
+        <strong>Contexto:</strong> seleccione un servicio o departamento real del Hospital Municipal de Villa Altagracia (ej: Emergencias, Farmacia, Estadística y Registros Médicos, Administración, Enfermería, Laboratorio Clínico) o de su propio centro de salud. Todo el trabajo debe referirse a ese servicio o departamento.
+      </div>
+      <h2>Sus datos</h2>
+      <p>Complete esto antes de enviar: su facilitador recibirá su calificación identificada con este nombre.</p>
+      <div class="field-grid">
+        <div class="field"><label for="est_nombre">Nombre completo del estudiante</label><input type="text" id="est_nombre" placeholder="Su nombre y apellido"></div>
+        <div class="field"><label for="est_correo">Correo del estudiante (opcional)</label><input type="text" id="est_correo" placeholder="nombre@correo.com"></div>
+      </div>
+      <h2>Instrucciones generales</h2>
+      <ol class="ins-list">
+        <li>Seleccione una dirección o unidad específica y manténgala como referencia durante toda la actividad.</li>
+        <li>Siga los <strong>7 pasos</strong> en el orden indicado. Cada paso incluye concepto, definición, guía de llenado y ejemplo resuelto.</li>
+        <li>Los datos de ejemplo están basados en indicadores públicos del sector salud dominicano. Úselos como referencia pero desarrolle los suyos.</li>
+        <li>La <strong>coherencia entre pasos</strong> es esencial: el FODA debe basarse en el contexto analizado, el CAME debe derivarse del FODA y el árbol de problemas debe conectarse con ambos.</li>
+        <li>Al finalizar, presione <strong>Enviar y Calificar</strong>: el sistema revisará su trabajo contra la rúbrica y le dará una nota y retroalimentación inmediata.</li>
+      </ol>
+      <div class="alert success">
+        <strong>🎓 Esta práctica es interactiva y autocalificable.</strong> <strong>Nicole</strong>, la asistente virtual (botón 🎓 abajo a la izquierda), responde dudas conceptuales sin darle la respuesta exacta. Al enviar, el sistema evalúa al instante la completitud y calidad de cada paso, y además pide una segunda lectura a la IA sobre el contenido real de sus respuestas.
+      </div>
+      <div class="alert warn">
+        <strong>⚠️ Nota importante:</strong> el sistema evalúa completitud, extensión y coherencia formal. No sustituye la revisión de contenido de su facilitador, quien evaluará la precisión técnica para la nota final oficial del curso.
+      </div>
+    </section>
+
+    <!-- ============ PASO 1 ============ -->
+    <section id="paso1" class="card">
+      <span class="step-badge">Paso 1 · 30 min</span><span class="step-points">Vale 10 pts</span>
+      <h1>Análisis del Contexto Internacional</h1>
+      <p><strong>Concepto:</strong> el contexto internacional son los factores externos globales que afectan la capacidad de una institución para cumplir sus objetivos: evolución de la economía mundial, inflación global, tasas de interés, conflictos geopolíticos y tendencias regulatorias internacionales.</p>
+      <div class="alert info"><strong>Guía:</strong> investigue los principales indicadores macroeconómicos internacionales actuales y analice cómo afectan a la dirección que usted seleccionó. Para cada factor indique qué está pasando, cómo impacta y qué nivel de impacto tiene.</div>
+      <div class="tbl-wrap"><table class="tp-table example">
+        <thead><tr><th>N°</th><th>Factor</th><th>¿Qué está pasando?</th><th>¿Cómo impacta?</th><th>Nivel</th><th>Fuente</th></tr></thead>
+        <tbody>
+          <tr><td class="label-cell">1</td><td class="given">Actividad económica mundial</td><td class="given">Desaceleración global. FMI proyecta crecimiento de 2.8% en 2023.</td><td class="given">Reduce el financiamiento externo disponible para la compra de insumos médicos y equipos hospitalarios importados.</td><td class="given">Alto</td><td class="given">FMI / OMS</td></tr>
+          <tr><td class="label-cell">2</td><td class="given">Inflación global</td><td class="given">De 8.7% (2022) a 7.0% (2023). Tendencia a la baja.</td><td class="given">Encarece la adquisición internacional de medicamentos, reactivos e insumos médicos.</td><td class="given">Medio</td><td class="given">FMI / OPS-OMS</td></tr>
+        </tbody>
+      </table></div>
+      <div id="p1-tablaA" class="tbl-wrap"></div>
+    </section>
+
+    <!-- ============ PASO 2 ============ -->
+    <section id="paso2" class="card">
+      <span class="step-badge">Paso 2 · 30 min</span><span class="step-points">Vale 10 pts</span>
+      <h1>Análisis del Contexto Nacional — Indicadores Clave</h1>
+      <p><strong>Concepto:</strong> el contexto nacional analiza los indicadores macroeconómicos y fiscales que definen el entorno interno del país: base cuantitativa para evaluar la viabilidad de los objetivos institucionales.</p>
+      <div class="alert info"><strong>Guía:</strong> consulte fuentes oficiales (BCRD, Ministerio de Salud Pública, Servicio Nacional de Salud, ONE). Registre el valor actual, la tendencia y la implicación para el servicio o departamento seleccionado.</div>
+      <h2>A. Indicadores macroeconómicos</h2>
+      <div class="tbl-wrap"><table class="tp-table example">
+        <thead><tr><th>Indicador</th><th>Valor actual</th><th>Tendencia</th><th>Implicación</th><th>Fuente</th></tr></thead>
+        <tbody>
+          <tr><td class="label-cell">Crecimiento del PIB</td><td class="given">4.9% (2022)</td><td class="given">Desaceleración</td><td class="given">Proyectado 4.25% para 2023. Un PIB más sólido sostiene el presupuesto nacional de salud.</td><td class="given">BCRD / Ministerio de Salud Pública</td></tr>
+          <tr><td class="label-cell">Inflación interanual</td><td class="given">4.43% (mayo 2023)</td><td class="given">A la baja</td><td class="given">Converge al rango meta 4.0%±1%. Reduce la presión sobre el costo de insumos médicos.</td><td class="given">BCRD / Ministerio de Salud Pública</td></tr>
+          <tr><td class="label-cell">Reservas internacionales</td><td class="given">US$16,186.6 M</td><td class="given">Al alza</td><td class="given">13.2% del PIB. Respalda la capacidad de importar medicamentos y equipos médicos.</td><td class="given">BCRD</td></tr>
+        </tbody>
+      </table></div>
+      <div id="p2-tablaA" class="tbl-wrap"></div>
+      <h2>B. Indicadores fiscales</h2>
+      <div id="p2-tablaB" class="tbl-wrap"></div>
+    </section>
+
+    <!-- ============ PASO 3 ============ -->
+    <section id="paso3" class="card">
+      <span class="step-badge">Paso 3 · 25 min</span><span class="step-points">Vale 10 pts</span>
+      <h1>Marco Normativo y Estructura Organizacional</h1>
+      <p><strong>Concepto:</strong> el marco normativo son las leyes, decretos y reglamentos que definen las atribuciones de la institución. Todo objetivo del PEI debe tener respaldo legal.</p>
+      <h2>A. Marco normativo (mínimo 4 normas)</h2>
+      <div class="tbl-wrap"><table class="tp-table example">
+        <thead><tr><th>N°</th><th>Norma legal</th><th>Fecha</th><th>Contenido / Atribuciones</th><th>Impacto</th></tr></thead>
+        <tbody><tr><td class="label-cell">1</td><td class="given">Ley 42-01 — Ley General de Salud</td><td class="given">08/03/2001</td><td class="given">Establece las bases y principios generales del Sistema Nacional de Salud y la gestión hospitalaria.</td><td class="given">Base legal de las funciones asistenciales y administrativas del hospital.</td></tr></tbody>
+      </table></div>
+      <div id="p3-tablaA" class="tbl-wrap"></div>
+      <h2>B. Perfil organizacional de la dirección</h2>
+      <div class="field-grid">
+        <div class="field"><label for="p3_nombreDir">Nombre del servicio / departamento</label><input type="text" id="p3_nombreDir" placeholder="Ej: Departamento de Emergencias, Hospital Municipal de Villa Altagracia"></div>
+        <div class="field"><label for="p3_dependencia">Dependencia jerárquica</label><input type="text" id="p3_dependencia"></div>
+      </div>
+      <div class="field"><label for="p3_mision">Misión institucional</label><textarea id="p3_mision"></textarea></div>
+      <h3>Principales funciones (mínimo 3)</h3>
+      <div class="field-grid">
+        <div class="field"><label for="p3_funcion1">Función 1</label><input type="text" id="p3_funcion1"></div>
+        <div class="field"><label for="p3_funcion2">Función 2</label><input type="text" id="p3_funcion2"></div>
+        <div class="field"><label for="p3_funcion3">Función 3</label><input type="text" id="p3_funcion3"></div>
+      </div>
+      <div class="field-grid">
+        <div class="field"><label for="p3_departamentos">Departamentos / secciones</label><input type="text" id="p3_departamentos"></div>
+        <div class="field"><label for="p3_personal">Total de personal (directivos/mandos medios/técnicos/admin)</label><input type="text" id="p3_personal"></div>
+        <div class="field" style="grid-column:1/-1;"><label for="p3_sistemas">Sistemas tecnológicos utilizados</label><input type="text" id="p3_sistemas"></div>
+      </div>
+    </section>
+
+    <!-- ============ PASO 4 ============ -->
+    <section id="paso4" class="card">
+      <span class="step-badge">Paso 4 · 40 min</span><span class="step-points">Vale 20 pts</span>
+      <h1>Análisis FODA</h1>
+      <p><strong>Concepto:</strong> el FODA integra en una sola matriz el entorno externo (oportunidades y amenazas) y la realidad interna (fortalezas y debilidades).</p>
+      <div class="alert gold"><strong>Regla de oro:</strong> fortalezas y debilidades son internas. Oportunidades y amenazas son externas. Identifique mínimo 4 elementos por cuadrante, cada uno respaldado por una fuente de datos concreta (no percepciones).</div>
+      <div class="foda-grid">
+        <div class="foda-box f"><h4>💪 Fortalezas (internas positivas)</h4><div id="foda-f"></div></div>
+        <div class="foda-box d"><h4>⚠️ Debilidades (internas negativas)</h4><div id="foda-d"></div></div>
+        <div class="foda-box o"><h4>🌐 Oportunidades (externas favorables)</h4><div id="foda-o"></div></div>
+        <div class="foda-box a"><h4>🛑 Amenazas (externas adversas)</h4><div id="foda-a"></div></div>
+      </div>
+    </section>
+
+    <!-- ============ PASO 5 ============ -->
+    <section id="paso5" class="card">
+      <span class="step-badge">Paso 5 · 30 min</span><span class="step-points">Vale 20 pts</span>
+      <h1>Matriz CAME — De los Hallazgos a las Estrategias</h1>
+      <p><strong>Concepto:</strong> la Matriz CAME convierte los hallazgos del FODA en estrategias concretas: <strong>C</strong>orregir debilidades, <strong>A</strong>frontar amenazas, <strong>M</strong>antener fortalezas, <strong>E</strong>xplotar oportunidades. Mínimo 2 estrategias por letra.</p>
+      <div id="came-c"></div>
+      <div id="came-a"></div>
+      <div id="came-m"></div>
+      <div id="came-e"></div>
+    </section>
+
+    <!-- ============ PASO 6 ============ -->
+    <section id="paso6" class="card">
+      <span class="step-badge">Paso 6 · 25 min</span><span class="step-points">Vale 15 pts</span>
+      <h1>Árbol de Problemas</h1>
+      <p><strong>Concepto:</strong> organiza los problemas en tres niveles: causas (raíces), problema central y efectos (consecuencias). El problema central se redacta en presente y negativo.</p>
+      <div class="arbol-box"><div class="lbl">Efecto 1</div><textarea id="p6_efecto1" placeholder="¿Qué consecuencia negativa se genera en la ciudadanía o la gestión fiscal?"></textarea></div>
+      <div class="arbol-box"><div class="lbl">Efecto 2</div><textarea id="p6_efecto2" placeholder="Otra consecuencia negativa derivada del problema."></textarea></div>
+      <div class="arbol-box central"><div class="lbl">Problema central</div><textarea id="p6_central" placeholder="El problema principal, redactado en presente y negativo."></textarea></div>
+      <div class="arbol-box"><div class="lbl">Causa 1</div><textarea id="p6_causa1" placeholder="¿Qué factor origina el problema?"></textarea></div>
+      <div class="arbol-box"><div class="lbl">Causa 2</div><textarea id="p6_causa2" placeholder="Otro factor que origina el problema."></textarea></div>
+      <div class="arbol-box"><div class="lbl">Causa 3</div><textarea id="p6_causa3" placeholder="Otro factor que origina el problema."></textarea></div>
+    </section>
+
+    <!-- ============ PASO 7 ============ -->
+    <section id="paso7" class="card">
+      <span class="step-badge">Paso 7 · 20 min</span><span class="step-points">Vale 15 pts</span>
+      <h1>Alineación con la Planificación Global y Reflexión Final</h1>
+      <p><strong>Concepto:</strong> todo diagnóstico debe verificar su alineación con la END 2030, el PNPSP y los ODS.</p>
+      <h2>A. Tabla de alineación con la planificación global</h2>
+      <div id="p7-tablaA" class="tbl-wrap"></div>
+      <h2>B. Reflexión final (mínimo 4 oraciones por pregunta)</h2>
+      <div class="field"><label for="p7_r1">1. ¿Cuál es el hallazgo más importante de su diagnóstico y por qué? <span class="wc" data-for="p7_r1" data-min="40">0/40 palabras</span></label><textarea id="p7_r1" class="tall"></textarea></div>
+      <div class="field"><label for="p7_r2">2. ¿Qué herramienta le resultó más útil y cuál más difícil de aplicar? ¿Por qué? <span class="wc" data-for="p7_r2" data-min="40">0/40 palabras</span></label><textarea id="p7_r2" class="tall"></textarea></div>
+      <div class="field"><label for="p7_r3">3. ¿Cómo se conecta el diagnóstico con los objetivos estratégicos que formularía en un PEI? <span class="wc" data-for="p7_r3" data-min="40">0/40 palabras</span></label><textarea id="p7_r3" class="tall"></textarea></div>
+      <div class="field"><label for="p7_r4">4. ¿Qué importancia tiene la honestidad intelectual al elaborar un diagnóstico institucional? <span class="wc" data-for="p7_r4" data-min="40">0/40 palabras</span></label><textarea id="p7_r4" class="tall"></textarea></div>
+      <div class="alert gold">
+        <strong>Eje Ético:</strong> el diagnóstico situacional exige honestidad intelectual. Inflar las fortalezas, ocultar las debilidades o minimizar las amenazas produce un diagnóstico distorsionado que conduce a un PEI inútil.
+      </div>
+    </section>
+
+    <!-- ============ RÚBRICA ============ -->
+    <section id="rubrica" class="card">
+      <span class="step-badge">🧮 Referencia</span>
+      <h1 style="font-size:1.35rem;">Rúbrica de evaluación</h1>
+      <div class="tbl-wrap"><table class="tp-table">
+        <thead><tr><th>N°</th><th>Criterio</th><th>Indicador</th><th>Puntos</th></tr></thead>
+        <tbody id="rubrica-body"></tbody>
+      </table></div>
+      <h2>Referencias</h2>
+      <ul style="font-size:.85rem; color:var(--muted);">
+        <li>Plan Estratégico Institucional del Servicio Nacional de Salud (SNS), Santo Domingo.</li>
+        <li>Ley 42-01, del 08/03/2001, Ley General de Salud.</li>
+        <li>Ley 87-01, del 09/05/2001, que crea el Sistema Dominicano de Seguridad Social.</li>
+        <li>Ley 123-15, que crea el Servicio Nacional de Salud (SNS).</li>
+        <li>Ley 498-06, del 28/12/2006, de Planificación e Inversión Pública.</li>
+        <li>Ley 1-12, del 25/01/2012, Ley de la END 2030.</li>
+      </ul>
+    </section>
+
+    <!-- ============ ENVÍO / RESULTADO ============ -->
+    <section id="resultado" class="card">
+      <div id="submit-zone">
+        <span class="step-badge">📤 Paso final</span>
+        <h1 style="font-size:1.4rem;">Enviar y calificar mi trabajo</h1>
+        <p>El sistema revisará automáticamente sus 7 pasos contra la rúbrica oficial y le mostrará su nota, el detalle por criterio y retroalimentación personalizada según lo que usted escribió.</p>
+        <button class="btn-primary" id="btn-submit" type="button">📤 Enviar y Calificar mi Trabajo</button>
+      </div>
+
+      <div id="results" class="results">
+        <div id="score-hero" class="score-hero">
+          <div class="score-circle"><span class="num" id="score-num">0</span><span class="den">/ 100 pts</span></div>
+          <div class="score-verdict">
+            <h3 id="score-title">—</h3>
+            <p id="score-desc">—</p>
+          </div>
+        </div>
+        <div id="ai-review" class="alert info" style="display:none;"></div>
+        <div id="crit-list"></div>
+        <div class="btn-row">
+          <button class="btn-secondary" id="btn-export-2" type="button">⬇️ Descargar mis respuestas</button>
+          <button class="btn-secondary" id="btn-print-2" type="button">🖨️ Imprimir resultado</button>
+          <button class="btn-secondary" id="btn-recheck" type="button">✏️ Volver a revisar mis respuestas</button>
+        </div>
+      </div>
+    </section>
+
+    <footer class="tp-footer">
+      Diagnóstico Institucional — Hospital Municipal de Villa Altagracia · 4 horas · 100 % · Curso de Planificación Estratégica en la Gestión Pública.<br>
+      Herramienta de autoevaluación con fines educativos. La nota oficial del curso la determina su facilitador.<br>
+      Desarrollado por Johan Tapia, PhD.
+    </footer>
+  </main>
+</div>
+
+<!-- TUTOR VIRTUAL -->
+<button id="advisor-toggle" class="advisor-fab" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="advisor-panel" title="Abrir a Nicole">
+  🎓 <span>Nicole</span>
+</button>
+<div id="advisor-panel" class="advisor-panel" role="dialog" aria-labelledby="advisor-title-el">
+  <div class="advisor-header">
+    <span style="font-size:1.2rem;">🎓</span>
+    <p id="advisor-title-el" class="advisor-title">Nicole</p>
+    <button id="advisor-close" type="button" aria-label="Cerrar a Nicole">✕</button>
+  </div>
+  <div id="advisor-body" class="advisor-body">
+    <div class="advisor-msg advisor-msg-bot">¡Hola! Soy Nicole, la asistente virtual del Dr. Johan Tapia. Pregúntame sobre FODA, CAME, árbol de problemas, contexto internacional/nacional o cómo se califica esta práctica.</div>
+  </div>
+  <div class="advisor-suggest">
+    <button type="button" data-q="¿cómo se califica esta práctica?">¿Cómo se califica?</button>
+    <button type="button" data-q="diferencia entre foda y came">FODA vs CAME</button>
+    <button type="button" data-q="como se redacta el problema central">Problema central</button>
+  </div>
+  <form id="advisor-form" class="advisor-form">
+    <input type="text" id="advisor-input" placeholder="Escribe tu pregunta…" aria-label="Escribe tu pregunta a Nicole">
+    <button type="submit" aria-label="Enviar pregunta">➤</button>
+  </form>
+</div>
+
+<script>
+(function(){
+  var loginScreen = document.getElementById('fake-login');
+  var wrapper = document.querySelector('.wrapper');
+  var btn = document.getElementById('btn-login');
+  var usuarioInput = document.getElementById('login-usuario');
+  function entrar(){
+    var usuario = (usuarioInput.value || '').trim();
+    if(!usuario){
+      usuarioInput.focus();
+      alert('Por favor escriba su nombre para continuar.');
+      return;
+    }
+    loginScreen.style.display = 'none';
+    wrapper.classList.add('show');
+    var nombreField = document.getElementById('est_nombre');
+    if(nombreField) nombreField.value = usuario;
+  }
+  btn.addEventListener('click', entrar);
+  document.getElementById('login-clave').addEventListener('keydown', function(e){
+    if(e.key === 'Enter') entrar();
+  });
+})();
+
+(function(){
+"use strict";
+
+var AI_BASE = 'https://n8n-inap.167.88.36.13.sslip.io/webhook';
+var AI_CHAT_URL = AI_BASE + '/inap-tutor-chat';
+var AI_GRADE_URL = AI_BASE + '/inap-grade';
+var AI_VERIFY_URL = AI_BASE + '/inap-verificar-progreso';
+var AI_CHAT_TIMEOUT = 60000;
+var AI_GRADE_TIMEOUT = 650000;
+var AI_VERIFY_TIMEOUT = 20000;
+var UNIDAD_ACTUAL = 'diagnostico-hospital-va';
+var UNIDAD_REQUERIDA = 'u1';
+var UNIDAD_REQUERIDA_LABEL = 'Unidad I';
+var UNIDAD_REQUERIDA_URL = 'https://planificacion.plataforma.cfd/';
+var URL_MAP = {
+  u1: 'https://planificacion.plataforma.cfd/',
+  u2: 'https://diagnostico.plataforma.cfd/',
+  u3: 'https://viabilidad.plataforma.cfd/',
+  u4: 'https://socializacion.plataforma.cfd/',
+  u5: 'https://evaluacion.plataforma.cfd/',
+  final: 'https://peifinal.plataforma.cfd/'
+};
+
+function fetchWithTimeout(url, options, timeoutMs){
+  var controller = new AbortController();
+  var timer = setTimeout(function(){ controller.abort(); }, timeoutMs);
+  return fetch(url, Object.assign({}, options, { signal: controller.signal }))
+    .finally(function(){ clearTimeout(timer); });
+}
+
+/* ---------- THEME ---------- */
+var themeBtn = document.getElementById('theme-toggle');
+function applyTheme(t){
+  document.documentElement.setAttribute('data-theme', t);
+  themeBtn.textContent = t === 'dark' ? '☀️' : '🌙';
+  localStorage.setItem('tp_hospital_va_theme', t);
+}
+applyTheme(localStorage.getItem('tp_hospital_va_theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+themeBtn.addEventListener('click', function(){
+  applyTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+});
+
+/* ---------- TEMPORIZADOR CÍCLICO (4h, no bloquea: al llegar a cero se reinicia solo) ---------- */
+(function(){
+  var CICLO_MS = 4 * 60 * 60 * 1000;
+  var KEY = 'tp_hospital_va_deadline';
+  var deadline = parseInt(localStorage.getItem(KEY), 10);
+  if(!deadline || isNaN(deadline)){
+    deadline = Date.now() + CICLO_MS;
+    localStorage.setItem(KEY, deadline);
+  }
+  var valueEl = document.getElementById('timer-value');
+  function pad(n){ return (n < 10 ? '0' : '') + n; }
+  function tick(){
+    var ahora = Date.now();
+    while(deadline <= ahora){
+      deadline += CICLO_MS;
+      localStorage.setItem(KEY, deadline);
+    }
+    var restante = deadline - ahora;
+    var h = Math.floor(restante / 3600000);
+    var m = Math.floor((restante % 3600000) / 60000);
+    var s = Math.floor((restante % 60000) / 1000);
+    valueEl.textContent = pad(h) + ':' + pad(m) + ':' + pad(s);
+    valueEl.classList.toggle('low', restante <= 10 * 60000);
+  }
+  tick();
+  setInterval(tick, 1000);
+})();
+
+var navToggle = document.getElementById('nav-toggle');
+var sidebar = document.getElementById('sidebar');
+navToggle.addEventListener('click', function(){
+  var open = sidebar.classList.toggle('open');
+  navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+});
+
+var progressBar = document.getElementById('progress-bar');
+window.addEventListener('scroll', function(){
+  var h = document.documentElement;
+  var scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+  progressBar.style.width = (scrolled || 0) + '%';
+}, { passive:true });
+
+var navLinks = Array.prototype.slice.call(document.querySelectorAll('.nav a'));
+var sections = navLinks.map(function(a){ return document.querySelector(a.getAttribute('href')); }).filter(Boolean);
+var io = new IntersectionObserver(function(entries){
+  entries.forEach(function(entry){
+    var link = document.querySelector('.nav a[href="#' + entry.target.id + '"]');
+    if(!link) return;
+    if(entry.isIntersecting) navLinks.forEach(function(l){ l.classList.remove('active'); });
+    if(entry.isIntersecting) link.classList.add('active');
+  });
+}, { rootMargin: '-20% 0px -70% 0px' });
+sections.forEach(function(s){ io.observe(s); });
+
+function norm(s){ return (s === undefined || s === null) ? '' : String(s).trim(); }
+function stripAccents(s){ return norm(s).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,''); }
+function wordCount(s){ s = norm(s); return s ? s.split(/\s+/).filter(Boolean).length : 0; }
+function sentenceCount(s){ s = norm(s); if(!s) return 0; var m = s.match(/[^.!?]+[.!?]+|[^.!?]+$/g); return m ? m.filter(function(x){return x.trim().length>3;}).length : 0; }
+function filled(s){ return norm(s).length > 0; }
+function clamp01(n){ return Math.max(0, Math.min(1, n)); }
+function val(id){ var el = document.getElementById(id); return el ? el.value : ''; }
+function labelOf(id){ var el = document.getElementById(id); if(!el) return id; var lab = document.querySelector('label[for="'+id+'"]'); return lab ? lab.textContent.replace(/\s*\d+\/\d+ palabras\s*/,'').trim() : id; }
+function escapeHtml(s){ var d = document.createElement('div'); d.textContent = norm(s); return d.innerHTML; }
+
+var STEP_FIELDS = { paso1:[], paso2:[], paso3:[], paso4:[], paso5:[], paso6:[], paso7:[] };
+
+function makeInput(id, type, placeholder){
+  if(type === 'textarea') return '<textarea id="'+id+'" placeholder="'+(placeholder||'')+'"></textarea>';
+  return '<input type="text" id="'+id+'" placeholder="'+(placeholder||'')+'">';
+}
+
+/* Paso 1: factores internacionales 3-5 */
+(function(){
+  var rows = [3,4,5].map(function(n){
+    var pF='p1_f'+n+'_factor', pQ='p1_f'+n+'_que', pC='p1_f'+n+'_como', pN='p1_f'+n+'_nivel', pFu='p1_f'+n+'_fuente';
+    STEP_FIELDS.paso1.push(pF,pQ,pC,pN,pFu);
+    return '<tr><td class="label-cell">'+n+'</td>'+
+      '<td class="inline-cell">'+makeInput(pF,'text')+'</td>'+
+      '<td class="inline-cell">'+makeInput(pQ,'text')+'</td>'+
+      '<td class="inline-cell">'+makeInput(pC,'text')+'</td>'+
+      '<td class="inline-cell">'+makeInput(pN,'text','Alto/Medio/Bajo')+'</td>'+
+      '<td class="inline-cell">'+makeInput(pFu,'text')+'</td></tr>';
+  }).join('');
+  document.getElementById('p1-tablaA').innerHTML = '<table class="tp-table"><thead><tr><th>N°</th><th>Factor</th><th>¿Qué está pasando?</th><th>¿Cómo impacta?</th><th>Nivel</th><th>Fuente</th></tr></thead><tbody>'+rows+'</tbody></table>';
+})();
+
+/* Paso 2A: tasa de cambio y TPM */
+(function(){
+  var indicadores = ['Tasa de cambio', 'TPM (tasa de política monetaria)'];
+  var rows = indicadores.map(function(nombre, i){
+    var key = 'ind'+(i+1);
+    var pV='p2_'+key+'_valor', pT='p2_'+key+'_tendencia', pI='p2_'+key+'_implicacion', pFu='p2_'+key+'_fuente';
+    STEP_FIELDS.paso2.push(pV,pT,pI,pFu);
+    return '<tr><td class="label-cell">'+nombre+'</td>'+
+      '<td class="inline-cell">'+makeInput(pV,'text')+'</td>'+
+      '<td class="inline-cell">'+makeInput(pT,'text')+'</td>'+
+      '<td class="inline-cell">'+makeInput(pI,'text')+'</td>'+
+      '<td class="inline-cell">'+makeInput(pFu,'text')+'</td></tr>';
+  }).join('');
+  document.getElementById('p2-tablaA').innerHTML = '<table class="tp-table"><thead><tr><th>Indicador</th><th>Valor actual</th><th>Tendencia</th><th>Implicación</th><th>Fuente</th></tr></thead><tbody>'+rows+'</tbody></table>';
+})();
+
+/* Paso 2B: indicadores fiscales */
+(function(){
+  var indicadores = ['Presión tributaria (% PIB)', 'Déficit fiscal (% PIB)', 'Deuda SPNF (% PIB)', 'Ejecución presupuestaria (%)', 'Índice EMBI (riesgo país)'];
+  var rows = indicadores.map(function(nombre, i){
+    var key = 'fis'+(i+1);
+    var pV='p2_'+key+'_valor', pT='p2_'+key+'_tendencia', pI='p2_'+key+'_implicacion', pFu='p2_'+key+'_fuente';
+    STEP_FIELDS.paso2.push(pV,pT,pI,pFu);
+    return '<tr><td class="label-cell">'+nombre+'</td>'+
+      '<td class="inline-cell">'+makeInput(pV,'text')+'</td>'+
+      '<td class="inline-cell">'+makeInput(pT,'text')+'</td>'+
+      '<td class="inline-cell">'+makeInput(pI,'text')+'</td>'+
+      '<td class="inline-cell">'+makeInput(pFu,'text')+'</td></tr>';
+  }).join('');
+  document.getElementById('p2-tablaB').innerHTML = '<table class="tp-table"><thead><tr><th>Indicador fiscal</th><th>Valor actual</th><th>Tendencia</th><th>Implicación</th><th>Fuente</th></tr></thead><tbody>'+rows+'</tbody></table>';
+})();
+
+/* Paso 3A: marco normativo 2-5 */
+(function(){
+  var rows = [2,3,4,5].map(function(n){
+    var pNorma='p3_n'+n+'_norma', pFecha='p3_n'+n+'_fecha', pCont='p3_n'+n+'_contenido', pImp='p3_n'+n+'_impacto';
+    STEP_FIELDS.paso3.push(pNorma,pFecha,pCont,pImp);
+    return '<tr><td class="label-cell">'+n+'</td>'+
+      '<td class="inline-cell">'+makeInput(pNorma,'text')+'</td>'+
+      '<td class="inline-cell">'+makeInput(pFecha,'text')+'</td>'+
+      '<td class="inline-cell">'+makeInput(pCont,'text')+'</td>'+
+      '<td class="inline-cell">'+makeInput(pImp,'text')+'</td></tr>';
+  }).join('');
+  document.getElementById('p3-tablaA').innerHTML = '<table class="tp-table"><thead><tr><th>N°</th><th>Norma legal</th><th>Fecha</th><th>Contenido / Atribuciones</th><th>Impacto</th></tr></thead><tbody>'+rows+'</tbody></table>';
+  STEP_FIELDS.paso3.push('p3_nombreDir','p3_dependencia','p3_mision','p3_funcion1','p3_funcion2','p3_funcion3','p3_departamentos','p3_personal','p3_sistemas');
+})();
+
+/* Paso 4: FODA (4 elementos x 4 cuadrantes) */
+(function(){
+  var cuadrantes = [
+    {key:'f', id:'foda-f', label:'Fortaleza'},
+    {key:'d', id:'foda-d', label:'Debilidad'},
+    {key:'o', id:'foda-o', label:'Oportunidad'},
+    {key:'a', id:'foda-a', label:'Amenaza'}
+  ];
+  cuadrantes.forEach(function(c){
+    var html = '';
+    for(var n=1; n<=4; n++){
+      var pElem = 'p4_'+c.key+n+'_elem', pFuente = 'p4_'+c.key+n+'_fuente';
+      STEP_FIELDS.paso4.push(pElem, pFuente);
+      html += '<div class="field"><label for="'+pElem+'">'+c.label+' '+n+'</label>'+
+        '<input type="text" id="'+pElem+'" placeholder="Sea específico, no genérico">'+
+        '<input type="text" id="'+pFuente+'" placeholder="Fuente de datos / evidencia" style="margin-top:.4rem;"></div>';
+    }
+    document.getElementById(c.id).innerHTML = html;
+  });
+})();
+
+/* Paso 5: CAME (2 filas x 4 letras) */
+(function(){
+  var letras = [
+    {key:'c', id:'came-c', titulo:'C — Corregir debilidades', origen:'Debilidad del FODA'},
+    {key:'a', id:'came-a', titulo:'A — Afrontar amenazas', origen:'Amenaza del FODA'},
+    {key:'m', id:'came-m', titulo:'M — Mantener fortalezas', origen:'Fortaleza del FODA'},
+    {key:'e', id:'came-e', titulo:'E — Explotar oportunidades', origen:'Oportunidad del FODA'}
+  ];
+  letras.forEach(function(l){
+    var rows = [1,2].map(function(n){
+      var pOrigen='p5_'+l.key+n+'_origen', pEstrategia='p5_'+l.key+n+'_estrategia', pResultado='p5_'+l.key+n+'_resultado', pResp='p5_'+l.key+n+'_responsable';
+      STEP_FIELDS.paso5.push(pOrigen,pEstrategia,pResultado,pResp);
+      return '<tr><td class="label-cell">'+n+'</td>'+
+        '<td class="inline-cell">'+makeInput(pOrigen,'text')+'</td>'+
+        '<td class="inline-cell">'+makeInput(pEstrategia,'text')+'</td>'+
+        '<td class="inline-cell">'+makeInput(pResultado,'text')+'</td>'+
+        '<td class="inline-cell">'+makeInput(pResp,'text')+'</td></tr>';
+    }).join('');
+    document.getElementById(l.id).innerHTML = '<h3>'+l.titulo+'</h3><div class="tbl-wrap"><table class="tp-table"><thead><tr><th>N°</th><th>'+l.origen+'</th><th>Estrategia</th><th>Resultado esperado</th><th>Responsable</th></tr></thead><tbody>'+rows+'</tbody></table></div>';
+  });
+})();
+
+STEP_FIELDS.paso6 = ['p6_efecto1','p6_efecto2','p6_central','p6_causa1','p6_causa2','p6_causa3'];
+
+/* Paso 7A: alineación */
+(function(){
+  var filas = [
+    {n:1, instrumento:'END 2030 — Eje II', objetivo:'Sociedad con igualdad de derechos: garantizar el acceso universal a servicios de salud de calidad.'},
+    {n:2, instrumento:'ODS 3', objetivo:'Salud y bienestar: garantizar una vida sana y promover el bienestar para todas las edades.'},
+    {n:3, instrumento:'ODS 17', objetivo:'Alianzas, cooperación, movilización de recursos.'},
+    {n:4, instrumento:'PNPSP', objetivo:'Planificación plurianual del sector público.'}
+  ];
+  var rows = filas.map(function(f){
+    var pContrib = 'p7_al'+f.n+'_contrib';
+    STEP_FIELDS.paso7.push(pContrib);
+    return '<tr><td class="label-cell">'+f.n+'</td><td class="given">'+f.instrumento+'</td><td class="given">'+f.objetivo+'</td>'+
+      '<td class="inline-cell">'+makeInput(pContrib,'text','¿Cómo contribuye su dirección?')+'</td></tr>';
+  }).join('');
+  document.getElementById('p7-tablaA').innerHTML = '<table class="tp-table"><thead><tr><th>N°</th><th>Instrumento</th><th>Objetivo / Meta relevante</th><th>¿Cómo contribuye su dirección?</th></tr></thead><tbody>'+rows+'</tbody></table>';
+  STEP_FIELDS.paso7.push('p7_r1','p7_r2','p7_r3','p7_r4');
+})();
+
+document.querySelectorAll('.wc[data-for]').forEach(function(span){
+  var target = document.getElementById(span.getAttribute('data-for'));
+  if(!target) return;
+  var min = parseInt(span.getAttribute('data-min'),10) || 0;
+  function update(){
+    var wc = wordCount(target.value);
+    span.textContent = wc + '/' + min + ' palabras';
+    span.classList.toggle('ok', wc >= min);
+  }
+  target.addEventListener('input', update);
+  update();
+});
+
+var STORE_KEY = 'tp_hospital_va_respuestas_v1';
+var META_FIELDS = ['est_nombre', 'est_correo'];
+function allFieldIds(){
+  var ids = META_FIELDS.slice();
+  Object.keys(STEP_FIELDS).forEach(function(k){ ids = ids.concat(STEP_FIELDS[k]); });
+  return ids;
+}
+function saveAll(){
+  var data = {};
+  allFieldIds().forEach(function(id){ data[id] = val(id); });
+  try{ localStorage.setItem(STORE_KEY, JSON.stringify(data)); }catch(e){}
+}
+function loadAll(){
+  var raw; try{ raw = localStorage.getItem(STORE_KEY); }catch(e){ raw = null; }
+  if(!raw) return;
+  try{
+    var data = JSON.parse(raw);
+    Object.keys(data).forEach(function(id){
+      var el = document.getElementById(id);
+      if(el) el.value = data[id];
+    });
+  }catch(e){}
+}
+loadAll();
+document.querySelectorAll('.wc[data-for]').forEach(function(span){
+  var target = document.getElementById(span.getAttribute('data-for'));
+  if(target) target.dispatchEvent(new Event('input'));
+});
+
+var saveTimer = null;
+document.addEventListener('input', function(e){
+  var t = e.target;
+  if(t && t.id && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT')){
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(function(){ saveAll(); updateProgress(); }, 400);
+  }
+});
+
+function stepRatio(key){
+  var ids = STEP_FIELDS[key];
+  if(!ids || !ids.length) return 0;
+  var n = 0;
+  ids.forEach(function(id){ if(filled(val(id))) n++; });
+  return n / ids.length;
+}
+function updateProgress(){
+  var keys = Object.keys(STEP_FIELDS);
+  var total = 0;
+  keys.forEach(function(k){
+    var r = stepRatio(k);
+    total += r;
+    var pctEl = document.querySelector('.pct[data-pct="'+k+'"]');
+    var linkEl = document.querySelector('.nav a[data-step="'+k+'"]');
+    if(pctEl) pctEl.textContent = Math.round(r*100) + '%';
+    if(linkEl) linkEl.classList.toggle('done', r >= 0.95);
+  });
+  var overall = Math.round((total / keys.length) * 100);
+  document.getElementById('progress-count').textContent = overall + '%';
+  var fillEl = document.getElementById('progress-fill-el');
+  fillEl.style.width = overall + '%';
+  fillEl.classList.toggle('complete', overall >= 95);
+}
+updateProgress();
+
+var RUBRICA = [
+  {n:1, criterio:'Análisis del contexto internacional (Paso 1)', indicador:'Mínimo 5 factores con datos, impacto y fuente.', pts:10},
+  {n:2, criterio:'Indicadores macro y fiscales nacionales (Paso 2)', indicador:'Datos actualizados, tendencias e implicaciones identificadas.', pts:10},
+  {n:3, criterio:'Marco normativo y estructura organizacional (Paso 3)', indicador:'Mínimo 4 normas, perfil organizacional completo.', pts:10},
+  {n:4, criterio:'Análisis FODA (Paso 4)', indicador:'4 elementos por cuadrante, respaldados con fuentes de datos.', pts:20},
+  {n:5, criterio:'Matriz CAME (Paso 5)', indicador:'Mínimo 2 estrategias por letra, coherentes con el FODA.', pts:20},
+  {n:6, criterio:'Árbol de problemas (Paso 6)', indicador:'Problema central bien redactado, 2+ causas, 2+ efectos.', pts:15},
+  {n:7, criterio:'Alineación, reflexión final y presentación (Paso 7)', indicador:'Tabla END/ODS/PNPSP completa, reflexiones fundamentadas, documento coherente.', pts:15}
+];
+document.getElementById('rubrica-body').innerHTML = RUBRICA.map(function(r){
+  return '<tr><td class="label-cell">'+r.n+'</td><td>'+r.criterio+'</td><td>'+r.indicador+'</td><td class="label-cell">'+r.pts+'</td></tr>';
+}).join('') + '<tr><td colspan="3" class="label-cell">TOTAL</td><td class="label-cell">100</td></tr><tr><td colspan="3" class="label-cell">Aprobación mínima</td><td class="label-cell">70</td></tr>';
+
+function ratioFilledFrac(ids){
+  if(!ids.length) return 0;
+  var n = 0; ids.forEach(function(id){ if(filled(val(id))) n++; });
+  return n / ids.length;
+}
+function singleWordFrac(id, min){ return clamp01(wordCount(val(id)) / min); }
+function reflectionFrac(id, minSentences, minWords){
+  var s = val(id);
+  return (clamp01(sentenceCount(s)/minSentences) + clamp01(wordCount(s)/minWords)) / 2;
+}
+
+function buildCriterion(title, maxPoints, items){
+  var score = 0;
+  items.forEach(function(it){ score += it.points * clamp01(it.frac); });
+  score = Math.round(score * 10) / 10;
+  var strong = [], mid = [], weak = [];
+  items.forEach(function(it){
+    if(it.frac >= 0.85) strong.push(it.label);
+    else if(it.frac >= 0.45) mid.push(it.label);
+    else weak.push(it.label);
+  });
+  return { title:title, maxPoints:maxPoints, score:score, strong:strong, mid:mid, weak:weak };
+}
+
+function gradeStep1(){
+  var ids = STEP_FIELDS.paso1;
+  var items = [
+    { label:'Mínimo 5 factores internacionales con datos, impacto y fuente (2 ejemplos ya dados + 3 propios)', points:10, frac:ratioFilledFrac(ids) }
+  ];
+  return buildCriterion(RUBRICA[0].criterio, 10, items);
+}
+function gradeStep2(){
+  var ids = STEP_FIELDS.paso2;
+  var items = [
+    { label:'Indicadores macroeconómicos y fiscales completos con tendencia e implicación', points:10, frac:ratioFilledFrac(ids) }
+  ];
+  return buildCriterion(RUBRICA[1].criterio, 10, items);
+}
+function gradeStep3(){
+  var normIds = STEP_FIELDS.paso3.slice(0,16);
+  var perfilIds = STEP_FIELDS.paso3.slice(16);
+  var items = [
+    { label:'Mínimo 4 normas legales identificadas con impacto', points:5, frac:ratioFilledFrac(normIds) },
+    { label:'Perfil organizacional completo de la dirección', points:5, frac:ratioFilledFrac(perfilIds) }
+  ];
+  return buildCriterion(RUBRICA[2].criterio, 10, items);
+}
+function gradeStep4(){
+  var items = ['f','d','o','a'].map(function(k){
+    var ids = STEP_FIELDS.paso4.filter(function(id){ return id.indexOf('p4_'+k) === 0; });
+    var labelMap = {f:'Fortalezas',d:'Debilidades',o:'Oportunidades',a:'Amenazas'};
+    return { label: labelMap[k] + ' (4 elementos con fuente)', points:5, frac: ratioFilledFrac(ids) };
+  });
+  return buildCriterion(RUBRICA[3].criterio, 20, items);
+}
+function gradeStep5(){
+  var items = ['c','a','m','e'].map(function(k){
+    var ids = STEP_FIELDS.paso5.filter(function(id){ return id.indexOf('p5_'+k) === 0; });
+    var labelMap = {c:'Corregir debilidades',a:'Afrontar amenazas',m:'Mantener fortalezas',e:'Explotar oportunidades'};
+    return { label: labelMap[k] + ' (2 estrategias)', points:5, frac: ratioFilledFrac(ids) };
+  });
+  return buildCriterion(RUBRICA[4].criterio, 20, items);
+}
+function gradeStep6(){
+  var items = [
+    { label:'Problema central bien desarrollado', points:5, frac: singleWordFrac('p6_central', 8) },
+    { label:'2 causas y 2 efectos identificados', points:10, frac: ratioFilledFrac(['p6_efecto1','p6_efecto2','p6_causa1','p6_causa2','p6_causa3']) }
+  ];
+  return buildCriterion(RUBRICA[5].criterio, 15, items);
+}
+function gradeStep7(){
+  var alinIds = STEP_FIELDS.paso7.filter(function(id){ return id.indexOf('p7_al') === 0; });
+  var reflexIds = ['p7_r1','p7_r2','p7_r3','p7_r4'];
+  var items = [
+    { label:'Tabla de alineación END/ODS/PNPSP completa', points:5, frac: ratioFilledFrac(alinIds) },
+    { label:'4 reflexiones con profundidad (mínimo 4 oraciones)', points:8, frac: reflexIds.reduce(function(a,id){ return a + reflectionFrac(id,4,40); },0) / reflexIds.length },
+    { label:'Presentación y coherencia general del documento', points:2, frac: (ratioFilledFrac(allFieldIds())) }
+  ];
+  return buildCriterion(RUBRICA[6].criterio, 15, items);
+}
+
+function runGrading(){
+  var criteria = [gradeStep1(), gradeStep2(), gradeStep3(), gradeStep4(), gradeStep5(), gradeStep6(), gradeStep7()];
+  var total = Math.round(criteria.reduce(function(a,c){ return a + c.score; },0) * 10) / 10;
+  return { criteria:criteria, total:total };
+}
+
+function critFillClass(pct){
+  if(pct >= 80) return 'hi';
+  if(pct >= 50) return 'mid';
+  return 'lo';
+}
+
+function renderResults(result){
+  var hero = document.getElementById('score-hero');
+  var title = document.getElementById('score-title');
+  var desc = document.getElementById('score-desc');
+  var num = document.getElementById('score-num');
+  num.textContent = result.total;
+  hero.classList.remove('pass','warn','fail');
+  if(result.total >= 70){
+    hero.classList.add('pass');
+    title.textContent = '✅ Aprobado — ' + result.total + ' / 100 pts';
+    desc.textContent = 'Su trabajo cumple con la aprobación mínima (70%). Revise los criterios en amarillo para pulir detalles antes de entregar.';
+  } else if(result.total >= 55){
+    hero.classList.add('warn');
+    title.textContent = '🟠 Cerca de aprobar — ' + result.total + ' / 100 pts';
+    desc.textContent = 'Está por debajo del 70% mínimo. Complete y profundice las secciones marcadas en rojo/ámbar antes de entregar.';
+  } else {
+    hero.classList.add('fail');
+    title.textContent = '🔴 Necesita trabajo adicional — ' + result.total + ' / 100 pts';
+    desc.textContent = 'Aún faltan varias secciones por completar o desarrollar. Use a Nicole y las guías de cada paso para avanzar.';
+  }
+
+  var listEl = document.getElementById('crit-list');
+  listEl.innerHTML = result.criteria.map(function(c){
+    var pct = Math.round((c.score / c.maxPoints) * 100);
+    var parts = [];
+    if(c.strong.length) parts.push('<li><span class="tag-ok">✔ Bien logrado:</span> ' + c.strong.join('; ') + '.</li>');
+    if(c.mid.length) parts.push('<li><span class="tag-mid">◐ Puede mejorar:</span> ' + c.mid.join('; ') + '.</li>');
+    if(c.weak.length) parts.push('<li><span class="tag-low">✖ Falta completar / profundizar:</span> ' + c.weak.join('; ') + '.</li>');
+    return '<div class="crit">'+
+      '<div class="crit-head"><strong>'+c.title+'</strong><span class="crit-score">'+c.score+' / '+c.maxPoints+' pts</span></div>'+
+      '<div class="crit-track"><div class="crit-fill '+critFillClass(pct)+'" style="width:'+pct+'%;"></div></div>'+
+      '<ul>'+parts.join('')+'</ul>'+
+      '</div>';
+  }).join('');
+
+  document.getElementById('results').classList.add('show');
+}
+
+function gatherGradingPayload(localResult){
+  var pasos = {};
+  Object.keys(STEP_FIELDS).forEach(function(key, i){
+    var respuestas = {};
+    STEP_FIELDS[key].forEach(function(id){
+      var v = val(id);
+      if(filled(v)) respuestas[labelOf(id)] = v;
+    });
+    pasos[key] = { criterio: RUBRICA[i].criterio, max: RUBRICA[i].pts, respuestas: respuestas };
+  });
+  return {
+    estudiante: { nombre: val('est_nombre') || '', correo: val('est_correo') || '' },
+    institucion: val('p3_nombreDir') || '',
+    curso: 'hospital-villa-altagracia',
+    unidad: UNIDAD_ACTUAL,
+    pasos: pasos,
+    local: localResult ? {
+      total: localResult.total,
+      criterios: localResult.criteria.map(function(c){ return { titulo: c.title, puntaje: c.score, max: c.maxPoints }; })
+    } : null
+  };
+}
+
+function renderAIReview(data){
+  var box = document.getElementById('ai-review');
+  box.className = 'alert success';
+  var rows = data.criterios.map(function(c, i){
+    var nombre = RUBRICA[i] ? RUBRICA[i].criterio : ('Criterio ' + (i+1));
+    return '<li><strong>' + escapeHtml(nombre) + ':</strong> ' + c.puntaje + '/' + c.max + ' pts — ' + escapeHtml(c.comentario) + '</li>';
+  }).join('');
+  box.innerHTML = '<strong>🤖 Evaluación de Nicole:</strong> ' + data.total + ' / 100 pts.<br>' +
+    (data.comentario_general ? '<p style="margin:.5rem 0;">' + escapeHtml(data.comentario_general) + '</p>' : '') +
+    '<ul style="margin:.5rem 0 0; padding-left:1.2rem; font-size:.85rem;">' + rows + '</ul>' +
+    '<p style="margin:.6rem 0 0; font-size:.72rem; color:var(--muted);">Esta evaluación es orientativa y no reemplaza la nota oficial de su facilitador.</p>';
+}
+
+function requestAIGrading(localResult){
+  var box = document.getElementById('ai-review');
+  box.style.display = 'block';
+  box.className = 'alert info';
+  box.innerHTML = '<strong>🤖 Nicole:</strong> analizando el contenido de sus respuestas con inteligencia artificial (puede tardar hasta 10 minutos) y notificando a su facilitador por correo. Su nota automática ya quedó registrada arriba…';
+  fetchWithTimeout(AI_GRADE_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(gatherGradingPayload(localResult))
+  }, AI_GRADE_TIMEOUT).then(function(res){
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    return res.json();
+  }).then(function(data){
+    if(!data || !data.ok || !Array.isArray(data.criterios)) throw new Error((data && data.error) || 'respuesta inválida');
+    renderAIReview(data);
+  }).catch(function(){
+    box.className = 'alert warn';
+    box.innerHTML = '<strong>🤖 Nicole:</strong> no se pudo contactar el servicio de evaluación por IA en este momento. Se muestra únicamente la evaluación automática local de esta página, que sigue siendo válida.';
+  });
+}
+
+document.getElementById('btn-submit').addEventListener('click', function(){
+  saveAll();
+  if(!filled(val('est_nombre'))){
+    alert('Antes de enviar, escriba su nombre completo (arriba de la portada) para que su facilitador pueda identificar su entrega.');
+    document.getElementById('est_nombre').focus();
+    document.getElementById('portada').scrollIntoView({ behavior:'smooth' });
+    return;
+  }
+  var result = runGrading();
+  renderResults(result);
+  document.getElementById('results').scrollIntoView({ behavior:'smooth', block:'start' });
+  requestAIGrading(result);
+});
+document.getElementById('btn-recheck').addEventListener('click', function(){
+  document.getElementById('paso1').scrollIntoView({ behavior:'smooth' });
+});
+
+function exportTxt(){
+  var lines = ['DIAGNÓSTICO INSTITUCIONAL — HOSPITAL MUNICIPAL DE VILLA ALTAGRACIA', 'Servicio/Departamento: ' + (val('p3_nombreDir') || '(sin especificar)'), '======================================================', ''];
+  allFieldIds().forEach(function(id){
+    var v = val(id);
+    if(!filled(v)) return;
+    lines.push('- ' + labelOf(id) + ': ' + v);
+  });
+  var blob = new Blob([lines.join('\n')], { type:'text/plain;charset=utf-8' });
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  var name = (val('p3_nombreDir') || 'diagnostico-hospital-villa-altagracia').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+  a.download = (name || 'diagnostico-hospital-villa-altagracia') + '.txt';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(a.href);
+}
+document.getElementById('btn-export').addEventListener('click', exportTxt);
+document.getElementById('btn-export-2').addEventListener('click', exportTxt);
+document.getElementById('btn-print').addEventListener('click', function(){ window.print(); });
+document.getElementById('btn-print-2').addEventListener('click', function(){ window.print(); });
+document.getElementById('btn-clear').addEventListener('click', function(){
+  if(!confirm('¿Seguro que desea borrar TODAS sus respuestas guardadas en este navegador? Esta acción no se puede deshacer.')) return;
+  try{ localStorage.removeItem(STORE_KEY); }catch(e){}
+  allFieldIds().forEach(function(id){ var el = document.getElementById(id); if(el) el.value = ''; });
+  document.querySelectorAll('.wc[data-for]').forEach(function(span){ var t = document.getElementById(span.getAttribute('data-for')); if(t) t.dispatchEvent(new Event('input')); });
+  updateProgress();
+  document.getElementById('results').classList.remove('show');
+  var aiBox = document.getElementById('ai-review');
+  aiBox.style.display = 'none';
+  aiBox.innerHTML = '';
+});
+
+/* ---------- TUTOR VIRTUAL ---------- */
+var advisorToggle = document.getElementById('advisor-toggle');
+var advisorPanel = document.getElementById('advisor-panel');
+var advisorClose = document.getElementById('advisor-close');
+var advisorBody = document.getElementById('advisor-body');
+var advisorForm = document.getElementById('advisor-form');
+var advisorInput = document.getElementById('advisor-input');
+
+function openAdvisor(){ advisorPanel.classList.add('open'); advisorToggle.setAttribute('aria-expanded','true'); advisorInput.focus(); }
+function closeAdvisor(){ advisorPanel.classList.remove('open'); advisorToggle.setAttribute('aria-expanded','false'); }
+advisorToggle.addEventListener('click', function(){ advisorPanel.classList.contains('open') ? closeAdvisor() : openAdvisor(); });
+advisorClose.addEventListener('click', closeAdvisor);
+
+function addMsg(text, who){
+  var div = document.createElement('div');
+  div.className = 'advisor-msg advisor-msg-' + (who === 'user' ? 'user' : 'bot');
+  div.textContent = text;
+  advisorBody.appendChild(div);
+  advisorBody.scrollTop = advisorBody.scrollHeight;
+  return div;
+}
+function addTyping(){
+  var div = addMsg('Escribiendo…', 'bot');
+  div.style.opacity = '.6';
+  return div;
+}
+
+var CONTEXTO_UNIDAD = 'MARCO CONCEPTUAL DE REFERENCIA (Diagnóstico Contextual e Institucional aplicado a un hospital público dominicano):\\n'
+  + '- Contexto internacional/nacional: factores macroeconómicos y fiscales externos e internos que afectan a la institución.\\n'
+  + '- Marco normativo: leyes y decretos que dan sustento legal a las funciones de la dirección.\\n'
+  + '- FODA: Fortalezas y Debilidades son internas; Oportunidades y Amenazas son externas. Cada elemento debe tener una fuente de evidencia.\\n'
+  + '- Matriz CAME: Corregir debilidades, Afrontar amenazas, Mantener fortalezas, Explotar oportunidades. Convierte el FODA en estrategias.\\n'
+  + '- Árbol de problemas: Causas (raíz) -> Problema central (redactado en presente y negativo) -> Efectos (consecuencias).\\n'
+  + '- Toda dirección debe alinear su diagnóstico con la END 2030, el PNPSP y los ODS.\\n\\n'
+  + 'LA PRÁCTICA tiene 7 pasos y 100 puntos (aprobación mínima 70%): Paso 1 Contexto internacional (10), Paso 2 Contexto nacional (10), Paso 3 Marco normativo (10), Paso 4 FODA (20), Paso 5 CAME (20), Paso 6 Árbol de problemas (15), Paso 7 Alineación y reflexión (15). El caso de aplicación es un servicio o departamento del Hospital Municipal de Villa Altagracia.';
+
+function askTutorAI(q){
+  return fetchWithTimeout(AI_CHAT_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ message: q, contexto: CONTEXTO_UNIDAD })
+  }, AI_CHAT_TIMEOUT).then(function(res){
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    return res.json();
+  }).then(function(data){
+    if(!data || !filled(data.response)) throw new Error('respuesta vacía');
+    return data.response;
+  });
+}
+function askTutor(q){
+  return askTutorAI(q).catch(function(){ return answerFor(q); });
+}
+
+var QA = [
+  { kw:['calific','nota','puntaje','rubrica','aprobar','minimo'], a:'La nota va de 0 a 100, en 7 criterios: contexto internacional (10), contexto nacional (10), marco normativo (10), FODA (20), CAME (20), árbol de problemas (15) y alineación/reflexión (15). Aprobación mínima 70%.' },
+  { kw:['foda'], a:'El FODA tiene 4 cuadrantes: Fortalezas y Debilidades son internas (dependen de la dirección); Oportunidades y Amenazas son externas (vienen del entorno). Necesitas mínimo 4 elementos por cuadrante, cada uno con una fuente de datos concreta, no una opinión.' },
+  { kw:['came'], a:'CAME convierte el FODA en acción: Corregir debilidades, Afrontar amenazas, Mantener fortalezas, Explotar oportunidades. Cada estrategia debe originarse de un elemento específico de tu FODA — por eso hazlo después del FODA, no antes.' },
+  { kw:['arbol', 'árbol', 'problema central'], a:'El problema central se redacta en presente y en negativo (ej. "Baja capacidad de fiscalización..."), nunca como la ausencia de algo (evita "Falta de..."). Las causas van debajo (raíces) y los efectos arriba (consecuencias).' },
+  { kw:['contexto internacional'], a:'Son factores globales (economía mundial, inflación, tasas de interés, geopolítica) que afectan indirectamente a tu dirección. Para cada uno indica qué pasa, cómo impacta a tu dirección específica, y el nivel de impacto (alto/medio/bajo).' },
+  { kw:['contexto nacional'], a:'Son los indicadores macroeconómicos (PIB, inflación, reservas) y fiscales (presión tributaria, déficit, deuda) de República Dominicana. Consulta fuentes oficiales como el Banco Central (BCRD) o Hacienda.' },
+  { kw:['marco normativo'], a:'Son las leyes, decretos y reglamentos que le dan a tu dirección la base legal para actuar. Necesitas mínimo 4 normas, indicando qué atribuciones da cada una y cómo impacta a tu dirección específica.' },
+  { kw:['hola', 'ayuda', 'quien eres'], a:'Soy Nicole, la asistente virtual del Dr. Johan Tapia. Puedo explicarte FODA, CAME, árbol de problemas, contexto internacional/nacional, marco normativo, o cómo se califica. No te doy las respuestas específicas de tu servicio o departamento — eso lo investigas tú.' }
+];
+function normQ(s){ return stripAccents(s); }
+function answerFor(q){
+  var nq = normQ(q);
+  var best = null, bestScore = 0;
+  QA.forEach(function(entry){
+    var score = 0;
+    entry.kw.forEach(function(k){ if(nq.indexOf(normQ(k)) !== -1) score++; });
+    if(score > bestScore){ bestScore = score; best = entry; }
+  });
+  if(best) return best.a;
+  return 'No tengo una respuesta preparada para eso. Prueba preguntar por FODA, CAME, árbol de problemas, contexto internacional/nacional, marco normativo, o la calificación.';
+}
+advisorForm.addEventListener('submit', function(e){
+  e.preventDefault();
+  var q = norm(advisorInput.value);
+  if(!q) return;
+  addMsg(q, 'user');
+  advisorInput.value = '';
+  var typingEl = addTyping();
+  askTutor(q).then(function(answer){
+    typingEl.remove();
+    addMsg(answer, 'bot');
+  });
+});
+document.querySelectorAll('.advisor-suggest button').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var q = btn.getAttribute('data-q');
+    openAdvisor();
+    addMsg(q, 'user');
+    var typingEl = addTyping();
+    askTutor(q).then(function(answer){
+      typingEl.remove();
+      addMsg(answer, 'bot');
+    });
+  });
+});
+
+})();
+</script>
+<script src="voz-accesibilidad.js"></script>
+</body>
+</html>
