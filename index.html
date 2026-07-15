@@ -42,10 +42,29 @@ body{margin:0; background:var(--bg-body); color:var(--secondary); font-family:'I
 #search-box{width:100%; padding:.85rem 1.1rem; border:1px solid var(--border-light); border-radius:14px; background:var(--bg-card); color:var(--primary); font-size:.95rem; font-family:inherit; box-shadow:var(--shadow-md);}
 #search-box:focus{outline:none; border-color:var(--navy);}
 
-.inst-block{margin-top:2.5rem;}
-.inst-title{font-size:.78rem; font-weight:800; text-transform:uppercase; letter-spacing:.06em; color:var(--gold); margin-bottom:.3rem;}
-.group-title{font-size:1.15rem; font-weight:800; color:var(--primary); margin:0 0 1rem;}
-.cards{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1.25rem; margin-bottom:1.5rem;}
+/* ---------- CATÁLOGO: institución → materia/curso → prácticas ---------- */
+.inst-section{margin-top:2.75rem; scroll-margin-top:1.25rem;}
+.inst-header{display:flex; align-items:center; gap:.9rem; padding-bottom:1rem; margin-bottom:1.5rem; border-bottom:2px solid var(--border-light);}
+.inst-icon-big{flex-shrink:0; width:52px; height:52px; border-radius:14px; background:linear-gradient(135deg,var(--navy),var(--navy-dark)); display:flex; align-items:center; justify-content:center; font-size:1.5rem; box-shadow:var(--shadow-sm);}
+.inst-name{font-size:1.3rem; font-weight:800; color:var(--primary); margin:0 0 .2rem;}
+.inst-stats{font-size:.8rem; color:var(--muted); margin:0; font-weight:600;}
+
+.quick-nav{display:flex; flex-wrap:wrap; gap:.5rem; margin-bottom:2rem;}
+.quick-nav a{text-decoration:none; background:var(--bg-card); border:1px solid var(--border-light); color:var(--secondary); font-size:.78rem; font-weight:700; padding:.4rem .85rem; border-radius:999px; transition:all .15s ease;}
+.quick-nav a:hover{border-color:var(--navy); color:var(--navy); background:var(--blue-bg,#eff6ff);}
+
+.curso-card{background:var(--bg-card); border:1px solid var(--border-light); border-radius:18px; box-shadow:var(--shadow-sm); padding:1.5rem 1.5rem 1.75rem; margin-bottom:1.75rem; scroll-margin-top:1.25rem;}
+.curso-head{display:flex; align-items:flex-start; gap:.85rem; margin-bottom:1.1rem;}
+.curso-icon{flex-shrink:0; width:42px; height:42px; border-radius:11px; background:var(--bg-body); border:1px solid var(--border-light); display:flex; align-items:center; justify-content:center; font-size:1.25rem;}
+.curso-title-wrap{flex:1;}
+.curso-tag{display:inline-flex; align-items:center; gap:.3rem; font-size:.66rem; font-weight:800; text-transform:uppercase; letter-spacing:.04em; padding:.2rem .55rem; border-radius:999px; margin-bottom:.4rem;}
+.curso-tag.secuencial{background:#fff7e6; color:#946200; border:1px solid var(--gold,#c9982f);}
+[data-theme="dark"] .curso-tag.secuencial{background:#2a2108;}
+.curso-tag.taller{background:#eff6ff; color:var(--navy); border:1px solid #3b82f6;}
+.curso-tag.caso{background:var(--green-bg); color:var(--green); border:1px solid var(--green);}
+.group-title{font-size:1.12rem; font-weight:800; color:var(--primary); margin:0;}
+.curso-count{font-size:.76rem; color:var(--muted); margin:.2rem 0 0; font-weight:600;}
+.cards{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1.25rem;}
 .card{background:var(--bg-card); border:1px solid var(--border-light); border-radius:16px; box-shadow:var(--shadow-sm); overflow:hidden; display:flex; flex-direction:column;}
 .card-body{padding:1.35rem; flex:1; display:flex; flex-direction:column;}
 .card .badge{display:inline-flex; align-self:flex-start; background:#eff6ff; color:var(--navy); border:1px solid #3b82f6; font-weight:700; font-size:.68rem; text-transform:uppercase; letter-spacing:.04em; padding:.25rem .6rem; border-radius:999px; margin-bottom:.65rem;}
@@ -129,9 +148,13 @@ footer{text-align:center; color:var(--muted); font-size:.8rem; padding:2.5rem 1r
 var INSTITUCIONES = [
   {
     nombre: "INAP — Instituto Nacional de Administración Pública",
+    icono: "🏛️",
     cursos: [
       {
         nombre: "Informática Forense",
+        icono: "🕵️",
+        tipoClase: "caso",
+        tipoLabel: "Caso práctico cronometrado",
         practicas: [
           {
             badge: "Módulo III",
@@ -146,6 +169,9 @@ var INSTITUCIONES = [
       },
       {
         nombre: "Prestación de Servicio y Atención a la Ciudadanía — Nivel 1 (en equipo)",
+        icono: "🏢",
+        tipoClase: "taller",
+        tipoLabel: "Taller introductorio",
         practicas: [
           {
             badge: "Nivel 1",
@@ -160,6 +186,9 @@ var INSTITUCIONES = [
       },
       {
         nombre: "Planificación Estratégica — Nivel 1 (en equipo)",
+        icono: "📊",
+        tipoClase: "taller",
+        tipoLabel: "Taller introductorio",
         practicas: [
           {
             badge: "Nivel 1",
@@ -174,6 +203,9 @@ var INSTITUCIONES = [
       },
       {
         nombre: "Diagnóstico Contextual e Institucional — Nivel 1",
+        icono: "🔍",
+        tipoClase: "taller",
+        tipoLabel: "Taller introductorio",
         practicas: [
           {
             badge: "Nivel 1",
@@ -188,6 +220,9 @@ var INSTITUCIONES = [
       },
       {
         nombre: "Planificación Estratégica en la Gestión Pública",
+        icono: "🎯",
+        tipoClase: "secuencial",
+        tipoLabel: "Curso secuencial · 6 unidades",
         esSecuencial: true,
         cursoId: "planificacion-estrategica",
         practicas: [
@@ -401,44 +436,82 @@ function construirRuta(curso){
 
 var instEl = document.getElementById('instituciones');
 
+function slugify(s){
+  return (s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+}
+
 function render(filtro){
   filtro = (filtro || '').toLowerCase().trim();
   instEl.innerHTML = '';
   var totalVisible = 0;
 
-  INSTITUCIONES.forEach(function(inst){
+  INSTITUCIONES.forEach(function(inst, instIdx){
     var cursosConResultados = inst.cursos.map(function(curso){
       var practicasFiltradas = curso.practicas.filter(function(p){
         if(!filtro) return true;
         var texto = (inst.nombre + ' ' + curso.nombre + ' ' + p.titulo + ' ' + p.badge + ' ' + p.desc).toLowerCase();
         return texto.indexOf(filtro) !== -1;
       });
-      return { nombre: curso.nombre, practicas: practicasFiltradas };
+      return { def: curso, practicas: practicasFiltradas };
     }).filter(function(c){ return c.practicas.length > 0; });
 
     if(!cursosConResultados.length) return;
 
-    var instBlock = document.createElement('div');
-    instBlock.className = 'inst-block';
-    var instTitle = document.createElement('p');
-    instTitle.className = 'inst-title';
-    instTitle.textContent = inst.nombre;
-    instBlock.appendChild(instTitle);
+    var instSlug = 'inst-' + (slugify(inst.nombre) || instIdx);
+    var totalPracticasInst = cursosConResultados.reduce(function(n,c){ return n + c.practicas.length; }, 0);
 
-    cursosConResultados.forEach(function(curso){
-      var groupTitle = document.createElement('h2');
-      groupTitle.className = 'group-title';
-      groupTitle.textContent = curso.nombre;
-      instBlock.appendChild(groupTitle);
+    var instSection = document.createElement('section');
+    instSection.className = 'inst-section';
+    instSection.id = instSlug;
+
+    var header = document.createElement('div');
+    header.className = 'inst-header';
+    header.innerHTML =
+      '<div class="inst-icon-big">' + (inst.icono || '🏛️') + '</div>' +
+      '<div>' +
+        '<h2 class="inst-name">' + inst.nombre + '</h2>' +
+        '<p class="inst-stats">' + cursosConResultados.length + ' curso' + (cursosConResultados.length === 1 ? '' : 's') + ' / materia' + (cursosConResultados.length === 1 ? '' : 's') + ' · ' + totalPracticasInst + ' práctica' + (totalPracticasInst === 1 ? '' : 's') + '</p>' +
+      '</div>';
+    instSection.appendChild(header);
+
+    if(cursosConResultados.length > 1){
+      var quickNav = document.createElement('div');
+      quickNav.className = 'quick-nav';
+      cursosConResultados.forEach(function(c){
+        var a = document.createElement('a');
+        a.href = '#curso-' + slugify(c.def.nombre);
+        a.textContent = (c.def.icono || '📘') + ' ' + c.def.nombre;
+        quickNav.appendChild(a);
+      });
+      instSection.appendChild(quickNav);
+    }
+
+    cursosConResultados.forEach(function(c){
+      var curso = c.def;
+      var cursoCard = document.createElement('div');
+      cursoCard.className = 'curso-card';
+      cursoCard.id = 'curso-' + slugify(curso.nombre);
+
+      var head = document.createElement('div');
+      head.className = 'curso-head';
+      head.innerHTML =
+        '<div class="curso-icon">' + (curso.icono || '📘') + '</div>' +
+        '<div class="curso-title-wrap">' +
+          '<span class="curso-tag ' + (curso.tipoClase || 'taller') + '">' + (curso.tipoLabel || 'Taller') + '</span>' +
+          '<h3 class="group-title">' + curso.nombre + '</h3>' +
+          '<p class="curso-count">' + c.practicas.length + (curso.esSecuencial ? ' unidades' : (c.practicas.length === 1 ? ' práctica' : ' prácticas')) + '</p>' +
+        '</div>';
+      cursoCard.appendChild(head);
 
       if(curso.esSecuencial && !filtro){
-        instBlock.appendChild(construirRuta(curso));
+        cursoCard.appendChild(construirRuta(curso));
+        instSection.appendChild(cursoCard);
         return;
       }
 
       var cardsWrap = document.createElement('div');
       cardsWrap.className = 'cards';
-      curso.practicas.forEach(function(p){
+      c.practicas.forEach(function(p){
         totalVisible++;
         var qrId = 'qr-' + (totalVisible);
         var card = document.createElement('div');
@@ -471,13 +544,14 @@ function render(filtro){
         qrEl.addEventListener('click', function(){ abrirQrGrande(p.url, p.titulo); });
         cardsWrap.appendChild(card);
       });
-      instBlock.appendChild(cardsWrap);
+      cursoCard.appendChild(cardsWrap);
+      instSection.appendChild(cursoCard);
     });
 
-    instEl.appendChild(instBlock);
+    instEl.appendChild(instSection);
   });
 
-  if(!totalVisible){
+  if(!totalVisible && !instEl.querySelector('.inst-section')){
     instEl.innerHTML = '<div class="empty-note">No se encontraron prácticas que coincidan con "' + filtro + '".</div>';
   }
 }
