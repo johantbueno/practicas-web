@@ -1,0 +1,1382 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Planificación Estratégica — Unidad II — Nivel 1</title>
+<meta name="description" content="Version rapida (2 horas, con temporizador) de la Unidad II del curso Planificacion Estrategica en la Gestion Publica: Diagnostico Contextual e Institucional, las 12 herramientas del Manual PEI 2024 explicadas de forma sencilla. Individual o en equipo, por escrito o por nota de voz. Incluye a Nicole y calificacion automatica.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%94%8D%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#003877; --navy-dark:#002a5c; --gold:#c9982f;
+  --primary:#0f172a; --secondary:#334155; --muted:#64748b;
+  --bg-body:#f4f7fb; --bg-card:#ffffff; --border-light:#e2e8f0; --border-dark:#cbd5e1;
+  --green:#16a34a; --green-bg:#f0fdf4; --green-border:#22c55e;
+  --amber:#b45309; --amber-bg:#fffbeb; --amber-border:#f59e0b;
+  --red:#b91c1c; --red-bg:#fef2f2; --red-border:#ef4444;
+  --blue-bg:#eff6ff; --blue-border:#3b82f6;
+  --radius-lg:16px; --radius-md:12px; --radius-sm:8px;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.06);
+  --shadow-md:0 4px 6px -1px rgba(0,0,0,.1), 0 2px 4px -2px rgba(0,0,0,.1);
+  --shadow-lg:0 10px 15px -3px rgba(0,0,0,.12), 0 4px 6px -4px rgba(0,0,0,.1);
+  --sidebar-w:300px;
+}
+[data-theme="dark"]{
+  --navy:#5b9bd8; --primary:#f1f5f9; --secondary:#cbd5e1; --muted:#94a3b8;
+  --bg-body:#0b1220; --bg-card:#151f2f; --border-light:#283249; --border-dark:#3a4666;
+  --green-bg:#0c2417; --amber-bg:#2a2108; --red-bg:#2a1212; --blue-bg:#13233f;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.4); --shadow-md:0 4px 6px -1px rgba(0,0,0,.5); --shadow-lg:0 10px 15px -3px rgba(0,0,0,.5);
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{margin:0; background:var(--bg-body); color:var(--secondary); font-family:'Inter',ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif; line-height:1.7; transition:background-color .25s ease;}
+a{color:var(--navy);}
+.skip-link{position:absolute; left:-9999px; top:0; background:var(--navy); color:#fff; padding:.85rem 1.5rem; z-index:2000; border-radius:0 0 10px 0; font-weight:700; text-decoration:none;}
+.skip-link:focus{left:0;}
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible{outline:2px solid var(--navy); outline-offset:2px; border-radius:4px;}
+
+#progress-wrap{position:fixed; top:0; left:0; right:0; height:4px; z-index:1000; background:transparent;}
+#progress-bar{height:100%; width:0%; background:linear-gradient(90deg, var(--navy), var(--gold)); transition:width .1s linear;}
+
+.wrapper{display:flex; flex-direction:column; min-height:100vh; margin:0 auto;}
+@media (min-width:1024px){ .wrapper{flex-direction:row; align-items:flex-start; max-width:1440px; padding:0 1rem;} }
+
+/* SIDEBAR */
+.sidebar{background:var(--bg-card); padding:1.75rem 1.5rem; border-bottom:1px solid var(--border-light);}
+@media (min-width:1024px){
+  .sidebar{width:var(--sidebar-w); flex-shrink:0; position:sticky; top:1.5rem; height:calc(100vh - 3rem); overflow-y:auto; border-radius:var(--radius-lg); border:1px solid var(--border-light); box-shadow:var(--shadow-md); margin:1.5rem 0;}
+}
+.sidebar-header{display:flex; align-items:center; gap:10px; margin-bottom:1rem; padding-bottom:1rem; border-bottom:1px solid var(--border-light);}
+.sidebar-title{color:var(--primary); font-size:1.02rem; font-weight:800; text-transform:uppercase; letter-spacing:.04em; margin:0;}
+.header-actions{margin-left:auto; display:flex; gap:.4rem;}
+.icon-btn{background:none; border:1px solid var(--border-light); width:34px; height:34px; border-radius:8px; cursor:pointer; font-size:1rem; display:flex; align-items:center; justify-content:center; color:var(--secondary);}
+.icon-btn:hover{background:var(--bg-body); border-color:var(--border-dark);}
+.nav-toggle{display:none;}
+
+.timer-box{margin-bottom:1.1rem; background:var(--bg-body); border:1px solid var(--border-light); border-radius:var(--radius-sm); padding:.7rem .85rem;}
+.timer-box .timer-row{display:flex; justify-content:space-between; align-items:baseline; font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.03em; color:var(--muted);}
+.timer-box .timer-value{font-size:1.15rem; font-weight:800; color:var(--primary); text-transform:none; letter-spacing:0;}
+.timer-box .timer-value.low{color:var(--red);}
+.timer-box .timer-goal{font-size:.68rem; color:var(--muted); margin-top:.2rem;}
+.progress-summary{margin-bottom:1.1rem;}
+.progress-summary-row{display:flex; justify-content:space-between; font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.03em; color:var(--muted); margin-bottom:.35rem;}
+#progress-count{color:var(--primary);}
+.progress-track{height:6px; border-radius:999px; background:var(--border-light); overflow:hidden;}
+.progress-fill{height:100%; width:0%; background:linear-gradient(90deg,var(--navy),var(--gold)); transition:width .3s ease;}
+.progress-fill.complete{background:linear-gradient(90deg,#16a34a,#22c55e);}
+
+.nav ul{list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:.2rem;}
+.nav a{text-decoration:none; color:var(--muted); font-size:.9rem; font-weight:500; display:flex; align-items:center; justify-content:space-between; gap:.5rem; padding:.55rem .8rem; border-radius:var(--radius-sm); transition:all .2s ease;}
+.nav a:hover{background:var(--bg-body); color:var(--navy); transform:translateX(3px);}
+.nav a.active,.nav a.active:hover{background:var(--navy); color:#fff; transform:translateX(3px);}
+.nav a .pct{font-size:.68rem; font-weight:700; opacity:.75;}
+.nav a.done .pct::before{content:"✓ ";}
+
+.sidebar-actions{margin-top:1.25rem; padding-top:1.25rem; border-top:1px solid var(--border-light); display:flex; flex-direction:column; gap:.5rem;}
+.btn-block{width:100%; padding:.6rem .8rem; border-radius:var(--radius-sm); border:1px solid var(--border-light); background:var(--bg-body); color:var(--secondary); font-weight:600; font-size:.82rem; cursor:pointer; font-family:inherit;}
+.btn-block:hover{border-color:var(--navy); color:var(--navy);}
+
+@media (max-width:1023px){
+  .sidebar-collapsible{display:none;}
+  .sidebar.open .sidebar-collapsible{display:block;}
+  .nav-toggle{display:inline-flex;}
+  .sidebar-header{flex-wrap:wrap; row-gap:.6rem;}
+  .header-actions{flex-basis:100%; justify-content:flex-end; margin-left:0;}
+  .icon-btn{width:40px; height:40px;}
+  .fontsize-controls button{width:38px; height:38px;}
+}
+
+/* MAIN */
+.main{flex:1; padding:1.75rem 1rem 6.5rem; max-width:980px; margin:0 auto; width:100%;}
+@media (min-width:1024px){ .main{padding:1.75rem 2.5rem 5.5rem;} }
+
+.card.cover{background:linear-gradient(135deg,var(--navy),var(--navy-dark)); color:#fff; border-radius:var(--radius-lg); padding:2.5rem; margin-bottom:2rem; box-shadow:var(--shadow-lg);}
+.cover .eyebrow{text-transform:uppercase; letter-spacing:.08em; font-size:.78rem; font-weight:700; opacity:.85;}
+.cover h1{font-size:1.9rem; font-weight:800; margin:.4rem 0 .3rem; line-height:1.25;}
+.cover p.sub{margin:0 0 1.25rem; opacity:.92; font-size:1rem;}
+.meta-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:.9rem; margin-top:1.25rem;}
+.meta-item{background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.18); border-radius:var(--radius-sm); padding:.7rem .9rem;}
+.meta-item .k{font-size:.68rem; text-transform:uppercase; letter-spacing:.05em; opacity:.8; margin-bottom:.2rem;}
+.meta-item .v{font-weight:700; font-size:.95rem;}
+.cover-chips{display:flex; flex-wrap:wrap; gap:.6rem; margin-top:1.1rem;}
+.cover-chip{background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.22); border-radius:999px; padding:.4rem .9rem; font-size:.8rem; font-weight:600; letter-spacing:.01em;}
+.tutorial-steps{counter-reset:tut; list-style:none; padding:0; margin:1rem 0;}
+.tutorial-steps li{counter-increment:tut; position:relative; padding:.15rem 0 .9rem 2.5rem; font-size:.92rem;}
+.tutorial-steps li::before{content:counter(tut); position:absolute; left:0; top:0; width:1.7rem; height:1.7rem; border-radius:50%; background:var(--navy); color:#fff; font-weight:800; font-size:.8rem; display:flex; align-items:center; justify-content:center;}
+.help-box{display:flex; align-items:center; gap:.9rem; background:var(--blue-bg); border:1px solid var(--blue-border); border-radius:var(--radius-md); padding:1rem 1.25rem; margin-top:1.25rem;}
+.help-box a.btn-secondary{white-space:nowrap;}
+
+.card{background:var(--bg-card); padding:2rem; border-radius:var(--radius-lg); box-shadow:var(--shadow-sm); border:1px solid var(--border-light); margin-bottom:2rem; scroll-margin-top:1.25rem;}
+@media (max-width:640px){ .card{padding:1.35rem;} }
+.card.cover, .card.cover h1{color:#fff;}
+.card h1{font-size:1.7rem; font-weight:800; color:var(--primary); margin:0 0 1.1rem;}
+.card h2{font-size:1.2rem; font-weight:700; color:var(--navy); margin:1.75rem 0 .9rem; padding-bottom:.5rem; border-bottom:1px solid var(--border-light);}
+.card h2:first-child{margin-top:0;}
+.card h3{font-size:1.02rem; font-weight:700; color:var(--primary); margin:1.4rem 0 .7rem;}
+.card p{margin:0 0 1rem;}
+.step-badge{display:inline-flex; align-items:center; gap:.4rem; background:var(--blue-bg); color:var(--navy); border:1px solid var(--blue-border); font-weight:700; font-size:.72rem; text-transform:uppercase; letter-spacing:.04em; padding:.3rem .7rem; border-radius:999px; margin-bottom:.9rem;}
+
+.alert{border-radius:var(--radius-md); padding:1rem 1.25rem; margin:1rem 0; border:1px solid; font-size:.92rem;}
+.alert h3,.alert h4{margin-top:0;}
+.alert.info{background:var(--blue-bg); border-color:var(--blue-border);}
+.alert.gold{background:var(--amber-bg); border-color:var(--amber-border);}
+.alert.success{background:var(--green-bg); border-color:var(--green-border);}
+.alert.warn{background:var(--red-bg); border-color:var(--red-border);}
+
+.tbl-wrap{overflow-x:auto; margin:1rem 0; border-radius:var(--radius-sm); border:1px solid var(--border-light);}
+table.tp-table{width:100%; border-collapse:collapse; font-size:.87rem; min-width:560px;}
+table.tp-table th{background:var(--navy); color:#fff; text-align:left; padding:.6rem .7rem; font-weight:700; font-size:.78rem; text-transform:uppercase; letter-spacing:.02em;}
+table.tp-table td{padding:.55rem .7rem; border-top:1px solid var(--border-light); vertical-align:top;}
+table.tp-table tr:nth-child(even) td{background:var(--bg-body);}
+table.tp-table td.label-cell{font-weight:700; color:var(--primary); white-space:nowrap;}
+table.tp-table td.given{color:var(--muted); font-style:italic;}
+table.tp-table.example td{background:var(--blue-bg);}
+
+.field{margin-bottom:1rem;}
+.field label{display:flex; justify-content:space-between; align-items:baseline; gap:.5rem; font-weight:700; font-size:.82rem; color:var(--primary); margin-bottom:.35rem;}
+.field .wc{font-weight:600; font-size:.7rem; color:var(--muted); white-space:nowrap;}
+.field .wc.ok{color:var(--green);}
+.hint{font-size:.78rem; color:var(--muted); margin:-.2rem 0 .5rem;}
+input[type=text], input[type=number], select, textarea{
+  width:100%; padding:.55rem .75rem; border:1px solid var(--border-light); border-radius:var(--radius-sm);
+  font-size:1rem; font-family:inherit; background:var(--bg-card); color:var(--primary); transition:border-color .15s ease;
+}
+[data-theme="dark"] input, [data-theme="dark"] select, [data-theme="dark"] textarea{background:#0f1830;}
+input:focus, select:focus, textarea:focus{border-color:var(--navy); outline:none;}
+textarea{min-height:76px; resize:vertical;}
+textarea.tall{min-height:110px;}
+.field-grid{display:grid; grid-template-columns:1fr 1fr; gap:.9rem;}
+@media (max-width:640px){ .field-grid{grid-template-columns:1fr;} }
+.inline-cell input, .inline-cell select, .inline-cell textarea{min-width:150px;}
+
+.step-points{float:right; background:var(--gold); color:#3a2a00; font-weight:800; font-size:.72rem; padding:.25rem .6rem; border-radius:999px;}
+
+.glossary-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:.9rem; margin-top:1rem;}
+.gloss-item{border:1px solid var(--border-light); border-radius:var(--radius-md); padding:.9rem 1rem; background:var(--bg-body);}
+.gloss-item dt{font-weight:800; color:var(--navy); font-size:.85rem; margin-bottom:.3rem;}
+.gloss-item dd{margin:0; font-size:.82rem; color:var(--secondary);}
+
+ol.ins-list{padding-left:1.2rem;}
+ol.ins-list li{margin-bottom:.5rem;}
+
+.btn-primary{background:linear-gradient(135deg,var(--navy),var(--navy-dark)); color:#fff; border:none; padding:.9rem 1.6rem; border-radius:var(--radius-md); font-weight:700; font-size:1rem; cursor:pointer; box-shadow:var(--shadow-md); font-family:inherit;}
+.btn-primary:hover{filter:brightness(1.08);}
+.btn-secondary{background:var(--bg-body); color:var(--navy); border:1px solid var(--navy); padding:.7rem 1.2rem; border-radius:var(--radius-md); font-weight:700; font-size:.88rem; cursor:pointer; font-family:inherit;}
+.btn-secondary:hover{background:var(--blue-bg);}
+.btn-row{display:flex; flex-wrap:wrap; gap:.7rem; margin-top:1.25rem;}
+
+#submit-zone{text-align:center; padding:2.25rem 1.5rem;}
+#submit-zone p{max-width:560px; margin:0 auto 1.25rem;}
+
+.results{display:none;}
+.results.show{display:block;}
+.score-hero{display:flex; flex-wrap:wrap; align-items:center; gap:1.75rem; padding:1.5rem; border-radius:var(--radius-lg); border:1px solid; margin-bottom:1.5rem;}
+.score-hero.pass{background:var(--green-bg); border-color:var(--green-border);}
+.score-hero.warn{background:var(--amber-bg); border-color:var(--amber-border);}
+.score-hero.fail{background:var(--red-bg); border-color:var(--red-border);}
+.score-circle{width:110px; height:110px; border-radius:50%; display:flex; flex-direction:column; align-items:center; justify-content:center; background:var(--bg-card); box-shadow:var(--shadow-md); flex-shrink:0;}
+.score-circle .num{font-size:1.9rem; font-weight:800; color:var(--primary); line-height:1;}
+.score-circle .den{font-size:.72rem; color:var(--muted); font-weight:700;}
+.score-verdict h3{margin:0 0 .3rem; font-size:1.15rem;}
+.score-verdict p{margin:0; font-size:.92rem;}
+
+.crit{border:1px solid var(--border-light); border-radius:var(--radius-md); padding:1.1rem 1.25rem; margin-bottom:1rem; background:var(--bg-card);}
+.crit-head{display:flex; justify-content:space-between; align-items:center; gap:1rem; margin-bottom:.5rem; flex-wrap:wrap;}
+.crit-head strong{color:var(--primary); font-size:.95rem;}
+.crit-score{font-weight:800; font-size:.9rem; color:var(--navy); white-space:nowrap;}
+.crit-track{height:8px; border-radius:999px; background:var(--border-light); overflow:hidden; margin-bottom:.75rem;}
+.crit-fill{height:100%; border-radius:999px;}
+.crit-fill.hi{background:var(--green);}
+.crit-fill.mid{background:var(--amber);}
+.crit-fill.lo{background:var(--red);}
+.crit ul{margin:.3rem 0 0; padding-left:1.15rem; font-size:.85rem;}
+.crit ul li{margin-bottom:.3rem;}
+.tag-ok{color:var(--green); font-weight:700;}
+.tag-mid{color:var(--amber); font-weight:700;}
+.tag-low{color:var(--red); font-weight:700;}
+
+footer.tp-footer{text-align:center; color:var(--muted); font-size:.8rem; padding:2rem 1rem; border-top:1px solid var(--border-light); margin-top:1rem;}
+
+/* ADVISOR (Nicole, asistente del Dr. Johan Tapia) */
+.advisor-fab{position:fixed; bottom:calc(1.5rem + env(safe-area-inset-bottom)); left:1.5rem; z-index:900; background:linear-gradient(135deg,var(--navy),var(--navy-dark)); color:#fff; border:none; border-radius:999px; padding:.85rem 1.2rem; display:flex; align-items:center; gap:.5rem; font-weight:700; font-size:.9rem; cursor:pointer; box-shadow:var(--shadow-lg); font-family:inherit;}
+.advisor-fab:hover{filter:brightness(1.1);}
+.advisor-panel{position:fixed; bottom:calc(5.2rem + env(safe-area-inset-bottom)); left:1.5rem; width:min(360px,90vw); max-height:min(560px,70vh); background:var(--bg-card); border:1px solid var(--border-light); border-radius:var(--radius-lg); box-shadow:var(--shadow-lg); z-index:900; display:none; flex-direction:column; overflow:hidden;}
+.advisor-panel.open{display:flex;}
+.advisor-header{background:linear-gradient(135deg,var(--navy),var(--navy-dark)); color:#fff; padding:.9rem 1.1rem; display:flex; align-items:center; gap:.6rem;}
+.advisor-title{margin:0; font-weight:800; font-size:.95rem;}
+.advisor-header button{margin-left:auto; background:rgba(255,255,255,.15); border:none; color:#fff; width:28px; height:28px; border-radius:8px; cursor:pointer;}
+.advisor-body{flex:1; overflow-y:auto; padding:1rem; display:flex; flex-direction:column; gap:.6rem; background:var(--bg-body);}
+.advisor-msg{max-width:85%; padding:.6rem .85rem; border-radius:12px; font-size:.86rem; line-height:1.5;}
+.advisor-msg-bot{background:var(--bg-card); border:1px solid var(--border-light); align-self:flex-start; border-bottom-left-radius:2px;}
+.advisor-msg-user{background:var(--navy); color:#fff; align-self:flex-end; border-bottom-right-radius:2px;}
+.advisor-suggest{display:flex; flex-wrap:wrap; gap:.4rem; padding:0 1rem .75rem;}
+.advisor-suggest button{background:var(--blue-bg); border:1px solid var(--blue-border); color:var(--navy); font-size:.72rem; padding:.35rem .6rem; border-radius:999px; cursor:pointer; font-family:inherit;}
+.advisor-form{display:flex; gap:.5rem; padding:.75rem; border-top:1px solid var(--border-light); background:var(--bg-card);}
+.advisor-form input{flex:1;}
+.advisor-form button{background:var(--navy); color:#fff; border:none; width:38px; border-radius:var(--radius-sm); cursor:pointer; font-size:1rem;}
+
+@media print{
+  .sidebar, .advisor-fab, .advisor-panel, #progress-wrap, .btn-row, #submit-zone .btn-primary, .header-actions{display:none !important;}
+  .main{max-width:100%; padding:0;}
+  .card{box-shadow:none; border:1px solid #ccc; break-inside:avoid;}
+  body{background:#fff;}
+}
+
+.voice-row{display:flex; align-items:center; gap:.6rem; margin-top:-.4rem; margin-bottom:.9rem; flex-wrap:wrap;}
+.voice-btn{background:var(--blue-bg); border:1px solid var(--blue-border); color:var(--navy); font-weight:700; font-size:.8rem; padding:.65rem .9rem; min-height:40px; border-radius:999px; cursor:pointer; font-family:inherit;}
+.voice-btn:hover{filter:brightness(0.97);}
+.voice-btn.recording{background:var(--red-bg); border-color:var(--red-border); color:var(--red); animation:voicePulse 1.2s ease-in-out infinite;}
+.voice-btn.busy{opacity:.7; cursor:wait;}
+@keyframes voicePulse{ 0%,100%{opacity:1;} 50%{opacity:.55;} }
+.voice-status{font-size:.75rem; color:var(--muted);}
+.voice-status.err{color:var(--red);}
+.voice-status.ok{color:var(--green);}
+
+.speak-btn{display:inline-flex; align-items:center; gap:.4rem; background:var(--gold); color:#3a2a00; border:none; font-weight:800; font-size:.82rem; padding:.65rem .95rem; min-height:40px; border-radius:999px; cursor:pointer; font-family:inherit; margin:.4rem 0 1rem;}
+.speak-btn:hover{filter:brightness(1.05);}
+.speak-btn.speaking{background:var(--red-border); color:#fff; animation:voicePulse 1.2s ease-in-out infinite;}
+.fontsize-controls{display:flex; align-items:center; gap:.3rem;}
+.fontsize-controls button{background:none; border:1px solid var(--border-light); width:30px; height:30px; border-radius:8px; cursor:pointer; color:var(--secondary); font-weight:800; font-size:.85rem;}
+.fontsize-controls button:hover{border-color:var(--navy); color:var(--navy);}
+html[data-fontsize="grande"] body{font-size:1.14rem;}
+html[data-fontsize="xgrande"] body{font-size:1.3rem;}
+</style>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Saltar al contenido</a>
+<div id="progress-wrap"><div id="progress-bar"></div></div>
+
+<div class="wrapper">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <span style="font-size:1.4rem;">🔍</span>
+      <p class="sidebar-title">Planificación Estratégica · Unidad II · Nivel 1</p>
+      <div class="header-actions">
+        <div class="fontsize-controls">
+          <button type="button" id="font-smaller" title="Letra más pequeña" aria-label="Reducir tamaño de letra">A−</button>
+          <button type="button" id="font-bigger" title="Letra más grande" aria-label="Aumentar tamaño de letra">A+</button>
+        </div>
+        <button class="icon-btn" id="theme-toggle" type="button" title="Cambiar tema" aria-label="Cambiar tema claro/oscuro">🌙</button>
+        <button class="icon-btn nav-toggle" id="nav-toggle" type="button" title="Abrir menú" aria-label="Abrir menú" aria-expanded="false">☰</button>
+      </div>
+    </div>
+
+    <div class="sidebar-collapsible">
+      <div class="timer-box">
+        <div class="timer-row"><span>⏱ Tiempo restante</span><span id="countdown-display" class="timer-value">120:00</span></div>
+        <div class="timer-goal">Meta sugerida: complete esta versión rápida en aproximadamente 2 horas. El tiempo sigue corriendo aunque cierren y vuelvan a entrar.</div>
+      </div>
+      <div class="progress-summary">
+        <div class="progress-summary-row"><span>Progreso general</span><span id="progress-count">0%</span></div>
+        <div class="progress-track"><div class="progress-fill" id="progress-fill-el"></div></div>
+        <p style="margin:.5rem 0 0; font-size:.7rem; color:var(--muted);">Tus respuestas se guardan automáticamente en este navegador.</p>
+      </div>
+
+      <nav class="nav" aria-label="Navegación de la práctica">
+        <ul>
+          <li><a href="#portada">🔍 Portada e instrucciones</a></li>
+          <li><a href="#marco-conceptual">📚 Marco conceptual</a></li>
+          <li><a href="#paso1" data-step="paso1">Paso 1 · Norma y misión <span class="pct" data-pct="paso1">0%</span></a></li>
+          <li><a href="#paso2" data-step="paso2">Paso 2 · Población y prioridad <span class="pct" data-pct="paso2">0%</span></a></li>
+          <li><a href="#paso3" data-step="paso3">Paso 3 · Identificar el problema <span class="pct" data-pct="paso3">0%</span></a></li>
+          <li><a href="#paso4" data-step="paso4">Paso 4 · Árbol de causas y efectos <span class="pct" data-pct="paso4">0%</span></a></li>
+          <li><a href="#paso5" data-step="paso5">Paso 5 · FODA <span class="pct" data-pct="paso5">0%</span></a></li>
+          <li><a href="#paso6" data-step="paso6">Paso 6 · Estrategia CAME <span class="pct" data-pct="paso6">0%</span></a></li>
+          <li><a href="#rubrica">🧮 Rúbrica de evaluación</a></li>
+          <li><a href="#resultado">📤 Enviar y calificar</a></li>
+        </ul>
+      </nav>
+
+      <div class="sidebar-actions">
+        <button class="btn-block" id="btn-print" type="button">🖨️ Imprimir / Guardar PDF</button>
+        <button class="btn-block" id="btn-export" type="button">⬇️ Descargar mis respuestas</button>
+        <button class="btn-block" id="btn-clear" type="button">🗑️ Borrar todas mis respuestas</button>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main" id="main-content">
+
+    <section id="portada" class="card cover" style="scroll-margin-top:1.25rem;">
+      <p class="eyebrow">Planificación Estratégica · Unidad II · Nivel 1</p>
+      <h1>Diagnóstico Contextual e Institucional — Versión Rápida</h1>
+      <div class="cover-chips">
+        <span class="cover-chip">⏱ Aprox. 2 horas</span>
+        <span class="cover-chip">👤 Individual o en equipo</span>
+        <span class="cover-chip">🎯 100 pts · 70% aprobación</span>
+      </div>
+      <button class="speak-btn" data-speak-section="portada-speak" type="button" style="margin-top:1.1rem;">🔊 Escuchar la bienvenida</button>
+      <span id="portada-speak" hidden>Bienvenidos a la Unidad dos de Planificación Estratégica, versión rápida de Nivel uno. Esta actividad toma aproximadamente dos horas y tiene un temporizador de referencia. La pueden completar solos o en equipo. En cada pregunta pueden escribir la respuesta, o grabar una nota de voz que el sistema convierte en texto automáticamente manteniendo presionado el botón del micrófono. Si tienen dudas, pueden preguntarle a Nicole, la asistente virtual del Dr. Johan Tapia.</span>
+    </section>
+
+    <section class="card" id="tutorial">
+      <span class="step-badge">📘 Tutorial</span>
+      <h1 style="font-size:1.35rem;">Cómo usar esta plataforma</h1>
+      <button class="speak-btn" data-speak-target="tutorial" type="button">🔊 Escuchar este tutorial</button>
+      <p><strong>Concepto:</strong> esta es una versión rápida de la Unidad II, Diagnóstico Contextual e Institucional, pensada para completarse en aproximadamente dos horas, de forma individual o en equipo. Responde 6 pasos sencillos con 1 a 3 preguntas cada uno. No hay que instalar nada ni crear una cuenta.</p>
+
+      <h2>Dos formas de responder cada pregunta</h2>
+      <p><strong>Definición:</strong> cada campo de respuesta larga acepta texto escrito o una nota de voz transcrita automáticamente.</p>
+      <p><strong>Ejemplo:</strong> si prefiere no escribir, puede simplemente hablar su respuesta en voz alta y el sistema la convierte en texto dentro del mismo campo.</p>
+
+      <h3>Paso a paso para grabar una nota de voz</h3>
+      <ol class="tutorial-steps">
+        <li>Mantengan presionado el botón <strong>"🎤 Mantenga presionado para grabar"</strong> debajo del campo que quieren responder (como una nota de voz de WhatsApp).</li>
+        <li>El navegador va a pedir permiso para usar el micrófono — presionen <strong>Permitir</strong>.</li>
+        <li>Sin soltar el botón, hablen su respuesta con calma.</li>
+        <li>Suelten el botón cuando terminen — van a escuchar un sonido y verán "Transcribiendo…".</li>
+        <li>Esperen unos segundos: el texto transcrito va a aparecer automáticamente en el campo.</li>
+        <li>Lean el texto y corrijan cualquier palabra si hace falta, antes de continuar.</li>
+      </ol>
+
+      <h2>Progreso y guardado</h2>
+      <p>Sus respuestas se guardan automáticamente en este navegador mientras trabajan. Pueden cerrar la página y volver más tarde a completar otro paso.</p>
+
+      <div class="help-box">
+        <span style="font-size:1.6rem;">💬</span>
+        <div>
+          <strong>¿Tienen dudas mientras trabajan?</strong><br>
+          Pueden escribirle a Nicole, la asistente virtual del Dr. Johan Tapia, en
+          <a href="https://prof.johan.plataforma.cfd/" target="_blank" rel="noopener">prof.johan.plataforma.cfd</a>,
+          o usar el botón "🎓 Nicole" de esta misma página.
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <span class="step-badge">🎯 Objetivo y encuadre</span>
+      <h1 style="font-size:1.35rem;">Antes de empezar</h1>
+      <div class="alert info">
+        <strong>Objetivo de la actividad:</strong> que usted comprenda, en dos horas, la lógica esencial de las doce herramientas del diagnóstico del Manual PEI 2024 — marco normativo, misión, población, prioridades, identificación de problemas, árbol de causas y efectos, FODA y estrategias CAME — aplicándolas de forma simplificada a una institución real que ya conozca.
+      </div>
+      <div class="alert gold">
+        <strong>Versión rápida, individual o en equipo:</strong> a diferencia de la Unidad II completa (video narrado de más de dos horas y las doce herramientas a profundidad), esta versión toma aproximadamente dos horas en total y tiene un temporizador de referencia en el menú lateral. Elija abajo si la va a completar solo/a o en equipo.
+      </div>
+
+      <h2>¿Cómo va a completar esta práctica?</h2>
+      <p>Complete esto antes de enviar: su facilitador va a recibir la calificación identificada con estos datos.</p>
+      <div class="field">
+        <label for="modo_trabajo">Modalidad</label>
+        <select id="modo_trabajo">
+          <option value="individual">Individual</option>
+          <option value="grupo">En equipo</option>
+        </select>
+      </div>
+      <div class="field-grid" id="bloque-individual">
+        <div class="field"><label for="ind_nombre">Nombre completo</label><input type="text" id="ind_nombre" placeholder="Su nombre y apellido"></div>
+        <div class="field"><label for="ind_correo">Correo (opcional)</label><input type="text" id="ind_correo" placeholder="nombre@correo.com"></div>
+      </div>
+      <div class="field-grid" id="bloque-grupo" hidden>
+        <div class="field"><label for="grp_nombre">Nombre del equipo o grupo</label><input type="text" id="grp_nombre" placeholder="Ej: Equipo Los Almendros"></div>
+        <div class="field"><label for="grp_correo">Correo de contacto del equipo (opcional)</label><input type="text" id="grp_correo" placeholder="nombre@correo.com"></div>
+      </div>
+      <div class="field" id="bloque-integrantes" hidden>
+        <label for="grp_integrantes">Nombres de los integrantes del equipo (opcional)</label>
+        <textarea id="grp_integrantes" placeholder="Escriba el nombre completo de cada persona que participó, uno por línea o separados por coma"></textarea>
+      </div>
+
+      <h2>Instrucciones generales</h2>
+      <ol class="ins-list">
+        <li>Elija <strong>una institución pública real</strong> que ya conozca (donde trabaje, o cualquier ministerio, dirección o institución autónoma dominicana) y manténgala como referencia en los 6 pasos.</li>
+        <li>Complete los <strong>6 pasos</strong> en el orden indicado — cada uno toma aproximadamente 20 minutos.</li>
+        <li>No hace falta memorizar teoría: use lo que ya sabe de su institución, y consulte el glosario y los ejemplos de cada paso si necesita recordar algún término.</li>
+        <li>El temporizador del menú lateral es una referencia de 2 horas, no bloquea el envío si se pasa un poco.</li>
+        <li>Al terminar los 6 pasos, presione <strong>Enviar y Calificar</strong>: el sistema va a revisar el trabajo y le va a dar una nota y comentarios al instante.</li>
+      </ol>
+      <div class="alert warn">
+        <strong>⚠️ Sobre la calificación automática:</strong> el sistema evalúa si las respuestas están completas y bien desarrolladas. No sustituye la revisión de su facilitador, quien va a leer el contenido real de lo que escribió para la nota oficial del curso.
+      </div>
+    </section>
+
+    <section id="marco-conceptual" class="card">
+      <span class="step-badge">📚 Referencia</span>
+      <h1 style="font-size:1.35rem;">Palabras que vamos a usar</h1>
+      <p>No hace falta memorizar esto — pueden volver a leerlo cuando quieran, o preguntarle a Nicole. Estas son las doce herramientas del Manual PEI 2024 explicadas de forma sencilla.</p>
+      <dl class="glossary-grid">
+        <div class="gloss-item"><dt>Marco normativo (H1)</dt><dd>Las leyes y decretos que le dan a la institución su razón legal de existir y le asignan responsabilidades concretas.</dd></div>
+        <div class="gloss-item"><dt>Misión (H2)</dt><dd>Para qué existe la institución hoy: qué hace, para quién, y a través de qué servicios.</dd></div>
+        <div class="gloss-item"><dt>Población de referencia</dt><dd>El conjunto de personas o instituciones hacia quienes la entidad dirige sus acciones.</dd></div>
+        <div class="gloss-item"><dt>Prioridad PNPSP (H3)</dt><dd>Un resultado del Plan Nacional Plurianual del Sector Público que la institución adopta como propio.</dd></div>
+        <div class="gloss-item"><dt>Problema / carencia (H4-H6)</dt><dd>Algo que le falta a la población, no a la institución — nunca una causa ni una solución disfrazadas de problema.</dd></div>
+        <div class="gloss-item"><dt>Causa directa e indirecta (H8)</dt><dd>La causa directa produce el problema de inmediato; la causa indirecta produce a su vez la causa directa.</dd></div>
+        <div class="gloss-item"><dt>Efecto directo e indirecto (H9)</dt><dd>Las consecuencias del problema si no se resuelve: primero las inmediatas, luego las de mayor alcance.</dd></div>
+        <div class="gloss-item"><dt>FODA (H11)</dt><dd>Fortalezas y Debilidades (internas), Oportunidades y Amenazas (externas) de la institución frente al problema.</dd></div>
+        <div class="gloss-item"><dt>CAME (H12)</dt><dd>Cuatro tipos de estrategia: Corregir (Debilidad+Oportunidad), Afrontar (Debilidad+Amenaza), Mantener (Fortaleza+Amenaza), Explotar (Fortaleza+Oportunidad).</dd></div>
+      </dl>
+    </section>
+
+    <section id="paso1" class="card">
+      <span class="step-badge">Paso 1 · 20 min</span><span class="step-points">Vale 15 pts</span>
+      <button class="speak-btn" data-speak-target="paso1" type="button">🔊 Escuchar este paso</button>
+      <h1>Norma y misión</h1>
+      <p><strong>Idea de esta parte:</strong> toda institución pública solo puede hacer lo que la ley le manda hacer, y su misión debería reflejar exactamente eso. En el video narrado de esta unidad vimos el ejemplo del Ministerio de Obras Públicas y Comunicaciones (MOPC), cuya Ley 63-17 le manda garantizar condiciones seguras en las vías del país.</p>
+      <div class="alert info"><strong>Ejemplo (MOPC):</strong> norma: Ley 63-17, de Movilidad, Transporte Terrestre, Tránsito y Seguridad Vial. Atribución real: mantener y señalizar la red vial nacional. Misión: coordinar la construcción, rehabilitación y conservación de las obras de infraestructura del país.</div>
+
+      <h2>Institución elegida</h2>
+      <div class="field"><label for="p1_institucion">Nombre completo de la institución</label><input type="text" id="p1_institucion" placeholder="Ej: Ministerio de..., Dirección General de..."></div>
+
+      <div class="field">
+        <label for="p1_norma">Mencionen una ley, decreto o norma real que le dé sustento legal a esta institución, y una responsabilidad concreta que esa norma le asigna. <span class="wc" data-for="p1_norma" data-min="20">0/20 palabras</span></label>
+        <textarea class="tall" id="p1_norma" placeholder="Ej: la Ley... le asigna la responsabilidad de..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p1_norma">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p1_norma"></span></div>
+      </div>
+      <div class="field">
+        <label for="p1_mision_eval">Escriban o resuman la misión de esta institución, y digan si menciona con claridad qué hace, para quién, y con qué servicios. Si les falta algún elemento, señálenlo. <span class="wc" data-for="p1_mision_eval" data-min="25">0/25 palabras</span></label>
+        <textarea class="tall" id="p1_mision_eval" placeholder="La misión dice... Sí/no identifica claramente a la población que atiende..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p1_mision_eval">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p1_mision_eval"></span></div>
+      </div>
+    </section>
+
+    <section id="paso2" class="card">
+      <span class="step-badge">Paso 2 · 20 min</span><span class="step-points">Vale 15 pts</span>
+      <button class="speak-btn" data-speak-target="paso2" type="button">🔊 Escuchar este paso</button>
+      <h1>Población y prioridad</h1>
+      <p><strong>Idea de esta parte:</strong> el diagnóstico siempre parte de la población, no de la institución. La población de referencia es el conjunto de personas a quienes la institución sirve; la prioridad es el resultado nacional (por ejemplo del Plan Nacional Plurianual del Sector Público) que la institución adopta para beneficiar a esa población.</p>
+      <div class="alert info"><strong>Ejemplo (MOPC):</strong> población de referencia: todos los usuarios de las vías del país, con foco en quienes se movilizan en transporte terrestre. Prioridad adoptada: mejorar la seguridad vial y reducir la tasa de accidentalidad, vinculada al Plan Nacional Plurianual del Sector Público.</div>
+
+      <div class="field">
+        <label for="p2_poblacion">¿A quién sirve esta institución? Describan la población de referencia (quiénes son, aproximadamente cuántos o qué tan amplio es el grupo). <span class="wc" data-for="p2_poblacion" data-min="20">0/20 palabras</span></label>
+        <textarea class="tall" id="p2_poblacion" placeholder="Ej: la institución sirve a..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p2_poblacion">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p2_poblacion"></span></div>
+      </div>
+      <div class="field">
+        <label for="p2_prioridad">¿Qué prioridad o meta nacional (o institucional, si no conocen una nacional específica) persigue esta institución en beneficio de esa población? <span class="wc" data-for="p2_prioridad" data-min="25">0/25 palabras</span></label>
+        <textarea class="tall" id="p2_prioridad" placeholder="Ej: la institución busca contribuir a..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p2_prioridad">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p2_prioridad"></span></div>
+      </div>
+    </section>
+
+    <section id="paso3" class="card">
+      <span class="step-badge">Paso 3 · 25 min</span><span class="step-points">Vale 20 pts</span>
+      <button class="speak-btn" data-speak-target="paso3" type="button">🔊 Escuchar este paso</button>
+      <h1>Identificar el problema</h1>
+      <p><strong>Idea de esta parte:</strong> un problema de desarrollo se identifica con tres preguntas simples: ¿qué le sucede a la población?, ¿a quién y dónde le sucede?, y ¿cómo se podría medir? Nunca se formula como una causa ("falta presupuesto") ni como una solución ("hacer un programa") — siempre como una carencia real que sufre la población.</p>
+      <div class="alert info"><strong>Ejemplo (MOPC):</strong> problema: "limitadas condiciones de las vías que inciden en la accidentalidad vial". A quién y dónde: conductores y peatones, con mayor concentración en siete provincias del país. Indicador: tasa de fallecidos por accidentes de tránsito por cada cien mil habitantes.</div>
+
+      <div class="field">
+        <label for="p3_problema">¿Qué carencia o problema real afecta a la población que identificaron en el Paso 2? Escríbanlo como una carencia, no como una causa ni una solución. <span class="wc" data-for="p3_problema" data-min="20">0/20 palabras</span></label>
+        <textarea class="tall" id="p3_problema" placeholder="Ej: limitado/a acceso a..., deficiente..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p3_problema">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p3_problema"></span></div>
+      </div>
+      <div class="field">
+        <label for="p3_quien_donde">¿A quién afecta específicamente este problema, y en qué lugar o territorio se siente más? <span class="wc" data-for="p3_quien_donde" data-min="20">0/20 palabras</span></label>
+        <textarea class="tall" id="p3_quien_donde" placeholder="Ej: afecta principalmente a..., sobre todo en..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p3_quien_donde">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p3_quien_donde"></span></div>
+      </div>
+      <div class="field">
+        <label for="p3_indicador">¿Qué dato o indicador ayudaría a medir si este problema mejora o empeora con el tiempo? <span class="wc" data-for="p3_indicador" data-min="15">0/15 palabras</span></label>
+        <textarea id="p3_indicador" placeholder="Ej: cantidad de..., porcentaje de..., tasa de..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p3_indicador">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p3_indicador"></span></div>
+      </div>
+    </section>
+
+    <section id="paso4" class="card">
+      <span class="step-badge">Paso 4 · 25 min</span><span class="step-points">Vale 20 pts</span>
+      <button class="speak-btn" data-speak-target="paso4" type="button">🔊 Escuchar este paso</button>
+      <h1>Árbol de causas y efectos</h1>
+      <p><strong>Idea de esta parte:</strong> todo problema tiene raíces (causas) y ramas (efectos). Las causas explican por qué ocurre el problema; los efectos son las consecuencias si nadie lo resuelve. Cada relación debe poder leerse como "si [causa], entonces [problema]" o "si [problema], entonces [efecto]".</p>
+      <div class="alert info"><strong>Ejemplo (MOPC):</strong> causas del problema de accidentalidad: limitado mantenimiento vial, escasa señalización. Efectos si no se resuelve: pérdida de vidas humanas, mayores costos en atención de salud por accidentes.</div>
+
+      <div class="field">
+        <label for="p4_causas">Mencionen al menos 2 causas del problema que identificaron en el Paso 3 — ¿por qué ocurre? <span class="wc" data-for="p4_causas" data-min="25">0/25 palabras</span></label>
+        <textarea class="tall" id="p4_causas" placeholder="Causa 1: ... Causa 2: ..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p4_causas">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p4_causas"></span></div>
+      </div>
+      <div class="field">
+        <label for="p4_efectos">Mencionen al menos 2 efectos o consecuencias que trae ese problema si la institución no lo resuelve. <span class="wc" data-for="p4_efectos" data-min="25">0/25 palabras</span></label>
+        <textarea class="tall" id="p4_efectos" placeholder="Efecto 1: ... Efecto 2: ..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p4_efectos">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p4_efectos"></span></div>
+      </div>
+    </section>
+
+    <section id="paso5" class="card">
+      <span class="step-badge">Paso 5 · 20 min</span><span class="step-points">Vale 15 pts</span>
+      <button class="speak-btn" data-speak-target="paso5" type="button">🔊 Escuchar este paso</button>
+      <h1>FODA</h1>
+      <p><strong>Idea de esta parte:</strong> el FODA cruza lo interno de la institución (Fortalezas y Debilidades, lo que sí controla) con lo externo (Oportunidades y Amenazas, lo que no controla) frente al problema que ya identificaron.</p>
+      <div class="alert info"><strong>Ejemplo (MOPC):</strong> Fortaleza: base legal sólida y presencia territorial. Debilidad: presupuesto limitado para mantenimiento. Oportunidad: la seguridad vial está priorizada en el plan nacional. Amenaza: el aumento de accidentes tras la pandemia.</div>
+
+      <div class="field">
+        <label for="p5_foda">Escriban 1 Fortaleza, 1 Debilidad, 1 Oportunidad y 1 Amenaza de la institución, relacionadas con el problema que están trabajando. <span class="wc" data-for="p5_foda" data-min="30">0/30 palabras</span></label>
+        <textarea class="tall" id="p5_foda" placeholder="Fortaleza: ... Debilidad: ... Oportunidad: ... Amenaza: ..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p5_foda">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p5_foda"></span></div>
+      </div>
+    </section>
+
+    <section id="paso6" class="card">
+      <span class="step-badge">Paso 6 · 20 min</span><span class="step-points">Vale 15 pts</span>
+      <button class="speak-btn" data-speak-target="paso6" type="button">🔊 Escuchar este paso</button>
+      <h1>Estrategia CAME y reflexión final</h1>
+      <p><strong>Idea de esta parte:</strong> el CAME convierte el FODA en acción, cruzando dos elementos: Corregir (Debilidad+Oportunidad), Afrontar (Debilidad+Amenaza), Mantener (Fortaleza+Amenaza) o Explotar (Fortaleza+Oportunidad).</p>
+      <div class="alert info"><strong>Ejemplo (MOPC, tipo Corregir):</strong> usar el financiamiento internacional disponible (Oportunidad) para capacitar más ingenieros de mantenimiento vial (corrige la Debilidad de personal insuficiente).</div>
+
+      <div class="field">
+        <label for="p6_estrategia">Propongan una estrategia que cruce dos elementos de su FODA del Paso 5 (indiquen cuáles cruzan y de qué tipo es: Corregir, Afrontar, Mantener o Explotar). <span class="wc" data-for="p6_estrategia" data-min="20">0/20 palabras</span></label>
+        <textarea class="tall" id="p6_estrategia" placeholder="Ej: usar [oportunidad] para corregir [debilidad], mediante..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p6_estrategia">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p6_estrategia"></span></div>
+      </div>
+      <div class="field">
+        <label for="p6_reflexion">Reflexión final: ¿qué aprendieron en estas dos horas sobre el diagnóstico institucional que no sabían antes? ¿Cómo lo aplicarían en su trabajo? <span class="wc" data-for="p6_reflexion" data-min="25">0/25 palabras</span></label>
+        <textarea class="tall" id="p6_reflexion"></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p6_reflexion">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p6_reflexion"></span></div>
+      </div>
+    </section>
+
+    <section id="rubrica" class="card">
+      <span class="step-badge">🧮 Referencia</span>
+      <h1 style="font-size:1.35rem;">Rúbrica de evaluación</h1>
+      <div class="tbl-wrap"><table class="tp-table">
+        <thead><tr><th>N°</th><th>Criterio</th><th>Indicador</th><th>Puntos</th></tr></thead>
+        <tbody id="rubrica-body"></tbody>
+      </table></div>
+      <h2>Referencias</h2>
+      <ul style="font-size:.85rem; color:var(--muted);">
+        <li>Adaptado del Manual Metodológico para la Gestión de la Planificación Estratégica Institucional (PEI), Ministerio de Economía, Planificación y Desarrollo (hoy Ministerio de Hacienda y Economía), junio 2024 — presentado aquí en lenguaje sencillo para un primer acercamiento.</li>
+        <li>Esta es una versión rápida de las doce herramientas del diagnóstico. Quienes quieran profundizar pueden ver el video narrado completo de la Unidad II y continuar con la Unidad II completa del curso Planificación Estratégica en la Gestión Pública.</li>
+      </ul>
+    </section>
+
+    <!-- ============ ENVÍO / RESULTADO ============ -->
+    <section id="resultado" class="card">
+      <div id="submit-zone">
+        <span class="step-badge">📤 Paso final</span>
+        <h1 style="font-size:1.4rem;">Enviar y calificar mi trabajo</h1>
+        <p>El sistema revisará automáticamente sus 6 pasos contra la rúbrica oficial y le mostrará su nota, el detalle por criterio y retroalimentación personalizada según lo que usted escribió.</p>
+        <button class="btn-primary" id="btn-submit" type="button">📤 Enviar y Calificar mi Trabajo</button>
+      </div>
+
+      <div id="results" class="results">
+        <div id="score-hero" class="score-hero">
+          <div class="score-circle"><span class="num" id="score-num">0</span><span class="den">/ 100 pts</span></div>
+          <div class="score-verdict">
+            <h3 id="score-title">—</h3>
+            <p id="score-desc">—</p>
+          </div>
+        </div>
+        <div id="ai-review" class="alert info" style="display:none;"></div>
+        <div id="crit-list"></div>
+        <div class="btn-row">
+          <button class="btn-secondary" id="btn-export-2" type="button">⬇️ Descargar mis respuestas</button>
+          <button class="btn-secondary" id="btn-print-2" type="button">🖨️ Imprimir resultado</button>
+          <button class="btn-secondary" id="btn-recheck" type="button">✏️ Volver a revisar mis respuestas</button>
+        </div>
+      </div>
+    </section>
+
+    <footer class="tp-footer">
+      Planificación Estratégica — Unidad II — Nivel 1 (versión rápida) · Aprox. 2 horas · 100 % · INAP 2026.<br>
+      Herramienta de autoevaluación con fines educativos. La nota oficial del curso la determina su facilitador.<br>
+      Desarrollado por Johan Tapia, PhD.
+    </footer>
+  </main>
+</div>
+
+<!-- NICOLE (asistente virtual del Dr. Johan Tapia) -->
+<button id="advisor-toggle" class="advisor-fab" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="advisor-panel" title="Abrir a Nicole">
+  🎓 <span>Nicole</span>
+</button>
+<div id="advisor-panel" class="advisor-panel" role="dialog" aria-labelledby="advisor-title-el">
+  <div class="advisor-header">
+    <span style="font-size:1.2rem;">🎓</span>
+    <p id="advisor-title-el" class="advisor-title">Nicole</p>
+    <button id="advisor-close" type="button" aria-label="Cerrar a Nicole">✕</button>
+  </div>
+  <div id="advisor-body" class="advisor-body">
+    <div class="advisor-msg advisor-msg-bot">¡Hola! Soy Nicole, la asistente virtual del Dr. Johan Tapia. Pregúntame sobre el marco normativo, la misión, la población, el árbol de problemas, el FODA, el CAME, la rúbrica o cómo se califica.</div>
+  </div>
+  <div class="advisor-suggest">
+    <button type="button" data-q="¿cómo se califica esta práctica?">¿Cómo se califica?</button>
+    <button type="button" data-q="que es el foda">¿Qué es el FODA?</button>
+    <button type="button" data-q="que es el came">¿Qué es el CAME?</button>
+  </div>
+  <form id="advisor-form" class="advisor-form">
+    <input type="text" id="advisor-input" placeholder="Escribe tu pregunta…" aria-label="Escribe tu pregunta a Nicole">
+    <button type="submit" aria-label="Enviar pregunta">➤</button>
+  </form>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+/* ---------- NICOLE, ASISTENTE VIRTUAL (n8n en VPS) ---------- */
+/* Si el VPS no responde (sin internet, servicio caído, etc.), la página
+   sigue funcionando 100% con el motor de reglas y la calificación heurística local. */
+var AI_BASE = 'https://n8n-inap.167.88.36.13.sslip.io/webhook';
+var AI_CHAT_URL = AI_BASE + '/inap-tutor-chat';
+var AI_GRADE_URL = AI_BASE + '/inap-grade';
+var AI_CHAT_TIMEOUT = 60000;
+var AI_GRADE_TIMEOUT = 650000;
+var VOICE_TRANSCRIBE_URL = 'https://n8n-inap.167.88.36.13.sslip.io/webhook/prof-johan-tapia-transcribir';
+
+/* ---------- NOTAS DE VOZ (mantener presionado -> transcribir -> completar el campo) ---------- */
+function pickRecorderMime(){
+  var candidates = ['audio/webm;codecs=opus','audio/webm','audio/mp4','audio/ogg;codecs=opus'];
+  for(var i=0;i<candidates.length;i++){
+    if(window.MediaRecorder && MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(candidates[i])) return candidates[i];
+  }
+  return '';
+}
+function beepVoz(freq, dur){
+  try{
+    var Ctx = window.AudioContext || window.webkitAudioContext;
+    var ctx = new Ctx();
+    var osc = ctx.createOscillator();
+    var gain = ctx.createGain();
+    osc.type = 'sine';
+    osc.frequency.value = freq;
+    gain.gain.setValueAtTime(0.18, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + dur);
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.start();
+    osc.stop(ctx.currentTime + dur);
+    osc.onended = function(){ ctx.close(); };
+  }catch(e){}
+}
+var VOZ_MIN_MS = 400;
+var VOZ_MAX_MS = 120000;
+var VOZ_LABEL_DEFAULT = '🎤 Mantenga presionado para grabar';
+function wireVoiceButtons(){
+  if(!navigator.mediaDevices || !window.MediaRecorder){
+    document.querySelectorAll('.voice-btn').forEach(function(btn){
+      btn.disabled = true; btn.title = 'Grabación de voz no disponible en este navegador';
+    });
+    return;
+  }
+  document.querySelectorAll('.voice-btn').forEach(function(btn){
+    var targetId = btn.getAttribute('data-target');
+    var textarea = document.getElementById(targetId);
+    var statusEl = document.querySelector('.voice-status[data-target-status="'+targetId+'"]');
+    if(!textarea) return;
+    btn.textContent = VOZ_LABEL_DEFAULT;
+    var mediaRecorder = null, chunks = [], stream = null, recording = false, pressActive = false;
+    var startedAt = 0, maxTimer = null, tickTimer = null;
+
+    function setStatus(msg, cls){
+      if(!statusEl) return;
+      statusEl.textContent = msg || '';
+      statusEl.className = 'voice-status' + (cls ? ' ' + cls : '');
+    }
+
+    function stopStream(){
+      if(stream){ stream.getTracks().forEach(function(t){ t.stop(); }); stream = null; }
+    }
+
+    function tick(){
+      var secs = Math.floor((Date.now() - startedAt) / 1000);
+      var m = Math.floor(secs / 60), s = secs % 60;
+      btn.textContent = '🔴 Grabando ' + m + ':' + (s < 10 ? '0' : '') + s + ' — suelte para enviar';
+    }
+
+    function startRecording(){
+      if(pressActive) return;
+      pressActive = true;
+      navigator.mediaDevices.getUserMedia({ audio:true }).then(function(s){
+        if(!pressActive){ s.getTracks().forEach(function(t){ t.stop(); }); return; }
+        stream = s;
+        chunks = [];
+        var mime = pickRecorderMime();
+        try{ mediaRecorder = mime ? new MediaRecorder(stream, { mimeType: mime }) : new MediaRecorder(stream); }
+        catch(e){ mediaRecorder = new MediaRecorder(stream); }
+        mediaRecorder.addEventListener('dataavailable', function(e){ if(e.data && e.data.size > 0) chunks.push(e.data); });
+        mediaRecorder.addEventListener('stop', function(){
+          stopStream();
+          clearTimeout(maxTimer); clearInterval(tickTimer);
+          btn.classList.remove('recording');
+          var duracion = Date.now() - startedAt;
+          if(duracion < VOZ_MIN_MS){
+            btn.textContent = VOZ_LABEL_DEFAULT;
+            setStatus('Grabación muy corta — mantenga presionado el botón mientras habla.', 'err');
+            return;
+          }
+          var blob = new Blob(chunks, { type: mediaRecorder.mimeType || 'audio/webm' });
+          uploadForTranscription(blob);
+        });
+        mediaRecorder.start();
+        recording = true;
+        startedAt = Date.now();
+        btn.classList.add('recording');
+        beepVoz(880, 0.1);
+        tick();
+        tickTimer = setInterval(tick, 500);
+        setStatus('Grabando… hable su respuesta y suelte el botón al terminar.', '');
+        maxTimer = setTimeout(function(){ if(recording) stopRecording(); }, VOZ_MAX_MS);
+      }).catch(function(){
+        pressActive = false;
+        setStatus('No se pudo acceder al micrófono. Revisen los permisos del navegador, o simplemente escriban la respuesta.', 'err');
+      });
+    }
+
+    function stopRecording(){
+      if(!pressActive) return;
+      pressActive = false;
+      if(mediaRecorder && recording){
+        recording = false;
+        beepVoz(440, 0.12);
+        mediaRecorder.stop();
+      }
+    }
+
+    function uploadForTranscription(blob){
+      btn.disabled = true;
+      btn.classList.add('busy');
+      btn.textContent = '⏳ Transcribiendo…';
+      setStatus('Transcribiendo la nota de voz, un momento…', '');
+      var fd = new FormData();
+      var ext = (blob.type.indexOf('mp4') !== -1) ? 'm4a' : (blob.type.indexOf('ogg') !== -1 ? 'ogg' : 'webm');
+      fd.append('data', blob, 'nota-voz.' + ext);
+      fetchWithTimeout(VOICE_TRANSCRIBE_URL, { method:'POST', body: fd }, 60000).then(function(res){
+        if(!res.ok) throw new Error('HTTP ' + res.status);
+        return res.json();
+      }).then(function(data){
+        if(!data || !data.ok || !data.texto){ throw new Error('SIN_TEXTO'); }
+        var existing = textarea.value.trim();
+        textarea.value = existing ? (existing + ' ' + data.texto) : data.texto;
+        textarea.dispatchEvent(new Event('input'));
+        setStatus('✔ Nota de voz agregada. Pueden revisarla y corregirla si hace falta.', 'ok');
+      }).catch(function(err){
+        var msg = (err && err.message === 'SIN_TEXTO')
+          ? 'No se logró entender el audio (el servicio de voz no reconoció ninguna palabra). Intenten grabar de nuevo hablando más cerca del micrófono, o escriban la respuesta directamente.'
+          : 'No se pudo conectar con el servicio de transcripción. Revisen su conexión a internet, o escriban la respuesta directamente.';
+        setStatus(msg, 'err');
+      }).finally(function(){
+        btn.disabled = false;
+        btn.classList.remove('busy');
+        btn.textContent = VOZ_LABEL_DEFAULT;
+      });
+    }
+
+    btn.addEventListener('mousedown', function(e){ e.preventDefault(); startRecording(); });
+    btn.addEventListener('touchstart', function(e){ e.preventDefault(); startRecording(); }, { passive:false });
+    ['mouseup','mouseleave','touchend','touchcancel'].forEach(function(evt){
+      btn.addEventListener(evt, stopRecording);
+    });
+  });
+}
+
+/* ---------- TAMAÑO DE LETRA (accesibilidad para personas mayores) ---------- */
+var FONT_LEVELS = ['normal','grande','xgrande'];
+function applyFontSize(level){
+  document.documentElement.setAttribute('data-fontsize', level);
+  try{ localStorage.setItem('tp_diagu2n1_fontsize', level); }catch(e){}
+}
+applyFontSize(localStorage.getItem('tp_diagu2n1_fontsize') || 'normal');
+document.getElementById('font-bigger').addEventListener('click', function(){
+  var cur = document.documentElement.getAttribute('data-fontsize') || 'normal';
+  var idx = FONT_LEVELS.indexOf(cur);
+  if(idx < FONT_LEVELS.length - 1) applyFontSize(FONT_LEVELS[idx+1]);
+});
+document.getElementById('font-smaller').addEventListener('click', function(){
+  var cur = document.documentElement.getAttribute('data-fontsize') || 'normal';
+  var idx = FONT_LEVELS.indexOf(cur);
+  if(idx > 0) applyFontSize(FONT_LEVELS[idx-1]);
+});
+
+/* ---------- LEER EN VOZ ALTA (accesibilidad para quienes no leen) ---------- */
+function stopSpeaking(){ if(window.speechSynthesis) speechSynthesis.cancel(); }
+function buildSpeakText(root){
+  var clone = root.cloneNode(true);
+  clone.querySelectorAll('button, .voice-row, .wc, script, select').forEach(function(el){ el.remove(); });
+  var text = clone.textContent || '';
+  return text.replace(/\s+/g,' ').trim();
+}
+function speak(text, btn){
+  if(!window.speechSynthesis || !text) return;
+  stopSpeaking();
+  var utter = new SpeechSynthesisUtterance(text);
+  utter.lang = 'es-ES';
+  utter.rate = 0.95;
+  var voices = speechSynthesis.getVoices();
+  var esVoice = voices.find(function(v){ return v.lang && v.lang.toLowerCase().indexOf('es') === 0; });
+  if(esVoice) utter.voice = esVoice;
+  if(btn){
+    document.querySelectorAll('.speak-btn.speaking').forEach(function(b){
+      b.classList.remove('speaking');
+      if(b.dataset.origLabel) b.textContent = b.dataset.origLabel;
+    });
+    if(!btn.dataset.origLabel) btn.dataset.origLabel = btn.textContent;
+    btn.classList.add('speaking');
+    btn.textContent = '⏹️ Detener lectura';
+    utter.onend = function(){ btn.classList.remove('speaking'); btn.textContent = btn.dataset.origLabel; };
+    utter.onerror = function(){ btn.classList.remove('speaking'); btn.textContent = btn.dataset.origLabel; };
+  }
+  speechSynthesis.speak(utter);
+}
+function wireSpeakButtons(){
+  if(!window.speechSynthesis){
+    document.querySelectorAll('.speak-btn').forEach(function(b){ b.disabled = true; b.title = 'La lectura en voz alta no está disponible en este navegador'; });
+    return;
+  }
+  document.querySelectorAll('.speak-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      if(btn.classList.contains('speaking')){
+        stopSpeaking();
+        btn.classList.remove('speaking');
+        if(btn.dataset.origLabel) btn.textContent = btn.dataset.origLabel;
+        return;
+      }
+      var sectionId = btn.getAttribute('data-speak-section');
+      var text;
+      if(sectionId){
+        var el = document.getElementById(sectionId);
+        text = el ? el.textContent.replace(/\s+/g,' ').trim() : '';
+      } else {
+        var root = document.getElementById(btn.getAttribute('data-speak-target'));
+        text = root ? buildSpeakText(root) : '';
+      }
+      speak(text, btn);
+    });
+  });
+}
+
+function fetchWithTimeout(url, options, timeoutMs){
+  var controller = new AbortController();
+  var timer = setTimeout(function(){ controller.abort(); }, timeoutMs);
+  return fetch(url, Object.assign({}, options, { signal: controller.signal }))
+    .finally(function(){ clearTimeout(timer); });
+}
+
+/* ---------- THEME ---------- */
+var themeBtn = document.getElementById('theme-toggle');
+function applyTheme(t){
+  document.documentElement.setAttribute('data-theme', t);
+  themeBtn.textContent = t === 'dark' ? '☀️' : '🌙';
+  localStorage.setItem('tp_diagu2n1_theme', t);
+}
+applyTheme(localStorage.getItem('tp_diagu2n1_theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+themeBtn.addEventListener('click', function(){
+  applyTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+});
+
+/* ---------- MOBILE NAV ---------- */
+var navToggle = document.getElementById('nav-toggle');
+var sidebar = document.getElementById('sidebar');
+navToggle.addEventListener('click', function(){
+  var open = sidebar.classList.toggle('open');
+  navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+});
+
+/* ---------- READING PROGRESS BAR ---------- */
+var progressBar = document.getElementById('progress-bar');
+window.addEventListener('scroll', function(){
+  var h = document.documentElement;
+  var scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+  progressBar.style.width = (scrolled || 0) + '%';
+}, { passive:true });
+
+/* ---------- ACTIVE NAV HIGHLIGHT ---------- */
+var navLinks = Array.prototype.slice.call(document.querySelectorAll('.nav a'));
+var sections = navLinks.map(function(a){ return document.querySelector(a.getAttribute('href')); }).filter(Boolean);
+var io = new IntersectionObserver(function(entries){
+  entries.forEach(function(entry){
+    var link = document.querySelector('.nav a[href="#' + entry.target.id + '"]');
+    if(!link) return;
+    if(entry.isIntersecting) navLinks.forEach(function(l){ l.classList.remove('active'); });
+    if(entry.isIntersecting) link.classList.add('active');
+  });
+}, { rootMargin: '-20% 0px -70% 0px' });
+sections.forEach(function(s){ io.observe(s); });
+
+/* ---------- HELPERS ---------- */
+function norm(s){ return (s === undefined || s === null) ? '' : String(s).trim(); }
+function stripAccents(s){ return norm(s).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,''); }
+function wordCount(s){ s = norm(s); return s ? s.split(/\s+/).filter(Boolean).length : 0; }
+function sentenceCount(s){ s = norm(s); if(!s) return 0; var m = s.match(/[^.!?]+[.!?]+|[^.!?]+$/g); return m ? m.filter(function(x){return x.trim().length>3;}).length : 0; }
+function filled(s){ return norm(s).length > 0; }
+function clamp01(n){ return Math.max(0, Math.min(1, n)); }
+function val(id){ var el = document.getElementById(id); return el ? el.value : ''; }
+function labelOf(id){ var el = document.getElementById(id); if(!el) return id; var lab = document.querySelector('label[for="'+id+'"]'); return lab ? lab.textContent.replace(/\s*\d+\/\d+ palabras\s*/,'').trim() : id; }
+function escapeHtml(s){ var d = document.createElement('div'); d.textContent = norm(s); return d.innerHTML; }
+
+/* ---------- CAMPOS DE CADA PASO ---------- */
+var STEP_FIELDS = {
+  paso1: ['p1_institucion','p1_norma','p1_mision_eval'],
+  paso2: ['p2_poblacion','p2_prioridad'],
+  paso3: ['p3_problema','p3_quien_donde','p3_indicador'],
+  paso4: ['p4_causas','p4_efectos'],
+  paso5: ['p5_foda'],
+  paso6: ['p6_estrategia','p6_reflexion']
+};
+
+/* ---------- MODALIDAD: INDIVIDUAL O EN EQUIPO ---------- */
+var modoSelect = document.getElementById('modo_trabajo');
+var bloqueIndividual = document.getElementById('bloque-individual');
+var bloqueGrupo = document.getElementById('bloque-grupo');
+var bloqueIntegrantes = document.getElementById('bloque-integrantes');
+function aplicarModo(){
+  var esGrupo = modoSelect.value === 'grupo';
+  bloqueIndividual.hidden = esGrupo;
+  bloqueGrupo.hidden = !esGrupo;
+  bloqueIntegrantes.hidden = !esGrupo;
+}
+modoSelect.addEventListener('change', function(){ aplicarModo(); saveAll(); });
+aplicarModo();
+function nombreIdentificacion(){
+  return modoSelect.value === 'grupo' ? (val('grp_nombre') || '') : (val('ind_nombre') || '');
+}
+function correoIdentificacion(){
+  return modoSelect.value === 'grupo' ? (val('grp_correo') || '') : (val('ind_correo') || '');
+}
+
+/* ---------- WORD COUNTERS ---------- */
+document.querySelectorAll('.wc[data-for]').forEach(function(span){
+  var target = document.getElementById(span.getAttribute('data-for'));
+  if(!target) return;
+  var min = parseInt(span.getAttribute('data-min'),10) || 0;
+  function update(){
+    var wc = wordCount(target.value);
+    span.textContent = wc + '/' + min + ' palabras';
+    span.classList.toggle('ok', wc >= min);
+  }
+  target.addEventListener('input', update);
+  update();
+});
+
+/* ---------- AUTOSAVE (localStorage) ---------- */
+var STORE_KEY = 'tp_diagu2n1_respuestas_v1';
+var META_FIELDS = ['modo_trabajo', 'ind_nombre', 'ind_correo', 'grp_nombre', 'grp_correo', 'grp_integrantes'];
+function allFieldIds(){
+  var ids = META_FIELDS.slice();
+  Object.keys(STEP_FIELDS).forEach(function(k){ ids = ids.concat(STEP_FIELDS[k]); });
+  return ids;
+}
+function saveAll(){
+  var data = {};
+  allFieldIds().forEach(function(id){ data[id] = val(id); });
+  try{ localStorage.setItem(STORE_KEY, JSON.stringify(data)); }catch(e){}
+}
+function loadAll(){
+  var raw; try{ raw = localStorage.getItem(STORE_KEY); }catch(e){ raw = null; }
+  if(!raw) return;
+  try{
+    var data = JSON.parse(raw);
+    Object.keys(data).forEach(function(id){
+      var el = document.getElementById(id);
+      if(el) el.value = data[id];
+    });
+  }catch(e){}
+}
+loadAll();
+aplicarModo();
+document.querySelectorAll('.wc[data-for]').forEach(function(span){
+  var target = document.getElementById(span.getAttribute('data-for'));
+  if(target) target.dispatchEvent(new Event('input'));
+});
+
+var saveTimer = null;
+document.addEventListener('input', function(e){
+  var t = e.target;
+  if(t && t.id && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT')){
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(function(){ saveAll(); updateProgress(); }, 400);
+  }
+});
+document.addEventListener('change', function(e){
+  var t = e.target;
+  if(t && t.tagName === 'SELECT'){ saveAll(); updateProgress(); }
+});
+
+/* ---------- PROGRESS ---------- */
+function stepRatio(key){
+  var ids = STEP_FIELDS[key];
+  if(!ids || !ids.length) return 0;
+  var n = 0;
+  ids.forEach(function(id){ if(filled(val(id))) n++; });
+  return n / ids.length;
+}
+function updateProgress(){
+  var keys = Object.keys(STEP_FIELDS);
+  var total = 0;
+  keys.forEach(function(k){
+    var r = stepRatio(k);
+    total += r;
+    var pctEl = document.querySelector('.pct[data-pct="'+k+'"]');
+    var linkEl = document.querySelector('.nav a[data-step="'+k+'"]');
+    if(pctEl) pctEl.textContent = Math.round(r*100) + '%';
+    if(linkEl) linkEl.classList.toggle('done', r >= 0.95);
+  });
+  var overall = Math.round((total / keys.length) * 100);
+  document.getElementById('progress-count').textContent = overall + '%';
+  var fillEl = document.getElementById('progress-fill-el');
+  fillEl.style.width = overall + '%';
+  fillEl.classList.toggle('complete', overall >= 95);
+}
+updateProgress();
+
+/* ---------- RÚBRICA TABLE (static reference) ---------- */
+var RUBRICA = [
+  {n:1, criterio:'Norma y misión (Paso 1)', indicador:'Norma real identificada con una responsabilidad concreta, y misión transcrita y evaluada con criterio.', pts:15},
+  {n:2, criterio:'Población y prioridad (Paso 2)', indicador:'Población de referencia descrita con claridad, y prioridad institucional o nacional vinculada a esa población.', pts:15},
+  {n:3, criterio:'Identificación del problema (Paso 3)', indicador:'Problema redactado como carencia (no como causa ni solución), con población/territorio afectado e indicador propuesto.', pts:20},
+  {n:4, criterio:'Árbol de causas y efectos (Paso 4)', indicador:'Al menos 2 causas y 2 efectos del problema, con relación lógica clara.', pts:20},
+  {n:5, criterio:'FODA (Paso 5)', indicador:'Fortaleza, Debilidad, Oportunidad y Amenaza identificadas y relacionadas con el problema.', pts:15},
+  {n:6, criterio:'Estrategia CAME y reflexión final (Paso 6)', indicador:'Estrategia que cruza dos elementos del FODA con su tipo identificado, y reflexión final desarrollada.', pts:15}
+];
+document.getElementById('rubrica-body').innerHTML = RUBRICA.map(function(r){
+  return '<tr><td class="label-cell">'+r.n+'</td><td>'+r.criterio+'</td><td>'+r.indicador+'</td><td class="label-cell">'+r.pts+'</td></tr>';
+}).join('') + '<tr><td colspan="3" class="label-cell">TOTAL</td><td class="label-cell">100</td></tr><tr><td colspan="3" class="label-cell">Aprobación mínima</td><td class="label-cell">70</td></tr>';
+
+/* ---------- GRADING ENGINE ---------- */
+function ratioFilledFrac(ids){
+  if(!ids.length) return 0;
+  var n = 0; ids.forEach(function(id){ if(filled(val(id))) n++; });
+  return n / ids.length;
+}
+function singleWordFrac(id, min){ return clamp01(wordCount(val(id)) / min); }
+
+function buildCriterion(title, maxPoints, items){
+  var score = 0;
+  items.forEach(function(it){ score += it.points * clamp01(it.frac); });
+  score = Math.round(score * 10) / 10;
+  var strong = [], mid = [], weak = [];
+  items.forEach(function(it){
+    if(it.frac >= 0.85) strong.push(it.label);
+    else if(it.frac >= 0.45) mid.push(it.label);
+    else weak.push(it.label);
+  });
+  return { title:title, maxPoints:maxPoints, score:score, strong:strong, mid:mid, weak:weak };
+}
+
+function gradeStep1(){
+  var items = [
+    { label:'Institución identificada', points:3, frac:ratioFilledFrac(['p1_institucion']) },
+    { label:'Norma real con responsabilidad concreta', points:6, frac:singleWordFrac('p1_norma',20) },
+    { label:'Misión transcrita y evaluada', points:6, frac:singleWordFrac('p1_mision_eval',25) }
+  ];
+  return buildCriterion(RUBRICA[0].criterio, 15, items);
+}
+function gradeStep2(){
+  var items = [
+    { label:'Población de referencia descrita', points:7, frac:singleWordFrac('p2_poblacion',20) },
+    { label:'Prioridad vinculada a la población', points:8, frac:singleWordFrac('p2_prioridad',25) }
+  ];
+  return buildCriterion(RUBRICA[1].criterio, 15, items);
+}
+function gradeStep3(){
+  var items = [
+    { label:'Problema redactado como carencia', points:7, frac:singleWordFrac('p3_problema',20) },
+    { label:'Población y territorio afectado', points:7, frac:singleWordFrac('p3_quien_donde',20) },
+    { label:'Indicador propuesto', points:6, frac:singleWordFrac('p3_indicador',15) }
+  ];
+  return buildCriterion(RUBRICA[2].criterio, 20, items);
+}
+function gradeStep4(){
+  var items = [
+    { label:'Causas del problema (al menos 2)', points:10, frac:singleWordFrac('p4_causas',25) },
+    { label:'Efectos del problema (al menos 2)', points:10, frac:singleWordFrac('p4_efectos',25) }
+  ];
+  return buildCriterion(RUBRICA[3].criterio, 20, items);
+}
+function gradeStep5(){
+  var items = [
+    { label:'Fortaleza, Debilidad, Oportunidad y Amenaza', points:15, frac:singleWordFrac('p5_foda',30) }
+  ];
+  return buildCriterion(RUBRICA[4].criterio, 15, items);
+}
+function gradeStep6(){
+  var items = [
+    { label:'Estrategia CAME con tipo identificado', points:8, frac:singleWordFrac('p6_estrategia',20) },
+    { label:'Reflexión final desarrollada', points:7, frac:singleWordFrac('p6_reflexion',25) }
+  ];
+  return buildCriterion(RUBRICA[5].criterio, 15, items);
+}
+
+function runGrading(){
+  var criteria = [gradeStep1(), gradeStep2(), gradeStep3(), gradeStep4(), gradeStep5(), gradeStep6()];
+  var total = Math.round(criteria.reduce(function(a,c){ return a + c.score; },0) * 10) / 10;
+  return { criteria:criteria, total:total };
+}
+
+function critFillClass(pct){
+  if(pct >= 80) return 'hi';
+  if(pct >= 50) return 'mid';
+  return 'lo';
+}
+
+function renderResults(result){
+  var hero = document.getElementById('score-hero');
+  var title = document.getElementById('score-title');
+  var desc = document.getElementById('score-desc');
+  var num = document.getElementById('score-num');
+  num.textContent = result.total;
+  hero.classList.remove('pass','warn','fail');
+  if(result.total >= 70){
+    hero.classList.add('pass');
+    title.textContent = '✅ Aprobado — ' + result.total + ' / 100 pts';
+    desc.textContent = 'Su trabajo cumple con la aprobación mínima (70%). Revise los criterios en amarillo para pulir detalles antes de entregar a su facilitador.';
+  } else if(result.total >= 55){
+    hero.classList.add('warn');
+    title.textContent = '🟠 Cerca de aprobar — ' + result.total + ' / 100 pts';
+    desc.textContent = 'Está por debajo del 70% mínimo. Complete y profundice las secciones marcadas en rojo/ámbar antes de entregar.';
+  } else {
+    hero.classList.add('fail');
+    title.textContent = '🔴 Necesita trabajo adicional — ' + result.total + ' / 100 pts';
+    desc.textContent = 'Aún faltan varias secciones por completar o desarrollar. Consulte a Nicole y los ejemplos de cada paso para avanzar.';
+  }
+
+  var listEl = document.getElementById('crit-list');
+  listEl.innerHTML = result.criteria.map(function(c){
+    var pct = Math.round((c.score / c.maxPoints) * 100);
+    var parts = [];
+    if(c.strong.length) parts.push('<li><span class="tag-ok">✔ Bien logrado:</span> ' + c.strong.join('; ') + '.</li>');
+    if(c.mid.length) parts.push('<li><span class="tag-mid">◐ Puede mejorar:</span> ' + c.mid.join('; ') + '.</li>');
+    if(c.weak.length) parts.push('<li><span class="tag-low">✖ Falta completar / profundizar:</span> ' + c.weak.join('; ') + '.</li>');
+    return '<div class="crit">'+
+      '<div class="crit-head"><strong>'+c.title+'</strong><span class="crit-score">'+c.score+' / '+c.maxPoints+' pts</span></div>'+
+      '<div class="crit-track"><div class="crit-fill '+critFillClass(pct)+'" style="width:'+pct+'%;"></div></div>'+
+      '<ul>'+parts.join('')+'</ul>'+
+      '</div>';
+  }).join('');
+
+  document.getElementById('results').classList.add('show');
+}
+
+function gatherGradingPayload(localResult){
+  var pasos = {};
+  Object.keys(STEP_FIELDS).forEach(function(key, i){
+    var respuestas = {};
+    STEP_FIELDS[key].forEach(function(id){
+      var v = val(id);
+      if(filled(v)) respuestas[labelOf(id)] = v;
+    });
+    pasos[key] = { criterio: RUBRICA[i].criterio, max: RUBRICA[i].pts, respuestas: respuestas };
+  });
+  return {
+    estudiante: { nombre: nombreIdentificacion(), correo: correoIdentificacion(), integrantes: val('grp_integrantes') || '', modalidad: modoSelect.value },
+    institucion: val('p1_institucion') || '',
+    curso: 'planificacion-estrategica',
+    unidad: 'u2-nivel-1',
+    pasos: pasos,
+    local: localResult ? {
+      total: localResult.total,
+      criterios: localResult.criteria.map(function(c){ return { titulo: c.title, puntaje: c.score, max: c.maxPoints }; })
+    } : null
+  };
+}
+
+function renderAIReview(data){
+  var box = document.getElementById('ai-review');
+  box.className = 'alert success';
+  var rows = data.criterios.map(function(c, i){
+    var nombre = RUBRICA[i] ? RUBRICA[i].criterio : ('Criterio ' + (i+1));
+    return '<li><strong>' + escapeHtml(nombre) + ':</strong> ' + c.puntaje + '/' + c.max + ' pts — ' + escapeHtml(c.comentario) + '</li>';
+  }).join('');
+  box.innerHTML = '<strong>🤖 Evaluación de Nicole:</strong> ' + data.total + ' / 100 pts.<br>' +
+    (data.comentario_general ? '<p style="margin:.5rem 0;">' + escapeHtml(data.comentario_general) + '</p>' : '') +
+    '<ul style="margin:.5rem 0 0; padding-left:1.2rem; font-size:.85rem;">' + rows + '</ul>' +
+    '<p style="margin:.6rem 0 0; font-size:.72rem; color:var(--muted);">Esta evaluación la genera un modelo de IA leyendo el contenido real de sus respuestas; es orientativa y no reemplaza la nota oficial de su facilitador.</p>';
+}
+
+function requestAIGrading(localResult){
+  var box = document.getElementById('ai-review');
+  box.style.display = 'block';
+  box.className = 'alert info';
+  box.innerHTML = '<strong>🤖 Nicole:</strong> analizando el contenido de sus respuestas (puede tardar hasta 10 minutos en este servidor, más si hay varios envíos a la vez) y notificando a su facilitador por correo. No necesita quedarse en esta pantalla — su nota automática ya quedó registrada arriba y el correo se enviará de todas formas…';
+  fetchWithTimeout(AI_GRADE_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(gatherGradingPayload(localResult))
+  }, AI_GRADE_TIMEOUT).then(function(res){
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    return res.json();
+  }).then(function(data){
+    if(!data || !data.ok || !Array.isArray(data.criterios)) throw new Error((data && data.error) || 'respuesta inválida');
+    renderAIReview(data);
+  }).catch(function(){
+    box.className = 'alert warn';
+    box.innerHTML = '<strong>🤖 Nicole:</strong> no se pudo contactar el servicio de evaluación en este momento (puede estar desconectado o sin internet). Se muestra únicamente la evaluación automática local de esta página, que sigue siendo válida.';
+  });
+}
+
+document.getElementById('btn-submit').addEventListener('click', function(){
+  saveAll();
+  if(!filled(nombreIdentificacion())){
+    var esGrupo = modoSelect.value === 'grupo';
+    alert('Antes de enviar, escriba ' + (esGrupo ? 'el nombre del equipo' : 'su nombre completo') + ' en "¿Cómo va a completar esta práctica?" (arriba de la portada) para que su facilitador pueda identificar la entrega.');
+    document.getElementById(esGrupo ? 'grp_nombre' : 'ind_nombre').focus();
+    document.getElementById('portada').scrollIntoView({ behavior:'smooth' });
+    return;
+  }
+  var result = runGrading();
+  renderResults(result);
+  document.getElementById('results').scrollIntoView({ behavior:'smooth', block:'start' });
+  requestAIGrading(result);
+});
+document.getElementById('btn-recheck').addEventListener('click', function(){
+  document.getElementById('paso1').scrollIntoView({ behavior:'smooth' });
+});
+
+/* ---------- EXPORT / PRINT / CLEAR ---------- */
+function exportTxt(){
+  var lines = ['PLANIFICACIÓN ESTRATÉGICA — UNIDAD II — NIVEL 1 (VERSIÓN RÁPIDA)', (modoSelect.value === 'grupo' ? 'Equipo' : 'Nombre') + ': ' + (nombreIdentificacion() || '(sin especificar)'), 'Institución analizada: ' + (val('p1_institucion') || '(sin especificar)'), '======================================================', ''];
+  allFieldIds().forEach(function(id){
+    var v = val(id);
+    if(!filled(v)) return;
+    lines.push('- ' + labelOf(id) + ': ' + v);
+  });
+  var blob = new Blob([lines.join('\n')], { type:'text/plain;charset=utf-8' });
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  var name = (nombreIdentificacion() || 'diagnostico-u2-nivel-1').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+  a.download = (name || 'diagnostico-u2-nivel-1') + '.txt';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(a.href);
+}
+document.getElementById('btn-export').addEventListener('click', exportTxt);
+document.getElementById('btn-export-2').addEventListener('click', exportTxt);
+document.getElementById('btn-print').addEventListener('click', function(){ window.print(); });
+document.getElementById('btn-print-2').addEventListener('click', function(){ window.print(); });
+document.getElementById('btn-clear').addEventListener('click', function(){
+  if(!confirm('¿Seguro que desea borrar TODAS sus respuestas guardadas en este navegador? Esta acción no se puede deshacer.')) return;
+  try{ localStorage.removeItem(STORE_KEY); }catch(e){}
+  allFieldIds().forEach(function(id){ var el = document.getElementById(id); if(el) el.value = ''; });
+  document.querySelectorAll('.wc[data-for]').forEach(function(span){ var t = document.getElementById(span.getAttribute('data-for')); if(t) t.dispatchEvent(new Event('input')); });
+  updateProgress();
+  document.getElementById('results').classList.remove('show');
+  var aiBox = document.getElementById('ai-review');
+  aiBox.style.display = 'none';
+  aiBox.innerHTML = '';
+  resetWorkTimer();
+});
+
+/* ---------- TEMPORIZADOR DE REFERENCIA (cuenta regresiva de 120 min) ---------- */
+var COUNTDOWN_KEY = 'tp_diagu2n1_deadline_ms';
+var COUNTDOWN_MINUTES = 120;
+var countdownDeadline;
+try{
+  var savedDeadline = parseInt(localStorage.getItem(COUNTDOWN_KEY) || '0', 10);
+  countdownDeadline = savedDeadline || (Date.now() + COUNTDOWN_MINUTES * 60000);
+  if(!savedDeadline) localStorage.setItem(COUNTDOWN_KEY, String(countdownDeadline));
+}catch(e){ countdownDeadline = Date.now() + COUNTDOWN_MINUTES * 60000; }
+var countdownDisplayEl = document.getElementById('countdown-display');
+function renderCountdown(){
+  if(!countdownDisplayEl) return;
+  var remainMs = Math.max(0, countdownDeadline - Date.now());
+  var totalSec = Math.floor(remainMs / 1000);
+  var m = Math.floor(totalSec / 60), s = totalSec % 60;
+  countdownDisplayEl.textContent = m + ':' + (s < 10 ? '0' : '') + s;
+  countdownDisplayEl.classList.toggle('low', totalSec <= 600);
+}
+function resetWorkTimer(){
+  countdownDeadline = Date.now() + COUNTDOWN_MINUTES * 60000;
+  try{ localStorage.setItem(COUNTDOWN_KEY, String(countdownDeadline)); }catch(e){}
+  renderCountdown();
+}
+renderCountdown();
+setInterval(renderCountdown, 1000);
+
+/* ---------- NICOLE - respaldo con reglas (sin costo) ---------- */
+var advisorToggle = document.getElementById('advisor-toggle');
+var advisorPanel = document.getElementById('advisor-panel');
+var advisorClose = document.getElementById('advisor-close');
+var advisorBody = document.getElementById('advisor-body');
+var advisorForm = document.getElementById('advisor-form');
+var advisorInput = document.getElementById('advisor-input');
+
+function openAdvisor(){ advisorPanel.classList.add('open'); advisorToggle.setAttribute('aria-expanded','true'); advisorInput.focus(); }
+function closeAdvisor(){ advisorPanel.classList.remove('open'); advisorToggle.setAttribute('aria-expanded','false'); }
+advisorToggle.addEventListener('click', function(){ advisorPanel.classList.contains('open') ? closeAdvisor() : openAdvisor(); });
+advisorClose.addEventListener('click', closeAdvisor);
+
+function addMsg(text, who){
+  var div = document.createElement('div');
+  div.className = 'advisor-msg advisor-msg-' + (who === 'user' ? 'user' : 'bot');
+  div.textContent = text;
+  advisorBody.appendChild(div);
+  advisorBody.scrollTop = advisorBody.scrollHeight;
+  return div;
+}
+function addTyping(){
+  var div = addMsg('Escribiendo…', 'bot');
+  div.style.opacity = '.6';
+  return div;
+}
+function askTutorAI(q){
+  return fetchWithTimeout(AI_CHAT_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ message: q, contexto: 'Diagnóstico Contextual e Institucional (Unidad II, Nivel 1): marco normativo, misión, población de referencia, prioridades PNPSP, identificación de problemas, árbol de causas y efectos, FODA y estrategias CAME, según el Manual PEI 2024.', curso: 'Planificación Estratégica en la Gestión Pública' })
+  }, AI_CHAT_TIMEOUT).then(function(res){
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    return res.json();
+  }).then(function(data){
+    if(!data || !filled(data.response)) throw new Error('respuesta vacía');
+    return data.response;
+  });
+}
+function askTutor(q){
+  return askTutorAI(q).catch(function(){ return answerFor(q); });
+}
+
+var QA = [
+  { kw:['calific','nota','puntaje','rubrica','aprobar','minimo'], a:'La nota va de 0 a 100. Paso 1 vale 15 pts, Paso 2 vale 15 pts, Paso 3 vale 20 pts, Paso 4 vale 20 pts, Paso 5 vale 15 pts, Paso 6 vale 15 pts. La aprobación mínima es 70%. El sistema revisa si las respuestas están completas y bien desarrolladas. Su facilitador revisa el contenido real para la nota oficial.' },
+  { kw:['marco normativo', 'norma', 'ley'], a:'El marco normativo (Herramienta 1) son las leyes y decretos que le dan a una institución su razón legal de existir y le asignan responsabilidades concretas. Toda institución pública solo puede hacer lo que la ley le manda hacer.' },
+  { kw:['mision', 'misión'], a:'La misión (Herramienta 2) explica para qué existe la institución hoy: qué hace, para quién, y con qué servicios. Debe coincidir con lo que dice el marco normativo.' },
+  { kw:['poblacion', 'población'], a:'La población de referencia es el conjunto de personas o instituciones hacia quienes la entidad dirige sus acciones. El diagnóstico siempre parte de la población, no de la institución.' },
+  { kw:['prioridad', 'pnpsp', 'plan nacional'], a:'Una prioridad (Herramienta 3) es un resultado del Plan Nacional Plurianual del Sector Público que la institución adopta como propio, en beneficio de su población de referencia.' },
+  { kw:['problema', 'carencia'], a:'Un problema de desarrollo es una carencia que sufre la población, nunca una causa ni una solución. Se identifica con tres preguntas: ¿qué le sucede?, ¿a quién y dónde le sucede?, y ¿cómo se mide?' },
+  { kw:['causa', 'arbol', 'árbol'], a:'El árbol de problemas tiene raíces (causas) y ramas (efectos). La causa directa produce el problema de inmediato; la causa indirecta produce a su vez la causa directa. Cada relación se valida con "si..., entonces...".' },
+  { kw:['efecto', 'consecuencia'], a:'Los efectos son las consecuencias del problema si no se resuelve. El efecto directo resulta de inmediato del problema; el efecto indirecto resulta de los efectos directos.' },
+  { kw:['que es el foda', 'foda'], a:'El FODA cruza lo interno de la institución (Fortalezas y Debilidades, lo que sí controla) con lo externo (Oportunidades y Amenazas, lo que no controla), siempre en relación con el problema priorizado.' },
+  { kw:['que es el came', 'came'], a:'El CAME convierte el FODA en estrategias: Corregir (Debilidad+Oportunidad), Afrontar (Debilidad+Amenaza), Mantener (Fortaleza+Amenaza), Explotar (Fortaleza+Oportunidad).' },
+  { kw:['nota de voz', 'voz', 'grabar', 'hablar', 'microfono', 'micrófono'], a:'Al lado de las preguntas más largas hay un botón "🎤 Mantenga presionado para grabar". Manténgalo presionado mientras habla su respuesta, y suéltelo al terminar — el sistema la convierte en texto automáticamente, como una nota de voz de WhatsApp.' },
+  { kw:['paso 1'], a:'El Paso 1 pide identificar una norma real de la institución y evaluar su misión. Vale 15 puntos.' },
+  { kw:['paso 2'], a:'El Paso 2 pide describir la población de referencia y una prioridad vinculada a ella. Vale 15 puntos.' },
+  { kw:['paso 3'], a:'El Paso 3 pide identificar un problema real (carencia), a quién y dónde afecta, y un indicador para medirlo. Vale 20 puntos.' },
+  { kw:['paso 4'], a:'El Paso 4 pide al menos 2 causas y 2 efectos del problema. Vale 20 puntos.' },
+  { kw:['paso 5'], a:'El Paso 5 pide una Fortaleza, una Debilidad, una Oportunidad y una Amenaza (FODA). Vale 15 puntos.' },
+  { kw:['paso 6'], a:'El Paso 6 pide una estrategia CAME y una reflexión final sobre lo aprendido. Vale 15 puntos.' },
+  { kw:['tiempo', 'temporizador', 'dos horas', 'cuanto dura'], a:'Esta versión rápida está pensada para completarse en aproximadamente 2 horas. Hay un temporizador de referencia en el menú lateral, pero no bloquea el envío si se pasa un poco.' },
+  { kw:['individual', 'equipo', 'grupo', 'solo'], a:'Puede completar esta práctica solo/a (individual) o en equipo — elija la opción en "¿Cómo va a completar esta práctica?", arriba de la portada.' },
+  { kw:['que institucion elijo', 'cual institucion', 'que institución'], a:'Elija cualquier institución pública dominicana real que ya conozca: donde trabaje, o cualquier ministerio, dirección o institución autónoma. No hace falta que sea perfecta, solo que la conozca lo suficiente para responder con propiedad.' },
+  { kw:['mopc', 'ejemplo'], a:'Los ejemplos de cada paso usan al Ministerio de Obras Públicas y Comunicaciones (MOPC) y su problema de accidentalidad vial, tal como aparece en el video narrado de esta unidad. Puede aplicar la misma lógica a cualquier institución que conozca.' },
+  { kw:['hola', 'ayuda', 'que puedes hacer', 'quien eres'], a:'Soy Nicole, la asistente virtual del Dr. Johan Tapia. Puedo explicarte el marco normativo, la misión, la población, el árbol de problemas, el FODA, el CAME, o cómo funciona la calificación. No te voy a dar la respuesta ya hecha sobre tu institución — eso lo construyes tú.' }
+];
+function normQ(s){ return stripAccents(s); }
+function answerFor(q){
+  var nq = normQ(q);
+  var best = null, bestScore = 0;
+  QA.forEach(function(entry){
+    var score = 0;
+    entry.kw.forEach(function(k){ if(nq.indexOf(normQ(k)) !== -1) score++; });
+    if(score > bestScore){ bestScore = score; best = entry; }
+  });
+  if(best) return best.a;
+  return 'No tengo una respuesta preparada para eso. Prueba preguntar por un concepto (marco normativo, misión, población, árbol de problemas, FODA, CAME), por un paso específico ("¿qué pide el paso 3?") o por la calificación. Para dudas sobre tu institución específica, consulta a tu facilitador.';
+}
+advisorForm.addEventListener('submit', function(e){
+  e.preventDefault();
+  var q = norm(advisorInput.value);
+  if(!q) return;
+  addMsg(q, 'user');
+  advisorInput.value = '';
+  var typingEl = addTyping();
+  askTutor(q).then(function(answer){
+    typingEl.remove();
+    addMsg(answer, 'bot');
+  });
+});
+document.querySelectorAll('.advisor-suggest button').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var q = btn.getAttribute('data-q');
+    openAdvisor();
+    addMsg(q, 'user');
+    var typingEl = addTyping();
+    askTutor(q).then(function(answer){
+      typingEl.remove();
+      addMsg(answer, 'bot');
+    });
+  });
+});
+
+wireVoiceButtons();
+wireSpeakButtons();
+
+})();
+</script>
+</body>
+</html>
