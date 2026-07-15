@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Planificación Estratégica — Unidad II — Nivel 1</title>
-<meta name="description" content="Practica de Nivel 1 de la Unidad II del curso Planificacion Estrategica en la Gestion Publica: Diagnostico Contextual e Institucional, las 12 herramientas del Manual PEI 2024 explicadas paso a paso. Individual o en equipo, por escrito o por nota de voz. Incluye a Nicole y calificacion automatica.">
+<title>Planificación Estratégica — Diagnóstico Institucional — Nivel 1</title>
+<meta name="description" content="Taller de Nivel 1 de Diagnostico Institucional, curso Planificacion Estrategica en la Gestion Publica: marco normativo, mision, poblacion, identificacion de problemas, causas y efectos, FODA y estrategias, explicados paso a paso. Individual o en equipo, por escrito o por nota de voz. Incluye a Nicole y calificacion automatica.">
 <meta name="color-scheme" content="light dark">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%94%8D%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -57,11 +57,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .icon-btn:hover{background:var(--bg-body); border-color:var(--border-dark);}
 .nav-toggle{display:none;}
 
-.timer-box{margin-bottom:1.1rem; background:var(--bg-body); border:1px solid var(--border-light); border-radius:var(--radius-sm); padding:.7rem .85rem;}
-.timer-box .timer-row{display:flex; justify-content:space-between; align-items:baseline; font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.03em; color:var(--muted);}
-.timer-box .timer-value{font-size:1.15rem; font-weight:800; color:var(--primary); text-transform:none; letter-spacing:0;}
-.timer-box .timer-value.low{color:var(--red);}
-.timer-box .timer-goal{font-size:.68rem; color:var(--muted); margin-top:.2rem;}
 .progress-summary{margin-bottom:1.1rem;}
 .progress-summary-row{display:flex; justify-content:space-between; font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.03em; color:var(--muted); margin-bottom:.35rem;}
 #progress-count{color:var(--primary);}
@@ -254,7 +249,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
       <span style="font-size:1.4rem;">🔍</span>
-      <p class="sidebar-title">Planificación Estratégica · Unidad II · Nivel 1</p>
+      <p class="sidebar-title">Diagnóstico Institucional · Nivel 1</p>
       <div class="header-actions">
         <div class="fontsize-controls">
           <button type="button" id="font-smaller" title="Letra más pequeña" aria-label="Reducir tamaño de letra">A−</button>
@@ -266,10 +261,6 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
     </div>
 
     <div class="sidebar-collapsible">
-      <div class="timer-box">
-        <div class="timer-row"><span>⏱ Tiempo restante</span><span id="countdown-display" class="timer-value">120:00</span></div>
-        <div class="timer-goal">Meta sugerida: complete esta práctica en aproximadamente 2 horas. El tiempo sigue corriendo aunque cierren y vuelvan a entrar.</div>
-      </div>
       <div class="progress-summary">
         <div class="progress-summary-row"><span>Progreso general</span><span id="progress-count">0%</span></div>
         <div class="progress-track"><div class="progress-fill" id="progress-fill-el"></div></div>
@@ -302,22 +293,21 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
   <main class="main" id="main-content">
 
     <section id="portada" class="card cover" style="scroll-margin-top:1.25rem;">
-      <p class="eyebrow">Planificación Estratégica · Unidad II · Nivel 1</p>
-      <h1>Diagnóstico Contextual e Institucional — Nivel 1</h1>
+      <p class="eyebrow">Planificación Estratégica · Nivel 1</p>
+      <h1>Taller de Diagnóstico Institucional</h1>
       <div class="cover-chips">
-        <span class="cover-chip">⏱ Aprox. 2 horas</span>
         <span class="cover-chip">👤 Individual o en equipo</span>
         <span class="cover-chip">🎯 100 pts · 70% aprobación</span>
       </div>
       <button class="speak-btn" data-speak-section="portada-speak" type="button" style="margin-top:1.1rem;">🔊 Escuchar la bienvenida</button>
-      <span id="portada-speak" hidden>Bienvenidos a la Unidad dos de Planificación Estratégica, Nivel uno. Esta actividad toma aproximadamente dos horas y tiene un temporizador de referencia. La pueden completar solos o en equipo. En cada pregunta pueden escribir la respuesta, o grabar una nota de voz que el sistema convierte en texto automáticamente manteniendo presionado el botón del micrófono. Si tienen dudas, pueden preguntarle a Nicole, la asistente virtual del Dr. Johan Tapia.</span>
+      <span id="portada-speak" hidden>Bienvenidos al Taller de Diagnóstico Institucional, Nivel uno, del curso de Planificación Estratégica. La pueden completar solos o en equipo, a su propio ritmo. En cada pregunta pueden escribir la respuesta, o grabar una nota de voz que el sistema convierte en texto automáticamente manteniendo presionado el botón del micrófono. Si tienen dudas, pueden preguntarle a Nicole, la asistente virtual del Dr. Johan Tapia.</span>
     </section>
 
     <section class="card" id="tutorial">
       <span class="step-badge">📘 Tutorial</span>
       <h1 style="font-size:1.35rem;">Cómo usar esta plataforma</h1>
       <button class="speak-btn" data-speak-target="tutorial" type="button">🔊 Escuchar este tutorial</button>
-      <p><strong>Concepto:</strong> esta práctica de Nivel 1 trabaja los conceptos esenciales de la Unidad II, Diagnóstico Contextual e Institucional, en aproximadamente dos horas, de forma individual o en equipo. Responde 6 pasos sencillos con 1 a 3 preguntas cada uno. No hay que instalar nada ni crear una cuenta.</p>
+      <p><strong>Concepto:</strong> este taller de Nivel 1 trabaja los conceptos esenciales del diagnóstico institucional, de forma individual o en equipo, a su propio ritmo. Responde 6 pasos sencillos con 1 a 3 preguntas cada uno. No hay que instalar nada ni crear una cuenta.</p>
 
       <h2>Dos formas de responder cada pregunta</h2>
       <p><strong>Definición:</strong> cada campo de respuesta larga acepta texto escrito o una nota de voz transcrita automáticamente.</p>
@@ -351,10 +341,10 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
       <span class="step-badge">🎯 Objetivo y encuadre</span>
       <h1 style="font-size:1.35rem;">Antes de empezar</h1>
       <div class="alert info">
-        <strong>Objetivo de la actividad:</strong> que usted comprenda, en dos horas, la lógica esencial de las doce herramientas del diagnóstico del Manual PEI 2024 — marco normativo, misión, población, prioridades, identificación de problemas, árbol de causas y efectos, FODA y estrategias CAME — aplicándolas de forma simplificada a una institución real que ya conozca.
+        <strong>Objetivo de la actividad:</strong> que usted comprenda la lógica esencial del diagnóstico institucional — marco normativo, misión, población, identificación de problemas, árbol de causas y efectos, FODA y estrategias — aplicándola de forma sencilla a una institución real que ya conozca.
       </div>
       <div class="alert gold">
-        <strong>Nivel 1, individual o en equipo:</strong> a diferencia de la Unidad II completa del curso (las doce herramientas trabajadas a profundidad), esta práctica de Nivel 1 se enfoca en los conceptos esenciales y toma aproximadamente dos horas en total, con un temporizador de referencia en el menú lateral. Elija abajo si la va a completar solo/a o en equipo.
+        <strong>Nivel 1, individual o en equipo:</strong> este taller se enfoca en los conceptos esenciales del diagnóstico institucional, con ejemplos concretos en cada paso. Elija abajo si la va a completar solo/a o en equipo, y tómese el tiempo que necesite.
       </div>
 
       <h2>¿Cómo va a completar esta práctica?</h2>
@@ -382,9 +372,9 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
       <h2>Instrucciones generales</h2>
       <ol class="ins-list">
         <li>Elija <strong>una institución pública real</strong> que ya conozca (donde trabaje, o cualquier ministerio, dirección o institución autónoma dominicana) y manténgala como referencia en los 6 pasos.</li>
-        <li>Complete los <strong>6 pasos</strong> en el orden indicado — cada uno toma aproximadamente 20 minutos.</li>
+        <li>Complete los <strong>6 pasos</strong> en el orden indicado, con calma y sin apuro.</li>
         <li>No hace falta memorizar teoría: use lo que ya sabe de su institución, y consulte el glosario y los ejemplos de cada paso si necesita recordar algún término.</li>
-        <li>El temporizador del menú lateral es una referencia de 2 horas, no bloquea el envío si se pasa un poco.</li>
+        <li>Puede cerrar la página y volver más tarde a completar otro paso — sus respuestas quedan guardadas.</li>
         <li>Al terminar los 6 pasos, presione <strong>Enviar y Calificar</strong>: el sistema va a revisar el trabajo y le va a dar una nota y comentarios al instante.</li>
       </ol>
       <div class="alert warn">
@@ -395,26 +385,26 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
     <section id="marco-conceptual" class="card">
       <span class="step-badge">📚 Referencia</span>
       <h1 style="font-size:1.35rem;">Palabras que vamos a usar</h1>
-      <p>No hace falta memorizar esto — pueden volver a leerlo cuando quieran, o preguntarle a Nicole. Estas son las doce herramientas del Manual PEI 2024 explicadas de forma sencilla.</p>
+      <p>No hace falta memorizar esto — pueden volver a leerlo cuando quieran, o preguntarle a Nicole.</p>
       <dl class="glossary-grid">
-        <div class="gloss-item"><dt>Marco normativo (H1)</dt><dd>Las leyes y decretos que le dan a la institución su razón legal de existir y le asignan responsabilidades concretas.</dd></div>
-        <div class="gloss-item"><dt>Misión (H2)</dt><dd>Para qué existe la institución hoy: qué hace, para quién, y a través de qué servicios.</dd></div>
+        <div class="gloss-item"><dt>Marco normativo</dt><dd>Las leyes y decretos que le dan a la institución su razón legal de existir y le asignan responsabilidades concretas.</dd></div>
+        <div class="gloss-item"><dt>Misión</dt><dd>Para qué existe la institución hoy: qué hace, para quién, y a través de qué servicios.</dd></div>
         <div class="gloss-item"><dt>Población de referencia</dt><dd>El conjunto de personas o instituciones hacia quienes la entidad dirige sus acciones.</dd></div>
-        <div class="gloss-item"><dt>Prioridad PNPSP (H3)</dt><dd>Un resultado del Plan Nacional Plurianual del Sector Público que la institución adopta como propio.</dd></div>
-        <div class="gloss-item"><dt>Problema / carencia (H4-H6)</dt><dd>Algo que le falta a la población, no a la institución — nunca una causa ni una solución disfrazadas de problema.</dd></div>
-        <div class="gloss-item"><dt>Causa directa e indirecta (H8)</dt><dd>La causa directa produce el problema de inmediato; la causa indirecta produce a su vez la causa directa.</dd></div>
-        <div class="gloss-item"><dt>Efecto directo e indirecto (H9)</dt><dd>Las consecuencias del problema si no se resuelve: primero las inmediatas, luego las de mayor alcance.</dd></div>
-        <div class="gloss-item"><dt>FODA (H11)</dt><dd>Fortalezas y Debilidades (internas), Oportunidades y Amenazas (externas) de la institución frente al problema.</dd></div>
-        <div class="gloss-item"><dt>CAME (H12)</dt><dd>Cuatro tipos de estrategia: Corregir (Debilidad+Oportunidad), Afrontar (Debilidad+Amenaza), Mantener (Fortaleza+Amenaza), Explotar (Fortaleza+Oportunidad).</dd></div>
+        <div class="gloss-item"><dt>Prioridad estratégica</dt><dd>Un resultado del Plan Nacional Plurianual del Sector Público que la institución adopta como propio.</dd></div>
+        <div class="gloss-item"><dt>Problema / carencia</dt><dd>Algo que le falta a la población, no a la institución — nunca una causa ni una solución disfrazadas de problema.</dd></div>
+        <div class="gloss-item"><dt>Causa directa e indirecta</dt><dd>La causa directa produce el problema de inmediato; la causa indirecta produce a su vez la causa directa.</dd></div>
+        <div class="gloss-item"><dt>Efecto directo e indirecto</dt><dd>Las consecuencias del problema si no se resuelve: primero las inmediatas, luego las de mayor alcance.</dd></div>
+        <div class="gloss-item"><dt>FODA</dt><dd>Fortalezas y Debilidades (internas), Oportunidades y Amenazas (externas) de la institución frente al problema.</dd></div>
+        <div class="gloss-item"><dt>CAME</dt><dd>Cuatro tipos de estrategia: Corregir (Debilidad+Oportunidad), Afrontar (Debilidad+Amenaza), Mantener (Fortaleza+Amenaza), Explotar (Fortaleza+Oportunidad).</dd></div>
       </dl>
     </section>
 
     <section id="paso1" class="card">
-      <span class="step-badge">Paso 1 · 20 min</span><span class="step-points">Vale 15 pts</span>
+      <span class="step-badge">Paso 1</span><span class="step-points">Vale 15 pts</span>
       <button class="speak-btn" data-speak-target="paso1" type="button">🔊 Escuchar este paso</button>
       <h1>Norma y misión</h1>
-      <p><strong>Idea de esta parte:</strong> toda institución pública solo puede hacer lo que la ley le manda hacer, y su misión debería reflejar exactamente eso. Tomemos como ejemplo al Ministerio de Obras Públicas y Comunicaciones (MOPC), cuya Ley 63-17 le manda garantizar condiciones seguras en las vías del país.</p>
-      <div class="alert info"><strong>Ejemplo (MOPC):</strong> norma: Ley 63-17, de Movilidad, Transporte Terrestre, Tránsito y Seguridad Vial. Atribución real: mantener y señalizar la red vial nacional. Misión: coordinar la construcción, rehabilitación y conservación de las obras de infraestructura del país.</div>
+      <p><strong>Idea de esta parte:</strong> toda institución pública solo puede hacer lo que la ley le manda hacer, y su misión debería reflejar exactamente eso. Tomemos como ejemplo al Instituto Nacional de Aguas Potables y Alcantarillados (INAPA), cuya ley de creación le manda garantizar el servicio de agua potable y alcantarillado en las zonas del país bajo su jurisdicción.</p>
+      <div class="alert info"><strong>Ejemplo (INAPA):</strong> norma: la ley que crea el Instituto Nacional de Aguas Potables y Alcantarillados. Atribución real: planificar, construir y operar los sistemas de agua potable y saneamiento fuera del Gran Santo Domingo. Misión: garantizar a la población el acceso a agua potable y alcantarillado sanitario de forma sostenible.</div>
 
       <h2>Institución elegida</h2>
       <div class="field"><label for="p1_institucion">Nombre completo de la institución</label><input type="text" id="p1_institucion" placeholder="Ej: Ministerio de..., Dirección General de..."></div>
@@ -432,11 +422,11 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
     </section>
 
     <section id="paso2" class="card">
-      <span class="step-badge">Paso 2 · 20 min</span><span class="step-points">Vale 15 pts</span>
+      <span class="step-badge">Paso 2</span><span class="step-points">Vale 15 pts</span>
       <button class="speak-btn" data-speak-target="paso2" type="button">🔊 Escuchar este paso</button>
       <h1>Población y prioridad</h1>
       <p><strong>Idea de esta parte:</strong> el diagnóstico siempre parte de la población, no de la institución. La población de referencia es el conjunto de personas a quienes la institución sirve; la prioridad es el resultado nacional (por ejemplo del Plan Nacional Plurianual del Sector Público) que la institución adopta para beneficiar a esa población.</p>
-      <div class="alert info"><strong>Ejemplo (MOPC):</strong> población de referencia: todos los usuarios de las vías del país, con foco en quienes se movilizan en transporte terrestre. Prioridad adoptada: mejorar la seguridad vial y reducir la tasa de accidentalidad, vinculada al Plan Nacional Plurianual del Sector Público.</div>
+      <div class="alert info"><strong>Ejemplo (INAPA):</strong> población de referencia: los hogares de zonas rurales y semiurbanas sin acueducto continuo. Prioridad adoptada: ampliar la cobertura de agua potable segura y reducir las interrupciones del servicio, vinculada al Plan Nacional Plurianual del Sector Público.</div>
 
       <div class="field">
         <label for="p2_poblacion">¿A quién sirve esta institución? Describan la población de referencia (quiénes son, aproximadamente cuántos o qué tan amplio es el grupo). <span class="wc" data-for="p2_poblacion" data-min="20">0/20 palabras</span></label>
@@ -451,11 +441,11 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
     </section>
 
     <section id="paso3" class="card">
-      <span class="step-badge">Paso 3 · 25 min</span><span class="step-points">Vale 20 pts</span>
+      <span class="step-badge">Paso 3</span><span class="step-points">Vale 20 pts</span>
       <button class="speak-btn" data-speak-target="paso3" type="button">🔊 Escuchar este paso</button>
       <h1>Identificar el problema</h1>
       <p><strong>Idea de esta parte:</strong> un problema de desarrollo se identifica con tres preguntas simples: ¿qué le sucede a la población?, ¿a quién y dónde le sucede?, y ¿cómo se podría medir? Nunca se formula como una causa ("falta presupuesto") ni como una solución ("hacer un programa") — siempre como una carencia real que sufre la población.</p>
-      <div class="alert info"><strong>Ejemplo (MOPC):</strong> problema: "limitadas condiciones de las vías que inciden en la accidentalidad vial". A quién y dónde: conductores y peatones, con mayor concentración en siete provincias del país. Indicador: tasa de fallecidos por accidentes de tránsito por cada cien mil habitantes.</div>
+      <div class="alert info"><strong>Ejemplo (INAPA):</strong> problema: "limitado acceso a agua potable continua en comunidades rurales". A quién y dónde: familias alejadas de la red principal, con mayor incidencia en provincias del suroeste. Indicador: porcentaje de hogares con servicio de agua potable de al menos 16 horas diarias.</div>
 
       <div class="field">
         <label for="p3_problema">¿Qué carencia o problema real afecta a la población que identificaron en el Paso 2? Escríbanlo como una carencia, no como una causa ni una solución. <span class="wc" data-for="p3_problema" data-min="20">0/20 palabras</span></label>
@@ -475,11 +465,11 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
     </section>
 
     <section id="paso4" class="card">
-      <span class="step-badge">Paso 4 · 25 min</span><span class="step-points">Vale 20 pts</span>
+      <span class="step-badge">Paso 4</span><span class="step-points">Vale 20 pts</span>
       <button class="speak-btn" data-speak-target="paso4" type="button">🔊 Escuchar este paso</button>
       <h1>Árbol de causas y efectos</h1>
       <p><strong>Idea de esta parte:</strong> todo problema tiene raíces (causas) y ramas (efectos). Las causas explican por qué ocurre el problema; los efectos son las consecuencias si nadie lo resuelve. Cada relación debe poder leerse como "si [causa], entonces [problema]" o "si [problema], entonces [efecto]".</p>
-      <div class="alert info"><strong>Ejemplo (MOPC):</strong> causas del problema de accidentalidad: limitado mantenimiento vial, escasa señalización. Efectos si no se resuelve: pérdida de vidas humanas, mayores costos en atención de salud por accidentes.</div>
+      <div class="alert info"><strong>Ejemplo (INAPA):</strong> causas del problema de acceso al agua: tuberías envejecidas con fugas frecuentes, capacidad insuficiente de las plantas de tratamiento. Efectos si no se resuelve: enfermedades gastrointestinales por consumo de agua no tratada, gasto adicional de las familias en comprar agua embotellada o por camión cisterna.</div>
 
       <div class="field">
         <label for="p4_causas">Mencionen al menos 2 causas del problema que identificaron en el Paso 3 — ¿por qué ocurre? <span class="wc" data-for="p4_causas" data-min="25">0/25 palabras</span></label>
@@ -494,11 +484,11 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
     </section>
 
     <section id="paso5" class="card">
-      <span class="step-badge">Paso 5 · 20 min</span><span class="step-points">Vale 15 pts</span>
+      <span class="step-badge">Paso 5</span><span class="step-points">Vale 15 pts</span>
       <button class="speak-btn" data-speak-target="paso5" type="button">🔊 Escuchar este paso</button>
       <h1>FODA</h1>
       <p><strong>Idea de esta parte:</strong> el FODA cruza lo interno de la institución (Fortalezas y Debilidades, lo que sí controla) con lo externo (Oportunidades y Amenazas, lo que no controla) frente al problema que ya identificaron.</p>
-      <div class="alert info"><strong>Ejemplo (MOPC):</strong> Fortaleza: base legal sólida y presencia territorial. Debilidad: presupuesto limitado para mantenimiento. Oportunidad: la seguridad vial está priorizada en el plan nacional. Amenaza: el aumento de accidentes tras la pandemia.</div>
+      <div class="alert info"><strong>Ejemplo (INAPA):</strong> Fortaleza: presencia técnica en todo el territorio nacional. Debilidad: infraestructura envejecida en varias regiones. Oportunidad: financiamiento internacional disponible para proyectos de agua y saneamiento. Amenaza: eventos climáticos que dañan la infraestructura existente.</div>
 
       <div class="field">
         <label for="p5_foda">Escriban 1 Fortaleza, 1 Debilidad, 1 Oportunidad y 1 Amenaza de la institución, relacionadas con el problema que están trabajando. <span class="wc" data-for="p5_foda" data-min="30">0/30 palabras</span></label>
@@ -508,11 +498,11 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
     </section>
 
     <section id="paso6" class="card">
-      <span class="step-badge">Paso 6 · 20 min</span><span class="step-points">Vale 15 pts</span>
+      <span class="step-badge">Paso 6</span><span class="step-points">Vale 15 pts</span>
       <button class="speak-btn" data-speak-target="paso6" type="button">🔊 Escuchar este paso</button>
       <h1>Estrategia CAME y reflexión final</h1>
       <p><strong>Idea de esta parte:</strong> el CAME convierte el FODA en acción, cruzando dos elementos: Corregir (Debilidad+Oportunidad), Afrontar (Debilidad+Amenaza), Mantener (Fortaleza+Amenaza) o Explotar (Fortaleza+Oportunidad).</p>
-      <div class="alert info"><strong>Ejemplo (MOPC, tipo Corregir):</strong> usar el financiamiento internacional disponible (Oportunidad) para capacitar más ingenieros de mantenimiento vial (corrige la Debilidad de personal insuficiente).</div>
+      <div class="alert info"><strong>Ejemplo (INAPA, tipo Corregir):</strong> usar el financiamiento internacional disponible (Oportunidad) para renovar las tuberías envejecidas con más fugas (corrige la Debilidad de infraestructura deteriorada).</div>
 
       <div class="field">
         <label for="p6_estrategia">Propongan una estrategia que cruce dos elementos de su FODA del Paso 5 (indiquen cuáles cruzan y de qué tipo es: Corregir, Afrontar, Mantener o Explotar). <span class="wc" data-for="p6_estrategia" data-min="20">0/20 palabras</span></label>
@@ -520,7 +510,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
         <div class="voice-row"><button type="button" class="voice-btn" data-target="p6_estrategia">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p6_estrategia"></span></div>
       </div>
       <div class="field">
-        <label for="p6_reflexion">Reflexión final: ¿qué aprendieron en estas dos horas sobre el diagnóstico institucional que no sabían antes? ¿Cómo lo aplicarían en su trabajo? <span class="wc" data-for="p6_reflexion" data-min="25">0/25 palabras</span></label>
+        <label for="p6_reflexion">Reflexión final: ¿qué aprendieron en este taller sobre el diagnóstico institucional que no sabían antes? ¿Cómo lo aplicarían en su trabajo? <span class="wc" data-for="p6_reflexion" data-min="25">0/25 palabras</span></label>
         <textarea class="tall" id="p6_reflexion"></textarea>
         <div class="voice-row"><button type="button" class="voice-btn" data-target="p6_reflexion">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p6_reflexion"></span></div>
       </div>
@@ -536,7 +526,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
       <h2>Referencias</h2>
       <ul style="font-size:.85rem; color:var(--muted);">
         <li>Adaptado del Manual Metodológico para la Gestión de la Planificación Estratégica Institucional (PEI), Ministerio de Economía, Planificación y Desarrollo (hoy Ministerio de Hacienda y Economía), junio 2024 — presentado aquí en lenguaje sencillo para un primer acercamiento.</li>
-        <li>Esta práctica de Nivel 1 trabaja de forma introductoria las doce herramientas del diagnóstico. Quienes quieran profundizar pueden continuar con la Unidad II completa del curso Planificación Estratégica en la Gestión Pública.</li>
+        <li>Este taller de Nivel 1 trabaja de forma introductoria las herramientas esenciales del diagnóstico institucional. Quienes quieran profundizar pueden continuar avanzando en el curso Planificación Estratégica en la Gestión Pública.</li>
       </ul>
     </section>
 
@@ -568,7 +558,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
     </section>
 
     <footer class="tp-footer">
-      Planificación Estratégica — Unidad II — Nivel 1 · Aprox. 2 horas · 100 % · INAP 2026.<br>
+      Taller de Diagnóstico Institucional — Nivel 1 · Planificación Estratégica · 100 % · INAP 2026.<br>
       Herramienta de autoevaluación con fines educativos. La nota oficial del curso la determina su facilitador.<br>
       Desarrollado por Johan Tapia, PhD.
     </footer>
@@ -1149,7 +1139,7 @@ function gatherGradingPayload(localResult){
     estudiante: { nombre: nombreIdentificacion(), correo: correoIdentificacion(), integrantes: val('grp_integrantes') || '', modalidad: modoSelect.value },
     institucion: val('p1_institucion') || '',
     curso: 'planificacion-estrategica',
-    unidad: 'u2-nivel-1',
+    unidad: 'diagnostico-institucional-nivel-1',
     pasos: pasos,
     local: localResult ? {
       total: localResult.total,
@@ -1212,7 +1202,7 @@ document.getElementById('btn-recheck').addEventListener('click', function(){
 
 /* ---------- EXPORT / PRINT / CLEAR ---------- */
 function exportTxt(){
-  var lines = ['PLANIFICACIÓN ESTRATÉGICA — UNIDAD II — NIVEL 1 (VERSIÓN RÁPIDA)', (modoSelect.value === 'grupo' ? 'Equipo' : 'Nombre') + ': ' + (nombreIdentificacion() || '(sin especificar)'), 'Institución analizada: ' + (val('p1_institucion') || '(sin especificar)'), '======================================================', ''];
+  var lines = ['TALLER DE DIAGNÓSTICO INSTITUCIONAL — NIVEL 1', (modoSelect.value === 'grupo' ? 'Equipo' : 'Nombre') + ': ' + (nombreIdentificacion() || '(sin especificar)'), 'Institución analizada: ' + (val('p1_institucion') || '(sin especificar)'), '======================================================', ''];
   allFieldIds().forEach(function(id){
     var v = val(id);
     if(!filled(v)) return;
@@ -1240,34 +1230,7 @@ document.getElementById('btn-clear').addEventListener('click', function(){
   var aiBox = document.getElementById('ai-review');
   aiBox.style.display = 'none';
   aiBox.innerHTML = '';
-  resetWorkTimer();
 });
-
-/* ---------- TEMPORIZADOR DE REFERENCIA (cuenta regresiva de 120 min) ---------- */
-var COUNTDOWN_KEY = 'tp_diagu2n1_deadline_ms';
-var COUNTDOWN_MINUTES = 120;
-var countdownDeadline;
-try{
-  var savedDeadline = parseInt(localStorage.getItem(COUNTDOWN_KEY) || '0', 10);
-  countdownDeadline = savedDeadline || (Date.now() + COUNTDOWN_MINUTES * 60000);
-  if(!savedDeadline) localStorage.setItem(COUNTDOWN_KEY, String(countdownDeadline));
-}catch(e){ countdownDeadline = Date.now() + COUNTDOWN_MINUTES * 60000; }
-var countdownDisplayEl = document.getElementById('countdown-display');
-function renderCountdown(){
-  if(!countdownDisplayEl) return;
-  var remainMs = Math.max(0, countdownDeadline - Date.now());
-  var totalSec = Math.floor(remainMs / 1000);
-  var m = Math.floor(totalSec / 60), s = totalSec % 60;
-  countdownDisplayEl.textContent = m + ':' + (s < 10 ? '0' : '') + s;
-  countdownDisplayEl.classList.toggle('low', totalSec <= 600);
-}
-function resetWorkTimer(){
-  countdownDeadline = Date.now() + COUNTDOWN_MINUTES * 60000;
-  try{ localStorage.setItem(COUNTDOWN_KEY, String(countdownDeadline)); }catch(e){}
-  renderCountdown();
-}
-renderCountdown();
-setInterval(renderCountdown, 1000);
 
 /* ---------- NICOLE - respaldo con reglas (sin costo) ---------- */
 var advisorToggle = document.getElementById('advisor-toggle');
@@ -1299,7 +1262,7 @@ function askTutorAI(q){
   return fetchWithTimeout(AI_CHAT_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ message: q, contexto: 'Diagnóstico Contextual e Institucional (Unidad II, Nivel 1): marco normativo, misión, población de referencia, prioridades PNPSP, identificación de problemas, árbol de causas y efectos, FODA y estrategias CAME, según el Manual PEI 2024.', curso: 'Planificación Estratégica en la Gestión Pública' })
+    body: JSON.stringify({ message: q, contexto: 'Taller de Diagnóstico Institucional (Nivel 1): marco normativo, misión, población de referencia, identificación de problemas, árbol de causas y efectos, FODA y estrategias CAME, según el Manual PEI 2024.', curso: 'Planificación Estratégica en la Gestión Pública' })
   }, AI_CHAT_TIMEOUT).then(function(res){
     if(!res.ok) throw new Error('HTTP ' + res.status);
     return res.json();
@@ -1330,10 +1293,10 @@ var QA = [
   { kw:['paso 4'], a:'El Paso 4 pide al menos 2 causas y 2 efectos del problema. Vale 20 puntos.' },
   { kw:['paso 5'], a:'El Paso 5 pide una Fortaleza, una Debilidad, una Oportunidad y una Amenaza (FODA). Vale 15 puntos.' },
   { kw:['paso 6'], a:'El Paso 6 pide una estrategia CAME y una reflexión final sobre lo aprendido. Vale 15 puntos.' },
-  { kw:['tiempo', 'temporizador', 'dos horas', 'cuanto dura'], a:'Esta práctica está pensada para completarse en aproximadamente 2 horas. Hay un temporizador de referencia en el menú lateral, pero no bloquea el envío si se pasa un poco.' },
+  { kw:['tiempo', 'cuanto dura', 'cuanto tarda'], a:'No hay un límite de tiempo. Tómese el tiempo que necesite, con calma — puede cerrar la página y volver más tarde, sus respuestas quedan guardadas.' },
   { kw:['individual', 'equipo', 'grupo', 'solo'], a:'Puede completar esta práctica solo/a (individual) o en equipo — elija la opción en "¿Cómo va a completar esta práctica?", arriba de la portada.' },
   { kw:['que institucion elijo', 'cual institucion', 'que institución'], a:'Elija cualquier institución pública dominicana real que ya conozca: donde trabaje, o cualquier ministerio, dirección o institución autónoma. No hace falta que sea perfecta, solo que la conozca lo suficiente para responder con propiedad.' },
-  { kw:['mopc', 'ejemplo'], a:'Los ejemplos de cada paso usan al Ministerio de Obras Públicas y Comunicaciones (MOPC) y su problema de accidentalidad vial. Puede aplicar la misma lógica a cualquier institución que conozca.' },
+  { kw:['inapa', 'ejemplo'], a:'Los ejemplos de cada paso usan al Instituto Nacional de Aguas Potables y Alcantarillados (INAPA) y su problema de acceso al agua potable. Puede aplicar la misma lógica a cualquier institución que conozca.' },
   { kw:['hola', 'ayuda', 'que puedes hacer', 'quien eres'], a:'Soy Nicole, la asistente virtual del Dr. Johan Tapia. Puedo explicarte el marco normativo, la misión, la población, el árbol de problemas, el FODA, el CAME, o cómo funciona la calificación. No te voy a dar la respuesta ya hecha sobre tu institución — eso lo construyes tú.' }
 ];
 function normQ(s){ return stripAccents(s); }
