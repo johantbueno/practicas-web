@@ -369,17 +369,17 @@ function construirRuta(curso){
   function pintarNodos(estados){
     nodosEl.innerHTML = '';
     curso.practicas.forEach(function(p, i){
-      var estado = estados ? estados[i] : (i === 0 ? 'actual' : 'bloqueado');
+      var estado = estados ? estados[i] : 'actual';
       var node = document.createElement('div');
       node.className = 'path-node ' + estado;
-      var icono = estado === 'completado' ? '✔' : (estado === 'actual' ? (i+1) : '🔒');
+      var icono = estado === 'completado' ? '✔' : (i+1);
       node.innerHTML =
         '<div class="path-circle">' + icono + '</div>' +
         '<div class="path-info">' +
           '<span class="p-badge">' + p.badge + '</span>' +
           '<h4>' + p.titulo + '</h4>' +
-          '<p class="p-estado">' + (estado === 'completado' ? '✅ Ya aprobada' : (estado === 'actual' ? '▶️ Disponible ahora' : '🔒 Completa la unidad anterior primero')) + '</p>' +
-          (estado !== 'bloqueado' ? '<a href="' + p.url + '" target="_blank" rel="noopener">Abrir práctica →</a>' : '') +
+          '<p class="p-estado">' + (estado === 'completado' ? '✅ Ya aprobada' : '▶️ Disponible ahora') + '</p>' +
+          '<a href="' + p.url + '" target="_blank" rel="noopener">Abrir práctica →</a>' +
         '</div>';
       nodosEl.appendChild(node);
     });
@@ -413,17 +413,13 @@ function construirRuta(curso){
       // estado que no podemos verificar.
       var estados = [];
       var completadas = 0;
-      var yaHayActual = false;
       for(var i = 0; i < practicas.length; i++){
         var aprobada = i < resultados.length && !!resultados[i].desbloqueado;
         if(aprobada){
           estados[i] = 'completado';
           completadas++;
-        } else if(!yaHayActual){
-          estados[i] = 'actual';
-          yaHayActual = true;
         } else {
-          estados[i] = 'bloqueado';
+          estados[i] = 'actual';
         }
       }
       pintarNodos(estados);
