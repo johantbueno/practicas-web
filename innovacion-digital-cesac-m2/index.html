@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Innovación y Transformación Digital — Módulo 2 | CESAC</title>
-<meta name="description" content="Foro de reflexión autocalificable del Módulo 2 (Herramientas Digitales para la Productividad y el Trabajo Colaborativo), curso Innovación y Transformación Digital, INFOTEP — CESAC. 4 preguntas de reflexión, individual, por escrito o por nota de voz. Incluye a Nicole y calificación automática preliminar.">
+<meta name="description" content="Foro de reflexión autocalificable del Módulo 2 (Herramientas Digitales para la Productividad y el Trabajo Colaborativo), curso Innovación y Transformación Digital, INFOTEP — CESAC. 8 preguntas sencillas de opinión, individual, por escrito o por nota de voz, con temporizador de referencia de 45 minutos. Incluye a Nicole y calificación automática preliminar.">
 <meta name="color-scheme" content="light dark">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9C%88%EF%B8%8F%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -63,6 +63,14 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .progress-track{height:6px; border-radius:999px; background:var(--border-light); overflow:hidden;}
 .progress-fill{height:100%; width:0%; background:linear-gradient(90deg,var(--navy),var(--gold)); transition:width .3s ease;}
 .progress-fill.complete{background:linear-gradient(90deg,#16a34a,#22c55e);}
+
+.timer-box{margin-bottom:1.1rem; padding-bottom:1.1rem; border-bottom:1px solid var(--border-light);}
+.timer-box-row{display:flex; justify-content:space-between; align-items:baseline; font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.03em; color:var(--muted); margin-bottom:.35rem;}
+#timer-clock{font-size:.95rem; font-weight:800; color:var(--primary); font-variant-numeric:tabular-nums; text-transform:none; letter-spacing:normal;}
+#timer-clock.low{color:var(--red);}
+.timer-track{height:6px; border-radius:999px; background:var(--border-light); overflow:hidden;}
+.timer-fill{height:100%; width:100%; background:linear-gradient(90deg,var(--gold),var(--navy)); transition:width 1s linear;}
+.timer-hint{margin:.5rem 0 0; font-size:.68rem; color:var(--muted);}
 
 .nav ul{list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:.2rem;}
 .nav a{text-decoration:none; color:var(--muted); font-size:.9rem; font-weight:500; display:flex; align-items:center; justify-content:space-between; gap:.5rem; padding:.55rem .8rem; border-radius:var(--radius-sm); transition:all .2s ease;}
@@ -259,6 +267,12 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
     </div>
 
     <div class="sidebar-collapsible">
+      <div class="timer-box">
+        <div class="timer-box-row"><span>⏱ Tiempo sugerido</span><span id="timer-clock">45:00</span></div>
+        <div class="timer-track"><div class="timer-fill" id="timer-fill-el"></div></div>
+        <p class="timer-hint">Es solo una referencia — puede tomarse más tiempo si lo necesita, con calma.</p>
+      </div>
+
       <div class="progress-summary">
         <div class="progress-summary-row"><span>Progreso general</span><span id="progress-count">0%</span></div>
         <div class="progress-track"><div class="progress-fill" id="progress-fill-el"></div></div>
@@ -269,10 +283,14 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
         <ul>
           <li><a href="#portada">✈️ Portada e instrucciones</a></li>
           <li><a href="#marco-conceptual">📚 Marco conceptual</a></li>
-          <li><a href="#paso1" data-step="paso1">Pregunta 1 · Conectividad <span class="pct" data-pct="paso1">0%</span></a></li>
-          <li><a href="#paso2" data-step="paso2">Pregunta 2 · Proceso a digitalizar <span class="pct" data-pct="paso2">0%</span></a></li>
-          <li><a href="#paso3" data-step="paso3">Pregunta 3 · Resistencia al cambio <span class="pct" data-pct="paso3">0%</span></a></li>
-          <li><a href="#paso4" data-step="paso4">Pregunta 4 · Seguridad de la información <span class="pct" data-pct="paso4">0%</span></a></li>
+          <li><a href="#paso1" data-step="paso1">Pregunta 1 · Google o Microsoft <span class="pct" data-pct="paso1">0%</span></a></li>
+          <li><a href="#paso2" data-step="paso2">Pregunta 2 · Un trabajo en papel <span class="pct" data-pct="paso2">0%</span></a></li>
+          <li><a href="#paso3" data-step="paso3">Pregunta 3 · Qué herramienta usaría <span class="pct" data-pct="paso3">0%</span></a></li>
+          <li><a href="#paso4" data-step="paso4">Pregunta 4 · Qué mejoraría <span class="pct" data-pct="paso4">0%</span></a></li>
+          <li><a href="#paso5" data-step="paso5">Pregunta 5 · Qué le preocupa <span class="pct" data-pct="paso5">0%</span></a></li>
+          <li><a href="#paso6" data-step="paso6">Pregunta 6 · Qué le ayudaría <span class="pct" data-pct="paso6">0%</span></a></li>
+          <li><a href="#paso7" data-step="paso7">Pregunta 7 · Cuidar la información <span class="pct" data-pct="paso7">0%</span></a></li>
+          <li><a href="#paso8" data-step="paso8">Pregunta 8 · Una experiencia real <span class="pct" data-pct="paso8">0%</span></a></li>
           <li><a href="#rubrica">🧮 Rúbrica de evaluación</a></li>
           <li><a href="#resultado">📤 Enviar y calificar</a></li>
         </ul>
@@ -295,17 +313,18 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
       <div class="cover-chips">
         <span class="cover-chip">👤 Individual</span>
         <span class="cover-chip">🎯 100 pts · 70% aprobación</span>
-        <span class="cover-chip">📝 4 preguntas de reflexión</span>
+        <span class="cover-chip">📝 8 preguntas sencillas</span>
+        <span class="cover-chip">⏱ 45 minutos sugeridos</span>
       </div>
       <button class="speak-btn" data-speak-section="portada-speak" type="button" style="margin-top:1.1rem;">🔊 Escuchar la bienvenida</button>
-      <span id="portada-speak" hidden>Bienvenidos al foro de reflexión del Módulo dos, Herramientas Digitales para la Productividad y el Trabajo Colaborativo, del curso Innovación y Transformación Digital para el CESAC. Van a responder cuatro preguntas de reflexión, a su propio ritmo. En cada pregunta pueden escribir la respuesta, o grabar una nota de voz que el sistema convierte en texto automáticamente manteniendo presionado el botón del micrófono. Si tienen dudas, pueden preguntarle a Nicole, la asistente virtual del Dr. Johan Tapia.</span>
+      <span id="portada-speak" hidden>Bienvenidos al foro de reflexión del Módulo dos, Herramientas Digitales para la Productividad y el Trabajo Colaborativo, del curso Innovación y Transformación Digital para el CESAC. Van a responder ocho preguntas sencillas, dando su opinión con sus propias palabras. No hace falta saber de tecnología. En cada pregunta pueden escribir la respuesta, o grabar una nota de voz que el sistema convierte en texto automáticamente manteniendo presionado el botón del micrófono. Hay un tiempo sugerido de cuarenta y cinco minutos, pero pueden tomarse más tiempo si lo necesitan. Si tienen dudas, pueden preguntarle a Nicole, la asistente virtual del Dr. Johan Tapia.</span>
     </section>
 
     <section class="card" id="tutorial">
       <span class="step-badge">📘 Tutorial</span>
       <h1 style="font-size:1.35rem;">Cómo usar esta plataforma</h1>
       <button class="speak-btn" data-speak-target="tutorial" type="button">🔊 Escuchar este tutorial</button>
-      <p><strong>Concepto:</strong> esta página convierte la Actividad de Reflexión del Módulo 2 en una herramienta de autoevaluación. Responde las 4 preguntas planteadas, a su propio ritmo. No hay que instalar nada ni crear una cuenta.</p>
+      <p><strong>Concepto:</strong> esta página lo ayuda a preparar sus respuestas para el foro de reflexión del Módulo 2. Son 8 preguntas cortas y sencillas, para dar su opinión con sus propias palabras — no hace falta saber de tecnología ni memorizar nada. No hay que instalar nada ni crear una cuenta.</p>
 
       <h2>Dos formas de responder cada pregunta</h2>
       <p><strong>Definición:</strong> cada campo de respuesta acepta texto escrito o una nota de voz transcrita automáticamente.</p>
@@ -339,7 +358,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
       <span class="step-badge">🎯 Objetivo y encuadre</span>
       <h1 style="font-size:1.35rem;">Antes de empezar</h1>
       <div class="alert info">
-        <strong>Objetivo de la actividad:</strong> reflexionar de forma fundamentada sobre las herramientas digitales de productividad y trabajo colaborativo estudiadas en el Módulo 2, conectándolas con su experiencia real en la operación de seguridad aeroportuaria del CESAC.
+        <strong>Objetivo de la actividad:</strong> compartir su opinión, con sus propias palabras, sobre las herramientas digitales que vimos en el Módulo 2, relacionándolas con su trabajo real en el CESAC. No hay respuestas "correctas" ni "incorrectas" — lo importante es que usted cuente lo que piensa y lo que ha vivido.
       </div>
 
       <h2>Identificación</h2>
@@ -363,8 +382,9 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
 
       <h2>Instrucciones generales</h2>
       <ol class="ins-list">
-        <li>Complete las <strong>4 preguntas</strong> en el orden indicado, con calma y sin apuro.</li>
-        <li>Fundamente cada respuesta con ejemplos concretos de su experiencia operativa, no solo con teoría.</li>
+        <li>Complete las <strong>8 preguntas</strong> en el orden indicado, con calma y sin apuro. Son cortas y sencillas.</li>
+        <li>Responda con su propia experiencia y opinión — un par de frases sinceras vale más que una respuesta larga y complicada.</li>
+        <li>Hay un tiempo sugerido de <strong>45 minutos</strong> (lo ve en el reloj de la barra lateral), pero es solo una guía: si necesita más tiempo, tómeselo con calma, nada se bloquea ni se envía solo.</li>
         <li>Puede cerrar la página y volver más tarde a completar otra pregunta — sus respuestas quedan guardadas.</li>
         <li>Al terminar, presione <strong>Enviar y Calificar</strong>: el sistema va a revisar el trabajo y le va a dar una nota preliminar y comentarios al instante.</li>
         <li>Publique sus respuestas en el <strong>foro de discusión de Moodle</strong> para la entrega oficial, y participe leyendo y comentando las respuestas de sus compañeros.</li>
@@ -379,14 +399,14 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
       <h1 style="font-size:1.35rem;">Palabras que vamos a usar</h1>
       <p>No hace falta memorizar esto — puede volver a leerlo cuando quiera, o preguntarle a Nicole.</p>
       <dl class="glossary-grid">
-        <div class="gloss-item"><dt>Computación en la nube</dt><dd>Acceso bajo demanda, por Internet, a servidores, almacenamiento y aplicaciones administrados por un proveedor externo (Google, Microsoft), en vez de equipos físicos propios.</dd></div>
-        <div class="gloss-item"><dt>SaaS</dt><dd>Software como Servicio: aplicaciones listas para usar desde el navegador. El proveedor gestiona infraestructura, actualizaciones y seguridad. Google Workspace y Microsoft 365 son SaaS.</dd></div>
-        <div class="gloss-item"><dt>Gestión Electrónica de Documentos (GED)</dt><dd>Principios y herramientas para administrar el ciclo de vida completo de un documento digital: creación, clasificación, almacenamiento, distribución y archivado/destrucción.</dd></div>
-        <div class="gloss-item"><dt>Metadatos</dt><dd>"Datos sobre los datos": etiquetas (tipo, fecha, aeropuerto, clasificación) que hacen que un documento sea buscable y trazable.</dd></div>
-        <div class="gloss-item"><dt>Co-autoría / colaboración en tiempo real</dt><dd>Dos o más personas editan, comentan o revisan el mismo documento simultáneamente desde ubicaciones distintas, viendo los cambios al instante.</dd></div>
-        <div class="gloss-item"><dt>Comunicación síncrona vs. asíncrona</dt><dd>Síncrona: todos interactúan al mismo tiempo (videollamada). Asíncrona: cada quien contribuye en momentos distintos (correo, comentarios) — clave para el relevo de turnos AM/PM/NOC.</dd></div>
-        <div class="gloss-item"><dt>Automatización / workflow</dt><dd>Secuencia de acciones que se ejecutan automáticamente cuando ocurre un disparador (ej. un formulario enviado), sin intervención manual repetitiva.</dd></div>
-        <div class="gloss-item"><dt>Netiqueta</dt><dd>Reglas de cortesía y buenas prácticas en comunicaciones digitales: asunto descriptivo, un tema por correo, evitar "Responder a todos" innecesario, usar el canal correcto según la urgencia.</dd></div>
+        <div class="gloss-item"><dt>Guardar todo "en la nube"</dt><dd>Guardar y usar programas por Internet, en vez de solo en la computadora de la oficina. Ejemplo: Gmail o Google Drive.</dd></div>
+        <div class="gloss-item"><dt>Programa "SaaS"</dt><dd>Un programa que se usa directo desde el navegador, sin instalar nada. Google Workspace y Microsoft 365 funcionan así.</dd></div>
+        <div class="gloss-item"><dt>Ordenar los documentos digitales</dt><dd>Guardar cada documento en una carpeta clara, con nombre y fecha, para poder encontrarlo rápido cuando se necesite.</dd></div>
+        <div class="gloss-item"><dt>Etiquetas del documento (metadatos)</dt><dd>Los datos que describen un documento: qué es, de qué fecha, de qué aeropuerto. Ayudan a buscarlo en segundos.</dd></div>
+        <div class="gloss-item"><dt>Trabajar juntos al mismo tiempo</dt><dd>Varias personas pueden escribir en el mismo documento a la vez, desde lugares distintos, y ver los cambios al instante.</dd></div>
+        <div class="gloss-item"><dt>Hablar en el momento vs. dejar el mensaje</dt><dd>En el momento: todos hablan a la vez, como en una videollamada. En diferido: cada quien escribe cuando puede, como en un correo — útil para el cambio de turno.</dd></div>
+        <div class="gloss-item"><dt>Que la computadora lo haga sola (automatización)</dt><dd>Que la computadora haga sola una tarea repetitiva, como enviar un recordatorio, sin que nadie tenga que hacerlo a mano cada vez.</dd></div>
+        <div class="gloss-item"><dt>Buenas maneras al escribir (netiqueta)</dt><dd>Reglas de cortesía al escribir correos o mensajes: poner un título claro, no escribir en mayúsculas (se ve como un grito), un tema por correo.</dd></div>
       </dl>
 
       <h2>Comparativa rápida: Google Workspace vs. Microsoft 365</h2>
@@ -403,58 +423,114 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
     </section>
 
     <section id="paso1" class="card">
-      <span class="step-badge">Pregunta 1</span><span class="step-points">Vale 25 pts</span>
+      <span class="step-badge">Pregunta 1</span><span class="step-points">Vale 15 pts</span>
       <button class="speak-btn" data-speak-target="paso1" type="button">🔊 Escuchar esta pregunta</button>
-      <h1>Conectividad</h1>
-      <p>¿Cuál de las dos suites (Google Workspace o Microsoft 365) considera que se adapta mejor a las condiciones de conectividad y equipamiento tecnológico actual de los aeropuertos donde opera el CESAC? Fundamente su respuesta con ejemplos específicos de su experiencia.</p>
-      <div class="alert info"><strong>Guía:</strong> compare al menos dos funcionalidades (correo, almacenamiento, ofimática, comunicación o automatización) y relacione su elección con la conectividad y el equipamiento real de su aeropuerto, no solo con la teoría.</div>
+      <h1>Google o Microsoft: ¿cuál le sirve más?</h1>
+      <p>En su aeropuerto, ¿cuál de las dos plataformas — Google o Microsoft — le parece que funciona mejor con el internet y las computadoras que tienen? Cuéntenos por qué, con un ejemplo de su día a día.</p>
+      <div class="alert info"><strong>Guía:</strong> piense en su experiencia real: ¿el internet en su aeropuerto es rápido o lento? ¿Qué computadoras o celulares usa el personal? No hay una respuesta "correcta" — queremos su opinión.</div>
 
       <div class="field">
-        <label for="p1_respuesta">Su respuesta <span class="wc" data-for="p1_respuesta" data-min="80">0/80 palabras</span></label>
-        <textarea class="tall" id="p1_respuesta" placeholder="Considero que... porque en mi experiencia en el aeropuerto..."></textarea>
+        <label for="p1_respuesta">Su respuesta <span class="wc" data-for="p1_respuesta" data-min="40">0/40 palabras</span></label>
+        <textarea class="tall" id="p1_respuesta" placeholder="En mi aeropuerto funciona mejor... porque..."></textarea>
         <div class="voice-row"><button type="button" class="voice-btn" data-target="p1_respuesta">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p1_respuesta"></span></div>
       </div>
     </section>
 
     <section id="paso2" class="card">
-      <span class="step-badge">Pregunta 2</span><span class="step-points">Vale 30 pts</span>
+      <span class="step-badge">Pregunta 2</span><span class="step-points">Vale 12 pts</span>
       <button class="speak-btn" data-speak-target="paso2" type="button">🔊 Escuchar esta pregunta</button>
-      <h1>Proceso a digitalizar</h1>
-      <p>Identifique un proceso específico de su área de trabajo (control de acceso, inspección de equipaje, vigilancia perimetral, gestión de credenciales, capacitación) que actualmente se realiza en papel o de forma manual, y proponga cómo lo digitalizaría utilizando al menos <strong>tres (3)</strong> de las herramientas vistas en esta unidad.</p>
-      <div class="alert info"><strong>Guía:</strong> nombre el proceso actual y su problema principal; luego indique, para cada una de las 3 herramientas elegidas, en qué paso del proceso la usaría y qué mejora esperaría (tiempo, trazabilidad, seguridad).</div>
+      <h1>Un trabajo que hace en papel</h1>
+      <p>Piense en un trabajo que usted hace en papel o a mano en su área (por ejemplo, un reporte, una lista, un control de acceso). Cuéntenos cuál es, y qué es lo más molesto o lo que más tiempo le quita hacerlo así.</p>
+      <div class="alert info"><strong>Guía:</strong> no hace falta que sea algo complicado — puede ser algo sencillo del día a día.</div>
 
       <div class="field">
-        <label for="p2_respuesta">Su respuesta <span class="wc" data-for="p2_respuesta" data-min="100">0/100 palabras</span></label>
-        <textarea class="tall" id="p2_respuesta" placeholder="El proceso que propongo digitalizar es... Actualmente..., y lo digitalizaría usando..."></textarea>
+        <label for="p2_respuesta">Su respuesta <span class="wc" data-for="p2_respuesta" data-min="30">0/30 palabras</span></label>
+        <textarea class="tall" id="p2_respuesta" placeholder="El trabajo que hago en papel es... Lo más molesto es..."></textarea>
         <div class="voice-row"><button type="button" class="voice-btn" data-target="p2_respuesta">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p2_respuesta"></span></div>
       </div>
     </section>
 
     <section id="paso3" class="card">
-      <span class="step-badge">Pregunta 3</span><span class="step-points">Vale 25 pts</span>
+      <span class="step-badge">Pregunta 3</span><span class="step-points">Vale 15 pts</span>
       <button class="speak-btn" data-speak-target="paso3" type="button">🔊 Escuchar esta pregunta</button>
-      <h1>Resistencia al cambio</h1>
-      <p>En su experiencia, ¿cuáles son las principales barreras (culturales, técnicas, organizacionales) que podrían dificultar la adopción de estas herramientas en el CESAC? Proponga al menos una estrategia para superar cada barrera identificada, conectando con los conceptos de gestión del cambio estudiados en el Módulo 1.</p>
-      <div class="alert info"><strong>Guía:</strong> identifique al menos dos barreras de tipo distinto (por ejemplo una cultural y una técnica), y para cada una proponga una estrategia concreta y aplicable al CESAC, no solo genérica.</div>
+      <h1>¿Qué herramienta usaría?</h1>
+      <p>De las herramientas que vimos en esta unidad (correo, Google Drive u OneDrive, un formulario digital, Teams, o algo que la computadora hace sola), ¿cuál usaría para mejorar el trabajo que mencionó en la pregunta anterior? Cuéntenos cómo la usaría.</p>
+      <div class="alert info"><strong>Guía:</strong> puede repasar el glosario de esta página si no recuerda algún nombre. Elija la que le parezca más fácil, no la más complicada.</div>
 
       <div class="field">
-        <label for="p3_respuesta">Su respuesta <span class="wc" data-for="p3_respuesta" data-min="80">0/80 palabras</span></label>
-        <textarea class="tall" id="p3_respuesta" placeholder="Una barrera importante sería..., y para superarla propongo..."></textarea>
+        <label for="p3_respuesta">Su respuesta <span class="wc" data-for="p3_respuesta" data-min="35">0/35 palabras</span></label>
+        <textarea class="tall" id="p3_respuesta" placeholder="Yo usaría... porque..."></textarea>
         <div class="voice-row"><button type="button" class="voice-btn" data-target="p3_respuesta">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p3_respuesta"></span></div>
       </div>
     </section>
 
     <section id="paso4" class="card">
-      <span class="step-badge">Pregunta 4</span><span class="step-points">Vale 20 pts</span>
+      <span class="step-badge">Pregunta 4</span><span class="step-points">Vale 10 pts</span>
       <button class="speak-btn" data-speak-target="paso4" type="button">🔊 Escuchar esta pregunta</button>
-      <h1>Seguridad de la información</h1>
-      <p>¿Qué riesgos de seguridad informática identifica al migrar los procesos del CESAC a la nube? ¿Qué medidas de protección recomendaría? Considere tanto amenazas técnicas (ciberataques, filtraciones) como amenazas humanas (errores, negligencia, acceso no autorizado).</p>
-      <div class="alert info"><strong>Guía:</strong> mencione al menos un riesgo técnico y un riesgo humano, cada uno con una medida de protección concreta (por ejemplo, autenticación de dos factores, control de permisos, capacitación del personal).</div>
+      <h1>¿Qué mejoraría?</h1>
+      <p>Si ese trabajo se hiciera de forma digital en vez de en papel, ¿qué cree que mejoraría? Por ejemplo: menos tiempo, menos papeles perdidos, más orden.</p>
+      <div class="alert info"><strong>Guía:</strong> puede mencionar una sola mejora, con un ejemplo sencillo de cómo se notaría en su trabajo del día a día.</div>
 
       <div class="field">
-        <label for="p4_respuesta">Su respuesta <span class="wc" data-for="p4_respuesta" data-min="70">0/70 palabras</span></label>
-        <textarea class="tall" id="p4_respuesta" placeholder="Un riesgo técnico sería..., y un riesgo humano sería... Para protegernos recomendaría..."></textarea>
+        <label for="p4_respuesta">Su respuesta <span class="wc" data-for="p4_respuesta" data-min="25">0/25 palabras</span></label>
+        <textarea class="tall" id="p4_respuesta" placeholder="Creo que mejoraría..."></textarea>
         <div class="voice-row"><button type="button" class="voice-btn" data-target="p4_respuesta">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p4_respuesta"></span></div>
+      </div>
+    </section>
+
+    <section id="paso5" class="card">
+      <span class="step-badge">Pregunta 5</span><span class="step-points">Vale 15 pts</span>
+      <button class="speak-btn" data-speak-target="paso5" type="button">🔊 Escuchar esta pregunta</button>
+      <h1>¿Qué le preocupa?</h1>
+      <p>Sinceramente, ¿qué le preocupa o le da un poco de temor de empezar a usar estas herramientas digitales en su trabajo?</p>
+      <div class="alert info"><strong>Guía:</strong> puede ser algo técnico (no saber usarlo bien) o algo personal (miedo a equivocarse, a que lo critiquen). Cualquier respuesta honesta es válida — no hay nada "malo" que decir aquí.</div>
+
+      <div class="field">
+        <label for="p5_respuesta">Su respuesta <span class="wc" data-for="p5_respuesta" data-min="35">0/35 palabras</span></label>
+        <textarea class="tall" id="p5_respuesta" placeholder="Lo que más me preocupa es..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p5_respuesta">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p5_respuesta"></span></div>
+      </div>
+    </section>
+
+    <section id="paso6" class="card">
+      <span class="step-badge">Pregunta 6</span><span class="step-points">Vale 13 pts</span>
+      <button class="speak-btn" data-speak-target="paso6" type="button">🔊 Escuchar esta pregunta</button>
+      <h1>¿Qué le ayudaría?</h1>
+      <p>¿Qué le ayudaría a usted, o a sus compañeros, a sentirse más seguros usando estas herramientas? Por ejemplo: una capacitación, que un compañero les enseñe, o más tiempo para practicar.</p>
+      <div class="alert info"><strong>Guía:</strong> piense en algo concreto y realista para el CESAC, no en una idea muy general.</div>
+
+      <div class="field">
+        <label for="p6_respuesta">Su respuesta <span class="wc" data-for="p6_respuesta" data-min="30">0/30 palabras</span></label>
+        <textarea class="tall" id="p6_respuesta" placeholder="Lo que más me ayudaría es..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p6_respuesta">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p6_respuesta"></span></div>
+      </div>
+    </section>
+
+    <section id="paso7" class="card">
+      <span class="step-badge">Pregunta 7</span><span class="step-points">Vale 12 pts</span>
+      <button class="speak-btn" data-speak-target="paso7" type="button">🔊 Escuchar esta pregunta</button>
+      <h1>Cuidando la información</h1>
+      <p>¿Qué cuidados cree que hay que tener para que la información del CESAC esté segura si se guarda en internet? Por ejemplo, con las contraseñas o con correos raros.</p>
+      <div class="alert info"><strong>Guía:</strong> no hace falta saber términos técnicos — cuéntenos con sus propias palabras qué cuidados tomaría usted.</div>
+
+      <div class="field">
+        <label for="p7_respuesta">Su respuesta <span class="wc" data-for="p7_respuesta" data-min="30">0/30 palabras</span></label>
+        <textarea class="tall" id="p7_respuesta" placeholder="Yo tendría cuidado con..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p7_respuesta">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p7_respuesta"></span></div>
+      </div>
+    </section>
+
+    <section id="paso8" class="card">
+      <span class="step-badge">Pregunta 8</span><span class="step-points">Vale 8 pts</span>
+      <button class="speak-btn" data-speak-target="paso8" type="button">🔊 Escuchar esta pregunta</button>
+      <h1>Una experiencia real</h1>
+      <p>¿Conoce algún caso, propio o de un compañero, donde alguien haya compartido una contraseña, o haya caído en un mensaje o correo falso? Cuéntenos qué pasó y qué aprendizaje deja.</p>
+      <div class="alert info"><strong>Guía:</strong> si no conoce ningún caso real, puede contarnos qué haría usted si le llegara un mensaje sospechoso pidiéndole su contraseña.</div>
+
+      <div class="field">
+        <label for="p8_respuesta">Su respuesta <span class="wc" data-for="p8_respuesta" data-min="25">0/25 palabras</span></label>
+        <textarea class="tall" id="p8_respuesta" placeholder="Conozco un caso donde..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p8_respuesta">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p8_respuesta"></span></div>
       </div>
     </section>
 
@@ -479,7 +555,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
       <div id="submit-zone">
         <span class="step-badge">📤 Paso final</span>
         <h1 style="font-size:1.4rem;">Enviar y calificar mi trabajo</h1>
-        <p>El sistema revisará automáticamente sus 4 respuestas y le mostrará su nota, el detalle por criterio y retroalimentación personalizada según lo que usted escribió. Recuerde publicar también sus respuestas en el foro de Moodle.</p>
+        <p>El sistema revisará automáticamente sus 8 respuestas y le mostrará su nota, el detalle por criterio y retroalimentación personalizada según lo que usted escribió. Recuerde publicar también sus respuestas en el foro de Moodle.</p>
         <button class="btn-primary" id="btn-submit" type="button">📤 Enviar y Calificar mi Trabajo</button>
       </div>
 
@@ -834,8 +910,43 @@ var STEP_FIELDS = {
   paso1: ['p1_respuesta'],
   paso2: ['p2_respuesta'],
   paso3: ['p3_respuesta'],
-  paso4: ['p4_respuesta']
+  paso4: ['p4_respuesta'],
+  paso5: ['p5_respuesta'],
+  paso6: ['p6_respuesta'],
+  paso7: ['p7_respuesta'],
+  paso8: ['p8_respuesta']
 };
+
+/* ---------- TEMPORIZADOR DE REFERENCIA (45 min, no bloquea ni envía nada) ---------- */
+var TIEMPO_SUGERIDO_SEG = 45 * 60;
+var TIMER_DEADLINE_KEY = 'tp_cesacdigital_m2_deadline_ms';
+function formatearTiempoTimer(seg){
+  var m = Math.floor(seg / 60), s = seg % 60;
+  return (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+}
+(function initTimer(){
+  var clockEl = document.getElementById('timer-clock');
+  var fillEl = document.getElementById('timer-fill-el');
+  if(!clockEl || !fillEl) return;
+  var deadlineMs;
+  try{
+    var saved = parseInt(localStorage.getItem(TIMER_DEADLINE_KEY), 10);
+    deadlineMs = (saved && saved > Date.now()) ? saved : (Date.now() + TIEMPO_SUGERIDO_SEG * 1000);
+  }catch(e){ deadlineMs = Date.now() + TIEMPO_SUGERIDO_SEG * 1000; }
+  try{ localStorage.setItem(TIMER_DEADLINE_KEY, String(deadlineMs)); }catch(e){}
+  function tick(){
+    var restante = Math.max(0, Math.round((deadlineMs - Date.now()) / 1000));
+    clockEl.textContent = formatearTiempoTimer(restante);
+    fillEl.style.width = Math.max(0, (restante / TIEMPO_SUGERIDO_SEG) * 100) + '%';
+    clockEl.classList.toggle('low', restante > 0 && restante <= 300);
+    if(restante <= 0){
+      clockEl.textContent = '00:00';
+      clockEl.title = 'El tiempo sugerido terminó, pero puede seguir trabajando con calma — nada se bloquea.';
+    }
+  }
+  tick();
+  setInterval(tick, 1000);
+})();
 
 /* ---------- WORD COUNTERS ---------- */
 document.querySelectorAll('.wc[data-for]').forEach(function(span){
@@ -923,10 +1034,14 @@ updateProgress();
 
 /* ---------- RÚBRICA TABLE (static reference) ---------- */
 var RUBRICA = [
-  {n:1, key:'paso1', criterio:'Conectividad (Pregunta 1)', indicador:'Comparación fundamentada entre Google Workspace y Microsoft 365, con al menos un ejemplo concreto de la experiencia del participante en su aeropuerto.', pts:25, minWords:80},
-  {n:2, key:'paso2', criterio:'Proceso a digitalizar (Pregunta 2)', indicador:'Proceso real identificado, con propuesta de digitalización usando al menos 3 herramientas de la unidad e indicando la mejora esperada.', pts:30, minWords:100},
-  {n:3, key:'paso3', criterio:'Resistencia al cambio (Pregunta 3)', indicador:'Al menos dos barreras (cultural/técnica/organizacional) identificadas, cada una con una estrategia concreta de superación.', pts:25, minWords:80},
-  {n:4, key:'paso4', criterio:'Seguridad de la información (Pregunta 4)', indicador:'Al menos un riesgo técnico y un riesgo humano identificados, cada uno con una medida de protección recomendada.', pts:20, minWords:70}
+  {n:1, key:'paso1', field:'p1_respuesta', criterio:'Google o Microsoft (Pregunta 1)', indicador:'Opinión con un ejemplo real de conectividad o equipamiento de su aeropuerto.', pts:15, minWords:40},
+  {n:2, key:'paso2', field:'p2_respuesta', criterio:'Un trabajo en papel (Pregunta 2)', indicador:'Un trabajo real identificado, con la molestia principal explicada.', pts:12, minWords:30},
+  {n:3, key:'paso3', field:'p3_respuesta', criterio:'Herramienta elegida (Pregunta 3)', indicador:'Herramienta de la unidad elegida y explicación de cómo la usaría.', pts:15, minWords:35},
+  {n:4, key:'paso4', field:'p4_respuesta', criterio:'Mejora esperada (Pregunta 4)', indicador:'Al menos una mejora concreta mencionada.', pts:10, minWords:25},
+  {n:5, key:'paso5', field:'p5_respuesta', criterio:'Preocupación sincera (Pregunta 5)', indicador:'Una preocupación real y personal explicada con honestidad.', pts:15, minWords:35},
+  {n:6, key:'paso6', field:'p6_respuesta', criterio:'Qué le ayudaría (Pregunta 6)', indicador:'Al menos una idea concreta de apoyo o capacitación.', pts:13, minWords:30},
+  {n:7, key:'paso7', field:'p7_respuesta', criterio:'Cuidar la información (Pregunta 7)', indicador:'Al menos un cuidado de seguridad mencionado con sus propias palabras.', pts:12, minWords:30},
+  {n:8, key:'paso8', field:'p8_respuesta', criterio:'Una experiencia real (Pregunta 8)', indicador:'Un caso o situación (real o hipotética) contado con algún aprendizaje.', pts:8, minWords:25}
 ];
 document.getElementById('rubrica-body').innerHTML = RUBRICA.map(function(r){
   return '<tr><td class="label-cell">'+r.n+'</td><td>'+r.criterio+'</td><td>'+r.indicador+'</td><td class="label-cell">'+r.pts+'</td></tr>';
@@ -946,7 +1061,7 @@ function buildCriterion(title, maxPoints, frac){
 
 function runGrading(){
   var criteria = RUBRICA.map(function(r){
-    return buildCriterion(r.criterio, r.pts, singleWordFrac(r.key === 'paso1' ? 'p1_respuesta' : r.key === 'paso2' ? 'p2_respuesta' : r.key === 'paso3' ? 'p3_respuesta' : 'p4_respuesta', r.minWords));
+    return buildCriterion(r.criterio, r.pts, singleWordFrac(r.field, r.minWords));
   });
   var total = Math.round(criteria.reduce(function(a,c){ return a + c.score; },0) * 10) / 10;
   return { criteria:criteria, total:total };
@@ -1298,23 +1413,27 @@ function askTutor(q){
 }
 
 var QA = [
-  { kw:['calific','nota','puntaje','rubrica','aprobar','minimo'], a:'La nota va de 0 a 100. Pregunta 1 vale 25 pts, Pregunta 2 vale 30 pts, Pregunta 3 vale 25 pts, Pregunta 4 vale 20 pts. La aprobación mínima es 70%. El sistema revisa si las respuestas están completas y bien desarrolladas. Su facilitador revisa el contenido real, y también su participación en el foro de Moodle, para la nota oficial.' },
-  { kw:['google workspace', 'microsoft 365', 'm365', 'workspace vs', 'diferencia entre google'], a:'Ambas son suites SaaS (Software como Servicio). Google Workspace destaca por su co-edición 100% web (Docs, Sheets, Slides) y Gmail; Microsoft 365 destaca por SharePoint (bibliotecas documentales con permisos granulares y control de versiones), Excel como estándar de análisis, y Power Automate (automatización sin código). La mejor opción depende de la conectividad y el equipamiento real de cada aeropuerto.' },
-  { kw:['saas', 'paas', 'iaas', 'nube', 'cloud'], a:'Hay tres modelos: IaaS (servidores/redes, el usuario gestiona el resto), PaaS (entorno para desarrollar aplicaciones), y SaaS (aplicaciones listas para usar desde el navegador, como Google Workspace y Microsoft 365 — el proveedor gestiona todo).' },
-  { kw:['gestion documental', 'gestión documental', 'ged'], a:'La Gestión Electrónica de Documentos (GED) administra el ciclo de vida completo de un documento: creación, clasificación (con metadatos), almacenamiento, distribución y archivado o destrucción, garantizando autenticidad, integridad, confidencialidad y disponibilidad.' },
-  { kw:['metadato'], a:'Los metadatos son "datos sobre los datos": etiquetas como tipo de documento, fecha, aeropuerto, clasificación de seguridad y responsable, que permiten buscar y controlar el acceso a un documento en segundos en vez de horas.' },
-  { kw:['coautoria', 'co-autoria', 'colaborativo', 'colaboracion'], a:'La co-autoría es la edición simultánea de un mismo documento por varias personas desde ubicaciones distintas, con comentarios, historial de versiones y control de acceso por documento — elimina las versiones duplicadas del modelo tradicional.' },
-  { kw:['sincrona', 'síncrona', 'asincrona', 'asíncrona'], a:'La comunicación síncrona ocurre en tiempo real (videollamada, chat en vivo) — útil para decisiones urgentes. La asíncrona ocurre en momentos distintos (correo, comentarios) — clave para el relevo entre turnos AM, PM y NOC, sin perder información.' },
-  { kw:['automatizacion', 'automatización', 'workflow', 'flujo de trabajo', 'power automate'], a:'Un flujo automatizado (workflow) ejecuta una secuencia de acciones cuando ocurre un disparador, sin intervención humana repetitiva. Power Automate (M365) y Google Apps Script (Workspace) son las herramientas vistas; ejemplos: recordatorios de vencimiento de credenciales OACI, o generación automática de informes mensuales.' },
-  { kw:['netiqueta'], a:'La netiqueta son las reglas de cortesía en comunicaciones digitales: asunto descriptivo, un tema por correo, no usar "responder a todos" innecesariamente, y elegir el canal correcto según la urgencia — nunca reportar una emergencia de seguridad por correo si hay un canal de alerta inmediata.' },
+  { kw:['calific','nota','puntaje','rubrica','aprobar','minimo'], a:'La nota va de 0 a 100, entre las 8 preguntas (15+12+15+10+15+13+12+8). La aprobación mínima es 70%. El sistema revisa si sus respuestas están completas, no si son "perfectas" — un par de frases sinceras y con un ejemplo ya cuentan como buena respuesta. Su facilitador revisa el contenido real, y también su participación en el foro de Moodle, para la nota oficial.' },
+  { kw:['google workspace', 'microsoft 365', 'm365', 'workspace vs', 'diferencia entre google'], a:'Las dos hacen cosas parecidas (correo, guardar archivos, documentos, videollamadas). Google es más simple y todo funciona desde el navegador. Microsoft tiene Word/Excel de toda la vida y Teams para videollamadas. La mejor para usted depende del internet y las computadoras que tengan en su aeropuerto.' },
+  { kw:['nube', 'cloud', 'saas'], a:'"La nube" quiere decir guardar y usar programas por Internet, en vez de solo en la computadora de la oficina. Por ejemplo, Gmail o Google Drive: usted entra desde cualquier computadora con Internet y ahí está su información.' },
+  { kw:['gestion documental', 'gestión documental', 'ordenar documentos'], a:'Es simplemente ordenar los documentos digitales en carpetas claras, con nombre y fecha, para poder encontrarlos rápido cuando se necesiten — en vez de buscar entre papeles.' },
+  { kw:['metadato', 'etiqueta'], a:'Los metadatos son como una etiqueta pegada a un documento: qué es, de qué fecha, de qué aeropuerto. Con esa etiqueta, buscar un documento toma segundos en vez de horas.' },
+  { kw:['coautoria', 'co-autoria', 'colaborativo', 'colaboracion', 'trabajar juntos'], a:'Es que varias personas puedan escribir en el mismo documento al mismo tiempo, desde computadoras distintas, y ver los cambios de inmediato — sin tener que mandarse el archivo por correo una y otra vez.' },
+  { kw:['sincrona', 'síncrona', 'asincrona', 'asíncrona'], a:'En el momento: todos hablan a la vez, como en una videollamada. En diferido: cada quien escribe cuando puede, como en un correo — esto último es muy útil para el cambio de turno.' },
+  { kw:['automatizacion', 'automatización', 'que la computadora lo haga sola'], a:'Es que la computadora haga sola una tarea repetitiva, como enviar un recordatorio, sin que nadie tenga que acordarse de hacerlo cada vez.' },
+  { kw:['netiqueta', 'buenas maneras'], a:'Son reglas de cortesía al escribir correos o mensajes: poner un título claro, no escribir en mayúsculas (se ve como un grito), y un tema por correo.' },
   { kw:['nota de voz', 'voz', 'grabar', 'hablar', 'microfono', 'micrófono'], a:'Al lado de cada pregunta hay un botón "🎤 Mantenga presionado para grabar". Manténgalo presionado mientras habla su respuesta, y suéltelo al terminar — el sistema la convierte en texto automáticamente, como una nota de voz de WhatsApp.' },
-  { kw:['pregunta 1'], a:'La Pregunta 1 pide comparar Google Workspace y Microsoft 365 según la conectividad y el equipamiento de los aeropuertos del CESAC. Vale 25 puntos.' },
-  { kw:['pregunta 2'], a:'La Pregunta 2 pide identificar un proceso manual de su área y proponer su digitalización con al menos 3 herramientas de la unidad. Vale 30 puntos.' },
-  { kw:['pregunta 3'], a:'La Pregunta 3 pide identificar barreras a la adopción tecnológica y una estrategia para superar cada una. Vale 25 puntos.' },
-  { kw:['pregunta 4'], a:'La Pregunta 4 pide identificar riesgos de seguridad informática (técnicos y humanos) al migrar a la nube, y medidas de protección. Vale 20 puntos.' },
-  { kw:['tiempo', 'cuanto dura', 'cuanto tarda'], a:'No hay un límite de tiempo estricto en esta herramienta — se estima entre 45 y 60 minutos. Tómese el tiempo que necesite; sus respuestas quedan guardadas en este navegador.' },
+  { kw:['pregunta 1'], a:'La Pregunta 1 pide su opinión: ¿Google o Microsoft le sirve más en su aeropuerto? Vale 15 puntos.' },
+  { kw:['pregunta 2'], a:'La Pregunta 2 pide que cuente un trabajo que hace en papel y qué es lo más molesto de hacerlo así. Vale 12 puntos.' },
+  { kw:['pregunta 3'], a:'La Pregunta 3 pide qué herramienta usaría para mejorar ese trabajo en papel. Vale 15 puntos.' },
+  { kw:['pregunta 4'], a:'La Pregunta 4 pide qué cree que mejoraría si ese trabajo se hiciera digital. Vale 10 puntos.' },
+  { kw:['pregunta 5'], a:'La Pregunta 5 pide, con sinceridad, qué le preocupa de usar estas herramientas nuevas. Vale 15 puntos.' },
+  { kw:['pregunta 6'], a:'La Pregunta 6 pide qué le ayudaría a sentirse más seguro usando estas herramientas. Vale 13 puntos.' },
+  { kw:['pregunta 7'], a:'La Pregunta 7 pide qué cuidados hay que tener para que la información esté segura. Vale 12 puntos.' },
+  { kw:['pregunta 8'], a:'La Pregunta 8 pide contar una experiencia real (o hipotética) sobre contraseñas o mensajes falsos. Vale 8 puntos.' },
+  { kw:['tiempo', 'cuanto dura', 'cuanto tarda', 'temporizador', 'reloj', '45 minutos'], a:'Hay un reloj en la barra lateral con 45 minutos sugeridos, pero es solo una guía — no bloquea nada ni envía nada solo. Tómese el tiempo que necesite; sus respuestas quedan guardadas en este navegador.' },
   { kw:['foro', 'moodle'], a:'Esta página le da una nota preliminar y le ayuda a organizar sus respuestas, pero la entrega oficial es el foro de discusión en Moodle. Use el botón "⬇️ Descargar mis respuestas" para copiar su texto, publíquelo en el foro, y lea/comente las respuestas de sus compañeros.' },
-  { kw:['hola', 'ayuda', 'que puedes hacer', 'quien eres'], a:'Soy Nicole, la asistente virtual del Dr. Johan Tapia. Puedo explicarte la computación en la nube, la gestión documental, el trabajo colaborativo, la automatización, la netiqueta, o cómo funciona la calificación de este foro. No te voy a dar la respuesta ya hecha — eso lo construyes tú a partir de tu experiencia real en el CESAC.' }
+  { kw:['hola', 'ayuda', 'que puedes hacer', 'quien eres'], a:'Soy Nicole, la asistente virtual del Dr. Johan Tapia. Puedo explicarte, con palabras sencillas, la nube, el orden de documentos, el trabajo en equipo, la automatización, la netiqueta, o cómo funciona la calificación de este foro. No te voy a dar la respuesta ya hecha — eso lo construyes tú, contando tu propia experiencia en el CESAC.' }
 ];
 function normQ(s){ return stripAccents(s); }
 function answerFor(q){
