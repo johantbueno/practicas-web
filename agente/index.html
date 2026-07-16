@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
 <style>
 :root{
   --bg:#0b0d12; --panel:#12151c; --border:#242938; --text:#d5dae3; --muted:#6b7386;
@@ -29,6 +30,17 @@ header .dot{width:8px; height:8px; border-radius:50%; background:var(--accent);}
 .msg.agent .body{background:var(--panel); border:1px solid var(--border); border-radius:10px 10px 10px 2px; padding:.7rem .9rem;}
 .msg.error .body{background:#2a1212; border:1px solid var(--err); color:#fca5a5; border-radius:10px;}
 .msg.pending .body{color:var(--muted); font-style:italic;}
+.msg.agent .body p{margin:.4em 0;}
+.msg.agent .body p:first-child{margin-top:0;}
+.msg.agent .body p:last-child{margin-bottom:0;}
+.msg.agent .body code{background:#0f1830; border-radius:4px; padding:.1em .35em; font-size:.85em;}
+.msg.agent .body pre{background:#0f1830; border:1px solid var(--border); border-radius:8px; padding:.7rem .8rem; overflow-x:auto;}
+.msg.agent .body pre code{background:none; padding:0;}
+.msg.agent .body ul, .msg.agent .body ol{margin:.4em 0; padding-left:1.4em;}
+.msg.agent .body a{color:var(--user);}
+.files-box{margin-top:.6rem; display:flex; flex-wrap:wrap; gap:.5rem;}
+.files-box a{display:inline-flex; align-items:center; gap:.4rem; background:#0f1830; border:1px solid var(--border); border-radius:8px; padding:.4rem .7rem; font-size:.78rem; color:var(--accent); text-decoration:none;}
+.files-box a:hover{border-color:var(--accent);}
 #attachments{padding:0 1.25rem; display:flex; flex-wrap:wrap; gap:.5rem;}
 #attachments:empty{display:none;}
 .attach-chip{display:flex; align-items:center; gap:.4rem; background:var(--panel); border:1px solid var(--border); border-radius:999px; padding:.3rem .5rem .3rem .8rem; font-size:.76rem; color:var(--muted);}
@@ -83,7 +95,9 @@ header .dot{width:8px; height:8px; border-radius:50%; background:var(--accent);}
 
 var AGENT_URL = 'https://agente.plataforma.cfd/agent';
 var UPLOAD_URL = 'https://agente.plataforma.cfd/upload';
+var DOWNLOAD_URL = 'https://agente.plataforma.cfd/download';
 var KEY_STORAGE = 'vps_agent_key';
+var HISTORY_STORAGE = 'johangpt_history_v1';
 
 var gate = document.getElementById('gate');
 var gateKey = document.getElementById('gate-key');
@@ -99,8 +113,10 @@ var attachedFiles = []; // { name, path, uploading }
 function getKey(){ try{ return localStorage.getItem(KEY_STORAGE) || ''; }catch(e){ return ''; } }
 function setKey(k){ try{ localStorage.setItem(KEY_STORAGE, k); }catch(e){} }
 
+var historyRestored = false;
 function openChat(){
   gate.classList.add('hidden');
+  if(!historyRestored){ restoreHistory(); historyRestored = true; }
   input.focus();
 }
 
@@ -116,20 +132,56 @@ gateBtn.addEventListener('click', function(){
 });
 gateKey.addEventListener('keydown', function(e){ if(e.key === 'Enter') gateBtn.click(); });
 
-function addMsg(who, text, cls){
+var history = [];
+try{ history = JSON.parse(localStorage.getItem(HISTORY_STORAGE) || '[]'); }catch(e){ history = []; }
+
+function saveHistory(){
+  try{ localStorage.setItem(HISTORY_STORAGE, JSON.stringify(history.slice(-200))); }catch(e){}
+}
+
+function renderFilesBox(container, files){
+  if(!files || !files.length) return;
+  var box = document.createElement('div');
+  box.className = 'files-box';
+  files.forEach(function(f){
+    var a = document.createElement('a');
+    a.href = DOWNLOAD_URL + '?key=' + encodeURIComponent(getKey()) + '&file=' + encodeURIComponent(f.name);
+    a.textContent = '⬇️ ' + f.name;
+    a.target = '_blank';
+    box.appendChild(a);
+  });
+  container.appendChild(box);
+}
+
+// entry: { who, text, cls, markdown, files }. persist=false para mensajes temporales (ej. "Pensando…")
+function addMsg(entry, persist){
   var div = document.createElement('div');
-  div.className = 'msg ' + cls;
+  div.className = 'msg ' + entry.cls;
   var label = document.createElement('div');
   label.className = 'who';
-  label.textContent = who;
+  label.textContent = entry.who;
   var body = document.createElement('div');
   body.className = 'body';
-  body.textContent = text;
+  if(entry.markdown && window.marked){
+    body.innerHTML = marked.parse(entry.text || '');
+  } else {
+    body.textContent = entry.text;
+  }
   div.appendChild(label);
   div.appendChild(body);
+  renderFilesBox(body, entry.files);
   log.appendChild(div);
   log.scrollTop = log.scrollHeight;
+  div._body = body;
+  if(persist !== false){
+    history.push(entry);
+    saveHistory();
+  }
   return div;
+}
+
+function restoreHistory(){
+  history.forEach(function(entry){ addMsg(entry, false); });
 }
 
 function autoGrow(){
@@ -205,15 +257,15 @@ function send(){
     fullMessage = 'Archivos adjuntos disponibles en el servidor:\n' + fileList + '\n\n' + (message || 'Revisa el/los archivo(s) adjunto(s) y cuéntame qué contienen.');
   }
 
-  addMsg('Tú', message || '(archivo adjunto sin mensaje)', 'user');
+  addMsg({ who: 'Tú', text: message || '(archivo adjunto sin mensaje)', cls: 'user' });
   input.value = '';
   attachedFiles = [];
   renderAttachments();
   autoGrow();
   sendBtn.disabled = true;
-  var messageToSend = fullMessage;
 
-  var pending = addMsg('Agente', 'Pensando… (puede tardar varios minutos)', 'agent pending');
+  var pendingDiv = addMsg({ who: 'JohanGPT', text: 'Pensando…', cls: 'agent pending' }, false);
+  var streamedText = '';
 
   var controller = new AbortController();
   var timer = setTimeout(function(){ controller.abort(); }, 290000);
@@ -221,28 +273,65 @@ function send(){
   fetch(AGENT_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'X-Agent-Key': key },
-    body: JSON.stringify({ message: messageToSend }),
+    body: JSON.stringify({ message: fullMessage }),
     signal: controller.signal
   }).then(function(res){
-    clearTimeout(timer);
     if(res.status === 401){ throw new Error('CLAVE_INVALIDA'); }
-    return res.json();
-  }).then(function(data){
-    pending.remove();
-    if(data.ok){
-      addMsg('Agente', data.output || '(sin salida)', 'agent');
-    } else {
-      addMsg('Error', data.error || 'Error desconocido', 'error');
+    if(res.status === 429){ throw new Error('LIMITE_USO'); }
+    if(!res.ok || !res.body){ throw new Error('HTTP_' + res.status); }
+
+    pendingDiv.classList.remove('pending');
+    var reader = res.body.getReader();
+    var decoder = new TextDecoder();
+    var buffer = '';
+    var doneFiles = [];
+    var hadError = null;
+
+    function pump(){
+      return reader.read().then(function(r){
+        if(r.done) return;
+        buffer += decoder.decode(r.value, { stream: true });
+        var lines = buffer.split('\n');
+        buffer = lines.pop();
+        lines.forEach(function(line){
+          if(!line.trim()) return;
+          var evt;
+          try{ evt = JSON.parse(line); }catch(e){ return; }
+          if(evt.type === 'delta'){
+            streamedText += evt.text;
+            pendingDiv._body.textContent = streamedText;
+            log.scrollTop = log.scrollHeight;
+          } else if(evt.type === 'done'){
+            doneFiles = evt.files || [];
+          } else if(evt.type === 'error'){
+            hadError = evt.error;
+          }
+        });
+        return pump();
+      });
     }
+
+    return pump().then(function(){
+      clearTimeout(timer);
+      pendingDiv.remove();
+      if(hadError && !streamedText){
+        addMsg({ who: 'Error', text: hadError, cls: 'error' });
+      } else {
+        addMsg({ who: 'JohanGPT', text: streamedText || '(sin salida)', cls: 'agent', markdown: true, files: doneFiles });
+      }
+    });
   }).catch(function(err){
-    pending.remove();
+    clearTimeout(timer);
+    pendingDiv.remove();
     if(err.message === 'CLAVE_INVALIDA'){
-      addMsg('Error', 'Clave de acceso inválida. Recarga la página para ingresarla de nuevo.', 'error');
+      addMsg({ who: 'Error', text: 'Clave de acceso inválida. Recarga la página para ingresarla de nuevo.', cls: 'error' });
       try{ localStorage.removeItem(KEY_STORAGE); }catch(e){}
+    } else if(err.message === 'LIMITE_USO'){
+      addMsg({ who: 'Error', text: 'Has hecho demasiadas peticiones seguidas. Espera un momento e intenta de nuevo.', cls: 'error' });
     } else if(err.name === 'AbortError'){
-      addMsg('Error', 'Se agotó el tiempo de espera (casi 5 minutos). El agente puede seguir trabajando en el servidor.', 'error');
+      addMsg({ who: 'Error', text: streamedText ? ('Se cortó la conexión, pero esto se alcanzó a recibir:\n\n' + streamedText) : 'Se agotó el tiempo de espera (casi 5 minutos). El agente puede seguir trabajando en el servidor.', cls: 'error' });
     } else {
-      addMsg('Error', 'No se pudo conectar con el agente: ' + err.message, 'error');
+      addMsg({ who: 'Error', text: 'No se pudo conectar con el agente: ' + err.message, cls: 'error' });
     }
   }).finally(function(){
     sendBtn.disabled = false;
