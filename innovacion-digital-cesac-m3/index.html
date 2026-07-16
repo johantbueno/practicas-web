@@ -1,0 +1,1470 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Innovación y Transformación Digital — Módulo 3 | CESAC</title>
+<meta name="description" content="Práctica autocalificable del Módulo 3 (Datos, Inteligencia Artificial y Toma de Decisiones), curso Innovación y Transformación Digital, INFOTEP — CESAC. 3 preguntas de opinión, individual, por escrito o por nota de voz. Incluye a Nicole y calificación automática preliminar.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9C%88%EF%B8%8F%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#003877; --navy-dark:#002a5c; --gold:#c9982f;
+  --primary:#0f172a; --secondary:#334155; --muted:#64748b;
+  --bg-body:#f4f7fb; --bg-card:#ffffff; --border-light:#e2e8f0; --border-dark:#cbd5e1;
+  --green:#16a34a; --green-bg:#f0fdf4; --green-border:#22c55e;
+  --amber:#b45309; --amber-bg:#fffbeb; --amber-border:#f59e0b;
+  --red:#b91c1c; --red-bg:#fef2f2; --red-border:#ef4444;
+  --blue-bg:#eff6ff; --blue-border:#3b82f6;
+  --radius-lg:16px; --radius-md:12px; --radius-sm:8px;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.06);
+  --shadow-md:0 4px 6px -1px rgba(0,0,0,.1), 0 2px 4px -2px rgba(0,0,0,.1);
+  --shadow-lg:0 10px 15px -3px rgba(0,0,0,.12), 0 4px 6px -4px rgba(0,0,0,.1);
+  --sidebar-w:300px;
+}
+[data-theme="dark"]{
+  --navy:#5b9bd8; --primary:#f1f5f9; --secondary:#cbd5e1; --muted:#94a3b8;
+  --bg-body:#0b1220; --bg-card:#151f2f; --border-light:#283249; --border-dark:#3a4666;
+  --green-bg:#0c2417; --amber-bg:#2a2108; --red-bg:#2a1212; --blue-bg:#13233f;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.4); --shadow-md:0 4px 6px -1px rgba(0,0,0,.5); --shadow-lg:0 10px 15px -3px rgba(0,0,0,.5);
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{margin:0; background:var(--bg-body); color:var(--secondary); font-family:'Inter',ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif; line-height:1.7; transition:background-color .25s ease;}
+a{color:var(--navy);}
+.skip-link{position:absolute; left:-9999px; top:0; background:var(--navy); color:#fff; padding:.85rem 1.5rem; z-index:2000; border-radius:0 0 10px 0; font-weight:700; text-decoration:none;}
+.skip-link:focus{left:0;}
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible{outline:2px solid var(--navy); outline-offset:2px; border-radius:4px;}
+
+#progress-wrap{position:fixed; top:0; left:0; right:0; height:4px; z-index:1000; background:transparent;}
+#progress-bar{height:100%; width:0%; background:linear-gradient(90deg, var(--navy), var(--gold)); transition:width .1s linear;}
+
+.wrapper{display:flex; flex-direction:column; min-height:100vh; margin:0 auto;}
+@media (min-width:1024px){ .wrapper{flex-direction:row; align-items:flex-start; max-width:1440px; padding:0 1rem;} }
+
+/* SIDEBAR */
+.sidebar{background:var(--bg-card); padding:1.75rem 1.5rem; border-bottom:1px solid var(--border-light);}
+@media (min-width:1024px){
+  .sidebar{width:var(--sidebar-w); flex-shrink:0; position:sticky; top:1.5rem; height:calc(100vh - 3rem); overflow-y:auto; border-radius:var(--radius-lg); border:1px solid var(--border-light); box-shadow:var(--shadow-md); margin:1.5rem 0;}
+}
+.sidebar-header{display:flex; align-items:center; gap:10px; margin-bottom:1rem; padding-bottom:1rem; border-bottom:1px solid var(--border-light);}
+.sidebar-title{color:var(--primary); font-size:1.02rem; font-weight:800; text-transform:uppercase; letter-spacing:.04em; margin:0;}
+.header-actions{margin-left:auto; display:flex; gap:.4rem;}
+.icon-btn{background:none; border:1px solid var(--border-light); width:34px; height:34px; border-radius:8px; cursor:pointer; font-size:1rem; display:flex; align-items:center; justify-content:center; color:var(--secondary);}
+.icon-btn:hover{background:var(--bg-body); border-color:var(--border-dark);}
+.nav-toggle{display:none;}
+
+.progress-summary{margin-bottom:1.1rem;}
+.progress-summary-row{display:flex; justify-content:space-between; font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.03em; color:var(--muted); margin-bottom:.35rem;}
+#progress-count{color:var(--primary);}
+.progress-track{height:6px; border-radius:999px; background:var(--border-light); overflow:hidden;}
+.progress-fill{height:100%; width:0%; background:linear-gradient(90deg,var(--navy),var(--gold)); transition:width .3s ease;}
+.progress-fill.complete{background:linear-gradient(90deg,#16a34a,#22c55e);}
+
+.timer-box{margin-bottom:1.1rem; padding-bottom:1.1rem; border-bottom:1px solid var(--border-light);}
+.timer-box-row{display:flex; justify-content:space-between; align-items:baseline; font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.03em; color:var(--muted); margin-bottom:.35rem;}
+#timer-clock{font-size:.95rem; font-weight:800; color:var(--primary); font-variant-numeric:tabular-nums; text-transform:none; letter-spacing:normal;}
+#timer-clock.low{color:var(--red);}
+.timer-track{height:6px; border-radius:999px; background:var(--border-light); overflow:hidden;}
+.timer-fill{height:100%; width:100%; background:linear-gradient(90deg,var(--gold),var(--navy)); transition:width 1s linear;}
+.timer-hint{margin:.5rem 0 0; font-size:.68rem; color:var(--muted);}
+
+.nav ul{list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:.2rem;}
+.nav a{text-decoration:none; color:var(--muted); font-size:.9rem; font-weight:500; display:flex; align-items:center; justify-content:space-between; gap:.5rem; padding:.55rem .8rem; border-radius:var(--radius-sm); transition:all .2s ease;}
+.nav a:hover{background:var(--bg-body); color:var(--navy); transform:translateX(3px);}
+.nav a.active,.nav a.active:hover{background:var(--navy); color:#fff; transform:translateX(3px);}
+.nav a .pct{font-size:.68rem; font-weight:700; opacity:.75;}
+.nav a.done .pct::before{content:"✓ ";}
+
+.sidebar-actions{margin-top:1.25rem; padding-top:1.25rem; border-top:1px solid var(--border-light); display:flex; flex-direction:column; gap:.5rem;}
+.btn-block{width:100%; padding:.6rem .8rem; border-radius:var(--radius-sm); border:1px solid var(--border-light); background:var(--bg-body); color:var(--secondary); font-weight:600; font-size:.82rem; cursor:pointer; font-family:inherit;}
+.btn-block:hover{border-color:var(--navy); color:var(--navy);}
+
+@media (max-width:1023px){
+  .sidebar-collapsible{display:none;}
+  .sidebar.open .sidebar-collapsible{display:block;}
+  .nav-toggle{display:inline-flex;}
+  .sidebar-header{flex-wrap:wrap; row-gap:.6rem;}
+  .header-actions{flex-basis:100%; justify-content:flex-end; margin-left:0;}
+  .icon-btn{width:40px; height:40px;}
+  .fontsize-controls button{width:38px; height:38px;}
+}
+
+/* MAIN */
+.main{flex:1; padding:1.75rem 1rem 6.5rem; max-width:980px; margin:0 auto; width:100%;}
+@media (min-width:1024px){ .main{padding:1.75rem 2.5rem 5.5rem;} }
+
+.card.cover{background:linear-gradient(135deg,var(--navy),var(--navy-dark)); color:#fff; border-radius:var(--radius-lg); padding:2.5rem; margin-bottom:2rem; box-shadow:var(--shadow-lg);}
+.cover .eyebrow{text-transform:uppercase; letter-spacing:.08em; font-size:.78rem; font-weight:700; opacity:.85;}
+.cover h1{font-size:1.9rem; font-weight:800; margin:.4rem 0 .3rem; line-height:1.25;}
+.cover p.sub{margin:0 0 1.25rem; opacity:.92; font-size:1rem;}
+.cover-chips{display:flex; flex-wrap:wrap; gap:.6rem; margin-top:1.1rem;}
+.cover-chip{background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.22); border-radius:999px; padding:.4rem .9rem; font-size:.8rem; font-weight:600; letter-spacing:.01em;}
+.tutorial-steps{counter-reset:tut; list-style:none; padding:0; margin:1rem 0;}
+.tutorial-steps li{counter-increment:tut; position:relative; padding:.15rem 0 .9rem 2.5rem; font-size:.92rem;}
+.tutorial-steps li::before{content:counter(tut); position:absolute; left:0; top:0; width:1.7rem; height:1.7rem; border-radius:50%; background:var(--navy); color:#fff; font-weight:800; font-size:.8rem; display:flex; align-items:center; justify-content:center;}
+.help-box{display:flex; align-items:center; gap:.9rem; background:var(--blue-bg); border:1px solid var(--blue-border); border-radius:var(--radius-md); padding:1rem 1.25rem; margin-top:1.25rem;}
+.help-box a.btn-secondary{white-space:nowrap;}
+
+.card{background:var(--bg-card); padding:2rem; border-radius:var(--radius-lg); box-shadow:var(--shadow-sm); border:1px solid var(--border-light); margin-bottom:2rem; scroll-margin-top:1.25rem;}
+@media (max-width:640px){ .card{padding:1.35rem;} }
+.card.cover, .card.cover h1{color:#fff;}
+.card h1{font-size:1.7rem; font-weight:800; color:var(--primary); margin:0 0 1.1rem;}
+.card h2{font-size:1.2rem; font-weight:700; color:var(--navy); margin:1.75rem 0 .9rem; padding-bottom:.5rem; border-bottom:1px solid var(--border-light);}
+.card h2:first-child{margin-top:0;}
+.card h3{font-size:1.02rem; font-weight:700; color:var(--primary); margin:1.4rem 0 .7rem;}
+.card p{margin:0 0 1rem;}
+.step-badge{display:inline-flex; align-items:center; gap:.4rem; background:var(--blue-bg); color:var(--navy); border:1px solid var(--blue-border); font-weight:700; font-size:.72rem; text-transform:uppercase; letter-spacing:.04em; padding:.3rem .7rem; border-radius:999px; margin-bottom:.9rem;}
+
+.alert{border-radius:var(--radius-md); padding:1rem 1.25rem; margin:1rem 0; border:1px solid; font-size:.92rem;}
+.alert h3,.alert h4{margin-top:0;}
+.alert.info{background:var(--blue-bg); border-color:var(--blue-border);}
+.alert.gold{background:var(--amber-bg); border-color:var(--amber-border);}
+.alert.success{background:var(--green-bg); border-color:var(--green-border);}
+.alert.warn{background:var(--red-bg); border-color:var(--red-border);}
+
+.tbl-wrap{overflow-x:auto; margin:1rem 0; border-radius:var(--radius-sm); border:1px solid var(--border-light);}
+table.tp-table{width:100%; border-collapse:collapse; font-size:.87rem; min-width:560px;}
+table.tp-table th{background:var(--navy); color:#fff; text-align:left; padding:.6rem .7rem; font-weight:700; font-size:.78rem; text-transform:uppercase; letter-spacing:.02em;}
+table.tp-table td{padding:.55rem .7rem; border-top:1px solid var(--border-light); vertical-align:top;}
+table.tp-table tr:nth-child(even) td{background:var(--bg-body);}
+table.tp-table td.label-cell{font-weight:700; color:var(--primary); white-space:nowrap;}
+
+.field{margin-bottom:1rem;}
+.field label{display:flex; justify-content:space-between; align-items:baseline; gap:.5rem; font-weight:700; font-size:.82rem; color:var(--primary); margin-bottom:.35rem;}
+.field .wc{font-weight:600; font-size:.7rem; color:var(--muted); white-space:nowrap;}
+.field .wc.ok{color:var(--green);}
+.hint{font-size:.78rem; color:var(--muted); margin:-.2rem 0 .5rem;}
+input[type=text], input[type=email], select, textarea{
+  width:100%; padding:.55rem .75rem; border:1px solid var(--border-light); border-radius:var(--radius-sm);
+  font-size:1rem; font-family:inherit; background:var(--bg-card); color:var(--primary); transition:border-color .15s ease;
+}
+[data-theme="dark"] input, [data-theme="dark"] select, [data-theme="dark"] textarea{background:#0f1830;}
+input:focus, select:focus, textarea:focus{border-color:var(--navy); outline:none;}
+textarea{min-height:76px; resize:vertical;}
+textarea.tall{min-height:150px;}
+.field-grid{display:grid; grid-template-columns:1fr 1fr; gap:.9rem;}
+@media (max-width:640px){ .field-grid{grid-template-columns:1fr;} }
+
+.step-points{float:right; background:var(--gold); color:#3a2a00; font-weight:800; font-size:.72rem; padding:.25rem .6rem; border-radius:999px;}
+
+.glossary-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:.9rem; margin-top:1rem;}
+.gloss-item{border:1px solid var(--border-light); border-radius:var(--radius-md); padding:.9rem 1rem; background:var(--bg-body);}
+.gloss-item dt{font-weight:800; color:var(--navy); font-size:.85rem; margin-bottom:.3rem;}
+.gloss-item dd{margin:0; font-size:.82rem; color:var(--secondary);}
+
+ol.ins-list{padding-left:1.2rem;}
+ol.ins-list li{margin-bottom:.5rem;}
+
+.btn-primary{background:linear-gradient(135deg,var(--navy),var(--navy-dark)); color:#fff; border:none; padding:.9rem 1.6rem; border-radius:var(--radius-md); font-weight:700; font-size:1rem; cursor:pointer; box-shadow:var(--shadow-md); font-family:inherit;}
+.btn-primary:hover{filter:brightness(1.08);}
+.btn-secondary{background:var(--bg-body); color:var(--navy); border:1px solid var(--navy); padding:.7rem 1.2rem; border-radius:var(--radius-md); font-weight:700; font-size:.88rem; cursor:pointer; font-family:inherit;}
+.btn-secondary:hover{background:var(--blue-bg);}
+.btn-row{display:flex; flex-wrap:wrap; gap:.7rem; margin-top:1.25rem;}
+
+#submit-zone{text-align:center; padding:2.25rem 1.5rem;}
+#submit-zone p{max-width:560px; margin:0 auto 1.25rem;}
+
+.results{display:none;}
+.results.show{display:block;}
+.score-hero{display:flex; flex-wrap:wrap; align-items:center; gap:1.75rem; padding:1.5rem; border-radius:var(--radius-lg); border:1px solid; margin-bottom:1.5rem;}
+.score-hero.pass{background:var(--green-bg); border-color:var(--green-border);}
+.score-hero.warn{background:var(--amber-bg); border-color:var(--amber-border);}
+.score-hero.fail{background:var(--red-bg); border-color:var(--red-border);}
+.score-circle{width:110px; height:110px; border-radius:50%; display:flex; flex-direction:column; align-items:center; justify-content:center; background:var(--bg-card); box-shadow:var(--shadow-md); flex-shrink:0;}
+.score-circle .num{font-size:1.9rem; font-weight:800; color:var(--primary); line-height:1;}
+.score-circle .den{font-size:.72rem; color:var(--muted); font-weight:700;}
+.score-verdict h3{margin:0 0 .3rem; font-size:1.15rem;}
+.score-verdict p{margin:0; font-size:.92rem;}
+
+.crit{border:1px solid var(--border-light); border-radius:var(--radius-md); padding:1.1rem 1.25rem; margin-bottom:1rem; background:var(--bg-card);}
+.crit-head{display:flex; justify-content:space-between; align-items:center; gap:1rem; margin-bottom:.5rem; flex-wrap:wrap;}
+.crit-head strong{color:var(--primary); font-size:.95rem;}
+.crit-score{font-weight:800; font-size:.9rem; color:var(--navy); white-space:nowrap;}
+.crit-track{height:8px; border-radius:999px; background:var(--border-light); overflow:hidden; margin-bottom:.75rem;}
+.crit-fill{height:100%; border-radius:999px;}
+.crit-fill.hi{background:var(--green);}
+.crit-fill.mid{background:var(--amber);}
+.crit-fill.lo{background:var(--red);}
+.crit p.note{margin:0; font-size:.85rem; color:var(--muted);}
+
+footer.tp-footer{text-align:center; color:var(--muted); font-size:.8rem; padding:2rem 1rem; border-top:1px solid var(--border-light); margin-top:1rem;}
+
+/* ADVISOR (Nicole, asistente del Dr. Johan Tapia) */
+.advisor-fab{position:fixed; bottom:calc(1.5rem + env(safe-area-inset-bottom)); left:1.5rem; z-index:900; background:linear-gradient(135deg,var(--navy),var(--navy-dark)); color:#fff; border:none; border-radius:999px; padding:.85rem 1.2rem; display:flex; align-items:center; gap:.5rem; font-weight:700; font-size:.9rem; cursor:pointer; box-shadow:var(--shadow-lg); font-family:inherit;}
+.advisor-fab:hover{filter:brightness(1.1);}
+.proftapia-fab{position:fixed; bottom:calc(1.5rem + env(safe-area-inset-bottom)); right:1.5rem; z-index:900; background:linear-gradient(135deg,var(--gold),#a97f24); color:#2a1e00; text-decoration:none; border-radius:999px; padding:.85rem 1.2rem; display:flex; align-items:center; gap:.5rem; font-weight:700; font-size:.9rem; box-shadow:var(--shadow-lg); font-family:inherit;}
+.proftapia-fab:hover{filter:brightness(1.05);}
+.advisor-panel{position:fixed; bottom:calc(5.2rem + env(safe-area-inset-bottom)); left:1.5rem; width:min(360px,90vw); max-height:min(560px,70vh); background:var(--bg-card); border:1px solid var(--border-light); border-radius:var(--radius-lg); box-shadow:var(--shadow-lg); z-index:900; display:none; flex-direction:column; overflow:hidden;}
+.advisor-panel.open{display:flex;}
+.advisor-header{background:linear-gradient(135deg,var(--navy),var(--navy-dark)); color:#fff; padding:.9rem 1.1rem; display:flex; align-items:center; gap:.6rem;}
+.advisor-title{margin:0; font-weight:800; font-size:.95rem;}
+.advisor-header button{margin-left:auto; background:rgba(255,255,255,.15); border:none; color:#fff; width:28px; height:28px; border-radius:8px; cursor:pointer;}
+.advisor-body{flex:1; overflow-y:auto; padding:1rem; display:flex; flex-direction:column; gap:.6rem; background:var(--bg-body);}
+.advisor-msg{max-width:85%; padding:.6rem .85rem; border-radius:12px; font-size:.86rem; line-height:1.5;}
+.advisor-msg-bot{background:var(--bg-card); border:1px solid var(--border-light); align-self:flex-start; border-bottom-left-radius:2px;}
+.advisor-msg-user{background:var(--navy); color:#fff; align-self:flex-end; border-bottom-right-radius:2px;}
+.advisor-suggest{display:flex; flex-wrap:wrap; gap:.4rem; padding:0 1rem .75rem;}
+.advisor-suggest button{background:var(--blue-bg); border:1px solid var(--blue-border); color:var(--navy); font-size:.72rem; padding:.35rem .6rem; border-radius:999px; cursor:pointer; font-family:inherit;}
+.advisor-form{display:flex; gap:.5rem; padding:.75rem; border-top:1px solid var(--border-light); background:var(--bg-card);}
+.advisor-form input{flex:1;}
+.advisor-form button{background:var(--navy); color:#fff; border:none; width:38px; border-radius:var(--radius-sm); cursor:pointer; font-size:1rem;}
+
+@media print{
+  .sidebar, .advisor-fab, .advisor-panel, #progress-wrap, .btn-row, #submit-zone .btn-primary, .header-actions{display:none !important;}
+  .main{max-width:100%; padding:0;}
+  .card{box-shadow:none; border:1px solid #ccc; break-inside:avoid;}
+  body{background:#fff;}
+}
+
+.voice-row{display:flex; align-items:center; gap:.6rem; margin-top:-.4rem; margin-bottom:.9rem; flex-wrap:wrap;}
+.voice-btn{background:var(--blue-bg); border:1px solid var(--blue-border); color:var(--navy); font-weight:700; font-size:.8rem; padding:.65rem .9rem; min-height:40px; border-radius:999px; cursor:pointer; font-family:inherit;}
+.voice-btn:hover{filter:brightness(0.97);}
+.voice-btn.recording{background:var(--red-bg); border-color:var(--red-border); color:var(--red); animation:voicePulse 1.2s ease-in-out infinite;}
+.voice-btn.busy{opacity:.7; cursor:wait;}
+@keyframes voicePulse{ 0%,100%{opacity:1;} 50%{opacity:.55;} }
+.voice-status{font-size:.75rem; color:var(--muted);}
+.voice-status.err{color:var(--red);}
+.voice-status.ok{color:var(--green);}
+
+.speak-btn{display:inline-flex; align-items:center; gap:.4rem; background:var(--gold); color:#3a2a00; border:none; font-weight:800; font-size:.82rem; padding:.65rem .95rem; min-height:40px; border-radius:999px; cursor:pointer; font-family:inherit; margin:.4rem 0 1rem;}
+.speak-btn:hover{filter:brightness(1.05);}
+.speak-btn.speaking{background:var(--red-border); color:#fff; animation:voicePulse 1.2s ease-in-out infinite;}
+.fontsize-controls{display:flex; align-items:center; gap:.3rem;}
+.fontsize-controls button{background:none; border:1px solid var(--border-light); width:30px; height:30px; border-radius:8px; cursor:pointer; color:var(--secondary); font-weight:800; font-size:.85rem;}
+.fontsize-controls button:hover{border-color:var(--navy); color:var(--navy);}
+html[data-fontsize="grande"] body{font-size:1.14rem;}
+html[data-fontsize="xgrande"] body{font-size:1.3rem;}
+
+@keyframes medal-pop{0%{transform:scale(.4) rotate(-8deg); opacity:0;}60%{transform:scale(1.08) rotate(3deg); opacity:1;}100%{transform:scale(1) rotate(0deg); opacity:1;}}
+.medal-card{margin-top:1.5rem; text-align:center; padding:2rem 1.5rem; border-radius:var(--radius-lg); border:1px solid var(--border-light); background:radial-gradient(circle at top, rgba(201,152,47,.12), transparent 70%), var(--bg-card);}
+.medal-icon{font-size:4rem; display:inline-block; animation:medal-pop .6s cubic-bezier(.34,1.56,.64,1); filter:drop-shadow(0 6px 14px rgba(201,152,47,.45));}
+.medal-title{font-size:1.3rem; font-weight:800; color:var(--gold); margin:.6rem 0 .2rem;}
+.medal-sub{font-size:.9rem; color:var(--muted); margin:0 0 1.25rem;}
+.medal-actions{display:flex; gap:.7rem; justify-content:center; flex-wrap:wrap;}
+</style>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Saltar al contenido</a>
+<div id="progress-wrap"><div id="progress-bar"></div></div>
+
+<div class="wrapper">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <span style="font-size:1.4rem;">✈️</span>
+      <p class="sidebar-title">Módulo 3 · CESAC</p>
+      <div class="header-actions">
+        <div class="fontsize-controls">
+          <button type="button" id="font-smaller" title="Letra más pequeña" aria-label="Reducir tamaño de letra">A−</button>
+          <button type="button" id="font-bigger" title="Letra más grande" aria-label="Aumentar tamaño de letra">A+</button>
+        </div>
+        <button class="icon-btn" id="theme-toggle" type="button" title="Cambiar tema" aria-label="Cambiar tema claro/oscuro">🌙</button>
+        <button class="icon-btn nav-toggle" id="nav-toggle" type="button" title="Abrir menú" aria-label="Abrir menú" aria-expanded="false">☰</button>
+      </div>
+    </div>
+
+    <div class="sidebar-collapsible">
+      <div class="timer-box">
+        <div class="timer-box-row"><span>⏱ Tiempo sugerido</span><span id="timer-clock">30:00</span></div>
+        <div class="timer-track"><div class="timer-fill" id="timer-fill-el"></div></div>
+        <p class="timer-hint">Es solo una referencia — puede tomarse más tiempo si lo necesita, con calma.</p>
+      </div>
+
+      <div class="progress-summary">
+        <div class="progress-summary-row"><span>Progreso general</span><span id="progress-count">0%</span></div>
+        <div class="progress-track"><div class="progress-fill" id="progress-fill-el"></div></div>
+        <p style="margin:.5rem 0 0; font-size:.7rem; color:var(--muted);">Sus respuestas se guardan automáticamente en este navegador.</p>
+      </div>
+
+      <nav class="nav" aria-label="Navegación de la práctica">
+        <ul>
+          <li><a href="#portada">✈️ Portada e instrucciones</a></li>
+          <li><a href="#marco-conceptual">📚 Contenido del módulo</a></li>
+          <li><a href="#paso1" data-step="paso1">Pregunta 1 · Datos que ya registra <span class="pct" data-pct="paso1">0%</span></a></li>
+          <li><a href="#paso2" data-step="paso2">Pregunta 2 · Qué automatizaría <span class="pct" data-pct="paso2">0%</span></a></li>
+          <li><a href="#paso3" data-step="paso3">Pregunta 3 · Su preocupación <span class="pct" data-pct="paso3">0%</span></a></li>
+          <li><a href="#rubrica">🧮 Rúbrica de evaluación</a></li>
+          <li><a href="#resultado">📤 Enviar y calificar</a></li>
+        </ul>
+      </nav>
+
+      <div class="sidebar-actions">
+        <button class="btn-block" id="btn-print" type="button">🖨️ Imprimir / Guardar PDF</button>
+        <button class="btn-block" id="btn-export" type="button">⬇️ Descargar mis respuestas</button>
+        <button class="btn-block" id="btn-clear" type="button">🗑️ Borrar todas mis respuestas</button>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main" id="main-content">
+
+    <section id="portada" class="card cover" style="scroll-margin-top:1.25rem;">
+      <p class="eyebrow">Innovación y Transformación Digital · Módulo 3 · INFOTEP</p>
+      <h1>Práctica: Datos, Inteligencia Artificial y Toma de Decisiones</h1>
+      <div class="cover-chips">
+        <span class="cover-chip">👤 Individual</span>
+        <span class="cover-chip">🎯 100 pts · 70% aprobación</span>
+      </div>
+      <button class="speak-btn" data-speak-section="portada-speak" type="button" style="margin-top:1.1rem;">🔊 Escuchar la bienvenida</button>
+      <span id="portada-speak" hidden>Bienvenidos a la práctica del Módulo tres, Datos, Inteligencia Artificial y Toma de Decisiones, del curso Innovación y Transformación Digital para el CESAC. Van a responder tres preguntas, dando su opinión con sus propias palabras. No hace falta saber de tecnología ni de inteligencia artificial. En cada pregunta pueden escribir la respuesta, o grabar una nota de voz que el sistema convierte en texto automáticamente manteniendo presionado el botón del micrófono. Si tienen dudas, pueden preguntarle a Nicole, la asistente virtual del Dr. Johan Tapia.</span>
+    </section>
+
+    <section class="card" id="tutorial">
+      <span class="step-badge">📘 Tutorial</span>
+      <h1 style="font-size:1.35rem;">Cómo usar esta plataforma</h1>
+      <button class="speak-btn" data-speak-target="tutorial" type="button">🔊 Escuchar este tutorial</button>
+      <p><strong>Concepto:</strong> esta práctica del Módulo 3 tiene 3 preguntas, para dar su opinión con sus propias palabras — no hace falta saber de tecnología ni memorizar nada. No hay que instalar nada ni crear una cuenta.</p>
+
+      <h2>Dos formas de responder cada pregunta</h2>
+      <p><strong>Definición:</strong> cada campo de respuesta acepta texto escrito o una nota de voz transcrita automáticamente.</p>
+      <p><strong>Ejemplo:</strong> si prefiere no escribir, puede simplemente hablar su respuesta en voz alta y el sistema la convierte en texto dentro del mismo campo.</p>
+
+      <h3>Paso a paso para grabar una nota de voz</h3>
+      <ol class="tutorial-steps">
+        <li>Mantenga presionado el botón <strong>"🎤 Mantenga presionado para grabar"</strong> debajo del campo que quiere responder (como una nota de voz de WhatsApp).</li>
+        <li>El navegador va a pedir permiso para usar el micrófono — presione <strong>Permitir</strong>.</li>
+        <li>Sin soltar el botón, hable su respuesta con calma.</li>
+        <li>Suelte el botón cuando termine — va a escuchar un sonido y verá "Transcribiendo…".</li>
+        <li>Espere unos segundos: el texto transcrito va a aparecer automáticamente en el campo.</li>
+        <li>Lea el texto y corrija cualquier palabra si hace falta, antes de continuar.</li>
+      </ol>
+
+      <h2>Progreso, guardado y entrega oficial</h2>
+      <p>Sus respuestas se guardan automáticamente en este navegador mientras trabaja. Puede cerrar la página y volver más tarde a completar otra pregunta. Al enviar, esta herramienta le da una nota preliminar y comentarios al instante — pero la actividad oficial es el <strong>foro de discusión en Moodle</strong>: use el botón "⬇️ Descargar mis respuestas" para copiar su texto ya organizado y publicarlo allí, donde además podrá leer e intercambiar opiniones con sus compañeros (ese intercambio también forma parte de la evaluación del facilitador).</p>
+
+      <div class="help-box">
+        <span style="font-size:1.6rem;">💬</span>
+        <div>
+          <strong>¿Tiene dudas mientras trabaja?</strong><br>
+          Puede escribirle a Nicole, la asistente virtual del Dr. Johan Tapia, en
+          <a href="https://prof.johan.plataforma.cfd/" target="_blank" rel="noopener">prof.johan.plataforma.cfd</a>,
+          o usar el botón "🎓 Nicole" de esta misma página.
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <span class="step-badge">🎯 Objetivo y encuadre</span>
+      <h1 style="font-size:1.35rem;">Antes de empezar</h1>
+      <div class="alert info">
+        <strong>Objetivo de la actividad:</strong> reflexionar, con sus propias palabras, sobre cómo los datos y la Inteligencia Artificial pueden ayudar a tomar mejores decisiones en la seguridad aeroportuaria. No hay respuestas "correctas" ni "incorrectas" — lo importante es que usted cuente lo que piensa y lo que ha vivido.
+      </div>
+
+      <h2>Identificación</h2>
+      <p>Complete esto antes de enviar: su facilitador va a recibir la calificación identificada con estos datos.</p>
+      <div class="field-grid">
+        <div class="field"><label for="est_nombre">Nombre completo</label><input type="text" id="est_nombre" placeholder="Su nombre y apellido"></div>
+        <div class="field"><label for="est_correo">Correo institucional (opcional)</label><input type="email" id="est_correo" placeholder="nombre@correo.com"></div>
+      </div>
+      <div class="field">
+        <label for="est_aeropuerto">Aeropuerto donde presta servicio (opcional)</label>
+        <select id="est_aeropuerto">
+          <option value="">Seleccione…</option>
+          <option value="SDQ - Las Américas">SDQ — Las Américas</option>
+          <option value="STI - Cibao">STI — Cibao</option>
+          <option value="PUJ - Punta Cana">PUJ — Punta Cana</option>
+          <option value="LRM - La Romana">LRM — La Romana</option>
+          <option value="AZS - Samaná">AZS — Samaná</option>
+          <option value="Otro">Otro</option>
+        </select>
+      </div>
+
+      <h2>Instrucciones generales</h2>
+      <ol class="ins-list">
+        <li>Lea el contenido del módulo (más abajo) antes de responder — tiene ejemplos aplicados al CESAC para cada tema.</li>
+        <li>Complete las <strong>3 preguntas</strong> en el orden indicado, con calma y sin apuro.</li>
+        <li>Responda con su propia experiencia y opinión — un par de frases sinceras vale más que una respuesta larga y complicada.</li>
+        <li>Puede cerrar la página y volver más tarde a completar otra pregunta — sus respuestas quedan guardadas.</li>
+        <li>Al terminar, presione <strong>Enviar y Calificar</strong>: el sistema va a revisar el trabajo y le va a dar una nota preliminar y comentarios al instante.</li>
+        <li>Publique sus respuestas en el <strong>foro de discusión de Moodle</strong> para la entrega oficial, y participe leyendo y comentando las respuestas de sus compañeros.</li>
+      </ol>
+      <div class="alert gold">
+        <strong>📅 Entrega oficial:</strong> domingo 27 de julio de 2026, 11:59 p.m., en el foro de Moodle. Esta actividad vale el 25% de la nota del Módulo 3.
+      </div>
+      <div class="alert warn">
+        <strong>⚠️ Sobre la calificación automática:</strong> el sistema evalúa si las respuestas están completas y bien desarrolladas. No sustituye la revisión de su facilitador, quien leerá el contenido real de lo que escribió — y su participación en el foro de Moodle — para la nota oficial del curso.
+      </div>
+    </section>
+
+    <section id="marco-conceptual" class="card">
+      <span class="step-badge">📚 Contenido</span>
+      <h1 style="font-size:1.35rem;">Datos, Inteligencia Artificial y Toma de Decisiones</h1>
+      <p>No hace falta memorizar esto — puede volver a leerlo cuando quiera, o preguntarle a Nicole.</p>
+
+      <h2>📌 Qué son los datos y para qué sirven</h2>
+      <p><strong>Definición:</strong> los datos son hechos, números o textos que describen algo — por ejemplo, la cantidad de pasajeros que pasan por un control, las maletas inspeccionadas, o la hora de un incidente. Sin datos, se decide "a ciegas"; con datos, se pueden ver patrones, medir el trabajo y planificar mejor.</p>
+      <div class="alert info"><strong>✈️ Ejemplo CESAC:</strong> si se anota bien cuándo ocurren los incidentes, se puede ver, por ejemplo, que hay más intentos de ingresar objetos prohibidos los fines de semana — y reforzar la vigilancia esos días.</div>
+
+      <h2>🤖 Qué es la Inteligencia Artificial (IA)</h2>
+      <p><strong>Definición:</strong> es la capacidad de un programa para "aprender" a reconocer patrones a partir de muchos datos, e imitar tareas que antes solo hacía una persona — como reconocer una cara, responder preguntas, o anticipar un riesgo. No es magia: es un programa que analiza mucha información y encuentra respuestas.</p>
+      <div class="alert info"><strong>🛡️ Ejemplo CESAC:</strong> la IA puede ayudar a analizar las imágenes de los escáneres de equipaje para detectar automáticamente objetos sospechosos y alertar al operador, acelerando la revisión y reduciendo errores humanos.</div>
+
+      <h2>🛠️ Herramientas que usan datos e IA</h2>
+      <p>No hace falta ser experto para usarlas — hay programas ya hechos y accesibles: <strong>ChatGPT / Copilot</strong> (redactar informes, resumir textos), <strong>Power BI / Tableau</strong> (gráficos y tableros que muestran los datos de forma visual), y programas que analizan imágenes o videos.</p>
+      <div class="alert info"><strong>📋 Ejemplo CESAC:</strong> un tablero en Power BI que muestre en tiempo real la cantidad de vuelos, las incidencias y el tiempo de espera en los filtros — para que el comandante de turno decida rápido si abrir un nuevo filtro.</div>
+
+      <h2>🔒 Ética, privacidad y uso responsable</h2>
+      <p><strong>Definición:</strong> es usar la información de las personas de manera respetuosa, legal y segura — nunca para espiar o discriminar. Tres ideas clave: <strong>privacidad</strong> (proteger nombres, documentos e imágenes de los pasajeros), <strong>transparencia</strong> (que las personas sepan que se usan sus datos y para qué), y <strong>responsabilidad</strong> (los resultados de la IA siempre deben ser revisados por una persona, no se le delegan decisiones críticas 100%).</p>
+      <div class="alert gold"><strong>⚠️ Ejemplo CESAC:</strong> si se usa reconocimiento facial en los aeropuertos, debe hacerse cumpliendo la <strong>Ley 172-13 de Protección de Datos</strong> de República Dominicana — los datos deben guardarse de forma segura y usarse solo para identificar alertas de seguridad, no para otros fines.</div>
+
+      <h2>📈 Decidir con datos, no solo con corazonada</h2>
+      <p><strong>Definición:</strong> es tomar decisiones usando hechos y números, no solo la costumbre o la experiencia pasada: se recolectan datos confiables, se analizan para ver tendencias, y se actúa según lo que dicen.</p>
+      <div class="alert info"><strong>📊 Ejemplo CESAC:</strong> si los datos muestran que el 70% de los incidentes de equipaje ocurren entre las 6:00 y las 8:00 a.m., el director puede decidir aumentar el personal en ese horario en vez de en horas con menos incidentes.</div>
+
+      <h2>✈️ Un caso real: menos falsas alarmas en el escáner</h2>
+      <p><strong>Problema:</strong> a veces el escáner de rayos X marca como "sospechoso" un objeto que resulta inofensivo (por ejemplo, una botella de agua), y eso genera filas y frustración en los pasajeros.</p>
+      <p><strong>Solución con IA:</strong> se entrena un programa con miles de imágenes de equipaje (con y sin objetos prohibidos) para que aprenda a distinguir mejor un objeto peligroso de uno inofensivo. Con el tiempo, el sistema reduce las falsas alarmas.</p>
+      <div class="alert success"><strong>✅ Lección:</strong> la IA no reemplaza al agente de seguridad — lo apoya, para que su trabajo sea más rápido y preciso.</div>
+    </section>
+
+    <section id="paso1" class="card">
+      <span class="step-badge">Pregunta 1</span><span class="step-points">Vale 35 pts</span>
+      <button class="speak-btn" data-speak-target="paso1" type="button">🔊 Escuchar esta pregunta</button>
+      <h1>Datos que ya registra</h1>
+      <p>En su día a día en el CESAC, ¿qué datos se registran actualmente (en papel o de forma digital) que podrían ser más útiles si se analizaran mejor?</p>
+      <div class="alert info"><strong>Guía:</strong> piense en registros que ya se hacen pero que después nadie revisa a fondo — listas, conteos, reportes de novedades.</div>
+
+      <div class="field">
+        <label for="p1_respuesta">Su respuesta <span class="wc" data-for="p1_respuesta" data-min="35">0/35 palabras</span></label>
+        <textarea class="tall" id="p1_respuesta" placeholder="En mi área registramos... y creo que sería útil analizarlo porque..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p1_respuesta">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p1_respuesta"></span></div>
+      </div>
+    </section>
+
+    <section id="paso2" class="card">
+      <span class="step-badge">Pregunta 2</span><span class="step-points">Vale 35 pts</span>
+      <button class="speak-btn" data-speak-target="paso2" type="button">🔊 Escuchar esta pregunta</button>
+      <h1>Qué automatizaría</h1>
+      <p>¿Se le ocurre alguna tarea repetitiva de su trabajo que podría automatizarse con una herramienta digital o con IA? Por ejemplo: clasificar informes, generar alertas.</p>
+      <div class="alert info"><strong>Guía:</strong> no hace falta saber cómo se programaría — solo cuente qué tarea es, y por qué cree que se podría automatizar.</div>
+
+      <div class="field">
+        <label for="p2_respuesta">Su respuesta <span class="wc" data-for="p2_respuesta" data-min="30">0/30 palabras</span></label>
+        <textarea class="tall" id="p2_respuesta" placeholder="Una tarea que se podría automatizar es... porque..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p2_respuesta">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p2_respuesta"></span></div>
+      </div>
+    </section>
+
+    <section id="paso3" class="card">
+      <span class="step-badge">Pregunta 3</span><span class="step-points">Vale 30 pts</span>
+      <button class="speak-btn" data-speak-target="paso3" type="button">🔊 Escuchar esta pregunta</button>
+      <h1>Su preocupación</h1>
+      <p>¿Qué preocupación tendría sobre el uso de la Inteligencia Artificial o el manejo de datos en el aeropuerto (por ejemplo, privacidad o fallos del sistema)? ¿Cómo cree que se podría solucionar?</p>
+      <div class="alert info"><strong>Guía:</strong> mencione al menos una preocupación y una idea de cómo resolverla, aunque sea sencilla.</div>
+
+      <div class="field">
+        <label for="p3_respuesta">Su respuesta <span class="wc" data-for="p3_respuesta" data-min="40">0/40 palabras</span></label>
+        <textarea class="tall" id="p3_respuesta" placeholder="Lo que más me preocuparía es..., y creo que se podría solucionar..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p3_respuesta">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p3_respuesta"></span></div>
+      </div>
+    </section>
+
+    <section id="rubrica" class="card">
+      <span class="step-badge">🧮 Referencia</span>
+      <h1 style="font-size:1.35rem;">Rúbrica de evaluación</h1>
+      <div class="tbl-wrap"><table class="tp-table">
+        <thead><tr><th>N°</th><th>Criterio</th><th>Indicador</th><th>Puntos</th></tr></thead>
+        <tbody id="rubrica-body"></tbody>
+      </table></div>
+      <h2>Referencias</h2>
+      <ul style="font-size:.85rem; color:var(--muted);">
+        <li>Congreso Nacional de la República Dominicana. (2013). <em>Ley No. 172-13 sobre Protección Integral de los Datos Personales.</em></li>
+        <li>Organización de Aviación Civil Internacional. (2022). <em>Anexo 17: Seguridad de la Aviación Civil</em> (11.ª ed.).</li>
+        <li>Contenido base: Módulo 3, curso Innovación y Transformación Digital (CP 26-1326), INFOTEP — adaptado para el CESAC.</li>
+      </ul>
+    </section>
+
+    <!-- ============ ENVÍO / RESULTADO ============ -->
+    <section id="resultado" class="card">
+      <div id="submit-zone">
+        <span class="step-badge">📤 Paso final</span>
+        <h1 style="font-size:1.4rem;">Enviar y calificar mi trabajo</h1>
+        <p>El sistema revisará automáticamente sus 3 respuestas y le mostrará su nota, el detalle por criterio y retroalimentación personalizada según lo que usted escribió. Recuerde publicar también sus respuestas en el foro de Moodle.</p>
+        <button class="btn-primary" id="btn-submit" type="button">📤 Enviar y Calificar mi Trabajo</button>
+      </div>
+
+      <div id="results" class="results">
+        <div id="score-hero" class="score-hero">
+          <div class="score-circle"><span class="num" id="score-num">0</span><span class="den">/ 100 pts</span></div>
+          <div class="score-verdict">
+            <h3 id="score-title">—</h3>
+            <p id="score-desc">—</p>
+          </div>
+        </div>
+        <div id="ai-review" class="alert info" style="display:none;"></div>
+        <div id="crit-list"></div>
+        <div id="medal-zone" style="display:none;"></div>
+        <div class="btn-row">
+          <button class="btn-secondary" id="btn-export-2" type="button">⬇️ Descargar mis respuestas</button>
+          <button class="btn-secondary" id="btn-print-2" type="button">🖨️ Imprimir resultado</button>
+          <button class="btn-secondary" id="btn-recheck" type="button">✏️ Volver a revisar mis respuestas</button>
+        </div>
+      </div>
+    </section>
+
+    <footer class="tp-footer">
+      Práctica — Módulo 3 · Innovación y Transformación Digital · INFOTEP — CESAC · 2026.<br>
+      Herramienta de autoevaluación con fines educativos. La nota oficial del curso la determina su facilitador, considerando también su participación en el foro de Moodle.<br>
+      Desarrollado por Johan Tapia, PhD.
+    </footer>
+  </main>
+</div>
+
+<!-- NICOLE (asistente virtual del Dr. Johan Tapia) -->
+<button id="advisor-toggle" class="advisor-fab" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="advisor-panel" title="Abrir a Nicole">
+  🎓 <span>Nicole</span>
+</button>
+<a href="https://prof.johan.plataforma.cfd/" target="_blank" rel="noopener" class="proftapia-fab" title="Abrir el asistente del Prof. Johan Tapia en una ventana nueva">
+  👨‍🏫 <span>Prof. Johan Tapia</span>
+</a>
+<div id="advisor-panel" class="advisor-panel" role="dialog" aria-labelledby="advisor-title-el">
+  <div class="advisor-header">
+    <span style="font-size:1.2rem;">🎓</span>
+    <p id="advisor-title-el" class="advisor-title">Nicole</p>
+    <button id="advisor-close" type="button" aria-label="Cerrar a Nicole">✕</button>
+  </div>
+  <div id="advisor-body" class="advisor-body">
+    <div class="advisor-msg advisor-msg-bot">¡Hola! Soy Nicole, la asistente virtual del Dr. Johan Tapia. Pregúntame sobre datos, Inteligencia Artificial, herramientas como Power BI o ChatGPT, privacidad, la Ley 172-13, toma de decisiones, o cómo se califica esta práctica.</div>
+  </div>
+  <div class="advisor-suggest">
+    <button type="button" data-q="¿cómo se califica esta práctica?">¿Cómo se califica?</button>
+    <button type="button" data-q="que es la inteligencia artificial">¿Qué es la IA?</button>
+    <button type="button" data-q="que es la ley 172-13">¿Qué es la Ley 172-13?</button>
+  </div>
+  <form id="advisor-form" class="advisor-form">
+    <input type="text" id="advisor-input" placeholder="Escribe tu pregunta…" aria-label="Escribe tu pregunta a Nicole">
+    <button type="submit" aria-label="Enviar pregunta">➤</button>
+  </form>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+/* ---------- NICOLE, ASISTENTE VIRTUAL (n8n en VPS) ---------- */
+/* Si el VPS no responde (sin internet, servicio caído, etc.), la página
+   sigue funcionando 100% con el motor de reglas y la calificación heurística local. */
+var AI_BASE = 'https://n8n-inap.167.88.36.13.sslip.io/webhook';
+var AI_CHAT_URL = AI_BASE + '/inap-tutor-chat';
+var AI_GRADE_URL = AI_BASE + '/inap-grade';
+var AI_CHAT_TIMEOUT = 60000;
+var AI_GRADE_TIMEOUT = 650000;
+var VOICE_TRANSCRIBE_URL = 'https://n8n-inap.167.88.36.13.sslip.io/webhook/prof-johan-tapia-transcribir';
+
+/* ---------- NOTAS DE VOZ (mantener presionado -> transcribir -> completar el campo) ---------- */
+function pickRecorderMime(){
+  var candidates = ['audio/webm;codecs=opus','audio/webm','audio/mp4','audio/ogg;codecs=opus'];
+  for(var i=0;i<candidates.length;i++){
+    if(window.MediaRecorder && MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(candidates[i])) return candidates[i];
+  }
+  return '';
+}
+function beepVoz(freq, dur){
+  try{
+    var Ctx = window.AudioContext || window.webkitAudioContext;
+    var ctx = new Ctx();
+    var osc = ctx.createOscillator();
+    var gain = ctx.createGain();
+    osc.type = 'sine';
+    osc.frequency.value = freq;
+    gain.gain.setValueAtTime(0.18, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + dur);
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.start();
+    osc.stop(ctx.currentTime + dur);
+    osc.onended = function(){ ctx.close(); };
+  }catch(e){}
+}
+var VOZ_MIN_MS = 400;
+var VOZ_MAX_MS = 120000;
+var VOZ_LABEL_DEFAULT = '🎤 Mantenga presionado para grabar';
+function wireVoiceButtons(){
+  if(!navigator.mediaDevices || !window.MediaRecorder){
+    document.querySelectorAll('.voice-btn').forEach(function(btn){
+      btn.disabled = true; btn.title = 'Grabación de voz no disponible en este navegador';
+    });
+    return;
+  }
+  document.querySelectorAll('.voice-btn').forEach(function(btn){
+    var targetId = btn.getAttribute('data-target');
+    var textarea = document.getElementById(targetId);
+    var statusEl = document.querySelector('.voice-status[data-target-status="'+targetId+'"]');
+    if(!textarea) return;
+    btn.textContent = VOZ_LABEL_DEFAULT;
+    var mediaRecorder = null, chunks = [], stream = null, recording = false, pressActive = false;
+    var startedAt = 0, maxTimer = null, tickTimer = null;
+
+    function setStatus(msg, cls){
+      if(!statusEl) return;
+      statusEl.textContent = msg || '';
+      statusEl.className = 'voice-status' + (cls ? ' ' + cls : '');
+    }
+
+    function stopStream(){
+      if(stream){ stream.getTracks().forEach(function(t){ t.stop(); }); stream = null; }
+    }
+
+    function tick(){
+      var secs = Math.floor((Date.now() - startedAt) / 1000);
+      var m = Math.floor(secs / 60), s = secs % 60;
+      btn.textContent = '🔴 Grabando ' + m + ':' + (s < 10 ? '0' : '') + s + ' — suelte para enviar';
+    }
+
+    function startRecording(){
+      if(pressActive) return;
+      pressActive = true;
+      navigator.mediaDevices.getUserMedia({ audio:true }).then(function(s){
+        if(!pressActive){ s.getTracks().forEach(function(t){ t.stop(); }); return; }
+        stream = s;
+        chunks = [];
+        var mime = pickRecorderMime();
+        try{ mediaRecorder = mime ? new MediaRecorder(stream, { mimeType: mime }) : new MediaRecorder(stream); }
+        catch(e){ mediaRecorder = new MediaRecorder(stream); }
+        mediaRecorder.addEventListener('dataavailable', function(e){ if(e.data && e.data.size > 0) chunks.push(e.data); });
+        mediaRecorder.addEventListener('stop', function(){
+          stopStream();
+          clearTimeout(maxTimer); clearInterval(tickTimer);
+          btn.classList.remove('recording');
+          var duracion = Date.now() - startedAt;
+          if(duracion < VOZ_MIN_MS){
+            btn.textContent = VOZ_LABEL_DEFAULT;
+            setStatus('Grabación muy corta — mantenga presionado el botón mientras habla.', 'err');
+            return;
+          }
+          var blob = new Blob(chunks, { type: mediaRecorder.mimeType || 'audio/webm' });
+          uploadForTranscription(blob);
+        });
+        mediaRecorder.start();
+        recording = true;
+        startedAt = Date.now();
+        btn.classList.add('recording');
+        beepVoz(880, 0.1);
+        tick();
+        tickTimer = setInterval(tick, 500);
+        setStatus('Grabando… hable su respuesta y suelte el botón al terminar.', '');
+        maxTimer = setTimeout(function(){ if(recording) stopRecording(); }, VOZ_MAX_MS);
+      }).catch(function(){
+        pressActive = false;
+        setStatus('No se pudo acceder al micrófono. Revise los permisos del navegador, o simplemente escriba la respuesta.', 'err');
+      });
+    }
+
+    function stopRecording(){
+      if(!pressActive) return;
+      pressActive = false;
+      if(mediaRecorder && recording){
+        recording = false;
+        beepVoz(440, 0.12);
+        mediaRecorder.stop();
+      }
+    }
+
+    function uploadForTranscription(blob){
+      btn.disabled = true;
+      btn.classList.add('busy');
+      btn.textContent = '⏳ Transcribiendo…';
+      setStatus('Transcribiendo la nota de voz, un momento…', '');
+      var fd = new FormData();
+      var ext = (blob.type.indexOf('mp4') !== -1) ? 'm4a' : (blob.type.indexOf('ogg') !== -1 ? 'ogg' : 'webm');
+      fd.append('data', blob, 'nota-voz.' + ext);
+      fetchWithTimeout(VOICE_TRANSCRIBE_URL, { method:'POST', body: fd }, 60000).then(function(res){
+        if(!res.ok) throw new Error('HTTP ' + res.status);
+        return res.json();
+      }).then(function(data){
+        if(!data || !data.ok || !data.texto){ throw new Error('SIN_TEXTO'); }
+        var existing = textarea.value.trim();
+        textarea.value = existing ? (existing + ' ' + data.texto) : data.texto;
+        textarea.dispatchEvent(new Event('input'));
+        setStatus('✔ Nota de voz agregada. Puede revisarla y corregirla si hace falta.', 'ok');
+      }).catch(function(err){
+        var msg = (err && err.message === 'SIN_TEXTO')
+          ? 'No se logró entender el audio (el servicio de voz no reconoció ninguna palabra). Intente grabar de nuevo hablando más cerca del micrófono, o escriba la respuesta directamente.'
+          : 'No se pudo conectar con el servicio de transcripción. Revise su conexión a internet, o escriba la respuesta directamente.';
+        setStatus(msg, 'err');
+      }).finally(function(){
+        btn.disabled = false;
+        btn.classList.remove('busy');
+        btn.textContent = VOZ_LABEL_DEFAULT;
+      });
+    }
+
+    btn.addEventListener('mousedown', function(e){ e.preventDefault(); startRecording(); });
+    btn.addEventListener('touchstart', function(e){ e.preventDefault(); startRecording(); }, { passive:false });
+    ['mouseup','mouseleave','touchend','touchcancel'].forEach(function(evt){
+      btn.addEventListener(evt, stopRecording);
+    });
+  });
+}
+
+/* ---------- TAMAÑO DE LETRA (accesibilidad) ---------- */
+var FONT_LEVELS = ['normal','grande','xgrande'];
+function applyFontSize(level){
+  document.documentElement.setAttribute('data-fontsize', level);
+  try{ localStorage.setItem('tp_cesacdigital_m3_fontsize', level); }catch(e){}
+}
+applyFontSize(localStorage.getItem('tp_cesacdigital_m3_fontsize') || 'normal');
+document.getElementById('font-bigger').addEventListener('click', function(){
+  var cur = document.documentElement.getAttribute('data-fontsize') || 'normal';
+  var idx = FONT_LEVELS.indexOf(cur);
+  if(idx < FONT_LEVELS.length - 1) applyFontSize(FONT_LEVELS[idx+1]);
+});
+document.getElementById('font-smaller').addEventListener('click', function(){
+  var cur = document.documentElement.getAttribute('data-fontsize') || 'normal';
+  var idx = FONT_LEVELS.indexOf(cur);
+  if(idx > 0) applyFontSize(FONT_LEVELS[idx-1]);
+});
+
+/* ---------- LEER EN VOZ ALTA ---------- */
+function stopSpeaking(){ if(window.speechSynthesis) speechSynthesis.cancel(); }
+function buildSpeakText(root){
+  var clone = root.cloneNode(true);
+  clone.querySelectorAll('button, .voice-row, .wc, script, select').forEach(function(el){ el.remove(); });
+  var text = clone.textContent || '';
+  return text.replace(/\s+/g,' ').trim();
+}
+function speak(text, btn){
+  if(!window.speechSynthesis || !text) return;
+  stopSpeaking();
+  var utter = new SpeechSynthesisUtterance(text);
+  utter.lang = 'es-ES';
+  utter.rate = 0.95;
+  var voices = speechSynthesis.getVoices();
+  var esVoice = voices.find(function(v){ return v.lang && v.lang.toLowerCase().indexOf('es') === 0; });
+  if(esVoice) utter.voice = esVoice;
+  if(btn){
+    document.querySelectorAll('.speak-btn.speaking').forEach(function(b){
+      b.classList.remove('speaking');
+      if(b.dataset.origLabel) b.textContent = b.dataset.origLabel;
+    });
+    if(!btn.dataset.origLabel) btn.dataset.origLabel = btn.textContent;
+    btn.classList.add('speaking');
+    btn.textContent = '⏹️ Detener lectura';
+    utter.onend = function(){ btn.classList.remove('speaking'); btn.textContent = btn.dataset.origLabel; };
+    utter.onerror = function(){ btn.classList.remove('speaking'); btn.textContent = btn.dataset.origLabel; };
+  }
+  speechSynthesis.speak(utter);
+}
+function wireSpeakButtons(){
+  if(!window.speechSynthesis){
+    document.querySelectorAll('.speak-btn').forEach(function(b){ b.disabled = true; b.title = 'La lectura en voz alta no está disponible en este navegador'; });
+    return;
+  }
+  document.querySelectorAll('.speak-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      if(btn.classList.contains('speaking')){
+        stopSpeaking();
+        btn.classList.remove('speaking');
+        if(btn.dataset.origLabel) btn.textContent = btn.dataset.origLabel;
+        return;
+      }
+      var sectionId = btn.getAttribute('data-speak-section');
+      var text;
+      if(sectionId){
+        var el = document.getElementById(sectionId);
+        text = el ? el.textContent.replace(/\s+/g,' ').trim() : '';
+      } else {
+        var root = document.getElementById(btn.getAttribute('data-speak-target'));
+        text = root ? buildSpeakText(root) : '';
+      }
+      speak(text, btn);
+    });
+  });
+}
+
+function fetchWithTimeout(url, options, timeoutMs){
+  var controller = new AbortController();
+  var timer = setTimeout(function(){ controller.abort(); }, timeoutMs);
+  return fetch(url, Object.assign({}, options, { signal: controller.signal }))
+    .finally(function(){ clearTimeout(timer); });
+}
+
+/* ---------- THEME ---------- */
+var themeBtn = document.getElementById('theme-toggle');
+function applyTheme(t){
+  document.documentElement.setAttribute('data-theme', t);
+  themeBtn.textContent = t === 'dark' ? '☀️' : '🌙';
+  localStorage.setItem('tp_cesacdigital_m3_theme', t);
+}
+applyTheme(localStorage.getItem('tp_cesacdigital_m3_theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+themeBtn.addEventListener('click', function(){
+  applyTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+});
+
+/* ---------- MOBILE NAV ---------- */
+var navToggle = document.getElementById('nav-toggle');
+var sidebar = document.getElementById('sidebar');
+navToggle.addEventListener('click', function(){
+  var open = sidebar.classList.toggle('open');
+  navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+});
+
+/* ---------- READING PROGRESS BAR ---------- */
+var progressBar = document.getElementById('progress-bar');
+window.addEventListener('scroll', function(){
+  var h = document.documentElement;
+  var scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+  progressBar.style.width = (scrolled || 0) + '%';
+}, { passive:true });
+
+/* ---------- ACTIVE NAV HIGHLIGHT ---------- */
+var navLinks = Array.prototype.slice.call(document.querySelectorAll('.nav a'));
+var sections = navLinks.map(function(a){ return document.querySelector(a.getAttribute('href')); }).filter(Boolean);
+var io = new IntersectionObserver(function(entries){
+  entries.forEach(function(entry){
+    var link = document.querySelector('.nav a[href="#' + entry.target.id + '"]');
+    if(!link) return;
+    if(entry.isIntersecting) navLinks.forEach(function(l){ l.classList.remove('active'); });
+    if(entry.isIntersecting) link.classList.add('active');
+  });
+}, { rootMargin: '-20% 0px -70% 0px' });
+sections.forEach(function(s){ io.observe(s); });
+
+/* ---------- HELPERS ---------- */
+function norm(s){ return (s === undefined || s === null) ? '' : String(s).trim(); }
+function stripAccents(s){ return norm(s).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,''); }
+function wordCount(s){ s = norm(s); return s ? s.split(/\s+/).filter(Boolean).length : 0; }
+function filled(s){ return norm(s).length > 0; }
+function clamp01(n){ return Math.max(0, Math.min(1, n)); }
+function val(id){ var el = document.getElementById(id); return el ? el.value : ''; }
+function labelOf(id){ var el = document.getElementById(id); if(!el) return id; var lab = document.querySelector('label[for="'+id+'"]'); return lab ? lab.textContent.replace(/\s*\d+\/\d+ palabras\s*/,'').trim() : id; }
+function escapeHtml(s){ var d = document.createElement('div'); d.textContent = norm(s); return d.innerHTML; }
+
+/* ---------- CAMPOS DE CADA PREGUNTA ---------- */
+var STEP_FIELDS = {
+  paso1: ['p1_respuesta'],
+  paso2: ['p2_respuesta'],
+  paso3: ['p3_respuesta']
+};
+
+/* ---------- TEMPORIZADOR DE REFERENCIA (30 min, no bloquea ni envía nada) ---------- */
+var TIEMPO_SUGERIDO_SEG = 30 * 60;
+var TIMER_DEADLINE_KEY = 'tp_cesacdigital_m3_deadline_ms';
+function formatearTiempoTimer(seg){
+  var m = Math.floor(seg / 60), s = seg % 60;
+  return (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+}
+(function initTimer(){
+  var clockEl = document.getElementById('timer-clock');
+  var fillEl = document.getElementById('timer-fill-el');
+  if(!clockEl || !fillEl) return;
+  var deadlineMs;
+  try{
+    var saved = parseInt(localStorage.getItem(TIMER_DEADLINE_KEY), 10);
+    deadlineMs = (saved && saved > Date.now()) ? saved : (Date.now() + TIEMPO_SUGERIDO_SEG * 1000);
+  }catch(e){ deadlineMs = Date.now() + TIEMPO_SUGERIDO_SEG * 1000; }
+  try{ localStorage.setItem(TIMER_DEADLINE_KEY, String(deadlineMs)); }catch(e){}
+  function tick(){
+    var restante = Math.max(0, Math.round((deadlineMs - Date.now()) / 1000));
+    clockEl.textContent = formatearTiempoTimer(restante);
+    fillEl.style.width = Math.max(0, (restante / TIEMPO_SUGERIDO_SEG) * 100) + '%';
+    clockEl.classList.toggle('low', restante > 0 && restante <= 300);
+    if(restante <= 0){
+      clockEl.textContent = '00:00';
+      clockEl.title = 'El tiempo sugerido terminó, pero puede seguir trabajando con calma — nada se bloquea.';
+    }
+  }
+  tick();
+  setInterval(tick, 1000);
+})();
+
+/* ---------- WORD COUNTERS ---------- */
+document.querySelectorAll('.wc[data-for]').forEach(function(span){
+  var target = document.getElementById(span.getAttribute('data-for'));
+  if(!target) return;
+  var min = parseInt(span.getAttribute('data-min'),10) || 0;
+  function update(){
+    var wc = wordCount(target.value);
+    span.textContent = wc + '/' + min + ' palabras';
+    span.classList.toggle('ok', wc >= min);
+  }
+  target.addEventListener('input', update);
+  update();
+});
+
+/* ---------- AUTOSAVE (localStorage) ---------- */
+var STORE_KEY = 'tp_cesacdigital_m3_respuestas_v1';
+var META_FIELDS = ['est_nombre', 'est_correo', 'est_aeropuerto'];
+function allFieldIds(){
+  var ids = META_FIELDS.slice();
+  Object.keys(STEP_FIELDS).forEach(function(k){ ids = ids.concat(STEP_FIELDS[k]); });
+  return ids;
+}
+function saveAll(){
+  var data = {};
+  allFieldIds().forEach(function(id){ data[id] = val(id); });
+  try{ localStorage.setItem(STORE_KEY, JSON.stringify(data)); }catch(e){}
+}
+function loadAll(){
+  var raw; try{ raw = localStorage.getItem(STORE_KEY); }catch(e){ raw = null; }
+  if(!raw) return;
+  try{
+    var data = JSON.parse(raw);
+    Object.keys(data).forEach(function(id){
+      var el = document.getElementById(id);
+      if(el) el.value = data[id];
+    });
+  }catch(e){}
+}
+loadAll();
+document.querySelectorAll('.wc[data-for]').forEach(function(span){
+  var target = document.getElementById(span.getAttribute('data-for'));
+  if(target) target.dispatchEvent(new Event('input'));
+});
+
+var saveTimer = null;
+document.addEventListener('input', function(e){
+  var t = e.target;
+  if(t && t.id && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT')){
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(function(){ saveAll(); updateProgress(); }, 400);
+  }
+});
+document.addEventListener('change', function(e){
+  var t = e.target;
+  if(t && t.tagName === 'SELECT'){ saveAll(); updateProgress(); }
+});
+
+/* ---------- PROGRESS ---------- */
+function stepRatio(key){
+  var ids = STEP_FIELDS[key];
+  if(!ids || !ids.length) return 0;
+  var n = 0;
+  ids.forEach(function(id){ if(filled(val(id))) n++; });
+  return n / ids.length;
+}
+function updateProgress(){
+  var keys = Object.keys(STEP_FIELDS);
+  var total = 0;
+  keys.forEach(function(k){
+    var r = stepRatio(k);
+    total += r;
+    var pctEl = document.querySelector('.pct[data-pct="'+k+'"]');
+    var linkEl = document.querySelector('.nav a[data-step="'+k+'"]');
+    if(pctEl) pctEl.textContent = Math.round(r*100) + '%';
+    if(linkEl) linkEl.classList.toggle('done', r >= 0.95);
+  });
+  var overall = Math.round((total / keys.length) * 100);
+  document.getElementById('progress-count').textContent = overall + '%';
+  var fillEl = document.getElementById('progress-fill-el');
+  fillEl.style.width = overall + '%';
+  fillEl.classList.toggle('complete', overall >= 95);
+}
+updateProgress();
+
+/* ---------- RÚBRICA TABLE (static reference) ---------- */
+var RUBRICA = [
+  {n:1, key:'paso1', field:'p1_respuesta', criterio:'Datos que ya registra (Pregunta 1)', indicador:'Un dato o registro real de su trabajo mencionado, con una idea de por qué sería útil analizarlo.', pts:35, minWords:35},
+  {n:2, key:'paso2', field:'p2_respuesta', criterio:'Qué automatizaría (Pregunta 2)', indicador:'Una tarea repetitiva real identificada, con una razón de por qué podría automatizarse.', pts:35, minWords:30},
+  {n:3, key:'paso3', field:'p3_respuesta', criterio:'Su preocupación (Pregunta 3)', indicador:'Al menos una preocupación mencionada, con una idea de cómo solucionarla.', pts:30, minWords:40}
+];
+document.getElementById('rubrica-body').innerHTML = RUBRICA.map(function(r){
+  return '<tr><td class="label-cell">'+r.n+'</td><td>'+r.criterio+'</td><td>'+r.indicador+'</td><td class="label-cell">'+r.pts+'</td></tr>';
+}).join('') + '<tr><td colspan="3" class="label-cell">TOTAL</td><td class="label-cell">100</td></tr><tr><td colspan="3" class="label-cell">Aprobación mínima</td><td class="label-cell">70</td></tr>';
+
+/* ---------- GRADING ENGINE ---------- */
+function singleWordFrac(id, min){ return clamp01(wordCount(val(id)) / min); }
+
+function buildCriterion(title, maxPoints, frac){
+  var score = Math.round(maxPoints * clamp01(frac) * 10) / 10;
+  var nota;
+  if(frac >= 0.85) nota = 'Respuesta extensa, desarrollada y fundamentada.';
+  else if(frac >= 0.45) nota = 'Respuesta parcial — puede profundizarse más, agregando ejemplos o desarrollando ambas partes de la pregunta.';
+  else nota = 'Respuesta muy breve o incompleta.';
+  return { title:title, maxPoints:maxPoints, score:score, nota:nota };
+}
+
+function runGrading(){
+  var criteria = RUBRICA.map(function(r){
+    return buildCriterion(r.criterio, r.pts, singleWordFrac(r.field, r.minWords));
+  });
+  var total = Math.round(criteria.reduce(function(a,c){ return a + c.score; },0) * 10) / 10;
+  return { criteria:criteria, total:total };
+}
+
+function critFillClass(pct){
+  if(pct >= 80) return 'hi';
+  if(pct >= 50) return 'mid';
+  return 'lo';
+}
+
+function renderResults(result){
+  var hero = document.getElementById('score-hero');
+  var title = document.getElementById('score-title');
+  var desc = document.getElementById('score-desc');
+  var num = document.getElementById('score-num');
+  num.textContent = result.total;
+  hero.classList.remove('pass','warn','fail');
+  if(result.total >= 70){
+    hero.classList.add('pass');
+    title.textContent = '✅ Aprobado — ' + result.total + ' / 100 pts';
+    desc.textContent = 'Su reflexión cumple con la aprobación mínima (70%). Esta nota es preliminar; recuerde publicar sus respuestas en el foro de Moodle.';
+  } else if(result.total >= 55){
+    hero.classList.add('warn');
+    title.textContent = '🟠 Cerca de aprobar — ' + result.total + ' / 100 pts';
+    desc.textContent = 'Está por debajo del 70% mínimo. Desarrolle más las preguntas marcadas en rojo/ámbar antes de publicar en el foro.';
+  } else {
+    hero.classList.add('fail');
+    title.textContent = '🔴 Necesita trabajo adicional — ' + result.total + ' / 100 pts';
+    desc.textContent = 'Aún faltan varias respuestas por completar o desarrollar. Consulte a Nicole y las guías de cada pregunta para avanzar.';
+  }
+
+  var listEl = document.getElementById('crit-list');
+  listEl.innerHTML = result.criteria.map(function(c){
+    var pct = Math.round((c.score / c.maxPoints) * 100);
+    return '<div class="crit">'+
+      '<div class="crit-head"><strong>'+c.title+'</strong><span class="crit-score">'+c.score+' / '+c.maxPoints+' pts</span></div>'+
+      '<div class="crit-track"><div class="crit-fill '+critFillClass(pct)+'" style="width:'+pct+'%;"></div></div>'+
+      '<p class="note">'+c.nota+'</p>'+
+      '</div>';
+  }).join('');
+
+  document.getElementById('results').classList.add('show');
+
+  if(result.total >= 70){
+    reproducirCelebracion();
+    lanzarConfeti();
+    mostrarMedalla(result.total);
+  } else {
+    document.getElementById('medal-zone').style.display = 'none';
+  }
+}
+
+/* ---------- SONIDO DE EXITO (sintetizado, sin archivos externos) ---------- */
+function reproducirSonidoExito(){
+  try{
+    var Ctx = window.AudioContext || window.webkitAudioContext;
+    var ctx = new Ctx();
+    var notas = [523.25, 659.25, 783.99, 1046.50];
+    notas.forEach(function(freq, i){
+      var osc = ctx.createOscillator();
+      var gain = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.value = freq;
+      var inicio = ctx.currentTime + i * 0.11;
+      gain.gain.setValueAtTime(0, inicio);
+      gain.gain.linearRampToValueAtTime(0.18, inicio + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.0001, inicio + 0.35);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(inicio);
+      osc.stop(inicio + 0.4);
+    });
+  }catch(e){ /* audio no disponible, silenciar sin romper la practica */ }
+}
+
+/* ---------- APLAUSOS (ruido blanco filtrado, sintetizado, sin archivos externos) ---------- */
+function reproducirAplausos(){
+  try{
+    var Ctx = window.AudioContext || window.webkitAudioContext;
+    var ctx = new Ctx();
+    var duracion = 2.4;
+    var sampleRate = ctx.sampleRate;
+    var bufferSize = Math.floor(sampleRate * duracion);
+    var buffer = ctx.createBuffer(1, bufferSize, sampleRate);
+    var data = buffer.getChannelData(0);
+    /* Simula muchas manos aplaudiendo: rafagas cortas de ruido en momentos aleatorios,
+       cada vez mas juntas al inicio (aplauso que "arranca") y espaciadas al final (se apaga). */
+    var numClaps = 70;
+    for(var i = 0; i < numClaps; i++){
+      var progreso = i / numClaps;
+      var start = Math.pow(progreso, 0.6) * (duracion - 0.18);
+      var startSample = Math.floor(start * sampleRate);
+      var clapLen = Math.floor(sampleRate * (0.015 + Math.random() * 0.03));
+      var amp = 0.3 + Math.random() * 0.45;
+      for(var s = 0; s < clapLen && (startSample + s) < bufferSize; s++){
+        var decay = 1 - (s / clapLen);
+        data[startSample + s] += (Math.random() * 2 - 1) * amp * decay;
+      }
+    }
+    var noiseSource = ctx.createBufferSource();
+    noiseSource.buffer = buffer;
+    var bandpass = ctx.createBiquadFilter();
+    bandpass.type = 'bandpass';
+    bandpass.frequency.value = 2200;
+    bandpass.Q.value = 0.6;
+    var gain = ctx.createGain();
+    gain.gain.setValueAtTime(0.8, ctx.currentTime);
+    gain.gain.linearRampToValueAtTime(0.0001, ctx.currentTime + duracion);
+    noiseSource.connect(bandpass);
+    bandpass.connect(gain);
+    gain.connect(ctx.destination);
+    noiseSource.start();
+    noiseSource.onended = function(){ try{ ctx.close(); }catch(e){} };
+  }catch(e){ /* audio no disponible, silenciar sin romper la practica */ }
+}
+
+/* ---------- VITORES / ALGARABIA (barridos de tono, sintetizados) ---------- */
+function reproducirVitores(){
+  try{
+    var Ctx = window.AudioContext || window.webkitAudioContext;
+    var ctx = new Ctx();
+    var vitores = [
+      { start:0.15, dur:0.55, f0:280, f1:850 },
+      { start:0.55, dur:0.5, f0:240, f1:760 },
+      { start:0.95, dur:0.45, f0:320, f1:900 }
+    ];
+    vitores.forEach(function(v){
+      var osc = ctx.createOscillator();
+      var gain = ctx.createGain();
+      osc.type = 'sawtooth';
+      var t0 = ctx.currentTime + v.start;
+      osc.frequency.setValueAtTime(v.f0, t0);
+      osc.frequency.linearRampToValueAtTime(v.f1, t0 + v.dur * 0.6);
+      osc.frequency.linearRampToValueAtTime(v.f0 * 0.85, t0 + v.dur);
+      gain.gain.setValueAtTime(0, t0);
+      gain.gain.linearRampToValueAtTime(0.1, t0 + 0.06);
+      gain.gain.linearRampToValueAtTime(0.0001, t0 + v.dur);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(t0);
+      osc.stop(t0 + v.dur + 0.05);
+    });
+    setTimeout(function(){ try{ ctx.close(); }catch(e){} }, 1600);
+  }catch(e){ /* audio no disponible, silenciar sin romper la practica */ }
+}
+
+/* ---------- CELEBRACION COMPLETA (campanas + aplausos + vitores) ---------- */
+function reproducirCelebracion(){
+  reproducirSonidoExito();
+  reproducirAplausos();
+  reproducirVitores();
+}
+
+/* ---------- CONFETI (via CDN, cargado bajo demanda) ---------- */
+var confettiScriptLoading = null;
+function ensureConfetti(){
+  if(window.confetti) return Promise.resolve();
+  if(confettiScriptLoading) return confettiScriptLoading;
+  confettiScriptLoading = new Promise(function(resolve){
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js';
+    s.onload = function(){ resolve(); };
+    s.onerror = function(){ resolve(); };
+    document.head.appendChild(s);
+  });
+  return confettiScriptLoading;
+}
+function lanzarConfeti(){
+  ensureConfetti().then(function(){
+    if(!window.confetti) return;
+    var colores = ['#c9982f', '#003877', '#16a34a'];
+    confetti({ particleCount: 90, spread: 75, origin: { y: 0.35 }, colors: colores });
+    setTimeout(function(){
+      confetti({ particleCount: 50, angle: 60, spread: 60, origin: { x: 0 }, colors: colores });
+      confetti({ particleCount: 50, angle: 120, spread: 60, origin: { x: 1 }, colors: colores });
+    }, 300);
+  });
+}
+
+/* ---------- MEDALLAS ---------- */
+var NIVELES_MEDALLA = [
+  { min: 90, icono: '🥇', titulo: 'Analista de Datos e IA Élite' },
+  { min: 80, icono: '🥈', titulo: 'Agente Digital con Visión de Datos' },
+  { min: 70, icono: '🥉', titulo: 'Agente en Formación de Datos e IA' }
+];
+
+function obtenerNivelMedalla(total){
+  for(var i = 0; i < NIVELES_MEDALLA.length; i++){
+    if(total >= NIVELES_MEDALLA[i].min) return NIVELES_MEDALLA[i];
+  }
+  return null;
+}
+
+function dibujarInsignia(nivel, nombre, total){
+  var canvas = document.createElement('canvas');
+  canvas.width = 800; canvas.height = 500;
+  var ctx = canvas.getContext('2d');
+
+  var grad = ctx.createLinearGradient(0, 0, 800, 500);
+  grad.addColorStop(0, '#003877');
+  grad.addColorStop(1, '#002a5c');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, 800, 500);
+
+  ctx.strokeStyle = '#c9982f';
+  ctx.lineWidth = 6;
+  ctx.strokeRect(20, 20, 760, 460);
+
+  ctx.textAlign = 'center';
+  ctx.font = '120px sans-serif';
+  ctx.fillText(nivel.icono, 400, 190);
+
+  ctx.fillStyle = '#c9982f';
+  ctx.font = 'bold 34px Georgia, serif';
+  ctx.fillText(nivel.titulo, 400, 250);
+
+  ctx.fillStyle = '#f1f5f9';
+  ctx.font = 'bold 30px Arial';
+  ctx.fillText(nombre || 'Participante CESAC', 400, 310);
+
+  ctx.fillStyle = '#cbd5e1';
+  ctx.font = '22px Arial';
+  ctx.fillText('Innovación y Transformación Digital · Módulo 3 · INFOTEP', 400, 350);
+  ctx.fillText('Calificación preliminar: ' + total + ' / 100 pts', 400, 385);
+
+  ctx.fillStyle = '#94a3b8';
+  ctx.font = 'italic 18px Arial';
+  ctx.fillText('Desarrollado por Johan Tapia, PhD', 400, 460);
+
+  return canvas;
+}
+
+function mostrarMedalla(total){
+  var nivel = obtenerNivelMedalla(total);
+  var zone = document.getElementById('medal-zone');
+  if(!nivel){ zone.style.display = 'none'; return; }
+
+  var nombre = (document.getElementById('est_nombre').value || '').trim() || 'Participante CESAC';
+  var canvas = dibujarInsignia(nivel, nombre, total);
+
+  zone.style.display = 'block';
+  zone.innerHTML =
+    '<div class="medal-card">' +
+      '<span class="medal-icon">' + nivel.icono + '</span>' +
+      '<div class="medal-title">' + nivel.titulo + '</div>' +
+      '<p class="medal-sub">¡Obtuvo su insignia! Compártala con sus colegas del CESAC.</p>' +
+      '<div class="medal-actions">' +
+        '<button class="btn-primary" id="btn-compartir-medalla" type="button">📤 Compartir insignia</button>' +
+        '<button class="btn-secondary" id="btn-descargar-medalla" type="button">⬇️ Descargar</button>' +
+      '</div>' +
+    '</div>';
+
+  document.getElementById('btn-descargar-medalla').addEventListener('click', function(){
+    var a = document.createElement('a');
+    a.download = 'insignia-cesac-digital-m3-' + nombre.toLowerCase().replace(/[^a-z0-9]+/g,'-') + '.png';
+    a.href = canvas.toDataURL('image/png');
+    a.click();
+  });
+
+  document.getElementById('btn-compartir-medalla').addEventListener('click', function(){
+    canvas.toBlob(function(blob){
+      var archivo = new File([blob], 'insignia-cesac-digital-m3.png', { type: 'image/png' });
+      if(navigator.canShare && navigator.canShare({ files: [archivo] })){
+        navigator.share({
+          files: [archivo],
+          title: nivel.titulo,
+          text: '¡Obtuve la insignia "' + nivel.titulo + '" en el Módulo 3 de Innovación y Transformación Digital!'
+        }).catch(function(){});
+      } else {
+        var a = document.createElement('a');
+        a.download = 'insignia-cesac-digital-m3.png';
+        a.href = canvas.toDataURL('image/png');
+        a.click();
+      }
+    }, 'image/png');
+  });
+}
+
+function gatherGradingPayload(localResult){
+  var pasos = {};
+  Object.keys(STEP_FIELDS).forEach(function(key, i){
+    var respuestas = {};
+    STEP_FIELDS[key].forEach(function(id){
+      var v = val(id);
+      if(filled(v)) respuestas[labelOf(id)] = v;
+    });
+    pasos[key] = { criterio: RUBRICA[i].criterio, max: RUBRICA[i].pts, respuestas: respuestas };
+  });
+  return {
+    estudiante: { nombre: val('est_nombre') || '', correo: val('est_correo') || '' },
+    institucion: val('est_aeropuerto') || 'CESAC',
+    curso: 'cesac-innovacion-transformacion-digital',
+    unidad: 'modulo3-practica-ia-datos',
+    pasos: pasos,
+    local: localResult ? {
+      total: localResult.total,
+      criterios: localResult.criteria.map(function(c){ return { titulo: c.title, puntaje: c.score, max: c.maxPoints }; })
+    } : null
+  };
+}
+
+function renderAIReview(data){
+  var box = document.getElementById('ai-review');
+  box.className = 'alert success';
+  var rows = data.criterios.map(function(c, i){
+    var nombre = RUBRICA[i] ? RUBRICA[i].criterio : ('Criterio ' + (i+1));
+    return '<li><strong>' + escapeHtml(nombre) + ':</strong> ' + c.puntaje + '/' + c.max + ' pts — ' + escapeHtml(c.comentario) + '</li>';
+  }).join('');
+  box.innerHTML = '<strong>🤖 Evaluación de Nicole:</strong> ' + data.total + ' / 100 pts.<br>' +
+    (data.comentario_general ? '<p style="margin:.5rem 0;">' + escapeHtml(data.comentario_general) + '</p>' : '') +
+    '<ul style="margin:.5rem 0 0; padding-left:1.2rem; font-size:.85rem;">' + rows + '</ul>' +
+    '<p style="margin:.6rem 0 0; font-size:.72rem; color:var(--muted);">Esta evaluación la genera un modelo de IA leyendo el contenido real de sus respuestas; es orientativa y no reemplaza la nota oficial de su facilitador.</p>';
+}
+
+function requestAIGrading(localResult){
+  var box = document.getElementById('ai-review');
+  box.style.display = 'block';
+  box.className = 'alert info';
+  box.innerHTML = '<strong>🤖 Nicole:</strong> analizando el contenido de sus respuestas (puede tardar hasta 10 minutos en este servidor, más si hay varios envíos a la vez) y notificando a su facilitador por correo. No necesita quedarse en esta pantalla — su nota automática ya quedó registrada arriba…';
+  fetchWithTimeout(AI_GRADE_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(gatherGradingPayload(localResult))
+  }, AI_GRADE_TIMEOUT).then(function(res){
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    return res.json();
+  }).then(function(data){
+    if(!data || !data.ok || !Array.isArray(data.criterios)) throw new Error((data && data.error) || 'respuesta inválida');
+    renderAIReview(data);
+  }).catch(function(){
+    box.className = 'alert warn';
+    box.innerHTML = '<strong>🤖 Nicole:</strong> no se pudo contactar el servicio de evaluación en este momento (puede estar desconectado o sin internet). Se muestra únicamente la evaluación automática local de esta página, que sigue siendo válida.';
+  });
+}
+
+document.getElementById('btn-submit').addEventListener('click', function(){
+  saveAll();
+  if(!filled(val('est_nombre'))){
+    alert('Antes de enviar, escriba su nombre completo (sección "Antes de empezar") para que su facilitador pueda identificar la entrega.');
+    document.getElementById('est_nombre').focus();
+    document.getElementById('portada').scrollIntoView({ behavior:'smooth' });
+    return;
+  }
+  var result = runGrading();
+  renderResults(result);
+  document.getElementById('results').scrollIntoView({ behavior:'smooth', block:'start' });
+  requestAIGrading(result);
+});
+document.getElementById('btn-recheck').addEventListener('click', function(){
+  document.getElementById('paso1').scrollIntoView({ behavior:'smooth' });
+});
+
+/* ---------- EXPORT / PRINT / CLEAR ---------- */
+function exportTxt(){
+  var lines = ['PRÁCTICA — MÓDULO 3: DATOS, INTELIGENCIA ARTIFICIAL Y TOMA DE DECISIONES', 'Nombre: ' + (val('est_nombre') || '(sin especificar)'), 'Aeropuerto: ' + (val('est_aeropuerto') || '(sin especificar)'), '======================================================', ''];
+  allFieldIds().forEach(function(id){
+    var v = val(id);
+    if(!filled(v)) return;
+    lines.push('- ' + labelOf(id) + ': ' + v);
+  });
+  var blob = new Blob([lines.join('\n')], { type:'text/plain;charset=utf-8' });
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  var name = (val('est_nombre') || 'practica-modulo3-cesac').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+  a.download = (name || 'practica-modulo3-cesac') + '.txt';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(a.href);
+}
+document.getElementById('btn-export').addEventListener('click', exportTxt);
+document.getElementById('btn-export-2').addEventListener('click', exportTxt);
+document.getElementById('btn-print').addEventListener('click', function(){ window.print(); });
+document.getElementById('btn-print-2').addEventListener('click', function(){ window.print(); });
+document.getElementById('btn-clear').addEventListener('click', function(){
+  if(!confirm('¿Seguro que desea borrar TODAS sus respuestas guardadas en este navegador? Esta acción no se puede deshacer.')) return;
+  try{ localStorage.removeItem(STORE_KEY); }catch(e){}
+  allFieldIds().forEach(function(id){ var el = document.getElementById(id); if(el) el.value = ''; });
+  document.querySelectorAll('.wc[data-for]').forEach(function(span){ var t = document.getElementById(span.getAttribute('data-for')); if(t) t.dispatchEvent(new Event('input')); });
+  updateProgress();
+  document.getElementById('results').classList.remove('show');
+  var aiBox = document.getElementById('ai-review');
+  aiBox.style.display = 'none';
+  aiBox.innerHTML = '';
+});
+
+/* ---------- NICOLE - respaldo con reglas (sin costo) ---------- */
+var advisorToggle = document.getElementById('advisor-toggle');
+var advisorPanel = document.getElementById('advisor-panel');
+var advisorClose = document.getElementById('advisor-close');
+var advisorBody = document.getElementById('advisor-body');
+var advisorForm = document.getElementById('advisor-form');
+var advisorInput = document.getElementById('advisor-input');
+
+function openAdvisor(){ advisorPanel.classList.add('open'); advisorToggle.setAttribute('aria-expanded','true'); advisorInput.focus(); }
+function closeAdvisor(){ advisorPanel.classList.remove('open'); advisorToggle.setAttribute('aria-expanded','false'); }
+advisorToggle.addEventListener('click', function(){ advisorPanel.classList.contains('open') ? closeAdvisor() : openAdvisor(); });
+advisorClose.addEventListener('click', closeAdvisor);
+
+function addMsg(text, who){
+  var div = document.createElement('div');
+  div.className = 'advisor-msg advisor-msg-' + (who === 'user' ? 'user' : 'bot');
+  div.textContent = text;
+  advisorBody.appendChild(div);
+  advisorBody.scrollTop = advisorBody.scrollHeight;
+  return div;
+}
+function addTyping(){
+  var div = addMsg('Escribiendo…', 'bot');
+  div.style.opacity = '.6';
+  return div;
+}
+function askTutorAI(q){
+  return fetchWithTimeout(AI_CHAT_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ message: q, contexto: 'MARCO CONCEPTUAL (Módulo 3 - Datos, Inteligencia Artificial y Toma de Decisiones, curso Innovación y Transformación Digital, CESAC/INFOTEP):\\nDatos: hechos, números o textos que describen algo (ej. cantidad de pasajeros, maletas inspeccionadas, hora de un incidente); sin datos se decide "a ciegas", con datos se pueden ver patrones, medir y planificar.\\nInteligencia Artificial (IA): capacidad de un programa para aprender a reconocer patrones a partir de muchos datos e imitar tareas humanas (reconocer caras, responder preguntas, anticipar riesgos); ejemplo CESAC: analizar imágenes de escáneres de equipaje para detectar objetos sospechosos y alertar al operador.\\nHerramientas de datos e IA: ChatGPT/Copilot (redactar y resumir textos), Power BI/Tableau (tableros y gráficos con datos en tiempo real), programas de análisis de imágenes/video.\\nÉtica, privacidad y uso responsable: usar la información de forma respetuosa, legal y segura; privacidad (proteger datos de pasajeros), transparencia (que sepan que se usan sus datos), responsabilidad (una persona siempre supervisa los resultados de la IA); en República Dominicana aplica la Ley 172-13 de Protección de Datos Personales.\\nToma de decisiones basada en datos: recolectar datos confiables, analizarlos para ver tendencias, y actuar según lo que dicen, en vez de solo por costumbre.\\nCaso práctico: entrenar un modelo de IA con miles de imágenes de equipaje para reducir los falsos positivos del escáner de rayos X — la IA apoya al agente de seguridad, no lo reemplaza.\\nContexto CESAC: Cuerpo Especializado en Seguridad Aeroportuaria y de la Aviación Civil, Ministerio de Defensa, opera en los aeropuertos SDQ, STI, PUJ, LRM y AZS, bajo estándares OACI (Anexo 17).', curso: 'Innovación y Transformación Digital (CESAC)' })
+  }, AI_CHAT_TIMEOUT).then(function(res){
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    return res.json();
+  }).then(function(data){
+    if(!data || !filled(data.response)) throw new Error('respuesta vacía');
+    return data.response;
+  });
+}
+function askTutor(q){
+  return askTutorAI(q).catch(function(){ return answerFor(q); });
+}
+
+var QA = [
+  { kw:['calific','nota','puntaje','rubrica','aprobar','minimo'], a:'La nota va de 0 a 100, entre las 3 preguntas (35+35+30). La aprobación mínima es 70%. El sistema revisa si sus respuestas están completas, no si son "perfectas" — un par de frases sinceras y con un ejemplo ya cuentan como buena respuesta. Su facilitador revisa el contenido real, y también su participación en el foro de Moodle, para la nota oficial.' },
+  { kw:['que son los datos', 'que es un dato', 'para que sirven los datos'], a:'Los datos son hechos, números o textos que describen algo — como la cantidad de pasajeros o la hora de un incidente. Sirven para ver patrones y tomar mejores decisiones, en vez de decidir "a ciegas".' },
+  { kw:['que es la inteligencia artificial', 'que es la ia', 'inteligencia artificial'], a:'La Inteligencia Artificial (IA) es un programa que "aprende" a reconocer patrones a partir de muchos datos, para imitar tareas que antes solo hacía una persona — como revisar una imagen del escáner de equipaje y avisar si algo parece sospechoso.' },
+  { kw:['power bi', 'tableau', 'chatgpt', 'copilot', 'herramientas de ia', 'que herramientas'], a:'No hace falta ser experto: hay programas ya hechos. ChatGPT o Copilot ayudan a redactar y resumir textos. Power BI o Tableau muestran los datos en gráficos y tableros fáciles de entender, en tiempo real.' },
+  { kw:['etica', 'ética', 'privacidad', 'ley 172-13', 'proteccion de datos', 'protección de datos'], a:'Usar los datos de las personas de forma respetuosa, legal y segura — nunca para espiar o discriminar. En República Dominicana aplica la Ley 172-13 de Protección de Datos Personales, que exige guardar la información de forma segura y usarla solo para lo que se autorizó.' },
+  { kw:['toma de decisiones', 'decidir con datos', 'decisiones basadas en datos'], a:'Es tomar decisiones usando hechos y números, no solo la costumbre — por ejemplo, si los datos muestran que hay más incidentes entre las 6 y las 8 a.m., tiene sentido poner más personal en ese horario.' },
+  { kw:['caso practico', 'caso práctico', 'falsos positivos', 'escaner', 'escáner'], a:'El caso del módulo trata sobre un escáner que a veces marca como "sospechoso" algo inofensivo. Entrenando un programa de IA con miles de imágenes reales, el sistema aprende a distinguir mejor — la IA no reemplaza al agente, lo apoya para trabajar más rápido y con menos errores.' },
+  { kw:['nota de voz', 'voz', 'grabar', 'hablar', 'microfono', 'micrófono'], a:'Al lado de cada pregunta hay un botón "🎤 Mantenga presionado para grabar". Manténgalo presionado mientras habla su respuesta, y suéltelo al terminar — el sistema la convierte en texto automáticamente, como una nota de voz de WhatsApp.' },
+  { kw:['pregunta 1'], a:'La Pregunta 1 pide contar qué datos ya registra en su trabajo que podrían ser más útiles si se analizaran mejor. Vale 35 puntos.' },
+  { kw:['pregunta 2'], a:'La Pregunta 2 pide contar una tarea repetitiva que podría automatizarse con una herramienta digital o con IA. Vale 35 puntos.' },
+  { kw:['pregunta 3'], a:'La Pregunta 3 pide contar una preocupación sobre el uso de IA o datos, y una idea de cómo solucionarla. Vale 30 puntos.' },
+  { kw:['tiempo', 'cuanto dura', 'cuanto tarda', 'temporizador', 'reloj', '30 minutos'], a:'Hay un reloj en la barra lateral con 30 minutos sugeridos, pero es solo una guía — no bloquea nada ni envía nada solo. Tómese el tiempo que necesite; sus respuestas quedan guardadas en este navegador.' },
+  { kw:['entrega', 'fecha', 'cuando se entrega', 'domingo'], a:'La entrega oficial es en el foro de Moodle, el domingo 27 de julio de 2026 a las 11:59 p.m. Esta actividad vale el 25% de la nota del Módulo 3.' },
+  { kw:['foro', 'moodle'], a:'Esta página le da una nota preliminar y le ayuda a organizar sus respuestas, pero la entrega oficial es el foro de discusión en Moodle. Use el botón "⬇️ Descargar mis respuestas" para copiar su texto, publíquelo en el foro, y lea/comente las respuestas de sus compañeros.' },
+  { kw:['hola', 'ayuda', 'que puedes hacer', 'quien eres'], a:'Soy Nicole, la asistente virtual del Dr. Johan Tapia. Puedo explicarte, con palabras sencillas, qué son los datos, qué es la Inteligencia Artificial, qué herramientas existen, la privacidad, la Ley 172-13, la toma de decisiones, o cómo funciona la calificación. No te voy a dar la respuesta ya hecha — eso lo construyes tú, contando tu propia experiencia en el CESAC.' }
+];
+function normQ(s){ return stripAccents(s); }
+function answerFor(q){
+  var nq = normQ(q);
+  var best = null, bestScore = 0;
+  QA.forEach(function(entry){
+    var score = 0;
+    entry.kw.forEach(function(k){ if(nq.indexOf(normQ(k)) !== -1) score++; });
+    if(score > bestScore){ bestScore = score; best = entry; }
+  });
+  if(best) return best.a;
+  return 'No tengo una respuesta preparada para eso. Prueba preguntar por un concepto (datos, inteligencia artificial, herramientas, privacidad, toma de decisiones), por una pregunta específica ("¿qué pide la pregunta 2?") o por la calificación. Para dudas sobre su experiencia específica, consulte a su facilitador.';
+}
+advisorForm.addEventListener('submit', function(e){
+  e.preventDefault();
+  var q = norm(advisorInput.value);
+  if(!q) return;
+  addMsg(q, 'user');
+  advisorInput.value = '';
+  var typingEl = addTyping();
+  askTutor(q).then(function(answer){
+    typingEl.remove();
+    addMsg(answer, 'bot');
+  });
+});
+document.querySelectorAll('.advisor-suggest button').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var q = btn.getAttribute('data-q');
+    openAdvisor();
+    addMsg(q, 'user');
+    var typingEl = addTyping();
+    askTutor(q).then(function(answer){
+      typingEl.remove();
+      addMsg(answer, 'bot');
+    });
+  });
+});
+
+wireVoiceButtons();
+wireSpeakButtons();
+
+})();
+</script>
+</body>
+</html>
