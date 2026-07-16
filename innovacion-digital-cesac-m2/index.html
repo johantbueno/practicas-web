@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Innovación y Transformación Digital — Módulo 2 | CESAC</title>
-<meta name="description" content="Foro de reflexión autocalificable del Módulo 2 (Herramientas Digitales para la Productividad y el Trabajo Colaborativo), curso Innovación y Transformación Digital, INFOTEP — CESAC. 8 preguntas sencillas de opinión, individual, por escrito o por nota de voz, con temporizador de referencia de 45 minutos. Incluye a Nicole y calificación automática preliminar.">
+<meta name="description" content="Práctica autocalificable del Módulo 2 (Herramientas Digitales para la Productividad y el Trabajo Colaborativo), curso Innovación y Transformación Digital, INFOTEP — CESAC. 8 preguntas de opinión, individual, por escrito o por nota de voz. Incluye a Nicole y calificación automática preliminar.">
 <meta name="color-scheme" content="light dark">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9C%88%EF%B8%8F%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -308,22 +308,20 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
 
     <section id="portada" class="card cover" style="scroll-margin-top:1.25rem;">
       <p class="eyebrow">Innovación y Transformación Digital · Módulo 2 · INFOTEP</p>
-      <h1>Foro de Reflexión: Herramientas Digitales para la Productividad y el Trabajo Colaborativo</h1>
+      <h1>Práctica: Herramientas Digitales para la Productividad y el Trabajo Colaborativo</h1>
       <div class="cover-chips">
         <span class="cover-chip">👤 Individual</span>
         <span class="cover-chip">🎯 100 pts · 70% aprobación</span>
-        <span class="cover-chip">📝 8 preguntas sencillas</span>
-        <span class="cover-chip">⏱ 45 minutos sugeridos</span>
       </div>
       <button class="speak-btn" data-speak-section="portada-speak" type="button" style="margin-top:1.1rem;">🔊 Escuchar la bienvenida</button>
-      <span id="portada-speak" hidden>Bienvenidos al foro de reflexión del Módulo dos, Herramientas Digitales para la Productividad y el Trabajo Colaborativo, del curso Innovación y Transformación Digital para el CESAC. Van a responder ocho preguntas sencillas, dando su opinión con sus propias palabras. No hace falta saber de tecnología. En cada pregunta pueden escribir la respuesta, o grabar una nota de voz que el sistema convierte en texto automáticamente manteniendo presionado el botón del micrófono. Hay un tiempo sugerido de cuarenta y cinco minutos, pero pueden tomarse más tiempo si lo necesitan. Si tienen dudas, pueden preguntarle a Nicole, la asistente virtual del Dr. Johan Tapia.</span>
+      <span id="portada-speak" hidden>Bienvenidos a la práctica del Módulo dos, Herramientas Digitales para la Productividad y el Trabajo Colaborativo, del curso Innovación y Transformación Digital para el CESAC. Van a responder ocho preguntas, dando su opinión con sus propias palabras. No hace falta saber de tecnología. En cada pregunta pueden escribir la respuesta, o grabar una nota de voz que el sistema convierte en texto automáticamente manteniendo presionado el botón del micrófono. Si tienen dudas, pueden preguntarle a Nicole, la asistente virtual del Dr. Johan Tapia.</span>
     </section>
 
     <section class="card" id="tutorial">
       <span class="step-badge">📘 Tutorial</span>
       <h1 style="font-size:1.35rem;">Cómo usar esta plataforma</h1>
       <button class="speak-btn" data-speak-target="tutorial" type="button">🔊 Escuchar este tutorial</button>
-      <p><strong>Concepto:</strong> esta página lo ayuda a preparar sus respuestas para el foro de reflexión del Módulo 2. Son 8 preguntas cortas y sencillas, para dar su opinión con sus propias palabras — no hace falta saber de tecnología ni memorizar nada. No hay que instalar nada ni crear una cuenta.</p>
+      <p><strong>Concepto:</strong> esta práctica del Módulo 2 tiene 8 preguntas cortas, para dar su opinión con sus propias palabras — no hace falta saber de tecnología ni memorizar nada. No hay que instalar nada ni crear una cuenta.</p>
 
       <h2>Dos formas de responder cada pregunta</h2>
       <p><strong>Definición:</strong> cada campo de respuesta acepta texto escrito o una nota de voz transcrita automáticamente.</p>
@@ -578,7 +576,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
     </section>
 
     <footer class="tp-footer">
-      Foro de Reflexión — Módulo 2 · Innovación y Transformación Digital · INFOTEP — CESAC · 2026.<br>
+      Práctica — Módulo 2 · Innovación y Transformación Digital · INFOTEP — CESAC · 2026.<br>
       Herramienta de autoevaluación con fines educativos. La nota oficial del curso la determina su facilitador, considerando también su participación en el foro de Moodle.<br>
       Desarrollado por Johan Tapia, PhD.
     </footer>
@@ -1416,7 +1414,7 @@ document.getElementById('btn-recheck').addEventListener('click', function(){
 
 /* ---------- EXPORT / PRINT / CLEAR ---------- */
 function exportTxt(){
-  var lines = ['FORO DE REFLEXIÓN — MÓDULO 2: HERRAMIENTAS DIGITALES PARA LA PRODUCTIVIDAD', 'Nombre: ' + (val('est_nombre') || '(sin especificar)'), 'Aeropuerto: ' + (val('est_aeropuerto') || '(sin especificar)'), '======================================================', ''];
+  var lines = ['PRÁCTICA — MÓDULO 2: HERRAMIENTAS DIGITALES PARA LA PRODUCTIVIDAD', 'Nombre: ' + (val('est_nombre') || '(sin especificar)'), 'Aeropuerto: ' + (val('est_aeropuerto') || '(sin especificar)'), '======================================================', ''];
   allFieldIds().forEach(function(id){
     var v = val(id);
     if(!filled(v)) return;
