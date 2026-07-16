@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Agente VPS</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A4%96%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b0d12; --panel:#12151c; --border:#242938; --text:#d5dae3; --muted:#6b7386;
+  --accent:#5fb98a; --user:#3b82f6; --err:#ef4444;
+}
+*{box-sizing:border-box;}
+body{margin:0; background:var(--bg); color:var(--text); font-family:'JetBrains Mono',ui-monospace,Consolas,monospace; height:100vh; display:flex; flex-direction:column;}
+header{padding:.9rem 1.25rem; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:.6rem; flex-shrink:0;}
+header h1{font-size:.95rem; margin:0; font-weight:700; color:var(--accent);}
+header .dot{width:8px; height:8px; border-radius:50%; background:var(--accent);}
+#log{flex:1; overflow-y:auto; padding:1.25rem; display:flex; flex-direction:column; gap:1rem;}
+.msg{max-width:min(760px,90%); white-space:pre-wrap; word-wrap:break-word; line-height:1.55; font-size:.88rem;}
+.msg .who{font-size:.72rem; font-weight:700; margin-bottom:.3rem; letter-spacing:.04em; text-transform:uppercase;}
+.msg.user{align-self:flex-end;}
+.msg.user .who{color:var(--user); text-align:right;}
+.msg.user .body{background:#132036; border:1px solid #24365a; border-radius:10px 10px 2px 10px; padding:.7rem .9rem;}
+.msg.agent .who{color:var(--accent);}
+.msg.agent .body{background:var(--panel); border:1px solid var(--border); border-radius:10px 10px 10px 2px; padding:.7rem .9rem;}
+.msg.error .body{background:#2a1212; border:1px solid var(--err); color:#fca5a5; border-radius:10px;}
+.msg.pending .body{color:var(--muted); font-style:italic;}
+#composer{border-top:1px solid var(--border); padding:.9rem 1.25rem; display:flex; gap:.6rem; flex-shrink:0;}
+#composer textarea{flex:1; resize:none; min-height:2.6rem; max-height:9rem; background:var(--panel); color:var(--text); border:1px solid var(--border); border-radius:8px; padding:.6rem .8rem; font-family:inherit; font-size:.9rem;}
+#composer textarea:focus{outline:none; border-color:var(--accent);}
+#composer button{background:var(--accent); color:#04170d; border:none; border-radius:8px; padding:0 1.3rem; font-weight:700; cursor:pointer; font-family:inherit; font-size:.85rem;}
+#composer button:disabled{opacity:.5; cursor:wait;}
+#gate{position:fixed; inset:0; background:var(--bg); display:flex; align-items:center; justify-content:center; z-index:10;}
+#gate.hidden{display:none;}
+#gate .box{background:var(--panel); border:1px solid var(--border); border-radius:12px; padding:2rem; width:min(360px,90vw); text-align:center;}
+#gate input{width:100%; background:var(--bg); color:var(--text); border:1px solid var(--border); border-radius:8px; padding:.6rem .8rem; font-family:inherit; margin:1rem 0; box-sizing:border-box;}
+#gate button{width:100%; background:var(--accent); color:#04170d; border:none; border-radius:8px; padding:.65rem; font-weight:700; cursor:pointer; font-family:inherit;}
+::-webkit-scrollbar{width:8px;}
+::-webkit-scrollbar-thumb{background:var(--border); border-radius:8px;}
+</style>
+</head>
+<body>
+
+<div id="gate">
+  <div class="box">
+    <div style="font-size:1.8rem; margin-bottom:.5rem;">🤖</div>
+    <div style="font-weight:700; color:var(--accent); margin-bottom:.4rem;">Agente VPS</div>
+    <div style="font-size:.8rem; color:var(--muted);">Clave de acceso</div>
+    <input type="password" id="gate-key" placeholder="Clave" autocomplete="off">
+    <button id="gate-btn" type="button">Entrar</button>
+  </div>
+</div>
+
+<header>
+  <span class="dot"></span>
+  <h1>agente.plataforma.cfd — Claude Code · deepseek-chat</h1>
+</header>
+
+<div id="log"></div>
+
+<div id="composer">
+  <textarea id="input" placeholder="Escribe una instrucción para el agente…" rows="1"></textarea>
+  <button id="send" type="button">Enviar</button>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+var AGENT_URL = 'https://agente.plataforma.cfd/agent';
+var KEY_STORAGE = 'vps_agent_key';
+
+var gate = document.getElementById('gate');
+var gateKey = document.getElementById('gate-key');
+var gateBtn = document.getElementById('gate-btn');
+var log = document.getElementById('log');
+var input = document.getElementById('input');
+var sendBtn = document.getElementById('send');
+
+function getKey(){ try{ return localStorage.getItem(KEY_STORAGE) || ''; }catch(e){ return ''; } }
+function setKey(k){ try{ localStorage.setItem(KEY_STORAGE, k); }catch(e){} }
+
+function openChat(){
+  gate.classList.add('hidden');
+  input.focus();
+}
+
+if(getKey()){
+  openChat();
+}
+
+gateBtn.addEventListener('click', function(){
+  var k = gateKey.value.trim();
+  if(!k) return;
+  setKey(k);
+  openChat();
+});
+gateKey.addEventListener('keydown', function(e){ if(e.key === 'Enter') gateBtn.click(); });
+
+function addMsg(who, text, cls){
+  var div = document.createElement('div');
+  div.className = 'msg ' + cls;
+  var label = document.createElement('div');
+  label.className = 'who';
+  label.textContent = who;
+  var body = document.createElement('div');
+  body.className = 'body';
+  body.textContent = text;
+  div.appendChild(label);
+  div.appendChild(body);
+  log.appendChild(div);
+  log.scrollTop = log.scrollHeight;
+  return div;
+}
+
+function autoGrow(){
+  input.style.height = 'auto';
+  input.style.height = Math.min(input.scrollHeight, 144) + 'px';
+}
+input.addEventListener('input', autoGrow);
+input.addEventListener('keydown', function(e){
+  if(e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); sendBtn.click(); }
+});
+
+function send(){
+  var message = input.value.trim();
+  if(!message) return;
+  var key = getKey();
+  if(!key){ gate.classList.remove('hidden'); return; }
+
+  addMsg('Tú', message, 'user');
+  input.value = '';
+  autoGrow();
+  sendBtn.disabled = true;
+
+  var pending = addMsg('Agente', 'Pensando… (puede tardar varios minutos)', 'agent pending');
+
+  var controller = new AbortController();
+  var timer = setTimeout(function(){ controller.abort(); }, 290000);
+
+  fetch(AGENT_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'X-Agent-Key': key },
+    body: JSON.stringify({ message: message }),
+    signal: controller.signal
+  }).then(function(res){
+    clearTimeout(timer);
+    if(res.status === 401){ throw new Error('CLAVE_INVALIDA'); }
+    return res.json();
+  }).then(function(data){
+    pending.remove();
+    if(data.ok){
+      addMsg('Agente', data.output || '(sin salida)', 'agent');
+    } else {
+      addMsg('Error', data.error || 'Error desconocido', 'error');
+    }
+  }).catch(function(err){
+    pending.remove();
+    if(err.message === 'CLAVE_INVALIDA'){
+      addMsg('Error', 'Clave de acceso inválida. Recarga la página para ingresarla de nuevo.', 'error');
+      try{ localStorage.removeItem(KEY_STORAGE); }catch(e){}
+    } else if(err.name === 'AbortError'){
+      addMsg('Error', 'Se agotó el tiempo de espera (casi 5 minutos). El agente puede seguir trabajando en el servidor.', 'error');
+    } else {
+      addMsg('Error', 'No se pudo conectar con el agente: ' + err.message, 'error');
+    }
+  }).finally(function(){
+    sendBtn.disabled = false;
+    input.focus();
+  });
+}
+sendBtn.addEventListener('click', send);
+
+})();
+</script>
+</body>
+</html>
