@@ -309,7 +309,6 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
     <section id="portada" class="card cover" style="scroll-margin-top:1.25rem;">
       <p class="eyebrow">Innovación y Transformación Digital · Módulo 2 · INFOTEP</p>
       <h1>Foro de Reflexión: Herramientas Digitales para la Productividad y el Trabajo Colaborativo</h1>
-      <p class="sub">Cuerpo Especializado en Seguridad Aeroportuaria y de la Aviación Civil (CESAC) · Ministerio de Defensa</p>
       <div class="cover-chips">
         <span class="cover-chip">👤 Individual</span>
         <span class="cover-chip">🎯 100 pts · 70% aprobación</span>
@@ -1107,7 +1106,7 @@ function renderResults(result){
   document.getElementById('results').classList.add('show');
 
   if(result.total >= 70){
-    reproducirSonidoExito();
+    reproducirCelebracion();
     lanzarConfeti();
     mostrarMedalla(result.total);
   } else {
@@ -1136,6 +1135,84 @@ function reproducirSonidoExito(){
       osc.stop(inicio + 0.4);
     });
   }catch(e){ /* audio no disponible, silenciar sin romper la practica */ }
+}
+
+/* ---------- APLAUSOS (ruido blanco filtrado, sintetizado, sin archivos externos) ---------- */
+function reproducirAplausos(){
+  try{
+    var Ctx = window.AudioContext || window.webkitAudioContext;
+    var ctx = new Ctx();
+    var duracion = 2.4;
+    var sampleRate = ctx.sampleRate;
+    var bufferSize = Math.floor(sampleRate * duracion);
+    var buffer = ctx.createBuffer(1, bufferSize, sampleRate);
+    var data = buffer.getChannelData(0);
+    /* Simula muchas manos aplaudiendo: rafagas cortas de ruido en momentos aleatorios,
+       cada vez mas juntas al inicio (aplauso que "arranca") y espaciadas al final (se apaga). */
+    var numClaps = 70;
+    for(var i = 0; i < numClaps; i++){
+      var progreso = i / numClaps;
+      var start = Math.pow(progreso, 0.6) * (duracion - 0.18);
+      var startSample = Math.floor(start * sampleRate);
+      var clapLen = Math.floor(sampleRate * (0.015 + Math.random() * 0.03));
+      var amp = 0.3 + Math.random() * 0.45;
+      for(var s = 0; s < clapLen && (startSample + s) < bufferSize; s++){
+        var decay = 1 - (s / clapLen);
+        data[startSample + s] += (Math.random() * 2 - 1) * amp * decay;
+      }
+    }
+    var noiseSource = ctx.createBufferSource();
+    noiseSource.buffer = buffer;
+    var bandpass = ctx.createBiquadFilter();
+    bandpass.type = 'bandpass';
+    bandpass.frequency.value = 2200;
+    bandpass.Q.value = 0.6;
+    var gain = ctx.createGain();
+    gain.gain.setValueAtTime(0.8, ctx.currentTime);
+    gain.gain.linearRampToValueAtTime(0.0001, ctx.currentTime + duracion);
+    noiseSource.connect(bandpass);
+    bandpass.connect(gain);
+    gain.connect(ctx.destination);
+    noiseSource.start();
+    noiseSource.onended = function(){ try{ ctx.close(); }catch(e){} };
+  }catch(e){ /* audio no disponible, silenciar sin romper la practica */ }
+}
+
+/* ---------- VITORES / ALGARABIA (barridos de tono, sintetizados) ---------- */
+function reproducirVitores(){
+  try{
+    var Ctx = window.AudioContext || window.webkitAudioContext;
+    var ctx = new Ctx();
+    var vitores = [
+      { start:0.15, dur:0.55, f0:280, f1:850 },
+      { start:0.55, dur:0.5, f0:240, f1:760 },
+      { start:0.95, dur:0.45, f0:320, f1:900 }
+    ];
+    vitores.forEach(function(v){
+      var osc = ctx.createOscillator();
+      var gain = ctx.createGain();
+      osc.type = 'sawtooth';
+      var t0 = ctx.currentTime + v.start;
+      osc.frequency.setValueAtTime(v.f0, t0);
+      osc.frequency.linearRampToValueAtTime(v.f1, t0 + v.dur * 0.6);
+      osc.frequency.linearRampToValueAtTime(v.f0 * 0.85, t0 + v.dur);
+      gain.gain.setValueAtTime(0, t0);
+      gain.gain.linearRampToValueAtTime(0.1, t0 + 0.06);
+      gain.gain.linearRampToValueAtTime(0.0001, t0 + v.dur);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(t0);
+      osc.stop(t0 + v.dur + 0.05);
+    });
+    setTimeout(function(){ try{ ctx.close(); }catch(e){} }, 1600);
+  }catch(e){ /* audio no disponible, silenciar sin romper la practica */ }
+}
+
+/* ---------- CELEBRACION COMPLETA (campanas + aplausos + vitores) ---------- */
+function reproducirCelebracion(){
+  reproducirSonidoExito();
+  reproducirAplausos();
+  reproducirVitores();
 }
 
 /* ---------- CONFETI (via CDN, cargado bajo demanda) ---------- */
