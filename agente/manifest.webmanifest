@@ -1,0 +1,12 @@
+{
+  "name": "JohanGPT",
+  "short_name": "JohanGPT",
+  "description": "Asistente de IA personal de Johan Tapia",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#0b0d12",
+  "theme_color": "#0b0d12",
+  "icons": [
+    { "src": "avatar.png", "sizes": "117x117", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
