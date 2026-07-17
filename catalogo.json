@@ -1,0 +1,161 @@
+[
+  {
+    "nombre": "INFOTEP — Instituto Nacional de Formación Técnico Profesional",
+    "icono": "✈️",
+    "cursos": [
+      {
+        "nombre": "Innovación y Transformación Digital — CESAC",
+        "icono": "✈️",
+        "tipoClase": "taller",
+        "tipoLabel": "Curso por módulos",
+        "practicas": [
+          {
+            "badge": "Módulo 2",
+            "titulo": "Práctica: Herramientas Digitales para la Productividad",
+            "desc": "8 preguntas de opinión sobre las herramientas digitales de productividad y trabajo colaborativo, aplicadas a la seguridad aeroportuaria. Individual.",
+            "duracion": "45 minutos",
+            "puntos": "100 pts",
+            "aprobacion": "70% mínimo",
+            "url": "https://johantbueno.github.io/practicas-web/innovacion-digital-cesac-m2/"
+          },
+          {
+            "badge": "Módulo 3",
+            "titulo": "Práctica: Datos, Inteligencia Artificial y Toma de Decisiones",
+            "desc": "8 preguntas de opinión sobre datos, IA y toma de decisiones, aplicadas a la seguridad aeroportuaria. Individual.",
+            "duracion": "45 minutos",
+            "puntos": "100 pts",
+            "aprobacion": "70% mínimo",
+            "url": "https://johantbueno.github.io/practicas-web/innovacion-digital-cesac-m3/"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "nombre": "INAP — Instituto Nacional de Administración Pública",
+    "icono": "🏛️",
+    "cursos": [
+      {
+        "nombre": "Prestación de Servicio y Atención a la Ciudadanía — Nivel 1 (en equipo)",
+        "icono": "🏢",
+        "tipoClase": "taller",
+        "tipoLabel": "Taller introductorio",
+        "practicas": [
+          {
+            "badge": "Nivel 1",
+            "titulo": "Fundamentos del Servicio Público y Derechos del Ciudadano",
+            "desc": "Taller en equipo, en lenguaje sencillo, a partir de una experiencia real de atención en una oficina pública. Se puede responder escribiendo o por nota de voz.",
+            "duracion": "3 a 4 horas, en equipo",
+            "puntos": "100 pts",
+            "aprobacion": "70% mínimo",
+            "url": "https://johantbueno.github.io/practicas-web/atencion-ciudadana-nivel-1/"
+          }
+        ]
+      },
+      {
+        "nombre": "Planificación Estratégica — Nivel 1 (en equipo)",
+        "icono": "📊",
+        "tipoClase": "taller",
+        "tipoLabel": "Taller introductorio",
+        "practicas": [
+          {
+            "badge": "Nivel 1",
+            "titulo": "Primeros Pasos en Planificación Estratégica",
+            "desc": "Taller en equipo, en lenguaje sencillo, aplicado a una organización que el grupo ya conoce (escuela, club, iglesia, negocio familiar...). Se puede responder escribiendo o por nota de voz.",
+            "duracion": "3 a 4 horas, en equipo",
+            "puntos": "100 pts",
+            "aprobacion": "70% mínimo",
+            "url": "https://johantbueno.github.io/practicas-web/planificacion-nivel-1/"
+          }
+        ]
+      },
+      {
+        "nombre": "Taller de Diagnóstico Institucional — Nivel 1",
+        "icono": "🔍",
+        "tipoClase": "taller",
+        "tipoLabel": "Taller introductorio",
+        "practicas": [
+          {
+            "badge": "Nivel 1",
+            "titulo": "Taller de Diagnóstico Institucional",
+            "desc": "Marco normativo, misión, población, identificación de problemas, árbol de causas y efectos, FODA y estrategias, con ejemplos concretos. Individual o en equipo.",
+            "duracion": "6 pasos, sin límite de tiempo",
+            "puntos": "100 pts",
+            "aprobacion": "70% mínimo",
+            "url": "https://johantbueno.github.io/practicas-web/diagnostico-u2-nivel-1/"
+          }
+        ]
+      },
+      {
+        "nombre": "Planificación Estratégica en la Gestión Pública",
+        "icono": "🎯",
+        "tipoClase": "secuencial",
+        "tipoLabel": "Curso secuencial · 6 unidades",
+        "esSecuencial": true,
+        "cursoId": "planificacion-estrategica",
+        "practicas": [
+          {
+            "badge": "Unidad I",
+            "unidad": "u1",
+            "titulo": "Planificación Estratégica Institucional",
+            "desc": "PEI, Ciclo de Gestión y Gestión por Resultados (GbR) aplicado a una institución pública real.",
+            "duracion": "4 horas",
+            "puntos": "100 pts",
+            "aprobacion": "70% mínimo",
+            "url": "https://planificacion.plataforma.cfd/"
+          },
+          {
+            "badge": "Unidad II",
+            "unidad": "u2",
+            "titulo": "Diagnóstico Contextual e Institucional",
+            "desc": "Contexto internacional/nacional, marco normativo, FODA, Matriz CAME y árbol de problemas.",
+            "duracion": "4 horas",
+            "puntos": "100 pts",
+            "aprobacion": "70% mínimo",
+            "url": "https://diagnostico.plataforma.cfd/"
+          },
+          {
+            "badge": "Unidad III",
+            "unidad": "u3",
+            "titulo": "Viabilidad Financiera y Riesgos",
+            "desc": "Costeo de un producto estratégico, clasificación de costos y valoración de riesgos (NOBACI).",
+            "duracion": "4:30 horas",
+            "puntos": "15 pts del curso",
+            "aprobacion": "70% mínimo",
+            "url": "https://viabilidad.plataforma.cfd/"
+          },
+          {
+            "badge": "Unidad IV",
+            "unidad": "u4",
+            "titulo": "Estrategia de Socialización del PEI",
+            "desc": "Grupos de interés, mensajes clave CREAM, canales de socialización, cronograma e indicadores.",
+            "duracion": "3 horas",
+            "puntos": "10 pts del curso",
+            "aprobacion": "70% mínimo",
+            "url": "https://socializacion.plataforma.cfd/"
+          },
+          {
+            "badge": "Unidad V",
+            "unidad": "u5",
+            "titulo": "Seguimiento, Monitoreo y Evaluación del PEI",
+            "desc": "Matriz de indicadores, formatos de reporte, resumen ejecutivo y metodología CAD-OCDE.",
+            "duracion": "2 horas",
+            "puntos": "100 pts",
+            "aprobacion": "70% mínimo",
+            "url": "https://evaluacion.plataforma.cfd/"
+          },
+          {
+            "badge": "Trabajo Final",
+            "unidad": "final",
+            "titulo": "Diseño Integral de un PEI",
+            "desc": "Integra las 5 unidades: diagnóstico, marco estratégico, cadena de valor, costeo, socialización.",
+            "duracion": "8 secciones",
+            "puntos": "30% de la nota final",
+            "aprobacion": "70% mínimo",
+            "url": "https://peifinal.plataforma.cfd/"
+          }
+        ]
+      }
+    ]
+  }
+]
