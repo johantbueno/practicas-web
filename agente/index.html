@@ -443,6 +443,10 @@ function addCodeCopyButtons(body){
   });
 }
 
+function downloadUrl(f){
+  return DOWNLOAD_URL + '?key=' + encodeURIComponent(getKey()) + '&file=' + encodeURIComponent(f.relPath || f.name);
+}
+
 function renderFilesBox(container, files){
   if(!files || !files.length) return;
   var images = files.filter(function(f){ return IMAGE_EXT_RE.test(f.name); });
@@ -450,7 +454,7 @@ function renderFilesBox(container, files){
   images.forEach(function(f){
     var img = document.createElement('img');
     img.className = 'msg-image';
-    img.src = DOWNLOAD_URL + '?key=' + encodeURIComponent(getKey()) + '&file=' + encodeURIComponent(f.name);
+    img.src = downloadUrl(f);
     img.alt = f.name;
     img.addEventListener('click', function(){ openLightbox(img.src); });
     container.appendChild(img);
@@ -460,7 +464,7 @@ function renderFilesBox(container, files){
     box.className = 'files-box';
     others.forEach(function(f){
       var a = document.createElement('a');
-      a.href = DOWNLOAD_URL + '?key=' + encodeURIComponent(getKey()) + '&file=' + encodeURIComponent(f.name);
+      a.href = downloadUrl(f);
       a.textContent = '⬇️ ' + f.name;
       a.target = '_blank';
       box.appendChild(a);
