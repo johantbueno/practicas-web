@@ -120,10 +120,6 @@ function openChat(){
   input.focus();
 }
 
-if(getKey()){
-  openChat();
-}
-
 gateBtn.addEventListener('click', function(){
   var k = gateKey.value.trim();
   if(!k) return;
@@ -182,6 +178,10 @@ function addMsg(entry, persist){
 
 function restoreHistory(){
   history.forEach(function(entry){ addMsg(entry, false); });
+}
+
+if(getKey()){
+  openChat();
 }
 
 function autoGrow(){
@@ -280,7 +280,6 @@ function send(){
     if(res.status === 429){ throw new Error('LIMITE_USO'); }
     if(!res.ok || !res.body){ throw new Error('HTTP_' + res.status); }
 
-    pendingDiv.classList.remove('pending');
     var reader = res.body.getReader();
     var decoder = new TextDecoder();
     var buffer = '';
@@ -298,9 +297,15 @@ function send(){
           var evt;
           try{ evt = JSON.parse(line); }catch(e){ return; }
           if(evt.type === 'delta'){
+            if(!streamedText){ pendingDiv.classList.remove('pending'); }
             streamedText += evt.text;
             pendingDiv._body.textContent = streamedText;
             log.scrollTop = log.scrollHeight;
+          } else if(evt.type === 'status'){
+            if(!streamedText){
+              pendingDiv._body.textContent = evt.text;
+              log.scrollTop = log.scrollHeight;
+            }
           } else if(evt.type === 'done'){
             doneFiles = evt.files || [];
           } else if(evt.type === 'error'){
