@@ -179,8 +179,22 @@ footer{text-align:center; font-size:.78rem; color:var(--muted); margin-top:2rem;
 
     <div class="card">
       <h2>Formato</h2>
+      <div class="field">
+        <label for="estilo">Estilo de presentación</label>
+        <select id="estilo" name="estilo">
+          <option value="nativo">PPTX nativo editable (recomendado)</option>
+          <option value="infografia">Infografía visual — una imagen por diapositiva</option>
+        </select>
+        <div class="hint" id="estilo-hint-nativo">Texto real en PowerPoint: podrás editarlo, cambiar colores y reordenar después.</div>
+        <div class="hint" id="estilo-hint-infografia" style="display:none">
+          Cada diapositiva se renderiza como una imagen completa con diseño tipo
+          infografía. <strong>El texto queda dentro de la imagen, no editable
+          después en PowerPoint.</strong> Las notas del orador sí siguen siendo
+          texto real. La institución/plantilla no aplica en este modo.
+        </div>
+      </div>
       <div class="grid2">
-        <div class="field">
+        <div class="field" id="campo-institucion">
           <label for="institucion">Institución / plantilla</label>
           <select id="institucion" name="institucion">
             <option value="">Genérico</option>
@@ -205,7 +219,7 @@ footer{text-align:center; font-size:.78rem; color:var(--muted); margin-top:2rem;
     <div class="estado" id="estado" role="status" aria-live="polite"></div>
   </form>
 
-  <footer>Slides Pro · genera texto real editable en PowerPoint, no imágenes de diapositiva completas.</footer>
+  <footer>Slides Pro · PPTX nativo con texto editable, o infografía visual con diseño rico por diapositiva — tú eliges.</footer>
 </div>
 
 <script>
@@ -222,6 +236,23 @@ document.getElementById('theme-toggle').addEventListener('click', () => {
   root.setAttribute('data-theme', actual);
   localStorage.setItem('slides-pro-theme', actual);
 });
+
+// --- Estilo de presentacion (nativo vs infografia) ---
+const estiloSelect = document.getElementById('estilo');
+const campoInstitucion = document.getElementById('campo-institucion');
+const institucionSelect = document.getElementById('institucion');
+const hintNativo = document.getElementById('estilo-hint-nativo');
+const hintInfografia = document.getElementById('estilo-hint-infografia');
+
+function actualizarVisibilidadEstilo() {
+  const esInfografia = estiloSelect.value === 'infografia';
+  hintNativo.style.display = esInfografia ? 'none' : 'block';
+  hintInfografia.style.display = esInfografia ? 'block' : 'none';
+  campoInstitucion.style.opacity = esInfografia ? '.45' : '1';
+  institucionSelect.disabled = esInfografia;
+}
+estiloSelect.addEventListener('change', actualizarVisibilidadEstilo);
+actualizarVisibilidadEstilo();
 
 // --- Clave recordada ---
 const claveInput = document.getElementById('clave');
@@ -324,7 +355,7 @@ const ETAPAS = [
   { seg: 20, texto: 'Generando contenido y notas de orador con IA — esto toma la mayor parte del tiempo…' },
   { seg: 70, texto: 'Redactando notas de orador extensas para cada diapositiva…' },
   { seg: 100, texto: 'Generando imágenes ilustrativas (si las pediste)…' },
-  { seg: 130, texto: 'Ensamblando el PowerPoint final…' },
+  { seg: 130, texto: 'Ensamblando el PowerPoint final (renderizando infografía si la elegiste)…' },
   { seg: 160, texto: 'Esto está tardando más de lo usual, pero seguimos esperando la respuesta…' },
 ];
 const DURACION_ESTIMADA_SEG = 150; // con muchas diapositivas/imagenes puede tardar bastante mas; ver ETAPAS de aviso
@@ -405,6 +436,7 @@ form.addEventListener('submit', async (e) => {
   formData.append('tema', document.getElementById('tema').value.trim());
   formData.append('material', materialInput.value.trim());
   formData.append('institucion', document.getElementById('institucion').value);
+  formData.append('estilo', estiloSelect.value);
   formData.append('num_diapositivas', document.getElementById('num_diapositivas').value);
   formData.append('incluir_imagenes', document.getElementById('incluir_imagenes').checked);
   if (fileInput.files.length) {
