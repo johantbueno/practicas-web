@@ -224,7 +224,7 @@ footer{text-align:center; font-size:.78rem; color:var(--muted); margin-top:2rem;
 
 <script>
 const WEBHOOK_URL = "https://n8n-inap.167.88.36.13.sslip.io/webhook/slides-pro-generar";
-const TIEMPO_LIMITE_MS = 320000; // margen sobre los 280s de timeout del nodo Ollama en n8n
+const TIEMPO_LIMITE_MS = 380000; // margen sobre las 2 llamadas a Ollama en serie (150s c/u = 300s) + extraccion/render
 const TAMANO_MAX_ARCHIVO = 15 * 1024 * 1024; // 15 MB
 
 // --- Tema claro/oscuro ---
@@ -352,13 +352,13 @@ function base64ADescarga(base64, filename) {
 const ETAPAS = [
   { seg: 0, texto: 'Analizando el tema y el material…' },
   { seg: 10, texto: 'Extrayendo texto del material (si subiste un archivo)…' },
-  { seg: 20, texto: 'Generando contenido y notas de orador con IA — esto toma la mayor parte del tiempo…' },
-  { seg: 70, texto: 'Redactando notas de orador extensas para cada diapositiva…' },
-  { seg: 100, texto: 'Generando imágenes ilustrativas (si las pediste)…' },
-  { seg: 130, texto: 'Ensamblando el PowerPoint final (renderizando infografía si la elegiste)…' },
-  { seg: 160, texto: 'Esto está tardando más de lo usual, pero seguimos esperando la respuesta…' },
+  { seg: 20, texto: 'Generando la estructura de las diapositivas con IA…' },
+  { seg: 90, texto: 'Estructura lista — redactando notas de orador extensas para cada diapositiva…' },
+  { seg: 180, texto: 'Generando imágenes ilustrativas (si las pediste)…' },
+  { seg: 210, texto: 'Ensamblando el PowerPoint final (renderizando infografía si la elegiste)…' },
+  { seg: 260, texto: 'Esto está tardando más de lo usual, pero seguimos esperando la respuesta…' },
 ];
-const DURACION_ESTIMADA_SEG = 150; // con muchas diapositivas/imagenes puede tardar bastante mas; ver ETAPAS de aviso
+const DURACION_ESTIMADA_SEG = 190; // dos llamadas a IA en serie (estructura + notas); ver ETAPAS de aviso
 
 let intervaloProgreso = null;
 let segundosTranscurridos = 0;
