@@ -5,8 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Slides Pro | Generador de Presentaciones</title>
 <meta name="description" content="Genera presentaciones PPTX profesionales con notas de orador extensas a partir de un tema y material (texto o PDF/DOCX). Herramienta interna de Johan Tapia.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#003877">
 <meta name="color-scheme" content="light dark">
+<meta property="og:title" content="Slides Pro | Generador de Presentaciones">
+<meta property="og:description" content="Genera presentaciones PPTX profesionales con notas de orador extensas a partir de un tema y material.">
+<meta property="og:type" content="website">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%8A%3C/text%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23003877'/%3E%3Ctext x='50' y='68' font-size='60' text-anchor='middle'%3E%F0%9F%93%8A%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -16,6 +22,7 @@
   --primary:#0f172a; --secondary:#334155; --muted:#64748b;
   --bg-body:#f4f7fb; --bg-card:#ffffff; --border-light:#e2e8f0; --border-dark:#cbd5e1;
   --green:#16a34a; --green-bg:#f0fdf4; --green-border:#22c55e;
+  --amber:#b45309; --amber-bg:#fffbeb; --amber-border:#f59e0b;
   --red:#b91c1c; --red-bg:#fef2f2; --red-border:#ef4444;
   --blue-bg:#eff6ff; --blue-border:#3b82f6;
   --radius-lg:16px; --radius-md:12px; --radius-sm:8px;
@@ -24,35 +31,54 @@
   --shadow-lg:0 10px 15px -3px rgba(0,0,0,.12), 0 4px 6px -4px rgba(0,0,0,.1);
 }
 [data-theme="dark"]{
-  --navy:#5b9bd8; --primary:#f1f5f9; --secondary:#cbd5e1; --muted:#94a3b8;
+  --navy:#5b9bd8; --navy-dark:#4a87c4; --primary:#f1f5f9; --secondary:#cbd5e1; --muted:#94a3b8;
   --bg-body:#0b1220; --bg-card:#151f2f; --border-light:#283249; --border-dark:#3a4666;
-  --green-bg:#0c2417; --red-bg:#2a1212; --blue-bg:#13233f;
+  --green-bg:#0c2417; --amber-bg:#2a2108; --red-bg:#2a1212; --blue-bg:#13233f;
   --shadow-sm:0 1px 2px rgba(0,0,0,.4); --shadow-md:0 4px 6px -1px rgba(0,0,0,.5); --shadow-lg:0 10px 15px -3px rgba(0,0,0,.5);
 }
 *{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
 body{margin:0; background:var(--bg-body); color:var(--secondary); font-family:'Inter',ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif; line-height:1.6; transition:background-color .25s ease;}
 a{color:var(--navy);}
+.skip-link{position:absolute; left:-9999px; top:0; background:var(--navy); color:#fff; padding:.85rem 1.5rem; z-index:2000; border-radius:0 0 10px 0; font-weight:700; text-decoration:none;}
+.skip-link:focus{left:0;}
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible{outline:2px solid var(--navy); outline-offset:2px; border-radius:4px;}
+
 .wrapper{max-width:720px; margin:0 auto; padding:2rem 1rem 5rem;}
 
 .theme-toggle{position:fixed; top:1rem; right:1rem; background:var(--bg-card); border:1px solid var(--border-light); width:40px; height:40px; border-radius:10px; cursor:pointer; font-size:1.1rem; box-shadow:var(--shadow-sm); z-index:10;}
+.theme-toggle:hover{border-color:var(--border-dark);}
 
 .cover{background:linear-gradient(135deg,var(--navy),var(--navy-dark)); color:#fff; border-radius:var(--radius-lg); padding:2rem 2rem 1.75rem; margin-bottom:1.5rem; box-shadow:var(--shadow-lg);}
 .cover .eyebrow{text-transform:uppercase; letter-spacing:.08em; font-size:.75rem; font-weight:700; opacity:.85;}
 .cover h1{font-size:1.7rem; font-weight:800; margin:.4rem 0 .3rem;}
 .cover p{margin:0; opacity:.92; font-size:.95rem;}
 
-.card{background:var(--bg-card); padding:1.75rem; border-radius:var(--radius-lg); box-shadow:var(--shadow-sm); border:1px solid var(--border-light); margin-bottom:1.5rem;}
-.card h2{font-size:1rem; font-weight:700; color:var(--navy); margin:0 0 1rem; padding-bottom:.6rem; border-bottom:1px solid var(--border-light); text-transform:uppercase; letter-spacing:.03em;}
+.card{background:var(--bg-card); padding:1.75rem; border-radius:var(--radius-lg); box-shadow:var(--shadow-sm); border:1px solid var(--border-light); margin-bottom:1.5rem; transition:opacity .2s ease;}
+.card h2{font-size:1rem; font-weight:700; color:var(--navy); margin:0 0 1rem; padding-bottom:.6rem; border-bottom:1px solid var(--border-light); text-transform:uppercase; letter-spacing:.03em; display:flex; align-items:center; justify-content:space-between;}
+.card h2 .contador{font-size:.72rem; font-weight:600; color:var(--muted); text-transform:none; letter-spacing:normal;}
 
 label{display:block; font-weight:600; font-size:.85rem; color:var(--primary); margin-bottom:.4rem;}
 .hint{font-size:.78rem; color:var(--muted); margin-top:.3rem;}
 .field{margin-bottom:1.25rem;}
+.field:last-child{margin-bottom:0;}
 input[type=text], input[type=password], input[type=number], textarea, select{
   width:100%; padding:.65rem .8rem; border-radius:var(--radius-sm); border:1px solid var(--border-dark);
-  background:var(--bg-body); color:var(--primary); font-family:inherit; font-size:.92rem;
+  background:var(--bg-body); color:var(--primary); font-family:inherit; font-size:.92rem; transition:border-color .15s ease;
 }
+input.campo-invalido{border-color:var(--red-border);}
 textarea{min-height:110px; resize:vertical;}
 input:focus, textarea:focus, select:focus{outline:2px solid var(--navy); outline-offset:1px;}
+fieldset{border:none; padding:0; margin:0;}
+fieldset:disabled{opacity:.55;}
+
+.clave-row{display:flex; gap:.6rem; align-items:stretch;}
+.clave-row input{flex:1;}
+.btn-ver-clave{flex-shrink:0; width:44px; border-radius:var(--radius-sm); border:1px solid var(--border-dark); background:var(--bg-body); cursor:pointer; font-size:1rem;}
+.btn-ver-clave:hover{border-color:var(--navy);}
+.recordar-row{display:flex; align-items:center; gap:.5rem; margin-top:.6rem;}
+.recordar-row input{width:auto;}
+.recordar-row label{margin:0; font-weight:500; font-size:.8rem; color:var(--muted);}
 
 .grid2{display:grid; grid-template-columns:1fr 1fr; gap:1rem;}
 @media (max-width:560px){ .grid2{grid-template-columns:1fr;} }
@@ -61,29 +87,45 @@ input:focus, textarea:focus, select:focus{outline:2px solid var(--navy); outline
 .check-row input{width:auto;}
 .check-row label{margin:0;}
 
-.file-drop{border:2px dashed var(--border-dark); border-radius:var(--radius-md); padding:1.25rem; text-align:center; cursor:pointer; background:var(--bg-body);}
+.file-drop{border:2px dashed var(--border-dark); border-radius:var(--radius-md); padding:1.25rem; text-align:center; cursor:pointer; background:var(--bg-body); transition:border-color .15s ease, background-color .15s ease;}
 .file-drop:hover{border-color:var(--navy);}
+.file-drop.dragover{border-color:var(--navy); background:var(--blue-bg);}
 .file-drop.has-file{border-color:var(--green-border); background:var(--green-bg);}
+.file-drop.file-error{border-color:var(--red-border); background:var(--red-bg);}
 #archivo-nombre{font-size:.85rem; color:var(--muted); margin-top:.4rem;}
+.btn-quitar-archivo{margin-top:.5rem; background:none; border:none; color:var(--red); font-size:.78rem; font-weight:600; cursor:pointer; text-decoration:underline; padding:0;}
 
-.btn-generar{width:100%; padding:.9rem; border-radius:var(--radius-md); border:none; background:var(--navy); color:#fff; font-weight:700; font-size:1rem; cursor:pointer; font-family:inherit; box-shadow:var(--shadow-md);}
-.btn-generar:hover{background:var(--navy-dark);}
-.btn-generar:disabled{opacity:.6; cursor:not-allowed;}
+.btn-generar{width:100%; padding:.9rem; border-radius:var(--radius-md); border:none; background:var(--navy); color:#fff; font-weight:700; font-size:1rem; cursor:pointer; font-family:inherit; box-shadow:var(--shadow-md); display:flex; align-items:center; justify-content:center; gap:.6rem;}
+.btn-generar:hover:not(:disabled){background:var(--navy-dark);}
+.btn-generar:disabled{opacity:.7; cursor:not-allowed;}
 
 .estado{margin-top:1rem; padding:1rem 1.1rem; border-radius:var(--radius-md); font-size:.88rem; display:none;}
 .estado.cargando{display:block; background:var(--blue-bg); border:1px solid var(--blue-border); color:var(--primary);}
 .estado.ok{display:block; background:var(--green-bg); border:1px solid var(--green-border); color:var(--primary);}
 .estado.error{display:block; background:var(--red-bg); border:1px solid var(--red-border); color:var(--primary);}
+.estado.aviso{display:block; background:var(--amber-bg); border:1px solid var(--amber-border); color:var(--primary);}
+.estado .estado-titulo{font-weight:700; display:flex; align-items:center; gap:.5rem; margin-bottom:.2rem;}
+.estado .estado-detalle{color:var(--muted); font-size:.82rem;}
 
-.spinner{display:inline-block; width:16px; height:16px; border:2px solid rgba(0,0,0,.15); border-top-color:var(--navy); border-radius:50%; animation:spin .8s linear infinite; vertical-align:middle; margin-right:.5rem;}
+.progreso-track{height:6px; border-radius:999px; background:var(--border-light); overflow:hidden; margin:.75rem 0 .5rem;}
+.progreso-fill{height:100%; width:0%; background:linear-gradient(90deg,var(--navy),var(--gold)); transition:width .6s ease;}
+
+.spinner{display:inline-block; width:16px; height:16px; border:2px solid rgba(255,255,255,.4); border-top-color:#fff; border-radius:50%; animation:spin .8s linear infinite; flex-shrink:0;}
+.spinner.oscuro{border:2px solid rgba(0,0,0,.15); border-top-color:var(--navy);}
 @keyframes spin{to{transform:rotate(360deg);}}
 
+.btn-secundario{background:none; border:1px solid var(--border-dark); color:var(--secondary); padding:.5rem 1rem; border-radius:var(--radius-sm); font-weight:600; font-size:.82rem; cursor:pointer; font-family:inherit; margin-top:.75rem;}
+.btn-secundario:hover{border-color:var(--navy); color:var(--navy);}
+
 footer{text-align:center; font-size:.78rem; color:var(--muted); margin-top:2rem;}
+
+.visually-hidden{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;}
 </style>
 </head>
 <body>
 
-<button class="theme-toggle" id="theme-toggle" aria-label="Cambiar tema" type="button">🌓</button>
+<a href="#form-slides" class="skip-link">Saltar al formulario</a>
+<button class="theme-toggle" id="theme-toggle" aria-label="Cambiar tema claro/oscuro" type="button">🌓</button>
 
 <div class="wrapper">
   <div class="cover">
@@ -92,12 +134,21 @@ footer{text-align:center; font-size:.78rem; color:var(--muted); margin-top:2rem;
     <p>Genera una presentación PPTX profesional a partir de un tema y material de referencia — con notas de orador extensas, listas para hablar en clase.</p>
   </div>
 
-  <form id="form-slides">
+  <form id="form-slides" novalidate>
+    <fieldset id="fieldset-form">
     <div class="card">
       <h2>Acceso</h2>
       <div class="field">
         <label for="clave">Clave de acceso</label>
-        <input type="password" id="clave" name="clave" required autocomplete="off">
+        <div class="clave-row">
+          <input type="password" id="clave" name="clave" required autocomplete="off" aria-describedby="clave-hint">
+          <button type="button" class="btn-ver-clave" id="btn-ver-clave" aria-label="Mostrar u ocultar la clave" title="Mostrar/ocultar clave">👁️</button>
+        </div>
+        <div class="recordar-row">
+          <input type="checkbox" id="recordar-clave">
+          <label for="recordar-clave">Recordar clave en este navegador</label>
+        </div>
+        <div class="hint" id="clave-hint">Solo se guarda en este navegador si marcas la casilla — nunca se sube al repositorio.</div>
       </div>
     </div>
 
@@ -105,19 +156,24 @@ footer{text-align:center; font-size:.78rem; color:var(--muted); margin-top:2rem;
       <h2>Contenido</h2>
       <div class="field">
         <label for="tema">Tema de la presentación</label>
-        <input type="text" id="tema" name="tema" required placeholder="Ej. Fundamentos de Ciberseguridad para Funcionarios Públicos">
+        <input type="text" id="tema" name="tema" required minlength="4" maxlength="200" placeholder="Ej. Fundamentos de Ciberseguridad para Funcionarios Públicos" aria-describedby="tema-hint">
+        <div class="hint" id="tema-hint">Sé específico — un tema claro produce mejores diapositivas.</div>
       </div>
       <div class="field">
-        <label for="material">Material de referencia (opcional)</label>
-        <textarea id="material" name="material" placeholder="Pega aquí texto de referencia, o sube un archivo abajo. Puedes usar ambos a la vez."></textarea>
+        <label for="material">
+          Material de referencia (opcional)
+        </label>
+        <textarea id="material" name="material" maxlength="8000" placeholder="Pega aquí texto de referencia, o sube un archivo abajo. Puedes usar ambos a la vez." aria-describedby="material-contador"></textarea>
+        <div class="hint" id="material-contador">0 / 8000 caracteres</div>
       </div>
       <div class="field">
         <label for="archivo-input">Subir PDF o DOCX (opcional)</label>
-        <div class="file-drop" id="file-drop">
-          <span id="file-drop-texto">Haz clic para elegir un archivo PDF o DOCX</span>
-          <div id="archivo-nombre"></div>
+        <div class="file-drop" id="file-drop" tabindex="0" role="button" aria-label="Elegir archivo PDF o DOCX, o arrastrarlo aquí">
+          <span id="file-drop-texto">Haz clic o arrastra aquí un archivo PDF o DOCX (máx. 15 MB)</span>
+          <div id="archivo-nombre" aria-live="polite"></div>
+          <button type="button" class="btn-quitar-archivo" id="btn-quitar-archivo" style="display:none">Quitar archivo</button>
         </div>
-        <input type="file" id="archivo-input" name="archivo" accept=".pdf,.docx" style="display:none">
+        <input type="file" id="archivo-input" name="archivo" accept=".pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document" style="display:none">
       </div>
     </div>
 
@@ -134,17 +190,19 @@ footer{text-align:center; font-size:.78rem; color:var(--muted); margin-top:2rem;
         </div>
         <div class="field">
           <label for="num_diapositivas">Número de diapositivas</label>
-          <input type="number" id="num_diapositivas" name="num_diapositivas" min="3" max="30" value="8">
+          <input type="number" id="num_diapositivas" name="num_diapositivas" min="3" max="30" value="8" aria-describedby="num-hint">
+          <div class="hint" id="num-hint">Con temas muy amplios, pedir más de ~15 puede dar menos de las solicitadas.</div>
         </div>
       </div>
       <div class="field check-row">
         <input type="checkbox" id="incluir_imagenes" name="incluir_imagenes" checked>
-        <label for="incluir_imagenes">Incluir imágenes ilustrativas generadas por IA</label>
+        <label for="incluir_imagenes">Incluir imágenes ilustrativas generadas por IA (agrega tiempo de espera)</label>
       </div>
     </div>
 
     <button type="submit" class="btn-generar" id="btn-generar">Generar presentación</button>
-    <div class="estado" id="estado"></div>
+    </fieldset>
+    <div class="estado" id="estado" role="status" aria-live="polite"></div>
   </form>
 
   <footer>Slides Pro · genera texto real editable en PowerPoint, no imágenes de diapositiva completas.</footer>
@@ -152,7 +210,10 @@ footer{text-align:center; font-size:.78rem; color:var(--muted); margin-top:2rem;
 
 <script>
 const WEBHOOK_URL = "https://n8n-inap.167.88.36.13.sslip.io/webhook/slides-pro-generar";
+const TIEMPO_LIMITE_MS = 240000; // margen sobre los ~180s de timeout del backend
+const TAMANO_MAX_ARCHIVO = 15 * 1024 * 1024; // 15 MB
 
+// --- Tema claro/oscuro ---
 const root = document.documentElement;
 const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 root.setAttribute('data-theme', localStorage.getItem('slides-pro-theme') || (prefersDark ? 'dark' : 'light'));
@@ -162,20 +223,85 @@ document.getElementById('theme-toggle').addEventListener('click', () => {
   localStorage.setItem('slides-pro-theme', actual);
 });
 
+// --- Clave recordada ---
+const claveInput = document.getElementById('clave');
+const recordarClave = document.getElementById('recordar-clave');
+const claveGuardada = localStorage.getItem('slides-pro-clave');
+if (claveGuardada) {
+  claveInput.value = claveGuardada;
+  recordarClave.checked = true;
+}
+document.getElementById('btn-ver-clave').addEventListener('click', () => {
+  claveInput.type = claveInput.type === 'password' ? 'text' : 'password';
+});
+
+// --- Contador de caracteres del material ---
+const materialInput = document.getElementById('material');
+const materialContador = document.getElementById('material-contador');
+materialInput.addEventListener('input', () => {
+  materialContador.textContent = materialInput.value.length + ' / 8000 caracteres';
+});
+
+// --- Subida de archivo (clic + arrastrar y soltar + validación) ---
 const fileInput = document.getElementById('archivo-input');
 const fileDrop = document.getElementById('file-drop');
 const fileNombre = document.getElementById('archivo-nombre');
-fileDrop.addEventListener('click', () => fileInput.click());
-fileInput.addEventListener('change', () => {
-  if (fileInput.files.length) {
-    fileDrop.classList.add('has-file');
-    fileNombre.textContent = '✓ ' + fileInput.files[0].name;
-  } else {
+const fileDropTexto = document.getElementById('file-drop-texto');
+const btnQuitarArchivo = document.getElementById('btn-quitar-archivo');
+
+function validarYMostrarArchivo(file) {
+  if (!file) return;
+  const extension = file.name.split('.').pop().toLowerCase();
+  if (extension !== 'pdf' && extension !== 'docx') {
+    fileDrop.classList.add('file-error');
     fileDrop.classList.remove('has-file');
-    fileNombre.textContent = '';
+    fileNombre.textContent = '✕ Solo se aceptan archivos PDF o DOCX.';
+    fileInput.value = '';
+    return;
+  }
+  if (file.size > TAMANO_MAX_ARCHIVO) {
+    fileDrop.classList.add('file-error');
+    fileDrop.classList.remove('has-file');
+    fileNombre.textContent = '✕ El archivo pesa ' + (file.size / 1024 / 1024).toFixed(1) + ' MB — el máximo son 15 MB.';
+    fileInput.value = '';
+    return;
+  }
+  fileDrop.classList.remove('file-error');
+  fileDrop.classList.add('has-file');
+  fileNombre.textContent = '✓ ' + file.name + ' (' + (file.size / 1024).toFixed(0) + ' KB)';
+  btnQuitarArchivo.style.display = 'inline';
+  fileDropTexto.style.display = 'none';
+}
+
+fileDrop.addEventListener('click', () => fileInput.click());
+fileDrop.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fileInput.click(); }
+});
+fileInput.addEventListener('change', () => validarYMostrarArchivo(fileInput.files[0]));
+
+['dragenter', 'dragover'].forEach(evento => {
+  fileDrop.addEventListener(evento, (e) => { e.preventDefault(); fileDrop.classList.add('dragover'); });
+});
+['dragleave', 'drop'].forEach(evento => {
+  fileDrop.addEventListener(evento, (e) => { e.preventDefault(); fileDrop.classList.remove('dragover'); });
+});
+fileDrop.addEventListener('drop', (e) => {
+  const file = e.dataTransfer.files[0];
+  if (file) {
+    fileInput.files = e.dataTransfer.files;
+    validarYMostrarArchivo(file);
   }
 });
+btnQuitarArchivo.addEventListener('click', (e) => {
+  e.stopPropagation();
+  fileInput.value = '';
+  fileDrop.classList.remove('has-file', 'file-error');
+  fileNombre.textContent = '';
+  fileDropTexto.style.display = 'block';
+  btnQuitarArchivo.style.display = 'none';
+});
 
+// --- Descarga del PPTX desde base64 ---
 function base64ADescarga(base64, filename) {
   const binario = atob(base64);
   const bytes = new Uint8Array(binario.length);
@@ -191,20 +317,93 @@ function base64ADescarga(base64, filename) {
   URL.revokeObjectURL(url);
 }
 
+// --- Mensajes de progreso por etapas (estimados, no hay progreso real del backend) ---
+const ETAPAS = [
+  { seg: 0, texto: 'Analizando el tema y el material…' },
+  { seg: 10, texto: 'Extrayendo texto del material (si subiste un archivo)…' },
+  { seg: 20, texto: 'Generando contenido y notas de orador con IA — esto toma la mayor parte del tiempo…' },
+  { seg: 70, texto: 'Redactando notas de orador extensas para cada diapositiva…' },
+  { seg: 100, texto: 'Generando imágenes ilustrativas (si las pediste)…' },
+  { seg: 130, texto: 'Ensamblando el PowerPoint final…' },
+  { seg: 160, texto: 'Esto está tardando más de lo usual, pero seguimos esperando la respuesta…' },
+];
+const DURACION_ESTIMADA_SEG = 100;
+
+let intervaloProgreso = null;
+let segundosTranscurridos = 0;
+
+function iniciarProgreso() {
+  segundosTranscurridos = 0;
+  actualizarProgreso();
+  intervaloProgreso = setInterval(() => {
+    segundosTranscurridos += 1;
+    actualizarProgreso();
+  }, 1000);
+}
+
+function actualizarProgreso() {
+  let etapaActual = ETAPAS[0].texto;
+  for (const etapa of ETAPAS) {
+    if (segundosTranscurridos >= etapa.seg) etapaActual = etapa.texto;
+  }
+  const pct = Math.min(94, Math.round((segundosTranscurridos / DURACION_ESTIMADA_SEG) * 100));
+  const mins = Math.floor(segundosTranscurridos / 60);
+  const secs = segundosTranscurridos % 60;
+  const tiempoFmt = mins > 0 ? mins + 'm ' + secs + 's' : secs + 's';
+
+  estado.innerHTML =
+    '<div class="estado-titulo"><span class="spinner oscuro"></span>Generando tu presentación…</div>' +
+    '<div class="progreso-track"><div class="progreso-fill" style="width:' + pct + '%"></div></div>' +
+    '<div class="estado-detalle">' + etapaActual + ' (' + tiempoFmt + ' transcurridos)</div>';
+}
+
+function detenerProgreso() {
+  if (intervaloProgreso) { clearInterval(intervaloProgreso); intervaloProgreso = null; }
+}
+
+// --- Envío del formulario ---
 const form = document.getElementById('form-slides');
+const fieldset = document.getElementById('fieldset-form');
 const btn = document.getElementById('btn-generar');
 const estado = document.getElementById('estado');
 
+function mostrarError(mensaje, detalle) {
+  estado.className = 'estado error';
+  estado.setAttribute('role', 'alert');
+  estado.innerHTML = '<div class="estado-titulo">⚠️ ' + mensaje + '</div>' +
+    (detalle ? '<div class="estado-detalle">' + detalle + '</div>' : '') +
+    '<button type="button" class="btn-secundario" onclick="document.getElementById(\'btn-generar\').focus()">Reintentar</button>';
+}
+
+function avisarAntesDeSalir(e) {
+  e.preventDefault();
+  e.returnValue = '';
+}
+
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
+
+  if (!form.checkValidity()) {
+    form.reportValidity();
+    return;
+  }
+
+  if (recordarClave.checked) {
+    localStorage.setItem('slides-pro-clave', claveInput.value);
+  } else {
+    localStorage.removeItem('slides-pro-clave');
+  }
+
   estado.className = 'estado cargando';
-  estado.innerHTML = '<span class="spinner"></span>Generando tu presentación… puede tardar 1–2 minutos, no cierres esta pestaña.';
+  fieldset.disabled = true;
   btn.disabled = true;
+  window.addEventListener('beforeunload', avisarAntesDeSalir);
+  iniciarProgreso();
 
   const formData = new FormData();
-  formData.append('clave', document.getElementById('clave').value);
-  formData.append('tema', document.getElementById('tema').value);
-  formData.append('material', document.getElementById('material').value);
+  formData.append('clave', claveInput.value);
+  formData.append('tema', document.getElementById('tema').value.trim());
+  formData.append('material', materialInput.value.trim());
   formData.append('institucion', document.getElementById('institucion').value);
   formData.append('num_diapositivas', document.getElementById('num_diapositivas').value);
   formData.append('incluir_imagenes', document.getElementById('incluir_imagenes').checked);
@@ -212,38 +411,45 @@ form.addEventListener('submit', async (e) => {
     formData.append('archivo', fileInput.files[0]);
   }
 
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), TIEMPO_LIMITE_MS);
+
   try {
-    const resp = await fetch(WEBHOOK_URL, { method: 'POST', body: formData });
+    const resp = await fetch(WEBHOOK_URL, { method: 'POST', body: formData, signal: controller.signal });
+    clearTimeout(timeoutId);
 
     if (resp.status === 401) {
-      estado.className = 'estado error';
-      estado.textContent = 'Clave de acceso incorrecta.';
-      btn.disabled = false;
+      mostrarError('Clave de acceso incorrecta.', 'Verifica la clave e intenta de nuevo.');
       return;
     }
     if (!resp.ok) {
-      estado.className = 'estado error';
-      estado.textContent = 'Error generando la presentación (código ' + resp.status + '). Intenta de nuevo.';
-      btn.disabled = false;
+      mostrarError('Error generando la presentación (código ' + resp.status + ').', 'Intenta de nuevo en unos segundos.');
       return;
     }
 
     const data = await resp.json();
     if (!data.success || !data.pptx_base64) {
-      estado.className = 'estado error';
-      estado.textContent = 'La respuesta no incluyó un archivo válido. Intenta de nuevo.';
-      btn.disabled = false;
+      mostrarError('La respuesta no incluyó un archivo válido.', 'Intenta de nuevo.');
       return;
     }
 
     base64ADescarga(data.pptx_base64, data.filename);
     estado.className = 'estado ok';
-    estado.textContent = '✓ Presentación generada (' + (data.num_diapositivas || '?') + ' diapositivas) — descarga iniciada.';
+    estado.removeAttribute('role');
+    estado.innerHTML = '<div class="estado-titulo">✓ Presentación generada</div>' +
+      '<div class="estado-detalle">' + (data.num_diapositivas || '?') + ' diapositivas · ' + (data.filename || 'presentacion.pptx') + ' — descarga iniciada. Revisa la carpeta de descargas de tu navegador.</div>';
   } catch (err) {
-    estado.className = 'estado error';
-    estado.textContent = 'No se pudo conectar con el servidor. Verifica tu conexión e intenta de nuevo.';
+    clearTimeout(timeoutId);
+    if (err.name === 'AbortError') {
+      mostrarError('La generación tardó demasiado y se canceló.', 'Prueba con menos diapositivas o sin imágenes, o intenta de nuevo — el servidor puede estar ocupado.');
+    } else {
+      mostrarError('No se pudo conectar con el servidor.', 'Verifica tu conexión a internet e intenta de nuevo.');
+    }
   } finally {
+    detenerProgreso();
+    fieldset.disabled = false;
     btn.disabled = false;
+    window.removeEventListener('beforeunload', avisarAntesDeSalir);
   }
 });
 </script>
