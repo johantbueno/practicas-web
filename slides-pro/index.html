@@ -210,7 +210,7 @@ footer{text-align:center; font-size:.78rem; color:var(--muted); margin-top:2rem;
 
 <script>
 const WEBHOOK_URL = "https://n8n-inap.167.88.36.13.sslip.io/webhook/slides-pro-generar";
-const TIEMPO_LIMITE_MS = 240000; // margen sobre los ~180s de timeout del backend
+const TIEMPO_LIMITE_MS = 320000; // margen sobre los 280s de timeout del nodo Ollama en n8n
 const TAMANO_MAX_ARCHIVO = 15 * 1024 * 1024; // 15 MB
 
 // --- Tema claro/oscuro ---
@@ -327,7 +327,7 @@ const ETAPAS = [
   { seg: 130, texto: 'Ensamblando el PowerPoint final…' },
   { seg: 160, texto: 'Esto está tardando más de lo usual, pero seguimos esperando la respuesta…' },
 ];
-const DURACION_ESTIMADA_SEG = 100;
+const DURACION_ESTIMADA_SEG = 150; // con muchas diapositivas/imagenes puede tardar bastante mas; ver ETAPAS de aviso
 
 let intervaloProgreso = null;
 let segundosTranscurridos = 0;
