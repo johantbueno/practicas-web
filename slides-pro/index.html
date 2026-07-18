@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Slides Pro | Generador de Presentaciones</title>
+<meta name="description" content="Genera presentaciones PPTX profesionales con notas de orador extensas a partir de un tema y material (texto o PDF/DOCX). Herramienta interna de Johan Tapia.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%8A%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#003877; --navy-dark:#002a5c; --gold:#c9982f;
+  --primary:#0f172a; --secondary:#334155; --muted:#64748b;
+  --bg-body:#f4f7fb; --bg-card:#ffffff; --border-light:#e2e8f0; --border-dark:#cbd5e1;
+  --green:#16a34a; --green-bg:#f0fdf4; --green-border:#22c55e;
+  --red:#b91c1c; --red-bg:#fef2f2; --red-border:#ef4444;
+  --blue-bg:#eff6ff; --blue-border:#3b82f6;
+  --radius-lg:16px; --radius-md:12px; --radius-sm:8px;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.06);
+  --shadow-md:0 4px 6px -1px rgba(0,0,0,.1), 0 2px 4px -2px rgba(0,0,0,.1);
+  --shadow-lg:0 10px 15px -3px rgba(0,0,0,.12), 0 4px 6px -4px rgba(0,0,0,.1);
+}
+[data-theme="dark"]{
+  --navy:#5b9bd8; --primary:#f1f5f9; --secondary:#cbd5e1; --muted:#94a3b8;
+  --bg-body:#0b1220; --bg-card:#151f2f; --border-light:#283249; --border-dark:#3a4666;
+  --green-bg:#0c2417; --red-bg:#2a1212; --blue-bg:#13233f;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.4); --shadow-md:0 4px 6px -1px rgba(0,0,0,.5); --shadow-lg:0 10px 15px -3px rgba(0,0,0,.5);
+}
+*{box-sizing:border-box;}
+body{margin:0; background:var(--bg-body); color:var(--secondary); font-family:'Inter',ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif; line-height:1.6; transition:background-color .25s ease;}
+a{color:var(--navy);}
+.wrapper{max-width:720px; margin:0 auto; padding:2rem 1rem 5rem;}
+
+.theme-toggle{position:fixed; top:1rem; right:1rem; background:var(--bg-card); border:1px solid var(--border-light); width:40px; height:40px; border-radius:10px; cursor:pointer; font-size:1.1rem; box-shadow:var(--shadow-sm); z-index:10;}
+
+.cover{background:linear-gradient(135deg,var(--navy),var(--navy-dark)); color:#fff; border-radius:var(--radius-lg); padding:2rem 2rem 1.75rem; margin-bottom:1.5rem; box-shadow:var(--shadow-lg);}
+.cover .eyebrow{text-transform:uppercase; letter-spacing:.08em; font-size:.75rem; font-weight:700; opacity:.85;}
+.cover h1{font-size:1.7rem; font-weight:800; margin:.4rem 0 .3rem;}
+.cover p{margin:0; opacity:.92; font-size:.95rem;}
+
+.card{background:var(--bg-card); padding:1.75rem; border-radius:var(--radius-lg); box-shadow:var(--shadow-sm); border:1px solid var(--border-light); margin-bottom:1.5rem;}
+.card h2{font-size:1rem; font-weight:700; color:var(--navy); margin:0 0 1rem; padding-bottom:.6rem; border-bottom:1px solid var(--border-light); text-transform:uppercase; letter-spacing:.03em;}
+
+label{display:block; font-weight:600; font-size:.85rem; color:var(--primary); margin-bottom:.4rem;}
+.hint{font-size:.78rem; color:var(--muted); margin-top:.3rem;}
+.field{margin-bottom:1.25rem;}
+input[type=text], input[type=password], input[type=number], textarea, select{
+  width:100%; padding:.65rem .8rem; border-radius:var(--radius-sm); border:1px solid var(--border-dark);
+  background:var(--bg-body); color:var(--primary); font-family:inherit; font-size:.92rem;
+}
+textarea{min-height:110px; resize:vertical;}
+input:focus, textarea:focus, select:focus{outline:2px solid var(--navy); outline-offset:1px;}
+
+.grid2{display:grid; grid-template-columns:1fr 1fr; gap:1rem;}
+@media (max-width:560px){ .grid2{grid-template-columns:1fr;} }
+
+.check-row{display:flex; align-items:center; gap:.6rem;}
+.check-row input{width:auto;}
+.check-row label{margin:0;}
+
+.file-drop{border:2px dashed var(--border-dark); border-radius:var(--radius-md); padding:1.25rem; text-align:center; cursor:pointer; background:var(--bg-body);}
+.file-drop:hover{border-color:var(--navy);}
+.file-drop.has-file{border-color:var(--green-border); background:var(--green-bg);}
+#archivo-nombre{font-size:.85rem; color:var(--muted); margin-top:.4rem;}
+
+.btn-generar{width:100%; padding:.9rem; border-radius:var(--radius-md); border:none; background:var(--navy); color:#fff; font-weight:700; font-size:1rem; cursor:pointer; font-family:inherit; box-shadow:var(--shadow-md);}
+.btn-generar:hover{background:var(--navy-dark);}
+.btn-generar:disabled{opacity:.6; cursor:not-allowed;}
+
+.estado{margin-top:1rem; padding:1rem 1.1rem; border-radius:var(--radius-md); font-size:.88rem; display:none;}
+.estado.cargando{display:block; background:var(--blue-bg); border:1px solid var(--blue-border); color:var(--primary);}
+.estado.ok{display:block; background:var(--green-bg); border:1px solid var(--green-border); color:var(--primary);}
+.estado.error{display:block; background:var(--red-bg); border:1px solid var(--red-border); color:var(--primary);}
+
+.spinner{display:inline-block; width:16px; height:16px; border:2px solid rgba(0,0,0,.15); border-top-color:var(--navy); border-radius:50%; animation:spin .8s linear infinite; vertical-align:middle; margin-right:.5rem;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+footer{text-align:center; font-size:.78rem; color:var(--muted); margin-top:2rem;}
+</style>
+</head>
+<body>
+
+<button class="theme-toggle" id="theme-toggle" aria-label="Cambiar tema" type="button">🌓</button>
+
+<div class="wrapper">
+  <div class="cover">
+    <div class="eyebrow">Herramienta interna · Johan Tapia</div>
+    <h1>📊 Slides Pro</h1>
+    <p>Genera una presentación PPTX profesional a partir de un tema y material de referencia — con notas de orador extensas, listas para hablar en clase.</p>
+  </div>
+
+  <form id="form-slides">
+    <div class="card">
+      <h2>Acceso</h2>
+      <div class="field">
+        <label for="clave">Clave de acceso</label>
+        <input type="password" id="clave" name="clave" required autocomplete="off">
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Contenido</h2>
+      <div class="field">
+        <label for="tema">Tema de la presentación</label>
+        <input type="text" id="tema" name="tema" required placeholder="Ej. Fundamentos de Ciberseguridad para Funcionarios Públicos">
+      </div>
+      <div class="field">
+        <label for="material">Material de referencia (opcional)</label>
+        <textarea id="material" name="material" placeholder="Pega aquí texto de referencia, o sube un archivo abajo. Puedes usar ambos a la vez."></textarea>
+      </div>
+      <div class="field">
+        <label for="archivo-input">Subir PDF o DOCX (opcional)</label>
+        <div class="file-drop" id="file-drop">
+          <span id="file-drop-texto">Haz clic para elegir un archivo PDF o DOCX</span>
+          <div id="archivo-nombre"></div>
+        </div>
+        <input type="file" id="archivo-input" name="archivo" accept=".pdf,.docx" style="display:none">
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Formato</h2>
+      <div class="grid2">
+        <div class="field">
+          <label for="institucion">Institución / plantilla</label>
+          <select id="institucion" name="institucion">
+            <option value="">Genérico</option>
+            <option value="inap">INAP</option>
+          </select>
+          <div class="hint">Más instituciones se agregan cuando estén disponibles.</div>
+        </div>
+        <div class="field">
+          <label for="num_diapositivas">Número de diapositivas</label>
+          <input type="number" id="num_diapositivas" name="num_diapositivas" min="3" max="20" value="8">
+        </div>
+      </div>
+      <div class="field check-row">
+        <input type="checkbox" id="incluir_imagenes" name="incluir_imagenes" checked>
+        <label for="incluir_imagenes">Incluir imágenes ilustrativas generadas por IA</label>
+      </div>
+    </div>
+
+    <button type="submit" class="btn-generar" id="btn-generar">Generar presentación</button>
+    <div class="estado" id="estado"></div>
+  </form>
+
+  <footer>Slides Pro · genera texto real editable en PowerPoint, no imágenes de diapositiva completas.</footer>
+</div>
+
+<script>
+const WEBHOOK_URL = "https://n8n-inap.167.88.36.13.sslip.io/webhook/slides-pro-generar";
+
+const root = document.documentElement;
+const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+root.setAttribute('data-theme', localStorage.getItem('slides-pro-theme') || (prefersDark ? 'dark' : 'light'));
+document.getElementById('theme-toggle').addEventListener('click', () => {
+  const actual = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  root.setAttribute('data-theme', actual);
+  localStorage.setItem('slides-pro-theme', actual);
+});
+
+const fileInput = document.getElementById('archivo-input');
+const fileDrop = document.getElementById('file-drop');
+const fileNombre = document.getElementById('archivo-nombre');
+fileDrop.addEventListener('click', () => fileInput.click());
+fileInput.addEventListener('change', () => {
+  if (fileInput.files.length) {
+    fileDrop.classList.add('has-file');
+    fileNombre.textContent = '✓ ' + fileInput.files[0].name;
+  } else {
+    fileDrop.classList.remove('has-file');
+    fileNombre.textContent = '';
+  }
+});
+
+function base64ADescarga(base64, filename) {
+  const binario = atob(base64);
+  const bytes = new Uint8Array(binario.length);
+  for (let i = 0; i < binario.length; i++) bytes[i] = binario.charCodeAt(i);
+  const blob = new Blob([bytes], { type: 'application/vnd.openxmlformats-officedocument.presentationml.presentation' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename || 'presentacion.pptx';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+}
+
+const form = document.getElementById('form-slides');
+const btn = document.getElementById('btn-generar');
+const estado = document.getElementById('estado');
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  estado.className = 'estado cargando';
+  estado.innerHTML = '<span class="spinner"></span>Generando tu presentación… puede tardar 1–2 minutos, no cierres esta pestaña.';
+  btn.disabled = true;
+
+  const formData = new FormData();
+  formData.append('clave', document.getElementById('clave').value);
+  formData.append('tema', document.getElementById('tema').value);
+  formData.append('material', document.getElementById('material').value);
+  formData.append('institucion', document.getElementById('institucion').value);
+  formData.append('num_diapositivas', document.getElementById('num_diapositivas').value);
+  formData.append('incluir_imagenes', document.getElementById('incluir_imagenes').checked);
+  if (fileInput.files.length) {
+    formData.append('archivo', fileInput.files[0]);
+  }
+
+  try {
+    const resp = await fetch(WEBHOOK_URL, { method: 'POST', body: formData });
+
+    if (resp.status === 401) {
+      estado.className = 'estado error';
+      estado.textContent = 'Clave de acceso incorrecta.';
+      btn.disabled = false;
+      return;
+    }
+    if (!resp.ok) {
+      estado.className = 'estado error';
+      estado.textContent = 'Error generando la presentación (código ' + resp.status + '). Intenta de nuevo.';
+      btn.disabled = false;
+      return;
+    }
+
+    const data = await resp.json();
+    if (!data.success || !data.pptx_base64) {
+      estado.className = 'estado error';
+      estado.textContent = 'La respuesta no incluyó un archivo válido. Intenta de nuevo.';
+      btn.disabled = false;
+      return;
+    }
+
+    base64ADescarga(data.pptx_base64, data.filename);
+    estado.className = 'estado ok';
+    estado.textContent = '✓ Presentación generada (' + (data.num_diapositivas || '?') + ' diapositivas) — descarga iniciada.';
+  } catch (err) {
+    estado.className = 'estado error';
+    estado.textContent = 'No se pudo conectar con el servidor. Verifica tu conexión e intenta de nuevo.';
+  } finally {
+    btn.disabled = false;
+  }
+});
+</script>
+</body>
+</html>
