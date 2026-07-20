@@ -66,7 +66,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .timer-box.low .timer-value{color:var(--red); animation:timerPulse 1s ease-in-out infinite;}
 .timer-box.flatline{background:var(--bg-body); border-color:var(--border-dark);}
 .timer-box.flatline .timer-value{color:var(--muted); text-decoration:line-through;}
-.timer-msg{font-size:.68rem; color:var(--muted); margin:.4rem 0 0;}
 #sound-toggle{width:28px; height:28px; font-size:.85rem; flex-shrink:0;}
 @keyframes timerPulse{0%,100%{opacity:1; transform:scale(1);} 50%{opacity:.55; transform:scale(1.05);}}
 
@@ -278,7 +277,6 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
           <button class="icon-btn" id="sound-toggle" type="button" title="Silenciar o activar el sonido" aria-label="Silenciar o activar el sonido del temporizador">🔔</button>
         </div>
         <div class="timer-value" id="timer-value">60:00</div>
-        <p class="timer-msg" id="timer-msg">Es solo una referencia — no cierra la práctica, puede seguir trabajando con calma.</p>
       </div>
 
       <div class="progress-summary">
@@ -330,7 +328,6 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
       <div class="alert success">
         No necesita ser experto en informática para completar esta práctica. La ciberseguridad, en el fondo, se trata de sentido común y de cuidar la información como cuidaría el dinero o los documentos importantes de su casa. Todo se explica aquí con ejemplos de la vida diaria en una oficina pública. Si en algún momento no entiende una palabra, puede preguntarle a <strong>Nicole</strong> (el botón 🎓 de esta página) o responder con sus propias palabras, según su experiencia real en el trabajo.
       </div>
-      <p>En el lado izquierdo de la pantalla (o al presionar el menú ☰ en el celular) verá un <strong>temporizador de referencia</strong> de 60 minutos. No es un examen contra el reloj: es solo para darle una idea del tiempo. Cuando falten los últimos 10 minutos, va a escuchar un sonido como el de un monitor de signos vitales — es solo un efecto para hacerlo más entretenido, <strong>la práctica sigue abierta aunque el tiempo se acabe</strong>. Si el sonido le molesta, puede silenciarlo con el botón 🔔 junto al reloj.</p>
     </section>
 
     <section class="card">
@@ -991,7 +988,6 @@ function playFlatline(){
 function tickTimer(){
   var wrapEl = document.getElementById('timer-box');
   var valEl = document.getElementById('timer-value');
-  var msgEl = document.getElementById('timer-msg');
   if(!wrapEl || !valEl) return;
   var remaining = timerDeadline - Date.now();
   if(remaining < 0) remaining = 0;
@@ -1008,16 +1004,12 @@ function tickTimer(){
       lastBeepAt = now;
       playBeep(920, 0.08, 0.14);
     }
-    msgEl.textContent = '💓 Últimos minutos del tiempo sugerido… (es solo un efecto, siga con calma)';
-  } else if(remaining > 0){
-    msgEl.textContent = 'Es solo una referencia — no cierra la práctica, puede seguir trabajando con calma.';
   }
   if(remaining <= 0 && !flatlinePlayed){
     flatlinePlayed = true;
     playFlatline();
     wrapEl.classList.remove('low');
     wrapEl.classList.add('flatline');
-    msgEl.textContent = '💔 Se acabó el tiempo sugerido (es una broma — esto NO cierra la práctica, siga trabajando tranquilo).';
   }
 }
 setInterval(tickTimer, 1000);
