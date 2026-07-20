@@ -168,8 +168,8 @@
             "badge": "Unidad I",
             "unidad": "u1",
             "titulo": "Transformación Digital en la Gestión Pública",
-            "desc": "Diagnóstico de madurez digital de un proceso institucional y laboratorio de IA Generativa para su optimización. Se completa después de ver el video de la Unidad I. Aprueba por completarla, no por la nota.",
-            "duracion": "5 pasos, sin límite de tiempo",
+            "desc": "Diagnóstico de madurez digital de un proceso institucional y laboratorio de IA Generativa para su optimización. Se completa después de ver el video de la Unidad I, individual o en equipo. Aprueba por completarla, no por la nota.",
+            "duracion": "5 pasos, individual o en equipo",
             "puntos": "100 pts (retroalimentación)",
             "aprobacion": "Completar los 5 pasos",
             "url": "https://johantbueno.github.io/practicas-web/transformacion-digital-u1/"
