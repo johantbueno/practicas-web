@@ -287,10 +287,20 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
       <h1>Práctica — Unidad I</h1>
       <p class="sub">Transformación Digital en la Gestión Pública: diagnóstico de madurez digital y laboratorio de Inteligencia Artificial aplicada</p>
       <div class="cover-chips">
-        <span class="cover-chip">👤 Individual</span>
+        <span class="cover-chip">🚰 Sesión para el personal del INAPA</span>
+        <span class="cover-chip">👥 Individual o en equipo</span>
         <span class="cover-chip">🎯 100 pts · aprueba al completarla</span>
         <span class="cover-chip">🎬 Después de ver el video de la Unidad I</span>
       </div>
+    </section>
+
+    <section class="card">
+      <span class="step-badge">🚰 Contexto INAPA</span>
+      <h1 style="font-size:1.35rem;">Esta práctica es para el personal del INAPA</h1>
+      <div class="alert info">
+        <strong>Instituto Nacional de Aguas Potables y Alcantarillados (INAPA):</strong> esta capacitación se dicta para el personal del INAPA, la institución del Estado dominicano encargada de proveer los servicios de agua potable y alcantarillado sanitario en todo el país, fuera del Distrito Nacional y Santo Domingo. Todos los conceptos de la Unidad I se van a explicar con ejemplos tomados de procesos reales del agua y el saneamiento — como solicitudes de nuevo servicio, reporte de averías, lectura de medidores, facturación y atención al usuario — para que le resulte fácil reconocer su propio trabajo diario en cada paso de esta práctica.
+      </div>
+      <p>Puede usar cualquier proceso real de su área específica dentro del INAPA: una oficina comercial regional, el departamento de facturación y cobro, la cuadrilla de mantenimiento de redes, el laboratorio de calidad del agua, recursos humanos, o cualquier otra dependencia. No hace falta que sea exactamente uno de los ejemplos — use el proceso que usted conozca mejor.</p>
     </section>
 
     <section class="card" id="tutorial">
@@ -397,6 +407,18 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
         <div class="gloss-item"><dt>Principios UNESCO 2021</dt><dd>Proporcionalidad, supervisión humana ineludible, equidad algorítmica y confidencialidad, para cualquier herramienta de IA que use el sector público.</dd></div>
         <div class="gloss-item"><dt>GOB.DO / Portal Ciudadano / SISMAP</dt><dd>Casos de éxito dominicanos: portal único de trámites, identidad digital federada, y monitoreo del cumplimiento de la Ley 41-08.</dd></div>
       </dl>
+
+      <h2>🚰 Las 4 etapas de madurez digital, aplicadas al INAPA</h2>
+      <p>Estos ejemplos son solo una guía — su propio proceso puede parecerse a uno de ellos o ser distinto, y eso está bien.</p>
+      <div class="tbl-wrap"><table class="tp-table">
+        <thead><tr><th>Etapa</th><th>Cómo se vería en un proceso típico del INAPA</th></tr></thead>
+        <tbody>
+          <tr><td class="label-cell">1. Informatización Básica</td><td>Las lecturas de medidores y las novedades de campo se anotan en una libreta o en una hoja de Excel local, sin conexión entre la oficina comercial y la cuadrilla de operaciones.</td></tr>
+          <tr><td class="label-cell">2. Digitalización de Trámites</td><td>El usuario puede descargar en la página web los requisitos y el formulario en PDF para solicitar un nuevo servicio de agua potable, pero igual debe entregarlo en persona en la oficina comercial.</td></tr>
+          <tr><td class="label-cell">3. Gobierno Electrónico (e-Gov)</td><td>El usuario solicita su nuevo servicio, paga su factura y da seguimiento a un reporte de avería completamente en línea, de principio a fin, sin tener que ir a una oficina.</td></tr>
+          <tr><td class="label-cell">4. Gobierno Inteligente</td><td>Un sensor en la red detecta automáticamente una caída de presión o una fuga, y genera de inmediato una orden de trabajo para la cuadrilla de mantenimiento, antes de que el usuario tenga que reportarla.</td></tr>
+        </tbody>
+      </table></div>
     </section>
 
     <!-- ============ PASO 1 ============ -->
@@ -407,25 +429,26 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
       <div class="alert info"><strong>Guía:</strong> seleccione un proceso administrativo o trámite actual de su institución. Va a usarlo como referencia en los 5 pasos de esta práctica.</div>
 
       <div class="field-grid">
-        <div class="field"><label for="p1_institucion">Institución o dependencia</label><input type="text" id="p1_institucion" placeholder="Ej: Dirección de Recursos Humanos del..."></div>
-        <div class="field"><label for="p1_tramite">Proceso o trámite seleccionado</label><input type="text" id="p1_tramite" placeholder="Ej: Solicitud de licencia médica"></div>
+        <div class="field"><label for="p1_institucion">Oficina o dependencia del INAPA</label><input type="text" id="p1_institucion" placeholder="Ej: Oficina Comercial Regional Norte del INAPA"></div>
+        <div class="field"><label for="p1_tramite">Proceso o trámite seleccionado</label><input type="text" id="p1_tramite" placeholder="Ej: Solicitud de nuevo servicio de agua potable"></div>
       </div>
+      <div class="hint">Otros ejemplos si no sabe por dónde empezar: reporte de una avería, reconexión por falta de pago, solicitud de factura duplicada, lectura de medidores, o una queja de un usuario.</div>
 
       <div class="field">
         <label for="p1_descripcion">Describa brevemente cómo se realiza hoy día (pasos, quién interviene) <span class="wc" data-for="p1_descripcion" data-min="40">0/40 palabras</span></label>
-        <textarea class="tall" id="p1_descripcion" placeholder="El proceso inicia cuando... luego pasa por... y finalmente..."></textarea>
+        <textarea class="tall" id="p1_descripcion" placeholder="El usuario llega a la oficina y solicita... luego el encargado revisa... y finalmente..."></textarea>
         <div class="voice-row"><button type="button" class="voice-btn" data-target="p1_descripcion">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p1_descripcion"></span></div>
       </div>
 
       <div class="field">
         <label for="p1_herramientas">¿Qué herramientas (físicas o digitales) se utilizan? <span class="wc" data-for="p1_herramientas" data-min="15">0/15 palabras</span></label>
-        <textarea id="p1_herramientas" placeholder="Formularios impresos, hojas de cálculo, correo electrónico, un sistema específico..."></textarea>
+        <textarea id="p1_herramientas" placeholder="Libro de registro, hoja de cálculo, el sistema comercial del INAPA, radio o teléfono para avisar a la cuadrilla..."></textarea>
         <div class="voice-row"><button type="button" class="voice-btn" data-target="p1_herramientas">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p1_herramientas"></span></div>
       </div>
 
       <div class="field">
-        <label for="p1_friccion">¿Cuáles son las principales fricciones que enfrenta el ciudadano o el servidor público al realizarlo? <span class="wc" data-for="p1_friccion" data-min="30">0/30 palabras</span></label>
-        <textarea class="tall" id="p1_friccion" placeholder="Demoras, duplicidad de requisitos, dependencia de una sola persona, falta de trazabilidad..."></textarea>
+        <label for="p1_friccion">¿Cuáles son las principales fricciones que enfrenta el usuario o el servidor público al realizarlo? <span class="wc" data-for="p1_friccion" data-min="30">0/30 palabras</span></label>
+        <textarea class="tall" id="p1_friccion" placeholder="El usuario debe ir varias veces a la oficina, hay demora en avisar a la cuadrilla, no hay manera de dar seguimiento al reporte..."></textarea>
         <div class="voice-row"><button type="button" class="voice-btn" data-target="p1_friccion">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p1_friccion"></span></div>
       </div>
     </section>
@@ -474,7 +497,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
       </div>
       <div class="field">
         <label for="p3_prompt">Transcriba el prompt efectivo que utilizó <span class="wc" data-for="p3_prompt" data-min="30">0/30 palabras</span></label>
-        <textarea class="tall" id="p3_prompt" placeholder="Actúa como consultor en modernización administrativa. Analiza el siguiente proceso..."></textarea>
+        <textarea class="tall" id="p3_prompt" placeholder="Actúa como consultor en modernización administrativa del sector agua y saneamiento. Analiza el siguiente proceso de solicitud de nuevo servicio de agua potable en el INAPA..."></textarea>
         <div class="voice-row"><button type="button" class="voice-btn" data-target="p3_prompt">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p3_prompt"></span></div>
       </div>
       <div class="field">
@@ -1245,7 +1268,7 @@ function askTutorAI(q){
   return fetchWithTimeout(AI_CHAT_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ message: q, contexto: 'MARCO CONCEPTUAL (Unidad I - Transformación Digital en la Gestión Pública, curso Herramientas de Transformación Digital, INAP):\\nDigitalización: transposición de datos analógicos a formato binario, sin cambiar el proceso (ej. escanear legajos en PDF).\\nInformatización: uso de sistemas para automatizar tareas ya estructuradas; el flujo se acelera pero las reglas burocráticas permanecen fijas.\\nTransformación digital pura: reconfiguración profunda de la cultura, los procesos y el valor entregado al ciudadano (OCDE, 2020).\\nEvolución tecnológica del Estado dominicano en 4 etapas: Informatización Básica (1990s-2000s, PCs y silos de datos) -> Digitalización de Trámites (portales informativos, PDFs) -> Gobierno Electrónico/e-Gov (plataformas transaccionales, firma digital, GOB.DO) -> Gobierno Inteligente (datos abiertos, Big Data, IA, servicios predictivos).\\nAgenda Digital 2030: hoja de ruta nacional (OGTIC / Gabinete de Transformación Digital) con 5 ejes: Conectividad e Infraestructura, Gobierno Digital, Economía Digital, Educación y Capacidades, Confianza Digital.\\nDecreto No. 230-18: obliga la interoperabilidad entre ministerios, prohíbe silos nuevos, designa a la OGTIC como ente rector (NORTIC).\\nTríada normativa complementaria: Ley 167-21 (Mejora Regulatoria/Burocracia Cero), Ley 172-13 (Protección de Datos Personales), Ley 200-04 (Libre Acceso a la Información Pública).\\nTipos de IA: IA Estrecha/ANI (única existente hoy, resuelve una tarea específica, ej. OCR, reconocimiento facial), IA General/AGI (teórica), Superinteligencia/ASI (hipotética).\\nIA Generativa: ChatGPT, Copilot, Gemini; generan contenido a partir de prompts en lenguaje natural; prohibido introducir datos nominales de ciudadanos, cédulas o secretos de Estado.\\nAutomatización inteligente (RPA + IA): clasificación de instancias, expedición de certificados, auditoría de expedientes; reduce 40-60% los tiempos de trámite.\\nCasos de éxito: GOB.DO (portal único, +40 instituciones), Portal Ciudadano (identidad digital, +2 millones de dominicanos), SISMAP (monitoreo Ley 41-08).\\nÉtica: Recomendación UNESCO 2021 - proporcionalidad, supervisión humana ineludible, equidad algorítmica, confidencialidad.\\nMicrocaso ético: adquirir sistemas de IA sin licitación, nepotismo en consultoría, ausencia de bitácoras de auditoría - viola Ley 47-25 de Contrataciones Públicas y Ley 41-08 de Función Pública.', curso: 'Herramientas de Transformación Digital (INAP)' })
+    body: JSON.stringify({ message: q, contexto: 'MARCO CONCEPTUAL (Unidad I - Transformación Digital en la Gestión Pública, curso Herramientas de Transformación Digital, INAP):\\nContexto de esta sesión: se dicta para el personal del INAPA (Instituto Nacional de Aguas Potables y Alcantarillados), la institución que provee agua potable y alcantarillado sanitario en la República Dominicana fuera del Gran Santo Domingo. Los ejemplos deben conectarse, cuando sea posible, con procesos reales del INAPA: solicitud de nuevo servicio de agua potable, reporte de averías en la red, reconexión por falta de pago, lectura de medidores, facturación y cobro, atención al usuario, y laboratorio de calidad del agua.\\nDigitalización: transposición de datos analógicos a formato binario, sin cambiar el proceso (ej. escanear legajos en PDF).\\nInformatización: uso de sistemas para automatizar tareas ya estructuradas; el flujo se acelera pero las reglas burocráticas permanecen fijas.\\nTransformación digital pura: reconfiguración profunda de la cultura, los procesos y el valor entregado al ciudadano (OCDE, 2020).\\nEvolución tecnológica del Estado dominicano en 4 etapas: Informatización Básica (1990s-2000s, PCs y silos de datos) -> Digitalización de Trámites (portales informativos, PDFs) -> Gobierno Electrónico/e-Gov (plataformas transaccionales, firma digital, GOB.DO) -> Gobierno Inteligente (datos abiertos, Big Data, IA, servicios predictivos).\\nAgenda Digital 2030: hoja de ruta nacional (OGTIC / Gabinete de Transformación Digital) con 5 ejes: Conectividad e Infraestructura, Gobierno Digital, Economía Digital, Educación y Capacidades, Confianza Digital.\\nDecreto No. 230-18: obliga la interoperabilidad entre ministerios, prohíbe silos nuevos, designa a la OGTIC como ente rector (NORTIC).\\nTríada normativa complementaria: Ley 167-21 (Mejora Regulatoria/Burocracia Cero), Ley 172-13 (Protección de Datos Personales), Ley 200-04 (Libre Acceso a la Información Pública).\\nTipos de IA: IA Estrecha/ANI (única existente hoy, resuelve una tarea específica, ej. OCR, reconocimiento facial), IA General/AGI (teórica), Superinteligencia/ASI (hipotética).\\nIA Generativa: ChatGPT, Copilot, Gemini; generan contenido a partir de prompts en lenguaje natural; prohibido introducir datos nominales de ciudadanos, cédulas o secretos de Estado.\\nAutomatización inteligente (RPA + IA): clasificación de instancias, expedición de certificados, auditoría de expedientes; reduce 40-60% los tiempos de trámite.\\nCasos de éxito: GOB.DO (portal único, +40 instituciones), Portal Ciudadano (identidad digital, +2 millones de dominicanos), SISMAP (monitoreo Ley 41-08).\\nÉtica: Recomendación UNESCO 2021 - proporcionalidad, supervisión humana ineludible, equidad algorítmica, confidencialidad.\\nMicrocaso ético: adquirir sistemas de IA sin licitación, nepotismo en consultoría, ausencia de bitácoras de auditoría - viola Ley 47-25 de Contrataciones Públicas y Ley 41-08 de Función Pública.', curso: 'Herramientas de Transformación Digital (INAP)' })
   }, AI_CHAT_TIMEOUT).then(function(res){
     if(!res.ok) throw new Error('HTTP ' + res.status);
     return res.json();
@@ -1277,7 +1300,8 @@ var QA = [
   { kw:['paso 5'], a:'El Paso 5 pide una reflexión ética sobre los riesgos de sesgo o privacidad al usar IA en el proceso, y cómo los mitigaría bajo los principios de la UNESCO. Vale 20 puntos.' },
   { kw:['casos de exito', 'gob.do', 'portal ciudadano', 'sismap'], a:'GOB.DO es el portal único que centraliza trámites de más de 40 instituciones. El Portal Ciudadano da identidad digital federada a más de 2 millones de dominicanos. SISMAP monitorea el cumplimiento de la Ley 41-08 en más de 500 indicadores.' },
   { kw:['guardar', 'se guarda', 'perder mis respuestas', 'autoguardado'], a:'Sus respuestas se guardan automáticamente en este navegador (localStorage) mientras escribe. Si cambia de computadora o borra el caché, se perderán — por eso le recomiendo usar "⬇️ Descargar mis respuestas" cuando avance.' },
-  { kw:['hola', 'ayuda', 'que puedes hacer', 'quien eres'], a:'Soy Nicole, la asistente virtual del Dr. Johan Tapia. Puedo explicarte conceptos de la Unidad I (digitalización, informatización, transformación digital, Agenda Digital 2030, IA Generativa, marco normativo, ética), orientarte sobre qué pide cada paso, o cómo funciona la calificación. Recuerda: se aprueba por completar la práctica, no por la nota.' }
+  { kw:['inapa', 'agua', 'alcantarillado', 'ejemplo inapa'], a:'El INAPA provee agua potable y alcantarillado sanitario fuera del Gran Santo Domingo. Puede usar cualquier proceso real de su trabajo como ejemplo: solicitud de nuevo servicio de agua, reporte de una avería, reconexión por falta de pago, lectura de medidores, facturación, atención al usuario, o el laboratorio de calidad del agua. No hace falta que sea exactamente uno de estos — use el que usted conozca mejor.' },
+  { kw:['hola', 'ayuda', 'que puedes hacer', 'quien eres'], a:'Soy Nicole, la asistente virtual del Dr. Johan Tapia. Puedo explicarte conceptos de la Unidad I (digitalización, informatización, transformación digital, Agenda Digital 2030, IA Generativa, marco normativo, ética), con ejemplos aplicados al INAPA, orientarte sobre qué pide cada paso, o cómo funciona la calificación. Recuerda: se aprueba por completar la práctica, no por la nota.' }
 ];
 function normQ(s){ return stripAccents(s); }
 function answerFor(q){
