@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Práctica — Unidad II | Herramientas de Transformación Digital</title>
-<meta name="description" content="Práctica autocalificable de la Unidad II: Innovación y Gestión del Cambio Digital, curso Herramientas de Transformación Digital, INAP. En lenguaje sencillo para personas con poco conocimiento de tecnología: Design Thinking, metodologías ágiles, gestión del cambio (ADKAR) y casos de éxito dominicanos. Por escrito o por nota de voz. Incluye a Nicole y calificación automática preliminar.">
+<title>Práctica — Unidad III | Herramientas de Transformación Digital</title>
+<meta name="description" content="Práctica autocalificable de la Unidad III: Ciberseguridad para el Servidor Público, curso Herramientas de Transformación Digital, INAP. En lenguaje sencillo: Tríada CID, phishing, ransomware, contraseñas y 2FA, Ley 172-13, y el protocolo del CNCS/CSIRT-RD ante incidentes. Por escrito o por nota de voz. Incluye a Nicole, temporizador de referencia y medalla digital al completar.">
 <meta name="color-scheme" content="light dark">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%BB%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -69,13 +69,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .timer-msg{font-size:.68rem; color:var(--muted); margin:.4rem 0 0;}
 #sound-toggle{width:28px; height:28px; font-size:.85rem; flex-shrink:0;}
 @keyframes timerPulse{0%,100%{opacity:1; transform:scale(1);} 50%{opacity:.55; transform:scale(1.05);}}
-
-/* MEDALLA */
-.medal-modal{position:fixed; inset:0; background:rgba(0,0,0,.65); z-index:2000; display:flex; align-items:center; justify-content:center; padding:1rem;}
-.medal-modal[hidden]{display:none;}
-.medal-modal-inner{background:var(--bg-card); border-radius:var(--radius-lg); padding:1.5rem; max-width:420px; width:100%; text-align:center; position:relative; box-shadow:var(--shadow-lg);}
-#medal-canvas{width:100%; max-width:300px; border-radius:12px; margin:.25rem auto 1rem; display:block; box-shadow:var(--shadow-md);}
-#medal-close{position:absolute; top:.75rem; right:.75rem;}
 
 .progress-summary{margin-bottom:1.1rem;}
 .progress-summary-row{display:flex; justify-content:space-between; font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.03em; color:var(--muted); margin-bottom:.35rem;}
@@ -229,6 +222,13 @@ footer.tp-footer{text-align:center; color:var(--muted); font-size:.8rem; padding
 .advisor-form input{flex:1;}
 .advisor-form button{background:var(--navy); color:#fff; border:none; width:38px; border-radius:var(--radius-sm); cursor:pointer; font-size:1rem;}
 
+/* MEDALLA */
+.medal-modal{position:fixed; inset:0; background:rgba(0,0,0,.65); z-index:2000; display:flex; align-items:center; justify-content:center; padding:1rem;}
+.medal-modal[hidden]{display:none;}
+.medal-modal-inner{background:var(--bg-card); border-radius:var(--radius-lg); padding:1.5rem; max-width:420px; width:100%; text-align:center; position:relative; box-shadow:var(--shadow-lg);}
+#medal-canvas{width:100%; max-width:300px; border-radius:12px; margin:.25rem auto 1rem; display:block; box-shadow:var(--shadow-md);}
+#medal-close{position:absolute; top:.75rem; right:.75rem;}
+
 @media print{
   .sidebar, .advisor-fab, .advisor-panel, #progress-wrap, .btn-row, #submit-zone .btn-primary, .header-actions, .medal-modal{display:none !important;}
   .main{max-width:100%; padding:0;}
@@ -260,7 +260,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
       <span style="font-size:1.4rem;">💻</span>
-      <p class="sidebar-title">Unidad II · HTD</p>
+      <p class="sidebar-title">Unidad III · HTD</p>
       <div class="header-actions">
         <div class="fontsize-controls">
           <button type="button" id="font-smaller" title="Letra más pequeña" aria-label="Reducir tamaño de letra">A−</button>
@@ -291,11 +291,11 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
         <ul>
           <li><a href="#portada">💻 Portada e instrucciones</a></li>
           <li><a href="#marco-conceptual">📚 Marco conceptual</a></li>
-          <li><a href="#paso1" data-step="paso1">Paso 1 · Escuchar y definir el problema <span class="pct" data-pct="paso1">0%</span></a></li>
-          <li><a href="#paso2" data-step="paso2">Paso 2 · Idear y probar una solución <span class="pct" data-pct="paso2">0%</span></a></li>
-          <li><a href="#paso3" data-step="paso3">Paso 3 · Elegir cómo organizar el trabajo <span class="pct" data-pct="paso3">0%</span></a></li>
-          <li><a href="#paso4" data-step="paso4">Paso 4 · Gestionar el cambio en su equipo <span class="pct" data-pct="paso4">0%</span></a></li>
-          <li><a href="#paso5" data-step="paso5">Paso 5 · Caso real y reflexión ética <span class="pct" data-pct="paso5">0%</span></a></li>
+          <li><a href="#paso1" data-step="paso1">Paso 1 · La Tríada CID <span class="pct" data-pct="paso1">0%</span></a></li>
+          <li><a href="#paso2" data-step="paso2">Paso 2 · Reconocer amenazas <span class="pct" data-pct="paso2">0%</span></a></li>
+          <li><a href="#paso3" data-step="paso3">Paso 3 · Contraseñas y 2FA <span class="pct" data-pct="paso3">0%</span></a></li>
+          <li><a href="#paso4" data-step="paso4">Paso 4 · Ley 172-13 y datos ciudadanos <span class="pct" data-pct="paso4">0%</span></a></li>
+          <li><a href="#paso5" data-step="paso5">Paso 5 · Ante un incidente <span class="pct" data-pct="paso5">0%</span></a></li>
           <li><a href="#rubrica">🧮 Rúbrica de evaluación</a></li>
           <li><a href="#resultado">📤 Enviar y calificar</a></li>
         </ul>
@@ -313,13 +313,13 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
 
     <section id="portada" class="card cover" style="scroll-margin-top:1.25rem;">
       <p class="eyebrow">Curso Herramientas de Transformación Digital · INAP · AC-INAP-2026-HTD</p>
-      <h1>Práctica — Unidad II</h1>
-      <p class="sub">Innovación y Gestión del Cambio Digital, explicada en lenguaje sencillo — no necesita saber de tecnología para completarla</p>
+      <h1>Práctica — Unidad III</h1>
+      <p class="sub">Ciberseguridad para el Servidor Público, explicada en lenguaje sencillo — no necesita saber de tecnología para completarla</p>
       <div class="cover-chips">
         <span class="cover-chip">🏛️ Aplicable a cualquier institución pública</span>
         <span class="cover-chip">👥 Individual o en equipo</span>
         <span class="cover-chip">🎯 100 pts · aprueba al completarla</span>
-        <span class="cover-chip">🎬 Después de ver el video de la Unidad II</span>
+        <span class="cover-chip">⏱️ Dura aproximadamente 60 a 90 minutos</span>
         <span class="cover-chip">🏅 Gana una medalla digital al terminar</span>
       </div>
     </section>
@@ -328,34 +328,34 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
       <span class="step-badge">🙋 Para quienes no trabajan a diario con tecnología</span>
       <h1 style="font-size:1.35rem;">Esta práctica no requiere conocimientos técnicos</h1>
       <div class="alert success">
-        No necesita saber programar, usar computadoras avanzadas ni conocer términos en inglés para completar esta práctica. Todo se explica aquí con ejemplos de la vida diaria en una oficina pública. Si en algún momento no entiende una palabra, puede preguntarle a <strong>Nicole</strong> (el botón 🎓 de esta página) o simplemente responder con sus propias palabras, según su experiencia real en el trabajo.
+        No necesita ser experto en informática para completar esta práctica. La ciberseguridad, en el fondo, se trata de sentido común y de cuidar la información como cuidaría el dinero o los documentos importantes de su casa. Todo se explica aquí con ejemplos de la vida diaria en una oficina pública. Si en algún momento no entiende una palabra, puede preguntarle a <strong>Nicole</strong> (el botón 🎓 de esta página) o responder con sus propias palabras, según su experiencia real en el trabajo.
       </div>
-      <p>Piense en esta práctica como una conversación sobre cómo mejorar un trámite que usted conoce bien, no como un examen de tecnología.</p>
+      <p>En el lado izquierdo de la pantalla (o al presionar el menú ☰ en el celular) verá un <strong>temporizador de referencia</strong> de 60 minutos. No es un examen contra el reloj: es solo para darle una idea del tiempo. Cuando falten los últimos 10 minutos, va a escuchar un sonido como el de un monitor de signos vitales — es solo un efecto para hacerlo más entretenido, <strong>la práctica sigue abierta aunque el tiempo se acabe</strong>. Si el sonido le molesta, puede silenciarlo con el botón 🔔 junto al reloj.</p>
     </section>
 
     <section class="card">
       <span class="step-badge">🏛️ Ejemplos por tipo de institución</span>
-      <h1 style="font-size:1.35rem;">Use el proceso de SU propia institución</h1>
+      <h1 style="font-size:1.35rem;">Piense en los datos que maneja SU propia institución</h1>
       <div class="alert info">
-        Esta práctica aplica a cualquier institución del Estado dominicano. Para que le resulte más fácil pensar en un ejemplo concreto, aquí tiene procesos típicos según el tipo de institución en la que usted trabaje — elija el que se parezca más a su realidad, o use cualquier otro proceso real de su área. Puede ser el mismo proceso que usó en la Práctica de la Unidad I, u otro distinto.
+        Esta práctica aplica a cualquier institución del Estado dominicano. Para que le resulte más fácil pensar en un ejemplo concreto, aquí tiene datos sensibles típicos según el tipo de institución en la que usted trabaje — elija el que se parezca más a su realidad.
       </div>
       <div class="tbl-wrap"><table class="tp-table">
-        <thead><tr><th>Tipo de institución</th><th>Ejemplo de proceso o trámite</th></tr></thead>
+        <thead><tr><th>Tipo de institución</th><th>Ejemplo de dato o información sensible que maneja</th></tr></thead>
         <tbody>
-          <tr><td class="label-cell">INAPA (agua y saneamiento)</td><td>Solicitud de nuevo servicio de agua potable, reporte de una avería, lectura de medidores, reconexión por falta de pago.</td></tr>
-          <tr><td class="label-cell">Hospital o centro de salud público</td><td>Agendamiento de una cita médica, entrega de resultados de laboratorio, referimiento a otro centro, solicitud de expediente clínico.</td></tr>
-          <tr><td class="label-cell">Ayuntamiento o municipio</td><td>Solicitud de permiso de construcción, pago de arbitrios municipales, denuncia de un bache o de basura acumulada.</td></tr>
-          <tr><td class="label-cell">Ministerio o dirección general</td><td>Solicitud de licencia médica de un empleado, trámite de un certificado o constancia, gestión de correspondencia interna.</td></tr>
-          <tr><td class="label-cell">Institución educativa pública</td><td>Inscripción de un estudiante, solicitud de récord de notas, trámite de una beca.</td></tr>
+          <tr><td class="label-cell">INAPA (agua y saneamiento)</td><td>Direcciones de los clientes, números de cuenta, historial de pagos, ubicación de la red de tuberías.</td></tr>
+          <tr><td class="label-cell">Hospital o centro de salud público</td><td>Historiales médicos, resultados de laboratorio, diagnósticos, información de pacientes vulnerables.</td></tr>
+          <tr><td class="label-cell">Ayuntamiento o municipio</td><td>Registros de propiedades, pagos de arbitrios, permisos de construcción, denuncias ciudadanas.</td></tr>
+          <tr><td class="label-cell">Ministerio o dirección general</td><td>Expedientes de personal, nóminas, correspondencia interna, bases de datos de beneficiarios de programas sociales.</td></tr>
+          <tr><td class="label-cell">Institución educativa pública</td><td>Notas y récords de estudiantes, datos de becas, información de menores de edad.</td></tr>
         </tbody>
       </table></div>
-      <p>Puede usar cualquier proceso real de su área específica: una oficina comercial o regional, facturación y cobro, una cuadrilla de operaciones, un laboratorio, recursos humanos, o cualquier otra dependencia. No hace falta que sea exactamente uno de los ejemplos de la tabla — use el proceso que usted conozca mejor.</p>
+      <p>Puede usar cualquier dato real que maneje su área específica: nóminas, expedientes, bases de beneficiarios, historiales, correspondencia oficial, o cualquier otro registro sensible. Use el que usted conozca mejor de su propio trabajo — sin escribir aquí ningún nombre real de una persona.</p>
     </section>
 
     <section class="card" id="tutorial">
       <span class="step-badge">📘 Tutorial</span>
       <h1 style="font-size:1.35rem;">Cómo usar esta plataforma</h1>
-      <p><strong>Concepto:</strong> esta práctica se realiza <strong>después de ver el video completo de la Unidad II</strong>. Tiene 5 pasos, cada uno explicado con palabras simples y ejemplos, y espacio para sus respuestas — puede escribir directamente o grabar una nota de voz.</p>
+      <p><strong>Concepto:</strong> esta práctica se realiza <strong>después de ver el video completo de la Unidad III</strong>. Tiene 5 pasos, cada uno explicado con palabras simples y ejemplos, y espacio para sus respuestas — puede escribir directamente o grabar una nota de voz.</p>
 
       <h2>Dos formas de responder cada pregunta</h2>
       <p><strong>Definición:</strong> cada campo de respuesta larga acepta texto escrito o una nota de voz transcrita automáticamente.</p>
@@ -370,9 +370,6 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
         <li>Espere unos segundos: el texto transcrito va a aparecer automáticamente en el campo.</li>
         <li>Lea el texto y corrija cualquier palabra si hace falta, antes de continuar.</li>
       </ol>
-
-      <h2>Los botones "A−" y "A+" y el botón de la luna 🌙</h2>
-      <p>Si el texto se le hace pequeño, presione <strong>A+</strong> (arriba a la derecha) para agrandar la letra de toda la página. El botón 🌙 cambia el fondo a un tema oscuro, más cómodo para algunas personas.</p>
 
       <h2>El temporizador y su sonido de emergencia (opcional y sin presión real)</h2>
       <p>El reloj de 60 minutos en la barra lateral es solo una referencia. Cuando queden los últimos 10 minutos, el reloj se pone rojo y suena un pequeño "bip" cada vez más rápido, como un monitor de signos vitales en un hospital — y al llegar a cero, suena un tono largo, como si "se apagara" (es una broma, nada se cierra). Puede silenciarlo en cualquier momento con el botón 🔔.</p>
@@ -401,10 +398,10 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
       <span class="step-badge">🎯 Objetivo y encuadre</span>
       <h1 style="font-size:1.35rem;">Antes de empezar</h1>
       <div class="alert info">
-        <strong>Objetivo de la actividad:</strong> pensar en un trámite real de su institución desde el punto de vista del ciudadano, proponer una mejora sencilla, elegir una forma ordenada de organizar ese trabajo en equipo, y anticipar cómo reaccionarían sus compañeros ante el cambio — aplicando los conceptos vistos en el video de la Unidad II.
+        <strong>Objetivo de la actividad:</strong> reconocer los riesgos de seguridad digital más comunes en el sector público, aplicar buenas prácticas simples de higiene digital, entender sus obligaciones bajo la Ley 172-13, y saber qué hacer en los primeros minutos ante un posible incidente de seguridad.
       </div>
       <div class="alert gold">
-        <strong>Fundamento normativo:</strong> Ley No. 41-08 de Función Pública, Ley No. 167-21 de Mejora Regulatoria y Simplificación de Trámites ("Burocracia Cero"), Ley No. 200-04 de Libre Acceso a la Información Pública, y Decreto No. 791-21 sobre las Comisiones de Integridad Gubernamental y Cumplimiento Normativo (CIGCN).
+        <strong>Fundamento normativo:</strong> Ley No. 172-13 sobre Protección Integral de los Datos Personales, Ley No. 53-07 sobre Crímenes y Delitos de Alta Tecnología, Decreto No. 230-18 (que crea el CNCS), y Ley No. 41-08 de Función Pública.
       </div>
       <h2>¿Cómo va a completar esta práctica?</h2>
       <p>Como el encuentro es presencial, puede completarla solo/a o en equipo. Complete esto antes de enviar: su facilitador recibirá la calificación identificada con estos datos.</p>
@@ -429,11 +426,11 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
       </div>
       <h2>Instrucciones generales</h2>
       <ol class="ins-list">
-        <li>Vea el <strong>video completo de la Unidad II: Innovación y Gestión del Cambio Digital</strong> antes de responder — esta práctica retoma directamente sus conceptos, pero explicados aquí en palabras simples.</li>
-        <li>Elija si van a trabajar <strong>individual o en equipo</strong>, arriba, y luego piensen en un <strong>trámite real</strong> de su institución para mantenerlo como referencia durante los 5 pasos.</li>
+        <li>Vea el <strong>video completo de la Unidad III: Ciberseguridad para el Servidor Público</strong> antes de responder — esta práctica retoma directamente sus conceptos, pero explicados aquí en palabras simples.</li>
+        <li>Elija si van a trabajar <strong>individual o en equipo</strong>, arriba, y luego piensen en los <strong>datos reales</strong> que maneja su institución, sin escribir nombres de personas.</li>
         <li>Completen los <strong>5 pasos</strong> en el orden indicado, por escrito o por nota de voz — si trabajan en equipo, decidan entre todos qué escribir en cada campo.</li>
-        <li>No hace falta usar computadora ni internet para pensar las ideas: puede reflexionar primero con papel y lápiz, y luego escribir o dictar su respuesta aquí.</li>
-        <li>Al finalizar, presionen <strong>Enviar y Calificar</strong>: el sistema revisará el trabajo y dará una nota preliminar orientativa y retroalimentación inmediata.</li>
+        <li><strong>Nunca escriba en esta práctica una contraseña real</strong> — los ejemplos de contraseña que se le pidan son solo de práctica, inventados.</li>
+        <li>Al finalizar, presionen <strong>Enviar y Calificar</strong>: el sistema revisará el trabajo, dará una nota preliminar orientativa, y les permitirá generar su medalla digital.</li>
       </ol>
       <div class="alert success">
         <strong>🎓 Esta práctica es interactiva y autocalificable.</strong> Mientras trabaja, Nicole (botón 🎓 abajo a la izquierda) puede responder sus dudas conceptuales, sin usar palabras complicadas. Al terminar, el botón <strong>Enviar y Calificar</strong> evalúa al instante la completitud y calidad de cada paso, y además pide una segunda lectura a la IA sobre el contenido real de sus respuestas.
@@ -446,205 +443,182 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
     <section id="marco-conceptual" class="card">
       <span class="step-badge">📚 Referencia, explicada en palabras simples</span>
       <h1 style="font-size:1.35rem;">Marco conceptual de referencia</h1>
-      <p>Consulte estos conceptos, ya vistos en el video de la Unidad II, mientras completa la actividad. Están explicados con analogías sencillas. También puede preguntarle a Nicole sobre cualquiera de ellos.</p>
+      <p>Consulte estos conceptos, ya vistos en el video de la Unidad III, mientras completa la actividad. Están explicados con analogías sencillas. También puede preguntarle a Nicole sobre cualquiera de ellos.</p>
       <dl class="glossary-grid">
-        <div class="gloss-item"><dt>Innovación pública</dt><dd>No es solo comprar tecnología: es encontrar una forma mejor de resolver un problema real del ciudadano, dentro de la ley y sin gastar de más.</dd></div>
-        <div class="gloss-item"><dt>Innovación incremental</dt><dd>Un cambio pequeño que mejora algo que ya existe. Ejemplo: pasar un trámite de 10 requisitos a solo 3.</dd></div>
-        <div class="gloss-item"><dt>Innovación disruptiva</dt><dd>Un cambio grande que reemplaza por completo la forma antigua de hacer algo. Ejemplo: un trámite que antes era 100% presencial y ahora se hace totalmente en línea.</dd></div>
-        <div class="gloss-item"><dt>Design Thinking</dt><dd>Una forma ordenada de mejorar un servicio pensando primero en lo que el ciudadano necesita, no en lo que a la oficina le resulta más fácil. Tiene 5 pasos: Empatizar, Definir, Idear, Prototipar y Testear.</dd></div>
-        <div class="gloss-item"><dt>Empatizar</dt><dd>Ponerse en el lugar del ciudadano: ¿qué siente y qué necesita al hacer este trámite?</dd></div>
-        <div class="gloss-item"><dt>Definir</dt><dd>De todo lo que uno escucha, encontrar cuál es el problema principal que más molesta.</dd></div>
-        <div class="gloss-item"><dt>Idear</dt><dd>Pensar varias ideas para resolver ese problema, sin descartar ninguna todavía.</dd></div>
-        <div class="gloss-item"><dt>Prototipar</dt><dd>Imaginar o dibujar cómo se vería esa idea funcionando, aunque sea de forma simple, antes de implementarla de verdad.</dd></div>
-        <div class="gloss-item"><dt>Testear</dt><dd>Mostrar la idea a otra persona (un compañero o un ciudadano) para ver si de verdad funciona, antes de aplicarla a todos.</dd></div>
-        <div class="gloss-item"><dt>Scrum</dt><dd>Un equipo que se dedica de tiempo completo a un proyecto, trabajando en rondas cortas de 2 a 4 semanas ("sprints"), con una reunión corta cada día para ver el avance.</dd></div>
-        <div class="gloss-item"><dt>Kanban</dt><dd>Un tablero visual con columnas simples — "Por Hacer", "En Proceso", "Listo" — para ver de un vistazo en qué va cada tarea. Sirve para trabajo que se repite todos los días.</dd></div>
-        <div class="gloss-item"><dt>Lean Government</dt><dd>Buscar y eliminar los pasos que no le sirven a nadie: firmas de más, copias repetidas, esperas innecesarias.</dd></div>
-        <div class="gloss-item"><dt>Gestión del cambio</dt><dd>El trabajo de acompañar a las personas para que acepten y usen bien un cambio, no solo instalar la tecnología.</dd></div>
-        <div class="gloss-item"><dt>Resistencia al cambio</dt><dd>La reacción normal de miedo, queja o rechazo que casi todos tenemos frente a algo nuevo. No es un defecto de la persona: hay que entenderla y trabajarla.</dd></div>
-        <div class="gloss-item"><dt>Modelo ADKAR</dt><dd>Una guía de 5 pasos para que una persona acepte un cambio: primero entender por qué (Conciencia), luego querer hacerlo (Deseo), aprender cómo (Conocimiento), practicarlo (Habilidad) y mantenerlo con el tiempo (Refuerzo).</dd></div>
-        <div class="gloss-item"><dt>Modelo de Kotter</dt><dd>Una guía de 8 pasos para liderar un cambio grande en toda una institución: crear urgencia, armar un equipo líder, tener una visión clara, comunicarla, quitar obstáculos, mostrar logros rápidos, no rendirse a mitad de camino, y volverlo costumbre.</dd></div>
-        <div class="gloss-item"><dt>Burocracia Cero (Ley 167-21)</dt><dd>Ley que obliga a las instituciones a eliminar requisitos repetidos que el Estado ya tiene guardados, para no pedirle al ciudadano el mismo papel dos veces.</dd></div>
-        <div class="gloss-item"><dt>SISMAP</dt><dd>Un sistema público que muestra, en internet, cómo está funcionando cada institución del Estado — ayuda a que las instituciones mejoren porque todo el mundo puede ver los resultados.</dd></div>
-        <div class="gloss-item"><dt>Ventanilla Única de Inversión (VUI)</dt><dd>Un solo lugar en línea donde una persona o empresa puede hacer trámites que antes requerían visitar varias instituciones distintas.</dd></div>
+        <div class="gloss-item"><dt>Confidencialidad</dt><dd>Que la información solo la vea quien tiene permiso. Como una carta cerrada que solo debe leer el destinatario.</dd></div>
+        <div class="gloss-item"><dt>Integridad</dt><dd>Que los datos estén completos y exactos, sin que nadie los altere sin autorización. Como un contrato que nadie puede modificar a escondidas.</dd></div>
+        <div class="gloss-item"><dt>Disponibilidad</dt><dd>Que el sistema y los datos estén accesibles cuando se necesitan. Si el sistema se cae y nadie puede trabajar, se pierde la disponibilidad.</dd></div>
+        <div class="gloss-item"><dt>Phishing</dt><dd>Un correo, mensaje o llamada falsa que se hace pasar por una institución de confianza (un ministerio, un banco) para robar contraseñas o datos.</dd></div>
+        <div class="gloss-item"><dt>Ransomware</dt><dd>Un programa malicioso que "secuestra" los archivos de una computadora encriptándolos, y pide dinero (rescate) para liberarlos.</dd></div>
+        <div class="gloss-item"><dt>Ingeniería social</dt><dd>Cuando alguien lo engaña psicológicamente (una llamada, una excusa urgente) para que usted mismo entregue una contraseña o un acceso.</dd></div>
+        <div class="gloss-item"><dt>Insider threat (amenaza interna)</dt><dd>Cuando alguien que YA tiene acceso legítimo (un compañero de trabajo) usa ese acceso de forma indebida para robar o dañar información.</dd></div>
+        <div class="gloss-item"><dt>2FA (doble factor de autenticación)</dt><dd>Pedir dos pruebas de identidad en vez de una: la contraseña (algo que sabe) más un código que llega al celular (algo que tiene).</dd></div>
+        <div class="gloss-item"><dt>Frase de contraseña</dt><dd>Una contraseña larga hecha de varias palabras sin relación entre sí (ej: Palmeras*Azules*Tratado*2026), más difícil de adivinar que una palabra corta.</dd></div>
+        <div class="gloss-item"><dt>Ley 172-13</dt><dd>La ley dominicana que protege los datos personales de los ciudadanos. Obliga a usar los datos solo para lo que fueron pedidos, guardar solo lo necesario, y protegerlos activamente.</dd></div>
+        <div class="gloss-item"><dt>Ley 53-07</dt><dd>La ley dominicana que castiga como delito el acceso no autorizado a sistemas, el robo de datos del Estado, y el sabotaje informático.</dd></div>
+        <div class="gloss-item"><dt>CNCS</dt><dd>Centro Nacional de Ciberseguridad: la entidad del Estado dominicano que define las reglas de seguridad digital para todas las instituciones públicas.</dd></div>
+        <div class="gloss-item"><dt>CSIRT-RD</dt><dd>El equipo del CNCS que recibe y atiende los reportes cuando ocurre un ataque o incidente de seguridad en el Estado.</dd></div>
+        <div class="gloss-item"><dt>Protocolo ante incidentes</dt><dd>Los 4 pasos a seguir si detecta un ataque: Contener (desconectar de la red, sin apagar el equipo), Documentar (anotar lo que vio), Escalar (avisar a TI) y Reportar (avisar oficialmente al CSIRT-RD).</dd></div>
       </dl>
 
-      <h2>🧭 ¿Scrum, Kanban o Lean? Una guía sencilla para decidir</h2>
-      <p>No hace falta memorizar teoría: basta con responder dos preguntas sobre su propio trabajo.</p>
+      <h2>🧭 Las 3 preguntas de la Tríada CID, con ejemplos de varias instituciones</h2>
+      <p>Antes de proteger cualquier dato, conviene preguntarse estas 3 cosas sobre él.</p>
       <div class="tbl-wrap"><table class="tp-table">
-        <thead><tr><th>Su situación</th><th>La opción que más le conviene</th></tr></thead>
+        <thead><tr><th>Pregunta</th><th>Ejemplo en un hospital</th><th>Ejemplo en un ayuntamiento</th></tr></thead>
         <tbody>
-          <tr><td class="label-cell">Es un proyecto nuevo, con fecha de inicio y de fin, y el equipo puede dedicarse de tiempo completo por varias semanas</td><td><strong>Scrum</strong> — trabajar en rondas cortas con reuniones diarias.</td></tr>
-          <tr><td class="label-cell">Es una tarea que se repite todos los días (atender solicitudes, dar mantenimiento, resolver quejas) y el equipo no puede detenerse a planificar</td><td><strong>Kanban</strong> — un tablero visual de "Por Hacer / En Proceso / Listo".</td></tr>
-          <tr><td class="label-cell">Lo que se quiere es simplemente quitar pasos inútiles de un trámite que ya existe, sin crear nada nuevo</td><td><strong>Lean Government</strong> — eliminar "desperdicios burocráticos".</td></tr>
+          <tr><td class="label-cell">Confidencialidad: ¿quién NO debería ver esto?</td><td>Un historial médico no debe verlo cualquier empleado, solo el personal médico autorizado.</td><td>Un expediente de un permiso no debe ser visible para cualquier persona externa a la dirección de permisos.</td></tr>
+          <tr><td class="label-cell">Integridad: ¿qué pasa si alguien lo altera sin permiso?</td><td>Cambiar un resultado de laboratorio podría llevar a un diagnóstico equivocado.</td><td>Cambiar un registro de pago de arbitrios podría ocultar una deuda o crear una falsa.</td></tr>
+          <tr><td class="label-cell">Disponibilidad: ¿qué pasa si el sistema se cae?</td><td>Si el sistema de citas se cae, los pacientes no pueden ser atendidos a tiempo.</td><td>Si el sistema de permisos se cae, los trámites de la ciudadanía se detienen por completo.</td></tr>
         </tbody>
       </table></div>
     </section>
 
     <!-- ============ PASO 1 ============ -->
     <section id="paso1" class="card">
-      <span class="step-badge">Paso 1 · 20 min</span><span class="step-points">Vale 20 pts</span>
-      <h1>Escuchar al ciudadano y definir el problema</h1>
-      <p><strong>Concepto, en palabras simples:</strong> antes de proponer cualquier mejora, hay que ponerse en el lugar de la persona que hace el trámite (Empatizar) y luego encontrar cuál es, de todo lo que ella siente, el problema principal que más le molesta (Definir).</p>
-      <div class="alert info"><strong>Guía:</strong> piense en el mismo trámite de su institución que eligió antes (o uno nuevo). Imagínese que usted mismo es el ciudadano que viene a hacerlo.</div>
+      <span class="step-badge">Paso 1 · 15 min</span><span class="step-points">Vale 20 pts</span>
+      <h1>La Tríada CID en su propio trabajo</h1>
+      <p><strong>Concepto, en palabras simples:</strong> toda la ciberseguridad se basa en proteger 3 cosas de un dato: que solo lo vea quien debe (Confidencialidad), que nadie lo altere sin permiso (Integridad), y que esté disponible cuando se necesite (Disponibilidad).</p>
+      <div class="alert info"><strong>Guía:</strong> piense en un dato real que maneja su área (sin escribir nombres de personas) y responda qué pasaría si algo saliera mal con él.</div>
 
       <div class="field-grid">
-        <div class="field"><label for="p1_institucion">Institución o dependencia</label><input type="text" id="p1_institucion" placeholder="Ej: Oficina Comercial Regional del INAPA, Consulta Externa de un hospital, Dirección de Permisos de un ayuntamiento..."></div>
-        <div class="field"><label for="p1_proceso">Trámite elegido</label><input type="text" id="p1_proceso" placeholder="Ej: Solicitud de nuevo servicio de agua potable, agendamiento de una cita médica, solicitud de un permiso..."></div>
+        <div class="field"><label for="p1_area">Institución o área de trabajo</label><input type="text" id="p1_area" placeholder="Ej: Recursos Humanos de un ministerio, Consulta Externa de un hospital..."></div>
+        <div class="field"><label for="p1_dato">Dato sensible que maneja (sin nombres reales)</label><input type="text" id="p1_dato" placeholder="Ej: Expedientes de personal, historiales médicos, base de beneficiarios..."></div>
       </div>
-      <div class="hint">Otros ejemplos si no sabe por dónde empezar: reporte de una avería, reconexión por falta de pago, entrega de resultados de laboratorio, solicitud de una licencia médica, trámite de una beca, denuncia de un bache.</div>
+      <div class="hint">Otros ejemplos: nóminas, registros de propiedades, notas de estudiantes, denuncias ciudadanas, correspondencia oficial.</div>
 
       <div class="field">
-        <label for="p1_sentimiento">Empatizar: cuando un ciudadano hace este trámite hoy, ¿qué siente y qué necesita? <span class="wc" data-for="p1_sentimiento" data-min="30">0/30 palabras</span></label>
-        <textarea class="tall" id="p1_sentimiento" placeholder="El ciudadano suele sentirse... porque tiene que... y lo que en el fondo necesita es..."></textarea>
-        <div class="voice-row"><button type="button" class="voice-btn" data-target="p1_sentimiento">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p1_sentimiento"></span></div>
+        <label for="p1_confidencialidad">Confidencialidad: ¿qué podría pasar si esa información la viera alguien SIN autorización? <span class="wc" data-for="p1_confidencialidad" data-min="25">0/25 palabras</span></label>
+        <textarea class="tall" id="p1_confidencialidad" placeholder="Si alguien no autorizado viera esta información, podría..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p1_confidencialidad">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p1_confidencialidad"></span></div>
       </div>
 
       <div class="field">
-        <label for="p1_problema">Definir: de todo eso, ¿cuál es el problema principal que más atrasa o molesta? <span class="wc" data-for="p1_problema" data-min="30">0/30 palabras</span></label>
-        <textarea class="tall" id="p1_problema" placeholder="El problema principal es que... esto ocurre porque..."></textarea>
-        <div class="voice-row"><button type="button" class="voice-btn" data-target="p1_problema">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p1_problema"></span></div>
+        <label for="p1_disponibilidad">Disponibilidad: ¿qué pasaría si el sistema donde está esa información se cayera y nadie pudiera acceder a ella? <span class="wc" data-for="p1_disponibilidad" data-min="20">0/20 palabras</span></label>
+        <textarea id="p1_disponibilidad" placeholder="Si el sistema se cayera, no podríamos..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p1_disponibilidad">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p1_disponibilidad"></span></div>
       </div>
     </section>
 
     <!-- ============ PASO 2 ============ -->
     <section id="paso2" class="card">
-      <span class="step-badge">Paso 2 · 20 min</span><span class="step-points">Vale 20 pts</span>
-      <h1>Idear una solución y ponerla a prueba</h1>
-      <p><strong>Concepto, en palabras simples:</strong> una vez que sabemos cuál es el problema, se piensan varias ideas sin descartar ninguna (Idear), se imagina cómo se vería esa idea funcionando (Prototipar), y se le muestra a alguien más para ver si de verdad sirve (Testear).</p>
-      <div class="alert info"><strong>Guía:</strong> no necesita dibujar ni usar computadora — basta con describir sus ideas con palabras, como si se las estuviera contando a un compañero.</div>
+      <span class="step-badge">Paso 2 · 15 min</span><span class="step-points">Vale 20 pts</span>
+      <h1>Reconocer las amenazas más comunes</h1>
+      <p><strong>Concepto, en palabras simples:</strong> la mayoría de los ataques exitosos en el Estado empiezan con un error humano, no con una falla técnica. Reconocer a tiempo un correo falso o una llamada sospechosa es la mejor defensa.</p>
+      <div class="alert info"><strong>Guía:</strong> use la tabla del "Marco conceptual" como referencia para las 4 amenazas: Phishing, Ransomware, Ingeniería Social e Insider Threat.</div>
 
       <div class="field">
-        <label for="p2_ideas">Idear: escriba 2 o 3 ideas sencillas para resolver el problema del Paso 1 <span class="wc" data-for="p2_ideas" data-min="25">0/25 palabras</span></label>
-        <textarea class="tall" id="p2_ideas" placeholder="Idea 1: ... Idea 2: ... Idea 3 (opcional): ..."></textarea>
-        <div class="voice-row"><button type="button" class="voice-btn" data-target="p2_ideas">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p2_ideas"></span></div>
+        <label for="p2_amenaza">¿Cuál de estas 4 amenazas le preocupa más en su institución?</label>
+        <select id="p2_amenaza">
+          <option value="">Seleccione…</option>
+          <option value="Phishing">Phishing (correos o mensajes falsos que piden contraseñas)</option>
+          <option value="Ransomware">Ransomware (secuestro de archivos a cambio de dinero)</option>
+          <option value="Ingeniería Social">Ingeniería Social (engaños por llamada o en persona)</option>
+          <option value="Insider Threat">Insider Threat (un compañero que usa mal su propio acceso)</option>
+        </select>
       </div>
-
       <div class="field">
-        <label for="p2_prototipo">Prototipar: elija la mejor idea y describa cómo se vería funcionando, como si ya existiera <span class="wc" data-for="p2_prototipo" data-min="25">0/25 palabras</span></label>
-        <textarea class="tall" id="p2_prototipo" placeholder="Con esta mejora, el ciudadano llegaría y... el trámite tomaría..."></textarea>
-        <div class="voice-row"><button type="button" class="voice-btn" data-target="p2_prototipo">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p2_prototipo"></span></div>
+        <label for="p2_ejemplo">Describa cómo se vería esa amenaza en su institución, con un ejemplo posible <span class="wc" data-for="p2_ejemplo" data-min="30">0/30 palabras</span></label>
+        <textarea class="tall" id="p2_ejemplo" placeholder="Por ejemplo, podría llegar un correo que dice ser de..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p2_ejemplo">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p2_ejemplo"></span></div>
       </div>
-
       <div class="field">
-        <label for="p2_prueba">Testear: ¿a quién le mostraría esta idea antes de aplicarla a todos, y qué le preguntaría? <span class="wc" data-for="p2_prueba" data-min="20">0/20 palabras</span></label>
-        <textarea id="p2_prueba" placeholder="Se lo mostraría a... y le preguntaría si..."></textarea>
-        <div class="voice-row"><button type="button" class="voice-btn" data-target="p2_prueba">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p2_prueba"></span></div>
+        <label for="p2_senal">¿Qué señal de alerta le ayudaría a reconocerla a tiempo? <span class="wc" data-for="p2_senal" data-min="20">0/20 palabras</span></label>
+        <textarea id="p2_senal" placeholder="Una señal de alerta sería..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p2_senal">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p2_senal"></span></div>
       </div>
     </section>
 
     <!-- ============ PASO 3 ============ -->
     <section id="paso3" class="card">
       <span class="step-badge">Paso 3 · 15 min</span><span class="step-points">Vale 20 pts</span>
-      <h1>Elegir cómo organizar el trabajo</h1>
-      <p><strong>Concepto, en palabras simples:</strong> para llevar a la práctica la mejora que propuso, hay que decidir si se organiza como un proyecto con fecha de fin (Scrum), como una tarea diaria y continua (Kanban), o simplemente como una limpieza de pasos inútiles (Lean).</p>
-      <div class="alert info"><strong>Guía:</strong> responda primero las dos preguntas de abajo — la respuesta le va a ayudar a elegir la opción correcta, use también la tabla de la sección "Marco conceptual" como referencia.</div>
+      <h1>Contraseñas fuertes y doble factor (2FA)</h1>
+      <p><strong>Concepto, en palabras simples:</strong> una contraseña larga y una segunda prueba de identidad (2FA) son las defensas más simples y más efectivas que existen — el 2FA bloquea casi todos los intentos de robo de cuentas.</p>
+      <div class="alert warn"><strong>⚠️ Importante:</strong> en ningún campo de esta práctica escriba una contraseña real suya. Los ejemplos que se le pidan son solo inventados, para practicar.</div>
 
       <div class="field">
-        <label for="p3_dedicacion">¿Su equipo podría dedicarse de tiempo completo a esta mejora durante varias semanas?</label>
-        <select id="p3_dedicacion">
+        <label for="p3_habito">Con toda honestidad, ¿cómo describiría su hábito actual con las contraseñas?</label>
+        <select id="p3_habito">
           <option value="">Seleccione…</option>
-          <option value="si">Sí, podríamos dedicarle tiempo completo</option>
-          <option value="no">No, tenemos que seguir atendiendo el trabajo diario al mismo tiempo</option>
+          <option value="Buen habito, contraseñas largas y distintas por sistema">Buen hábito: uso contraseñas largas y distintas para cada sistema</option>
+          <option value="Habito regular, algunas contraseñas repetidas">Hábito regular: repito alguna contraseña entre 2 o 3 sistemas</option>
+          <option value="Habito riesgoso, contraseñas cortas o repetidas en todo">Hábito riesgoso: uso contraseñas cortas o la misma en casi todo</option>
         </select>
       </div>
       <div class="field">
-        <label for="p3_frecuencia">¿Mejorar este trámite es algo que se hace una sola vez, o es un trabajo que se repite todos los días?</label>
-        <select id="p3_frecuencia">
+        <label for="p3_frase">Invente un EJEMPLO de frase de contraseña segura, siguiendo el patrón visto (NO use su contraseña real)</label>
+        <input type="text" id="p3_frase" placeholder="Ej: Mango*Rio*Ventana*2026">
+      </div>
+      <div class="field">
+        <label for="p3_2fa">¿Usa usted actualmente la autenticación de dos factores (2FA)?</label>
+        <select id="p3_2fa">
           <option value="">Seleccione…</option>
-          <option value="unico">Es un proyecto único, con un inicio y un final</option>
-          <option value="repetitivo">Es algo que se repite todos los días (atender solicitudes, dar seguimiento, resolver quejas)</option>
+          <option value="Si, en la mayoria de mis cuentas">Sí, en la mayoría de mis cuentas</option>
+          <option value="Solo en alguna cuenta">Solo en alguna cuenta</option>
+          <option value="No, no la uso o no sabia que existia">No la uso, o no sabía que existía</option>
         </select>
       </div>
       <div class="field">
-        <label for="p3_metodologia">Según sus respuestas, ¿cuál forma de organizar el trabajo elige?</label>
-        <select id="p3_metodologia">
-          <option value="">Seleccione…</option>
-          <option value="Scrum">Scrum (proyecto con equipo dedicado y rondas cortas)</option>
-          <option value="Kanban">Kanban (tablero visual para trabajo diario y continuo)</option>
-          <option value="Lean Government">Lean Government (solo quitar pasos inútiles del trámite)</option>
-        </select>
-      </div>
-      <div class="field">
-        <label for="p3_justificacion">Explique con sus propias palabras por qué esa opción es la que más le conviene a su equipo <span class="wc" data-for="p3_justificacion" data-min="25">0/25 palabras</span></label>
-        <textarea class="tall" id="p3_justificacion" placeholder="Elegí esta opción porque, en mi área de trabajo..."></textarea>
-        <div class="voice-row"><button type="button" class="voice-btn" data-target="p3_justificacion">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p3_justificacion"></span></div>
+        <label for="p3_explicacion">Explique con sus propias palabras qué es el 2FA y por qué ayuda a proteger una cuenta <span class="wc" data-for="p3_explicacion" data-min="25">0/25 palabras</span></label>
+        <textarea class="tall" id="p3_explicacion" placeholder="El 2FA es cuando..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p3_explicacion">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p3_explicacion"></span></div>
       </div>
     </section>
 
     <!-- ============ PASO 4 ============ -->
     <section id="paso4" class="card">
-      <span class="step-badge">Paso 4 · 20 min</span><span class="step-points">Vale 20 pts</span>
-      <h1>Gestionar el cambio en su equipo</h1>
-      <p><strong>Concepto, en palabras simples:</strong> casi ningún cambio funciona solo con anunciarlo — la mayoría de las personas necesitan primero entender por qué es necesario, luego querer hacerlo, después aprender cómo, practicarlo, y que alguien les recuerde mantenerlo con el tiempo. A esto se le llama el modelo ADKAR.</p>
-      <div class="alert info"><strong>Guía:</strong> piense en las personas reales de su institución (compañeros, jefes) que tendrían que aceptar la mejora que propuso en el Paso 2.</div>
+      <span class="step-badge">Paso 4 · 15 min</span><span class="step-points">Vale 20 pts</span>
+      <h1>Ley 172-13: proteger los datos del ciudadano</h1>
+      <p><strong>Concepto, en palabras simples:</strong> la Ley 172-13 obliga a todo servidor público a usar los datos del ciudadano solo para lo que fueron pedidos, guardar solo lo necesario, y protegerlos activamente — incluso después de dejar el cargo.</p>
+      <div class="alert gold">
+        <strong>Caso para pensar:</strong> una analista, con problemas para conectarse al sistema de la oficina, copia una base de datos de 3,000 beneficiarios de un plan social a una memoria USB para llevarla a su computadora personal y terminar un reporte urgente. Su computadora personal, sin antivirus y compartida con su familia, es infectada, y la base de datos completa termina filtrada en internet.
+      </div>
 
       <div class="field">
-        <label for="p4_causa">¿Cuál cree que sería la causa principal de resistencia entre sus compañeros?</label>
-        <select id="p4_causa">
+        <label for="p4_principio">¿Cuál principio de la Ley 172-13 se está violando principalmente en este caso?</label>
+        <select id="p4_principio">
           <option value="">Seleccione…</option>
-          <option value="miedo">Miedo a lo desconocido, a no saber usar algo nuevo</option>
-          <option value="perder_control">Temor a perder su puesto, funciones o control sobre el proceso</option>
-          <option value="sobrecarga">Sentir que el cambio significa más trabajo, no menos</option>
-          <option value="desconfianza">Desconfianza, por experiencias de cambios anteriores que no funcionaron</option>
-          <option value="brecha">Diferencia generacional o poca costumbre con la tecnología</option>
+          <option value="Principio de Finalidad">Principio de Finalidad (usar los datos solo para el trámite que los originó)</option>
+          <option value="Principio de Proporcionalidad">Principio de Proporcionalidad (guardar solo los datos mínimos necesarios)</option>
+          <option value="Principio de Seguridad y Confidencialidad">Principio de Seguridad y Confidencialidad (proteger activamente los datos contra pérdida o mal uso)</option>
         </select>
       </div>
       <div class="field">
-        <label for="p4_resistencia">Describa con sus propias palabras cómo se notaría esa resistencia en su institución (quejas, excusas, silencio...) <span class="wc" data-for="p4_resistencia" data-min="25">0/25 palabras</span></label>
-        <textarea class="tall" id="p4_resistencia" placeholder="Es probable que algunos compañeros digan que..."></textarea>
-        <div class="voice-row"><button type="button" class="voice-btn" data-target="p4_resistencia">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p4_resistencia"></span></div>
+        <label for="p4_justificacion">Explique por qué ese principio es el que más aplica a este caso <span class="wc" data-for="p4_justificacion" data-min="25">0/25 palabras</span></label>
+        <textarea class="tall" id="p4_justificacion" placeholder="Este principio aplica porque..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p4_justificacion">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p4_justificacion"></span></div>
       </div>
       <div class="field">
-        <label for="p4_accion1">¿Qué haría usted para que sus compañeros ENTIENDAN por qué el cambio es necesario y QUIERAN apoyarlo? <span class="wc" data-for="p4_accion1" data-min="25">0/25 palabras</span></label>
-        <textarea class="tall" id="p4_accion1" placeholder="Para que entiendan por qué es necesario, yo... Para que quieran apoyarlo, yo..."></textarea>
-        <div class="voice-row"><button type="button" class="voice-btn" data-target="p4_accion1">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p4_accion1"></span></div>
-      </div>
-      <div class="field">
-        <label for="p4_accion2">¿Qué capacitación o acompañamiento les daría para que SEPAN hacerlo y lo mantengan en el tiempo? <span class="wc" data-for="p4_accion2" data-min="25">0/25 palabras</span></label>
-        <textarea class="tall" id="p4_accion2" placeholder="Les daría una capacitación sobre... y para que no se les olvide, yo..."></textarea>
-        <div class="voice-row"><button type="button" class="voice-btn" data-target="p4_accion2">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p4_accion2"></span></div>
+        <label for="p4_accion">¿Qué debió haber hecho la analista en vez de copiar la base de datos a su computadora personal? <span class="wc" data-for="p4_accion" data-min="30">0/30 palabras</span></label>
+        <textarea class="tall" id="p4_accion" placeholder="En vez de copiar los datos, debió..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p4_accion">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p4_accion"></span></div>
       </div>
     </section>
 
     <!-- ============ PASO 5 ============ -->
     <section id="paso5" class="card">
       <span class="step-badge">Paso 5 · 15 min</span><span class="step-points">Vale 20 pts</span>
-      <h1>Un caso real dominicano y una reflexión ética</h1>
-      <p><strong>Concepto, en palabras simples:</strong> la República Dominicana ya tiene ejemplos reales de instituciones que innovaron con éxito. Y toda innovación, para ser válida, tiene que respetar la ley — la rapidez nunca puede ser excusa para saltarse controles.</p>
-      <div class="alert info"><strong>Guía:</strong> elija el caso dominicano que más se parece a lo que usted propuso, y luego responda sobre un caso ético sencillo.</div>
+      <h1>Ante un posible incidente: Contiene, documenta, escala y reporta</h1>
+      <p><strong>Concepto, en palabras simples:</strong> si sospecha que su computadora fue atacada (por ejemplo, ve un mensaje raro pidiendo dinero, o el equipo se comporta extraño), hay 4 pasos en orden: primero se contiene (se desconecta de la red, sin apagar el equipo), luego se documenta, luego se escala a TI, y por último se reporta oficialmente al CSIRT-RD.</p>
+      <div class="alert warn"><strong>⚠️ Dato clave:</strong> nunca apague ni reinicie un equipo que podría estar comprometido — eso borra evidencia importante. Solo desconéctelo de la red (cable o WiFi).</div>
 
       <div class="field">
-        <label for="p5_caso">¿Cuál de estos casos dominicanos se parece más a la mejora que usted propuso?</label>
-        <select id="p5_caso">
+        <label for="p5_orden">¿Cuál de estas 4 acciones se debe hacer PRIMERO al sospechar de un ataque?</label>
+        <select id="p5_orden">
           <option value="">Seleccione…</option>
-          <option value="Burocracia Cero (Ley 167-21)">Burocracia Cero (Ley 167-21): quitar requisitos repetidos que el Estado ya tiene</option>
-          <option value="SISMAP">SISMAP: mostrar en internet cómo funciona cada institución, para que mejore</option>
-          <option value="Ventanilla Única de Inversión (VUI)">Ventanilla Única de Inversión (VUI): unir varios trámites en un solo lugar</option>
-          <option value="Otro caso de digitalización de servicios (Cédula Digital, Facturación Electrónica, Compras Dominicana)">Otro caso (Cédula Digital, Facturación Electrónica, Compras Dominicana)</option>
+          <option value="Contencion">Contención: desconectar el equipo de la red (sin apagarlo)</option>
+          <option value="Documentacion">Documentación: anotar lo que se observó</option>
+          <option value="Escalamiento">Escalamiento: avisar al área de TI</option>
+          <option value="Reporte oficial">Reporte oficial: avisar al CSIRT-RD</option>
         </select>
       </div>
       <div class="field">
-        <label for="p5_leccion">¿Qué lección de ese caso podría aplicar usted en su propia institución? <span class="wc" data-for="p5_leccion" data-min="25">0/25 palabras</span></label>
-        <textarea class="tall" id="p5_leccion" placeholder="La lección que aplicaría es..."></textarea>
-        <div class="voice-row"><button type="button" class="voice-btn" data-target="p5_leccion">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p5_leccion"></span></div>
-      </div>
-
-      <div class="alert gold">
-        <strong>Caso ético para pensar:</strong> un directivo decide hacer un cambio rápido usando Scrum, pero para ir más rápido decide no pasar por las revisiones legales y de auditoría de siempre.
+        <label for="p5_accion">Imagine que en su computadora de trabajo aparece un mensaje raro pidiendo dinero para "liberar" sus archivos. ¿Qué haría usted en los primeros minutos? <span class="wc" data-for="p5_accion" data-min="25">0/25 palabras</span></label>
+        <textarea class="tall" id="p5_accion" placeholder="Lo primero que haría es..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p5_accion">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p5_accion"></span></div>
       </div>
       <div class="field">
-        <label for="p5_dilema">¿Es correcto que un directivo se salte las revisiones legales y de auditoría para ir más rápido?</label>
-        <select id="p5_dilema">
-          <option value="">Seleccione…</option>
-          <option value="si_rapidez">Sí, porque la rapidez es lo más importante</option>
-          <option value="no_controles">No, la agilidad nunca debe eliminar los controles legales y de auditoría</option>
-          <option value="depende">Depende de qué tan urgente sea el caso</option>
-        </select>
-      </div>
-      <div class="field">
-        <label for="p5_reflexion">Explique con sus propias palabras por qué eligió esa opción <span class="wc" data-for="p5_reflexion" data-min="25">0/25 palabras</span></label>
-        <textarea class="tall" id="p5_reflexion" placeholder="Elegí esa opción porque..."></textarea>
+        <label for="p5_reflexion">Explique, en sus propias palabras, por qué se dice que "cada servidor público es una línea de defensa del Estado" <span class="wc" data-for="p5_reflexion" data-min="25">0/25 palabras</span></label>
+        <textarea class="tall" id="p5_reflexion" placeholder="Cada servidor público es una línea de defensa porque..."></textarea>
         <div class="voice-row"><button type="button" class="voice-btn" data-target="p5_reflexion">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p5_reflexion"></span></div>
       </div>
     </section>
@@ -662,13 +636,12 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
       </div>
       <h2>Referencias</h2>
       <ul style="font-size:.85rem; color:var(--muted);">
-        <li>IDEO. (2015). <em>The field guide to human-centered design.</em> IDEO.org.</li>
-        <li>Kotter, J. P. (1996). <em>Leading change.</em> Harvard Business School Press.</li>
-        <li>Prosci. (2021). <em>ADKAR: A model for change in business, government and our community.</em> Prosci Inc.</li>
-        <li>Sutherland, J., y Schwaber, K. (2020). <em>The Scrum guide.</em> Scrum.org.</li>
-        <li>Congreso Nacional de la República Dominicana. (2021). <em>Ley No. 167-21</em> sobre Mejora Regulatoria y Simplificación de Trámites.</li>
-        <li>Congreso Nacional de la República Dominicana. (2008). <em>Ley No. 41-08</em> de Función Pública.</li>
-        <li>Ministerio de Administración Pública (MAP). (2023). <em>Plan de modernización de la administración pública dominicana.</em> MAP.</li>
+        <li>Centro Nacional de Ciberseguridad (CNCS). (2019). <em>Glosario de términos de ciberseguridad.</em> CSIRT-RD.</li>
+        <li>Decreto No. 230-18. (2018). <em>Sobre Gobierno Electrónico y la Estrategia Nacional de Ciberseguridad.</em> Poder Ejecutivo de la República Dominicana.</li>
+        <li>Congreso Nacional de la República Dominicana. (2013). <em>Ley No. 172-13</em> sobre Protección Integral de los Datos Personales.</li>
+        <li>Congreso Nacional de la República Dominicana. (2007). <em>Ley No. 53-07</em> sobre Crímenes y Delitos de Alta Tecnología.</li>
+        <li>Gabinete de Transformación Digital. (2021). <em>Agenda Digital 2030 de la República Dominicana</em> (pp. 60–67).</li>
+        <li>OEA y BID. (2020). <em>Ciberseguridad: riesgos, avances y el camino a seguir en América Latina y el Caribe.</em></li>
       </ul>
     </section>
 
@@ -701,7 +674,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
     </section>
 
     <footer class="tp-footer">
-      Práctica — Unidad II: Innovación y Gestión del Cambio Digital · Curso Herramientas de Transformación Digital · INAP · AC-INAP-2026-HTD.<br>
+      Práctica — Unidad III: Ciberseguridad para el Servidor Público · Curso Herramientas de Transformación Digital · INAP · AC-INAP-2026-HTD.<br>
       Herramienta de autoevaluación con fines educativos. La aprobación se otorga por completar la práctica; la nota oficial del curso la determina su facilitador.<br>
       Desarrollado por Johan Tapia, PhD.
     </footer>
@@ -722,12 +695,12 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
     <button id="advisor-close" type="button" aria-label="Cerrar a Nicole">✕</button>
   </div>
   <div id="advisor-body" class="advisor-body">
-    <div class="advisor-msg advisor-msg-bot">¡Hola! Soy Nicole, la asistente virtual del Dr. Johan Tapia. Pregúntame sobre Design Thinking, Scrum, Kanban, gestión del cambio (ADKAR), casos de éxito dominicanos, o cómo funciona la calificación de esta práctica — sin palabras complicadas, te lo explico simple.</div>
+    <div class="advisor-msg advisor-msg-bot">¡Hola! Soy Nicole, la asistente virtual del Dr. Johan Tapia. Pregúntame sobre la Tríada CID, phishing, ransomware, contraseñas y 2FA, la Ley 172-13, el CNCS/CSIRT-RD, o cómo funciona la calificación de esta práctica — sin palabras complicadas, te lo explico simple.</div>
   </div>
   <div class="advisor-suggest">
     <button type="button" data-q="¿cómo se califica esta práctica?">¿Cómo se califica?</button>
-    <button type="button" data-q="que es design thinking explicado facil">¿Qué es Design Thinking?</button>
-    <button type="button" data-q="diferencia entre scrum y kanban explicado facil">Scrum vs. Kanban</button>
+    <button type="button" data-q="que es phishing explicado facil">¿Qué es phishing?</button>
+    <button type="button" data-q="que hago si detecto un ataque">¿Qué hago ante un ataque?</button>
   </div>
   <form id="advisor-form" class="advisor-form">
     <input type="text" id="advisor-input" placeholder="Escribe tu pregunta…" aria-label="Escribe tu pregunta a Nicole">
@@ -903,9 +876,9 @@ function wireVoiceButtons(){
 var FONT_LEVELS = ['normal','grande','xgrande'];
 function applyFontSize(level){
   document.documentElement.setAttribute('data-fontsize', level);
-  try{ localStorage.setItem('tp_tdu2_fontsize', level); }catch(e){}
+  try{ localStorage.setItem('tp_tdu3_fontsize', level); }catch(e){}
 }
-applyFontSize(localStorage.getItem('tp_tdu2_fontsize') || 'normal');
+applyFontSize(localStorage.getItem('tp_tdu3_fontsize') || 'normal');
 document.getElementById('font-bigger').addEventListener('click', function(){
   var cur = document.documentElement.getAttribute('data-fontsize') || 'normal';
   var idx = FONT_LEVELS.indexOf(cur);
@@ -929,9 +902,9 @@ var themeBtn = document.getElementById('theme-toggle');
 function applyTheme(t){
   document.documentElement.setAttribute('data-theme', t);
   themeBtn.textContent = t === 'dark' ? '☀️' : '🌙';
-  localStorage.setItem('tp_tdu2_theme', t);
+  localStorage.setItem('tp_tdu3_theme', t);
 }
-applyTheme(localStorage.getItem('tp_tdu2_theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+applyTheme(localStorage.getItem('tp_tdu3_theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
 themeBtn.addEventListener('click', function(){
   applyTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
 });
@@ -967,7 +940,7 @@ sections.forEach(function(s){ io.observe(s); });
 
 /* ---------- TEMPORIZADOR DE REFERENCIA (no cierra la práctica) ---------- */
 var TIMER_MINUTES = 60;
-var TIMER_KEY = 'tp_tdu2_deadline';
+var TIMER_KEY = 'tp_tdu3_deadline';
 var SOUND_MUTE_KEY = 'tp_htd_sound_muted';
 var soundMuted = localStorage.getItem(SOUND_MUTE_KEY) === '1';
 var flatlinePlayed = false;
@@ -1069,11 +1042,11 @@ function escapeHtml(s){ var d = document.createElement('div'); d.textContent = n
 
 /* ---------- CAMPOS DE CADA PASO ---------- */
 var STEP_FIELDS = {
-  paso1: ['p1_institucion','p1_proceso','p1_sentimiento','p1_problema'],
-  paso2: ['p2_ideas','p2_prototipo','p2_prueba'],
-  paso3: ['p3_dedicacion','p3_frecuencia','p3_metodologia','p3_justificacion'],
-  paso4: ['p4_causa','p4_resistencia','p4_accion1','p4_accion2'],
-  paso5: ['p5_caso','p5_leccion','p5_dilema','p5_reflexion']
+  paso1: ['p1_area','p1_dato','p1_confidencialidad','p1_disponibilidad'],
+  paso2: ['p2_amenaza','p2_ejemplo','p2_senal'],
+  paso3: ['p3_habito','p3_frase','p3_2fa','p3_explicacion'],
+  paso4: ['p4_principio','p4_justificacion','p4_accion'],
+  paso5: ['p5_orden','p5_accion','p5_reflexion']
 };
 
 /* ---------- MODALIDAD: INDIVIDUAL O EN EQUIPO ---------- */
@@ -1111,7 +1084,7 @@ document.querySelectorAll('.wc[data-for]').forEach(function(span){
 });
 
 /* ---------- AUTOSAVE (localStorage) ---------- */
-var STORE_KEY = 'tp_tdu2_respuestas_v1';
+var STORE_KEY = 'tp_tdu3_respuestas_v1';
 var META_FIELDS = ['modo_trabajo', 'ind_nombre', 'ind_correo', 'grp_nombre', 'grp_correo', 'grp_integrantes'];
 function allFieldIds(){
   var ids = META_FIELDS.slice();
@@ -1195,11 +1168,11 @@ function practicaCompleta(){ return camposFaltantes().length === 0; }
 
 /* ---------- RÚBRICA TABLE (referencia de calidad, no de aprobación) ---------- */
 var RUBRICA = [
-  {n:1, criterio:'Escuchar y definir el problema (Paso 1)', indicador:'Institución y trámite identificados, sentimientos/necesidades reales del ciudadano y problema principal bien delimitado.', pts:20},
-  {n:2, criterio:'Idear y probar una solución (Paso 2)', indicador:'Ideas concretas de mejora, descripción de cómo funcionaría (prototipo) y forma de comprobarla con alguien más.', pts:20},
-  {n:3, criterio:'Elegir cómo organizar el trabajo (Paso 3)', indicador:'Preguntas de diagnóstico respondidas, metodología ágil elegida (Scrum/Kanban/Lean) y justificación coherente.', pts:20},
-  {n:4, criterio:'Gestionar el cambio en el equipo (Paso 4)', indicador:'Causa de resistencia identificada y acciones concretas para lograr conciencia, deseo, conocimiento y refuerzo (ADKAR).', pts:20},
-  {n:5, criterio:'Caso real y reflexión ética (Paso 5)', indicador:'Caso dominicano relacionado, lección aplicable a su institución y postura ética justificada sobre el dilema.', pts:20}
+  {n:1, criterio:'La Tríada CID en su propio trabajo (Paso 1)', indicador:'Área y dato sensible identificados, consecuencias de confidencialidad y disponibilidad explicadas con ejemplos reales.', pts:20},
+  {n:2, criterio:'Reconocer amenazas (Paso 2)', indicador:'Amenaza seleccionada, ejemplo posible en su institución y señal de alerta para detectarla a tiempo.', pts:20},
+  {n:3, criterio:'Contraseñas fuertes y 2FA (Paso 3)', indicador:'Hábito actual reportado con honestidad, ejemplo de frase de contraseña, uso de 2FA y explicación correcta de su función.', pts:20},
+  {n:4, criterio:'Ley 172-13 y datos ciudadanos (Paso 4)', indicador:'Principio identificado correctamente en el caso, justificación coherente y acción correcta propuesta.', pts:20},
+  {n:5, criterio:'Ante un incidente de seguridad (Paso 5)', indicador:'Orden correcto del protocolo, acción inmediata realista y reflexión sobre el rol de línea de defensa.', pts:20}
 ];
 document.getElementById('rubrica-body').innerHTML = RUBRICA.map(function(r){
   return '<tr><td class="label-cell">'+r.n+'</td><td>'+r.criterio+'</td><td>'+r.indicador+'</td><td class="label-cell">'+r.pts+'</td></tr>';
@@ -1228,43 +1201,41 @@ function buildCriterion(title, maxPoints, items){
 
 function gradeStep1(){
   var items = [
-    { label:'Institución y trámite identificados con claridad', points:4, frac:ratioFilledFrac(['p1_institucion','p1_proceso']) },
-    { label:'Lo que siente y necesita el ciudadano (Empatizar)', points:8, frac:singleWordFrac('p1_sentimiento',30) },
-    { label:'Problema principal bien definido (Definir)', points:8, frac:singleWordFrac('p1_problema',30) }
+    { label:'Área y dato sensible identificados con claridad', points:4, frac:ratioFilledFrac(['p1_area','p1_dato']) },
+    { label:'Consecuencia de falta de confidencialidad explicada', points:8, frac:singleWordFrac('p1_confidencialidad',25) },
+    { label:'Consecuencia de falta de disponibilidad explicada', points:8, frac:singleWordFrac('p1_disponibilidad',20) }
   ];
   return buildCriterion(RUBRICA[0].criterio, 20, items);
 }
 function gradeStep2(){
   var items = [
-    { label:'Ideas de mejora propuestas (Idear)', points:7, frac:singleWordFrac('p2_ideas',25) },
-    { label:'Descripción de cómo funcionaría (Prototipar)', points:7, frac:singleWordFrac('p2_prototipo',25) },
-    { label:'Forma de comprobarla con alguien más (Testear)', points:6, frac:singleWordFrac('p2_prueba',20) }
+    { label:'Amenaza seleccionada', points:4, frac:filled(val('p2_amenaza'))?1:0 },
+    { label:'Ejemplo posible en su institución', points:8, frac:singleWordFrac('p2_ejemplo',30) },
+    { label:'Señal de alerta identificada', points:8, frac:singleWordFrac('p2_senal',20) }
   ];
   return buildCriterion(RUBRICA[1].criterio, 20, items);
 }
 function gradeStep3(){
   var items = [
-    { label:'Preguntas de diagnóstico respondidas', points:4, frac:ratioFilledFrac(['p3_dedicacion','p3_frecuencia']) },
-    { label:'Metodología ágil seleccionada', points:4, frac:filled(val('p3_metodologia'))?1:0 },
-    { label:'Justificación de la elección', points:12, frac:singleWordFrac('p3_justificacion',25) }
+    { label:'Hábito de contraseñas y uso de 2FA reportados', points:4, frac:ratioFilledFrac(['p3_habito','p3_2fa']) },
+    { label:'Ejemplo de frase de contraseña construido', points:4, frac:filled(val('p3_frase'))?1:0 },
+    { label:'Explicación del 2FA', points:12, frac:singleWordFrac('p3_explicacion',25) }
   ];
   return buildCriterion(RUBRICA[2].criterio, 20, items);
 }
 function gradeStep4(){
   var items = [
-    { label:'Causa principal de resistencia identificada', points:4, frac:filled(val('p4_causa'))?1:0 },
-    { label:'Descripción realista de la resistencia esperada', points:5, frac:singleWordFrac('p4_resistencia',25) },
-    { label:'Acciones para lograr conciencia y deseo de cambiar', points:6, frac:singleWordFrac('p4_accion1',25) },
-    { label:'Acciones de capacitación y refuerzo en el tiempo', points:5, frac:singleWordFrac('p4_accion2',25) }
+    { label:'Principio de la Ley 172-13 identificado', points:4, frac:filled(val('p4_principio'))?1:0 },
+    { label:'Justificación del principio elegido', points:8, frac:singleWordFrac('p4_justificacion',25) },
+    { label:'Acción correcta propuesta', points:8, frac:singleWordFrac('p4_accion',30) }
   ];
   return buildCriterion(RUBRICA[3].criterio, 20, items);
 }
 function gradeStep5(){
   var items = [
-    { label:'Caso dominicano identificado', points:4, frac:filled(val('p5_caso'))?1:0 },
-    { label:'Lección aplicable a su institución', points:6, frac:singleWordFrac('p5_leccion',25) },
-    { label:'Postura sobre el dilema ético', points:4, frac:filled(val('p5_dilema'))?1:0 },
-    { label:'Reflexión que justifica la postura ética', points:6, frac:singleWordFrac('p5_reflexion',25) }
+    { label:'Orden correcto del protocolo identificado', points:4, frac:filled(val('p5_orden'))?1:0 },
+    { label:'Acción inmediata descrita', points:8, frac:singleWordFrac('p5_accion',25) },
+    { label:'Reflexión sobre el rol de línea de defensa', points:8, frac:singleWordFrac('p5_reflexion',25) }
   ];
   return buildCriterion(RUBRICA[4].criterio, 20, items);
 }
@@ -1339,9 +1310,9 @@ function gatherGradingPayload(localResult){
   });
   return {
     estudiante: { nombre: nombreIdentificacion(), correo: correoIdentificacion(), integrantes: val('grp_integrantes') || '', modalidad: modoSelect.value },
-    institucion: val('p1_institucion') || '',
+    institucion: val('p1_area') || '',
     curso: 'transformacion-digital',
-    unidad: 'u2',
+    unidad: 'u3',
     aprobado_por_completitud: practicaCompleta(),
     pasos: pasos,
     local: localResult ? {
@@ -1466,7 +1437,7 @@ function wrapCanvasText(ctx, text, x, y, maxWidth, lineHeight){
   lines.forEach(function(l, idx){ ctx.fillText(l, x, y + idx*lineHeight); });
 }
 document.getElementById('btn-medal').addEventListener('click', function(){
-  drawMedal(nombreIdentificacion(), 'Herramientas de Transformación Digital · INAP', 'Unidad II · Innovación y Gestión del Cambio Digital');
+  drawMedal(nombreIdentificacion(), 'Herramientas de Transformación Digital · INAP', 'Unidad III · Ciberseguridad para el Servidor Público');
   document.getElementById('medal-modal').hidden = false;
 });
 document.getElementById('medal-close').addEventListener('click', function(){
@@ -1477,19 +1448,19 @@ document.getElementById('medal-download').addEventListener('click', function(){
   var a = document.createElement('a');
   a.href = canvas.toDataURL('image/png');
   var name = (nombreIdentificacion() || 'participante').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
-  a.download = 'medalla-' + (name || 'participante') + '-unidad2-htd.png';
+  a.download = 'medalla-' + (name || 'participante') + '-unidad3-htd.png';
   document.body.appendChild(a); a.click(); document.body.removeChild(a);
 });
 document.getElementById('medal-share').addEventListener('click', function(){
   var canvas = document.getElementById('medal-canvas');
   canvas.toBlob(function(blob){
-    var file = new File([blob], 'medalla-unidad2-htd.png', { type:'image/png' });
+    var file = new File([blob], 'medalla-unidad3-htd.png', { type:'image/png' });
     if(navigator.canShare && navigator.canShare({ files:[file] })){
-      navigator.share({ files:[file], title:'¡Completé mi práctica!', text:'Completé la Práctica de la Unidad II del curso Herramientas de Transformación Digital — INAP.' }).catch(function(){});
+      navigator.share({ files:[file], title:'¡Completé mi práctica!', text:'Completé la Práctica de la Unidad III (Ciberseguridad) del curso Herramientas de Transformación Digital — INAP.' }).catch(function(){});
     } else {
       var a = document.createElement('a');
       a.href = URL.createObjectURL(blob);
-      a.download = 'medalla-unidad2-htd.png';
+      a.download = 'medalla-unidad3-htd.png';
       document.body.appendChild(a); a.click(); document.body.removeChild(a);
       URL.revokeObjectURL(a.href);
       alert('Su navegador no admite compartir directamente. Se descargó la imagen — puede compartirla manualmente por WhatsApp, correo o redes sociales.');
@@ -1499,7 +1470,7 @@ document.getElementById('medal-share').addEventListener('click', function(){
 
 /* ---------- EXPORT / PRINT / CLEAR ---------- */
 function exportTxt(){
-  var lines = ['PRÁCTICA — UNIDAD II: Innovación y Gestión del Cambio Digital (INAP)', (modoSelect.value === 'grupo' ? 'Equipo' : 'Nombre') + ': ' + (nombreIdentificacion() || '(sin especificar)'), 'Institución: ' + (val('p1_institucion') || '(sin especificar)'), '======================================================', ''];
+  var lines = ['PRÁCTICA — UNIDAD III: Ciberseguridad para el Servidor Público (INAP)', (modoSelect.value === 'grupo' ? 'Equipo' : 'Nombre') + ': ' + (nombreIdentificacion() || '(sin especificar)'), 'Institución: ' + (val('p1_area') || '(sin especificar)'), '======================================================', ''];
   allFieldIds().forEach(function(id){
     var v = val(id);
     if(!filled(v)) return;
@@ -1508,8 +1479,8 @@ function exportTxt(){
   var blob = new Blob([lines.join('\n')], { type:'text/plain;charset=utf-8' });
   var a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
-  var name = (nombreIdentificacion() || 'practica-transformacion-digital-u2').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
-  a.download = (name || 'practica-transformacion-digital-u2') + '.txt';
+  var name = (nombreIdentificacion() || 'practica-transformacion-digital-u3').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+  a.download = (name || 'practica-transformacion-digital-u3') + '.txt';
   document.body.appendChild(a); a.click(); document.body.removeChild(a);
   URL.revokeObjectURL(a.href);
 }
@@ -1559,7 +1530,7 @@ function askTutorAI(q){
   return fetchWithTimeout(AI_CHAT_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ message: q, contexto: 'MARCO CONCEPTUAL (Unidad II - Innovación y Gestión del Cambio Digital, curso Herramientas de Transformación Digital, INAP). IMPORTANTE: explica todo en PALABRAS SIMPLES, sin tecnicismos, pensando en participantes que no saben mucho de tecnología, usando analogías de la vida diaria.\\nInnovación pública: no es solo comprar tecnología, es encontrar una forma mejor de resolver un problema real del ciudadano, dentro de la ley y sin gastar de más. Tipos: Incremental (mejora pequeña de algo que ya existe, ej. reducir un tramite de 10 a 3 requisitos), Disruptiva (cambio grande que reemplaza el modelo anterior, ej. eliminar la presencialidad con firma digital), Abierta (se integran ideas de ciudadanos, empresas y universidades).\\nDesign Thinking: forma ordenada de mejorar un servicio pensando primero en el ciudadano. 5 fases: Empatizar (ponerse en el lugar del ciudadano, entender que siente y necesita), Definir (encontrar el problema principal), Idear (pensar varias ideas sin descartar ninguna), Prototipar (imaginar o maquetar como se veria la idea funcionando), Testear (probarla con alguien real y ajustar).\\nScrum: equipo dedicado de tiempo completo (5-9 personas) que trabaja en rondas cortas de 2-4 semanas llamadas sprints, con una reunion corta cada dia (daily) y una demostracion al final (sprint review). Roles: Product Owner (representa al ciudadano y prioriza que se hace), Scrum Master (facilitador que quita obstaculos, no es un jefe), Equipo de Desarrollo (quienes construyen la mejora). Se usa para proyectos nuevos con muchos cambios de requisitos.\\nKanban: tablero visual simple con columnas (Por Hacer, En Analisis, En Desarrollo, Pruebas, Implementado) para ver de un vistazo en que va cada tarea. Se usa para trabajo diario y continuo (mesas de ayuda, tramites repetitivos) donde el equipo no puede detenerse a planificar.\\nLean Government: buscar y eliminar pasos inutiles ("desperdicios burocraticos"): firmas de mas, copias repetidas, esperas innecesarias, sobre-documentacion.\\nGestion del cambio: aproximadamente 70% de las transformaciones digitales fallan por no cuidar el factor humano, no por la tecnologia en si.\\nModelo de Kotter (8 pasos, para toda la institucion): 1) crear sentido de urgencia con datos reales, 2) formar una coalicion de lideres influyentes, 3) crear una visión clara del cambio, 4) comunicar esa visión por todos los medios, 5) quitar obstaculos y empoderar al equipo, 6) generar y celebrar victorias rapidas (quick wins), 7) consolidar sin declarar victoria antes de tiempo, 8) anclar el cambio en la cultura para que se vuelva costumbre.\\nModelo ADKAR (para cada persona individual): Awareness/Conciencia (entender por que el cambio es necesario), Desire/Deseo (querer participar, que gano yo con esto), Knowledge/Conocimiento (aprender como hacerlo, capacitacion), Ability/Habilidad (poder hacerlo en la practica real), Reinforcement/Refuerzo (que el cambio se mantenga en el tiempo, no se pierda).\\nCausas comunes de resistencia al cambio: miedo a lo desconocido, temor a perder el puesto o funciones, sentir que es mas trabajo, desconfianza por experiencias pasadas negativas, diferencia generacional con la tecnologia.\\nCasos reales dominicanos: Burocracia Cero (Ley 167-21, obliga a quitar requisitos repetidos que el Estado ya tiene guardados), SISMAP (muestra en internet como funciona cada institucion, para que mejore por transparencia), Ventanilla Unica de Inversion VUI (une varios tramites de distintas instituciones en un solo lugar, de meses a semanas), Cedula Digital, Facturacion Electronica, Compras Dominicana.\\nEje etico: la agilidad y la rapidez NUNCA deben usarse como excusa para saltarse controles legales, auditorias o rendicion de cuentas (Ley 41-08 de Funcion Publica, Ley 200-04 de Libre Acceso a la Informacion, Decreto 791-21 sobre las Comisiones de Integridad CIGCN). Un proceso agil bien hecho es transparente, no opaco.', curso: 'Herramientas de Transformación Digital (INAP)' })
+    body: JSON.stringify({ message: q, contexto: 'MARCO CONCEPTUAL (Unidad III - Ciberseguridad para el Servidor Público, curso Herramientas de Transformación Digital, INAP). IMPORTANTE: explica todo en PALABRAS SIMPLES, sin tecnicismos, pensando en participantes que no saben mucho de tecnología, usando analogías de la vida diaria.\\nTríada CID: Confidencialidad (que solo vea la información quien tiene permiso, como una carta cerrada), Integridad (que nadie altere los datos sin permiso, como un contrato que nadie puede cambiar a escondidas), Disponibilidad (que el sistema funcione cuando se necesita).\\nAmenazas: Phishing (correo o mensaje falso que se hace pasar por una institución de confianza para robar contraseñas, ej. correo falso del MAP pidiendo actualizar datos bancarios), Ransomware (programa que encripta los archivos y pide dinero para liberarlos, ej. servidores de un municipio secuestrados por semanas), Ingenieria Social (engaño psicologico, ej. llamada de alguien que dice ser tecnico de la OGTIC pidiendo una clave), Insider Threat (un empleado con acceso legitimo que roba o daña datos, ej. un analista que descarga el padron de beneficiarios antes de irse). El 95% de los ataques exitosos en el sector publico comienzan con un error humano.\\nBuenas practicas: contraseñas de al menos 12 caracteres o frases de contraseña (varias palabras sin relacion, ej. Palmeras*Azules*Tratado*2026), nunca usar nombres o fechas personales, no repetir la clave del correo institucional en redes sociales. El 2FA (doble factor de autenticacion) exige una segunda prueba de identidad ademas de la contraseña (un codigo que llega al celular) y neutraliza el 99% de los ataques de robo de cuentas.\\nLey 172-13: protege los datos personales de los ciudadanos con 3 principios: Finalidad (usar los datos solo para el tramite que los origino, nunca para otra cosa), Proporcionalidad (pedir solo los datos minimos necesarios, no de mas), Seguridad y Confidencialidad (proteger activamente los datos, y el deber de confidencialidad sigue existiendo aunque la persona ya no trabaje ahi).\\nLey 53-07: castiga como delito penal el acceso no autorizado a sistemas del Estado, el robo (exfiltracion) de datos estatales, y el sabotaje informatico. Las consecuencias incluyen destitucion del cargo y proceso judicial.\\nMarco institucional: el CNCS (Centro Nacional de Ciberseguridad, creado por el Decreto 230-18) define las politicas de seguridad para todo el Estado. El CSIRT-RD es el equipo que recibe los reportes de incidentes y coordina la respuesta (cncs.gob.do/reportar-incidentes).\\nProtocolo ante un incidente, en 4 pasos, memorizar la frase Contiene, documenta, escala y reporta: 1) Contencion: desconectar el cable de red o el WiFi del equipo afectado, SIN apagarlo ni reiniciarlo (apagar borra evidencia de la memoria RAM); 2) Documentacion: anotar lo que se observo, tomar fotos de la pantalla si aparece un mensaje de secuestro; 3) Escalamiento: avisar de inmediato al area de TI de la institucion, sin intentar arreglarlo uno mismo; 4) Reporte oficial: el area de TI reporta formalmente al CSIRT-RD.\\nEje etico: la urgencia de un trabajo NUNCA justifica copiar datos de ciudadanos a un dispositivo personal sin proteccion — la persona correcta debe reportar el problema tecnico por los canales oficiales y esperar el soporte, en vez de saltarse la seguridad.\\nAgenda Digital 2030, Eje Confianza Digital: la meta del pais es que el 100% de los servidores publicos esten capacitados y sensibilizados en seguridad digital para el 2030 (CNCS-INAP).', curso: 'Herramientas de Transformación Digital (INAP)' })
   }, AI_CHAT_TIMEOUT).then(function(res){
     if(!res.ok) throw new Error('HTTP ' + res.status);
     return res.json();
@@ -1574,25 +1545,28 @@ function askTutor(q){
 
 var QA = [
   { kw:['calific','nota','puntaje','rubrica','aprobar','minimo','aprobacion'], a:'La nota de calidad va de 0 a 100, repartida en partes iguales entre los 5 pasos (20 puntos cada uno). Pero la APROBACIÓN de esta práctica no depende de esa nota: se aprueba por completar los 5 pasos en su totalidad. La nota es solo retroalimentación para que usted mismo vea qué reforzar.' },
-  { kw:['design thinking', 'empatizar', 'definir', 'idear', 'prototipar', 'testear'], a:'Design Thinking es pensar primero en el ciudadano antes de proponer una mejora. Tiene 5 pasos sencillos: Empatizar (¿qué siente el ciudadano?), Definir (¿cuál es el problema principal?), Idear (pensar varias ideas), Prototipar (imaginar cómo se vería funcionando) y Testear (mostrarla a alguien para ver si sirve). Los Pasos 1 y 2 de esta práctica siguen exactamente esas 5 fases.' },
-  { kw:['scrum', 'kanban', 'diferencia entre scrum'], a:'Scrum es para un proyecto nuevo, con un equipo que puede dedicarse de tiempo completo por varias semanas, trabajando en rondas cortas. Kanban es para trabajo que se repite todos los días (como atender solicitudes), con un tablero visual de "Por Hacer / En Proceso / Listo". Si su trabajo es continuo y no puede detenerse a planificar, use Kanban; si es un proyecto con fecha de fin, use Scrum.' },
-  { kw:['lean', 'lean government'], a:'Lean Government significa simplemente buscar y quitar los pasos de un trámite que no le sirven a nadie: firmas de más, copias repetidas, esperas innecesarias. No requiere crear nada nuevo, solo simplificar lo que ya existe.' },
-  { kw:['adkar', 'gestion del cambio', 'gestión del cambio', 'resistencia'], a:'ADKAR son 5 pasos para que una persona acepte un cambio: primero entender POR QUÉ es necesario (Conciencia), luego QUERER hacerlo (Deseo), después aprender CÓMO (Conocimiento), practicarlo (Habilidad), y que alguien lo ayude a mantenerlo en el tiempo (Refuerzo). El Paso 4 de esta práctica le pide pensar en estos 5 elementos para su propio equipo.' },
-  { kw:['kotter', 'modelo de kotter', '8 pasos'], a:'El Modelo de Kotter tiene 8 pasos para liderar un cambio grande en toda una institución: crear urgencia con datos, armar un equipo de líderes, tener una visión clara, comunicarla mucho, quitar obstáculos, celebrar logros rápidos, no rendirse a mitad de camino, y volverlo costumbre. Es un modelo institucional; ADKAR es para la persona individual — se complementan.' },
-  { kw:['burocracia cero', '167-21'], a:'La Ley 167-21, o "Burocracia Cero", obliga a las instituciones a eliminar requisitos repetidos que el Estado ya tiene guardados en sus propias bases de datos, para no pedirle al ciudadano el mismo papel dos veces.' },
-  { kw:['sismap'], a:'SISMAP es un sistema público que muestra en internet cómo está funcionando cada institución del Estado dominicano. Al ser visible para todos, motiva a las instituciones a mejorar.' },
-  { kw:['ventanilla unica', 'vui', 'ventanilla única'], a:'La Ventanilla Única de Inversión (VUI) es un solo lugar en línea donde una persona o empresa puede hacer trámites que antes requerían visitar varias instituciones distintas, reduciendo el tiempo de meses a semanas.' },
+  { kw:['triada cid', 'confidencialidad', 'integridad', 'disponibilidad'], a:'La Tríada CID son las 3 cosas que protegemos de un dato: Confidencialidad (que solo lo vea quien debe), Integridad (que nadie lo altere sin permiso) y Disponibilidad (que esté accesible cuando se necesite). El Paso 1 le pide pensar en estas 3 cosas sobre un dato real de su trabajo.' },
+  { kw:['phishing'], a:'Phishing es un correo, mensaje o llamada falsa que se hace pasar por una institución de confianza (un ministerio, un banco) para robar contraseñas o datos. Las señales de alerta son: remitente sospechoso, errores de ortografía, urgencia extrema, y enlaces con direcciones raras. Regla de oro: cuando dude, no haga clic.' },
+  { kw:['ransomware'], a:'Ransomware es un programa malicioso que "secuestra" los archivos de una computadora, encriptándolos, y pide dinero (rescate) para liberarlos. Para prevenirlo: mantenga copias de seguridad, no conecte USBs no autorizados, y desconfíe de archivos adjuntos inesperados.' },
+  { kw:['ingenieria social'], a:'La Ingeniería Social es cuando alguien lo engaña psicológicamente, por ejemplo con una llamada urgente fingiendo ser un técnico, para que usted mismo le entregue una contraseña o un acceso. La defensa es simple: nunca dé una contraseña por teléfono, sin importar la urgencia que le presenten.' },
+  { kw:['insider', 'amenaza interna'], a:'Un Insider Threat es cuando alguien que YA tiene acceso legítimo (un compañero de trabajo) usa ese acceso de forma indebida para robar o dañar información, por ejemplo descargando una base de datos antes de irse de la institución.' },
+  { kw:['2fa', 'doble factor', 'autenticacion'], a:'El 2FA (doble factor de autenticación) pide dos pruebas de identidad en vez de una: la contraseña (algo que usted sabe) más un código que llega a su celular (algo que usted tiene). Esto neutraliza casi el 99% de los intentos de robo de cuentas.' },
+  { kw:['contrasena', 'contraseña', 'frase de contraseña'], a:'Una buena contraseña tiene al menos 12 caracteres, mezcla mayúsculas, minúsculas, números y símbolos, y nunca usa su nombre o una fecha familiar. Una "frase de contraseña" es más fácil de recordar: varias palabras sin relación entre sí, como Palmeras*Azules*Tratado*2026.' },
+  { kw:['172-13', 'ley 172', 'datos personales', 'proteccion de datos'], a:'La Ley 172-13 protege los datos personales de los ciudadanos con 3 principios: Finalidad (usar los datos solo para lo que fueron pedidos), Proporcionalidad (guardar solo lo mínimo necesario) y Seguridad (proteger activamente los datos, incluso después de dejar el cargo).' },
+  { kw:['53-07', 'ley 53', 'delitos de alta tecnologia'], a:'La Ley 53-07 castiga como delito penal el acceso no autorizado a sistemas del Estado, el robo de datos estatales y el sabotaje informático. Las consecuencias incluyen la destitución del cargo y un proceso judicial.' },
+  { kw:['cncs', 'csirt'], a:'El CNCS (Centro Nacional de Ciberseguridad) define las reglas de seguridad digital para todo el Estado dominicano. El CSIRT-RD es su equipo de respuesta, que recibe los reportes de incidentes en cncs.gob.do/reportar-incidentes.' },
+  { kw:['protocolo', 'incidente', 'ataque', 'que hago si', 'contiene documenta'], a:'Ante un posible ataque, siga este orden: 1) Contención — desconecte el equipo de la red SIN apagarlo, 2) Documentación — anote lo que observó, 3) Escalamiento — avise al área de TI, 4) Reporte oficial — TI reporta al CSIRT-RD. El lema es "Contiene, documenta, escala y reporta".' },
   { kw:['nota de voz', 'voz', 'grabar', 'hablar', 'microfono', 'micrófono'], a:'Al lado de cada pregunta hay un botón "🎤 Mantenga presionado para grabar". Manténgalo presionado mientras habla su respuesta, y suéltelo al terminar — el sistema la convierte en texto automáticamente, como una nota de voz de WhatsApp.' },
-  { kw:['paso 1'], a:'El Paso 1 pide ponerse en el lugar del ciudadano (Empatizar) y encontrar el problema principal de un trámite (Definir). Vale 20 puntos.' },
-  { kw:['paso 2'], a:'El Paso 2 pide pensar ideas de mejora (Idear), imaginar cómo funcionaría (Prototipar) y decidir cómo comprobarla con alguien más (Testear). Vale 20 puntos.' },
-  { kw:['paso 3'], a:'El Paso 3 pide elegir entre Scrum, Kanban o Lean Government para organizar el trabajo de mejorar el trámite, y justificar esa elección. Vale 20 puntos.' },
-  { kw:['paso 4'], a:'El Paso 4 pide pensar en la resistencia que tendrían sus compañeros ante el cambio, y qué acciones tomaría siguiendo el modelo ADKAR. Vale 20 puntos.' },
-  { kw:['paso 5'], a:'El Paso 5 pide relacionar su propuesta con un caso real dominicano (Burocracia Cero, SISMAP, VUI) y reflexionar sobre un dilema ético simple. Vale 20 puntos.' },
-  { kw:['dilema', 'etica', 'ética', 'caso etico'], a:'El caso ético del Paso 5 pregunta si es correcto que un directivo se salte las revisiones legales para ir más rápido con Scrum. La respuesta correcta, según la ley dominicana (Ley 41-08, Ley 200-04, Decreto 791-21), es que la agilidad nunca debe eliminar los controles legales y de auditoría.' },
+  { kw:['temporizador', 'reloj', 'tiempo', 'sonido', 'bip', 'latido'], a:'El reloj de la barra lateral es solo una referencia de 60 minutos — no cierra la práctica. En los últimos 10 minutos suena como un monitor de signos vitales, cada vez más rápido, de forma graciosa. Puede silenciarlo con el botón 🔔 junto al reloj en cualquier momento.' },
+  { kw:['medalla', 'compartir', 'insignia'], a:'Cuando complete los 5 pasos y presione "Enviar y Calificar", va a aparecer el botón "🏅 Ver mi medalla" para generar una imagen con su nombre, que puede descargar o compartir por WhatsApp, correo o redes sociales.' },
+  { kw:['paso 1'], a:'El Paso 1 pide pensar en un dato real de su institución y explicar qué pasaría si se pierde la confidencialidad o la disponibilidad de ese dato. Vale 20 puntos.' },
+  { kw:['paso 2'], a:'El Paso 2 pide elegir la amenaza (Phishing, Ransomware, Ingeniería Social o Insider Threat) que más le preocupa, y describir un ejemplo y una señal de alerta. Vale 20 puntos.' },
+  { kw:['paso 3'], a:'El Paso 3 pide reflexionar sobre sus hábitos de contraseñas, inventar un ejemplo de frase de contraseña segura (nunca su contraseña real), y explicar el 2FA. Vale 20 puntos.' },
+  { kw:['paso 4'], a:'El Paso 4 presenta un caso de una analista que copia datos a su computadora personal, y le pide identificar qué principio de la Ley 172-13 se viola y qué debió hacer en su lugar. Vale 20 puntos.' },
+  { kw:['paso 5'], a:'El Paso 5 pide ordenar el protocolo de respuesta y describir qué haría ante un posible ataque de ransomware. Vale 20 puntos.' },
   { kw:['guardar', 'se guarda', 'perder mis respuestas', 'autoguardado'], a:'Sus respuestas se guardan automáticamente en este navegador (localStorage) mientras escribe. Si cambia de computadora o borra el caché, se perderán — por eso le recomiendo usar "⬇️ Descargar mis respuestas" cuando avance.' },
-  { kw:['ejemplo', 'que institucion', 'que proceso elijo', 'cual proceso'], a:'Puede usar el proceso de cualquier institución pública: en el INAPA, por ejemplo, una solicitud de nuevo servicio de agua o un reporte de avería; en un hospital, agendar una cita o entregar resultados de laboratorio; en un ayuntamiento, un permiso de construcción; en un ministerio, una licencia médica o un certificado. Use el que usted conozca mejor de su propio trabajo.' },
-  { kw:['no sé de tecnologia', 'no se de tecnologia', 'no sé usar', 'dificil', 'difícil'], a:'No se preocupe: esta práctica no requiere conocimientos técnicos. Todo se explica con ejemplos de la vida diaria en una oficina pública, y usted puede responder con sus propias palabras, escribiendo o hablando. Piense en ella como una conversación sobre cómo mejorar un trámite que ya conoce bien.' },
-  { kw:['hola', 'ayuda', 'que puedes hacer', 'quien eres'], a:'Soy Nicole, la asistente virtual del Dr. Johan Tapia. Puedo explicarte los conceptos de la Unidad II (Design Thinking, Scrum, Kanban, gestión del cambio con ADKAR, casos de éxito dominicanos), en palabras simples y sin tecnicismos, orientarte sobre qué pide cada paso, o cómo funciona la calificación. Recuerda: se aprueba por completar la práctica, no por la nota.' }
+  { kw:['no sé de tecnologia', 'no se de tecnologia', 'no sé usar', 'dificil', 'difícil'], a:'No se preocupe: esta práctica no requiere conocimientos técnicos. La ciberseguridad es, en el fondo, sentido común — cuidar la información como cuidaría el dinero de su casa. Responda con sus propias palabras, escribiendo o hablando.' },
+  { kw:['hola', 'ayuda', 'que puedes hacer', 'quien eres'], a:'Soy Nicole, la asistente virtual del Dr. Johan Tapia. Puedo explicarte los conceptos de la Unidad III (Tríada CID, phishing, ransomware, contraseñas, 2FA, Ley 172-13, el CNCS/CSIRT-RD) en palabras simples, orientarte sobre qué pide cada paso, o cómo funciona la calificación. Recuerda: se aprueba por completar la práctica, no por la nota.' }
 ];
 function normQ(s){ return stripAccents(s); }
 function answerFor(q){
@@ -1604,7 +1578,7 @@ function answerFor(q){
     if(score > bestScore){ bestScore = score; best = entry; }
   });
   if(best) return best.a;
-  return 'No tengo una respuesta preparada para eso. Prueba preguntar por un concepto (Design Thinking, Scrum, Kanban, gestión del cambio, ADKAR, casos dominicanos), por un paso específico ("¿qué pide el paso 3?") o por la calificación. Para dudas sobre su institución específica, consulte a su facilitador.';
+  return 'No tengo una respuesta preparada para eso. Prueba preguntar por un concepto (Tríada CID, phishing, ransomware, contraseñas, 2FA, Ley 172-13, CNCS/CSIRT-RD), por un paso específico ("¿qué pide el paso 3?") o por la calificación. Para dudas sobre su institución específica, consulte a su facilitador.';
 }
 advisorForm.addEventListener('submit', function(e){
   e.preventDefault();
