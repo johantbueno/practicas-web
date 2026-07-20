@@ -173,6 +173,16 @@
             "puntos": "100 pts (retroalimentación)",
             "aprobacion": "Completar los 5 pasos",
             "url": "https://johantbueno.github.io/practicas-web/transformacion-digital-u1/"
+          },
+          {
+            "badge": "Unidad II",
+            "unidad": "u2",
+            "titulo": "Innovación y Gestión del Cambio Digital",
+            "desc": "Design Thinking, metodologías ágiles (Scrum/Kanban/Lean) y gestión del cambio (ADKAR), explicado en lenguaje sencillo para participantes con poco conocimiento de tecnología. Se completa después de ver el video de la Unidad II, individual o en equipo. Aprueba por completarla, no por la nota.",
+            "duracion": "5 pasos, individual o en equipo",
+            "puntos": "100 pts (retroalimentación)",
+            "aprobacion": "Completar los 5 pasos",
+            "url": "https://johantbueno.github.io/practicas-web/transformacion-digital-u2/"
           }
         ]
       }
