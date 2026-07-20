@@ -225,7 +225,7 @@ footer{text-align:center; font-size:.78rem; color:var(--muted); margin-top:2rem;
 
 <script>
 const WEBHOOK_URL = "https://n8n-inap.167.88.36.13.sslip.io/webhook/slides-pro-generar";
-const TIEMPO_LIMITE_MS = 380000; // margen sobre las 2 llamadas a Ollama en serie (150s c/u = 300s) + extraccion/render
+const TIEMPO_LIMITE_MS = 480000; // margen sobre las 2 llamadas a Ollama en serie (estructura qwen2.5:7b 240s + notas qwen2.5:3b 150s = 390s) + extraccion/render
 const TAMANO_MAX_ARCHIVO = 15 * 1024 * 1024; // 15 MB
 
 // --- Tema claro/oscuro ---
