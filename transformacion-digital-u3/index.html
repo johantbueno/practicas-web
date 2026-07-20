@@ -10,6 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <style>
 :root{
   --navy:#003877; --navy-dark:#002a5c; --gold:#c9982f;
@@ -301,6 +302,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
       </nav>
 
       <div class="sidebar-actions">
+        <button class="btn-block" id="btn-qr" type="button">📱 Ver código QR de esta práctica</button>
         <button class="btn-block" id="btn-print" type="button">🖨️ Imprimir / Guardar PDF</button>
         <button class="btn-block" id="btn-export" type="button">⬇️ Descargar mis respuestas</button>
         <button class="btn-block" id="btn-clear" type="button">🗑️ Borrar todas mis respuestas</button>
@@ -809,6 +811,19 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
   </form>
 </div>
 
+<!-- QR DE ESTA PRÁCTICA -->
+<div id="qr-modal" class="medal-modal" hidden role="dialog" aria-labelledby="qr-title">
+  <div class="medal-modal-inner">
+    <button class="icon-btn" id="qr-close" type="button" aria-label="Cerrar">✕</button>
+    <h3 id="qr-title" style="margin:0 0 .5rem; color:var(--primary);">📱 Código QR de esta práctica</h3>
+    <div id="qr-code-container" style="display:flex; justify-content:center; margin:.5rem 0 1rem; min-height:220px; align-items:center;"></div>
+    <p style="font-size:.78rem; color:var(--muted); margin:0 0 1rem;">Cualquiera puede escanear este código con la cámara de su celular para abrir esta práctica directamente.</p>
+    <div class="btn-row" style="justify-content:center;">
+      <button class="btn-secondary" id="qr-download" type="button">⬇️ Descargar imagen</button>
+    </div>
+  </div>
+</div>
+
 <!-- MEDALLA -->
 <div id="medal-modal" class="medal-modal" hidden role="dialog" aria-labelledby="medal-title">
   <div class="medal-modal-inner">
@@ -1008,6 +1023,31 @@ function applyTheme(t){
 applyTheme(localStorage.getItem('tp_tdu3_theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
 themeBtn.addEventListener('click', function(){
   applyTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+});
+
+/* ---------- CÓDIGO QR DE ESTA PRÁCTICA ---------- */
+document.getElementById('btn-qr').addEventListener('click', function(){
+  var container = document.getElementById('qr-code-container');
+  container.innerHTML = '';
+  var pageUrl = window.location.href.split('#')[0].split('?')[0];
+  if(window.QRCode){
+    new QRCode(container, { text: pageUrl, width: 220, height: 220, colorDark: '#003877', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.M });
+  } else {
+    container.innerHTML = '<p style="color:var(--red); font-size:.85rem; text-align:center;">No se pudo cargar el generador de QR. Verifique su conexión a internet e intente de nuevo.</p>';
+  }
+  document.getElementById('qr-modal').hidden = false;
+});
+document.getElementById('qr-close').addEventListener('click', function(){
+  document.getElementById('qr-modal').hidden = true;
+});
+document.getElementById('qr-download').addEventListener('click', function(){
+  var el = document.querySelector('#qr-code-container img') || document.querySelector('#qr-code-container canvas');
+  if(!el) return;
+  var dataUrl = el.tagName === 'CANVAS' ? el.toDataURL('image/png') : el.src;
+  var a = document.createElement('a');
+  a.href = dataUrl;
+  a.download = 'qr-practica-unidad3-htd.png';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
 });
 
 /* ---------- MOBILE NAV ---------- */
