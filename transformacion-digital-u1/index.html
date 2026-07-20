@@ -338,19 +338,34 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
       <div class="alert gold">
         <strong>Fundamento normativo:</strong> Decreto No. 230-18 (Gobierno Electrónico y Estrategia Nacional de Ciberseguridad), Agenda Digital 2030, Ley No. 172-13 (Protección de Datos Personales), Ley No. 167-21 (Mejora Regulatoria y Simplificación de Trámites), Ley No. 200-04 (Libre Acceso a la Información Pública) y la Recomendación UNESCO 2021 sobre la Ética de la Inteligencia Artificial.
       </div>
-      <h2>Sus datos</h2>
-      <p>Complete esto antes de enviar: su facilitador recibirá su calificación identificada con este nombre.</p>
-      <div class="field-grid">
-        <div class="field"><label for="est_nombre">Nombre completo</label><input type="text" id="est_nombre" placeholder="Su nombre y apellido"></div>
-        <div class="field"><label for="est_correo">Correo institucional (opcional)</label><input type="text" id="est_correo" placeholder="nombre@correo.com"></div>
+      <h2>¿Cómo va a completar esta práctica?</h2>
+      <p>Como el encuentro es presencial, puede completarla solo/a o en equipo. Complete esto antes de enviar: su facilitador recibirá la calificación identificada con estos datos.</p>
+      <div class="field">
+        <label for="modo_trabajo">Modalidad</label>
+        <select id="modo_trabajo">
+          <option value="individual">Individual</option>
+          <option value="grupo">En equipo</option>
+        </select>
+      </div>
+      <div class="field-grid" id="bloque-individual">
+        <div class="field"><label for="ind_nombre">Nombre completo</label><input type="text" id="ind_nombre" placeholder="Su nombre y apellido"></div>
+        <div class="field"><label for="ind_correo">Correo institucional (opcional)</label><input type="text" id="ind_correo" placeholder="nombre@correo.com"></div>
+      </div>
+      <div class="field-grid" id="bloque-grupo" hidden>
+        <div class="field"><label for="grp_nombre">Nombre del equipo o grupo</label><input type="text" id="grp_nombre" placeholder="Ej: Equipo Innovación"></div>
+        <div class="field"><label for="grp_correo">Correo de contacto del equipo (opcional)</label><input type="text" id="grp_correo" placeholder="nombre@correo.com"></div>
+      </div>
+      <div class="field" id="bloque-integrantes" hidden>
+        <label for="grp_integrantes">Nombres de los integrantes del equipo (opcional)</label>
+        <textarea id="grp_integrantes" placeholder="Escriba el nombre completo de cada persona que participó, uno por línea o separados por coma"></textarea>
       </div>
       <h2>Instrucciones generales</h2>
       <ol class="ins-list">
         <li>Vea el <strong>video completo de la Unidad I: Transformación Digital en la Gestión Pública</strong> antes de responder — esta práctica retoma directamente sus conceptos.</li>
-        <li>Seleccione un <strong>proceso administrativo o trámite real</strong> de su institución y manténgalo como referencia durante los 5 pasos.</li>
-        <li>Complete los <strong>5 pasos</strong> en el orden indicado, por escrito o por nota de voz.</li>
-        <li>En el Paso 3, use efectivamente una herramienta de IA Generativa (ChatGPT, Copilot o Gemini) y describa el prompt y la respuesta obtenida.</li>
-        <li>Al finalizar, presione <strong>Enviar y Calificar</strong>: el sistema revisará su trabajo y le dará una nota preliminar orientativa y retroalimentación inmediata.</li>
+        <li>Elija si van a trabajar <strong>individual o en equipo</strong>, arriba, y luego seleccionen un <strong>proceso administrativo o trámite real</strong> de su institución para mantenerlo como referencia durante los 5 pasos.</li>
+        <li>Completen los <strong>5 pasos</strong> en el orden indicado, por escrito o por nota de voz — si trabajan en equipo, decidan entre todos qué escribir en cada campo.</li>
+        <li>En el Paso 3, usen efectivamente una herramienta de IA Generativa (ChatGPT, Copilot o Gemini) y describan el prompt y la respuesta obtenida.</li>
+        <li>Al finalizar, presionen <strong>Enviar y Calificar</strong>: el sistema revisará el trabajo y dará una nota preliminar orientativa y retroalimentación inmediata.</li>
       </ol>
       <div class="alert success">
         <strong>🎓 Esta práctica es interactiva y autocalificable.</strong> Mientras trabaja, Nicole (botón 🎓 abajo a la izquierda) puede responder sus dudas conceptuales. Al terminar, el botón <strong>Enviar y Calificar</strong> evalúa al instante la completitud y calidad de cada paso, y además pide una segunda lectura a la IA sobre el contenido real de sus respuestas.
@@ -418,23 +433,23 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
     <!-- ============ PASO 2 ============ -->
     <section id="paso2" class="card">
       <span class="step-badge">Paso 2 · 15 min</span><span class="step-points">Vale 15 pts</span>
-      <h1>Clasificación de Madurez Digital</h1>
-      <p><strong>Concepto:</strong> la evolución tecnológica del Estado dominicano se estructura en cuatro macro-etapas acumulativas: Informatización Básica, Digitalización de Trámites, Gobierno Electrónico y Gobierno Inteligente. Cada fase amplía la frontera de lo posible respecto a la anterior.</p>
-      <div class="alert info"><strong>Guía:</strong> revise el glosario de "Marco conceptual" y ubique el proceso del Paso 1 en el nivel que mejor describe su estado <em>actual</em>, no el nivel al que aspira.</div>
+      <h1>¿Qué tan digital es este trámite hoy?</h1>
+      <p><strong>Concepto, en palabras simples:</strong> no todos los trámites del Estado están igual de "digitalizados". Algunos son casi todo en papel; otros ya se hacen completos por internet; y unos pocos, además de hacerse por internet, usan la tecnología para adelantarse y avisar o sugerir cosas de forma automática. En el video de la Unidad I vimos estos 4 niveles.</p>
+      <div class="alert info"><strong>Guía:</strong> no piense en "cuál nivel es mejor" ni en teoría — piense en el proceso del Paso 1 y elija la opción de abajo que más se parece a como funciona <em>hoy mismo</em>, en la realidad.</div>
 
       <div class="field">
-        <label for="p2_nivel">Nivel de madurez digital actual del proceso seleccionado</label>
+        <label for="p2_nivel">¿Cuál de estas 4 opciones describe mejor el proceso que eligió?</label>
         <select id="p2_nivel">
           <option value="">Seleccione…</option>
-          <option>Informatización Básica</option>
-          <option>Digitalización de Trámites</option>
-          <option>Gobierno Electrónico (e-Gov)</option>
-          <option>Gobierno Inteligente</option>
+          <option value="Informatización Básica">Es todo en papel, o se hace casi todo a mano / por teléfono</option>
+          <option value="Digitalización de Trámites">Existe una versión digital, pero solo para informar o descargar un formulario (el trámite en sí se sigue haciendo en persona o en papel)</option>
+          <option value="Gobierno Electrónico (e-Gov)">Se puede hacer todo el trámite completo por internet, de principio a fin, sin ir en persona</option>
+          <option value="Gobierno Inteligente">Además de hacerse por internet, el sistema avisa, sugiere o adelanta cosas de forma automática (por ejemplo, alerta antes de un vencimiento)</option>
         </select>
       </div>
       <div class="field">
-        <label for="p2_justificacion">Justifique su respuesta, basándose en las características técnicas de esa etapa vistas en la unidad <span class="wc" data-for="p2_justificacion" data-min="45">0/45 palabras</span></label>
-        <textarea class="tall" id="p2_justificacion" placeholder="Ubico este proceso en esta etapa porque..."></textarea>
+        <label for="p2_justificacion">Explique con sus propias palabras por qué eligió esa opción <span class="wc" data-for="p2_justificacion" data-min="25">0/25 palabras</span></label>
+        <textarea class="tall" id="p2_justificacion" placeholder="Elegí esta opción porque, en la práctica, el trámite hoy funciona así..."></textarea>
         <div class="voice-row"><button type="button" class="voice-btn" data-target="p2_justificacion">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p2_justificacion"></span></div>
       </div>
     </section>
@@ -847,6 +862,26 @@ var STEP_FIELDS = {
   paso5: ['p5_riesgos','p5_mitigacion']
 };
 
+/* ---------- MODALIDAD: INDIVIDUAL O EN EQUIPO ---------- */
+var modoSelect = document.getElementById('modo_trabajo');
+var bloqueIndividual = document.getElementById('bloque-individual');
+var bloqueGrupo = document.getElementById('bloque-grupo');
+var bloqueIntegrantes = document.getElementById('bloque-integrantes');
+function aplicarModo(){
+  var esGrupo = modoSelect.value === 'grupo';
+  bloqueIndividual.hidden = esGrupo;
+  bloqueGrupo.hidden = !esGrupo;
+  bloqueIntegrantes.hidden = !esGrupo;
+}
+modoSelect.addEventListener('change', function(){ aplicarModo(); saveAll(); });
+aplicarModo();
+function nombreIdentificacion(){
+  return modoSelect.value === 'grupo' ? (val('grp_nombre') || '') : (val('ind_nombre') || '');
+}
+function correoIdentificacion(){
+  return modoSelect.value === 'grupo' ? (val('grp_correo') || '') : (val('ind_correo') || '');
+}
+
 /* ---------- WORD COUNTERS ---------- */
 document.querySelectorAll('.wc[data-for]').forEach(function(span){
   var target = document.getElementById(span.getAttribute('data-for'));
@@ -863,7 +898,7 @@ document.querySelectorAll('.wc[data-for]').forEach(function(span){
 
 /* ---------- AUTOSAVE (localStorage) ---------- */
 var STORE_KEY = 'tp_tdu1_respuestas_v1';
-var META_FIELDS = ['est_nombre', 'est_correo'];
+var META_FIELDS = ['modo_trabajo', 'ind_nombre', 'ind_correo', 'grp_nombre', 'grp_correo', 'grp_integrantes'];
 function allFieldIds(){
   var ids = META_FIELDS.slice();
   Object.keys(STEP_FIELDS).forEach(function(k){ ids = ids.concat(STEP_FIELDS[k]); });
@@ -886,6 +921,7 @@ function loadAll(){
   }catch(e){}
 }
 loadAll();
+aplicarModo();
 document.querySelectorAll('.wc[data-for]').forEach(function(span){
   var target = document.getElementById(span.getAttribute('data-for'));
   if(target) target.dispatchEvent(new Event('input'));
@@ -988,7 +1024,7 @@ function gradeStep1(){
 function gradeStep2(){
   var items = [
     { label:'Nivel de madurez digital seleccionado', points:5, frac:filled(val('p2_nivel'))?1:0 },
-    { label:'Justificación basada en las características técnicas de la etapa', points:10, frac:singleWordFrac('p2_justificacion',45) }
+    { label:'Explicación de por qué eligió esa opción', points:10, frac:singleWordFrac('p2_justificacion',25) }
   ];
   return buildCriterion(RUBRICA[1].criterio, 15, items);
 }
@@ -1082,7 +1118,7 @@ function gatherGradingPayload(localResult){
     pasos[key] = { criterio: RUBRICA[i].criterio, max: RUBRICA[i].pts, respuestas: respuestas };
   });
   return {
-    estudiante: { nombre: val('est_nombre') || '', correo: val('est_correo') || '' },
+    estudiante: { nombre: nombreIdentificacion(), correo: correoIdentificacion(), integrantes: val('grp_integrantes') || '', modalidad: modoSelect.value },
     institucion: val('p1_institucion') || '',
     curso: 'transformacion-digital',
     unidad: 'u1',
@@ -1131,9 +1167,10 @@ function requestAIGrading(localResult){
 
 document.getElementById('btn-submit').addEventListener('click', function(){
   saveAll();
-  if(!filled(val('est_nombre'))){
-    alert('Antes de enviar, escriba su nombre completo en "Sus datos" para que su facilitador pueda identificar su entrega.');
-    document.getElementById('est_nombre').focus();
+  if(!filled(nombreIdentificacion())){
+    var esGrupo = modoSelect.value === 'grupo';
+    alert('Antes de enviar, escriba ' + (esGrupo ? 'el nombre del equipo' : 'su nombre completo') + ' en "¿Cómo va a completar esta práctica?" para que su facilitador pueda identificar la entrega.');
+    document.getElementById(esGrupo ? 'grp_nombre' : 'ind_nombre').focus();
     document.getElementById('portada').scrollIntoView({ behavior:'smooth' });
     return;
   }
@@ -1148,7 +1185,7 @@ document.getElementById('btn-recheck').addEventListener('click', function(){
 
 /* ---------- EXPORT / PRINT / CLEAR ---------- */
 function exportTxt(){
-  var lines = ['PRÁCTICA — UNIDAD I: Transformación Digital en la Gestión Pública (INAP)', 'Nombre: ' + (val('est_nombre') || '(sin especificar)'), 'Institución: ' + (val('p1_institucion') || '(sin especificar)'), '======================================================', ''];
+  var lines = ['PRÁCTICA — UNIDAD I: Transformación Digital en la Gestión Pública (INAP)', (modoSelect.value === 'grupo' ? 'Equipo' : 'Nombre') + ': ' + (nombreIdentificacion() || '(sin especificar)'), 'Institución: ' + (val('p1_institucion') || '(sin especificar)'), '======================================================', ''];
   allFieldIds().forEach(function(id){
     var v = val(id);
     if(!filled(v)) return;
@@ -1157,7 +1194,7 @@ function exportTxt(){
   var blob = new Blob([lines.join('\n')], { type:'text/plain;charset=utf-8' });
   var a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
-  var name = (val('est_nombre') || 'practica-transformacion-digital-u1').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+  var name = (nombreIdentificacion() || 'practica-transformacion-digital-u1').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
   a.download = (name || 'practica-transformacion-digital-u1') + '.txt';
   document.body.appendChild(a); a.click(); document.body.removeChild(a);
   URL.revokeObjectURL(a.href);
