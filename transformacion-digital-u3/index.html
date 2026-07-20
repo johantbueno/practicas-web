@@ -291,9 +291,10 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
           <li><a href="#marco-conceptual">📚 Marco conceptual</a></li>
           <li><a href="#paso1" data-step="paso1">Paso 1 · La Tríada CID <span class="pct" data-pct="paso1">0%</span></a></li>
           <li><a href="#paso2" data-step="paso2">Paso 2 · Reconocer amenazas <span class="pct" data-pct="paso2">0%</span></a></li>
-          <li><a href="#paso3" data-step="paso3">Paso 3 · Contraseñas y 2FA <span class="pct" data-pct="paso3">0%</span></a></li>
-          <li><a href="#paso4" data-step="paso4">Paso 4 · Ley 172-13 y datos ciudadanos <span class="pct" data-pct="paso4">0%</span></a></li>
-          <li><a href="#paso5" data-step="paso5">Paso 5 · Ante un incidente <span class="pct" data-pct="paso5">0%</span></a></li>
+          <li><a href="#paso3" data-step="paso3">Paso 3 · Casos prácticos <span class="pct" data-pct="paso3">0%</span></a></li>
+          <li><a href="#paso4" data-step="paso4">Paso 4 · Contraseñas y 2FA <span class="pct" data-pct="paso4">0%</span></a></li>
+          <li><a href="#paso5" data-step="paso5">Paso 5 · Ley 172-13 y datos ciudadanos <span class="pct" data-pct="paso5">0%</span></a></li>
+          <li><a href="#paso6" data-step="paso6">Paso 6 · Ante un incidente <span class="pct" data-pct="paso6">0%</span></a></li>
           <li><a href="#rubrica">🧮 Rúbrica de evaluación</a></li>
           <li><a href="#resultado">📤 Enviar y calificar</a></li>
         </ul>
@@ -317,7 +318,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
         <span class="cover-chip">🏛️ Aplicable a cualquier institución pública</span>
         <span class="cover-chip">👥 Individual o en equipo</span>
         <span class="cover-chip">🎯 100 pts · aprueba al completarla</span>
-        <span class="cover-chip">⏱️ Dura aproximadamente 60 a 90 minutos</span>
+        <span class="cover-chip">⏱️ Dura aproximadamente 90 a 120 minutos</span>
         <span class="cover-chip">🏅 Gana una medalla digital al terminar</span>
       </div>
     </section>
@@ -465,7 +466,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
 
     <!-- ============ PASO 1 ============ -->
     <section id="paso1" class="card">
-      <span class="step-badge">Paso 1 · 15 min</span><span class="step-points">Vale 20 pts</span>
+      <span class="step-badge">Paso 1 · 15 min</span><span class="step-points">Vale 15 pts</span>
       <h1>La Tríada CID en su propio trabajo</h1>
       <p><strong>Concepto, en palabras simples:</strong> toda la ciberseguridad se basa en proteger 3 cosas de un dato: que solo lo vea quien debe (Confidencialidad), que nadie lo altere sin permiso (Integridad), y que esté disponible cuando se necesite (Disponibilidad).</p>
       <div class="alert info"><strong>Guía:</strong> piense en un dato real que maneja su área (sin escribir nombres de personas) y responda qué pasaría si algo saliera mal con él.</div>
@@ -491,7 +492,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
 
     <!-- ============ PASO 2 ============ -->
     <section id="paso2" class="card">
-      <span class="step-badge">Paso 2 · 15 min</span><span class="step-points">Vale 20 pts</span>
+      <span class="step-badge">Paso 2 · 15 min</span><span class="step-points">Vale 15 pts</span>
       <h1>Reconocer las amenazas más comunes</h1>
       <p><strong>Concepto, en palabras simples:</strong> la mayoría de los ataques exitosos en el Estado empiezan con un error humano, no con una falla técnica. Reconocer a tiempo un correo falso o una llamada sospechosa es la mejor defensa.</p>
       <div class="alert info"><strong>Guía:</strong> use la tabla del "Marco conceptual" como referencia para las 4 amenazas: Phishing, Ransomware, Ingeniería Social e Insider Threat.</div>
@@ -520,7 +521,99 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
 
     <!-- ============ PASO 3 ============ -->
     <section id="paso3" class="card">
-      <span class="step-badge">Paso 3 · 15 min</span><span class="step-points">Vale 20 pts</span>
+      <span class="step-badge">Paso 3 · 25 min</span><span class="step-points">Vale 20 pts</span>
+      <h1>Casos prácticos: identifique y actúe</h1>
+      <p><strong>Concepto, en palabras simples:</strong> reconocer una amenaza en teoría es fácil; reconocerla en medio de la jornada de trabajo, con prisa y sin sospechar nada, es lo difícil. Estos 4 casos son situaciones reales que podrían pasarle a cualquier servidor público, en distintos tipos de institución.</p>
+      <div class="alert info"><strong>Guía:</strong> para cada caso, identifique de qué amenaza se trata (Phishing, Ransomware, Ingeniería Social o Insider Threat) y describa brevemente qué haría usted al respecto.</div>
+
+      <div class="alert gold">
+        <strong>Caso A — INAPA:</strong> Recibe un correo que dice ser del departamento de facturación de INAPA, con el logo institucional, pidiéndole "verificar sus datos bancarios" haciendo clic en un enlace. El correo tiene errores de ortografía y el remitente es "facturacion@inapa-rd-oficial.com" (no el dominio oficial de INAPA).
+      </div>
+      <div class="field-grid">
+        <div class="field">
+          <label for="pc_a_amenaza">¿Qué amenaza es esta?</label>
+          <select id="pc_a_amenaza">
+            <option value="">Seleccione…</option>
+            <option value="Phishing">Phishing</option>
+            <option value="Ransomware">Ransomware</option>
+            <option value="Ingeniería Social">Ingeniería Social</option>
+            <option value="Insider Threat">Insider Threat</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label for="pc_a_accion">¿Qué haría usted al recibir este correo? <span class="wc" data-for="pc_a_accion" data-min="15">0/15 palabras</span></label>
+        <textarea id="pc_a_accion" placeholder="Lo que haría es..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="pc_a_accion">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="pc_a_accion"></span></div>
+      </div>
+
+      <div class="alert gold">
+        <strong>Caso B — Hospital público:</strong> Una computadora del área de expedientes clínicos muestra de repente una pantalla con un candado y un mensaje: "Sus archivos han sido encriptados. Pague 500 dólares en criptomonedas en las próximas 24 horas o los archivos se borrarán para siempre."
+      </div>
+      <div class="field-grid">
+        <div class="field">
+          <label for="pc_b_amenaza">¿Qué amenaza es esta?</label>
+          <select id="pc_b_amenaza">
+            <option value="">Seleccione…</option>
+            <option value="Phishing">Phishing</option>
+            <option value="Ransomware">Ransomware</option>
+            <option value="Ingeniería Social">Ingeniería Social</option>
+            <option value="Insider Threat">Insider Threat</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label for="pc_b_accion">¿Qué haría usted en los primeros minutos, sin pagar el rescate? <span class="wc" data-for="pc_b_accion" data-min="15">0/15 palabras</span></label>
+        <textarea id="pc_b_accion" placeholder="Lo primero que haría es..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="pc_b_accion">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="pc_b_accion"></span></div>
+      </div>
+
+      <div class="alert gold">
+        <strong>Caso C — Ayuntamiento:</strong> Recibe una llamada de alguien que dice ser "soporte técnico de la OGTIC", explicando que hay una "actualización urgente del sistema de permisos" y que necesita su contraseña de acceso para completarla de forma remota antes de que "el sistema se bloquee para todos".
+      </div>
+      <div class="field-grid">
+        <div class="field">
+          <label for="pc_c_amenaza">¿Qué amenaza es esta?</label>
+          <select id="pc_c_amenaza">
+            <option value="">Seleccione…</option>
+            <option value="Phishing">Phishing</option>
+            <option value="Ransomware">Ransomware</option>
+            <option value="Ingeniería Social">Ingeniería Social</option>
+            <option value="Insider Threat">Insider Threat</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label for="pc_c_accion">¿Qué le respondería a esa persona por teléfono? <span class="wc" data-for="pc_c_accion" data-min="15">0/15 palabras</span></label>
+        <textarea id="pc_c_accion" placeholder="Le respondería que..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="pc_c_accion">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="pc_c_accion"></span></div>
+      </div>
+
+      <div class="alert gold">
+        <strong>Caso D — Ministerio:</strong> Un compañero de trabajo que renunciará la próxima semana descarga, sin pedir autorización a nadie, una copia completa de la base de datos de un programa social "por si la necesita después, para su próximo empleo".
+      </div>
+      <div class="field-grid">
+        <div class="field">
+          <label for="pc_d_amenaza">¿Qué amenaza es esta?</label>
+          <select id="pc_d_amenaza">
+            <option value="">Seleccione…</option>
+            <option value="Phishing">Phishing</option>
+            <option value="Ransomware">Ransomware</option>
+            <option value="Ingeniería Social">Ingeniería Social</option>
+            <option value="Insider Threat">Insider Threat</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label for="pc_d_accion">Si usted se entera de esto, ¿qué haría? <span class="wc" data-for="pc_d_accion" data-min="15">0/15 palabras</span></label>
+        <textarea id="pc_d_accion" placeholder="Si me entero, yo..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="pc_d_accion">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="pc_d_accion"></span></div>
+      </div>
+    </section>
+
+    <!-- ============ PASO 4 ============ -->
+    <section id="paso4" class="card">
+      <span class="step-badge">Paso 4 · 15 min</span><span class="step-points">Vale 15 pts</span>
       <h1>Contraseñas fuertes y doble factor (2FA)</h1>
       <p><strong>Concepto, en palabras simples:</strong> una contraseña larga y una segunda prueba de identidad (2FA) son las defensas más simples y más efectivas que existen — el 2FA bloquea casi todos los intentos de robo de cuentas.</p>
       <div class="alert warn"><strong>⚠️ Importante:</strong> en ningún campo de esta práctica escriba una contraseña real suya. Los ejemplos que se le pidan son solo inventados, para practicar.</div>
@@ -554,13 +647,13 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
       </div>
     </section>
 
-    <!-- ============ PASO 4 ============ -->
-    <section id="paso4" class="card">
-      <span class="step-badge">Paso 4 · 15 min</span><span class="step-points">Vale 20 pts</span>
+    <!-- ============ PASO 5 ============ -->
+    <section id="paso5" class="card">
+      <span class="step-badge">Paso 5 · 20 min</span><span class="step-points">Vale 20 pts</span>
       <h1>Ley 172-13: proteger los datos del ciudadano</h1>
       <p><strong>Concepto, en palabras simples:</strong> la Ley 172-13 obliga a todo servidor público a usar los datos del ciudadano solo para lo que fueron pedidos, guardar solo lo necesario, y protegerlos activamente — incluso después de dejar el cargo.</p>
       <div class="alert gold">
-        <strong>Caso para pensar:</strong> una analista, con problemas para conectarse al sistema de la oficina, copia una base de datos de 3,000 beneficiarios de un plan social a una memoria USB para llevarla a su computadora personal y terminar un reporte urgente. Su computadora personal, sin antivirus y compartida con su familia, es infectada, y la base de datos completa termina filtrada en internet.
+        <strong>Caso 1:</strong> una analista, con problemas para conectarse al sistema de la oficina, copia una base de datos de 3,000 beneficiarios de un plan social a una memoria USB para llevarla a su computadora personal y terminar un reporte urgente. Su computadora personal, sin antivirus y compartida con su familia, es infectada, y la base de datos completa termina filtrada en internet.
       </div>
 
       <div class="field">
@@ -582,11 +675,29 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
         <textarea class="tall" id="p4_accion" placeholder="En vez de copiar los datos, debió..."></textarea>
         <div class="voice-row"><button type="button" class="voice-btn" data-target="p4_accion">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p4_accion"></span></div>
       </div>
+
+      <div class="alert gold">
+        <strong>Caso 2:</strong> un formulario en línea para inscribir a un estudiante en una escuela pública pide, además de los datos del estudiante, la cédula de todos los familiares que viven en la casa — algo que no es necesario para completar la inscripción.
+      </div>
+      <div class="field">
+        <label for="p4b_principio">¿Cuál principio de la Ley 172-13 se viola en este segundo caso?</label>
+        <select id="p4b_principio">
+          <option value="">Seleccione…</option>
+          <option value="Principio de Finalidad">Principio de Finalidad (usar los datos solo para el trámite que los originó)</option>
+          <option value="Principio de Proporcionalidad">Principio de Proporcionalidad (guardar solo los datos mínimos necesarios)</option>
+          <option value="Principio de Seguridad y Confidencialidad">Principio de Seguridad y Confidencialidad (proteger activamente los datos contra pérdida o mal uso)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="p4b_justificacion">Explique brevemente por qué <span class="wc" data-for="p4b_justificacion" data-min="20">0/20 palabras</span></label>
+        <textarea id="p4b_justificacion" placeholder="Este principio aplica porque el formulario..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p4b_justificacion">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p4b_justificacion"></span></div>
+      </div>
     </section>
 
-    <!-- ============ PASO 5 ============ -->
-    <section id="paso5" class="card">
-      <span class="step-badge">Paso 5 · 15 min</span><span class="step-points">Vale 20 pts</span>
+    <!-- ============ PASO 6 ============ -->
+    <section id="paso6" class="card">
+      <span class="step-badge">Paso 6 · 15 min</span><span class="step-points">Vale 15 pts</span>
       <h1>Ante un posible incidente: Contiene, documenta, escala y reporta</h1>
       <p><strong>Concepto, en palabras simples:</strong> si sospecha que su computadora fue atacada (por ejemplo, ve un mensaje raro pidiendo dinero, o el equipo se comporta extraño), hay 4 pasos en orden: primero se contiene (se desconecta de la red, sin apagar el equipo), luego se documenta, luego se escala a TI, y por último se reporta oficialmente al CSIRT-RD.</p>
       <div class="alert warn"><strong>⚠️ Dato clave:</strong> nunca apague ni reinicie un equipo que podría estar comprometido — eso borra evidencia importante. Solo desconéctelo de la red (cable o WiFi).</div>
@@ -1029,9 +1140,10 @@ function escapeHtml(s){ var d = document.createElement('div'); d.textContent = n
 var STEP_FIELDS = {
   paso1: ['p1_area','p1_dato','p1_confidencialidad','p1_disponibilidad'],
   paso2: ['p2_amenaza','p2_ejemplo','p2_senal'],
-  paso3: ['p3_habito','p3_frase','p3_2fa','p3_explicacion'],
-  paso4: ['p4_principio','p4_justificacion','p4_accion'],
-  paso5: ['p5_orden','p5_accion','p5_reflexion']
+  paso3: ['pc_a_amenaza','pc_a_accion','pc_b_amenaza','pc_b_accion','pc_c_amenaza','pc_c_accion','pc_d_amenaza','pc_d_accion'],
+  paso4: ['p3_habito','p3_frase','p3_2fa','p3_explicacion'],
+  paso5: ['p4_principio','p4_justificacion','p4_accion','p4b_principio','p4b_justificacion'],
+  paso6: ['p5_orden','p5_accion','p5_reflexion']
 };
 
 /* ---------- MODALIDAD: INDIVIDUAL O EN EQUIPO ---------- */
@@ -1153,11 +1265,12 @@ function practicaCompleta(){ return camposFaltantes().length === 0; }
 
 /* ---------- RÚBRICA TABLE (referencia de calidad, no de aprobación) ---------- */
 var RUBRICA = [
-  {n:1, criterio:'La Tríada CID en su propio trabajo (Paso 1)', indicador:'Área y dato sensible identificados, consecuencias de confidencialidad y disponibilidad explicadas con ejemplos reales.', pts:20},
-  {n:2, criterio:'Reconocer amenazas (Paso 2)', indicador:'Amenaza seleccionada, ejemplo posible en su institución y señal de alerta para detectarla a tiempo.', pts:20},
-  {n:3, criterio:'Contraseñas fuertes y 2FA (Paso 3)', indicador:'Hábito actual reportado con honestidad, ejemplo de frase de contraseña, uso de 2FA y explicación correcta de su función.', pts:20},
-  {n:4, criterio:'Ley 172-13 y datos ciudadanos (Paso 4)', indicador:'Principio identificado correctamente en el caso, justificación coherente y acción correcta propuesta.', pts:20},
-  {n:5, criterio:'Ante un incidente de seguridad (Paso 5)', indicador:'Orden correcto del protocolo, acción inmediata realista y reflexión sobre el rol de línea de defensa.', pts:20}
+  {n:1, criterio:'La Tríada CID en su propio trabajo (Paso 1)', indicador:'Área y dato sensible identificados, consecuencias de confidencialidad y disponibilidad explicadas con ejemplos reales.', pts:15},
+  {n:2, criterio:'Reconocer amenazas (Paso 2)', indicador:'Amenaza seleccionada, ejemplo posible en su institución y señal de alerta para detectarla a tiempo.', pts:15},
+  {n:3, criterio:'Casos prácticos: identifique y actúe (Paso 3)', indicador:'Amenaza correcta identificada y acción razonable propuesta en cada uno de los 4 casos (INAPA, hospital, ayuntamiento, ministerio).', pts:20},
+  {n:4, criterio:'Contraseñas fuertes y 2FA (Paso 4)', indicador:'Hábito actual reportado con honestidad, ejemplo de frase de contraseña, uso de 2FA y explicación correcta de su función.', pts:15},
+  {n:5, criterio:'Ley 172-13 y datos ciudadanos (Paso 5)', indicador:'Principio identificado correctamente en ambos casos, justificación coherente y acción correcta propuesta.', pts:20},
+  {n:6, criterio:'Ante un incidente de seguridad (Paso 6)', indicador:'Orden correcto del protocolo, acción inmediata realista y reflexión sobre el rol de línea de defensa.', pts:15}
 ];
 document.getElementById('rubrica-body').innerHTML = RUBRICA.map(function(r){
   return '<tr><td class="label-cell">'+r.n+'</td><td>'+r.criterio+'</td><td>'+r.indicador+'</td><td class="label-cell">'+r.pts+'</td></tr>';
@@ -1186,47 +1299,62 @@ function buildCriterion(title, maxPoints, items){
 
 function gradeStep1(){
   var items = [
-    { label:'Área y dato sensible identificados con claridad', points:4, frac:ratioFilledFrac(['p1_area','p1_dato']) },
-    { label:'Consecuencia de falta de confidencialidad explicada', points:8, frac:singleWordFrac('p1_confidencialidad',25) },
-    { label:'Consecuencia de falta de disponibilidad explicada', points:8, frac:singleWordFrac('p1_disponibilidad',20) }
+    { label:'Área y dato sensible identificados con claridad', points:3, frac:ratioFilledFrac(['p1_area','p1_dato']) },
+    { label:'Consecuencia de falta de confidencialidad explicada', points:6, frac:singleWordFrac('p1_confidencialidad',25) },
+    { label:'Consecuencia de falta de disponibilidad explicada', points:6, frac:singleWordFrac('p1_disponibilidad',20) }
   ];
-  return buildCriterion(RUBRICA[0].criterio, 20, items);
+  return buildCriterion(RUBRICA[0].criterio, 15, items);
 }
 function gradeStep2(){
   var items = [
-    { label:'Amenaza seleccionada', points:4, frac:filled(val('p2_amenaza'))?1:0 },
-    { label:'Ejemplo posible en su institución', points:8, frac:singleWordFrac('p2_ejemplo',30) },
-    { label:'Señal de alerta identificada', points:8, frac:singleWordFrac('p2_senal',20) }
+    { label:'Amenaza seleccionada', points:3, frac:filled(val('p2_amenaza'))?1:0 },
+    { label:'Ejemplo posible en su institución', points:6, frac:singleWordFrac('p2_ejemplo',30) },
+    { label:'Señal de alerta identificada', points:6, frac:singleWordFrac('p2_senal',20) }
   ];
-  return buildCriterion(RUBRICA[1].criterio, 20, items);
+  return buildCriterion(RUBRICA[1].criterio, 15, items);
 }
 function gradeStep3(){
   var items = [
-    { label:'Hábito de contraseñas y uso de 2FA reportados', points:4, frac:ratioFilledFrac(['p3_habito','p3_2fa']) },
-    { label:'Ejemplo de frase de contraseña construido', points:4, frac:filled(val('p3_frase'))?1:0 },
-    { label:'Explicación del 2FA', points:12, frac:singleWordFrac('p3_explicacion',25) }
+    { label:'Caso A (INAPA) identificado y resuelto', points:1.5, frac:filled(val('pc_a_amenaza'))?1:0 },
+    { label:'Acción propuesta para el Caso A', points:3.5, frac:singleWordFrac('pc_a_accion',15) },
+    { label:'Caso B (hospital) identificado y resuelto', points:1.5, frac:filled(val('pc_b_amenaza'))?1:0 },
+    { label:'Acción propuesta para el Caso B', points:3.5, frac:singleWordFrac('pc_b_accion',15) },
+    { label:'Caso C (ayuntamiento) identificado y resuelto', points:1.5, frac:filled(val('pc_c_amenaza'))?1:0 },
+    { label:'Acción propuesta para el Caso C', points:3.5, frac:singleWordFrac('pc_c_accion',15) },
+    { label:'Caso D (ministerio) identificado y resuelto', points:1.5, frac:filled(val('pc_d_amenaza'))?1:0 },
+    { label:'Acción propuesta para el Caso D', points:3.5, frac:singleWordFrac('pc_d_accion',15) }
   ];
   return buildCriterion(RUBRICA[2].criterio, 20, items);
 }
 function gradeStep4(){
   var items = [
-    { label:'Principio de la Ley 172-13 identificado', points:4, frac:filled(val('p4_principio'))?1:0 },
-    { label:'Justificación del principio elegido', points:8, frac:singleWordFrac('p4_justificacion',25) },
-    { label:'Acción correcta propuesta', points:8, frac:singleWordFrac('p4_accion',30) }
+    { label:'Hábito de contraseñas y uso de 2FA reportados', points:3, frac:ratioFilledFrac(['p3_habito','p3_2fa']) },
+    { label:'Ejemplo de frase de contraseña construido', points:3, frac:filled(val('p3_frase'))?1:0 },
+    { label:'Explicación del 2FA', points:9, frac:singleWordFrac('p3_explicacion',25) }
   ];
-  return buildCriterion(RUBRICA[3].criterio, 20, items);
+  return buildCriterion(RUBRICA[3].criterio, 15, items);
 }
 function gradeStep5(){
   var items = [
-    { label:'Orden correcto del protocolo identificado', points:4, frac:filled(val('p5_orden'))?1:0 },
-    { label:'Acción inmediata descrita', points:8, frac:singleWordFrac('p5_accion',25) },
-    { label:'Reflexión sobre el rol de línea de defensa', points:8, frac:singleWordFrac('p5_reflexion',25) }
+    { label:'Principio del Caso 1 identificado', points:3, frac:filled(val('p4_principio'))?1:0 },
+    { label:'Justificación del Caso 1', points:6, frac:singleWordFrac('p4_justificacion',25) },
+    { label:'Acción correcta propuesta en el Caso 1', points:6, frac:singleWordFrac('p4_accion',30) },
+    { label:'Principio del Caso 2 identificado', points:2, frac:filled(val('p4b_principio'))?1:0 },
+    { label:'Justificación del Caso 2', points:3, frac:singleWordFrac('p4b_justificacion',20) }
   ];
   return buildCriterion(RUBRICA[4].criterio, 20, items);
 }
+function gradeStep6(){
+  var items = [
+    { label:'Orden correcto del protocolo identificado', points:3, frac:filled(val('p5_orden'))?1:0 },
+    { label:'Acción inmediata descrita', points:6, frac:singleWordFrac('p5_accion',25) },
+    { label:'Reflexión sobre el rol de línea de defensa', points:6, frac:singleWordFrac('p5_reflexion',25) }
+  ];
+  return buildCriterion(RUBRICA[5].criterio, 15, items);
+}
 
 function runGrading(){
-  var criteria = [gradeStep1(), gradeStep2(), gradeStep3(), gradeStep4(), gradeStep5()];
+  var criteria = [gradeStep1(), gradeStep2(), gradeStep3(), gradeStep4(), gradeStep5(), gradeStep6()];
   var total = Math.round(criteria.reduce(function(a,c){ return a + c.score; },0) * 10) / 10;
   return { criteria:criteria, total:total };
 }
@@ -1544,11 +1672,12 @@ var QA = [
   { kw:['nota de voz', 'voz', 'grabar', 'hablar', 'microfono', 'micrófono'], a:'Al lado de cada pregunta hay un botón "🎤 Mantenga presionado para grabar". Manténgalo presionado mientras habla su respuesta, y suéltelo al terminar — el sistema la convierte en texto automáticamente, como una nota de voz de WhatsApp.' },
   { kw:['temporizador', 'reloj', 'tiempo', 'sonido', 'bip', 'latido'], a:'El reloj de la barra lateral es solo una referencia de 60 minutos — no cierra la práctica. En los últimos 10 minutos suena como un monitor de signos vitales, cada vez más rápido, de forma graciosa. Puede silenciarlo con el botón 🔔 junto al reloj en cualquier momento.' },
   { kw:['medalla', 'compartir', 'insignia'], a:'Cuando complete los 5 pasos y presione "Enviar y Calificar", va a aparecer el botón "🏅 Ver mi medalla" para generar una imagen con su nombre, que puede descargar o compartir por WhatsApp, correo o redes sociales.' },
-  { kw:['paso 1'], a:'El Paso 1 pide pensar en un dato real de su institución y explicar qué pasaría si se pierde la confidencialidad o la disponibilidad de ese dato. Vale 20 puntos.' },
-  { kw:['paso 2'], a:'El Paso 2 pide elegir la amenaza (Phishing, Ransomware, Ingeniería Social o Insider Threat) que más le preocupa, y describir un ejemplo y una señal de alerta. Vale 20 puntos.' },
-  { kw:['paso 3'], a:'El Paso 3 pide reflexionar sobre sus hábitos de contraseñas, inventar un ejemplo de frase de contraseña segura (nunca su contraseña real), y explicar el 2FA. Vale 20 puntos.' },
-  { kw:['paso 4'], a:'El Paso 4 presenta un caso de una analista que copia datos a su computadora personal, y le pide identificar qué principio de la Ley 172-13 se viola y qué debió hacer en su lugar. Vale 20 puntos.' },
-  { kw:['paso 5'], a:'El Paso 5 pide ordenar el protocolo de respuesta y describir qué haría ante un posible ataque de ransomware. Vale 20 puntos.' },
+  { kw:['paso 1'], a:'El Paso 1 pide pensar en un dato real de su institución y explicar qué pasaría si se pierde la confidencialidad o la disponibilidad de ese dato. Vale 15 puntos.' },
+  { kw:['paso 2'], a:'El Paso 2 pide elegir la amenaza (Phishing, Ransomware, Ingeniería Social o Insider Threat) que más le preocupa, y describir un ejemplo y una señal de alerta. Vale 15 puntos.' },
+  { kw:['paso 3', 'casos practicos', 'casos prácticos'], a:'El Paso 3 presenta 4 casos prácticos reales (INAPA, un hospital, un ayuntamiento y un ministerio) y le pide identificar la amenaza de cada uno y decir qué haría usted. Vale 20 puntos.' },
+  { kw:['paso 4'], a:'El Paso 4 pide reflexionar sobre sus hábitos de contraseñas, inventar un ejemplo de frase de contraseña segura (nunca su contraseña real), y explicar el 2FA. Vale 15 puntos.' },
+  { kw:['paso 5'], a:'El Paso 5 presenta 2 casos (una analista que copia datos a su computadora personal, y un formulario escolar que pide datos de más) y le pide identificar qué principio de la Ley 172-13 se viola en cada uno. Vale 20 puntos.' },
+  { kw:['paso 6'], a:'El Paso 6 pide ordenar el protocolo de respuesta y describir qué haría ante un posible ataque de ransomware. Vale 15 puntos.' },
   { kw:['guardar', 'se guarda', 'perder mis respuestas', 'autoguardado'], a:'Sus respuestas se guardan automáticamente en este navegador (localStorage) mientras escribe. Si cambia de computadora o borra el caché, se perderán — por eso le recomiendo usar "⬇️ Descargar mis respuestas" cuando avance.' },
   { kw:['no sé de tecnologia', 'no se de tecnologia', 'no sé usar', 'dificil', 'difícil'], a:'No se preocupe: esta práctica no requiere conocimientos técnicos. La ciberseguridad es, en el fondo, sentido común — cuidar la información como cuidaría el dinero de su casa. Responda con sus propias palabras, escribiendo o hablando.' },
   { kw:['hola', 'ayuda', 'que puedes hacer', 'quien eres'], a:'Soy Nicole, la asistente virtual del Dr. Johan Tapia. Puedo explicarte los conceptos de la Unidad III (Tríada CID, phishing, ransomware, contraseñas, 2FA, Ley 172-13, el CNCS/CSIRT-RD) en palabras simples, orientarte sobre qué pide cada paso, o cómo funciona la calificación. Recuerda: se aprueba por completar la práctica, no por la nota.' }

@@ -188,10 +188,10 @@
             "badge": "Unidad III",
             "unidad": "u3",
             "titulo": "Ciberseguridad para el Servidor Público",
-            "desc": "Tríada CID, phishing, ransomware, contraseñas y 2FA, Ley 172-13 y el protocolo del CNCS/CSIRT-RD ante incidentes, en lenguaje sencillo. Incluye temporizador de referencia con sonido de emergencia y medalla digital al completar. Individual o en equipo. Aprueba por completarla, no por la nota.",
-            "duracion": "5 pasos · 60 a 90 minutos, individual o en equipo",
+            "desc": "Tríada CID, phishing, ransomware, contraseñas y 2FA, Ley 172-13 y el protocolo del CNCS/CSIRT-RD ante incidentes, con 4 casos prácticos reales (INAPA, hospital, ayuntamiento, ministerio), en lenguaje sencillo. Incluye temporizador de referencia con sonido de emergencia y medalla digital al completar. Individual o en equipo. Aprueba por completarla, no por la nota.",
+            "duracion": "6 pasos · 90 a 120 minutos, individual o en equipo",
             "puntos": "100 pts (retroalimentación)",
-            "aprobacion": "Completar los 5 pasos",
+            "aprobacion": "Completar los 6 pasos",
             "url": "https://johantbueno.github.io/practicas-web/transformacion-digital-u3/"
           }
         ]
