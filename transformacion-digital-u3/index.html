@@ -1268,23 +1268,22 @@ function tickTimer(){
     var criticalMode = remaining <= 10 * 60000;
     wrapEl.classList.toggle('low', criticalMode);
     var lastMinute = remaining <= 60000;
-    if(criticalMode){
-      var pct = remaining / (10 * 60000);
-      var interval = 250 + pct * 1750;
+    if(lastMinute){
+      // El sonido de aceleracion (pitido + punaladas) queda confinado al
+      // ULTIMO MINUTO -- el estado visual .low sigue empezando a los 10
+      // min, pero el audio antes sonaba los 10 minutos completos y Johan
+      // pidio restringirlo a solo el ultimo minuto (2026-07-21). Ambos se
+      // aceleran juntos de ~2s a ~250-350ms segun se acerca a cero.
+      var pctMin = remaining / 60000;
+      var interval = 250 + pctMin * 1750;
       if(now - lastBeepAt > interval){
         lastBeepAt = now;
         playBeep(920, 0.08, 0.14);
       }
-      if(lastMinute){
-        // En el ultimo minuto las "punaladas" de cuerdas se aceleran de una
-        // cada 2s a casi una por segundo segun se acerca el cero, subiendo
-        // la tension igual que el pitido pero con un timbre mas angustiante.
-        var pctMin = remaining / 60000;
-        var stabInterval = 350 + pctMin * 1650;
-        if(now - lastStabAt > stabInterval){
-          lastStabAt = now;
-          playAnguishStab();
-        }
+      var stabInterval = 350 + pctMin * 1650;
+      if(now - lastStabAt > stabInterval){
+        lastStabAt = now;
+        playAnguishStab();
       }
     }
     if(heartsEl) heartsEl.classList.toggle('critical', lastMinute);
