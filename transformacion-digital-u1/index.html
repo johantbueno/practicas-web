@@ -70,6 +70,20 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 #sound-toggle{width:28px; height:28px; font-size:.85rem; flex-shrink:0;}
 @keyframes timerPulse{0%,100%{opacity:1; transform:scale(1);} 50%{opacity:.55; transform:scale(1.05);}}
 
+/* Corazones estilo "vida" de videojuego -- se van vaciando segun avanza el tiempo. */
+#hearts-canvas{display:block; margin:.55rem auto 0;}
+@keyframes heartShake{0%,100%{transform:translateX(0);} 20%{transform:translateX(-2px);} 40%{transform:translateX(2px);} 60%{transform:translateX(-2px);} 80%{transform:translateX(2px);}}
+#hearts-canvas.critical{animation:heartShake .3s ease-in-out infinite;}
+
+/* Modo "tiempo extra" -- tras los 60 minutos, puramente cosmetico, no afecta la aprobacion. */
+.timer-box.overtime{background:var(--red-bg); border-color:var(--red-border);}
+.timer-box.overtime .timer-value{color:var(--red); animation:timerPulse .6s ease-in-out infinite;}
+.overtime-note{font-size:.66rem; color:var(--red); text-align:center; margin-top:.4rem; font-weight:700; line-height:1.3;}
+.fast-clock{width:26px; height:26px; border-radius:50%; border:2px solid var(--red); position:relative; margin:.55rem auto 0; display:none;}
+.timer-box.overtime .fast-clock{display:block;}
+.fast-clock-hand{position:absolute; top:50%; left:50%; width:2px; height:10px; background:var(--red); transform-origin:50% 100%; margin-top:-10px; margin-left:-1px; animation:fastSpin .4s linear infinite;}
+@keyframes fastSpin{ to{ transform:rotate(360deg); } }
+
 /* MEDALLA */
 .medal-modal{position:fixed; inset:0; background:rgba(0,0,0,.65); z-index:2000; display:flex; align-items:center; justify-content:center; padding:1rem;}
 .medal-modal[hidden]{display:none;}
@@ -250,6 +264,35 @@ footer.tp-footer{text-align:center; color:var(--muted); font-size:.8rem; padding
 .fontsize-controls button:hover{border-color:var(--navy); color:var(--navy);}
 html[data-fontsize="grande"] body{font-size:1.14rem;}
 html[data-fontsize="xgrande"] body{font-size:1.3rem;}
+
+/* EFECTOS DINAMICOS: revelado al hacer scroll, micro-interacciones,
+   fondo animado en la portada, confeti al aprobar. Todo con
+   requestAnimationFrame/Canvas nativo, sin librerias nuevas. */
+.card.cover{position:relative; overflow:hidden;}
+#cover-canvas{position:absolute; inset:0; width:100%; height:100%; opacity:.4; pointer-events:none;}
+.card.cover > *{position:relative; z-index:1;}
+
+.reveal-init{opacity:0; transform:translateY(18px); transition:opacity .6s cubic-bezier(.22,.9,.35,1), transform .6s cubic-bezier(.22,.9,.35,1);}
+.reveal-init.revealed{opacity:1; transform:translateY(0);}
+
+.btn-primary, .btn-secondary, .btn-block{position:relative; overflow:hidden; transition:transform .16s ease, box-shadow .16s ease, filter .16s ease;}
+.btn-primary:hover, .btn-secondary:hover, .btn-block:hover{transform:translateY(-2px);}
+.btn-primary:hover{box-shadow:var(--shadow-lg);}
+.btn-primary:active, .btn-secondary:active, .btn-block:active{transform:translateY(0) scale(.97);}
+.js-ripple{position:absolute; border-radius:50%; background:rgba(255,255,255,.55); transform:scale(0); animation:rippleAnim .6s ease-out forwards; pointer-events:none;}
+.btn-secondary .js-ripple, .btn-block .js-ripple{background:rgba(15,56,119,.18);}
+@keyframes rippleAnim{ to{ transform:scale(2.6); opacity:0; } }
+
+#confetti-canvas{position:fixed; inset:0; width:100%; height:100%; pointer-events:none; z-index:3000;}
+
+@media (prefers-reduced-motion: reduce){
+  .reveal-init{opacity:1; transform:none; transition:none;}
+  #cover-canvas{display:none;}
+  .btn-primary:hover, .btn-secondary:hover, .btn-block:hover, .btn-primary:active, .btn-secondary:active, .btn-block:active{transform:none;}
+  #hearts-canvas.critical{animation:none;}
+  .timer-box.overtime .timer-value{animation:none;}
+  .fast-clock-hand{animation:none;}
+}
 </style>
 </head>
 <body>
@@ -278,6 +321,9 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
           <button class="icon-btn" id="sound-toggle" type="button" title="Silenciar o activar el sonido" aria-label="Silenciar o activar el sonido del temporizador">🔔</button>
         </div>
         <div class="timer-value" id="timer-value">60:00</div>
+        <canvas id="hearts-canvas" width="230" height="40" aria-hidden="true"></canvas>
+        <div class="fast-clock" id="fast-clock" aria-hidden="true"><div class="fast-clock-hand"></div></div>
+        <div class="overtime-note" id="overtime-note" hidden>⏱️ Tiempo de referencia — no afecta su calificación</div>
       </div>
 
       <div class="progress-summary">
@@ -312,6 +358,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
   <main class="main" id="main-content">
 
     <section id="portada" class="card cover" style="scroll-margin-top:1.25rem;">
+      <canvas id="cover-canvas" aria-hidden="true"></canvas>
       <p class="eyebrow">Curso Herramientas de Transformación Digital · INAP · AC-INAP-2026-HTD</p>
       <h1>Práctica — Unidad I</h1>
       <p class="sub">Transformación Digital en la Gestión Pública: diagnóstico de madurez digital y laboratorio de Inteligencia Artificial aplicada</p>
@@ -964,6 +1011,50 @@ var SOUND_MUTE_KEY = 'tp_htd_sound_muted';
 var soundMuted = localStorage.getItem(SOUND_MUTE_KEY) === '1';
 var flatlinePlayed = false;
 var lastBeepAt = 0;
+var lastStabAt = 0;
+var lastOvertimeStabAt = 0;
+var NUM_CORAZONES = 5;
+
+/* Dibuja NUM_CORAZONES corazones tipo "vida" de videojuego (Zelda), cada
+   uno representando 1/5 del tiempo. Se vacian de derecha a izquierda segun
+   pasa el tiempo -- mismo lenguaje visual que una barra de vida de juego. */
+function trazarCorazon(ctx, cx, cy, s){
+  ctx.beginPath();
+  ctx.moveTo(cx, cy + s * 0.32);
+  ctx.bezierCurveTo(cx, cy, cx - s * 0.5, cy - s * 0.5, cx - s * 0.5, cy);
+  ctx.bezierCurveTo(cx - s * 0.5, cy + s * 0.4, cx - s * 0.18, cy + s * 0.62, cx, cy + s * 0.88);
+  ctx.bezierCurveTo(cx + s * 0.18, cy + s * 0.62, cx + s * 0.5, cy + s * 0.4, cx + s * 0.5, cy);
+  ctx.bezierCurveTo(cx + s * 0.5, cy - s * 0.5, cx, cy, cx, cy + s * 0.32);
+  ctx.closePath();
+}
+function dibujarCorazones(pctVida){
+  var canvas = document.getElementById('hearts-canvas');
+  if(!canvas) return;
+  var ctx = canvas.getContext('2d');
+  var W = canvas.width, H = canvas.height;
+  ctx.clearRect(0, 0, W, H);
+  var s = 24, paso = 40, inicioX = (W - paso * (NUM_CORAZONES - 1)) / 2, cy = H / 2 - 4;
+  for(var i = 0; i < NUM_CORAZONES; i++){
+    var cx = inicioX + i * paso;
+    var segInicio = i / NUM_CORAZONES, segAncho = 1 / NUM_CORAZONES;
+    var frac = Math.max(0, Math.min(1, (pctVida - segInicio) / segAncho));
+    trazarCorazon(ctx, cx, cy, s);
+    ctx.fillStyle = 'rgba(0,0,0,.08)';
+    ctx.fill();
+    if(frac > 0){
+      ctx.save();
+      trazarCorazon(ctx, cx, cy, s);
+      ctx.clip();
+      ctx.fillStyle = pctVida <= 0 ? '#94a3b8' : '#e11d48';
+      ctx.fillRect(cx - s / 2, cy + s * 0.9 - (s * 1.4 * frac), s, s * 1.4 * frac);
+      ctx.restore();
+    }
+    trazarCorazon(ctx, cx, cy, s);
+    ctx.lineWidth = 1.3;
+    ctx.strokeStyle = 'rgba(0,0,0,.18)';
+    ctx.stroke();
+  }
+}
 
 function getDeadline(){
   var d = parseInt(localStorage.getItem(TIMER_KEY), 10);
@@ -1007,31 +1098,92 @@ function playFlatline(){
     osc.onended = function(){ ctx.close(); };
   }catch(e){}
 }
+function playAnguishStab(){
+  // "Punalada" de cuerdas disonante (segunda menor, Do6 vs Si5) para el
+  // ultimo minuto y el tiempo extra -- inspirado en el clasico "stinger" de
+  // cuerdas de peliculas de suspenso, pero sintetizado desde cero con
+  // osciladores (sin usar ninguna pieza real con copyright).
+  if(soundMuted) return;
+  try{
+    var Ctx = window.AudioContext || window.webkitAudioContext;
+    var ctx = new Ctx();
+    [1046.5, 987.77].forEach(function(freq){
+      var osc = ctx.createOscillator(); var gain = ctx.createGain();
+      osc.type = 'sawtooth';
+      osc.frequency.value = freq;
+      gain.gain.setValueAtTime(0.001, ctx.currentTime);
+      gain.gain.linearRampToValueAtTime(0.11, ctx.currentTime + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.35);
+      osc.connect(gain); gain.connect(ctx.destination);
+      osc.start(); osc.stop(ctx.currentTime + 0.4);
+    });
+    setTimeout(function(){ ctx.close(); }, 450);
+  }catch(e){}
+}
 function tickTimer(){
   var wrapEl = document.getElementById('timer-box');
   var valEl = document.getElementById('timer-value');
+  var overtimeNoteEl = document.getElementById('overtime-note');
+  var heartsEl = document.getElementById('hearts-canvas');
   if(!wrapEl || !valEl) return;
-  var remaining = timerDeadline - Date.now();
-  if(remaining < 0) remaining = 0;
-  var totalSec = Math.floor(remaining / 1000);
-  var m = Math.floor(totalSec / 60), s = totalSec % 60;
-  valEl.textContent = (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
-  var criticalMode = remaining > 0 && remaining <= 10 * 60000;
-  wrapEl.classList.toggle('low', criticalMode);
-  if(criticalMode){
-    var pct = remaining / (10 * 60000);
-    var interval = 250 + pct * 1750;
-    var now = Date.now();
-    if(now - lastBeepAt > interval){
-      lastBeepAt = now;
-      playBeep(920, 0.08, 0.14);
+  var diffReal = timerDeadline - Date.now(); // sin recortar -- negativo en tiempo extra
+  var remaining = diffReal < 0 ? 0 : diffReal;
+  var now = Date.now();
+
+  dibujarCorazones(Math.max(0, remaining / (TIMER_MINUTES * 60000)));
+
+  if(diffReal > 0){
+    /* ---- Tiempo normal (0 a 60 min) ---- */
+    var totalSec = Math.floor(remaining / 1000);
+    var m = Math.floor(totalSec / 60), s = totalSec % 60;
+    valEl.textContent = (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+    wrapEl.classList.remove('overtime');
+    if(overtimeNoteEl) overtimeNoteEl.hidden = true;
+
+    var criticalMode = remaining <= 10 * 60000;
+    wrapEl.classList.toggle('low', criticalMode);
+    var lastMinute = remaining <= 60000;
+    if(criticalMode){
+      var pct = remaining / (10 * 60000);
+      var interval = 250 + pct * 1750;
+      if(now - lastBeepAt > interval){
+        lastBeepAt = now;
+        playBeep(920, 0.08, 0.14);
+      }
+      if(lastMinute){
+        var pctMin = remaining / 60000;
+        var stabInterval = 350 + pctMin * 1650;
+        if(now - lastStabAt > stabInterval){
+          lastStabAt = now;
+          playAnguishStab();
+        }
+      }
     }
-  }
-  if(remaining <= 0 && !flatlinePlayed){
-    flatlinePlayed = true;
-    playFlatline();
-    wrapEl.classList.remove('low');
-    wrapEl.classList.add('flatline');
+    if(heartsEl) heartsEl.classList.toggle('critical', lastMinute);
+    wrapEl.classList.toggle('critical', lastMinute);
+  } else {
+    /* ---- Tiempo extra (pasados los 60 min) -- puramente cosmetico, NO
+       afecta la aprobacion ni la calificacion (ver overtime-note). Cuenta
+       hacia ARRIBA el tiempo extra real, pero el "segundero" que se ve
+       (fast-clock) gira mucho mas rapido que un segundero real, a
+       proposito, solo para transmitir urgencia. ---- */
+    var extraMs = -diffReal;
+    var extraSec = Math.floor(extraMs / 1000);
+    var em = Math.floor(extraSec / 60), es = extraSec % 60;
+    valEl.textContent = '+' + (em < 10 ? '0' : '') + em + ':' + (es < 10 ? '0' : '') + es;
+    wrapEl.classList.remove('low', 'critical');
+    wrapEl.classList.add('overtime');
+    if(heartsEl) heartsEl.classList.remove('critical');
+    if(overtimeNoteEl) overtimeNoteEl.hidden = false;
+
+    if(!flatlinePlayed){
+      flatlinePlayed = true;
+      playFlatline();
+    }
+    if(now - lastOvertimeStabAt > 1800){
+      lastOvertimeStabAt = now;
+      playAnguishStab();
+    }
   }
 }
 setInterval(tickTimer, 1000);
@@ -1272,7 +1424,7 @@ function renderResults(result){
   var title = document.getElementById('score-title');
   var desc = document.getElementById('score-desc');
   var num = document.getElementById('score-num');
-  num.textContent = result.total;
+  animarNumero(num, result.total, 900);
   hero.classList.remove('pass','warn','fail');
 
   var completa = practicaCompleta();
@@ -1284,6 +1436,7 @@ function renderResults(result){
     title.textContent = '✅ Práctica Aprobada — completada en su totalidad';
     desc.textContent = 'Esta práctica se aprueba por haberla completado en su totalidad. La nota de ' + result.total + ' / 100 pts es retroalimentación sobre la calidad de sus respuestas — no afecta su aprobación.';
     medalBtn.style.display = 'inline-flex';
+    fireConfetti();
   } else if(faltan.length <= 4){
     hero.classList.add('warn');
     title.textContent = '🟠 Casi completa — faltan ' + faltan.length + ' campo(s)';
@@ -1390,53 +1543,94 @@ document.getElementById('btn-recheck').addEventListener('click', function(){
 });
 
 /* ---------- MEDALLA DE FINALIZACIÓN ---------- */
+/* Tema visual de la medalla -- relacionado con el TEMA del curso, no con
+   la institucion (ver skill inap-practica-autocalificable, registro de
+   temas por curso). Transformacion Digital (generico, U1/U2): paleta
+   azul/tech. */
+var TEMA_MEDALLA = {
+  icono: '💠',
+  fondo1: '#0f2a4a', fondo2: '#081326',
+  medalClaro: '#cfe4fb', medalMedio: '#5b9bd8', medalOscuro: '#2a5f8f',
+  laurel: '#5b9bd8',
+  eyebrow: 'CERTIFICADO DE FINALIZACIÓN'
+};
+
+function dibujarLaurel(ctx, cx, cy, r, color){
+  for(var lado = -1; lado <= 1; lado += 2){
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.scale(lado, 1);
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 4;
+    ctx.beginPath();
+    ctx.moveTo(r * 0.72, r * 0.78);
+    ctx.quadraticCurveTo(r * 1.28, 0, r * 0.92, -r * 0.9);
+    ctx.stroke();
+    for(var i = 0; i < 7; i++){
+      var t = i / 6;
+      var px = (r * 0.72) * (1 - t) + (r * 0.92) * t;
+      var py = (r * 0.78) * (1 - t) + (-r * 0.9) * t;
+      ctx.save();
+      ctx.translate(px, py);
+      ctx.rotate(-0.6 + t * 1.15);
+      ctx.beginPath();
+      ctx.ellipse(0, 0, 13, 6, 0, 0, Math.PI * 2);
+      ctx.fillStyle = color;
+      ctx.globalAlpha = 0.85;
+      ctx.fill();
+      ctx.restore();
+    }
+    ctx.restore();
+  }
+}
+
 function drawMedal(nombre, cursoLabel, unidadLabel){
+  var tema = TEMA_MEDALLA;
   var canvas = document.getElementById('medal-canvas');
   var ctx = canvas.getContext('2d');
   var W = canvas.width, H = canvas.height;
   ctx.clearRect(0,0,W,H);
   var bgGrad = ctx.createLinearGradient(0,0,0,H);
-  bgGrad.addColorStop(0,'#003877'); bgGrad.addColorStop(1,'#002a5c');
+  bgGrad.addColorStop(0,tema.fondo1); bgGrad.addColorStop(1,tema.fondo2);
   ctx.fillStyle = bgGrad; ctx.fillRect(0,0,W,H);
 
   ctx.textAlign = 'center';
-  ctx.fillStyle = '#c9982f';
-  ctx.font = 'bold 20px Inter, sans-serif';
-  ctx.fillText('INSTITUTO NACIONAL DE ADMINISTRACIÓN PÚBLICA', W/2, 55);
+  ctx.fillStyle = tema.laurel;
+  ctx.font = 'bold 18px Inter, sans-serif';
+  ctx.fillText(tema.eyebrow, W/2, 55);
 
-  var cx = W/2, cy = 300, r = 165;
-  ctx.beginPath(); ctx.moveTo(cx-55,120); ctx.lineTo(cx+55,120); ctx.lineTo(cx+38,230); ctx.lineTo(cx,190); ctx.lineTo(cx-38,230); ctx.closePath();
-  ctx.fillStyle = '#7c1d1d'; ctx.fill();
+  var cx = W/2, cy = 300, r = 150;
+  dibujarLaurel(ctx, cx, cy, r + 25, tema.laurel);
 
   var medalGrad = ctx.createRadialGradient(cx-50,cy-50,10,cx,cy,r);
-  medalGrad.addColorStop(0,'#f7dfa0'); medalGrad.addColorStop(0.6,'#dcae4a'); medalGrad.addColorStop(1,'#a97f24');
+  medalGrad.addColorStop(0,tema.medalClaro); medalGrad.addColorStop(0.6,tema.medalMedio); medalGrad.addColorStop(1,tema.medalOscuro);
   ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2); ctx.fillStyle = medalGrad; ctx.fill();
-  ctx.lineWidth = 10; ctx.strokeStyle = '#7a5c19'; ctx.stroke();
-  ctx.beginPath(); ctx.arc(cx,cy,r-22,0,Math.PI*2); ctx.lineWidth=3; ctx.strokeStyle='rgba(122,92,25,.6)'; ctx.stroke();
+  ctx.lineWidth = 8; ctx.strokeStyle = tema.medalOscuro; ctx.stroke();
+  ctx.beginPath(); ctx.arc(cx,cy,r-20,0,Math.PI*2); ctx.lineWidth=3; ctx.strokeStyle='rgba(255,255,255,.35)'; ctx.stroke();
 
-  ctx.fillStyle = '#2a1e00';
-  ctx.font = 'bold 90px Inter, sans-serif';
-  ctx.fillText('🏅', cx, cy+30);
+  ctx.fillStyle = tema.fondo1;
+  ctx.font = 'bold 82px Inter, sans-serif';
+  ctx.fillText(tema.icono, cx, cy+28);
 
   ctx.fillStyle = '#ffffff';
   ctx.font = 'bold 30px Inter, sans-serif';
-  ctx.fillText('PRÁCTICA COMPLETADA', W/2, cy+r+55);
+  ctx.fillText('PRÁCTICA COMPLETADA', W/2, cy+r+65);
 
-  ctx.fillStyle = '#c9982f';
+  ctx.fillStyle = tema.laurel;
   ctx.font = '600 21px Inter, sans-serif';
-  wrapCanvasText(ctx, cursoLabel, W/2, cy+r+90, W-100, 26);
+  wrapCanvasText(ctx, cursoLabel, W/2, cy+r+100, W-100, 26);
 
   ctx.fillStyle = '#cbd5e1';
   ctx.font = '17px Inter, sans-serif';
-  ctx.fillText(unidadLabel, W/2, cy+r+150);
+  ctx.fillText(unidadLabel, W/2, cy+r+160);
 
   ctx.fillStyle = '#ffffff';
   ctx.font = 'bold 24px Inter, sans-serif';
-  ctx.fillText(nombre || 'Participante', W/2, cy+r+195);
+  ctx.fillText(nombre || 'Participante', W/2, cy+r+205);
 
   ctx.fillStyle = '#94a3b8';
   ctx.font = '14px Inter, sans-serif';
-  ctx.fillText('INAP · Rep. Dominicana · ' + new Date().toLocaleDateString('es-DO'), W/2, cy+r+225);
+  ctx.fillText('Johan Tapia, PhD · ' + new Date().toLocaleDateString('es-DO'), W/2, cy+r+235);
 }
 function wrapCanvasText(ctx, text, x, y, maxWidth, lineHeight){
   var words = text.split(' ');
@@ -1452,7 +1646,7 @@ function wrapCanvasText(ctx, text, x, y, maxWidth, lineHeight){
   lines.forEach(function(l, idx){ ctx.fillText(l, x, y + idx*lineHeight); });
 }
 document.getElementById('btn-medal').addEventListener('click', function(){
-  drawMedal(nombreIdentificacion(), 'Herramientas de Transformación Digital · INAP', 'Unidad I · Transformación Digital en la Gestión Pública');
+  drawMedal(nombreIdentificacion(), 'Herramientas de Transformación Digital', 'Unidad I · Transformación Digital en la Gestión Pública');
   document.getElementById('medal-modal').hidden = false;
 });
 document.getElementById('medal-close').addEventListener('click', function(){
@@ -1618,6 +1812,158 @@ document.querySelectorAll('.advisor-suggest button').forEach(function(btn){
 });
 
 wireVoiceButtons();
+
+/* ===== EFECTOS DINAMICOS ===== */
+var prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* Fondo animado tipo "red" en la portada -- nodos conectados por lineas que
+   derivan lentamente. Opacidad baja para no interferir con el texto. */
+function iniciarRedPortada(){
+  var canvas = document.getElementById('cover-canvas');
+  var cover = document.getElementById('portada');
+  if(!canvas || !cover || prefersReducedMotion) return;
+  var ctx = canvas.getContext('2d');
+  var ancho, alto, nodos = [];
+  var NUM_NODOS = 42, DIST_MAX = 130;
+
+  function redimensionar(){
+    ancho = canvas.width = cover.offsetWidth;
+    alto = canvas.height = cover.offsetHeight;
+  }
+  function crearNodos(){
+    nodos = [];
+    for(var i = 0; i < NUM_NODOS; i++){
+      nodos.push({
+        x: Math.random() * ancho, y: Math.random() * alto,
+        vx: (Math.random() - 0.5) * 0.35, vy: (Math.random() - 0.5) * 0.35
+      });
+    }
+  }
+  function paso(){
+    ctx.clearRect(0, 0, ancho, alto);
+    for(var i = 0; i < nodos.length; i++){
+      var n = nodos[i];
+      n.x += n.vx; n.y += n.vy;
+      if(n.x < 0 || n.x > ancho) n.vx *= -1;
+      if(n.y < 0 || n.y > alto) n.vy *= -1;
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, 1.8, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(255,255,255,.85)';
+      ctx.fill();
+      for(var j = i + 1; j < nodos.length; j++){
+        var m = nodos[j];
+        var dx = n.x - m.x, dy = n.y - m.y;
+        var dist = Math.sqrt(dx * dx + dy * dy);
+        if(dist < DIST_MAX){
+          ctx.beginPath();
+          ctx.moveTo(n.x, n.y); ctx.lineTo(m.x, m.y);
+          ctx.strokeStyle = 'rgba(201,152,47,' + ((1 - dist / DIST_MAX) * .5) + ')';
+          ctx.lineWidth = 1;
+          ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(paso);
+  }
+  redimensionar();
+  crearNodos();
+  requestAnimationFrame(paso);
+  window.addEventListener('resize', function(){ redimensionar(); crearNodos(); });
+}
+iniciarRedPortada();
+
+/* Revelado progresivo de las tarjetas al hacer scroll. */
+function iniciarRevelado(){
+  var tarjetas = document.querySelectorAll('.main > .card');
+  if(!tarjetas.length) return;
+  if(prefersReducedMotion || !('IntersectionObserver' in window)) return;
+  tarjetas.forEach(function(el){ el.classList.add('reveal-init'); });
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        entry.target.classList.add('revealed');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: .12, rootMargin: '0px 0px -40px 0px' });
+  tarjetas.forEach(function(el){ obs.observe(el); });
+}
+iniciarRevelado();
+
+/* Efecto de onda (ripple) al presionar botones. */
+function iniciarRipple(){
+  document.addEventListener('click', function(e){
+    var btn = e.target.closest && e.target.closest('.btn-primary, .btn-secondary, .btn-block');
+    if(!btn) return;
+    var rect = btn.getBoundingClientRect();
+    var tam = Math.max(rect.width, rect.height) * 1.4;
+    var onda = document.createElement('span');
+    onda.className = 'js-ripple';
+    onda.style.width = onda.style.height = tam + 'px';
+    onda.style.left = (e.clientX - rect.left - tam / 2) + 'px';
+    onda.style.top = (e.clientY - rect.top - tam / 2) + 'px';
+    btn.appendChild(onda);
+    setTimeout(function(){ onda.remove(); }, 650);
+  });
+}
+iniciarRipple();
+
+/* Cuenta animada del puntaje final (0 -> total) en vez de aparecer de golpe. */
+function animarNumero(el, hasta, duracionMs){
+  if(prefersReducedMotion){ el.textContent = hasta; return; }
+  var inicio = performance.now();
+  function paso(ahora){
+    var t = Math.min(1, (ahora - inicio) / duracionMs);
+    var suavizado = 1 - Math.pow(1 - t, 3); // easeOutCubic
+    el.textContent = Math.round(hasta * suavizado);
+    if(t < 1) requestAnimationFrame(paso);
+  }
+  requestAnimationFrame(paso);
+}
+
+/* Confeti al aprobar la practica -- canvas propio, sin libreria externa. */
+function fireConfetti(){
+  if(prefersReducedMotion) return;
+  var canvas = document.createElement('canvas');
+  canvas.id = 'confetti-canvas';
+  canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+  document.body.appendChild(canvas);
+  var ctx = canvas.getContext('2d');
+  var colores = ['#003877', '#c9982f', '#16a34a', '#eff6ff', '#5b9bd8'];
+  var piezas = [];
+  for(var i = 0; i < 140; i++){
+    piezas.push({
+      x: Math.random() * canvas.width, y: -20 - Math.random() * canvas.height * .5,
+      w: 6 + Math.random() * 6, h: 8 + Math.random() * 8,
+      vx: (Math.random() - 0.5) * 3, vy: 2 + Math.random() * 3,
+      rot: Math.random() * 360, vrot: (Math.random() - 0.5) * 12,
+      color: colores[Math.floor(Math.random() * colores.length)]
+    });
+  }
+  var inicio = performance.now();
+  function paso(ahora){
+    var t = ahora - inicio;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    var vivas = false;
+    piezas.forEach(function(p){
+      if(p.y > canvas.height + 30) return;
+      vivas = true;
+      p.x += p.vx; p.y += p.vy; p.vy += 0.03; p.rot += p.vrot;
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rot * Math.PI / 180);
+      ctx.fillStyle = p.color;
+      ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+      ctx.restore();
+    });
+    if(vivas && t < 6000){
+      requestAnimationFrame(paso);
+    } else {
+      canvas.remove();
+    }
+  }
+  requestAnimationFrame(paso);
+}
 
 })();
 </script>
