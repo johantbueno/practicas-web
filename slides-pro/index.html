@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Slides Pro | Generador de Presentaciones</title>
-<meta name="description" content="Genera presentaciones PPTX profesionales con notas de orador extensas a partir de un tema y material (texto o PDF/DOCX). Herramienta interna de Johan Tapia.">
+<meta name="description" content="Genera presentaciones PPTX profesionales con notas de orador extensas a partir de un tema y material (texto o PDF/DOCX/XLSX/CSV/HTML/TXT). Herramienta interna de Johan Tapia.">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#003877">
 <meta name="color-scheme" content="light dark">
@@ -167,13 +167,13 @@ footer{text-align:center; font-size:.78rem; color:var(--muted); margin-top:2rem;
         <div class="hint" id="material-contador">0 / 8000 caracteres</div>
       </div>
       <div class="field">
-        <label for="archivo-input">Subir PDF o DOCX (opcional)</label>
-        <div class="file-drop" id="file-drop" tabindex="0" role="button" aria-label="Elegir archivo PDF o DOCX, o arrastrarlo aquí">
-          <span id="file-drop-texto">Haz clic o arrastra aquí un archivo PDF o DOCX (máx. 15 MB)</span>
+        <label for="archivo-input">Subir PDF, DOCX, XLSX, CSV, HTML o TXT (opcional)</label>
+        <div class="file-drop" id="file-drop" tabindex="0" role="button" aria-label="Elegir archivo PDF, DOCX, XLSX, CSV, HTML o TXT, o arrastrarlo aquí">
+          <span id="file-drop-texto">Haz clic o arrastra aquí un archivo PDF, DOCX, XLSX, CSV, HTML o TXT (máx. 15 MB)</span>
           <div id="archivo-nombre" aria-live="polite"></div>
           <button type="button" class="btn-quitar-archivo" id="btn-quitar-archivo" style="display:none">Quitar archivo</button>
         </div>
-        <input type="file" id="archivo-input" name="archivo" accept=".pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document" style="display:none">
+        <input type="file" id="archivo-input" name="archivo" accept=".pdf,.docx,.xlsx,.csv,.html,.htm,.txt,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,text/csv,text/html,text/plain" style="display:none">
       </div>
     </div>
 
@@ -284,10 +284,11 @@ const btnQuitarArchivo = document.getElementById('btn-quitar-archivo');
 function validarYMostrarArchivo(file) {
   if (!file) return;
   const extension = file.name.split('.').pop().toLowerCase();
-  if (extension !== 'pdf' && extension !== 'docx') {
+  const extensionesAceptadas = ['pdf', 'docx', 'xlsx', 'csv', 'html', 'htm', 'txt'];
+  if (!extensionesAceptadas.includes(extension)) {
     fileDrop.classList.add('file-error');
     fileDrop.classList.remove('has-file');
-    fileNombre.textContent = '✕ Solo se aceptan archivos PDF o DOCX.';
+    fileNombre.textContent = '✕ Solo se aceptan archivos PDF, DOCX, XLSX, CSV, HTML o TXT.';
     fileInput.value = '';
     return;
   }
