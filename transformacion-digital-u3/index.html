@@ -65,6 +65,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .timer-value{font-size:1.5rem; font-weight:800; color:var(--primary); font-family:ui-monospace,SFMono-Regular,Consolas,monospace; letter-spacing:.02em;}
 .timer-box.low{background:var(--red-bg); border-color:var(--red-border);}
 .timer-box.low .timer-value{color:var(--red); animation:timerPulse 1s ease-in-out infinite;}
+.timer-box.critical .timer-value{animation:timerPulse .5s ease-in-out infinite;}
 .timer-box.flatline{background:var(--bg-body); border-color:var(--border-dark);}
 .timer-box.flatline .timer-value{color:var(--muted); text-decoration:line-through;}
 #sound-toggle{width:28px; height:28px; font-size:.85rem; flex-shrink:0;}
@@ -1086,6 +1087,7 @@ var SOUND_MUTE_KEY = 'tp_htd_sound_muted';
 var soundMuted = localStorage.getItem(SOUND_MUTE_KEY) === '1';
 var flatlinePlayed = false;
 var lastBeepAt = 0;
+var lastStabAt = 0;
 
 function getDeadline(){
   var d = parseInt(localStorage.getItem(TIMER_KEY), 10);
@@ -1129,6 +1131,29 @@ function playFlatline(){
     osc.onended = function(){ ctx.close(); };
   }catch(e){}
 }
+function playAnguishStab(){
+  // "Punalada" de cuerdas disonante (segunda menor, Do6 vs Si5) para el
+  // ultimo minuto -- inspirado en el clasico "stinger" de cuerdas de
+  // peliculas de suspenso (ej. la escena de la ducha de Psicosis), pero
+  // sintetizado desde cero con osciladores (sin usar la pieza real con
+  // copyright, mismo criterio que playBeep/playFlatline de arriba).
+  if(soundMuted) return;
+  try{
+    var Ctx = window.AudioContext || window.webkitAudioContext;
+    var ctx = new Ctx();
+    [1046.5, 987.77].forEach(function(freq){
+      var osc = ctx.createOscillator(); var gain = ctx.createGain();
+      osc.type = 'sawtooth';
+      osc.frequency.value = freq;
+      gain.gain.setValueAtTime(0.001, ctx.currentTime);
+      gain.gain.linearRampToValueAtTime(0.11, ctx.currentTime + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.35);
+      osc.connect(gain); gain.connect(ctx.destination);
+      osc.start(); osc.stop(ctx.currentTime + 0.4);
+    });
+    setTimeout(function(){ ctx.close(); }, 450);
+  }catch(e){}
+}
 function tickTimer(){
   var wrapEl = document.getElementById('timer-box');
   var valEl = document.getElementById('timer-value');
@@ -1140,6 +1165,7 @@ function tickTimer(){
   valEl.textContent = (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
   var criticalMode = remaining > 0 && remaining <= 10 * 60000;
   wrapEl.classList.toggle('low', criticalMode);
+  var lastMinute = remaining > 0 && remaining <= 60000;
   if(criticalMode){
     var pct = remaining / (10 * 60000);
     var interval = 250 + pct * 1750;
@@ -1148,7 +1174,19 @@ function tickTimer(){
       lastBeepAt = now;
       playBeep(920, 0.08, 0.14);
     }
+    if(lastMinute){
+      // En el ultimo minuto las "punaladas" de cuerdas se aceleran de una
+      // cada 2s a casi una por segundo segun se acerca el cero, subiendo
+      // la tension igual que el pitido pero con un timbre mas angustiante.
+      var pctMin = remaining / 60000;
+      var stabInterval = 350 + pctMin * 1650;
+      if(now - lastStabAt > stabInterval){
+        lastStabAt = now;
+        playAnguishStab();
+      }
+    }
   }
+  wrapEl.classList.toggle('critical', lastMinute);
   if(remaining <= 0 && !flatlinePlayed){
     flatlinePlayed = true;
     playFlatline();
