@@ -28,6 +28,23 @@
             "url": "https://johantbueno.github.io/practicas-web/innovacion-digital-cesac-m3/"
           }
         ]
+      },
+      {
+        "nombre": "Introducción a la Inteligencia Artificial",
+        "icono": "🤖",
+        "tipoClase": "secuencial",
+        "tipoLabel": "Curso secuencial · 4 unidades",
+        "practicas": [
+          {
+            "badge": "Unidad I",
+            "titulo": "Fundamentos de la IA Generativa y el Arte de Preguntar (Prompt Engineering)",
+            "desc": "Qué es la IA generativa, herramientas disponibles (ChatGPT, Claude, Gemini, Perplexity, Manus, Kimi, DeepSeek, MiMo), el método CARE para redactar prompts, práctica en vivo con Nicole, y ética en el uso de la IA. Individual.",
+            "duracion": "45 minutos",
+            "puntos": "100 pts",
+            "aprobacion": "70% mínimo",
+            "url": "https://johantbueno.github.io/practicas-web/introduccion-ia-u1/"
+          }
+        ]
       }
     ]
   },
