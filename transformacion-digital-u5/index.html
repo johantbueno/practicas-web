@@ -1123,31 +1123,25 @@ function tickTimer(){
     if(heartsEl) heartsEl.classList.toggle('critical', lastMinute);
     wrapEl.classList.toggle('critical', lastMinute);
   } else {
-    /* ---- Tiempo extra (pasados los 60 min) -- puramente cosmetico, NO
-       afecta la aprobacion ni la calificacion (ver overtime-note). Cuenta
-       hacia ARRIBA el tiempo extra real, pero el "segundero" que se ve
-       (fast-clock) gira mucho mas rapido que un segundero real, a
-       proposito, solo para transmitir urgencia. ---- */
-    var extraMs = -diffReal;
-    var extraSec = Math.floor(extraMs / 1000);
-    var em = Math.floor(extraSec / 60), es = extraSec % 60;
-    valEl.textContent = '+' + (em < 10 ? '0' : '') + em + ':' + (es < 10 ? '0' : '') + es;
-    wrapEl.classList.remove('low', 'critical');
-    wrapEl.classList.add('overtime');
+    /* ---- Al llegar a cero, el reloj se REINICIA solo, sin penalidad ----
+       Es un temporizador de referencia, no un examen con limite duro: si
+       el grupo necesita mas tiempo, el reloj simplemente vuelve a contar
+       desde el total (120 min) de nuevo, tantas veces como haga falta, sin
+       afectar la aprobacion ni la calificacion. Un solo sonido breve marca
+       el reinicio (no un "tiempo extra" punitivo que se acumula). */
+    wrapEl.classList.remove('low', 'critical', 'overtime');
     if(heartsEl) heartsEl.classList.remove('critical');
-    if(overtimeNoteEl) overtimeNoteEl.hidden = false;
-
+    if(overtimeNoteEl) overtimeNoteEl.hidden = true;
     if(!flatlinePlayed){
       flatlinePlayed = true;
       playFlatline();
     }
-    // Punaladas periodicas cada ~1.8s mientras dure el tiempo extra --
-    // constante (no se sigue acelerando mas alla del limite ya alcanzado
-    // en el ultimo minuto antes del cero).
-    if(now - lastOvertimeStabAt > 1800){
-      lastOvertimeStabAt = now;
-      playAnguishStab();
-    }
+    timerDeadline = Date.now() + TIMER_MINUTES * 60000;
+    try{ localStorage.setItem(TIMER_KEY, String(timerDeadline)); }catch(e){}
+    flatlinePlayed = false;
+    lastBeepAt = 0; lastStabAt = 0; lastOvertimeStabAt = 0;
+    tickTimer();
+    return;
   }
 }
 setInterval(tickTimer, 1000);
