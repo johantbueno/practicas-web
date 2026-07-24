@@ -716,7 +716,7 @@ function renderAIReview(data){
     var nombre = RUBRICA[i] ? RUBRICA[i].criterio : ('Criterio ' + (i+1));
     return '<li><strong>' + escapeHtml(nombre) + ':</strong> ' + c.puntaje + '/' + c.max + ' pts — ' + escapeHtml(c.comentario) + '</li>';
   }).join('');
-  box.innerHTML = '<strong>🤖 Evaluación del Tutor IA:</strong> ' + data.total + ' / 100 pts.<br>' +
+  box.innerHTML = '<strong>🎓 Evaluación del Tutor Virtual:</strong> ' + data.total + ' / 100 pts.<br>' +
     (data.comentario_general ? '<p style="margin:.5rem 0;">' + escapeHtml(data.comentario_general) + '</p>' : '') +
     '<ul style="margin:.5rem 0 0; padding-left:1.2rem; font-size:.85rem;">' + rows + '</ul>' +
     '<p style="margin:.6rem 0 0; font-size:.72rem; color:var(--muted);">Esta evaluación es preliminar y no reemplaza la nota oficial de tu facilitador, quien la confirmará después de revisar tus respuestas.</p>';
@@ -726,7 +726,7 @@ function requestAIGrading(result){
   var box = document.getElementById('ai-review');
   box.style.display = 'block';
   box.className = 'alert info';
-  box.innerHTML = '<strong>🤖 Tutor IA:</strong> analizando el contenido de tus respuestas (puede tardar hasta 10 minutos) y notificando a tu facilitador por correo. Tu nota preliminar ya quedó registrada arriba…';
+  box.innerHTML = '<strong>🎓 Tutor Virtual:</strong> analizando el contenido de tus respuestas (puede tardar hasta 10 minutos) y notificando a tu facilitador por correo. Tu nota preliminar ya quedó registrada arriba…';
   fetchWithTimeout(AI_GRADE_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -739,7 +739,7 @@ function requestAIGrading(result){
     renderAIReview(data);
   }).catch(function(){
     box.className = 'alert warn';
-    box.innerHTML = '<strong>🤖 Tutor IA:</strong> no se pudo contactar el servicio de evaluación en este momento. Se muestra únicamente la nota preliminar local de esta página, que sigue siendo válida.';
+    box.innerHTML = '<strong>🎓 Tutor Virtual:</strong> no se pudo contactar el servicio de evaluación en este momento. Se muestra únicamente la nota preliminar local de esta página, que sigue siendo válida.';
   });
 }
 
