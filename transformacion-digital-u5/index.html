@@ -462,7 +462,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
         <li>Al finalizar, presionen <strong>Enviar y Calificar</strong>: el sistema revisará el trabajo, dará una nota preliminar orientativa, y les permitirá generar su medalla digital.</li>
       </ol>
       <div class="alert success">
-        <strong>🎓 Esta práctica es interactiva y autocalificable.</strong> Mientras trabaja, Nicole (botón 🎓 abajo a la izquierda) puede responder sus dudas conceptuales. Al terminar, el botón <strong>Enviar y Calificar</strong> evalúa al instante la completitud y calidad de cada paso, y además pide una segunda lectura a la IA sobre el contenido real de sus respuestas.
+        <strong>🎓 Esta práctica es interactiva y autocalificable.</strong> Mientras trabaja, Nicole (botón 🎓 abajo a la izquierda) puede responder sus dudas conceptuales. Al terminar, el botón <strong>Enviar y Calificar</strong> evalúa al instante la completitud y calidad de cada paso, y además pide que el Tutor Virtual haga una segunda revisión sobre el contenido real de sus respuestas.
       </div>
       <div class="alert warn">
         <strong>Sobre la calificación automática:</strong> el sistema evalúa <em>completitud, extensión y coherencia formal</em> de sus respuestas — no sustituye la revisión de contenido de su facilitador.
@@ -1475,7 +1475,7 @@ function renderAIReview(data){
   box.innerHTML = '<strong>Evaluación de Nicole:</strong> ' + data.total + ' / 100 pts (retroalimentación, no afecta su aprobación).<br>' +
     (data.comentario_general ? '<p style="margin:.5rem 0;">' + escapeHtml(data.comentario_general) + '</p>' : '') +
     '<ul style="margin:.5rem 0 0; padding-left:1.2rem; font-size:.85rem;">' + rows + '</ul>' +
-    '<p style="margin:.6rem 0 0; font-size:.72rem; color:var(--muted);">Esta evaluación la genera un modelo de IA leyendo el contenido real de sus respuestas; es orientativa y no reemplaza la nota oficial de su facilitador.</p>';
+    '<p style="margin:.6rem 0 0; font-size:.72rem; color:var(--muted);">Esta evaluación la genera el Tutor Virtual leyendo el contenido real de sus respuestas; es orientativa y no reemplaza la nota oficial de su facilitador.</p>';
 }
 
 function requestAIGrading(localResult){
