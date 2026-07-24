@@ -1,0 +1,1936 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Práctica — Unidad IV | Herramientas de Transformación Digital</title>
+<meta name="description" content="Práctica autocalificable de la Unidad IV: Gestión del Conocimiento y Big Data, curso Herramientas de Transformación Digital, INAP. Cuatro casos prácticos, matrices y cuestionarios, individual o en equipo. Incluye a Nicole, temporizador de referencia y medalla digital al completar.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%BB%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+:root{
+  --navy:#003877; --navy-dark:#002a5c; --gold:#c9982f;
+  --primary:#0f172a; --secondary:#334155; --muted:#64748b;
+  --bg-body:#f4f7fb; --bg-card:#ffffff; --border-light:#e2e8f0; --border-dark:#cbd5e1;
+  --green:#16a34a; --green-bg:#f0fdf4; --green-border:#22c55e;
+  --amber:#b45309; --amber-bg:#fffbeb; --amber-border:#f59e0b;
+  --red:#b91c1c; --red-bg:#fef2f2; --red-border:#ef4444;
+  --blue-bg:#eff6ff; --blue-border:#3b82f6;
+  --radius-lg:16px; --radius-md:12px; --radius-sm:8px;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.06);
+  --shadow-md:0 4px 6px -1px rgba(0,0,0,.1), 0 2px 4px -2px rgba(0,0,0,.1);
+  --shadow-lg:0 10px 15px -3px rgba(0,0,0,.12), 0 4px 6px -4px rgba(0,0,0,.1);
+  --sidebar-w:300px;
+}
+[data-theme="dark"]{
+  --navy:#5b9bd8; --primary:#f1f5f9; --secondary:#cbd5e1; --muted:#94a3b8;
+  --bg-body:#0b1220; --bg-card:#151f2f; --border-light:#283249; --border-dark:#3a4666;
+  --green-bg:#0c2417; --amber-bg:#2a2108; --red-bg:#2a1212; --blue-bg:#13233f;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.4); --shadow-md:0 4px 6px -1px rgba(0,0,0,.5); --shadow-lg:0 10px 15px -3px rgba(0,0,0,.5);
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{margin:0; background:var(--bg-body); color:var(--secondary); font-family:'Inter',ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif; line-height:1.7; transition:background-color .25s ease;}
+a{color:var(--navy);}
+.skip-link{position:absolute; left:-9999px; top:0; background:var(--navy); color:#fff; padding:.85rem 1.5rem; z-index:2000; border-radius:0 0 10px 0; font-weight:700; text-decoration:none;}
+.skip-link:focus{left:0;}
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible{outline:2px solid var(--navy); outline-offset:2px; border-radius:4px;}
+
+#progress-wrap{position:fixed; top:0; left:0; right:0; height:4px; z-index:1000; background:transparent;}
+#progress-bar{height:100%; width:0%; background:linear-gradient(90deg, var(--navy), var(--gold)); transition:width .1s linear;}
+
+.wrapper{display:flex; flex-direction:column; min-height:100vh; margin:0 auto;}
+@media (min-width:1024px){ .wrapper{flex-direction:row; align-items:flex-start; max-width:1440px; padding:0 1rem;} }
+
+/* SIDEBAR */
+.sidebar{background:var(--bg-card); padding:1.75rem 1.5rem; border-bottom:1px solid var(--border-light);}
+@media (min-width:1024px){
+  .sidebar{width:var(--sidebar-w); flex-shrink:0; position:sticky; top:1.5rem; height:calc(100vh - 3rem); overflow-y:auto; border-radius:var(--radius-lg); border:1px solid var(--border-light); box-shadow:var(--shadow-md); margin:1.5rem 0;}
+}
+.sidebar-header{display:flex; align-items:center; gap:10px; margin-bottom:1rem; padding-bottom:1rem; border-bottom:1px solid var(--border-light);}
+.sidebar-title{color:var(--primary); font-size:1.02rem; font-weight:800; text-transform:uppercase; letter-spacing:.04em; margin:0;}
+.header-actions{margin-left:auto; display:flex; gap:.4rem;}
+.icon-btn{background:none; border:1px solid var(--border-light); width:34px; height:34px; border-radius:8px; cursor:pointer; font-size:1rem; display:flex; align-items:center; justify-content:center; color:var(--secondary);}
+.icon-btn:hover{background:var(--bg-body); border-color:var(--border-dark);}
+.nav-toggle{display:none;}
+
+/* TEMPORIZADOR DE REFERENCIA */
+.timer-box{background:var(--bg-body); border:1px solid var(--border-light); border-radius:var(--radius-md); padding:.85rem 1rem; margin-bottom:1.1rem; transition:background-color .3s ease, border-color .3s ease;}
+.timer-row{display:flex; justify-content:space-between; align-items:center; margin-bottom:.3rem;}
+.timer-label{font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.03em; color:var(--muted);}
+.timer-value{font-size:1.5rem; font-weight:800; color:var(--primary); font-family:ui-monospace,SFMono-Regular,Consolas,monospace; letter-spacing:.02em;}
+.timer-box.low{background:var(--red-bg); border-color:var(--red-border);}
+.timer-box.low .timer-value{color:var(--red); animation:timerPulse 1s ease-in-out infinite;}
+.timer-box.critical .timer-value{animation:timerPulse .5s ease-in-out infinite;}
+.timer-box.flatline{background:var(--bg-body); border-color:var(--border-dark);}
+.timer-box.flatline .timer-value{color:var(--muted); text-decoration:line-through;}
+#sound-toggle{width:28px; height:28px; font-size:.85rem; flex-shrink:0;}
+@keyframes timerPulse{0%,100%{opacity:1; transform:scale(1);} 50%{opacity:.55; transform:scale(1.05);}}
+
+/* Corazones estilo "vida" de videojuego -- se van vaciando segun avanza el tiempo. */
+#hearts-canvas{display:block; margin:.55rem auto 0;}
+@keyframes heartShake{0%,100%{transform:translateX(0);} 20%{transform:translateX(-2px);} 40%{transform:translateX(2px);} 60%{transform:translateX(-2px);} 80%{transform:translateX(2px);}}
+#hearts-canvas.critical{animation:heartShake .3s ease-in-out infinite;}
+
+/* Modo "tiempo extra" -- tras los 60 minutos, puramente cosmetico, no afecta la aprobacion. */
+.timer-box.overtime{background:var(--red-bg); border-color:var(--red-border);}
+.timer-box.overtime .timer-value{color:var(--red); animation:timerPulse .6s ease-in-out infinite;}
+.overtime-note{font-size:.66rem; color:var(--red); text-align:center; margin-top:.4rem; font-weight:700; line-height:1.3;}
+.fast-clock{width:26px; height:26px; border-radius:50%; border:2px solid var(--red); position:relative; margin:.55rem auto 0; display:none;}
+.timer-box.overtime .fast-clock{display:block;}
+.fast-clock-hand{position:absolute; top:50%; left:50%; width:2px; height:10px; background:var(--red); transform-origin:50% 100%; margin-top:-10px; margin-left:-1px; animation:fastSpin .4s linear infinite;}
+@keyframes fastSpin{ to{ transform:rotate(360deg); } }
+
+.progress-summary{margin-bottom:1.1rem;}
+.progress-summary-row{display:flex; justify-content:space-between; font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.03em; color:var(--muted); margin-bottom:.35rem;}
+#progress-count{color:var(--primary);}
+.progress-track{height:6px; border-radius:999px; background:var(--border-light); overflow:hidden;}
+.progress-fill{height:100%; width:0%; background:linear-gradient(90deg,var(--navy),var(--gold)); transition:width .3s ease;}
+.progress-fill.complete{background:linear-gradient(90deg,#16a34a,#22c55e);}
+
+.nav ul{list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:.2rem;}
+.nav a{text-decoration:none; color:var(--muted); font-size:.9rem; font-weight:500; display:flex; align-items:center; justify-content:space-between; gap:.5rem; padding:.55rem .8rem; border-radius:var(--radius-sm); transition:all .2s ease;}
+.nav a:hover{background:var(--bg-body); color:var(--navy); transform:translateX(3px);}
+.nav a.active,.nav a.active:hover{background:var(--navy); color:#fff; transform:translateX(3px);}
+.nav a .pct{font-size:.68rem; font-weight:700; opacity:.75;}
+.nav a.done .pct::before{content:"✓ ";}
+
+.sidebar-actions{margin-top:1.25rem; padding-top:1.25rem; border-top:1px solid var(--border-light); display:flex; flex-direction:column; gap:.5rem;}
+.btn-block{width:100%; padding:.6rem .8rem; border-radius:var(--radius-sm); border:1px solid var(--border-light); background:var(--bg-body); color:var(--secondary); font-weight:600; font-size:.82rem; cursor:pointer; font-family:inherit;}
+.btn-block:hover{border-color:var(--navy); color:var(--navy);}
+
+@media (max-width:1023px){
+  .sidebar-collapsible{display:none;}
+  .sidebar.open .sidebar-collapsible{display:block;}
+  .nav-toggle{display:inline-flex;}
+  .sidebar-header{flex-wrap:wrap; row-gap:.6rem;}
+  .header-actions{flex-basis:100%; justify-content:flex-end; margin-left:0;}
+  .icon-btn{width:40px; height:40px;}
+  .fontsize-controls button{width:38px; height:38px;}
+}
+
+/* MAIN */
+.main{flex:1; padding:1.75rem 1rem 6.5rem; max-width:980px; margin:0 auto; width:100%;}
+@media (min-width:1024px){ .main{padding:1.75rem 2.5rem 5.5rem;} }
+
+.card.cover{background:linear-gradient(135deg,var(--navy),var(--navy-dark)); color:#fff; border-radius:var(--radius-lg); padding:2.5rem; margin-bottom:2rem; box-shadow:var(--shadow-lg);}
+.card.cover h1{color:#fff;}
+.cover .eyebrow{text-transform:uppercase; letter-spacing:.08em; font-size:.78rem; font-weight:700; opacity:.85;}
+.cover h1{font-size:1.9rem; font-weight:800; margin:.4rem 0 .3rem; line-height:1.25;}
+.cover p.sub{margin:0 0 1.25rem; opacity:.92; font-size:1rem;}
+.cover-chips{display:flex; flex-wrap:wrap; gap:.6rem; margin-top:1.1rem;}
+.cover-chip{background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.22); border-radius:999px; padding:.4rem .9rem; font-size:.8rem; font-weight:600; letter-spacing:.01em;}
+.tutorial-steps{counter-reset:tut; list-style:none; padding:0; margin:1rem 0;}
+.tutorial-steps li{counter-increment:tut; position:relative; padding:.15rem 0 .9rem 2.5rem; font-size:.92rem;}
+.tutorial-steps li::before{content:counter(tut); position:absolute; left:0; top:0; width:1.7rem; height:1.7rem; border-radius:50%; background:var(--navy); color:#fff; font-weight:800; font-size:.8rem; display:flex; align-items:center; justify-content:center;}
+.help-box{display:flex; align-items:center; gap:.9rem; background:var(--blue-bg); border:1px solid var(--blue-border); border-radius:var(--radius-md); padding:1rem 1.25rem; margin-top:1.25rem;}
+.help-box a.btn-secondary{white-space:nowrap;}
+
+.card{background:var(--bg-card); padding:2rem; border-radius:var(--radius-lg); box-shadow:var(--shadow-sm); border:1px solid var(--border-light); margin-bottom:2rem; scroll-margin-top:1.25rem;}
+@media (max-width:640px){ .card{padding:1.35rem;} }
+.card h1{font-size:1.7rem; font-weight:800; color:var(--primary); margin:0 0 1.1rem;}
+.card h2{font-size:1.2rem; font-weight:700; color:var(--navy); margin:1.75rem 0 .9rem; padding-bottom:.5rem; border-bottom:1px solid var(--border-light);}
+.card h2:first-child{margin-top:0;}
+.card h3{font-size:1.02rem; font-weight:700; color:var(--primary); margin:1.4rem 0 .7rem;}
+.card p{margin:0 0 1rem;}
+.step-badge{display:inline-flex; align-items:center; gap:.4rem; background:var(--blue-bg); color:var(--navy); border:1px solid var(--blue-border); font-weight:700; font-size:.72rem; text-transform:uppercase; letter-spacing:.04em; padding:.3rem .7rem; border-radius:999px; margin-bottom:.9rem;}
+
+.alert{border-radius:var(--radius-md); padding:1rem 1.25rem; margin:1rem 0; border:1px solid; font-size:.92rem;}
+.alert h3,.alert h4{margin-top:0;}
+.alert.info{background:var(--blue-bg); border-color:var(--blue-border);}
+.alert.gold{background:var(--amber-bg); border-color:var(--amber-border);}
+.alert.success{background:var(--green-bg); border-color:var(--green-border);}
+.alert.warn{background:var(--red-bg); border-color:var(--red-border);}
+
+.tbl-wrap{overflow-x:auto; margin:1rem 0; border-radius:var(--radius-sm); border:1px solid var(--border-light);}
+table.tp-table{width:100%; border-collapse:collapse; font-size:.87rem; min-width:560px;}
+table.tp-table th{background:var(--navy); color:#fff; text-align:left; padding:.6rem .7rem; font-weight:700; font-size:.78rem; text-transform:uppercase; letter-spacing:.02em;}
+table.tp-table td{padding:.55rem .7rem; border-top:1px solid var(--border-light); vertical-align:top;}
+table.tp-table tr:nth-child(even) td{background:var(--bg-body);}
+table.tp-table td.label-cell{font-weight:700; color:var(--primary); white-space:nowrap;}
+
+.field{margin-bottom:1rem;}
+.field label{display:flex; justify-content:space-between; align-items:baseline; gap:.5rem; font-weight:700; font-size:.82rem; color:var(--primary); margin-bottom:.35rem;}
+.field .wc{font-weight:600; font-size:.7rem; color:var(--muted); white-space:nowrap;}
+.field .wc.ok{color:var(--green);}
+.hint{font-size:.78rem; color:var(--muted); margin:-.2rem 0 .5rem;}
+input[type=text], input[type=email], select, textarea{
+  width:100%; padding:.55rem .75rem; border:1px solid var(--border-light); border-radius:var(--radius-sm);
+  font-size:1rem; font-family:inherit; background:var(--bg-card); color:var(--primary); transition:border-color .15s ease;
+}
+[data-theme="dark"] input, [data-theme="dark"] select, [data-theme="dark"] textarea{background:#0f1830;}
+input:focus, select:focus, textarea:focus{border-color:var(--navy); outline:none;}
+textarea{min-height:76px; resize:vertical;}
+textarea.tall{min-height:150px;}
+.field-grid{display:grid; grid-template-columns:1fr 1fr; gap:.9rem;}
+@media (max-width:640px){ .field-grid{grid-template-columns:1fr;} }
+
+.step-points{float:right; background:var(--gold); color:#3a2a00; font-weight:800; font-size:.72rem; padding:.25rem .6rem; border-radius:999px;}
+
+.glossary-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:.9rem; margin-top:1rem;}
+.gloss-item{border:1px solid var(--border-light); border-radius:var(--radius-md); padding:.9rem 1rem; background:var(--bg-body);}
+.gloss-item dt{font-weight:800; color:var(--navy); font-size:.85rem; margin-bottom:.3rem;}
+.gloss-item dd{margin:0; font-size:.82rem; color:var(--secondary);}
+
+ol.ins-list{padding-left:1.2rem;}
+ol.ins-list li{margin-bottom:.5rem;}
+
+.btn-primary{background:linear-gradient(135deg,var(--navy),var(--navy-dark)); color:#fff; border:none; padding:.9rem 1.6rem; border-radius:var(--radius-md); font-weight:700; font-size:1rem; cursor:pointer; box-shadow:var(--shadow-md); font-family:inherit;}
+.btn-primary:hover{filter:brightness(1.08);}
+.btn-secondary{background:var(--bg-body); color:var(--navy); border:1px solid var(--navy); padding:.7rem 1.2rem; border-radius:var(--radius-md); font-weight:700; font-size:.88rem; cursor:pointer; font-family:inherit;}
+.btn-secondary:hover{background:var(--blue-bg);}
+.btn-row{display:flex; flex-wrap:wrap; gap:.7rem; margin-top:1.25rem;}
+
+#submit-zone{text-align:center; padding:2.25rem 1.5rem;}
+#submit-zone p{max-width:560px; margin:0 auto 1.25rem;}
+
+.results{display:none;}
+.results.show{display:block;}
+.score-hero{display:flex; flex-wrap:wrap; align-items:center; gap:1.75rem; padding:1.5rem; border-radius:var(--radius-lg); border:1px solid; margin-bottom:1.5rem;}
+.score-hero.pass{background:var(--green-bg); border-color:var(--green-border);}
+.score-hero.warn{background:var(--amber-bg); border-color:var(--amber-border);}
+.score-hero.fail{background:var(--red-bg); border-color:var(--red-border);}
+.score-circle{width:110px; height:110px; border-radius:50%; display:flex; flex-direction:column; align-items:center; justify-content:center; background:var(--bg-card); box-shadow:var(--shadow-md); flex-shrink:0;}
+.score-circle .num{font-size:1.9rem; font-weight:800; color:var(--primary); line-height:1;}
+.score-circle .den{font-size:.72rem; color:var(--muted); font-weight:700;}
+.score-verdict h3{margin:0 0 .3rem; font-size:1.15rem;}
+.score-verdict p{margin:0; font-size:.92rem;}
+
+.crit{border:1px solid var(--border-light); border-radius:var(--radius-md); padding:1.1rem 1.25rem; margin-bottom:1rem; background:var(--bg-card);}
+.crit-head{display:flex; justify-content:space-between; align-items:center; gap:1rem; margin-bottom:.5rem; flex-wrap:wrap;}
+.crit-head strong{color:var(--primary); font-size:.95rem;}
+.crit-score{font-weight:800; font-size:.9rem; color:var(--navy); white-space:nowrap;}
+.crit-track{height:8px; border-radius:999px; background:var(--border-light); overflow:hidden; margin-bottom:.75rem;}
+.crit-fill{height:100%; border-radius:999px;}
+.crit-fill.hi{background:var(--green);}
+.crit-fill.mid{background:var(--amber);}
+.crit-fill.lo{background:var(--red);}
+.crit ul{margin:.3rem 0 0; padding-left:1.15rem; font-size:.85rem;}
+.crit ul li{margin-bottom:.3rem;}
+.tag-ok{color:var(--green); font-weight:700;}
+.tag-mid{color:var(--amber); font-weight:700;}
+.tag-low{color:var(--red); font-weight:700;}
+
+footer.tp-footer{text-align:center; color:var(--muted); font-size:.8rem; padding:2rem 1rem; border-top:1px solid var(--border-light); margin-top:1rem;}
+
+/* ADVISOR (Nicole, asistente del Dr. Johan Tapia) */
+.advisor-fab{position:fixed; bottom:calc(1.5rem + env(safe-area-inset-bottom)); left:1.5rem; z-index:900; background:linear-gradient(135deg,var(--navy),var(--navy-dark)); color:#fff; border:none; border-radius:999px; padding:.85rem 1.2rem; display:flex; align-items:center; gap:.5rem; font-weight:700; font-size:.9rem; cursor:pointer; box-shadow:var(--shadow-lg); font-family:inherit;}
+.advisor-fab:hover{filter:brightness(1.1);}
+.proftapia-fab{position:fixed; bottom:calc(1.5rem + env(safe-area-inset-bottom)); right:1.5rem; z-index:900; background:linear-gradient(135deg,var(--gold),#a97f24); color:#2a1e00; text-decoration:none; border-radius:999px; padding:.85rem 1.2rem; display:flex; align-items:center; gap:.5rem; font-weight:700; font-size:.9rem; box-shadow:var(--shadow-lg); font-family:inherit;}
+.proftapia-fab:hover{filter:brightness(1.05);}
+.advisor-panel{position:fixed; bottom:calc(5.2rem + env(safe-area-inset-bottom)); left:1.5rem; width:min(360px,90vw); max-height:min(560px,70vh); background:var(--bg-card); border:1px solid var(--border-light); border-radius:var(--radius-lg); box-shadow:var(--shadow-lg); z-index:900; display:none; flex-direction:column; overflow:hidden;}
+.advisor-panel.open{display:flex;}
+.advisor-header{background:linear-gradient(135deg,var(--navy),var(--navy-dark)); color:#fff; padding:.9rem 1.1rem; display:flex; align-items:center; gap:.6rem;}
+.advisor-title{margin:0; font-weight:800; font-size:.95rem;}
+.advisor-header button{margin-left:auto; background:rgba(255,255,255,.15); border:none; color:#fff; width:28px; height:28px; border-radius:8px; cursor:pointer;}
+.advisor-body{flex:1; overflow-y:auto; padding:1rem; display:flex; flex-direction:column; gap:.6rem; background:var(--bg-body);}
+.advisor-msg{max-width:85%; padding:.6rem .85rem; border-radius:12px; font-size:.86rem; line-height:1.5;}
+.advisor-msg-bot{background:var(--bg-card); border:1px solid var(--border-light); align-self:flex-start; border-bottom-left-radius:2px;}
+.advisor-msg-user{background:var(--navy); color:#fff; align-self:flex-end; border-bottom-right-radius:2px;}
+.advisor-suggest{display:flex; flex-wrap:wrap; gap:.4rem; padding:0 1rem .75rem;}
+.advisor-suggest button{background:var(--blue-bg); border:1px solid var(--blue-border); color:var(--navy); font-size:.72rem; padding:.35rem .6rem; border-radius:999px; cursor:pointer; font-family:inherit;}
+.advisor-form{display:flex; gap:.5rem; padding:.75rem; border-top:1px solid var(--border-light); background:var(--bg-card);}
+.advisor-form input{flex:1;}
+.advisor-form button{background:var(--navy); color:#fff; border:none; width:38px; border-radius:var(--radius-sm); cursor:pointer; font-size:1rem;}
+
+/* MEDALLA */
+.medal-modal{position:fixed; inset:0; background:rgba(0,0,0,.65); z-index:2000; display:flex; align-items:center; justify-content:center; padding:1rem;}
+.medal-modal[hidden]{display:none;}
+.medal-modal-inner{background:var(--bg-card); border-radius:var(--radius-lg); padding:1.5rem; max-width:420px; width:100%; text-align:center; position:relative; box-shadow:var(--shadow-lg);}
+#medal-canvas{width:100%; max-width:300px; border-radius:12px; margin:.25rem auto 1rem; display:block; box-shadow:var(--shadow-md);}
+#medal-close{position:absolute; top:.75rem; right:.75rem;}
+
+@media print{
+  .sidebar, .advisor-fab, .advisor-panel, #progress-wrap, .btn-row, #submit-zone .btn-primary, .header-actions, .medal-modal{display:none !important;}
+  .main{max-width:100%; padding:0;}
+  .card{box-shadow:none; border:1px solid #ccc; break-inside:avoid;}
+  body{background:#fff;}
+}
+
+.voice-row{display:flex; align-items:center; gap:.6rem; margin-top:-.4rem; margin-bottom:.9rem; flex-wrap:wrap;}
+.voice-btn{background:var(--blue-bg); border:1px solid var(--blue-border); color:var(--navy); font-weight:700; font-size:.8rem; padding:.65rem .9rem; min-height:40px; border-radius:999px; cursor:pointer; font-family:inherit;}
+.voice-btn:hover{filter:brightness(0.97);}
+.voice-btn.recording{background:var(--red-bg); border-color:var(--red-border); color:var(--red); animation:voicePulse 1.2s ease-in-out infinite;}
+.voice-btn.busy{opacity:.7; cursor:wait;}
+@keyframes voicePulse{ 0%,100%{opacity:1;} 50%{opacity:.55;} }
+.voice-status{font-size:.75rem; color:var(--muted);}
+.voice-status.err{color:var(--red);}
+.voice-status.ok{color:var(--green);}
+.fontsize-controls{display:flex; align-items:center; gap:.3rem;}
+.fontsize-controls button{background:none; border:1px solid var(--border-light); width:30px; height:30px; border-radius:8px; cursor:pointer; color:var(--secondary); font-weight:800; font-size:.85rem;}
+.fontsize-controls button:hover{border-color:var(--navy); color:var(--navy);}
+html[data-fontsize="grande"] body{font-size:1.14rem;}
+html[data-fontsize="xgrande"] body{font-size:1.3rem;}
+
+/* EFECTOS DINAMICOS: revelado al hacer scroll, micro-interacciones,
+   fondo animado tipo "red de seguridad" en la portada, confeti al
+   aprobar. Todo con requestAnimationFrame/Canvas nativo, sin librerias
+   nuevas -- mismo criterio que el sonido del temporizador. */
+.card.cover{position:relative; overflow:hidden;}
+#cover-canvas{position:absolute; inset:0; width:100%; height:100%; opacity:.4; pointer-events:none;}
+.card.cover > *{position:relative; z-index:1;}
+
+.reveal-init{opacity:0; transform:translateY(18px); transition:opacity .6s cubic-bezier(.22,.9,.35,1), transform .6s cubic-bezier(.22,.9,.35,1);}
+.reveal-init.revealed{opacity:1; transform:translateY(0);}
+
+.btn-primary, .btn-secondary, .btn-block{position:relative; overflow:hidden; transition:transform .16s ease, box-shadow .16s ease, filter .16s ease;}
+.btn-primary:hover, .btn-secondary:hover, .btn-block:hover{transform:translateY(-2px);}
+.btn-primary:hover{box-shadow:var(--shadow-lg);}
+.btn-primary:active, .btn-secondary:active, .btn-block:active{transform:translateY(0) scale(.97);}
+.js-ripple{position:absolute; border-radius:50%; background:rgba(255,255,255,.55); transform:scale(0); animation:rippleAnim .6s ease-out forwards; pointer-events:none;}
+.btn-secondary .js-ripple, .btn-block .js-ripple{background:rgba(15,56,119,.18);}
+@keyframes rippleAnim{ to{ transform:scale(2.6); opacity:0; } }
+
+#confetti-canvas{position:fixed; inset:0; width:100%; height:100%; pointer-events:none; z-index:3000;}
+
+@media (prefers-reduced-motion: reduce){
+  .reveal-init{opacity:1; transform:none; transition:none;}
+  #cover-canvas{display:none;}
+  .btn-primary:hover, .btn-secondary:hover, .btn-block:hover, .btn-primary:active, .btn-secondary:active, .btn-block:active{transform:none;}
+  #hearts-canvas.critical{animation:none;}
+  .timer-box.overtime .timer-value{animation:none;}
+  .fast-clock-hand{animation:none;}
+}
+</style>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Saltar al contenido</a>
+<div id="progress-wrap"><div id="progress-bar"></div></div>
+
+<div class="wrapper">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <span style="font-size:1.4rem;">📊</span>
+      <p class="sidebar-title">Unidad IV · HTD</p>
+      <div class="header-actions">
+        <div class="fontsize-controls">
+          <button type="button" id="font-smaller" title="Letra más pequeña" aria-label="Reducir tamaño de letra">A−</button>
+          <button type="button" id="font-bigger" title="Letra más grande" aria-label="Aumentar tamaño de letra">A+</button>
+        </div>
+        <button class="icon-btn" id="theme-toggle" type="button" title="Cambiar tema" aria-label="Cambiar tema claro/oscuro">🌙</button>
+        <button class="icon-btn nav-toggle" id="nav-toggle" type="button" title="Abrir menú" aria-label="Abrir menú" aria-expanded="false">☰</button>
+      </div>
+    </div>
+
+    <div class="sidebar-collapsible">
+      <div class="timer-box" id="timer-box">
+        <div class="timer-row">
+          <span class="timer-label">⏱️ Tiempo sugerido</span>
+          <button class="icon-btn" id="sound-toggle" type="button" title="Silenciar o activar el sonido" aria-label="Silenciar o activar el sonido del temporizador">🔔</button>
+        </div>
+        <div class="timer-value" id="timer-value">60:00</div>
+        <canvas id="hearts-canvas" width="230" height="40" aria-hidden="true"></canvas>
+        <div class="fast-clock" id="fast-clock" aria-hidden="true"><div class="fast-clock-hand"></div></div>
+        <div class="overtime-note" id="overtime-note" hidden>⏱️ Tiempo de referencia — no afecta su calificación</div>
+      </div>
+
+      <div class="progress-summary">
+        <div class="progress-summary-row"><span>Progreso general</span><span id="progress-count">0%</span></div>
+        <div class="progress-track"><div class="progress-fill" id="progress-fill-el"></div></div>
+        <p style="margin:.5rem 0 0; font-size:.7rem; color:var(--muted);">Sus respuestas se guardan automáticamente en este navegador.</p>
+      </div>
+
+      <nav class="nav" aria-label="Navegación de la práctica">
+        <ul>
+          <li><a href="#portada">📊 Portada e instrucciones</a></li>
+          <li><a href="#marco-conceptual">📚 Marco conceptual</a></li>
+          <li><a href="#paso1" data-step="paso1">01 &middot; Caso 1: pérdida de conocimiento <span class="pct" data-pct="paso1">0%</span></a></li>
+          <li><a href="#paso2" data-step="paso2">02 &middot; Caso 2: calidad de datos <span class="pct" data-pct="paso2">0%</span></a></li>
+          <li><a href="#paso3" data-step="paso3">03 &middot; Caso 3: dashboard <span class="pct" data-pct="paso3">0%</span></a></li>
+          <li><a href="#paso4" data-step="paso4">04 &middot; Caso 4: datos abiertos y privacidad <span class="pct" data-pct="paso4">0%</span></a></li>
+          <li><a href="#paso5" data-step="paso5">05 &middot; Matriz integradora <span class="pct" data-pct="paso5">0%</span></a></li>
+          <li><a href="#paso6" data-step="paso6">06 &middot; Reflexión individual <span class="pct" data-pct="paso6">0%</span></a></li>
+          <li><a href="#rubrica">🧮 Rúbrica de evaluación</a></li>
+          <li><a href="#resultado">📤 Enviar y calificar</a></li>
+        </ul>
+      </nav>
+
+      <div class="sidebar-actions">
+        <button class="btn-block" id="btn-qr" type="button">📱 Ver código QR de esta práctica</button>
+        <button class="btn-block" id="btn-print" type="button">🖨️ Imprimir / Guardar PDF</button>
+        <button class="btn-block" id="btn-export" type="button">⬇️ Descargar mis respuestas</button>
+        <button class="btn-block" id="btn-clear" type="button">🗑️ Borrar todas mis respuestas</button>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main" id="main-content">
+
+    <section id="portada" class="card cover" style="scroll-margin-top:1.25rem;">
+      <canvas id="cover-canvas" aria-hidden="true"></canvas>
+      <p class="eyebrow">Curso Herramientas de Transformación Digital · INAP · AC-INAP-2026-HTD</p>
+      <h1>Práctica — Unidad IV</h1>
+      <p class="sub">Del dato disperso a la decisión inteligente: análisis de casos institucionales con Big Data y gestión del conocimiento</p>
+      <div class="cover-chips">
+        <span class="cover-chip">Aplicable a cualquier institución pública</span>
+        <span class="cover-chip">Individual o en equipo</span>
+        <span class="cover-chip">100 pts · aprueba al completarla</span>
+        <span class="cover-chip">Dura aproximadamente 2 a 2:30 horas</span>
+        <span class="cover-chip">Gana una medalla digital al terminar</span>
+      </div>
+    </section>
+
+    <section class="card">
+      <span class="step-badge">Cómo se organiza esta práctica</span>
+      <h1 style="font-size:1.35rem;">Cuatro casos prácticos, con matrices y cuestionarios</h1>
+      <div class="alert success">
+        Esta práctica se construye alrededor de <strong>cuatro casos reales de instituciones públicas dominicanas</strong>. Para cada caso, el grupo completa matrices de análisis (respuestas breves, tipo formulario) y un cuestionario de reflexión más profundo. Al final, hay una matriz integradora y un cierre para responder de forma individual. Puede escribir directamente o grabar una nota de voz. Si en algún momento no entiende una palabra, puede preguntarle a <strong>Nicole</strong> (el botón 🎓 de esta página).
+      </div>
+    </section>
+
+    <section class="card" id="tutorial">
+      <span class="step-badge">Tutorial</span>
+      <h1 style="font-size:1.35rem;">Cómo usar esta plataforma</h1>
+      <p><strong>Concepto:</strong> esta práctica se realiza <strong>después de revisar el material de estudio de la Unidad IV</strong> (video o sesión presencial). Tiene 6 pasos: cuatro casos prácticos, una matriz integradora y un cierre — cada uno explicado con ejemplos, y espacio para sus respuestas por escrito o por nota de voz.</p>
+
+      <h2>Dos formas de responder cada pregunta</h2>
+      <p><strong>Definición:</strong> los campos cortos de las matrices se completan escribiendo una respuesta breve; los campos largos del cuestionario aceptan texto escrito o una nota de voz transcrita automáticamente.</p>
+
+      <h3>Paso a paso para grabar una nota de voz</h3>
+      <ol class="tutorial-steps">
+        <li>Mantenga presionado el botón <strong>"🎤 Mantenga presionado para grabar"</strong> debajo del campo que quiere responder (como una nota de voz de WhatsApp).</li>
+        <li>El navegador va a pedir permiso para usar el micrófono — presione <strong>Permitir</strong>.</li>
+        <li>Sin soltar el botón, hable su respuesta con calma.</li>
+        <li>Suelte el botón cuando termine — va a escuchar un sonido y verá "Transcribiendo…".</li>
+        <li>Espere unos segundos: el texto transcrito va a aparecer automáticamente en el campo.</li>
+        <li>Lea el texto y corrija cualquier palabra si hace falta, antes de continuar.</li>
+      </ol>
+
+      <h2>La medalla digital al terminar</h2>
+      <p>Cuando complete los 6 pasos y presione <strong>Enviar y Calificar</strong>, va a poder generar una <strong>medalla digital</strong> con su nombre para descargar o compartir por WhatsApp, correo o redes sociales, como recuerdo de haber completado esta práctica.</p>
+
+      <h2>Progreso, guardado y aprobación</h2>
+      <p>Sus respuestas se guardan automáticamente en este navegador mientras trabaja. Puede cerrar la página y volver más tarde a completar otra pregunta. Al presionar <strong>Enviar y Calificar</strong>, el sistema le da una nota preliminar orientativa y comentarios al instante.</p>
+      <div class="help-box">
+        <span style="font-size:1.6rem;">💬</span>
+        <div>
+          <strong>¿Tiene dudas mientras trabaja?</strong><br>
+          Puede escribirle a Nicole, la asistente virtual del Dr. Johan Tapia, en
+          <a href="https://prof.johan.plataforma.cfd/" target="_blank" rel="noopener">prof.johan.plataforma.cfd</a>,
+          o usar el botón "🎓 Nicole" de esta misma página.
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <span class="step-badge">Objetivo y encuadre</span>
+      <h1 style="font-size:1.35rem;">Antes de empezar</h1>
+      <div class="alert info">
+        <strong>Objetivo de la actividad:</strong> al finalizar esta práctica, los participantes serán capaces de analizar problemas reales de gestión del conocimiento y uso de datos en instituciones públicas, aplicando los modelos DIKW y SECI, las 5V del Big Data, principios de datos abiertos, protección de datos personales y herramientas de visualización para la toma de decisiones.
+      </div>
+      <div class="alert gold">
+        <strong>Fundamento normativo:</strong> Ley No. 200-04 sobre Libre Acceso a la Información Pública, Ley No. 172-13 sobre Protección Integral de los Datos Personales, Ley No. 41-08 de Función Pública, y Agenda Digital 2030.
+      </div>
+      <h2>Organización del trabajo grupal</h2>
+      <p>Si trabajan en equipo (grupos de 4 personas sugerido), se recomienda asignar los siguientes roles:</p>
+      <div class="tbl-wrap"><table class="tp-table">
+        <thead><tr><th>Rol</th><th>Responsabilidad</th></tr></thead>
+        <tbody><tr><td class="label-cell">Coordinador/a</td><td>Dirige la discusión y controla el tiempo.</td></tr><tr><td class="label-cell">Analista de conocimiento</td><td>Trabaja los modelos DIKW y SECI.</td></tr><tr><td class="label-cell">Analista de datos</td><td>Identifica fuentes, indicadores y visualizaciones.</td></tr><tr><td class="label-cell">Analista ético-legal</td><td>Revisa riesgos normativos y dilemas éticos.</td></tr></tbody>
+      </table></div>
+      <h2>¿Cómo va a completar esta práctica?</h2>
+      <p>Como el encuentro es presencial, puede completarla solo/a o en equipo. Complete esto antes de enviar: su facilitador recibirá la calificación identificada con estos datos.</p>
+      <div class="field">
+        <label for="modo_trabajo">Modalidad</label>
+        <select id="modo_trabajo">
+          <option value="individual">Individual</option>
+          <option value="grupo">En equipo</option>
+        </select>
+      </div>
+      <div class="field-grid" id="bloque-individual">
+        <div class="field"><label for="ind_nombre">Nombre completo</label><input type="text" id="ind_nombre" placeholder="Su nombre y apellido"></div>
+        <div class="field"><label for="ind_correo">Correo institucional (opcional)</label><input type="text" id="ind_correo" placeholder="nombre@correo.com"></div>
+      </div>
+      <div class="field-grid" id="bloque-grupo" hidden>
+        <div class="field"><label for="grp_nombre">Nombre del equipo o grupo</label><input type="text" id="grp_nombre" placeholder="Ej: Equipo Innovación"></div>
+        <div class="field"><label for="grp_correo">Correo de contacto del equipo (opcional)</label><input type="text" id="grp_correo" placeholder="nombre@correo.com"></div>
+      </div>
+      <div class="field" id="bloque-integrantes" hidden>
+        <label for="grp_integrantes">Nombres de los integrantes del equipo (opcional)</label>
+        <textarea id="grp_integrantes" placeholder="Escriba el nombre completo de cada persona que participó, uno por línea o separados por coma"></textarea>
+      </div>
+      <h2>Instrucciones generales</h2>
+      <ol class="ins-list">
+        <li>Revise el <strong>material de estudio de la Unidad IV: Gestión del Conocimiento y Big Data</strong> (video o sesión presencial, según su modalidad) antes de responder.</li>
+        <li>Elija si van a trabajar <strong>individual o en equipo</strong>, arriba.</li>
+        <li>Completen los <strong>6 pasos</strong> en el orden indicado: cuatro casos prácticos, la matriz integradora, y el cierre — por escrito o por nota de voz.</li>
+        <li>En las matrices, respondan de forma breve y concreta; en el cuestionario de cada caso, profundicen un poco más.</li>
+        <li>Al finalizar, presionen <strong>Enviar y Calificar</strong>: el sistema revisará el trabajo, dará una nota preliminar orientativa, y les permitirá generar su medalla digital.</li>
+      </ol>
+      <div class="alert success">
+        <strong>🎓 Esta práctica es interactiva y autocalificable.</strong> Mientras trabaja, Nicole (botón 🎓 abajo a la izquierda) puede responder sus dudas conceptuales. Al terminar, el botón <strong>Enviar y Calificar</strong> evalúa al instante la completitud y calidad de cada paso, y además pide una segunda lectura a la IA sobre el contenido real de sus respuestas.
+      </div>
+      <div class="alert warn">
+        <strong>Sobre la calificación automática:</strong> el sistema evalúa <em>completitud, extensión y coherencia formal</em> de sus respuestas — no sustituye la revisión de contenido de su facilitador.
+      </div>
+    </section>
+
+    <section id="marco-conceptual" class="card">
+      <span class="step-badge">Referencia</span>
+      <h1 style="font-size:1.35rem;">Marco conceptual de referencia</h1>
+      <p>Consulte estos conceptos, ya vistos en el material de estudio de la Unidad IV, mientras completa la actividad. También puede preguntarle a Nicole sobre cualquiera de ellos.</p>
+      <dl class="glossary-grid">
+<div class="gloss-item"><dt>Dato</dt><dd>Un hecho suelto, sin contexto ni interpretación. Ej: el número 47.</dd></div>
+<div class="gloss-item"><dt>Información</dt><dd>Un dato con contexto que le da significado. Ej: 47 solicitudes recibidas hoy.</dd></div>
+<div class="gloss-item"><dt>Conocimiento</dt><dd>Información interiorizada que permite actuar. Ej: saber que los lunes hay más solicitudes y planificar el personal.</dd></div>
+<div class="gloss-item"><dt>Sabiduría</dt><dd>Juicio para aplicar el conocimiento de forma correcta según cada situación.</dd></div>
+<div class="gloss-item"><dt>Conocimiento tácito</dt><dd>El que una persona tiene en su experiencia, pero no ha sido escrito ni documentado.</dd></div>
+<div class="gloss-item"><dt>Conocimiento explícito</dt><dd>El que ya está documentado en manuales, guías o procedimientos escritos.</dd></div>
+<div class="gloss-item"><dt>Modelo SECI</dt><dd>Las 4 fases para convertir conocimiento tácito en explícito y de vuelta a la práctica: Socialización, Externalización, Combinación, Internalización.</dd></div>
+<div class="gloss-item"><dt>Big Data</dt><dd>Conjuntos de datos tan grandes o variados que requieren herramientas especiales para analizarlos, descritos por las 5V.</dd></div>
+<div class="gloss-item"><dt>Las 5V</dt><dd>Volumen, Velocidad, Variedad, Veracidad y Valor: las 5 dimensiones para evaluar un conjunto de datos.</dd></div>
+<div class="gloss-item"><dt>Calidad del dato</dt><dd>Que los datos estén completos, sin duplicados, bien categorizados y actualizados.</dd></div>
+<div class="gloss-item"><dt>Dashboard</dt><dd>Tablero de control visual con indicadores clave para apoyar decisiones de gestión.</dd></div>
+<div class="gloss-item"><dt>Analítica descriptiva</dt><dd>El nivel que responde "¿qué ocurrió?", el más básico de los 4 niveles de analítica.</dd></div>
+<div class="gloss-item"><dt>Analítica prescriptiva</dt><dd>El nivel más avanzado: recomienda qué acción concreta tomar.</dd></div>
+<div class="gloss-item"><dt>Datos abiertos</dt><dd>Datos públicos, sin información personal, que cualquiera puede consultar y reutilizar libremente.</dd></div>
+<div class="gloss-item"><dt>Datos personales</dt><dd>Información que identifica a una persona específica (nombre, cédula, dirección), protegida por la Ley 172-13.</dd></div>
+<div class="gloss-item"><dt>Anonimizar</dt><dd>Eliminar o disfrazar los campos que permiten identificar a una persona, antes de publicar o analizar una base de datos.</dd></div>
+<div class="gloss-item"><dt>Ley 200-04</dt><dd>Ley dominicana de Libre Acceso a la Información Pública: promueve la transparencia del Estado.</dd></div>
+<div class="gloss-item"><dt>Ley 172-13</dt><dd>Ley dominicana de Protección de Datos Personales: protege la privacidad de los ciudadanos.</dd></div>
+      </dl>
+    </section>
+
+    <!-- ============ PASO1 ============ -->
+    <section id="paso1" class="card">
+      <span class="step-badge">Paso1 · 22 min</span><span class="step-points">Vale 16 pts</span>
+      <h1>Caso 1 &middot; Cuando se va el conocimiento: la jubilación de los expertos</h1>
+      <p><strong>Concepto:</strong> el conocimiento institucional no documentado (conocimiento tácito) se pierde cuando su portador se va, salvo que la institución lo haya convertido en procesos y documentos (conocimiento explícito). El modelo SECI explica cómo lograr esa conversión en cuatro fases.</p>
+      <div class="alert info"><strong>Guía:</strong> completen primero la Matriz 1 analizando el escenario, y luego la Matriz 2 proponiendo una acción concreta para cada fase del modelo SECI que ayude a evitar que se repita este problema.</div>
+      <div class="alert gold">
+        <strong>Escenario:</strong> la Dirección de Atención Ciudadana de una institución pública dominicana tiene un equipo encargado de procesar solicitudes de servicios, certificaciones y reclamaciones. Durante más de 12 años, dos servidores públicos experimentados resolvían los casos más complejos, orientaban a los nuevos empleados y conocían los procedimientos informales que permitían acelerar ciertos trámites. Recientemente, ambos servidores se jubilaron. Aunque dejaron algunos documentos en carpetas físicas, gran parte de su conocimiento nunca fue registrado formalmente. Los nuevos empleados no conocen los criterios utilizados para priorizar casos, no saben a quién consultar en situaciones especiales y tienen dificultad para interpretar expedientes antiguos. Como consecuencia, los tiempos de respuesta aumentaron, los ciudadanos presentan más reclamaciones y los supervisores deben intervenir con mayor frecuencia. El equipo debe analizar el caso y proponer una estrategia de gestión del conocimiento.</div>
+      <h2>Matriz 1 &middot; Diagnóstico de pérdida de conocimiento</h2>
+      <div class="tbl-wrap"><table class="tp-table"><thead><tr><th>Pregunta de análisis</th><th>Respuesta del grupo</th></tr></thead><tbody><tr><td class="label-cell">¿Cuál es el problema principal del caso?</td><td><input type="text" id="c1_m1_r1" placeholder="El problema principal es..."></td></tr><tr><td class="label-cell">¿Qué conocimiento crítico se perdió o está en riesgo?</td><td><input type="text" id="c1_m1_r2" placeholder="El conocimiento en riesgo es..."></td></tr><tr><td class="label-cell">¿Qué consecuencias tiene esta pérdida para la institución?</td><td><input type="text" id="c1_m1_r3" placeholder="Para la institución, las consecuencias son..."></td></tr><tr><td class="label-cell">¿Qué consecuencias tiene para los ciudadanos?</td><td><input type="text" id="c1_m1_r4" placeholder="Para los ciudadanos, las consecuencias son..."></td></tr><tr><td class="label-cell">¿Qué debió hacer la institución antes de la jubilación de los servidores?</td><td><input type="text" id="c1_m1_r5" placeholder="Debió haber..."></td></tr><tr><td class="label-cell">¿Qué acciones puede tomar ahora para recuperar parte del conocimiento perdido?</td><td><input type="text" id="c1_m1_r6" placeholder="Podría..."></td></tr></tbody></table></div>
+      <h2>Matriz 2 &middot; Aplicación del modelo SECI</h2>
+      <div class="tbl-wrap"><table class="tp-table"><thead><tr><th>Fase del modelo SECI</th><th>Explicación</th><th>Acción propuesta por el grupo</th></tr></thead><tbody><tr><td class="label-cell">Socialización</td><td class="label-cell">Compartir conocimiento tácito entre personas</td><td><input type="text" id="c1_m2_r1" placeholder="Acción propuesta..."></td></tr><tr><td class="label-cell">Externalización</td><td class="label-cell">Convertir experiencia personal en documentos, guías o manuales</td><td><input type="text" id="c1_m2_r2" placeholder="Acción propuesta..."></td></tr><tr><td class="label-cell">Combinación</td><td class="label-cell">Integrar documentos existentes en un repositorio común</td><td><input type="text" id="c1_m2_r3" placeholder="Acción propuesta..."></td></tr><tr><td class="label-cell">Internalización</td><td class="label-cell">Lograr que los nuevos servidores aprendan y apliquen el conocimiento documentado</td><td><input type="text" id="c1_m2_r4" placeholder="Acción propuesta..."></td></tr></tbody></table></div>
+      <h2>Cuestionario</h2>
+      <div class="field"><label for="c1_q1">¿Por qué la experiencia de un servidor público puede considerarse un activo institucional? <span class="wc" data-for="c1_q1">0 palabras</span></label><textarea class="tall" id="c1_q1" placeholder="Escriba aquí la respuesta del grupo..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="c1_q1">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="c1_q1"></span></div></div>
+      <div class="field"><label for="c1_q2">¿Cuál es la diferencia entre conocimiento tácito y conocimiento explícito? <span class="wc" data-for="c1_q2">0 palabras</span></label><textarea id="c1_q2" placeholder="Escriba aquí la respuesta del grupo..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="c1_q2">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="c1_q2"></span></div></div>
+      <div class="field"><label for="c1_q3">¿Qué herramienta digital recomendaría para crear una memoria institucional: SharePoint, Google Drive, Notion, wiki interna u otra? Justifique. <span class="wc" data-for="c1_q3">0 palabras</span></label><textarea id="c1_q3" placeholder="Escriba aquí la respuesta del grupo..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="c1_q3">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="c1_q3"></span></div></div>
+      <div class="field"><label for="c1_q4">¿Qué riesgo corre una institución que depende demasiado de “personas clave” y no de procesos documentados? <span class="wc" data-for="c1_q4">0 palabras</span></label><textarea id="c1_q4" placeholder="Escriba aquí la respuesta del grupo..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="c1_q4">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="c1_q4"></span></div></div>
+      <div class="field"><label for="c1_q5">¿Qué tres acciones concretas recomendaría el grupo para evitar la fuga de conocimiento? <span class="wc" data-for="c1_q5">0 palabras</span></label><textarea id="c1_q5" placeholder="Escriba aquí la respuesta del grupo..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="c1_q5">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="c1_q5"></span></div></div>
+    </section>
+
+    <!-- ============ PASO2 ============ -->
+    <section id="paso2" class="card">
+      <span class="step-badge">Paso2 · 22 min</span><span class="step-points">Vale 16 pts</span>
+      <h1>Caso 2 &middot; Muchos datos, poca información útil</h1>
+      <p><strong>Concepto:</strong> tener muchos datos no equivale a tener buena información. La calidad del dato (sin duplicados, completo, estandarizado) es la condición previa para cualquier análisis de Big Data; las 5V (Volumen, Velocidad, Variedad, Veracidad, Valor) describen las dimensiones que hay que revisar en cualquier conjunto de datos institucional.</p>
+      <div class="alert info"><strong>Guía:</strong> en la Matriz 3, para cada problema de calidad de dato, describan en una sola respuesta un ejemplo concreto del caso, su consecuencia institucional, y una acción correctiva. En la Matriz 4, respondan la pregunta orientadora de cada una de las 5V aplicada al caso.</div>
+      <div class="alert gold">
+        <strong>Escenario:</strong> la Oficina Regional de Servicios Públicos registra mensualmente miles de solicitudes ciudadanas. Sin embargo, cada departamento usa un formato diferente: recepción usa hojas de Excel, el área técnica registra casos en formularios digitales, el departamento legal conserva documentos en PDF y los supervisores preparan reportes en Word. Al revisar los datos, se detectan múltiples problemas: nombres duplicados, fechas incompletas, expedientes sin estado actualizado, errores en números de cédula, campos vacíos y categorías mal escritas (una misma solicitud aparece como "pendiente", "Pend.", "en proceso" y "proceso abierto"). La Dirección General desea tomar decisiones basadas en datos, pero los reportes actuales no permiten conocer con claridad cuántos casos se reciben, cuánto tiempo tardan en resolverse, cuáles departamentos tienen más carga y qué tipo de solicitud genera más retrasos. El equipo debe analizar el problema desde la perspectiva de calidad del dato y Big Data.</div>
+      <h2>Matriz 3 &middot; Análisis de calidad del dato</h2>
+      <div class="tbl-wrap"><table class="tp-table"><thead><tr><th>Problema detectado</th><th>Ejemplo en el caso, consecuencia institucional y acción correctiva propuesta</th></tr></thead><tbody><tr><td class="label-cell">Datos duplicados</td><td><input type="text" id="c2_m3_r1" placeholder="Ejemplo en el caso, consecuencia y acción correctiva..."></td></tr><tr><td class="label-cell">Fechas incompletas</td><td><input type="text" id="c2_m3_r2" placeholder="Ejemplo en el caso, consecuencia y acción correctiva..."></td></tr><tr><td class="label-cell">Categorías no estandarizadas</td><td><input type="text" id="c2_m3_r3" placeholder="Ejemplo en el caso, consecuencia y acción correctiva..."></td></tr><tr><td class="label-cell">Campos vacíos</td><td><input type="text" id="c2_m3_r4" placeholder="Ejemplo en el caso, consecuencia y acción correctiva..."></td></tr><tr><td class="label-cell">Errores en identificación ciudadana</td><td><input type="text" id="c2_m3_r5" placeholder="Ejemplo en el caso, consecuencia y acción correctiva..."></td></tr><tr><td class="label-cell">Falta de integración entre áreas</td><td><input type="text" id="c2_m3_r6" placeholder="Ejemplo en el caso, consecuencia y acción correctiva..."></td></tr></tbody></table></div>
+      <h2>Matriz 4 &middot; Aplicación de las 5V del Big Data</h2>
+      <div class="tbl-wrap"><table class="tp-table"><thead><tr><th>Dimensión</th><th>Pregunta orientadora</th><th>Respuesta del grupo</th></tr></thead><tbody><tr><td class="label-cell">Volumen</td><td class="label-cell">¿Qué cantidad de datos parece manejar la institución?</td><td><input type="text" id="c2_m4_r1" placeholder="Respuesta..."></td></tr><tr><td class="label-cell">Velocidad</td><td class="label-cell">¿Con qué frecuencia se generan o actualizan los datos?</td><td><input type="text" id="c2_m4_r2" placeholder="Respuesta..."></td></tr><tr><td class="label-cell">Variedad</td><td class="label-cell">¿Qué formatos de datos aparecen en el caso?</td><td><input type="text" id="c2_m4_r3" placeholder="Respuesta..."></td></tr><tr><td class="label-cell">Veracidad</td><td class="label-cell">¿Qué problemas afectan la confiabilidad de los datos?</td><td><input type="text" id="c2_m4_r4" placeholder="Respuesta..."></td></tr><tr><td class="label-cell">Valor</td><td class="label-cell">¿Qué decisiones podrían mejorar si los datos fueran confiables?</td><td><input type="text" id="c2_m4_r5" placeholder="Respuesta..."></td></tr></tbody></table></div>
+      <h2>Cuestionario</h2>
+      <div class="field"><label for="c2_q1">¿Por qué una institución puede tener muchos datos y aun así tomar malas decisiones? <span class="wc" data-for="c2_q1">0 palabras</span></label><textarea class="tall" id="c2_q1" placeholder="Escriba aquí la respuesta del grupo..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="c2_q1">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="c2_q1"></span></div></div>
+      <div class="field"><label for="c2_q2">¿Qué significa “veracidad” dentro de las 5V del Big Data? <span class="wc" data-for="c2_q2">0 palabras</span></label><textarea id="c2_q2" placeholder="Escriba aquí la respuesta del grupo..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="c2_q2">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="c2_q2"></span></div></div>
+      <div class="field"><label for="c2_q3">¿Qué campos mínimos debería tener una base de datos institucional de solicitudes ciudadanas? <span class="wc" data-for="c2_q3">0 palabras</span></label><textarea id="c2_q3" placeholder="Escriba aquí la respuesta del grupo..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="c2_q3">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="c2_q3"></span></div></div>
+      <div class="field"><label for="c2_q4">¿Por qué es importante estandarizar categorías como “pendiente”, “en proceso” o “cerrado”? <span class="wc" data-for="c2_q4">0 palabras</span></label><textarea id="c2_q4" placeholder="Escriba aquí la respuesta del grupo..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="c2_q4">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="c2_q4"></span></div></div>
+      <div class="field"><label for="c2_q5">¿Qué área institucional debería liderar la mejora de la calidad del dato: Tecnología, Planificación, Atención Ciudadana o todas en conjunto? Explique. <span class="wc" data-for="c2_q5">0 palabras</span></label><textarea id="c2_q5" placeholder="Escriba aquí la respuesta del grupo..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="c2_q5">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="c2_q5"></span></div></div>
+    </section>
+
+    <!-- ============ PASO3 ============ -->
+    <section id="paso3" class="card">
+      <span class="step-badge">Paso3 · 22 min</span><span class="step-points">Vale 16 pts</span>
+      <h1>Caso 3 &middot; Dashboard para mejorar la atención ciudadana</h1>
+      <p><strong>Concepto:</strong> un dashboard convierte datos dispersos en indicadores visuales que apoyan decisiones. La analítica de datos tiene 4 niveles de madurez creciente: descriptiva (qué ocurrió), diagnóstica (por qué), predictiva (qué podría ocurrir) y prescriptiva (qué debemos hacer).</p>
+      <div class="alert info"><strong>Guía:</strong> en la Matriz 5, para cada indicador propuesto describan de dónde saldría el dato, cada cuánto se actualizaría, qué tipo de gráfico usarían y qué decisión permitiría tomar. En la Matriz 6, expliquen cómo se vería cada tipo de analítica aplicada a este caso concreto.</div>
+      <div class="alert gold">
+        <strong>Escenario:</strong> la Dirección General ha solicitado crear un tablero de control (dashboard) para monitorear el desempeño de la Oficina Regional de Servicios Públicos. Actualmente recibe informes mensuales extensos, llenos de tablas, pero sin gráficos ni indicadores claros. La autoridad necesita responder preguntas concretas: ¿cuántas solicitudes se reciben cada mes?, ¿qué departamentos tienen más carga de trabajo?, ¿cuánto tarda en resolverse un caso?, ¿cuáles solicitudes se vencen con mayor frecuencia?, ¿qué provincia o municipio presenta más reclamaciones?, ¿dónde se deben asignar más recursos humanos? El equipo no tiene que construir el dashboard digitalmente durante la práctica, pero sí debe diseñar su estructura, indicadores, fuentes de datos y visualizaciones sugeridas.</div>
+      <h2>Matriz 5 &middot; Diseño de indicadores para el dashboard</h2>
+      <div class="tbl-wrap"><table class="tp-table"><thead><tr><th>Indicador propuesto</th><th>Fuente, frecuencia, gráfico sugerido y decisión que permite tomar</th></tr></thead><tbody><tr><td class="label-cell">Total de solicitudes recibidas</td><td><input type="text" id="c3_m5_r1" placeholder="Fuente de datos, frecuencia de actualización, tipo de gráfico y decisión que permite tomar..."></td></tr><tr><td class="label-cell">Tiempo promedio de respuesta</td><td><input type="text" id="c3_m5_r2" placeholder="Fuente, frecuencia, gráfico y decisión..."></td></tr><tr><td class="label-cell">Solicitudes pendientes</td><td><input type="text" id="c3_m5_r3" placeholder="Fuente, frecuencia, gráfico y decisión..."></td></tr><tr><td class="label-cell">Casos vencidos</td><td><input type="text" id="c3_m5_r4" placeholder="Fuente, frecuencia, gráfico y decisión..."></td></tr><tr><td class="label-cell">Departamento con mayor carga</td><td><input type="text" id="c3_m5_r5" placeholder="Fuente, frecuencia, gráfico y decisión..."></td></tr><tr><td class="label-cell">Reclamaciones por provincia</td><td><input type="text" id="c3_m5_r6" placeholder="Fuente, frecuencia, gráfico y decisión..."></td></tr></tbody></table></div>
+      <h2>Matriz 6 &middot; Taxonomía de analítica de datos</h2>
+      <div class="tbl-wrap"><table class="tp-table"><thead><tr><th>Tipo de analítica</th><th>Pregunta que responde</th><th>Aplicación al caso</th></tr></thead><tbody><tr><td class="label-cell">Descriptiva</td><td class="label-cell">¿Qué ocurrió?</td><td><input type="text" id="c3_m6_r1" placeholder="Aplicación al caso..."></td></tr><tr><td class="label-cell">Diagnóstica</td><td class="label-cell">¿Por qué ocurrió?</td><td><input type="text" id="c3_m6_r2" placeholder="Aplicación al caso..."></td></tr><tr><td class="label-cell">Predictiva</td><td class="label-cell">¿Qué podría ocurrir?</td><td><input type="text" id="c3_m6_r3" placeholder="Aplicación al caso..."></td></tr><tr><td class="label-cell">Prescriptiva</td><td class="label-cell">¿Qué debemos hacer?</td><td><input type="text" id="c3_m6_r4" placeholder="Aplicación al caso..."></td></tr></tbody></table></div>
+      <h2>Cuestionario</h2>
+      <div class="field"><label for="c3_q1">¿Cuál es la diferencia entre un reporte tradicional y un dashboard? <span class="wc" data-for="c3_q1">0 palabras</span></label><textarea class="tall" id="c3_q1" placeholder="Escriba aquí la respuesta del grupo..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="c3_q1">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="c3_q1"></span></div></div>
+      <div class="field"><label for="c3_q2">¿Qué indicador considera más importante para mejorar la calidad del servicio ciudadano? Justifique. <span class="wc" data-for="c3_q2">0 palabras</span></label><textarea id="c3_q2" placeholder="Escriba aquí la respuesta del grupo..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="c3_q2">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="c3_q2"></span></div></div>
+      <div class="field"><label for="c3_q3">¿Qué gráfico usaría para mostrar solicitudes por mes? <span class="wc" data-for="c3_q3">0 palabras</span></label><textarea id="c3_q3" placeholder="Escriba aquí la respuesta del grupo..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="c3_q3">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="c3_q3"></span></div></div>
+      <div class="field"><label for="c3_q4">¿Qué gráfico usaría para comparar carga de trabajo entre departamentos? <span class="wc" data-for="c3_q4">0 palabras</span></label><textarea id="c3_q4" placeholder="Escriba aquí la respuesta del grupo..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="c3_q4">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="c3_q4"></span></div></div>
+      <div class="field"><label for="c3_q5">¿Qué indicador permitiría anticipar posibles atrasos? <span class="wc" data-for="c3_q5">0 palabras</span></label><textarea id="c3_q5" placeholder="Escriba aquí la respuesta del grupo..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="c3_q5">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="c3_q5"></span></div></div>
+      <div class="field"><label for="c3_q6">¿Cómo puede un dashboard ayudar a una autoridad pública a tomar mejores decisiones? <span class="wc" data-for="c3_q6">0 palabras</span></label><textarea id="c3_q6" placeholder="Escriba aquí la respuesta del grupo..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="c3_q6">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="c3_q6"></span></div></div>
+    </section>
+
+    <!-- ============ PASO4 ============ -->
+    <section id="paso4" class="card">
+      <span class="step-badge">Paso4 · 22 min</span><span class="step-points">Vale 16 pts</span>
+      <h1>Caso 4 &middot; Transparencia sí, exposición de datos personales no</h1>
+      <p><strong>Concepto:</strong> la Ley 200-04 promueve el acceso a la información pública, pero ese derecho tiene un límite: la Ley 172-13 protege los datos personales de los ciudadanos. Transparencia y privacidad no son opuestas: se concilian publicando datos agregados o anonimizados, nunca bases completas con información identificable.</p>
+      <div class="alert info"><strong>Guía:</strong> en la Matriz 7, decidan para cada grupo de campos si debe publicarse tal cual, publicarse de forma agregada/anonimizada, o no publicarse en absoluto, y por qué. En la Matriz 8, respondan cada pregunta de análisis legal y ético.</div>
+      <div class="alert gold">
+        <strong>Escenario:</strong> una institución pública desea publicar en su portal web una base de datos sobre los servicios entregados durante los últimos tres años, argumentando que esto demostraría transparencia, eficiencia y compromiso con la ciudadanía. El archivo contiene: nombre completo del ciudadano, número de cédula, dirección residencial, teléfono, municipio, tipo de servicio solicitado, fecha de solicitud, estado del trámite, observaciones internas del analista, condición socioeconómica declarada y resultado final del trámite. El equipo técnico advierte que publicar la base de datos completa podría vulnerar la privacidad de los ciudadanos, y sugiere publicar solo datos agregados, eliminando campos personales y sensibles. La Dirección pregunta al equipo: ¿cómo podemos cumplir con la transparencia sin violar la protección de datos personales?</div>
+      <h2>Matriz 7 &middot; Clasificación de datos</h2>
+      <div class="tbl-wrap"><table class="tp-table"><thead><tr><th>Grupo de campos de la base de datos</th><th>¿Debe publicarse, anonimizarse o eliminarse? Justificación</th></tr></thead><tbody><tr><td class="label-cell">Datos identificativos directos (nombre completo, cédula, dirección, teléfono)</td><td><input type="text" id="c4_m7_r1" placeholder="¿Deben publicarse? ¿Por qué? ¿Qué acción recomiendan (publicar, anonimizar o eliminar)?"></td></tr><tr><td class="label-cell">Datos de gestión del trámite (municipio, tipo de servicio, fecha de solicitud, estado del trámite)</td><td><input type="text" id="c4_m7_r2" placeholder="¿Deben publicarse? ¿Por qué? ¿Qué acción recomiendan?"></td></tr><tr><td class="label-cell">Datos sensibles e internos (observaciones internas, condición socioeconómica, resultado final)</td><td><input type="text" id="c4_m7_r3" placeholder="¿Deben publicarse? ¿Por qué? ¿Qué acción recomiendan?"></td></tr></tbody></table></div>
+      <h2>Matriz 8 &middot; Análisis legal y ético</h2>
+      <div class="tbl-wrap"><table class="tp-table"><thead><tr><th>Elemento</th><th>Análisis del grupo</th></tr></thead><tbody><tr><td class="label-cell">¿Qué exige la transparencia pública en este caso?</td><td><input type="text" id="c4_m8_r1" placeholder="Respuesta..."></td></tr><tr><td class="label-cell">¿Qué límites impone la protección de datos personales?</td><td><input type="text" id="c4_m8_r2" placeholder="Respuesta..."></td></tr><tr><td class="label-cell">¿Qué riesgos tendría publicar la base completa?</td><td><input type="text" id="c4_m8_r3" placeholder="Respuesta..."></td></tr><tr><td class="label-cell">¿Qué datos deben anonimizarse o eliminarse?</td><td><input type="text" id="c4_m8_r4" placeholder="Respuesta..."></td></tr><tr><td class="label-cell">¿Qué datos podrían publicarse de forma agregada?</td><td><input type="text" id="c4_m8_r5" placeholder="Respuesta..."></td></tr><tr><td class="label-cell">¿Qué decisión recomienda el grupo?</td><td><input type="text" id="c4_m8_r6" placeholder="Respuesta..."></td></tr></tbody></table></div>
+      <h2>Cuestionario</h2>
+      <div class="field"><label for="c4_q1">¿La transparencia justifica publicar datos personales de ciudadanos? Explique. <span class="wc" data-for="c4_q1">0 palabras</span></label><textarea class="tall" id="c4_q1" placeholder="Escriba aquí la respuesta del grupo..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="c4_q1">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="c4_q1"></span></div></div>
+      <div class="field"><label for="c4_q2">¿Qué diferencia hay entre datos abiertos y datos personales? <span class="wc" data-for="c4_q2">0 palabras</span></label><textarea id="c4_q2" placeholder="Escriba aquí la respuesta del grupo..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="c4_q2">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="c4_q2"></span></div></div>
+      <div class="field"><label for="c4_q3">¿Qué significa anonimizar una base de datos? <span class="wc" data-for="c4_q3">0 palabras</span></label><textarea id="c4_q3" placeholder="Escriba aquí la respuesta del grupo..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="c4_q3">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="c4_q3"></span></div></div>
+      <div class="field"><label for="c4_q4">¿Qué relación tiene este caso con la Ley 200-04 sobre Libre Acceso a la Información Pública? <span class="wc" data-for="c4_q4">0 palabras</span></label><textarea id="c4_q4" placeholder="Escriba aquí la respuesta del grupo..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="c4_q4">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="c4_q4"></span></div></div>
+      <div class="field"><label for="c4_q5">¿Qué relación tiene este caso con la Ley 172-13 sobre Protección de Datos Personales? <span class="wc" data-for="c4_q5">0 palabras</span></label><textarea id="c4_q5" placeholder="Escriba aquí la respuesta del grupo..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="c4_q5">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="c4_q5"></span></div></div>
+      <div class="field"><label for="c4_q6">¿Qué responsabilidad ética tiene el servidor público al manejar datos ciudadanos? <span class="wc" data-for="c4_q6">0 palabras</span></label><textarea id="c4_q6" placeholder="Escriba aquí la respuesta del grupo..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="c4_q6">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="c4_q6"></span></div></div>
+    </section>
+
+    <!-- ============ PASO5 ============ -->
+    <section id="paso5" class="card">
+      <span class="step-badge">Paso 5 · 15 min</span><span class="step-points">Vale 18 pts</span>
+      <h1>Matriz integradora final</h1>
+      <p><strong>Concepto:</strong> después de analizar los cuatro casos por separado, el grupo debe dar un paso atrás y sintetizar los hallazgos comunes en una sola matriz integradora, tal como lo pediría un informe ejecutivo real a la Dirección General.</p>
+      <div class="alert info"><strong>Guía:</strong> completen las tres respuestas integrando lo trabajado en los cuatro casos anteriores, no repitiendo literalmente lo ya escrito, sino sintetizando la conclusión general del grupo.</div>
+      <div class="tbl-wrap"><table class="tp-table"><thead><tr><th>Elemento integrador</th><th>Incluye</th><th>Respuesta del grupo</th></tr></thead><tbody><tr><td class="label-cell">Diagnóstico general</td><td class="label-cell">Principal problema en gestión del conocimiento; principal problema en calidad de datos; principal riesgo ético y legal detectado en los cuatro casos</td><td><input type="text" id="i_r1" placeholder="Síntesis del diagnóstico general..."></td></tr><tr><td class="label-cell">Modelos y herramientas recomendadas</td><td class="label-cell">Modelo más útil para organizar el conocimiento institucional; indicadores prioritarios para un dashboard institucional; herramienta digital recomendada para repositorio de conocimiento y para visualización de datos</td><td><input type="text" id="i_r2" placeholder="Modelos y herramientas recomendadas..."></td></tr><tr><td class="label-cell">Recomendación final a la Dirección General</td><td class="label-cell">Sintetiza en un párrafo la recomendación integral del grupo para la institución del caso</td><td><input type="text" id="i_r3" placeholder="Recomendación final del grupo..."></td></tr></tbody></table></div>
+    </section>
+
+    <!-- ============ PASO6 ============ -->
+    <section id="paso6" class="card">
+      <span class="step-badge">Paso 6 · 15 min</span><span class="step-points">Vale 18 pts</span>
+      <h1>Cuestionario final de reflexión individual</h1>
+      <p><strong>Concepto:</strong> a diferencia de los cuatro casos y la matriz integradora, que se completan en grupo, este cuestionario final lo responde <strong>cada participante de forma individual</strong>, reflexionando sobre su propio aprendizaje y su propia institución.</p>
+      <div class="alert info"><strong>Guía:</strong> si están trabajando en equipo, cada integrante puede responder por separado en una copia de esta página, o el equipo puede decidir que una sola persona registre las reflexiones más representativas del grupo.</div>
+      <div class="field"><label for="f_q1">¿Qué aprendí sobre la diferencia entre datos, información, conocimiento y sabiduría? <span class="wc" data-for="f_q1">0 palabras</span></label><textarea id="f_q1" placeholder="Su respuesta personal..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="f_q1">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="f_q1"></span></div></div>
+      <div class="field"><label for="f_q2">¿Qué práctica de gestión del conocimiento podría aplicar en mi institución? <span class="wc" data-for="f_q2">0 palabras</span></label><textarea id="f_q2" placeholder="Su respuesta personal..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="f_q2">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="f_q2"></span></div></div>
+      <div class="field"><label for="f_q3">¿Qué problema de calidad de datos he visto en mi entorno laboral? <span class="wc" data-for="f_q3">0 palabras</span></label><textarea id="f_q3" placeholder="Su respuesta personal..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="f_q3">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="f_q3"></span></div></div>
+      <div class="field"><label for="f_q4">¿Qué indicador sería útil para mejorar la toma de decisiones en mi área? <span class="wc" data-for="f_q4">0 palabras</span></label><textarea id="f_q4" placeholder="Su respuesta personal..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="f_q4">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="f_q4"></span></div></div>
+      <div class="field"><label for="f_q5">¿Qué cuidado ético debo tener al trabajar con datos ciudadanos? <span class="wc" data-for="f_q5">0 palabras</span></label><textarea id="f_q5" placeholder="Su respuesta personal..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="f_q5">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="f_q5"></span></div></div>
+      <div class="field"><label for="f_q6">¿Cómo puede el Big Data mejorar los servicios públicos? <span class="wc" data-for="f_q6">0 palabras</span></label><textarea id="f_q6" placeholder="Su respuesta personal..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="f_q6">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="f_q6"></span></div></div>
+      <div class="field"><label for="f_q7">¿Qué debe hacer una institución antes de publicar datos en un portal abierto? <span class="wc" data-for="f_q7">0 palabras</span></label><textarea id="f_q7" placeholder="Su respuesta personal..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="f_q7">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="f_q7"></span></div></div>
+      <div class="field"><label for="f_q8">¿Qué aprendizaje de esta práctica puedo aplicar inmediatamente en mi trabajo? <span class="wc" data-for="f_q8">0 palabras</span></label><textarea id="f_q8" placeholder="Su respuesta personal..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="f_q8">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="f_q8"></span></div></div>
+    </section>
+
+    <!-- ============ RÚBRICA ============ -->
+    <section id="rubrica" class="card">
+      <span class="step-badge">Referencia</span>
+      <h1 style="font-size:1.35rem;">Rúbrica de evaluación</h1>
+      <div class="tbl-wrap"><table class="tp-table">
+        <thead><tr><th>N°</th><th>Criterio</th><th>Indicador</th><th>Puntos</th></tr></thead>
+        <tbody id="rubrica-body"></tbody>
+      </table></div>
+      <div class="alert success" style="margin-top:1rem;">
+        <strong>Recuerde:</strong> esta rúbrica califica la <em>calidad</em> de su trabajo como retroalimentación. La <strong>aprobación de la práctica</strong> se otorga por completar los 6 pasos, no por alcanzar un puntaje mínimo.
+      </div>
+      <h2>Referencias</h2>
+      <ul style="font-size:.85rem; color:var(--muted);">
+        <li>Congreso Nacional de la República Dominicana. (2004). <em>Ley No. 200-04</em> sobre Libre Acceso a la Información Pública.</li>
+        <li>Congreso Nacional de la República Dominicana. (2013). <em>Ley No. 172-13</em> sobre Protección Integral de los Datos Personales.</li>
+        <li>Congreso Nacional de la República Dominicana. (2008). <em>Ley No. 41-08</em> de Función Pública.</li>
+        <li>Gabinete de Transformación Digital. (2021). <em>Agenda Digital 2030 de la República Dominicana.</em></li>
+        <li>Nonaka, I. y Takeuchi, H. (1995). <em>The Knowledge-Creating Company.</em> Oxford University Press.</li>
+      </ul>
+    </section>
+
+    <!-- ============ ENVÍO / RESULTADO ============ -->
+    <section id="resultado" class="card">
+      <div id="submit-zone">
+        <span class="step-badge">Paso final</span>
+        <h1 style="font-size:1.4rem;">Enviar y calificar mi trabajo</h1>
+        <p>El sistema revisará automáticamente sus 6 pasos y le mostrará una nota preliminar orientativa con el detalle por criterio. Recuerde: <strong>aprueba por completar la práctica, independientemente de la nota.</strong></p>
+        <button class="btn-primary" id="btn-submit" type="button">📤 Enviar y Calificar mi Trabajo</button>
+      </div>
+
+      <div id="results" class="results">
+        <div id="score-hero" class="score-hero">
+          <div class="score-circle"><span class="num" id="score-num">0</span><span class="den">/ 100 pts</span></div>
+          <div class="score-verdict">
+            <h3 id="score-title">—</h3>
+            <p id="score-desc">—</p>
+          </div>
+        </div>
+        <div id="ai-review" class="alert info" style="display:none;"></div>
+        <div id="crit-list"></div>
+        <div class="btn-row">
+          <button class="btn-primary" id="btn-medal" type="button" style="display:none;">🏅 Ver mi medalla</button>
+          <button class="btn-secondary" id="btn-export-2" type="button">⬇️ Descargar mis respuestas</button>
+          <button class="btn-secondary" id="btn-print-2" type="button">🖨️ Imprimir resultado</button>
+          <button class="btn-secondary" id="btn-recheck" type="button">✏️ Volver a revisar mis respuestas</button>
+        </div>
+      </div>
+    </section>
+
+    <footer class="tp-footer">
+      Práctica — Unidad IV: Gestión del Conocimiento y Big Data · Curso Herramientas de Transformación Digital · INAP · AC-INAP-2026-HTD.<br>
+      Herramienta de autoevaluación con fines educativos. La aprobación se otorga por completar la práctica; la nota oficial del curso la determina su facilitador.<br>
+      Desarrollado por Johan Tapia, PhD.
+    </footer>
+  </main>
+</div>
+
+<!-- NICOLE (asistente virtual del Dr. Johan Tapia) -->
+<button id="advisor-toggle" class="advisor-fab" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="advisor-panel" title="Abrir a Nicole">
+  🎓 <span>Nicole</span>
+</button>
+<a href="https://prof.johan.plataforma.cfd/" target="_blank" rel="noopener" class="proftapia-fab" title="Abrir el asistente del Prof. Johan Tapia en una ventana nueva">
+  👨‍🏫 <span>Prof. Johan Tapia</span>
+</a>
+<div id="advisor-panel" class="advisor-panel" role="dialog" aria-labelledby="advisor-title-el">
+  <div class="advisor-header">
+    <span style="font-size:1.2rem;">🎓</span>
+    <p id="advisor-title-el" class="advisor-title">Nicole</p>
+    <button id="advisor-close" type="button" aria-label="Cerrar a Nicole">✕</button>
+  </div>
+  <div id="advisor-body" class="advisor-body">
+    <div class="advisor-msg advisor-msg-bot">¡Hola equipo! Soy Nicole, la asistente virtual del Dr. Johan Tapia. Pregúntame sobre DIKW, el modelo SECI, las 5V del Big Data, calidad del dato, dashboards, la Ley 200-04 o la Ley 172-13 — o cómo funciona la calificación de esta práctica.</div>
+  </div>
+  <div class="advisor-suggest">
+    <button type="button" data-q="¿cómo se califica esta práctica?">¿Cómo se califica?</button>
+    <button type="button" data-q="que es el modelo SECI explicado facil">¿Qué es el modelo SECI?</button>
+    <button type="button" data-q="diferencia entre datos abiertos y datos personales">Datos abiertos vs. personales</button>
+  </div>
+  <form id="advisor-form" class="advisor-form">
+    <input type="text" id="advisor-input" placeholder="Escribe tu pregunta…" aria-label="Escribe tu pregunta a Nicole">
+    <button type="submit" aria-label="Enviar pregunta">➤</button>
+  </form>
+</div>
+
+<!-- QR DE ESTA PRÁCTICA -->
+<div id="qr-modal" class="medal-modal" hidden role="dialog" aria-labelledby="qr-title">
+  <div class="medal-modal-inner">
+    <button class="icon-btn" id="qr-close" type="button" aria-label="Cerrar">✕</button>
+    <h3 id="qr-title" style="margin:0 0 .5rem; color:var(--primary);">📱 Código QR de esta práctica</h3>
+    <div id="qr-code-container" style="display:flex; justify-content:center; margin:.5rem 0 1rem; min-height:220px; align-items:center;"></div>
+    <p style="font-size:.78rem; color:var(--muted); margin:0 0 1rem;">Cualquiera puede escanear este código con la cámara de su celular para abrir esta práctica directamente.</p>
+    <div class="btn-row" style="justify-content:center;">
+      <button class="btn-secondary" id="qr-download" type="button">⬇️ Descargar imagen</button>
+    </div>
+  </div>
+</div>
+
+<!-- MEDALLA -->
+<div id="medal-modal" class="medal-modal" hidden role="dialog" aria-labelledby="medal-title">
+  <div class="medal-modal-inner">
+    <button class="icon-btn" id="medal-close" type="button" aria-label="Cerrar">✕</button>
+    <h3 id="medal-title" style="margin:0 0 .5rem; color:var(--primary);">🏅 ¡Felicidades!</h3>
+    <canvas id="medal-canvas" width="600" height="680"></canvas>
+    <div class="btn-row" style="justify-content:center;">
+      <button class="btn-primary" id="medal-download" type="button">⬇️ Descargar</button>
+      <button class="btn-secondary" id="medal-share" type="button">📤 Compartir</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+/* ---------- NICOLE, ASISTENTE VIRTUAL (n8n en VPS) ---------- */
+var AI_BASE = 'https://n8n-inap.167.88.36.13.sslip.io/webhook';
+var AI_CHAT_URL = AI_BASE + '/inap-tutor-chat';
+var AI_GRADE_URL = AI_BASE + '/inap-grade';
+var AI_CHAT_TIMEOUT = 60000;
+var AI_GRADE_TIMEOUT = 650000;
+var VOICE_TRANSCRIBE_URL = 'https://n8n-inap.167.88.36.13.sslip.io/webhook/prof-johan-tapia-transcribir';
+
+/* ---------- NOTAS DE VOZ ---------- */
+function pickRecorderMime(){
+  var candidates = ['audio/webm;codecs=opus','audio/webm','audio/mp4','audio/ogg;codecs=opus'];
+  for(var i=0;i<candidates.length;i++){
+    if(window.MediaRecorder && MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(candidates[i])) return candidates[i];
+  }
+  return '';
+}
+function beepVoz(freq, dur){
+  try{
+    var Ctx = window.AudioContext || window.webkitAudioContext;
+    var ctx = new Ctx();
+    var osc = ctx.createOscillator();
+    var gain = ctx.createGain();
+    osc.type = 'sine';
+    osc.frequency.value = freq;
+    gain.gain.setValueAtTime(0.18, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + dur);
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.start();
+    osc.stop(ctx.currentTime + dur);
+    osc.onended = function(){ ctx.close(); };
+  }catch(e){}
+}
+var VOZ_MIN_MS = 400;
+var VOZ_MAX_MS = 120000;
+var VOZ_LABEL_DEFAULT = '🎤 Mantenga presionado para grabar';
+function wireVoiceButtons(){
+  if(!navigator.mediaDevices || !window.MediaRecorder){
+    document.querySelectorAll('.voice-btn').forEach(function(btn){
+      btn.disabled = true; btn.title = 'Grabación de voz no disponible en este navegador';
+    });
+    return;
+  }
+  document.querySelectorAll('.voice-btn').forEach(function(btn){
+    var targetId = btn.getAttribute('data-target');
+    var textarea = document.getElementById(targetId);
+    var statusEl = document.querySelector('.voice-status[data-target-status="'+targetId+'"]');
+    if(!textarea) return;
+    btn.textContent = VOZ_LABEL_DEFAULT;
+    var mediaRecorder = null, chunks = [], stream = null, recording = false, pressActive = false;
+    var startedAt = 0, maxTimer = null, tickTimer = null;
+
+    function setStatus(msg, cls){
+      if(!statusEl) return;
+      statusEl.textContent = msg || '';
+      statusEl.className = 'voice-status' + (cls ? ' ' + cls : '');
+    }
+    function stopStream(){
+      if(stream){ stream.getTracks().forEach(function(t){ t.stop(); }); stream = null; }
+    }
+    function tick(){
+      var secs = Math.floor((Date.now() - startedAt) / 1000);
+      var m = Math.floor(secs / 60), s = secs % 60;
+      btn.textContent = '🔴 Grabando ' + m + ':' + (s < 10 ? '0' : '') + s + ' — suelte para enviar';
+    }
+    function startRecording(){
+      if(pressActive) return;
+      pressActive = true;
+      navigator.mediaDevices.getUserMedia({ audio:true }).then(function(s){
+        if(!pressActive){ s.getTracks().forEach(function(t){ t.stop(); }); return; }
+        stream = s;
+        chunks = [];
+        var mime = pickRecorderMime();
+        try{ mediaRecorder = mime ? new MediaRecorder(stream, { mimeType: mime }) : new MediaRecorder(stream); }
+        catch(e){ mediaRecorder = new MediaRecorder(stream); }
+        mediaRecorder.addEventListener('dataavailable', function(e){ if(e.data && e.data.size > 0) chunks.push(e.data); });
+        mediaRecorder.addEventListener('stop', function(){
+          stopStream();
+          clearTimeout(maxTimer); clearInterval(tickTimer);
+          btn.classList.remove('recording');
+          var duracion = Date.now() - startedAt;
+          if(duracion < VOZ_MIN_MS){
+            btn.textContent = VOZ_LABEL_DEFAULT;
+            setStatus('Grabación muy corta — mantenga presionado el botón mientras habla.', 'err');
+            return;
+          }
+          var blob = new Blob(chunks, { type: mediaRecorder.mimeType || 'audio/webm' });
+          uploadForTranscription(blob);
+        });
+        mediaRecorder.start();
+        recording = true;
+        startedAt = Date.now();
+        btn.classList.add('recording');
+        beepVoz(880, 0.1);
+        tick();
+        tickTimer = setInterval(tick, 500);
+        setStatus('Grabando… hable su respuesta y suelte el botón al terminar.', '');
+        maxTimer = setTimeout(function(){ if(recording) stopRecording(); }, VOZ_MAX_MS);
+      }).catch(function(){
+        pressActive = false;
+        setStatus('No se pudo acceder al micrófono. Revise los permisos del navegador, o simplemente escriba la respuesta.', 'err');
+      });
+    }
+    function stopRecording(){
+      if(!pressActive) return;
+      pressActive = false;
+      if(mediaRecorder && recording){
+        recording = false;
+        beepVoz(440, 0.12);
+        mediaRecorder.stop();
+      }
+    }
+    function uploadForTranscription(blob){
+      btn.disabled = true;
+      btn.classList.add('busy');
+      btn.textContent = '⏳ Transcribiendo…';
+      setStatus('Transcribiendo la nota de voz, un momento…', '');
+      var fd = new FormData();
+      var ext = (blob.type.indexOf('mp4') !== -1) ? 'm4a' : (blob.type.indexOf('ogg') !== -1 ? 'ogg' : 'webm');
+      fd.append('data', blob, 'nota-voz.' + ext);
+      fetchWithTimeout(VOICE_TRANSCRIBE_URL, { method:'POST', body: fd }, 60000).then(function(res){
+        if(!res.ok) throw new Error('HTTP ' + res.status);
+        return res.json();
+      }).then(function(data){
+        if(!data || !data.ok || !data.texto){ throw new Error('SIN_TEXTO'); }
+        var existing = textarea.value.trim();
+        textarea.value = existing ? (existing + ' ' + data.texto) : data.texto;
+        textarea.dispatchEvent(new Event('input'));
+        setStatus('✔ Nota de voz agregada. Puede revisarla y corregirla si hace falta.', 'ok');
+      }).catch(function(err){
+        var msg = (err && err.message === 'SIN_TEXTO')
+          ? 'No se logró entender el audio. Intente grabar de nuevo hablando más cerca del micrófono, o escriba la respuesta directamente.'
+          : 'No se pudo conectar con el servicio de transcripción. Revise su conexión a internet, o escriba la respuesta directamente.';
+        setStatus(msg, 'err');
+      }).finally(function(){
+        btn.disabled = false;
+        btn.classList.remove('busy');
+        btn.textContent = VOZ_LABEL_DEFAULT;
+      });
+    }
+    btn.addEventListener('mousedown', function(e){ e.preventDefault(); startRecording(); });
+    btn.addEventListener('touchstart', function(e){ e.preventDefault(); startRecording(); }, { passive:false });
+    ['mouseup','mouseleave','touchend','touchcancel'].forEach(function(evt){
+      btn.addEventListener(evt, stopRecording);
+    });
+  });
+}
+
+/* ---------- TAMAÑO DE LETRA ---------- */
+var FONT_LEVELS = ['normal','grande','xgrande'];
+function applyFontSize(level){
+  document.documentElement.setAttribute('data-fontsize', level);
+  try{ localStorage.setItem('tp_tdu4_fontsize', level); }catch(e){}
+}
+applyFontSize(localStorage.getItem('tp_tdu4_fontsize') || 'normal');
+document.getElementById('font-bigger').addEventListener('click', function(){
+  var cur = document.documentElement.getAttribute('data-fontsize') || 'normal';
+  var idx = FONT_LEVELS.indexOf(cur);
+  if(idx < FONT_LEVELS.length - 1) applyFontSize(FONT_LEVELS[idx+1]);
+});
+document.getElementById('font-smaller').addEventListener('click', function(){
+  var cur = document.documentElement.getAttribute('data-fontsize') || 'normal';
+  var idx = FONT_LEVELS.indexOf(cur);
+  if(idx > 0) applyFontSize(FONT_LEVELS[idx-1]);
+});
+
+function fetchWithTimeout(url, options, timeoutMs){
+  var controller = new AbortController();
+  var timer = setTimeout(function(){ controller.abort(); }, timeoutMs);
+  return fetch(url, Object.assign({}, options, { signal: controller.signal }))
+    .finally(function(){ clearTimeout(timer); });
+}
+
+/* ---------- THEME ---------- */
+var themeBtn = document.getElementById('theme-toggle');
+function applyTheme(t){
+  document.documentElement.setAttribute('data-theme', t);
+  themeBtn.textContent = t === 'dark' ? '☀️' : '🌙';
+  localStorage.setItem('tp_tdu4_theme', t);
+}
+applyTheme(localStorage.getItem('tp_tdu4_theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+themeBtn.addEventListener('click', function(){
+  applyTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+});
+
+/* ---------- CÓDIGO QR DE ESTA PRÁCTICA ---------- */
+document.getElementById('btn-qr').addEventListener('click', function(){
+  var container = document.getElementById('qr-code-container');
+  container.innerHTML = '';
+  var pageUrl = window.location.href.split('#')[0].split('?')[0];
+  if(window.QRCode){
+    new QRCode(container, { text: pageUrl, width: 220, height: 220, colorDark: '#003877', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.M });
+  } else {
+    container.innerHTML = '<p style="color:var(--red); font-size:.85rem; text-align:center;">No se pudo cargar el generador de QR. Verifique su conexión a internet e intente de nuevo.</p>';
+  }
+  document.getElementById('qr-modal').hidden = false;
+});
+document.getElementById('qr-close').addEventListener('click', function(){
+  document.getElementById('qr-modal').hidden = true;
+});
+document.getElementById('qr-download').addEventListener('click', function(){
+  var el = document.querySelector('#qr-code-container img') || document.querySelector('#qr-code-container canvas');
+  if(!el) return;
+  var dataUrl = el.tagName === 'CANVAS' ? el.toDataURL('image/png') : el.src;
+  var a = document.createElement('a');
+  a.href = dataUrl;
+  a.download = 'qr-practica-unidad4-htd.png';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+});
+
+/* ---------- MOBILE NAV ---------- */
+var navToggle = document.getElementById('nav-toggle');
+var sidebar = document.getElementById('sidebar');
+navToggle.addEventListener('click', function(){
+  var open = sidebar.classList.toggle('open');
+  navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+});
+
+/* ---------- READING PROGRESS BAR ---------- */
+var progressBar = document.getElementById('progress-bar');
+window.addEventListener('scroll', function(){
+  var h = document.documentElement;
+  var scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+  progressBar.style.width = (scrolled || 0) + '%';
+}, { passive:true });
+
+/* ---------- ACTIVE NAV HIGHLIGHT ---------- */
+var navLinks = Array.prototype.slice.call(document.querySelectorAll('.nav a'));
+var sections = navLinks.map(function(a){ return document.querySelector(a.getAttribute('href')); }).filter(Boolean);
+var io = new IntersectionObserver(function(entries){
+  entries.forEach(function(entry){
+    var link = document.querySelector('.nav a[href="#' + entry.target.id + '"]');
+    if(!link) return;
+    if(entry.isIntersecting) navLinks.forEach(function(l){ l.classList.remove('active'); });
+    if(entry.isIntersecting) link.classList.add('active');
+  });
+}, { rootMargin: '-20% 0px -70% 0px' });
+sections.forEach(function(s){ io.observe(s); });
+
+/* ---------- TEMPORIZADOR DE REFERENCIA (no cierra la práctica) ---------- */
+var TIMER_MINUTES = 120;
+var TIMER_KEY = 'tp_tdu4_deadline';
+var SOUND_MUTE_KEY = 'tp_htd_sound_muted';
+var soundMuted = localStorage.getItem(SOUND_MUTE_KEY) === '1';
+var flatlinePlayed = false;
+var lastBeepAt = 0;
+var lastStabAt = 0;
+var lastOvertimeStabAt = 0;
+var NUM_CORAZONES = 5;
+
+/* Dibuja NUM_CORAZONES corazones tipo "vida" de videojuego (Zelda), cada
+   uno representando 1/5 del tiempo. Se vacian de derecha a izquierda segun
+   pasa el tiempo -- mismo lenguaje visual que una barra de vida de juego. */
+function trazarCorazon(ctx, cx, cy, s){
+  ctx.beginPath();
+  ctx.moveTo(cx, cy + s * 0.32);
+  ctx.bezierCurveTo(cx, cy, cx - s * 0.5, cy - s * 0.5, cx - s * 0.5, cy);
+  ctx.bezierCurveTo(cx - s * 0.5, cy + s * 0.4, cx - s * 0.18, cy + s * 0.62, cx, cy + s * 0.88);
+  ctx.bezierCurveTo(cx + s * 0.18, cy + s * 0.62, cx + s * 0.5, cy + s * 0.4, cx + s * 0.5, cy);
+  ctx.bezierCurveTo(cx + s * 0.5, cy - s * 0.5, cx, cy, cx, cy + s * 0.32);
+  ctx.closePath();
+}
+function dibujarCorazones(pctVida){
+  var canvas = document.getElementById('hearts-canvas');
+  if(!canvas) return;
+  var ctx = canvas.getContext('2d');
+  var W = canvas.width, H = canvas.height;
+  ctx.clearRect(0, 0, W, H);
+  var s = 24, paso = 40, inicioX = (W - paso * (NUM_CORAZONES - 1)) / 2, cy = H / 2 - 4;
+  for(var i = 0; i < NUM_CORAZONES; i++){
+    var cx = inicioX + i * paso;
+    var segInicio = i / NUM_CORAZONES, segAncho = 1 / NUM_CORAZONES;
+    var frac = Math.max(0, Math.min(1, (pctVida - segInicio) / segAncho));
+    trazarCorazon(ctx, cx, cy, s);
+    ctx.fillStyle = 'rgba(0,0,0,.08)';
+    ctx.fill();
+    if(frac > 0){
+      ctx.save();
+      trazarCorazon(ctx, cx, cy, s);
+      ctx.clip();
+      ctx.fillStyle = pctVida <= 0 ? '#94a3b8' : '#e11d48';
+      ctx.fillRect(cx - s / 2, cy + s * 0.9 - (s * 1.4 * frac), s, s * 1.4 * frac);
+      ctx.restore();
+    }
+    trazarCorazon(ctx, cx, cy, s);
+    ctx.lineWidth = 1.3;
+    ctx.strokeStyle = 'rgba(0,0,0,.18)';
+    ctx.stroke();
+  }
+}
+
+function getDeadline(){
+  var d = parseInt(localStorage.getItem(TIMER_KEY), 10);
+  if(!d || isNaN(d)){
+    d = Date.now() + TIMER_MINUTES * 60000;
+    try{ localStorage.setItem(TIMER_KEY, String(d)); }catch(e){}
+  }
+  return d;
+}
+var timerDeadline = getDeadline();
+
+function playBeep(freq, dur, vol){
+  if(soundMuted) return;
+  try{
+    var Ctx = window.AudioContext || window.webkitAudioContext;
+    var ctx = new Ctx();
+    var osc = ctx.createOscillator(); var gain = ctx.createGain();
+    osc.type = 'sine'; osc.frequency.value = freq;
+    gain.gain.setValueAtTime(vol, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + dur);
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.start(); osc.stop(ctx.currentTime + dur);
+    osc.onended = function(){ ctx.close(); };
+  }catch(e){}
+}
+function playFlatline(){
+  if(soundMuted) return;
+  try{
+    var Ctx = window.AudioContext || window.webkitAudioContext;
+    var ctx = new Ctx();
+    var osc = ctx.createOscillator(); var gain = ctx.createGain();
+    osc.type = 'sawtooth';
+    osc.frequency.setValueAtTime(720, ctx.currentTime);
+    osc.frequency.linearRampToValueAtTime(160, ctx.currentTime + 2.2);
+    gain.gain.setValueAtTime(0.001, ctx.currentTime);
+    gain.gain.linearRampToValueAtTime(0.14, ctx.currentTime + 0.06);
+    gain.gain.setValueAtTime(0.14, ctx.currentTime + 1.8);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 2.3);
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.start(); osc.stop(ctx.currentTime + 2.4);
+    osc.onended = function(){ ctx.close(); };
+  }catch(e){}
+}
+function playAnguishStab(){
+  // "Punalada" de cuerdas disonante (segunda menor, Do6 vs Si5) para el
+  // ultimo minuto -- inspirado en el clasico "stinger" de cuerdas de
+  // peliculas de suspenso (ej. la escena de la ducha de Psicosis), pero
+  // sintetizado desde cero con osciladores (sin usar la pieza real con
+  // copyright, mismo criterio que playBeep/playFlatline de arriba).
+  if(soundMuted) return;
+  try{
+    var Ctx = window.AudioContext || window.webkitAudioContext;
+    var ctx = new Ctx();
+    [1046.5, 987.77].forEach(function(freq){
+      var osc = ctx.createOscillator(); var gain = ctx.createGain();
+      osc.type = 'sawtooth';
+      osc.frequency.value = freq;
+      gain.gain.setValueAtTime(0.001, ctx.currentTime);
+      gain.gain.linearRampToValueAtTime(0.11, ctx.currentTime + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.35);
+      osc.connect(gain); gain.connect(ctx.destination);
+      osc.start(); osc.stop(ctx.currentTime + 0.4);
+    });
+    setTimeout(function(){ ctx.close(); }, 450);
+  }catch(e){}
+}
+function tickTimer(){
+  var wrapEl = document.getElementById('timer-box');
+  var valEl = document.getElementById('timer-value');
+  var overtimeNoteEl = document.getElementById('overtime-note');
+  var heartsEl = document.getElementById('hearts-canvas');
+  if(!wrapEl || !valEl) return;
+  var diffReal = timerDeadline - Date.now(); // sin recortar -- negativo en tiempo extra
+  var remaining = diffReal < 0 ? 0 : diffReal;
+  var now = Date.now();
+
+  dibujarCorazones(Math.max(0, remaining / (TIMER_MINUTES * 60000)));
+
+  if(diffReal > 0){
+    /* ---- Tiempo normal (0 a 60 min) ---- */
+    var totalSec = Math.floor(remaining / 1000);
+    var m = Math.floor(totalSec / 60), s = totalSec % 60;
+    valEl.textContent = (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+    wrapEl.classList.remove('overtime');
+    if(overtimeNoteEl) overtimeNoteEl.hidden = true;
+
+    var criticalMode = remaining <= 10 * 60000;
+    wrapEl.classList.toggle('low', criticalMode);
+    var lastMinute = remaining <= 5 * 60000;
+    if(lastMinute){
+      // El sonido de aceleracion (pitido + punaladas) queda confinado al
+      // ULTIMO MINUTO -- el estado visual .low sigue empezando a los 10
+      // min, pero el audio antes sonaba los 10 minutos completos y Johan
+      // pidio restringirlo a solo el ultimo minuto (2026-07-21). Ambos se
+      // aceleran juntos de ~2s a ~250-350ms segun se acerca a cero.
+      var pctMin = remaining / (5 * 60000);
+      var interval = 250 + pctMin * 1750;
+      if(now - lastBeepAt > interval){
+        lastBeepAt = now;
+        playBeep(920, 0.08, 0.14);
+      }
+      var stabInterval = 350 + pctMin * 1650;
+      if(now - lastStabAt > stabInterval){
+        lastStabAt = now;
+        playAnguishStab();
+      }
+    }
+    if(heartsEl) heartsEl.classList.toggle('critical', lastMinute);
+    wrapEl.classList.toggle('critical', lastMinute);
+  } else {
+    /* ---- Tiempo extra (pasados los 60 min) -- puramente cosmetico, NO
+       afecta la aprobacion ni la calificacion (ver overtime-note). Cuenta
+       hacia ARRIBA el tiempo extra real, pero el "segundero" que se ve
+       (fast-clock) gira mucho mas rapido que un segundero real, a
+       proposito, solo para transmitir urgencia. ---- */
+    var extraMs = -diffReal;
+    var extraSec = Math.floor(extraMs / 1000);
+    var em = Math.floor(extraSec / 60), es = extraSec % 60;
+    valEl.textContent = '+' + (em < 10 ? '0' : '') + em + ':' + (es < 10 ? '0' : '') + es;
+    wrapEl.classList.remove('low', 'critical');
+    wrapEl.classList.add('overtime');
+    if(heartsEl) heartsEl.classList.remove('critical');
+    if(overtimeNoteEl) overtimeNoteEl.hidden = false;
+
+    if(!flatlinePlayed){
+      flatlinePlayed = true;
+      playFlatline();
+    }
+    // Punaladas periodicas cada ~1.8s mientras dure el tiempo extra --
+    // constante (no se sigue acelerando mas alla del limite ya alcanzado
+    // en el ultimo minuto antes del cero).
+    if(now - lastOvertimeStabAt > 1800){
+      lastOvertimeStabAt = now;
+      playAnguishStab();
+    }
+  }
+}
+setInterval(tickTimer, 1000);
+tickTimer();
+var soundToggleBtn = document.getElementById('sound-toggle');
+soundToggleBtn.textContent = soundMuted ? '🔇' : '🔔';
+soundToggleBtn.addEventListener('click', function(){
+  soundMuted = !soundMuted;
+  try{ localStorage.setItem(SOUND_MUTE_KEY, soundMuted ? '1' : '0'); }catch(e){}
+  soundToggleBtn.textContent = soundMuted ? '🔇' : '🔔';
+});
+
+/* ---------- HELPERS ---------- */
+function norm(s){ return (s === undefined || s === null) ? '' : String(s).trim(); }
+function stripAccents(s){ return norm(s).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,''); }
+function wordCount(s){ s = norm(s); return s ? s.split(/\s+/).filter(Boolean).length : 0; }
+function filled(s){ return norm(s).length > 0; }
+function clamp01(n){ return Math.max(0, Math.min(1, n)); }
+function val(id){ var el = document.getElementById(id); return el ? el.value : ''; }
+function labelOf(id){ var el = document.getElementById(id); if(!el) return id; var lab = document.querySelector('label[for="'+id+'"]'); return lab ? lab.textContent.replace(/\s*\d+\/\d+ palabras\s*/,'').trim() : id; }
+function escapeHtml(s){ var d = document.createElement('div'); d.textContent = norm(s); return d.innerHTML; }
+
+/* ---------- CAMPOS DE CADA PASO ---------- */
+var STEP_FIELDS = {
+  paso1: ['c1_m1_r1', 'c1_m1_r2', 'c1_m1_r3', 'c1_m1_r4', 'c1_m1_r5', 'c1_m1_r6', 'c1_m2_r1', 'c1_m2_r2', 'c1_m2_r3', 'c1_m2_r4', 'c1_q1', 'c1_q2', 'c1_q3', 'c1_q4', 'c1_q5'],
+  paso2: ['c2_m3_r1', 'c2_m3_r2', 'c2_m3_r3', 'c2_m3_r4', 'c2_m3_r5', 'c2_m3_r6', 'c2_m4_r1', 'c2_m4_r2', 'c2_m4_r3', 'c2_m4_r4', 'c2_m4_r5', 'c2_q1', 'c2_q2', 'c2_q3', 'c2_q4', 'c2_q5'],
+  paso3: ['c3_m5_r1', 'c3_m5_r2', 'c3_m5_r3', 'c3_m5_r4', 'c3_m5_r5', 'c3_m5_r6', 'c3_m6_r1', 'c3_m6_r2', 'c3_m6_r3', 'c3_m6_r4', 'c3_q1', 'c3_q2', 'c3_q3', 'c3_q4', 'c3_q5', 'c3_q6'],
+  paso4: ['c4_m7_r1', 'c4_m7_r2', 'c4_m7_r3', 'c4_m8_r1', 'c4_m8_r2', 'c4_m8_r3', 'c4_m8_r4', 'c4_m8_r5', 'c4_m8_r6', 'c4_q1', 'c4_q2', 'c4_q3', 'c4_q4', 'c4_q5', 'c4_q6'],
+  paso5: ['i_r1', 'i_r2', 'i_r3'],
+  paso6: ['f_q1', 'f_q2', 'f_q3', 'f_q4', 'f_q5', 'f_q6', 'f_q7', 'f_q8']
+};
+
+/* ---------- MODALIDAD: INDIVIDUAL O EN EQUIPO ---------- */
+var modoSelect = document.getElementById('modo_trabajo');
+var bloqueIndividual = document.getElementById('bloque-individual');
+var bloqueGrupo = document.getElementById('bloque-grupo');
+var bloqueIntegrantes = document.getElementById('bloque-integrantes');
+function aplicarModo(){
+  var esGrupo = modoSelect.value === 'grupo';
+  bloqueIndividual.hidden = esGrupo;
+  bloqueGrupo.hidden = !esGrupo;
+  bloqueIntegrantes.hidden = !esGrupo;
+}
+modoSelect.addEventListener('change', function(){ aplicarModo(); saveAll(); });
+aplicarModo();
+function nombreIdentificacion(){
+  return modoSelect.value === 'grupo' ? (val('grp_nombre') || '') : (val('ind_nombre') || '');
+}
+function correoIdentificacion(){
+  return modoSelect.value === 'grupo' ? (val('grp_correo') || '') : (val('ind_correo') || '');
+}
+
+/* ---------- WORD COUNTERS ---------- */
+document.querySelectorAll('.wc[data-for]').forEach(function(span){
+  var target = document.getElementById(span.getAttribute('data-for'));
+  if(!target) return;
+  function update(){
+    var wc = wordCount(target.value);
+    span.textContent = wc + (wc === 1 ? ' palabra escrita' : ' palabras escritas');
+    span.classList.toggle('ok', wc > 0);
+  }
+  target.addEventListener('input', update);
+  update();
+});
+
+/* ---------- AUTOSAVE (localStorage) ---------- */
+var STORE_KEY = 'tp_tdu4_respuestas_v1';
+var META_FIELDS = ['modo_trabajo', 'ind_nombre', 'ind_correo', 'grp_nombre', 'grp_correo', 'grp_integrantes'];
+function allFieldIds(){
+  var ids = META_FIELDS.slice();
+  Object.keys(STEP_FIELDS).forEach(function(k){ ids = ids.concat(STEP_FIELDS[k]); });
+  return ids;
+}
+function saveAll(){
+  var data = {};
+  allFieldIds().forEach(function(id){ data[id] = val(id); });
+  try{ localStorage.setItem(STORE_KEY, JSON.stringify(data)); }catch(e){}
+}
+function loadAll(){
+  var raw; try{ raw = localStorage.getItem(STORE_KEY); }catch(e){ raw = null; }
+  if(!raw) return;
+  try{
+    var data = JSON.parse(raw);
+    Object.keys(data).forEach(function(id){
+      var el = document.getElementById(id);
+      if(el) el.value = data[id];
+    });
+  }catch(e){}
+}
+loadAll();
+aplicarModo();
+document.querySelectorAll('.wc[data-for]').forEach(function(span){
+  var target = document.getElementById(span.getAttribute('data-for'));
+  if(target) target.dispatchEvent(new Event('input'));
+});
+
+var saveTimer = null;
+document.addEventListener('input', function(e){
+  var t = e.target;
+  if(t && t.id && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT')){
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(function(){ saveAll(); updateProgress(); }, 400);
+  }
+});
+document.addEventListener('change', function(e){
+  var t = e.target;
+  if(t && t.tagName === 'SELECT'){ saveAll(); updateProgress(); }
+});
+
+/* ---------- PROGRESS ---------- */
+function stepRatio(key){
+  var ids = STEP_FIELDS[key];
+  if(!ids || !ids.length) return 0;
+  var n = 0;
+  ids.forEach(function(id){ if(filled(val(id))) n++; });
+  return n / ids.length;
+}
+function updateProgress(){
+  var keys = Object.keys(STEP_FIELDS);
+  var total = 0;
+  keys.forEach(function(k){
+    var r = stepRatio(k);
+    total += r;
+    var pctEl = document.querySelector('.pct[data-pct="'+k+'"]');
+    var linkEl = document.querySelector('.nav a[data-step="'+k+'"]');
+    if(pctEl) pctEl.textContent = Math.round(r*100) + '%';
+    if(linkEl) linkEl.classList.toggle('done', r >= 0.95);
+  });
+  var overall = Math.round((total / keys.length) * 100);
+  document.getElementById('progress-count').textContent = overall + '%';
+  var fillEl = document.getElementById('progress-fill-el');
+  fillEl.style.width = overall + '%';
+  fillEl.classList.toggle('complete', overall >= 95);
+}
+updateProgress();
+
+/* ---------- ¿PRÁCTICA COMPLETA? (determina la APROBACIÓN, no la nota) ---------- */
+function camposFaltantes(){
+  var faltan = [];
+  Object.keys(STEP_FIELDS).forEach(function(key){
+    STEP_FIELDS[key].forEach(function(id){
+      if(!filled(val(id))) faltan.push(labelOf(id));
+    });
+  });
+  return faltan;
+}
+function practicaCompleta(){ return camposFaltantes().length === 0; }
+
+/* ---------- RÚBRICA TABLE (referencia de calidad, no de aprobación) ---------- */
+var RUBRICA = [
+  {n:1, criterio:'Caso 1 · Gestión del conocimiento (DIKW y SECI)', indicador:'Diagnostica con profundidad la pérdida de conocimiento y aplica correctamente el modelo SECI a la situación institucional.', pts:16},
+  {n:2, criterio:'Caso 2 · Calidad del dato y Big Data (5V)', indicador:'Identifica con precisión los problemas de calidad de datos y aplica correctamente las 5V del Big Data al caso.', pts:16},
+  {n:3, criterio:'Caso 3 · Diseño de dashboard y analítica de datos', indicador:'Propone indicadores útiles con fuentes y visualizaciones pertinentes, y aplica correctamente la taxonomía de analítica de datos.', pts:16},
+  {n:4, criterio:'Caso 4 · Transparencia, datos abiertos y protección de datos', indicador:'Fundamenta sus decisiones considerando transparencia, privacidad y responsabilidad pública, con referencia a la Ley 200-04 y la Ley 172-13.', pts:16},
+  {n:5, criterio:'Matriz integradora final', indicador:'Sintetiza con profundidad los hallazgos de los cuatro casos en una recomendación institucional coherente.', pts:18},
+  {n:6, criterio:'Reflexión individual y trabajo en equipo', indicador:'Cada participante reflexiona con honestidad sobre su aprendizaje personal y su aplicación práctica; el grupo se organiza y participa de forma equilibrada.', pts:18}
+];
+document.getElementById('rubrica-body').innerHTML = RUBRICA.map(function(r){
+  return '<tr><td class="label-cell">'+r.n+'</td><td>'+r.criterio+'</td><td>'+r.indicador+'</td><td class="label-cell">'+r.pts+'</td></tr>';
+}).join('') + '<tr><td colspan="3" class="label-cell">TOTAL (retroalimentación)</td><td class="label-cell">100</td></tr>';
+
+/* ---------- GRADING ENGINE ---------- */
+function ratioFilledFrac(ids){
+  if(!ids.length) return 0;
+  var n = 0; ids.forEach(function(id){ if(filled(val(id))) n++; });
+  return n / ids.length;
+}
+function singleWordFrac(id){ return filled(val(id)) ? 1 : 0; }
+
+function buildCriterion(title, maxPoints, items){
+  var score = 0;
+  items.forEach(function(it){ score += it.points * clamp01(it.frac); });
+  score = Math.round(score * 10) / 10;
+  var strong = [], mid = [], weak = [];
+  items.forEach(function(it){
+    if(it.frac >= 0.85) strong.push(it.label);
+    else if(it.frac >= 0.45) mid.push(it.label);
+    else weak.push(it.label);
+  });
+  return { title:title, maxPoints:maxPoints, score:score, strong:strong, mid:mid, weak:weak };
+}
+
+function gradeStep1(){
+  var items = [
+    { label:'Área y dato sensible identificados con claridad', points:3, frac:ratioFilledFrac(['p1_area','p1_dato']) },
+    { label:'Consecuencia de falta de confidencialidad explicada', points:6, frac:singleWordFrac('p1_confidencialidad',25) },
+    { label:'Consecuencia de falta de disponibilidad explicada', points:6, frac:singleWordFrac('p1_disponibilidad',20) }
+  ];
+  return buildCriterion(RUBRICA[0].criterio, 15, items);
+}
+function gradeStep2(){
+  var items = [
+    { label:'Amenaza seleccionada', points:3, frac:filled(val('p2_amenaza'))?1:0 },
+    { label:'Ejemplo posible en su institución', points:6, frac:singleWordFrac('p2_ejemplo',30) },
+    { label:'Señal de alerta identificada', points:6, frac:singleWordFrac('p2_senal',20) }
+  ];
+  return buildCriterion(RUBRICA[1].criterio, 15, items);
+}
+function gradeStep3(){
+  var items = [
+    { label:'Caso A (INAPA) identificado y resuelto', points:1.5, frac:filled(val('pc_a_amenaza'))?1:0 },
+    { label:'Acción propuesta para el Caso A', points:3.5, frac:singleWordFrac('pc_a_accion',15) },
+    { label:'Caso B (hospital) identificado y resuelto', points:1.5, frac:filled(val('pc_b_amenaza'))?1:0 },
+    { label:'Acción propuesta para el Caso B', points:3.5, frac:singleWordFrac('pc_b_accion',15) },
+    { label:'Caso C (ayuntamiento) identificado y resuelto', points:1.5, frac:filled(val('pc_c_amenaza'))?1:0 },
+    { label:'Acción propuesta para el Caso C', points:3.5, frac:singleWordFrac('pc_c_accion',15) },
+    { label:'Caso D (ministerio) identificado y resuelto', points:1.5, frac:filled(val('pc_d_amenaza'))?1:0 },
+    { label:'Acción propuesta para el Caso D', points:3.5, frac:singleWordFrac('pc_d_accion',15) }
+  ];
+  return buildCriterion(RUBRICA[2].criterio, 20, items);
+}
+function gradeStep4(){
+  var items = [
+    { label:'Hábito de contraseñas y uso de 2FA reportados', points:3, frac:ratioFilledFrac(['p3_habito','p3_2fa']) },
+    { label:'Ejemplo de frase de contraseña construido', points:3, frac:filled(val('p3_frase'))?1:0 },
+    { label:'Explicación del 2FA', points:9, frac:singleWordFrac('p3_explicacion',25) }
+  ];
+  return buildCriterion(RUBRICA[3].criterio, 15, items);
+}
+function gradeStep5(){
+  var items = [
+    { label:'Principio del Caso 1 identificado', points:3, frac:filled(val('p4_principio'))?1:0 },
+    { label:'Justificación del Caso 1', points:6, frac:singleWordFrac('p4_justificacion',25) },
+    { label:'Acción correcta propuesta en el Caso 1', points:6, frac:singleWordFrac('p4_accion',30) },
+    { label:'Principio del Caso 2 identificado', points:2, frac:filled(val('p4b_principio'))?1:0 },
+    { label:'Justificación del Caso 2', points:3, frac:singleWordFrac('p4b_justificacion',20) }
+  ];
+  return buildCriterion(RUBRICA[4].criterio, 20, items);
+}
+function gradeStep6(){
+  var items = [
+    { label:'Orden correcto del protocolo identificado', points:3, frac:filled(val('p5_orden'))?1:0 },
+    { label:'Acción inmediata descrita', points:6, frac:singleWordFrac('p5_accion',25) },
+    { label:'Reflexión sobre el rol de línea de defensa', points:6, frac:singleWordFrac('p5_reflexion',25) }
+  ];
+  return buildCriterion(RUBRICA[5].criterio, 15, items);
+}
+
+function runGrading(){
+  var criteria = [gradeStep1(), gradeStep2(), gradeStep3(), gradeStep4(), gradeStep5(), gradeStep6()];
+  var total = Math.round(criteria.reduce(function(a,c){ return a + c.score; },0) * 10) / 10;
+  return { criteria:criteria, total:total };
+}
+
+function critFillClass(pct){
+  if(pct >= 80) return 'hi';
+  if(pct >= 50) return 'mid';
+  return 'lo';
+}
+
+function renderResults(result){
+  var hero = document.getElementById('score-hero');
+  var title = document.getElementById('score-title');
+  var desc = document.getElementById('score-desc');
+  var num = document.getElementById('score-num');
+  animarNumero(num, result.total, 900);
+  hero.classList.remove('pass','warn','fail');
+
+  var completa = practicaCompleta();
+  var faltan = camposFaltantes();
+  var medalBtn = document.getElementById('btn-medal');
+
+  if(completa){
+    hero.classList.add('pass');
+    title.textContent = '✅ Práctica Aprobada — completada en su totalidad';
+    desc.textContent = 'Esta práctica se aprueba por haberla completado en su totalidad. La nota de ' + result.total + ' / 100 pts es retroalimentación sobre la calidad de sus respuestas — no afecta su aprobación.';
+    medalBtn.style.display = 'inline-flex';
+    fireConfetti();
+  } else if(faltan.length <= 4){
+    hero.classList.add('warn');
+    title.textContent = '🟠 Casi completa — faltan ' + faltan.length + ' campo(s)';
+    desc.textContent = 'Para aprobar debe completar todos los campos de los 6 pasos. Le falta: ' + faltan.slice(0,4).join('; ') + (faltan.length > 4 ? '…' : '') + '.';
+    medalBtn.style.display = 'none';
+  } else {
+    hero.classList.add('fail');
+    title.textContent = '🔴 Práctica incompleta — faltan ' + faltan.length + ' campos';
+    desc.textContent = 'Todavía faltan varios campos por completar en los 6 pasos. Revise la barra lateral: los pasos marcados sin ✓ tienen campos pendientes.';
+    medalBtn.style.display = 'none';
+  }
+
+  var listEl = document.getElementById('crit-list');
+  listEl.innerHTML = result.criteria.map(function(c){
+    var pct = Math.round((c.score / c.maxPoints) * 100);
+    var parts = [];
+    if(c.strong.length) parts.push('<li><span class="tag-ok">✔ Bien logrado:</span> ' + c.strong.join('; ') + '.</li>');
+    if(c.mid.length) parts.push('<li><span class="tag-mid">◐ Puede mejorar:</span> ' + c.mid.join('; ') + '.</li>');
+    if(c.weak.length) parts.push('<li><span class="tag-low">✖ Falta completar / profundizar:</span> ' + c.weak.join('; ') + '.</li>');
+    return '<div class="crit">'+
+      '<div class="crit-head"><strong>'+c.title+'</strong><span class="crit-score">'+c.score+' / '+c.maxPoints+' pts</span></div>'+
+      '<div class="crit-track"><div class="crit-fill '+critFillClass(pct)+'" style="width:'+pct+'%;"></div></div>'+
+      '<ul>'+parts.join('')+'</ul>'+
+      '</div>';
+  }).join('');
+
+  document.getElementById('results').classList.add('show');
+}
+
+function gatherGradingPayload(localResult){
+  var pasos = {};
+  Object.keys(STEP_FIELDS).forEach(function(key, i){
+    var respuestas = {};
+    STEP_FIELDS[key].forEach(function(id){
+      var v = val(id);
+      if(filled(v)) respuestas[labelOf(id)] = v;
+    });
+    pasos[key] = { criterio: RUBRICA[i].criterio, max: RUBRICA[i].pts, respuestas: respuestas };
+  });
+  return {
+    estudiante: { nombre: nombreIdentificacion(), correo: correoIdentificacion(), integrantes: val('grp_integrantes') || '', modalidad: modoSelect.value },
+    institucion: val('p1_area') || '',
+    curso: 'transformacion-digital',
+    unidad: 'u4',
+    aprobado_por_completitud: practicaCompleta(),
+    pasos: pasos,
+    local: localResult ? {
+      total: localResult.total,
+      criterios: localResult.criteria.map(function(c){ return { titulo: c.title, puntaje: c.score, max: c.maxPoints }; })
+    } : null
+  };
+}
+
+function renderAIReview(data){
+  var box = document.getElementById('ai-review');
+  box.className = 'alert success';
+  var rows = data.criterios.map(function(c, i){
+    var nombre = RUBRICA[i] ? RUBRICA[i].criterio : ('Criterio ' + (i+1));
+    return '<li><strong>' + escapeHtml(nombre) + ':</strong> ' + c.puntaje + '/' + c.max + ' pts — ' + escapeHtml(c.comentario) + '</li>';
+  }).join('');
+  box.innerHTML = '<strong>Evaluación de Nicole:</strong> ' + data.total + ' / 100 pts (retroalimentación, no afecta su aprobación).<br>' +
+    (data.comentario_general ? '<p style="margin:.5rem 0;">' + escapeHtml(data.comentario_general) + '</p>' : '') +
+    '<ul style="margin:.5rem 0 0; padding-left:1.2rem; font-size:.85rem;">' + rows + '</ul>' +
+    '<p style="margin:.6rem 0 0; font-size:.72rem; color:var(--muted);">Esta evaluación la genera un modelo de IA leyendo el contenido real de sus respuestas; es orientativa y no reemplaza la nota oficial de su facilitador.</p>';
+}
+
+function requestAIGrading(localResult){
+  var box = document.getElementById('ai-review');
+  box.style.display = 'block';
+  box.className = 'alert info';
+  box.innerHTML = '<strong>Nicole:</strong> analizando el contenido de sus respuestas (puede tardar hasta 10 minutos en este servidor) y notificando a su facilitador por correo. No necesita quedarse en esta pantalla — su aprobación por completitud ya quedó registrada arriba…';
+  fetchWithTimeout(AI_GRADE_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(gatherGradingPayload(localResult))
+  }, AI_GRADE_TIMEOUT).then(function(res){
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    return res.json();
+  }).then(function(data){
+    if(!data || !data.ok || !Array.isArray(data.criterios)) throw new Error((data && data.error) || 'respuesta inválida');
+    renderAIReview(data);
+  }).catch(function(){
+    box.className = 'alert warn';
+    box.innerHTML = '<strong>Nicole:</strong> no se pudo contactar el servicio de evaluación en este momento (puede estar desconectado o sin internet). Se muestra únicamente la evaluación automática local de esta página, que sigue siendo válida.';
+  });
+}
+
+document.getElementById('btn-submit').addEventListener('click', function(){
+  saveAll();
+  if(!filled(nombreIdentificacion())){
+    var esGrupo = modoSelect.value === 'grupo';
+    alert('Antes de enviar, escriba ' + (esGrupo ? 'el nombre del equipo' : 'su nombre completo') + ' en "¿Cómo va a completar esta práctica?" para que su facilitador pueda identificar la entrega.');
+    document.getElementById(esGrupo ? 'grp_nombre' : 'ind_nombre').focus();
+    document.getElementById('portada').scrollIntoView({ behavior:'smooth' });
+    return;
+  }
+  var result = runGrading();
+  renderResults(result);
+  document.getElementById('results').scrollIntoView({ behavior:'smooth', block:'start' });
+  requestAIGrading(result);
+});
+document.getElementById('btn-recheck').addEventListener('click', function(){
+  document.getElementById('paso1').scrollIntoView({ behavior:'smooth' });
+});
+
+/* ---------- MEDALLA DE FINALIZACIÓN ---------- */
+/* Tema visual de la medalla -- relacionado con el TEMA del curso, no con
+   la institucion (ver skill inap-practica-autocalificable para el
+   registro completo de temas por curso, y para clonar este patron a
+   otras practicas). Ciberseguridad: escudo + paleta tech azul/cian. */
+var TEMA_MEDALLA = {
+  icono: '📊',
+  fondo1: '#0b2a3a', fondo2: '#071a24',
+  medalClaro: '#bfe7ee', medalMedio: '#4aa8bb', medalOscuro: '#22636f',
+  laurel: '#4aa8bb',
+  eyebrow: 'CERTIFICADO DE FINALIZACIÓN'
+};
+
+function dibujarLaurel(ctx, cx, cy, r, color){
+  for(var lado = -1; lado <= 1; lado += 2){
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.scale(lado, 1);
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 4;
+    ctx.beginPath();
+    ctx.moveTo(r * 0.72, r * 0.78);
+    ctx.quadraticCurveTo(r * 1.28, 0, r * 0.92, -r * 0.9);
+    ctx.stroke();
+    for(var i = 0; i < 7; i++){
+      var t = i / 6;
+      var px = (r * 0.72) * (1 - t) + (r * 0.92) * t;
+      var py = (r * 0.78) * (1 - t) + (-r * 0.9) * t;
+      ctx.save();
+      ctx.translate(px, py);
+      ctx.rotate(-0.6 + t * 1.15);
+      ctx.beginPath();
+      ctx.ellipse(0, 0, 13, 6, 0, 0, Math.PI * 2);
+      ctx.fillStyle = color;
+      ctx.globalAlpha = 0.85;
+      ctx.fill();
+      ctx.restore();
+    }
+    ctx.restore();
+  }
+}
+
+function drawMedal(nombre, cursoLabel, unidadLabel){
+  var tema = TEMA_MEDALLA;
+  var canvas = document.getElementById('medal-canvas');
+  var ctx = canvas.getContext('2d');
+  var W = canvas.width, H = canvas.height;
+  ctx.clearRect(0,0,W,H);
+  var bgGrad = ctx.createLinearGradient(0,0,0,H);
+  bgGrad.addColorStop(0,tema.fondo1); bgGrad.addColorStop(1,tema.fondo2);
+  ctx.fillStyle = bgGrad; ctx.fillRect(0,0,W,H);
+
+  ctx.textAlign = 'center';
+  ctx.fillStyle = tema.laurel;
+  ctx.font = 'bold 18px Inter, sans-serif';
+  ctx.fillText(tema.eyebrow, W/2, 55);
+
+  var cx = W/2, cy = 300, r = 150;
+  dibujarLaurel(ctx, cx, cy, r + 25, tema.laurel);
+
+  var medalGrad = ctx.createRadialGradient(cx-50,cy-50,10,cx,cy,r);
+  medalGrad.addColorStop(0,tema.medalClaro); medalGrad.addColorStop(0.6,tema.medalMedio); medalGrad.addColorStop(1,tema.medalOscuro);
+  ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2); ctx.fillStyle = medalGrad; ctx.fill();
+  ctx.lineWidth = 8; ctx.strokeStyle = tema.medalOscuro; ctx.stroke();
+  ctx.beginPath(); ctx.arc(cx,cy,r-20,0,Math.PI*2); ctx.lineWidth=3; ctx.strokeStyle='rgba(255,255,255,.35)'; ctx.stroke();
+
+  ctx.fillStyle = tema.fondo1;
+  ctx.font = 'bold 82px Inter, sans-serif';
+  ctx.fillText(tema.icono, cx, cy+28);
+
+  ctx.fillStyle = '#ffffff';
+  ctx.font = 'bold 30px Inter, sans-serif';
+  ctx.fillText('PRÁCTICA COMPLETADA', W/2, cy+r+65);
+
+  ctx.fillStyle = tema.laurel;
+  ctx.font = '600 21px Inter, sans-serif';
+  wrapCanvasText(ctx, cursoLabel, W/2, cy+r+100, W-100, 26);
+
+  ctx.fillStyle = '#cbd5e1';
+  ctx.font = '17px Inter, sans-serif';
+  ctx.fillText(unidadLabel, W/2, cy+r+160);
+
+  ctx.fillStyle = '#ffffff';
+  ctx.font = 'bold 24px Inter, sans-serif';
+  ctx.fillText(nombre || 'Participante', W/2, cy+r+205);
+
+  ctx.fillStyle = '#94a3b8';
+  ctx.font = '14px Inter, sans-serif';
+  ctx.fillText('Johan Tapia, PhD · ' + new Date().toLocaleDateString('es-DO'), W/2, cy+r+235);
+}
+function wrapCanvasText(ctx, text, x, y, maxWidth, lineHeight){
+  var words = text.split(' ');
+  var line = '';
+  var lines = [];
+  for(var i=0;i<words.length;i++){
+    var test = line + words[i] + ' ';
+    if(ctx.measureText(test).width > maxWidth && line !== ''){
+      lines.push(line.trim()); line = words[i] + ' ';
+    } else { line = test; }
+  }
+  lines.push(line.trim());
+  lines.forEach(function(l, idx){ ctx.fillText(l, x, y + idx*lineHeight); });
+}
+document.getElementById('btn-medal').addEventListener('click', function(){
+  drawMedal(nombreIdentificacion(), 'Herramientas de Transformación Digital', 'Unidad IV · Gestión del Conocimiento y Big Data');
+  document.getElementById('medal-modal').hidden = false;
+});
+document.getElementById('medal-close').addEventListener('click', function(){
+  document.getElementById('medal-modal').hidden = true;
+});
+document.getElementById('medal-download').addEventListener('click', function(){
+  var canvas = document.getElementById('medal-canvas');
+  var a = document.createElement('a');
+  a.href = canvas.toDataURL('image/png');
+  var name = (nombreIdentificacion() || 'participante').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+  a.download = 'medalla-' + (name || 'participante') + '-unidad4-htd.png';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+});
+document.getElementById('medal-share').addEventListener('click', function(){
+  var canvas = document.getElementById('medal-canvas');
+  canvas.toBlob(function(blob){
+    var file = new File([blob], 'medalla-unidad4-htd.png', { type:'image/png' });
+    if(navigator.canShare && navigator.canShare({ files:[file] })){
+      navigator.share({ files:[file], title:'¡Completé mi práctica!', text:'Completé la Práctica de la Unidad IV (Gestión del Conocimiento y Big Data) del curso Herramientas de Transformación Digital — INAP.' }).catch(function(){});
+    } else {
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'medalla-unidad4-htd.png';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      URL.revokeObjectURL(a.href);
+      alert('Su navegador no admite compartir directamente. Se descargó la imagen — puede compartirla manualmente por WhatsApp, correo o redes sociales.');
+    }
+  }, 'image/png');
+});
+
+/* ---------- EXPORT / PRINT / CLEAR ---------- */
+function exportTxt(){
+  var lines = ['PRÁCTICA — UNIDAD III: Ciberseguridad para el Servidor Público (INAP)', (modoSelect.value === 'grupo' ? 'Equipo' : 'Nombre') + ': ' + (nombreIdentificacion() || '(sin especificar)'), 'Institución: ' + (val('p1_area') || '(sin especificar)'), '======================================================', ''];
+  allFieldIds().forEach(function(id){
+    var v = val(id);
+    if(!filled(v)) return;
+    lines.push('- ' + labelOf(id) + ': ' + v);
+  });
+  var blob = new Blob([lines.join('\n')], { type:'text/plain;charset=utf-8' });
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  var name = (nombreIdentificacion() || 'practica-transformacion-digital-u4').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+  a.download = (name || 'practica-transformacion-digital-u4') + '.txt';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(a.href);
+}
+document.getElementById('btn-export').addEventListener('click', exportTxt);
+document.getElementById('btn-export-2').addEventListener('click', exportTxt);
+document.getElementById('btn-print').addEventListener('click', function(){ window.print(); });
+document.getElementById('btn-print-2').addEventListener('click', function(){ window.print(); });
+document.getElementById('btn-clear').addEventListener('click', function(){
+  if(!confirm('¿Seguro que desea borrar TODAS sus respuestas guardadas en este navegador? Esta acción no se puede deshacer.')) return;
+  try{ localStorage.removeItem(STORE_KEY); }catch(e){}
+  allFieldIds().forEach(function(id){ var el = document.getElementById(id); if(el) el.value = ''; });
+  document.querySelectorAll('.wc[data-for]').forEach(function(span){ var t = document.getElementById(span.getAttribute('data-for')); if(t) t.dispatchEvent(new Event('input')); });
+  updateProgress();
+  document.getElementById('results').classList.remove('show');
+  var aiBox = document.getElementById('ai-review');
+  aiBox.style.display = 'none';
+  aiBox.innerHTML = '';
+});
+
+/* ---------- NICOLE - respaldo con reglas (sin costo) ---------- */
+var advisorToggle = document.getElementById('advisor-toggle');
+var advisorPanel = document.getElementById('advisor-panel');
+var advisorClose = document.getElementById('advisor-close');
+var advisorBody = document.getElementById('advisor-body');
+var advisorForm = document.getElementById('advisor-form');
+var advisorInput = document.getElementById('advisor-input');
+
+function openAdvisor(){ advisorPanel.classList.add('open'); advisorToggle.setAttribute('aria-expanded','true'); advisorInput.focus(); }
+function closeAdvisor(){ advisorPanel.classList.remove('open'); advisorToggle.setAttribute('aria-expanded','false'); }
+advisorToggle.addEventListener('click', function(){ advisorPanel.classList.contains('open') ? closeAdvisor() : openAdvisor(); });
+advisorClose.addEventListener('click', closeAdvisor);
+
+function addMsg(text, who){
+  var div = document.createElement('div');
+  div.className = 'advisor-msg advisor-msg-' + (who === 'user' ? 'user' : 'bot');
+  div.textContent = text;
+  advisorBody.appendChild(div);
+  advisorBody.scrollTop = advisorBody.scrollHeight;
+  return div;
+}
+function addTyping(){
+  var div = addMsg('Escribiendo…', 'bot');
+  div.style.opacity = '.6';
+  return div;
+}
+function askTutorAI(q){
+  return fetchWithTimeout(AI_CHAT_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ message: q, contexto: 'MARCO CONCEPTUAL (Unidad IV - Gestion del Conocimiento y Big Data, curso Herramientas de Transformacion Digital, INAP). Explica todo en palabras claras, con ejemplos del sector publico dominicano.\nJerarquia DIKW: Datos (hechos sueltos sin contexto), Informacion (datos organizados con contexto), Conocimiento (informacion interiorizada que permite actuar), Sabiduria (juicio para aplicar el conocimiento con criterio).\nModelo SECI (Nonaka y Takeuchi): Socializacion (compartir conocimiento tacito entre personas, ej. un mentor explicando a un nuevo empleado), Externalizacion (convertir experiencia personal en documentos o manuales), Combinacion (integrar documentos ya existentes en un repositorio comun), Internalizacion (los nuevos servidores aprenden y aplican el conocimiento documentado).\nFuga de conocimiento: cuando un servidor con experiencia se va (jubilacion, renuncia) y su conocimiento tacito nunca fue documentado, la institucion pierde memoria institucional.\nLas 5V del Big Data: Volumen (cuanta cantidad de datos), Velocidad (que tan rapido se generan o actualizan), Variedad (en que formatos existen, Excel, PDF, Word...), Veracidad (que tan confiables son, sin duplicados ni errores), Valor (que decisiones mejores permiten tomar).\nCalidad del dato: problemas comunes son datos duplicados, fechas incompletas, categorias no estandarizadas (ej. \'pendiente\' vs \'Pend.\' vs \'en proceso\'), campos vacios y errores de identificacion.\nAnalitica de datos, 4 niveles: Descriptiva (que ocurrio), Diagnostica (por que ocurrio), Predictiva (que podria ocurrir), Prescriptiva (que debemos hacer). Un dashboard convierte datos dispersos en indicadores visuales para apoyar decisiones.\nLey 200-04 sobre Libre Acceso a la Informacion Publica: promueve la transparencia y el derecho ciudadano a acceder a informacion publica, mane respetando limites de datos personales y confidencialidad.\nLey 172-13 sobre Proteccion de Datos Personales: obliga a proteger los datos personales frente a usos indebidos o exposicion innecesaria; anonimizar significa eliminar o disfrazar los datos que identifican a una persona antes de publicar o analizar una base de datos.\nLey 41-08 de Funcion Publica: orienta el comportamiento etico, confidencial y responsable del servidor publico frente al manejo de informacion.\nAgenda Digital 2030: promueve el gobierno digital, los datos abiertos, la interoperabilidad y la analitica publica en la administracion dominicana.', curso: 'Herramientas de Transformación Digital (INAP)' })
+  }, AI_CHAT_TIMEOUT).then(function(res){
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    return res.json();
+  }).then(function(data){
+    if(!data || !filled(data.response)) throw new Error('respuesta vacía');
+    return data.response;
+  });
+}
+function askTutor(q){
+  return askTutorAI(q).catch(function(){ return answerFor(q); });
+}
+
+var QA = [
+  { kw:['calific','nota','puntaje','rubrica','aprobar','minimo','aprobacion'], a:'La nota de calidad va de 0 a 100 repartida entre los 6 pasos de esta práctica. Pero la APROBACIÓN de esta práctica no depende de esa nota: se aprueba por completar todos los pasos en su totalidad. La nota es solo retroalimentación para que usted mismo vea qué reforzar.' },
+  { kw:['dikw','datos','informacion','conocimiento','sabiduria'], a:'La jerarquía DIKW explica cómo un dato suelto (ej. un número) se convierte en información al darle contexto, en conocimiento cuando alguien lo interioriza para actuar, y en sabiduría cuando se aplica con buen juicio. Es la base conceptual del Caso 1 de esta práctica.' },
+  { kw:['seci','socializacion','externalizacion','combinacion','internalizacion'], a:'El modelo SECI de Nonaka y Takeuchi tiene 4 fases: Socialización (compartir conocimiento tácito entre personas), Externalización (convertirlo en documentos), Combinación (integrar documentos en un repositorio común) e Internalización (que los nuevos servidores lo aprendan y apliquen). Se trabaja en la Matriz 2 del Caso 1.' },
+  { kw:['5v','big data','volumen','velocidad','variedad','veracidad','valor'], a:'Las 5V del Big Data son: Volumen (cantidad), Velocidad (frecuencia de generación), Variedad (formatos), Veracidad (confiabilidad) y Valor (qué decisiones mejora). Se trabajan en la Matriz 4 del Caso 2.' },
+  { kw:['dashboard','tablero','indicador'], a:'Un dashboard es un tablero visual con indicadores que resume datos dispersos para apoyar decisiones, a diferencia de un reporte tradicional lleno de tablas sin visualizaciones. Se diseña en el Caso 3 de esta práctica.' },
+  { kw:['200-04','ley 200','acceso a la informacion'], a:'La Ley 200-04 promueve el derecho ciudadano a acceder a información pública (transparencia), pero ese derecho tiene límites cuando la información incluye datos personales — ahí entra la Ley 172-13. Se analiza en el Caso 4.' },
+  { kw:['172-13','datos personales','anonimizar'], a:'La Ley 172-13 protege los datos personales de los ciudadanos. Anonimizar una base de datos significa eliminar o disfrazar los campos que permiten identificar a una persona (nombre, cédula, dirección) antes de publicarla o analizarla.' },
+
+  { kw:['nota de voz', 'voz', 'grabar', 'hablar', 'microfono', 'micrófono'], a:'Al lado de cada pregunta hay un botón "🎤 Mantenga presionado para grabar". Manténgalo presionado mientras habla su respuesta, y suéltelo al terminar — el sistema la convierte en texto automáticamente, como una nota de voz de WhatsApp.' },
+  { kw:['temporizador', 'reloj', 'tiempo', 'sonido', 'bip', 'latido'], a:'El reloj de la barra lateral es solo una referencia de 120 minutos — no cierra la práctica. En los últimos 5 minutos suena como un monitor de signos vitales, cada vez más rápido, de forma graciosa. Puede silenciarlo con el botón 🔔 junto al reloj en cualquier momento.' },
+  { kw:['medalla', 'compartir', 'insignia'], a:'Cuando complete los 5 pasos y presione "Enviar y Calificar", va a aparecer el botón "🏅 Ver mi medalla" para generar una imagen con su nombre, que puede descargar o compartir por WhatsApp, correo o redes sociales.' },
+  { kw:['guardar', 'se guarda', 'perder mis respuestas', 'autoguardado'], a:'Sus respuestas se guardan automáticamente en este navegador (localStorage) mientras escribe. Si cambia de computadora o borra el caché, se perderán — por eso le recomiendo usar "⬇️ Descargar mis respuestas" cuando avance.' },
+  { kw:['no sé de tecnologia', 'no se de tecnologia', 'no sé usar', 'dificil', 'difícil'], a:'No se preocupe: esta práctica no requiere conocimientos técnicos. La ciberseguridad es, en el fondo, sentido común — cuidar la información como cuidaría el dinero de su casa. Responda con sus propias palabras, escribiendo o hablando.' },
+  { kw:['hola', 'ayuda', 'que puedes hacer', 'quien eres'], a:'Soy Nicole, la asistente virtual del Dr. Johan Tapia. Puedo explicarte los conceptos de la Unidad IV (Gestión del Conocimiento y Big Data) en palabras simples, orientarte sobre qué pide cada paso, o cómo funciona la calificación. Recuerda: se aprueba por completar la práctica, no por la nota.' }
+];
+function normQ(s){ return stripAccents(s); }
+function answerFor(q){
+  var nq = normQ(q);
+  var best = null, bestScore = 0;
+  QA.forEach(function(entry){
+    var score = 0;
+    entry.kw.forEach(function(k){ if(nq.indexOf(normQ(k)) !== -1) score++; });
+    if(score > bestScore){ bestScore = score; best = entry; }
+  });
+  if(best) return best.a;
+  return 'No tengo una respuesta preparada para eso. Prueba preguntar por un concepto (Tríada CID, phishing, ransomware, contraseñas, 2FA, Ley 172-13, CNCS/CSIRT-RD), por un paso específico ("¿qué pide el paso 3?") o por la calificación. Para dudas sobre su institución específica, consulte a su facilitador.';
+}
+advisorForm.addEventListener('submit', function(e){
+  e.preventDefault();
+  var q = norm(advisorInput.value);
+  if(!q) return;
+  addMsg(q, 'user');
+  advisorInput.value = '';
+  var typingEl = addTyping();
+  askTutor(q).then(function(answer){
+    typingEl.remove();
+    addMsg(answer, 'bot');
+  });
+});
+document.querySelectorAll('.advisor-suggest button').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var q = btn.getAttribute('data-q');
+    openAdvisor();
+    addMsg(q, 'user');
+    var typingEl = addTyping();
+    askTutor(q).then(function(answer){
+      typingEl.remove();
+      addMsg(answer, 'bot');
+    });
+  });
+});
+
+wireVoiceButtons();
+
+/* ===== EFECTOS DINAMICOS ===== */
+var prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* Fondo animado tipo "red de seguridad" en la portada -- nodos conectados
+   por lineas que derivan lentamente, tematico con el contenido de
+   ciberseguridad. Opacidad baja para no interferir con el texto. */
+function iniciarRedPortada(){
+  var canvas = document.getElementById('cover-canvas');
+  var cover = document.getElementById('portada');
+  if(!canvas || !cover || prefersReducedMotion) return;
+  var ctx = canvas.getContext('2d');
+  var ancho, alto, nodos = [];
+  var NUM_NODOS = 42, DIST_MAX = 130;
+
+  function redimensionar(){
+    ancho = canvas.width = cover.offsetWidth;
+    alto = canvas.height = cover.offsetHeight;
+  }
+  function crearNodos(){
+    nodos = [];
+    for(var i = 0; i < NUM_NODOS; i++){
+      nodos.push({
+        x: Math.random() * ancho, y: Math.random() * alto,
+        vx: (Math.random() - 0.5) * 0.35, vy: (Math.random() - 0.5) * 0.35
+      });
+    }
+  }
+  function paso(){
+    ctx.clearRect(0, 0, ancho, alto);
+    for(var i = 0; i < nodos.length; i++){
+      var n = nodos[i];
+      n.x += n.vx; n.y += n.vy;
+      if(n.x < 0 || n.x > ancho) n.vx *= -1;
+      if(n.y < 0 || n.y > alto) n.vy *= -1;
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, 1.8, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(255,255,255,.85)';
+      ctx.fill();
+      for(var j = i + 1; j < nodos.length; j++){
+        var m = nodos[j];
+        var dx = n.x - m.x, dy = n.y - m.y;
+        var dist = Math.sqrt(dx * dx + dy * dy);
+        if(dist < DIST_MAX){
+          ctx.beginPath();
+          ctx.moveTo(n.x, n.y); ctx.lineTo(m.x, m.y);
+          ctx.strokeStyle = 'rgba(201,152,47,' + ((1 - dist / DIST_MAX) * .5) + ')';
+          ctx.lineWidth = 1;
+          ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(paso);
+  }
+  redimensionar();
+  crearNodos();
+  requestAnimationFrame(paso);
+  window.addEventListener('resize', function(){ redimensionar(); crearNodos(); });
+}
+iniciarRedPortada();
+
+/* Revelado progresivo de las tarjetas al hacer scroll. */
+function iniciarRevelado(){
+  var tarjetas = document.querySelectorAll('.main > .card');
+  if(!tarjetas.length) return;
+  if(prefersReducedMotion || !('IntersectionObserver' in window)) return;
+  tarjetas.forEach(function(el){ el.classList.add('reveal-init'); });
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        entry.target.classList.add('revealed');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: .12, rootMargin: '0px 0px -40px 0px' });
+  tarjetas.forEach(function(el){ obs.observe(el); });
+}
+iniciarRevelado();
+
+/* Efecto de onda (ripple) al presionar botones. */
+function iniciarRipple(){
+  document.addEventListener('click', function(e){
+    var btn = e.target.closest && e.target.closest('.btn-primary, .btn-secondary, .btn-block');
+    if(!btn) return;
+    var rect = btn.getBoundingClientRect();
+    var tam = Math.max(rect.width, rect.height) * 1.4;
+    var onda = document.createElement('span');
+    onda.className = 'js-ripple';
+    onda.style.width = onda.style.height = tam + 'px';
+    onda.style.left = (e.clientX - rect.left - tam / 2) + 'px';
+    onda.style.top = (e.clientY - rect.top - tam / 2) + 'px';
+    btn.appendChild(onda);
+    setTimeout(function(){ onda.remove(); }, 650);
+  });
+}
+iniciarRipple();
+
+/* Cuenta animada del puntaje final (0 -> total) en vez de aparecer de golpe. */
+function animarNumero(el, hasta, duracionMs){
+  if(prefersReducedMotion){ el.textContent = hasta; return; }
+  var inicio = performance.now();
+  function paso(ahora){
+    var t = Math.min(1, (ahora - inicio) / duracionMs);
+    var suavizado = 1 - Math.pow(1 - t, 3); // easeOutCubic
+    el.textContent = Math.round(hasta * suavizado);
+    if(t < 1) requestAnimationFrame(paso);
+  }
+  requestAnimationFrame(paso);
+}
+
+/* Confeti al aprobar la practica -- canvas propio, sin libreria externa. */
+function fireConfetti(){
+  if(prefersReducedMotion) return;
+  var canvas = document.createElement('canvas');
+  canvas.id = 'confetti-canvas';
+  canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+  document.body.appendChild(canvas);
+  var ctx = canvas.getContext('2d');
+  var colores = ['#003877', '#c9982f', '#16a34a', '#eff6ff', '#5b9bd8'];
+  var piezas = [];
+  for(var i = 0; i < 140; i++){
+    piezas.push({
+      x: Math.random() * canvas.width, y: -20 - Math.random() * canvas.height * .5,
+      w: 6 + Math.random() * 6, h: 8 + Math.random() * 8,
+      vx: (Math.random() - 0.5) * 3, vy: 2 + Math.random() * 3,
+      rot: Math.random() * 360, vrot: (Math.random() - 0.5) * 12,
+      color: colores[Math.floor(Math.random() * colores.length)]
+    });
+  }
+  var inicio = performance.now();
+  function paso(ahora){
+    var t = ahora - inicio;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    var vivas = false;
+    piezas.forEach(function(p){
+      if(p.y > canvas.height + 30) return;
+      vivas = true;
+      p.x += p.vx; p.y += p.vy; p.vy += 0.03; p.rot += p.vrot;
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rot * Math.PI / 180);
+      ctx.fillStyle = p.color;
+      ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+      ctx.restore();
+    });
+    if(vivas && t < 6000){
+      requestAnimationFrame(paso);
+    } else {
+      canvas.remove();
+    }
+  }
+  requestAnimationFrame(paso);
+}
+
+})();
+</script>
+</body>
+</html>

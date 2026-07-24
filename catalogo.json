@@ -210,6 +210,26 @@
             "puntos": "100 pts (retroalimentación)",
             "aprobacion": "Completar los 6 pasos",
             "url": "https://johantbueno.github.io/practicas-web/transformacion-digital-u3/"
+          },
+          {
+            "badge": "Unidad IV",
+            "unidad": "u4",
+            "titulo": "Gestión del Conocimiento y Big Data",
+            "desc": "Cuatro casos prácticos (memoria institucional, calidad del dato, dashboard, datos abiertos y privacidad) con matrices DIKW/SECI y 5V del Big Data. Se completa después de revisar el material de estudio de la Unidad IV, individual o en equipo. Aprueba por completarla, no por la nota.",
+            "duracion": "6 pasos · 2 a 2:30 horas, individual o en equipo",
+            "puntos": "100 pts (retroalimentación)",
+            "aprobacion": "Completar los 6 pasos",
+            "url": "https://johantbueno.github.io/practicas-web/transformacion-digital-u4/"
+          },
+          {
+            "badge": "Unidad V",
+            "unidad": "u5",
+            "titulo": "Inteligencia Artificial y Ética Digital",
+            "desc": "Cuatro casos prácticos (chatbot institucional, sesgo algorítmico, análisis de reclamaciones, política interna de IA) con matrices de riesgo ético y salvaguardas ENIA/UNESCO 2021. Se completa después de revisar el material de estudio de la Unidad V, individual o en equipo. Aprueba por completarla, no por la nota.",
+            "duracion": "7 pasos · 2 a 2:30 horas, individual o en equipo",
+            "puntos": "100 pts (retroalimentación)",
+            "aprobacion": "Completar los 7 pasos",
+            "url": "https://johantbueno.github.io/practicas-web/transformacion-digital-u5/"
           }
         ]
       }
