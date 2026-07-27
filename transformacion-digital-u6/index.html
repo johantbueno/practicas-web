@@ -1812,6 +1812,10 @@ document.getElementById('btn-print-2').addEventListener('click', function(){ win
 document.getElementById('btn-clear').addEventListener('click', function(){
   if(!confirm('¿Seguro que desea borrar TODAS sus respuestas guardadas en este navegador? Esta acción no se puede deshacer.')) return;
   try{ localStorage.removeItem(STORE_KEY); }catch(e){}
+  try{ localStorage.removeItem(TIMER_KEY); }catch(e){}
+  timerDeadline = getDeadline();
+  flatlinePlayed = false;
+  tickTimer();
   allFieldIds().forEach(function(id){ var el = document.getElementById(id); if(el) el.value = ''; });
   document.querySelectorAll('.wc[data-for]').forEach(function(span){ var t = document.getElementById(span.getAttribute('data-for')); if(t) t.dispatchEvent(new Event('input')); });
   updateProgress();
