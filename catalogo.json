@@ -186,7 +186,7 @@
             "unidad": "u1",
             "titulo": "Transformación Digital en la Gestión Pública",
             "desc": "Diagnóstico de madurez digital de un proceso institucional y laboratorio de IA Generativa para su optimización. Se completa después de revisar el material de estudio de la Unidad I, individual o en equipo. Aprueba por completarla, no por la nota.",
-            "duracion": "5 pasos, individual o en equipo",
+            "duracion": "5 pasos · aproximadamente 2 horas, individual o en equipo",
             "puntos": "100 pts (retroalimentación)",
             "aprobacion": "Completar los 5 pasos",
             "url": "https://johantbueno.github.io/practicas-web/transformacion-digital-u1/"
@@ -196,7 +196,7 @@
             "unidad": "u2",
             "titulo": "Innovación y Gestión del Cambio Digital",
             "desc": "Design Thinking, metodologías ágiles (Scrum/Kanban/Lean) y gestión del cambio (ADKAR), explicado en lenguaje sencillo para participantes con poco conocimiento de tecnología. Se completa después de revisar el material de estudio de la Unidad II, individual o en equipo. Aprueba por completarla, no por la nota.",
-            "duracion": "5 pasos, individual o en equipo",
+            "duracion": "5 pasos · aproximadamente 2 horas, individual o en equipo",
             "puntos": "100 pts (retroalimentación)",
             "aprobacion": "Completar los 5 pasos",
             "url": "https://johantbueno.github.io/practicas-web/transformacion-digital-u2/"
@@ -206,7 +206,7 @@
             "unidad": "u3",
             "titulo": "Ciberseguridad para el Servidor Público",
             "desc": "Tríada CID, phishing, ransomware, contraseñas y 2FA, Ley 172-13 y el protocolo del CNCS/CSIRT-RD ante incidentes, con 4 casos prácticos reales (INAPA, hospital, ayuntamiento, ministerio), en lenguaje sencillo. Incluye temporizador de referencia con sonido de emergencia y medalla digital al completar. Individual o en equipo. Aprueba por completarla, no por la nota.",
-            "duracion": "6 pasos · 90 a 120 minutos, individual o en equipo",
+            "duracion": "6 pasos · aproximadamente 2 horas, individual o en equipo",
             "puntos": "100 pts (retroalimentación)",
             "aprobacion": "Completar los 6 pasos",
             "url": "https://johantbueno.github.io/practicas-web/transformacion-digital-u3/"
