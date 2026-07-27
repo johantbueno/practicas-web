@@ -369,7 +369,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
         <span class="cover-chip">Aplicable a cualquier institución pública</span>
         <span class="cover-chip">Individual o en equipo</span>
         <span class="cover-chip">100 pts · aprueba al completarla</span>
-        <span class="cover-chip">Dura aproximadamente 90 a 120 minutos</span>
+        <span class="cover-chip">Dura aproximadamente 2 horas</span>
         <span class="cover-chip">Gana una medalla digital al terminar</span>
       </div>
     </section>
@@ -1100,7 +1100,7 @@ var io = new IntersectionObserver(function(entries){
 sections.forEach(function(s){ io.observe(s); });
 
 /* ---------- TEMPORIZADOR DE REFERENCIA (no cierra la práctica) ---------- */
-var TIMER_MINUTES = 60;
+var TIMER_MINUTES = 120;
 var TIMER_KEY = 'tp_tdu6_deadline';
 var SOUND_MUTE_KEY = 'tp_htd_sound_muted';
 var soundMuted = localStorage.getItem(SOUND_MUTE_KEY) === '1';
@@ -1881,7 +1881,7 @@ var QA = [
   { kw:['decreto 71-21', '71-21'], a:'El Decreto No. 71-21 es la norma legal que crea el Gabinete de Transformación Digital y le da su mandato oficial para impulsar la Agenda Digital 2030.' },
   { kw:['meta', 'metas', '2030', 'seguimiento', 'agendadigital'], a:'Cada eje tiene metas numéricas con fecha (2024, 2027 y 2030). El Gabinete se reúne cada 3 meses para revisar el avance, y cualquier ciudadano puede seguirlo en tiempo real en el portal agendadigital.gob.do.' },
   { kw:['nota de voz', 'voz', 'grabar', 'hablar', 'microfono', 'micrófono'], a:'Al lado de cada pregunta hay un botón "🎤 Mantenga presionado para grabar". Manténgalo presionado mientras habla su respuesta, y suéltelo al terminar — el sistema la convierte en texto automáticamente, como una nota de voz de WhatsApp.' },
-  { kw:['temporizador', 'reloj', 'tiempo', 'sonido', 'bip', 'latido'], a:'El reloj de la barra lateral es solo una referencia de 60 minutos — no cierra la práctica. En los últimos 10 minutos suena como un monitor de signos vitales, cada vez más rápido, de forma graciosa. Puede silenciarlo con el botón 🔔 junto al reloj en cualquier momento.' },
+  { kw:['temporizador', 'reloj', 'tiempo', 'sonido', 'bip', 'latido'], a:'El reloj de la barra lateral es solo una referencia de 2 horas — no cierra la práctica. En los últimos 10 minutos suena como un monitor de signos vitales, cada vez más rápido, de forma graciosa. Puede silenciarlo con el botón 🔔 junto al reloj en cualquier momento.' },
   { kw:['medalla', 'compartir', 'insignia'], a:'Cuando complete los 6 pasos y presione "Enviar y Calificar", va a aparecer el botón "🏅 Ver mi medalla" para generar una imagen con su nombre, que puede descargar o compartir por WhatsApp, correo o redes sociales.' },
   { kw:['paso 1'], a:'El Paso 1 pide pensar por qué el país necesitaba una agenda digital de largo plazo, y qué significa "apropiarse" de la tecnología. Vale 15 puntos.' },
   { kw:['paso 2'], a:'El Paso 2 pide elegir el eje de la Agenda más relevante para su institución, justificarlo y dar un ejemplo de avance posible. Vale 20 puntos.' },
