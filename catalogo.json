@@ -177,7 +177,7 @@
         "nombre": "Herramientas de Transformación Digital",
         "icono": "💻",
         "tipoClase": "secuencial",
-        "tipoLabel": "Curso secuencial · 5 unidades",
+        "tipoLabel": "Curso secuencial · 6 unidades",
         "esSecuencial": true,
         "cursoId": "transformacion-digital",
         "practicas": [
@@ -230,6 +230,16 @@
             "puntos": "100 pts (retroalimentación)",
             "aprobacion": "Completar los 7 pasos",
             "url": "https://johantbueno.github.io/practicas-web/transformacion-digital-u5/"
+          },
+          {
+            "badge": "Unidad VI",
+            "unidad": "u6",
+            "titulo": "Agenda Digital 2030",
+            "desc": "Los 7 ejes de la Agenda Digital 2030 (Gobernanza, Conectividad, Gobierno Digital, Educación, Economía Digital, Ciberseguridad e Innovación Tecnológica), el Gabinete de Transformación Digital y las metas del país al 2030, en lenguaje sencillo. Se completa después de revisar el material de estudio de la Unidad VI, individual o en equipo. Aprueba por completarla, no por la nota.",
+            "duracion": "6 pasos · 90 a 120 minutos, individual o en equipo",
+            "puntos": "100 pts (retroalimentación)",
+            "aprobacion": "Completar los 6 pasos",
+            "url": "https://johantbueno.github.io/practicas-web/transformacion-digital-u6/"
           }
         ]
       }
