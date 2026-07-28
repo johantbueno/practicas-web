@@ -11,19 +11,11 @@
 
   var styleTag = document.createElement('style');
   styleTag.textContent =
-    '@keyframes tv-breathe{0%,100%{transform:scale(1) rotate(0deg);}50%{transform:scale(1.04) rotate(-1.5deg);}}' +
-    '@keyframes tv-blink{0%,88%,100%{transform:scaleY(1);}92%{transform:scaleY(0.08);}}' +
-    '@keyframes tv-ear-l{0%,100%{transform:rotate(-14deg);}50%{transform:rotate(-20deg);}}' +
-    '@keyframes tv-ear-r{0%,100%{transform:rotate(14deg);}50%{transform:rotate(20deg);}}' +
-    '@keyframes tv-tongue-pant{0%,100%{transform:scaleY(1) translateY(0);}50%{transform:scaleY(1.15) translateY(1px);}}' +
+    '@keyframes tv-breathe{0%,100%{transform:scale(1) rotate(0deg);}50%{transform:scale(1.06) rotate(-2deg);}}' +
     '@keyframes tv-sniff{0%,100%{transform:translateY(0) rotate(0deg);}25%{transform:translateY(-3px) rotate(-4deg);}75%{transform:translateY(-1px) rotate(3deg);}}' +
     '@keyframes tv-pop{0%{transform:scale(0.85);opacity:0;}60%{transform:scale(1.04);opacity:1;}100%{transform:scale(1);opacity:1;}}' +
     '#tutor-virtual-btn{animation:tv-breathe 3s ease-in-out 4;}' +
     '#tutor-virtual-btn:hover{animation:tv-sniff 0.6s ease-in-out infinite;}' +
-    '#tv-eye-l,#tv-eye-r{animation:tv-blink 4.2s infinite;transform-origin:center;}' +
-    '#tv-ear-l{animation:tv-ear-l 3.4s ease-in-out infinite;transform-origin:bottom center;}' +
-    '#tv-ear-r{animation:tv-ear-r 3.4s ease-in-out infinite;transform-origin:bottom center;}' +
-    '#tv-tongue{animation:tv-tongue-pant 1s ease-in-out infinite;transform-origin:top center;}' +
     '#tutor-virtual-container.tv-visible{animation:tv-pop 0.28s cubic-bezier(.34,1.56,.64,1);}' +
     '@keyframes tv-tooltip-in{0%{opacity:0;transform:translateY(6px) scale(0.95);}100%{opacity:1;transform:translateY(0) scale(1);}}' +
     '#tv-tooltip{animation:tv-tooltip-in 0.3s ease-out;}' +
@@ -34,40 +26,17 @@
   var btn = el('div', 'position:fixed;bottom:20px;right:20px;width:70px;height:70px;cursor:pointer;box-shadow:0px 5px 16px rgba(0,0,0,0.4);z-index:999999;border-radius:50%;background:#FFFBF5;', document.body);
   btn.id = 'tutor-virtual-btn';
   btn.innerHTML =
-    '<svg viewBox="0 0 100 100" width="70" height="70" style="display:block;">' +
-      '<defs>' +
-        '<radialGradient id="tvFur" cx="40%" cy="25%" r="80%">' +
-          '<stop offset="0%" stop-color="#8b95a8"/>' +
-          '<stop offset="100%" stop-color="#4a5266"/>' +
-        '</radialGradient>' +
-        '<linearGradient id="tvTan" x1="0%" y1="0%" x2="0%" y2="100%">' +
-          '<stop offset="0%" stop-color="#E8B870"/>' +
-          '<stop offset="100%" stop-color="#C9924A"/>' +
-        '</linearGradient>' +
-      '</defs>' +
-      '<circle cx="50" cy="58" r="40" fill="url(#tvTan)"/>' +
-      '<g id="tv-ear-l">' +
-        '<path d="M 34 34 C 26 20, 22 6, 30 4 C 38 4, 42 18, 42 32 Z" fill="url(#tvFur)" stroke="#3a4152" stroke-width="1"/>' +
-      '</g>' +
-      '<g id="tv-ear-r">' +
-        '<path d="M 66 34 C 74 20, 78 6, 70 4 C 62 4, 58 18, 58 32 Z" fill="url(#tvFur)" stroke="#3a4152" stroke-width="1"/>' +
-      '</g>' +
-      '<path d="M 16 44 C 12 30, 20 16, 34 14 C 30 24, 27 34, 28 46 Z" fill="url(#tvFur)"/>' +
-      '<path d="M 84 44 C 88 30, 80 16, 66 14 C 70 24, 73 34, 72 46 Z" fill="url(#tvFur)"/>' +
-      '<path d="M 22 20 C 32 8, 68 8, 78 20 C 82 28, 80 38, 74 42 C 68 30, 60 24, 50 24 C 40 24, 32 30, 26 42 C 20 38, 18 28, 22 20 Z" fill="url(#tvFur)"/>' +
-      '<ellipse cx="50" cy="62" rx="26" ry="24" fill="url(#tvTan)"/>' +
-      '<g id="tv-eye-l"><circle cx="40" cy="56" r="6" fill="#1a1208"/><circle cx="42" cy="54" r="1.6" fill="#fff"/></g>' +
-      '<g id="tv-eye-r"><circle cx="60" cy="56" r="6" fill="#1a1208"/><circle cx="62" cy="54" r="1.6" fill="#fff"/></g>' +
-      '<path d="M 30 50 Q 38 44 46 49" stroke="#6b4a1e" stroke-width="1.6" fill="none" stroke-linecap="round" opacity="0.55"/>' +
-      '<path d="M 70 50 Q 62 44 54 49" stroke="#6b4a1e" stroke-width="1.6" fill="none" stroke-linecap="round" opacity="0.55"/>' +
-      '<path d="M 40 66 C 38 78, 42 88, 50 90 C 58 88, 62 78, 60 66 C 56 72, 44 72, 40 66 Z" fill="#F6E3C6"/>' +
-      '<ellipse cx="50" cy="70" rx="6" ry="4.5" fill="#0a0a0a"/>' +
-      '<path d="M 50 74 L 50 80" stroke="#5a3a1e" stroke-width="1.2" opacity="0.6"/>' +
-      '<path d="M 50 80 Q 45 84 42 88" stroke="#5a3a1e" stroke-width="1" fill="none" opacity="0.5"/>' +
-      '<path d="M 50 80 Q 55 84 58 88" stroke="#5a3a1e" stroke-width="1" fill="none" opacity="0.5"/>' +
-      '<path id="tv-tongue" d="M 46 84 Q 50 96 54 84 Q 50 88 46 84 Z" fill="#e8768a"/>' +
-      '<path d="M 44 10 C 44 4, 56 4, 56 10 C 56 15, 51 15, 50 12 C 49 15, 44 15, 44 10 Z" fill="#C41E3A"/>' +
-      '<circle cx="50" cy="11" r="2.2" fill="#8f1428"/>' +
+    '<svg viewBox="0 0 36 36" width="52" height="52" style="display:block;margin:9px;">' +
+      '<path fill="#DD2E44" d="M15 27v6s0 3 3 3 3-3 3-3v-6h-6z"/>' +
+      '<path fill="#BE1931" d="M15 33l.001.037c1.041-.035 2.016-.274 2.632-1.286.171-.281.563-.281.735 0 .616 1.011 1.591 1.251 2.632 1.286V27h-6v6z"/>' +
+      '<path fill="#D99E82" d="M31.954 21.619c0 6.276-5 6.276-5 6.276h-18s-5 0-5-6.276c0-6.724 5-18.619 14-18.619s14 12.895 14 18.619z"/>' +
+      '<path fill="#F4C7B5" d="M18 20c-7 0-10 3.527-10 6.395 0 3.037 2.462 5.5 5.5 5.5 1.605 0 3.042-.664 4.049-2.767.185-.386.716-.386.901 0 1.007 2.103 2.445 2.767 4.049 2.767 3.038 0 5.5-2.463 5.5-5.5C28 23.527 25 20 18 20z"/>' +
+      '<path fill="#292F33" d="M15 22.895c-1 1 2 4 3 4s4-3 3-4-5-1-6 0zM13 19c-1.1 0-2-.9-2-2v-2c0-1.1.9-2 2-2s2 .9 2 2v2c0 1.1-.9 2-2 2zm10 0c-1.1 0-2-.9-2-2v-2c0-1.1.9-2 2-2s2 .9 2 2v2c0 1.1-.9 2-2 2z"/>' +
+      '<path fill="#662113" d="M15 3.608C13.941 2.199 11.681.881 2.828 4.2-1.316 5.754.708 17.804 3.935 18.585c1.106 0 4.426 0 4.426-8.852 0-.22-.002-.423-.005-.625C10.35 6.298 12.5 4.857 15 3.608zm18.172.592C24.319.881 22.059 2.199 21 3.608c2.5 1.25 4.65 2.691 6.644 5.501-.003.201-.005.404-.005.625 0 8.852 3.319 8.852 4.426 8.852 3.227-.782 5.251-12.832 1.107-14.386z"/>' +
+      '<circle fill="#D99E82" cx="23.5" cy="25.5" r=".5"/><circle fill="#D99E82" cx="11.5" cy="25.5" r=".5"/>' +
+      '<circle fill="#D99E82" cx="25.5" cy="27.5" r=".5"/><circle fill="#D99E82" cx="10.5" cy="27.5" r=".5"/>' +
+      '<circle fill="#D99E82" cx="23" cy="28" r="1"/><circle fill="#D99E82" cx="13" cy="28" r="1"/>' +
+      '<path fill="#380F09" d="M9.883 7.232c-.259-.673-.634-1.397-1.176-1.939-.391-.391-1.023-.391-1.414 0s-.391 1.023 0 1.414c.57.57 1.066 1.934 1.068 2.346.145-.404.839-1.15 1.522-1.821zm16.217 0c.259-.672.634-1.397 1.176-1.939.391-.391 1.023-.391 1.414 0s.391 1.023 0 1.414c-.57.57-1.066 1.934-1.068 2.346-.145-.404-.839-1.15-1.522-1.821z"/>' +
     '</svg>';
 
   var container = el('div', 'display:none;position:fixed;bottom:98px;right:20px;width:380px;height:600px;max-height:80vh;background:#FFFBF5;border-radius:16px;box-shadow:0px 4px 20px rgba(0,0,0,0.25);z-index:999999;overflow:hidden;border:1px solid #E8C39E;flex-direction:column;', document.body);
