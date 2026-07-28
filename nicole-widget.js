@@ -1,6 +1,16 @@
 (function(){
   var TV_WEBHOOK = "https://n8n-inap.167.88.36.13.sslip.io/webhook/inap-tutor-chat";
+  var TV_TRANSCRIBE = "https://n8n-inap.167.88.36.13.sslip.io/webhook/prof-johan-tapia-transcribir";
+  var TV_LOG_CONV = "https://n8n-inap.167.88.36.13.sslip.io/webhook/niko-registrar-conversacion";
+  var TV_LOG_FEEDBACK = "https://n8n-inap.167.88.36.13.sslip.io/webhook/niko-registrar-feedback";
   var tv_opened = false;
+  var cursoActual = document.title.split(':')[0].split('|')[0].trim() || 'General';
+  var historyKey = 'niko_history_' + cursoActual.replace(/[^a-zA-Z0-9]/g, '_');
+  var QUICK_REPLIES = [
+    '¿Cuándo entrego la tarea?',
+    '¿Qué contenido tiene esta unidad?',
+    '¿Cómo funciona la calificación?'
+  ];
 
   function el(tag, styleText, parent){
     var e = document.createElement(tag);
@@ -20,9 +30,20 @@
     '@keyframes tv-tooltip-in{0%{opacity:0;transform:translateY(6px) scale(0.95);}100%{opacity:1;transform:translateY(0) scale(1);}}' +
     '#tv-tooltip{animation:tv-tooltip-in 0.3s ease-out;}' +
     '@keyframes tv-badge-pulse{0%,100%{box-shadow:0 0 0 0 rgba(34,197,94,0.5);}50%{box-shadow:0 0 0 5px rgba(34,197,94,0);}}' +
-    '#tv-online-badge{animation:tv-badge-pulse 2s ease-in-out infinite;}';
+    '#tv-online-badge{animation:tv-badge-pulse 2s ease-in-out infinite;}' +
+    '@keyframes tv-typing-dot{0%,60%,100%{opacity:0.3;transform:translateY(0);}30%{opacity:1;transform:translateY(-3px);}}' +
+    '.tv-typing-dot{animation:tv-typing-dot 1.1s infinite;}' +
+    '.tv-typing-dot:nth-child(2){animation-delay:0.15s;}' +
+    '.tv-typing-dot:nth-child(3){animation-delay:0.3s;}' +
+    '@keyframes tv-rec-pulse{0%,100%{box-shadow:0 0 0 0 rgba(220,38,38,0.5);}50%{box-shadow:0 0 0 6px rgba(220,38,38,0);}}' +
+    '.tv-recording{animation:tv-rec-pulse 1s infinite;background:#DC2626 !important;}' +
+    '.tv-chip{transition:background 0.15s ease, transform 0.1s ease;}' +
+    '.tv-chip:hover{background:#F0DCC0 !important;transform:translateY(-1px);}' +
+    '.tv-icon-btn{transition:opacity 0.15s ease;}' +
+    '.tv-icon-btn:hover{opacity:0.7;}';
   document.head.appendChild(styleTag);
 
+  // ---------- Botón flotante ----------
   var btn = el('div', 'position:fixed;bottom:20px;right:20px;width:70px;height:70px;cursor:pointer;box-shadow:0px 5px 16px rgba(0,0,0,0.4);z-index:999999;border-radius:50%;background:#FFFBF5;', document.body);
   btn.id = 'tutor-virtual-btn';
   btn.innerHTML =
@@ -39,27 +60,6 @@
       '<path fill="#380F09" d="M9.883 7.232c-.259-.673-.634-1.397-1.176-1.939-.391-.391-1.023-.391-1.414 0s-.391 1.023 0 1.414c.57.57 1.066 1.934 1.068 2.346.145-.404.839-1.15 1.522-1.821zm16.217 0c.259-.672.634-1.397 1.176-1.939.391-.391 1.023-.391 1.414 0s.391 1.023 0 1.414c-.57.57-1.066 1.934-1.068 2.346-.145-.404-.839-1.15-1.522-1.821z"/>' +
     '</svg>';
 
-  var container = el('div', 'display:none;position:fixed;bottom:98px;right:20px;width:380px;height:600px;max-height:80vh;background:#FFFBF5;border-radius:16px;box-shadow:0px 4px 20px rgba(0,0,0,0.25);z-index:999999;overflow:hidden;border:1px solid #E8C39E;flex-direction:column;', document.body);
-  container.id = 'tutor-virtual-container';
-
-  var header = el('div', 'background:linear-gradient(135deg,#C98B4F,#8B5A2B);color:white;padding:0 15px;font-family:Arial,sans-serif;font-weight:bold;display:flex;justify-content:space-between;align-items:center;height:50px;box-sizing:border-box;flex-shrink:0;', container);
-  var headerTitle = el('span', '', header);
-  headerTitle.textContent = '🐶 NIKO - Tutor Virtual';
-  var closeBtn = el('span', 'cursor:pointer;font-size:18px;color:#ffe1cc;font-weight:bold;', header);
-  closeBtn.textContent = '✖';
-  closeBtn.onclick = toggleTutorVirtual;
-
-  var messages = el('div', 'flex:1;overflow-y:auto;padding:12px;background:#FFF6E9;font-family:Arial,sans-serif;font-size:13px;', container);
-
-  var inputBar = el('div', 'display:flex;gap:6px;padding:10px;border-top:1px solid #F0DCC0;background:white;flex-shrink:0;', container);
-  var input = el('input', 'flex:1;border:1px solid #E8C39E;border-radius:20px;padding:8px 12px;font-size:13px;font-family:Arial,sans-serif;', inputBar);
-  input.type = 'text';
-  input.placeholder = 'Escribe tu pregunta...';
-  input.addEventListener('keypress', function(e){ if(e.key === 'Enter'){ tvSend(); } });
-  var sendBtn = el('button', 'background:linear-gradient(135deg,#C98B4F,#8B5A2B);color:white;border:none;border-radius:50%;width:36px;height:36px;cursor:pointer;font-size:16px;', inputBar);
-  sendBtn.textContent = '➤';
-  sendBtn.onclick = tvSend;
-
   var badge = el('div', 'position:absolute;top:2px;right:2px;width:14px;height:14px;background:#22C55E;border:2px solid #FFFBF5;border-radius:50%;', btn);
   badge.id = 'tv-online-badge';
 
@@ -72,6 +72,43 @@
     setTimeout(function(){ tooltip.style.display = 'none'; }, 4000);
   }, 2500);
 
+  // ---------- Panel de chat ----------
+  var container = el('div', 'display:none;position:fixed;bottom:98px;right:20px;width:380px;height:600px;max-height:80vh;background:#FFFBF5;border-radius:16px;box-shadow:0px 4px 20px rgba(0,0,0,0.25);z-index:999999;overflow:hidden;border:1px solid #E8C39E;flex-direction:column;', document.body);
+  container.id = 'tutor-virtual-container';
+
+  var header = el('div', 'background:linear-gradient(135deg,#C98B4F,#8B5A2B);color:white;padding:0 15px;font-family:Arial,sans-serif;font-weight:bold;display:flex;justify-content:space-between;align-items:center;height:50px;box-sizing:border-box;flex-shrink:0;', container);
+  var headerTitle = el('span', '', header);
+  headerTitle.textContent = '🐶 NIKO - Tutor Virtual';
+  var closeBtn = el('span', 'cursor:pointer;font-size:18px;color:#ffe1cc;font-weight:bold;', header);
+  closeBtn.textContent = '✖';
+  closeBtn.onclick = toggleTutorVirtual;
+
+  var messages = el('div', 'flex:1;overflow-y:auto;padding:12px;background:#FFF6E9;font-family:Arial,sans-serif;font-size:13px;', container);
+
+  var chipsBar = el('div', 'display:flex;flex-wrap:wrap;gap:6px;padding:8px 10px;border-top:1px solid #F0DCC0;background:white;flex-shrink:0;', container);
+  chipsBar.id = 'tv-chips';
+  QUICK_REPLIES.forEach(function(q){
+    var chip = el('span', 'cursor:pointer;background:#FFF6E9;border:1px solid #E8C39E;border-radius:14px;padding:5px 10px;font-size:11.5px;color:#6b4a1e;', chipsBar);
+    chip.className = 'tv-chip';
+    chip.textContent = q;
+    chip.onclick = function(){ input.value = q; tvSend(); };
+  });
+
+  var inputBar = el('div', 'display:flex;gap:6px;padding:10px;border-top:1px solid #F0DCC0;background:white;flex-shrink:0;align-items:center;', container);
+  var micBtn = el('button', 'background:#F0DCC0;color:#8B5A2B;border:none;border-radius:50%;width:36px;height:36px;cursor:pointer;font-size:15px;flex-shrink:0;', inputBar);
+  micBtn.id = 'tv-mic-btn';
+  micBtn.textContent = '🎤';
+  micBtn.title = 'Grabar pregunta por voz';
+
+  var input = el('input', 'flex:1;border:1px solid #E8C39E;border-radius:20px;padding:8px 12px;font-size:13px;font-family:Arial,sans-serif;min-width:0;', inputBar);
+  input.type = 'text';
+  input.placeholder = 'Escribe tu pregunta...';
+  input.addEventListener('keypress', function(e){ if(e.key === 'Enter'){ tvSend(); } });
+
+  var sendBtn = el('button', 'background:linear-gradient(135deg,#C98B4F,#8B5A2B);color:white;border:none;border-radius:50%;width:36px;height:36px;cursor:pointer;font-size:16px;flex-shrink:0;', inputBar);
+  sendBtn.textContent = '➤';
+  sendBtn.onclick = tvSend;
+
   btn.onclick = toggleTutorVirtual;
 
   function toggleTutorVirtual(){
@@ -83,42 +120,115 @@
       container.classList.add('tv-visible');
       if(!tv_opened){
         tv_opened = true;
-        tvAppend('¡Guau! 🐶 Soy NIKO, tu asistente virtual. Pregúntame lo que quieras sobre el curso.', false);
+        loadHistory();
       }
     } else {
       container.style.display = 'none';
     }
   }
 
-  function tvAppend(text, isUser){
-    var div = document.createElement('div');
-    div.style.margin = '6px 0';
-    div.style.padding = '8px 12px';
-    div.style.borderRadius = '14px';
-    div.style.maxWidth = '80%';
-    div.style.lineHeight = '1.4';
-    div.style.whiteSpace = 'pre-wrap';
-    if(isUser){
-      div.style.background = 'linear-gradient(135deg,#C98B4F,#8B5A2B)';
-      div.style.color = 'white';
-      div.style.marginLeft = 'auto';
-    } else {
-      div.style.background = 'white';
-      div.style.border = '1px solid #E8C39E';
-      div.style.color = '#3a2a18';
+  // ---------- Historial persistente ----------
+  function getHistory(){
+    try { return JSON.parse(localStorage.getItem(historyKey)) || []; } catch(e){ return []; }
+  }
+  function saveHistoryEntry(role, text){
+    var h = getHistory();
+    h.push({ role: role, text: text, t: Date.now() });
+    if(h.length > 40) h = h.slice(h.length - 40);
+    try { localStorage.setItem(historyKey, JSON.stringify(h)); } catch(e){}
+  }
+  function loadHistory(){
+    var h = getHistory();
+    if(h.length === 0){
+      tvAppend('¡Guau! 🐶 Soy NIKO, tu asistente virtual. Pregúntame lo que quieras sobre el curso.', false, false);
+      return;
     }
-    div.textContent = text;
-    messages.appendChild(div);
+    h.forEach(function(m){ tvAppend(m.text, m.role === 'user', false); });
+  }
+
+  // ---------- Mensajes ----------
+  function tvAppend(text, isUser, persist){
+    if(persist !== false) saveHistoryEntry(isUser ? 'user' : 'bot', text);
+
+    var wrap = el('div', 'margin:6px 0;display:flex;flex-direction:column;' + (isUser ? 'align-items:flex-end;' : 'align-items:flex-start;'), messages);
+
+    var bubble = el('div', 'padding:8px 12px;border-radius:14px;max-width:80%;line-height:1.4;white-space:pre-wrap;' +
+      (isUser
+        ? 'background:linear-gradient(135deg,#C98B4F,#8B5A2B);color:white;border-bottom-right-radius:4px;'
+        : 'background:white;border:1px solid #E8C39E;color:#3a2a18;border-bottom-left-radius:4px;'), wrap);
+    bubble.textContent = text;
+
+    if(!isUser){
+      var actions = el('div', 'display:flex;gap:8px;margin-top:3px;padding-left:2px;', wrap);
+      var speakBtn = el('span', 'cursor:pointer;font-size:13px;', actions);
+      speakBtn.className = 'tv-icon-btn';
+      speakBtn.title = 'Escuchar';
+      speakBtn.textContent = '🔊';
+      speakBtn.onclick = function(){ tvSpeak(text); };
+
+      var upBtn = el('span', 'cursor:pointer;font-size:13px;', actions);
+      upBtn.className = 'tv-icon-btn';
+      upBtn.title = 'Respuesta útil';
+      upBtn.textContent = '👍';
+      var downBtn = el('span', 'cursor:pointer;font-size:13px;', actions);
+      downBtn.className = 'tv-icon-btn';
+      downBtn.title = 'Respuesta no útil';
+      downBtn.textContent = '👎';
+
+      var lastQuestion = tv_lastQuestion;
+      upBtn.onclick = function(){ tvSendFeedback(lastQuestion, text, true, upBtn, downBtn); };
+      downBtn.onclick = function(){ tvSendFeedback(lastQuestion, text, false, upBtn, downBtn); };
+    }
+
     messages.scrollTop = messages.scrollHeight;
+  }
+
+  var tv_lastQuestion = '';
+
+  function tvSendFeedback(pregunta, respuesta, util, upBtn, downBtn){
+    upBtn.style.opacity = (util ? '1' : '0.35');
+    downBtn.style.opacity = (util ? '0.35' : '1');
+    fetch(TV_LOG_FEEDBACK, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ curso: cursoActual, pregunta: pregunta, respuesta: respuesta, util: util })
+    }).catch(function(){});
+  }
+
+  function tvTypingShow(){
+    var wrap = el('div', 'margin:6px 0;display:flex;', messages);
+    wrap.id = 'tv-typing-wrap';
+    var bubble = el('div', 'padding:10px 14px;border-radius:14px;background:white;border:1px solid #E8C39E;border-bottom-left-radius:4px;display:flex;gap:4px;align-items:center;', wrap);
+    for(var i=0;i<3;i++){
+      var dot = el('span', 'width:6px;height:6px;border-radius:50%;background:#C98B4F;display:inline-block;', bubble);
+      dot.className = 'tv-typing-dot';
+    }
+    messages.scrollTop = messages.scrollHeight;
+  }
+  function tvTypingHide(){
+    var w = document.getElementById('tv-typing-wrap');
+    if(w) w.remove();
+  }
+
+  function tvSpeak(text){
+    if(!('speechSynthesis' in window)) return;
+    window.speechSynthesis.cancel();
+    var u = new SpeechSynthesisUtterance(text);
+    u.lang = 'es-ES';
+    var voices = window.speechSynthesis.getVoices();
+    var esVoice = voices.find(function(v){ return v.lang && v.lang.toLowerCase().indexOf('es') === 0; });
+    if(esVoice) u.voice = esVoice;
+    window.speechSynthesis.speak(u);
   }
 
   function tvSend(){
     var text = input.value.trim();
     if(!text) return;
     tvAppend(text, true);
+    tv_lastQuestion = text;
     input.value = '';
-
-    var cursoActual = document.title.split(':')[0].split('|')[0].trim();
+    sendBtn.disabled = true;
+    tvTypingShow();
 
     fetch(TV_WEBHOOK, {
       method: 'POST',
@@ -127,10 +237,76 @@
     })
     .then(function(res){ return res.json(); })
     .then(function(data){
-      tvAppend((data && data.response) ? data.response : 'No pude generar una respuesta, intenta de nuevo.', false);
+      tvTypingHide();
+      var respuesta = (data && data.response) ? data.response : null;
+      if(respuesta){
+        tvAppend(respuesta, false);
+        fetch(TV_LOG_CONV, {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ curso: cursoActual, pregunta: text, respuesta: respuesta })
+        }).catch(function(){});
+      } else {
+        tvAppend('No pude generar una respuesta. Si el problema continúa, contacta a tu facilitador directamente (correo o grupo del curso).', false);
+      }
     })
     .catch(function(){
-      tvAppend('No pude conectarme en este momento. Intenta de nuevo en unos segundos.', false);
+      tvTypingHide();
+      tvAppend('No pude conectarme en este momento. Si es urgente, contacta a tu facilitador directamente (correo o grupo del curso).', false);
+    })
+    .finally(function(){ sendBtn.disabled = false; });
+  }
+
+  // ---------- Grabación de voz ----------
+  var mediaRecorder = null;
+  var audioChunks = [];
+  var isRecording = false;
+
+  micBtn.onclick = function(){
+    if(isRecording){
+      if(mediaRecorder) mediaRecorder.stop();
+      return;
+    }
+    if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
+      tvAppend('Tu navegador no soporta grabación de audio.', false, false);
+      return;
+    }
+    navigator.mediaDevices.getUserMedia({ audio: true }).then(function(stream){
+      audioChunks = [];
+      mediaRecorder = new MediaRecorder(stream);
+      mediaRecorder.ondataavailable = function(e){ audioChunks.push(e.data); };
+      mediaRecorder.onstop = function(){
+        isRecording = false;
+        micBtn.classList.remove('tv-recording');
+        stream.getTracks().forEach(function(t){ t.stop(); });
+        var blob = new Blob(audioChunks, { type: 'audio/webm' });
+        transcribirAudio(blob);
+      };
+      mediaRecorder.start();
+      isRecording = true;
+      micBtn.classList.add('tv-recording');
+    }).catch(function(){
+      tvAppend('No pude acceder al micrófono. Verifica los permisos del navegador.', false, false);
     });
+  };
+
+  function transcribirAudio(blob){
+    input.placeholder = 'Transcribiendo...';
+    var fd = new FormData();
+    fd.append('data', blob, 'audio.webm');
+    fetch(TV_TRANSCRIBE, { method: 'POST', body: fd })
+      .then(function(res){ return res.json(); })
+      .then(function(data){
+        input.placeholder = 'Escribe tu pregunta...';
+        if(data && data.ok && data.texto){
+          input.value = data.texto;
+        } else {
+          tvAppend('No logré entender el audio, intenta escribir tu pregunta.', false, false);
+        }
+      })
+      .catch(function(){
+        input.placeholder = 'Escribe tu pregunta...';
+        tvAppend('No pude transcribir el audio en este momento.', false, false);
+      });
   }
 })();
