@@ -18,13 +18,17 @@
     '@keyframes tv-tongue-pant{0%,100%{transform:scaleY(1) translateY(0);}50%{transform:scaleY(1.15) translateY(1px);}}' +
     '@keyframes tv-sniff{0%,100%{transform:translateY(0) rotate(0deg);}25%{transform:translateY(-3px) rotate(-4deg);}75%{transform:translateY(-1px) rotate(3deg);}}' +
     '@keyframes tv-pop{0%{transform:scale(0.85);opacity:0;}60%{transform:scale(1.04);opacity:1;}100%{transform:scale(1);opacity:1;}}' +
-    '#tutor-virtual-btn{animation:tv-breathe 3s ease-in-out infinite;}' +
+    '#tutor-virtual-btn{animation:tv-breathe 3s ease-in-out 4;}' +
     '#tutor-virtual-btn:hover{animation:tv-sniff 0.6s ease-in-out infinite;}' +
     '#tv-eye-l,#tv-eye-r{animation:tv-blink 4.2s infinite;transform-origin:center;}' +
     '#tv-ear-l{animation:tv-ear-l 3.4s ease-in-out infinite;transform-origin:bottom center;}' +
     '#tv-ear-r{animation:tv-ear-r 3.4s ease-in-out infinite;transform-origin:bottom center;}' +
     '#tv-tongue{animation:tv-tongue-pant 1s ease-in-out infinite;transform-origin:top center;}' +
-    '#tutor-virtual-container.tv-visible{animation:tv-pop 0.28s cubic-bezier(.34,1.56,.64,1);}';
+    '#tutor-virtual-container.tv-visible{animation:tv-pop 0.28s cubic-bezier(.34,1.56,.64,1);}' +
+    '@keyframes tv-tooltip-in{0%{opacity:0;transform:translateY(6px) scale(0.95);}100%{opacity:1;transform:translateY(0) scale(1);}}' +
+    '#tv-tooltip{animation:tv-tooltip-in 0.3s ease-out;}' +
+    '@keyframes tv-badge-pulse{0%,100%{box-shadow:0 0 0 0 rgba(34,197,94,0.5);}50%{box-shadow:0 0 0 5px rgba(34,197,94,0);}}' +
+    '#tv-online-badge{animation:tv-badge-pulse 2s ease-in-out infinite;}';
   document.head.appendChild(styleTag);
 
   var btn = el('div', 'position:fixed;bottom:20px;right:20px;width:70px;height:70px;cursor:pointer;box-shadow:0px 5px 16px rgba(0,0,0,0.4);z-index:999999;border-radius:50%;background:#FFFBF5;', document.body);
@@ -45,16 +49,16 @@
           '<stop offset="100%" stop-color="#B97A3E"/>' +
         '</linearGradient>' +
       '</defs>' +
-      '<circle cx="50" cy="50" r="48" fill="url(#tvFur)"/>' +
+      '<circle cx="50" cy="56" r="42" fill="url(#tvFur)"/>' +
       '<g id="tv-ear-l">' +
-        '<path d="M 28 26 C 20 10, 12 8, 14 22 C 15 32, 22 38, 30 34 Z" fill="#0a0a0a"/>' +
-        '<path d="M 27 26 C 22 15, 17 14, 18 23 C 19 29, 23 32, 28 30 Z" fill="#2b2b2b"/>' +
+        '<path d="M 26 44 C 14 36, 5 18, 9 6 C 11 1, 20 1, 24 8 C 32 20, 36 34, 36 44 Z" fill="#0a0a0a" stroke="#FFFBF5" stroke-width="1.5"/>' +
+        '<path d="M 27 42 C 20 36, 13 21, 16 11 C 18 6, 23 6, 25 12 C 29 22, 33 34, 33 42 Z" fill="#3a3a3a"/>' +
       '</g>' +
       '<g id="tv-ear-r">' +
-        '<path d="M 72 26 C 80 10, 88 8, 86 22 C 85 32, 78 38, 70 34 Z" fill="#0a0a0a"/>' +
-        '<path d="M 73 26 C 78 15, 83 14, 82 23 C 81 29, 77 32, 72 30 Z" fill="#2b2b2b"/>' +
+        '<path d="M 74 44 C 86 36, 95 18, 91 6 C 89 1, 80 1, 76 8 C 68 20, 64 34, 64 44 Z" fill="#0a0a0a" stroke="#FFFBF5" stroke-width="1.5"/>' +
+        '<path d="M 73 42 C 80 36, 87 21, 84 11 C 82 6, 77 6, 75 12 C 71 22, 67 34, 67 42 Z" fill="#3a3a3a"/>' +
       '</g>' +
-      '<ellipse cx="50" cy="56" rx="34" ry="30" fill="url(#tvFace)"/>' +
+      '<ellipse cx="50" cy="58" rx="34" ry="29" fill="url(#tvFace)"/>' +
       '<path d="M 24 44 Q 30 38 38 42 Q 32 46 28 52 Z" fill="url(#tvTan)" opacity="0.9"/>' +
       '<path d="M 76 44 Q 70 38 62 42 Q 68 46 72 52 Z" fill="url(#tvTan)" opacity="0.9"/>' +
       '<ellipse cx="27" cy="58" rx="9" ry="8" fill="url(#tvTan)" opacity="0.85"/>' +
@@ -94,9 +98,22 @@
   sendBtn.textContent = '➤';
   sendBtn.onclick = tvSend;
 
+  var badge = el('div', 'position:absolute;top:2px;right:2px;width:14px;height:14px;background:#22C55E;border:2px solid #FFFBF5;border-radius:50%;', btn);
+  badge.id = 'tv-online-badge';
+
+  var tooltip = el('div', 'display:none;position:fixed;bottom:96px;right:20px;background:white;color:#3a2a18;padding:8px 14px;border-radius:12px;box-shadow:0px 3px 12px rgba(0,0,0,0.2);font-family:Arial,sans-serif;font-size:13px;font-weight:bold;z-index:999998;white-space:nowrap;', document.body);
+  tooltip.id = 'tv-tooltip';
+  tooltip.textContent = '¿Necesitas ayuda? 🐶';
+  setTimeout(function(){
+    if(tv_opened) return;
+    tooltip.style.display = 'block';
+    setTimeout(function(){ tooltip.style.display = 'none'; }, 4000);
+  }, 2500);
+
   btn.onclick = toggleTutorVirtual;
 
   function toggleTutorVirtual(){
+    tooltip.style.display = 'none';
     if(container.style.display === 'none' || container.style.display === ''){
       container.style.display = 'flex';
       container.classList.remove('tv-visible');
