@@ -20,7 +20,7 @@
     '#tv-tongue{animation:tv-wag 1.2s ease-in-out infinite;transform-origin:top center;}';
   document.head.appendChild(styleTag);
 
-  var btn = el('div', 'position:fixed;bottom:20px;left:20px;width:66px;height:66px;cursor:pointer;box-shadow:0px 4px 14px rgba(0,0,0,0.4);z-index:999999;border-radius:50%;background:radial-gradient(circle at 35% 30%, #3a3a3a, #0d0d0d);', document.body);
+  var btn = el('div', 'position:fixed;bottom:20px;right:20px;width:66px;height:66px;cursor:pointer;box-shadow:0px 4px 14px rgba(0,0,0,0.4);z-index:999999;border-radius:50%;background:radial-gradient(circle at 35% 30%, #3a3a3a, #0d0d0d);', document.body);
   btn.id = 'tutor-virtual-btn';
 
   el('div', 'position:absolute;top:-10px;left:2px;width:20px;height:26px;background:#0d0d0d;border-radius:60% 40% 50% 50% / 70% 70% 30% 30%;transform:rotate(-18deg);', btn);
@@ -39,7 +39,7 @@
   var tongue = el('div', 'position:absolute;top:46px;left:0;right:0;margin:auto;width:9px;height:12px;background:#e8768a;border-radius:0 0 8px 8px;', btn);
   tongue.id = 'tv-tongue';
 
-  var container = el('div', 'display:none;position:fixed;bottom:96px;left:20px;width:380px;height:600px;max-height:80vh;background:#FFFBF5;border-radius:16px;box-shadow:0px 4px 20px rgba(0,0,0,0.25);z-index:999999;overflow:hidden;border:1px solid #E8C39E;flex-direction:column;', document.body);
+  var container = el('div', 'display:none;position:fixed;bottom:96px;right:20px;width:380px;height:600px;max-height:80vh;background:#FFFBF5;border-radius:16px;box-shadow:0px 4px 20px rgba(0,0,0,0.25);z-index:999999;overflow:hidden;border:1px solid #E8C39E;flex-direction:column;', document.body);
 
   var header = el('div', 'background:linear-gradient(135deg,#C98B4F,#8B5A2B);color:white;padding:0 15px;font-family:Arial,sans-serif;font-weight:bold;display:flex;justify-content:space-between;align-items:center;height:50px;box-sizing:border-box;flex-shrink:0;', container);
   var headerTitle = el('span', '', header);
