@@ -30,6 +30,16 @@
             "puntos": "100 pts (retroalimentación)",
             "aprobacion": "Completar los 5 pasos",
             "url": "https://johantbueno.github.io/practicas-web/hacienda-inversion-u2/"
+          },
+          {
+            "badge": "Unidad III",
+            "unidad": "u3",
+            "titulo": "Los Instrumentos de la Planificación",
+            "desc": "Estrategia Nacional de Desarrollo (END), Plan Nacional Plurianual (PNPSP), Planes Estratégicos Sectoriales, PEI y Planes Estratégicos Territoriales, aplicados al mismo proyecto de las unidades anteriores. Individual o en equipo.",
+            "duracion": "5 pasos · aproximadamente 1 hora, individual o en equipo",
+            "puntos": "100 pts (retroalimentación)",
+            "aprobacion": "Completar los 5 pasos",
+            "url": "https://johantbueno.github.io/practicas-web/hacienda-inversion-u3/"
           }
         ]
       }
