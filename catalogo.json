@@ -20,6 +20,16 @@
             "puntos": "100 pts (retroalimentación)",
             "aprobacion": "Completar los 5 pasos",
             "url": "https://johantbueno.github.io/practicas-web/hacienda-inversion-u1/"
+          },
+          {
+            "badge": "Unidad II",
+            "unidad": "u2",
+            "titulo": "Estructura del Sistema Nacional de Planificación e Inversión Pública",
+            "desc": "Consejo de Gobierno, Comisión Técnica Delegada, Consejos Territoriales de Desarrollo, el Ministerio de Hacienda y Economía como órgano rector, y las UIPyD, aplicados al mismo proyecto de la Unidad I. Requiere haber completado la Unidad I. Individual o en equipo.",
+            "duracion": "5 pasos · aproximadamente 1 hora, individual o en equipo",
+            "puntos": "100 pts (retroalimentación)",
+            "aprobacion": "Completar los 5 pasos",
+            "url": "https://johantbueno.github.io/practicas-web/hacienda-inversion-u2/"
           }
         ]
       }
