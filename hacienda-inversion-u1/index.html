@@ -373,22 +373,22 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
     </section>
 
     <section class="card">
-      <span class="step-badge">Ejemplos por tipo de institución</span>
-      <h1 style="font-size:1.35rem;">Use un proyecto de inversión real de SU institución</h1>
+      <span class="step-badge">Elija su caso</span>
+      <h1 style="font-size:1.35rem;">Esta práctica se resuelve sobre UN caso, ya preparado para usted</h1>
       <div class="alert info">
-        Esta práctica aplica a cualquier institución del Estado dominicano comprendida en el ámbito del SNPIP. Para que le resulte más fácil pensar en un ejemplo concreto, aquí tiene proyectos típicos de inversión pública según el tipo de institución en la que usted trabaje — elija el que se parezca más a su realidad, o use cualquier otro proyecto real de su área.
+        Para que pueda enfocarse en aplicar los conceptos del SNPIP (y no en inventar un ejemplo desde cero), esta práctica le presenta <strong>5 casos reales ya redactados</strong>, de distintos sectores. En el Paso 1 va a elegir uno y trabajar sobre ese mismo caso durante los 5 pasos.
       </div>
       <div class="tbl-wrap"><table class="tp-table">
-        <thead><tr><th>Tipo de institución</th><th>Ejemplo de proyecto de inversión pública</th></tr></thead>
+        <thead><tr><th>Sector</th><th>Caso</th><th>Resumen</th></tr></thead>
         <tbody>
-          <tr><td class="label-cell">INAPA (agua y saneamiento)</td><td>Construcción de un acueducto rural, rehabilitación de redes de distribución de agua potable, planta de tratamiento de aguas residuales.</td></tr>
-          <tr><td class="label-cell">Hospital o centro de salud público</td><td>Remozamiento de una sala de maternidad, adquisición de equipos médicos, construcción de un centro de atención primaria.</td></tr>
-          <tr><td class="label-cell">Ayuntamiento o municipio</td><td>Rehabilitación de caminos vecinales, construcción de un mercado municipal, sistema de drenaje pluvial urbano.</td></tr>
-          <tr><td class="label-cell">Ministerio o dirección general</td><td>Modernización de un sistema de información institucional, construcción de una sede regional, programa de capacitación de personal.</td></tr>
-          <tr><td class="label-cell">Institución educativa pública</td><td>Construcción o rehabilitación de una escuela, dotación de mobiliario y equipos tecnológicos, programa de becas.</td></tr>
+          <tr><td class="label-cell">Agua y Saneamiento</td><td>INAPA — Acueducto rural</td><td>Comunidad rural con enfermedades gastrointestinales por agua sin tratar.</td></tr>
+          <tr><td class="label-cell">Salud</td><td>Hospital público — Maternidad</td><td>Sala de maternidad con equipos obsoletos y alta demanda de partos.</td></tr>
+          <tr><td class="label-cell">Educación</td><td>Escuela rural</td><td>Escuela con aulas en mal estado y sobrecupo, sin espacio para todos los estudiantes de la zona.</td></tr>
+          <tr><td class="label-cell">Construcción / Infraestructura</td><td>Ayuntamiento — Caminos vecinales</td><td>Caminos rurales intransitables en época de lluvia, aislando varias comunidades.</td></tr>
+          <tr><td class="label-cell">Tecnología</td><td>Ministerio — Modernización institucional</td><td>Trámites internos manuales, lentos y sin seguimiento, entre varias direcciones.</td></tr>
         </tbody>
       </table></div>
-      <p>Puede usar cualquier proyecto real de su área específica: infraestructura vial, salud, educación, agua y saneamiento, seguridad ciudadana, o cualquier otro sector de inversión pública. No hace falta que sea exactamente uno de los ejemplos de la tabla — use el proyecto que usted conozca mejor.</p>
+      <p>No hace falta pensar en su propia institución ni inventar datos — el caso que elija ya trae toda la información necesaria para responder los 5 pasos.</p>
     </section>
 
     <section class="card" id="tutorial">
@@ -507,19 +507,26 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
 
     <!-- ============ PASO 1 ============ -->
     <section id="paso1" class="card">
-      <span class="step-badge">Paso 1 · 15 min</span><span class="step-points">Vale 20 pts</span>
-      <h1>Origen del Sistema y su Proyecto de Referencia</h1>
+      <span class="step-badge">Paso 1 · 10 min</span><span class="step-points">Vale 20 pts</span>
+      <h1>Elija su Caso y el Origen del Sistema</h1>
       <p><strong>Concepto:</strong> antes de 2006, la planificación dominicana (Ley 55 de 1965) operaba desarticulada del presupuesto, centralizada y con débil seguimiento. La Ley 498-06 creó el SNPIP para ordenar la inversión pública con dirección estratégica.</p>
-      <div class="alert info"><strong>Guía:</strong> elija un proyecto de inversión pública real de su institución. Va a usarlo como referencia en los 5 pasos de esta práctica.</div>
-
-      <div class="field-grid">
-        <div class="field"><label for="p1_institucion">Institución o dependencia</label><input type="text" id="p1_institucion" placeholder="Ej: INAPA regional, un hospital público, un ayuntamiento, un ministerio..."></div>
-        <div class="field"><label for="p1_proyecto">Proyecto de inversión pública seleccionado</label><input type="text" id="p1_proyecto" placeholder="Ej: acueducto rural, remozamiento de maternidad, rehabilitación vial, construcción de una escuela..."></div>
-      </div>
-      <div class="hint">Otros ejemplos si no sabe por dónde empezar: planta de tratamiento, sistema de drenaje pluvial, mercado municipal, sede regional, programa de becas.</div>
+      <div class="alert info"><strong>Guía:</strong> elija UNO de los 5 casos, del sector que prefiera. Léalo con calma — con este mismo caso va a trabajar los 5 pasos de la práctica, no hace falta que use datos de su propia institución.</div>
 
       <div class="field">
-        <label for="p1_antes">Si este proyecto se hubiera decidido bajo el sistema ANTERIOR a 2006 (Ley 55 de 1965), ¿qué problemas concretos podría haber tenido? <span class="wc" data-for="p1_antes">0 palabras</span></label>
+        <label for="p1_caso">Caso elegido</label>
+        <select id="p1_caso">
+          <option value="">Seleccione un caso…</option>
+          <option value="inapa">Agua y Saneamiento — INAPA: Acueducto rural</option>
+          <option value="hospital">Salud — Hospital público: Maternidad</option>
+          <option value="escuela">Educación — Escuela rural</option>
+          <option value="ayuntamiento">Construcción — Ayuntamiento: Caminos vecinales</option>
+          <option value="ministerio">Tecnología — Ministerio: Modernización institucional</option>
+        </select>
+      </div>
+      <div class="alert gold" id="p1_caso_desc">Seleccione un caso arriba para ver su descripción completa aquí.</div>
+
+      <div class="field">
+        <label for="p1_antes">Si el proyecto de su caso se hubiera decidido bajo el sistema ANTERIOR a 2006 (Ley 55 de 1965), ¿qué problemas concretos podría haber tenido? <span class="wc" data-for="p1_antes">0 palabras</span></label>
         <textarea class="tall" id="p1_antes" placeholder="Bajo el sistema anterior, este proyecto podría haberse decidido por presión política, sin estar amarrado a un plan, sin indicadores..."></textarea>
         <div class="voice-row"><button type="button" class="voice-btn" data-target="p1_antes">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p1_antes"></span></div>
       </div>
@@ -1205,12 +1212,48 @@ function escapeHtml(s){ var d = document.createElement('div'); d.textContent = n
 
 /* ---------- CAMPOS DE CADA PASO ---------- */
 var STEP_FIELDS = {
-  paso1: ['p1_institucion','p1_proyecto','p1_antes','p1_reforma'],
+  paso1: ['p1_caso','p1_antes','p1_reforma'],
   paso2: ['p2_principio1','p2_principio2','p2_aplicacion'],
   paso3: ['p3_ambito','p3_proceso','p3_justificacion'],
   paso4: ['p4_instrumento','p4_vinculo'],
   paso5: ['p5_indicador','p5_tipo_evaluacion']
 };
+
+/* ---------- CASOS PRECARGADOS (para no obligar a inventar un ejemplo propio) ---------- */
+var CASOS = {
+  inapa: {
+    institucion: 'INAPA (Instituto Nacional de Aguas Potables y Alcantarillados)',
+    proyecto: 'Acueducto rural',
+    texto: 'Una comunidad rural de unas 800 familias presenta desde hace años una alta incidencia de enfermedades gastrointestinales, sobre todo en niños. La causa identificada es que el agua que consumen proviene de pozos y cañadas sin ningún tratamiento. La comunidad ha pedido, por años, la construcción de un acueducto con planta de tratamiento, pero el proyecto nunca se ha priorizado formalmente dentro del sistema.'
+  },
+  hospital: {
+    institucion: 'Hospital público regional',
+    proyecto: 'Remozamiento de la sala de maternidad',
+    texto: 'Un hospital público regional atiende un promedio de 40 partos mensuales en una sala de maternidad construida hace 30 años, con equipos médicos obsoletos y capacidad insuficiente para la demanda actual. El personal médico reporta que la infraestructura limita la calidad de la atención y aumenta el riesgo en partos complicados.'
+  },
+  ayuntamiento: {
+    institucion: 'Ayuntamiento municipal',
+    proyecto: 'Rehabilitación de caminos vecinales',
+    texto: 'Un municipio tiene 15 kilómetros de caminos vecinales que se vuelven intransitables en la temporada de lluvias, aislando a varias comunidades rurales de la cabecera municipal. Esto afecta el traslado de estudiantes a la escuela, el acceso a atención médica de emergencia, y la salida de la producción agrícola local hacia el mercado.'
+  },
+  ministerio: {
+    institucion: 'Ministerio o dirección general',
+    proyecto: 'Modernización de un sistema de información institucional',
+    texto: 'Una dirección general dentro de un ministerio gestiona sus trámites internos (licencias, certificados, correspondencia) de forma manual, en papel, repartidos entre varias oficinas que no comparten información entre sí. Esto genera demoras de semanas en trámites que deberían resolverse en días, y dificulta cualquier seguimiento o rendición de cuentas sobre el estado de cada expediente.'
+  },
+  escuela: {
+    institucion: 'Institución educativa pública (Ministerio de Educación)',
+    proyecto: 'Construcción y rehabilitación de una escuela rural',
+    texto: 'Una escuela rural fue construida hace más de 25 años y hoy tiene aulas en mal estado estructural, sin electricidad estable ni baños suficientes. Con el crecimiento de la población escolar de la zona, la escuela ya no tiene capacidad para todos los estudiantes, y varios niños deben caminar más de una hora hacia el centro educativo más cercano con espacio disponible.'
+  }
+};
+document.getElementById('p1_caso').addEventListener('change', function(){
+  var c = CASOS[this.value];
+  var box = document.getElementById('p1_caso_desc');
+  if(!c){ box.textContent = 'Seleccione un caso arriba para ver su descripción completa aquí.'; return; }
+  box.innerHTML = '<strong>' + c.institucion + ' — ' + c.proyecto + '.</strong> ' + c.texto;
+  saveAll();
+});
 
 /* ---------- MODALIDAD: INDIVIDUAL O EN EQUIPO ---------- */
 var modoSelect = document.getElementById('modo_trabajo');
@@ -1271,6 +1314,7 @@ function loadAll(){
 }
 loadAll();
 aplicarModo();
+document.getElementById('p1_caso').dispatchEvent(new Event('change'));
 document.querySelectorAll('.wc[data-for]').forEach(function(span){
   var target = document.getElementById(span.getAttribute('data-for'));
   if(target) target.dispatchEvent(new Event('input'));
@@ -1363,7 +1407,7 @@ function buildCriterion(title, maxPoints, items){
 
 function gradeStep1(){
   var items = [
-    { label:'Institución y proyecto de inversión identificados con claridad', points:4, frac:ratioFilledFrac(['p1_institucion','p1_proyecto']) },
+    { label:'Caso elegido', points:4, frac:filled(val('p1_caso'))?1:0 },
     { label:'Contraste con el sistema anterior a 2006', points:8, frac:singleWordFrac('p1_antes',35) },
     { label:'Exigencias del marco legal vigente (Ley 498-06 / Ley 45-25)', points:8, frac:singleWordFrac('p1_reforma',35) }
   ];
@@ -1469,7 +1513,7 @@ function gatherGradingPayload(localResult){
   });
   return {
     estudiante: { nombre: nombreIdentificacion(), correo: correoIdentificacion(), integrantes: val('grp_integrantes') || '', modalidad: modoSelect.value },
-    institucion: val('p1_institucion') || '',
+    institucion: (CASOS[val('p1_caso')] ? CASOS[val('p1_caso')].institucion : '') || '',
     curso: 'hacienda-inversion-publica',
     unidad: 'u1',
     aprobado_por_completitud: practicaCompleta(),
