@@ -293,6 +293,17 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
   .timer-box.overtime .timer-value{animation:none;}
   .fast-clock-hand{animation:none;}
 }
+
+/* ELIGE TU AVENTURA -- tarjetas de seleccion de caso (Paso 1) */
+.caso-cards{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:.9rem; margin:1rem 0;}
+.caso-card{display:flex; flex-direction:column; align-items:flex-start; gap:.3rem; text-align:left; background:var(--bg-body); border:2px solid var(--border-light); border-radius:var(--radius-md); padding:1rem 1.1rem; cursor:pointer; font-family:inherit; transition:border-color .15s ease, transform .15s ease, box-shadow .15s ease;}
+.caso-card:hover{border-color:var(--navy); transform:translateY(-2px); box-shadow:var(--shadow-md);}
+.caso-card.selected{border-color:var(--gold); background:var(--blue-bg); box-shadow:var(--shadow-md);}
+.caso-card-icon{font-size:1.8rem;}
+.caso-card-sector{font-size:.68rem; font-weight:800; text-transform:uppercase; letter-spacing:.04em; color:var(--navy);}
+.caso-card-title{font-size:.92rem; font-weight:700; color:var(--primary);}
+.caso-card-lugar{font-size:.76rem; color:var(--muted);}
+.caso-card.selected::after{content:"✓ Su misión actual"; font-size:.7rem; font-weight:800; color:var(--green); margin-top:.2rem;}
 </style>
 </head>
 <body>
@@ -363,7 +374,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
       <h1>Práctica — Unidad I</h1>
       <p class="sub">El Sistema Nacional de Planificación e Inversión Pública (SNPIP) en la República Dominicana: origen, principios rectores, ámbitos, procesos y monitoreo, aplicados a un proyecto real</p>
       <div class="cover-chips">
-        <span class="cover-chip">Aplicable a cualquier institución pública</span>
+        <span class="cover-chip">5 casos reales para elegir</span>
         <span class="cover-chip">Individual o en equipo</span>
         <span class="cover-chip">100 pts · aprueba al completarla</span>
         <span class="cover-chip">Dura aproximadamente 1 hora</span>
@@ -508,22 +519,52 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
     <!-- ============ PASO 1 ============ -->
     <section id="paso1" class="card">
       <span class="step-badge">Paso 1 · 10 min</span><span class="step-points">Vale 20 pts</span>
-      <h1>Elija su Caso y el Origen del Sistema</h1>
+      <h1>Elija su Aventura: el Caso y el Origen del Sistema</h1>
       <p><strong>Concepto:</strong> antes de 2006, la planificación dominicana (Ley 55 de 1965) operaba desarticulada del presupuesto, centralizada y con débil seguimiento. La Ley 498-06 creó el SNPIP para ordenar la inversión pública con dirección estratégica.</p>
-      <div class="alert info"><strong>Guía:</strong> elija UNO de los 5 casos, del sector que prefiera. Léalo con calma — con este mismo caso va a trabajar los 5 pasos de la práctica, no hace falta que use datos de su propia institución.</div>
+      <div class="alert info"><strong>Su misión:</strong> usted acaba de ser asignado(a) como responsable de planificación de uno de estos 5 proyectos reales. Toque una tarjeta para "entrar" a ese caso — con él va a trabajar los 5 pasos de esta práctica, no hace falta que use datos de su propia institución.</div>
 
-      <div class="field">
-        <label for="p1_caso">Caso elegido</label>
-        <select id="p1_caso">
-          <option value="">Seleccione un caso…</option>
-          <option value="inapa">Agua y Saneamiento — INAPA: Acueducto rural</option>
-          <option value="hospital">Salud — Hospital público: Maternidad</option>
-          <option value="escuela">Educación — Escuela rural</option>
-          <option value="ayuntamiento">Construcción — Ayuntamiento: Caminos vecinales</option>
-          <option value="ministerio">Tecnología — Ministerio: Modernización institucional</option>
-        </select>
+      <select id="p1_caso" style="display:none;" aria-hidden="true">
+        <option value="">Seleccione un caso…</option>
+        <option value="inapa">Agua y Saneamiento — INAPA: Acueducto rural (La Ciénaga, Barahona)</option>
+        <option value="hospital">Salud — Hospital público: Maternidad (El Cercado, San Juan)</option>
+        <option value="escuela">Educación — Escuela rural (Guananico, Puerto Plata)</option>
+        <option value="ayuntamiento">Construcción — Caminos vecinales (Cutupú, Jarumucú y El Puñal, Vallejuelo)</option>
+        <option value="ministerio">Tecnología — Modernización institucional (Dirección Regional Sur)</option>
+      </select>
+
+      <div class="caso-cards" id="caso-cards" role="group" aria-label="Elija su caso">
+        <button type="button" class="caso-card" data-caso="inapa">
+          <span class="caso-card-icon">💧</span>
+          <span class="caso-card-sector">Agua y Saneamiento</span>
+          <span class="caso-card-title">INAPA — Acueducto rural</span>
+          <span class="caso-card-lugar">📍 La Ciénaga, Barahona</span>
+        </button>
+        <button type="button" class="caso-card" data-caso="hospital">
+          <span class="caso-card-icon">🏥</span>
+          <span class="caso-card-sector">Salud</span>
+          <span class="caso-card-title">Hospital público — Maternidad</span>
+          <span class="caso-card-lugar">📍 El Cercado, San Juan</span>
+        </button>
+        <button type="button" class="caso-card" data-caso="escuela">
+          <span class="caso-card-icon">🎓</span>
+          <span class="caso-card-sector">Educación</span>
+          <span class="caso-card-title">Escuela rural</span>
+          <span class="caso-card-lugar">📍 Guananico, Puerto Plata</span>
+        </button>
+        <button type="button" class="caso-card" data-caso="ayuntamiento">
+          <span class="caso-card-icon">🏗️</span>
+          <span class="caso-card-sector">Construcción</span>
+          <span class="caso-card-title">Caminos vecinales</span>
+          <span class="caso-card-lugar">📍 Cutupú, Jarumucú y El Puñal, Vallejuelo</span>
+        </button>
+        <button type="button" class="caso-card" data-caso="ministerio">
+          <span class="caso-card-icon">💻</span>
+          <span class="caso-card-sector">Tecnología</span>
+          <span class="caso-card-title">Modernización institucional</span>
+          <span class="caso-card-lugar">📍 Dirección Regional Sur</span>
+        </button>
       </div>
-      <div class="alert gold" id="p1_caso_desc">Seleccione un caso arriba para ver su descripción completa aquí.</div>
+      <div class="alert gold" id="p1_caso_desc">👆 Toque una tarjeta arriba para comenzar su misión y ver aquí la descripción completa del caso.</div>
 
       <div class="field">
         <label for="p1_antes">Si el proyecto de su caso se hubiera decidido bajo el sistema ANTERIOR a 2006 (Ley 55 de 1965), ¿qué problemas concretos podría haber tenido? <span class="wc" data-for="p1_antes">0 palabras</span></label>
@@ -1222,37 +1263,47 @@ var STEP_FIELDS = {
 /* ---------- CASOS PRECARGADOS (para no obligar a inventar un ejemplo propio) ---------- */
 var CASOS = {
   inapa: {
-    institucion: 'INAPA (Instituto Nacional de Aguas Potables y Alcantarillados)',
-    proyecto: 'Acueducto rural',
-    texto: 'Una comunidad rural de unas 800 familias presenta desde hace años una alta incidencia de enfermedades gastrointestinales, sobre todo en niños. La causa identificada es que el agua que consumen proviene de pozos y cañadas sin ningún tratamiento. La comunidad ha pedido, por años, la construcción de un acueducto con planta de tratamiento, pero el proyecto nunca se ha priorizado formalmente dentro del sistema.'
+    institucion: 'INAPA — Oficina Regional Sur (Barahona)',
+    proyecto: 'Acueducto rural para La Ciénaga',
+    texto: 'Contexto: La Ciénaga es una comunidad rural de la provincia Barahona, en la región Sur, con cerca de 800 familias dedicadas principalmente a la agricultura de subsistencia. Antecedentes: desde hace más de una década, el abastecimiento de agua depende de pozos artesanales y de una cañada cercana, sin ningún tipo de tratamiento ni cloración. Diagnóstico: el centro de salud local reporta que las enfermedades gastrointestinales, sobre todo en niños menores de cinco años, se mantienen entre las tres primeras causas de consulta durante todo el año, y se agravan en la temporada de lluvias por la contaminación de las fuentes superficiales. Actores clave: la comunidad, organizada en una junta de vecinos, ha solicitado en reiteradas ocasiones ante el ayuntamiento y ante INAPA la construcción de un acueducto con planta de tratamiento, pero el proyecto nunca ha sido formalmente priorizado ni incorporado a un instrumento de planificación.'
   },
   hospital: {
-    institucion: 'Hospital público regional',
+    institucion: 'Hospital Municipal de El Cercado (San Juan)',
     proyecto: 'Remozamiento de la sala de maternidad',
-    texto: 'Un hospital público regional atiende un promedio de 40 partos mensuales en una sala de maternidad construida hace 30 años, con equipos médicos obsoletos y capacidad insuficiente para la demanda actual. El personal médico reporta que la infraestructura limita la calidad de la atención y aumenta el riesgo en partos complicados.'
+    texto: 'Contexto: El Cercado es un municipio de la provincia San Juan, en la región Sur, cuyo hospital municipal es el único centro de referencia para varias secciones rurales de los alrededores. Antecedentes: la sala de maternidad fue construida hace 30 años y no ha recibido una intervención mayor desde entonces. Diagnóstico: el centro atiende un promedio de 40 partos mensuales, con equipos médicos obsoletos, capacidad física insuficiente para la demanda actual, y sin un área separada para atender complicaciones obstétricas. Actores clave: el personal médico y de enfermería reporta que las condiciones de infraestructura limitan la calidad de la atención y aumentan el riesgo en partos complicados, mientras que las autoridades de salud regionales han señalado este centro como prioritario en sus diagnósticos internos, sin que hasta ahora se haya formulado un proyecto de inversión pública formal.'
   },
   ayuntamiento: {
-    institucion: 'Ayuntamiento municipal',
-    proyecto: 'Rehabilitación de caminos vecinales',
-    texto: 'Un municipio tiene 15 kilómetros de caminos vecinales que se vuelven intransitables en la temporada de lluvias, aislando a varias comunidades rurales de la cabecera municipal. Esto afecta el traslado de estudiantes a la escuela, el acceso a atención médica de emergencia, y la salida de la producción agrícola local hacia el mercado.'
+    institucion: 'Ayuntamiento Municipal de Vallejuelo (San Juan)',
+    proyecto: 'Rehabilitación de los caminos vecinales de Cutupú, Jarumucú y El Puñal',
+    texto: 'Contexto: Cutupú, Jarumucú y El Puñal son tres secciones rurales del municipio de Vallejuelo, provincia San Juan, en la Sierra de Neiba, dedicadas principalmente al cultivo de habichuela y guandul. Antecedentes: los aproximadamente 15 kilómetros de caminos vecinales que conectan estas comunidades con la carretera principal nunca han recibido una intervención formal de pavimentación o drenaje. Diagnóstico: en la temporada de lluvias, los caminos se vuelven intransitables durante semanas, lo que aísla a cerca de 1,200 habitantes de la cabecera municipal. Esto afecta directamente el traslado diario de los estudiantes a la escuela, el acceso oportuno a atención médica de emergencia, y la salida de la producción agrícola local hacia los mercados de San Juan de la Maguana. Actores clave: los munícipes, a través de sus juntas de vecinos, han planteado esta necesidad en los presupuestos participativos municipales de los últimos años, sin que el ayuntamiento haya logrado priorizarla dentro de su cartera de inversión.'
   },
   ministerio: {
-    institucion: 'Ministerio o dirección general',
-    proyecto: 'Modernización de un sistema de información institucional',
-    texto: 'Una dirección general dentro de un ministerio gestiona sus trámites internos (licencias, certificados, correspondencia) de forma manual, en papel, repartidos entre varias oficinas que no comparten información entre sí. Esto genera demoras de semanas en trámites que deberían resolverse en días, y dificulta cualquier seguimiento o rendición de cuentas sobre el estado de cada expediente.'
+    institucion: 'Dirección Regional Sur de un Ministerio (sede en San Juan de la Maguana)',
+    proyecto: 'Modernización del sistema de información institucional',
+    texto: 'Contexto: la Dirección Regional Sur de un ministerio, con sede en San Juan de la Maguana, atiende trámites de varias provincias vecinas (San Juan, Elías Piña, Azua). Antecedentes: desde su creación, la dirección ha gestionado sus trámites internos (licencias, certificados, correspondencia) de forma manual y en papel, repartidos entre varias oficinas que no comparten información entre sí. Diagnóstico: un trámite que en teoría debería resolverse en 5 días hábiles toma, en la práctica, entre 3 y 6 semanas, según reportes de los propios usuarios y de auditorías internas recientes. Actores clave: el personal técnico de la dirección reconoce que la falta de un sistema de información integrado dificulta cualquier seguimiento o rendición de cuentas sobre el estado real de cada expediente, y ha solicitado en varias ocasiones a la sede central una modernización tecnológica de sus procesos.'
   },
   escuela: {
-    institucion: 'Institución educativa pública (Ministerio de Educación)',
-    proyecto: 'Construcción y rehabilitación de una escuela rural',
-    texto: 'Una escuela rural fue construida hace más de 25 años y hoy tiene aulas en mal estado estructural, sin electricidad estable ni baños suficientes. Con el crecimiento de la población escolar de la zona, la escuela ya no tiene capacidad para todos los estudiantes, y varios niños deben caminar más de una hora hacia el centro educativo más cercano con espacio disponible.'
+    institucion: 'Escuela Básica Rural de Guananico (Puerto Plata) — Ministerio de Educación',
+    proyecto: 'Construcción y rehabilitación de la escuela rural',
+    texto: 'Contexto: Guananico es un municipio de la provincia Puerto Plata, en la región Norte, cuya escuela básica rural es el único centro educativo disponible para varias comunidades de los alrededores. Antecedentes: la edificación fue construida hace más de 25 años y no ha recibido mantenimiento estructural mayor desde entonces. Diagnóstico: hoy presenta aulas con daños estructurales visibles, sin electricidad estable, y con baños insuficientes para la matrícula actual. Con el crecimiento de la población escolar de la zona en los últimos años, la escuela ya no tiene capacidad para todos los estudiantes en edad de asistir, y varios niños deben caminar más de una hora hacia el centro educativo más cercano con espacio disponible. Actores clave: la asociación de padres, madres y amigos de la escuela (APMAE) ha documentado esta situación ante el distrito educativo, que a su vez la ha remitido a la sede central del Ministerio de Educación como parte de su diagnóstico de infraestructura escolar pendiente.'
   }
 };
 document.getElementById('p1_caso').addEventListener('change', function(){
   var c = CASOS[this.value];
   var box = document.getElementById('p1_caso_desc');
-  if(!c){ box.textContent = 'Seleccione un caso arriba para ver su descripción completa aquí.'; return; }
-  box.innerHTML = '<strong>' + c.institucion + ' — ' + c.proyecto + '.</strong> ' + c.texto;
+  document.querySelectorAll('.caso-card').forEach(function(card){
+    card.classList.toggle('selected', card.getAttribute('data-caso') === this.value);
+  }.bind(this));
+  if(!c){ box.innerHTML = '👆 Toque una tarjeta arriba para comenzar su misión y ver aquí la descripción completa del caso.'; return; }
+  box.innerHTML = '<strong>🎯 Su misión: ' + c.institucion + ' — ' + c.proyecto + '.</strong><br>' + c.texto;
   saveAll();
+});
+document.querySelectorAll('.caso-card').forEach(function(card){
+  card.addEventListener('click', function(){
+    var sel = document.getElementById('p1_caso');
+    sel.value = card.getAttribute('data-caso');
+    sel.dispatchEvent(new Event('change'));
+  });
 });
 
 /* ---------- MODALIDAD: INDIVIDUAL O EN EQUIPO ---------- */
