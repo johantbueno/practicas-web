@@ -26,6 +26,15 @@
             "puntos": "100 pts",
             "aprobacion": "70% mínimo",
             "url": "https://johantbueno.github.io/practicas-web/innovacion-digital-cesac-m3/"
+          },
+          {
+            "badge": "Proyecto Final",
+            "titulo": "Propuesta de Transformación Digital para el CESAC",
+            "desc": "Diagnóstico, solución digital, beneficios, plan ágil y consideraciones éticas para un proceso real del CESAC. Culmina los 4 módulos del curso. Individual.",
+            "duracion": "60 minutos sugeridos",
+            "puntos": "100 pts",
+            "aprobacion": "70% mínimo",
+            "url": "https://johantbueno.github.io/practicas-web/innovacion-digital-cesac-final/"
           }
         ]
       },
