@@ -1099,13 +1099,16 @@ function tickTimer(){
       // min, pero el audio antes sonaba los 10 minutos completos y Johan
       // pidio restringirlo a solo el ultimo minuto (2026-07-21). Ambos se
       // aceleran juntos de ~2s a ~250-350ms segun se acerca a cero.
+            // Curva cubica: arranca muy espaciada (~3-3.5s) y solo se
+      // intensifica de verdad en el ultimo minuto (2026-07-28).
       var pctMin = remaining / (5 * 60000);
-      var interval = 250 + pctMin * 1750;
+      var eased = Math.pow(1 - pctMin, 3);
+      var interval = 3000 - eased * 2750;
       if(now - lastBeepAt > interval){
         lastBeepAt = now;
         playBeep(920, 0.08, 0.14);
       }
-      var stabInterval = 350 + pctMin * 1650;
+      var stabInterval = 3500 - eased * 3150;
       if(now - lastStabAt > stabInterval){
         lastStabAt = now;
         playAnguishStab();

@@ -1555,15 +1555,18 @@ function tickTimer(){
 
     var criticalMode = remaining <= 10 * 60000;
     wrapEl.classList.toggle('low', criticalMode);
-    var lastMinute = remaining <= 60000;
+    var lastMinute = remaining <= 5 * 60000;
     if(lastMinute){
-      var pctMin = remaining / 60000;
-      var interval = 250 + pctMin * 1750;
+            // Curva cubica: arranca muy espaciada (~3-3.5s) y solo se
+      // intensifica de verdad en el ultimo minuto (2026-07-28).
+      var pctMin = remaining / (5 * 60000);
+      var eased = Math.pow(1 - pctMin, 3);
+      var interval = 3000 - eased * 2750;
       if(now - lastBeepAt > interval){
         lastBeepAt = now;
         playBeep(920, 0.08, 0.14);
       }
-      var stabInterval = 350 + pctMin * 1650;
+      var stabInterval = 3500 - eased * 3150;
       if(now - lastStabAt > stabInterval){
         lastStabAt = now;
         playAnguishStab();
