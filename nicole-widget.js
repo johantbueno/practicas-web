@@ -43,7 +43,7 @@
 
   var header = el('div', 'background:linear-gradient(135deg,#C98B4F,#8B5A2B);color:white;padding:0 15px;font-family:Arial,sans-serif;font-weight:bold;display:flex;justify-content:space-between;align-items:center;height:50px;box-sizing:border-box;flex-shrink:0;', container);
   var headerTitle = el('span', '', header);
-  headerTitle.textContent = '🐶 Nicole - Tutor Virtual';
+  headerTitle.textContent = '🐶 NIKO - Tutor Virtual';
   var closeBtn = el('span', 'cursor:pointer;font-size:18px;color:#ffe1cc;font-weight:bold;', header);
   closeBtn.textContent = '✖';
   closeBtn.onclick = toggleTutorVirtual;
@@ -66,7 +66,7 @@
       container.style.display = 'flex';
       if(!tv_opened){
         tv_opened = true;
-        tvAppend('¡Guau! 🐶 Soy Nicole, tu asistente virtual. Pregúntame lo que quieras sobre el curso.', false);
+        tvAppend('¡Guau! 🐶 Soy NIKO, tu asistente virtual. Pregúntame lo que quieras sobre el curso.', false);
       }
     } else {
       container.style.display = 'none';
