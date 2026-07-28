@@ -1757,7 +1757,8 @@ document.getElementById('medal-share').addEventListener('click', function(){
 
 /* ---------- EXPORT / PRINT / CLEAR ---------- */
 function exportTxt(){
-  var lines = ['PRÁCTICA — UNIDAD I: El Sistema Nacional de Planificación e Inversión Pública (CAPGEFI)', (modoSelect.value === 'grupo' ? 'Equipo' : 'Nombre') + ': ' + (nombreIdentificacion() || '(sin especificar)'), 'Institución: ' + (val('p1_institucion') || '(sin especificar)'), '======================================================', ''];
+  var casoSel = CASOS[val('p1_caso')];
+  var lines = ['PRÁCTICA — UNIDAD I: El Sistema Nacional de Planificación e Inversión Pública (CAPGEFI)', (modoSelect.value === 'grupo' ? 'Equipo' : 'Nombre') + ': ' + (nombreIdentificacion() || '(sin especificar)'), 'Caso: ' + (casoSel ? (casoSel.institucion + ' — ' + casoSel.proyecto) : '(sin especificar)'), '======================================================', ''];
   allFieldIds().forEach(function(id){
     var v = val(id);
     if(!filled(v)) return;
