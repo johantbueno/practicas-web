@@ -1,5 +1,31 @@
 [
   {
+    "nombre": "CAPGEFI — Centro de Capacitación en Política y Gestión Fiscal",
+    "icono": "🏛️",
+    "cursos": [
+      {
+        "nombre": "Diplomado en Hacienda e Inversión Pública — Fundamentos de Planificación y Gestión de la Inversión Pública del Estado",
+        "icono": "🏛️",
+        "tipoClase": "secuencial",
+        "tipoLabel": "Curso secuencial · 5 unidades",
+        "esSecuencial": true,
+        "cursoId": "hacienda-inversion-publica",
+        "practicas": [
+          {
+            "badge": "Unidad I",
+            "unidad": "u1",
+            "titulo": "El Sistema Nacional de Planificación e Inversión Pública en la República Dominicana",
+            "desc": "Origen del SNPIP, principios rectores, ámbitos de aplicación, procesos de planificación y monitoreo/evaluación, aplicados a un proyecto de inversión pública real. Incluye la actualización de la Ley 45-25 (fusión Hacienda-MEPyD). Individual o en equipo.",
+            "duracion": "5 pasos · aproximadamente 1 hora, individual o en equipo",
+            "puntos": "100 pts (retroalimentación)",
+            "aprobacion": "Completar los 5 pasos",
+            "url": "https://johantbueno.github.io/practicas-web/hacienda-inversion-u1/"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "nombre": "INFOTEP — Instituto Nacional de Formación Técnico Profesional",
     "icono": "✈️",
     "cursos": [
