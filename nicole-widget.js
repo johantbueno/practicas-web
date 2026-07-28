@@ -36,45 +36,38 @@
   btn.innerHTML =
     '<svg viewBox="0 0 100 100" width="70" height="70" style="display:block;">' +
       '<defs>' +
-        '<radialGradient id="tvFur" cx="40%" cy="30%" r="75%">' +
-          '<stop offset="0%" stop-color="#3d3d3d"/>' +
-          '<stop offset="100%" stop-color="#0a0a0a"/>' +
-        '</radialGradient>' +
-        '<radialGradient id="tvFace" cx="40%" cy="25%" r="75%">' +
-          '<stop offset="0%" stop-color="#454545"/>' +
-          '<stop offset="100%" stop-color="#161616"/>' +
+        '<radialGradient id="tvFur" cx="40%" cy="25%" r="80%">' +
+          '<stop offset="0%" stop-color="#8b95a8"/>' +
+          '<stop offset="100%" stop-color="#4a5266"/>' +
         '</radialGradient>' +
         '<linearGradient id="tvTan" x1="0%" y1="0%" x2="0%" y2="100%">' +
-          '<stop offset="0%" stop-color="#E3A868"/>' +
-          '<stop offset="100%" stop-color="#B97A3E"/>' +
+          '<stop offset="0%" stop-color="#E8B870"/>' +
+          '<stop offset="100%" stop-color="#C9924A"/>' +
         '</linearGradient>' +
       '</defs>' +
-      '<circle cx="50" cy="56" r="42" fill="url(#tvFur)"/>' +
+      '<circle cx="50" cy="58" r="40" fill="url(#tvTan)"/>' +
       '<g id="tv-ear-l">' +
-        '<path d="M 26 44 C 14 36, 5 18, 9 6 C 11 1, 20 1, 24 8 C 32 20, 36 34, 36 44 Z" fill="#0a0a0a" stroke="#FFFBF5" stroke-width="1.5"/>' +
-        '<path d="M 27 42 C 20 36, 13 21, 16 11 C 18 6, 23 6, 25 12 C 29 22, 33 34, 33 42 Z" fill="#3a3a3a"/>' +
+        '<path d="M 34 34 C 26 20, 22 6, 30 4 C 38 4, 42 18, 42 32 Z" fill="url(#tvFur)" stroke="#3a4152" stroke-width="1"/>' +
       '</g>' +
       '<g id="tv-ear-r">' +
-        '<path d="M 74 44 C 86 36, 95 18, 91 6 C 89 1, 80 1, 76 8 C 68 20, 64 34, 64 44 Z" fill="#0a0a0a" stroke="#FFFBF5" stroke-width="1.5"/>' +
-        '<path d="M 73 42 C 80 36, 87 21, 84 11 C 82 6, 77 6, 75 12 C 71 22, 67 34, 67 42 Z" fill="#3a3a3a"/>' +
+        '<path d="M 66 34 C 74 20, 78 6, 70 4 C 62 4, 58 18, 58 32 Z" fill="url(#tvFur)" stroke="#3a4152" stroke-width="1"/>' +
       '</g>' +
-      '<ellipse cx="50" cy="58" rx="34" ry="29" fill="url(#tvFace)"/>' +
-      '<path d="M 24 44 Q 30 38 38 42 Q 32 46 28 52 Z" fill="url(#tvTan)" opacity="0.9"/>' +
-      '<path d="M 76 44 Q 70 38 62 42 Q 68 46 72 52 Z" fill="url(#tvTan)" opacity="0.9"/>' +
-      '<ellipse cx="27" cy="58" rx="9" ry="8" fill="url(#tvTan)" opacity="0.85"/>' +
-      '<ellipse cx="73" cy="58" rx="9" ry="8" fill="url(#tvTan)" opacity="0.85"/>' +
-      '<g id="tv-eye-l"><circle cx="38" cy="52" r="6.5" fill="#000"/><circle cx="40" cy="50" r="1.8" fill="#fff"/></g>' +
-      '<g id="tv-eye-r"><circle cx="62" cy="52" r="6.5" fill="#000"/><circle cx="64" cy="50" r="1.8" fill="#fff"/></g>' +
-      '<path d="M 30 46 Q 38 42 44 46" stroke="#000" stroke-width="1.6" fill="none" stroke-linecap="round" opacity="0.5"/>' +
-      '<path d="M 70 46 Q 62 42 56 46" stroke="#000" stroke-width="1.6" fill="none" stroke-linecap="round" opacity="0.5"/>' +
-      '<ellipse cx="50" cy="68" rx="16" ry="12" fill="url(#tvTan)"/>' +
-      '<path d="M 44 62 Q 50 58 56 62" stroke="#8a5a2e" stroke-width="1.2" fill="none" opacity="0.6"/>' +
-      '<ellipse cx="50" cy="65" rx="7" ry="5" fill="#0a0a0a"/>' +
-      '<ellipse cx="47" cy="63.5" rx="1.1" ry="0.8" fill="#3a3a3a"/>' +
-      '<ellipse cx="53" cy="63.5" rx="1.1" ry="0.8" fill="#3a3a3a"/>' +
-      '<path d="M 50 70 Q 44 74 42 79 Q 50 77 50 70" stroke="#5a3a1e" stroke-width="1" fill="none" opacity="0.5"/>' +
-      '<path d="M 50 70 Q 56 74 58 79 Q 50 77 50 70" stroke="#5a3a1e" stroke-width="1" fill="none" opacity="0.5"/>' +
-      '<path id="tv-tongue" d="M 46 76 Q 50 90 54 76 Q 50 80 46 76 Z" fill="#e8768a"/>' +
+      '<path d="M 16 44 C 12 30, 20 16, 34 14 C 30 24, 27 34, 28 46 Z" fill="url(#tvFur)"/>' +
+      '<path d="M 84 44 C 88 30, 80 16, 66 14 C 70 24, 73 34, 72 46 Z" fill="url(#tvFur)"/>' +
+      '<path d="M 22 20 C 32 8, 68 8, 78 20 C 82 28, 80 38, 74 42 C 68 30, 60 24, 50 24 C 40 24, 32 30, 26 42 C 20 38, 18 28, 22 20 Z" fill="url(#tvFur)"/>' +
+      '<ellipse cx="50" cy="62" rx="26" ry="24" fill="url(#tvTan)"/>' +
+      '<g id="tv-eye-l"><circle cx="40" cy="56" r="6" fill="#1a1208"/><circle cx="42" cy="54" r="1.6" fill="#fff"/></g>' +
+      '<g id="tv-eye-r"><circle cx="60" cy="56" r="6" fill="#1a1208"/><circle cx="62" cy="54" r="1.6" fill="#fff"/></g>' +
+      '<path d="M 30 50 Q 38 44 46 49" stroke="#6b4a1e" stroke-width="1.6" fill="none" stroke-linecap="round" opacity="0.55"/>' +
+      '<path d="M 70 50 Q 62 44 54 49" stroke="#6b4a1e" stroke-width="1.6" fill="none" stroke-linecap="round" opacity="0.55"/>' +
+      '<path d="M 40 66 C 38 78, 42 88, 50 90 C 58 88, 62 78, 60 66 C 56 72, 44 72, 40 66 Z" fill="#F6E3C6"/>' +
+      '<ellipse cx="50" cy="70" rx="6" ry="4.5" fill="#0a0a0a"/>' +
+      '<path d="M 50 74 L 50 80" stroke="#5a3a1e" stroke-width="1.2" opacity="0.6"/>' +
+      '<path d="M 50 80 Q 45 84 42 88" stroke="#5a3a1e" stroke-width="1" fill="none" opacity="0.5"/>' +
+      '<path d="M 50 80 Q 55 84 58 88" stroke="#5a3a1e" stroke-width="1" fill="none" opacity="0.5"/>' +
+      '<path id="tv-tongue" d="M 46 84 Q 50 96 54 84 Q 50 88 46 84 Z" fill="#e8768a"/>' +
+      '<path d="M 44 10 C 44 4, 56 4, 56 10 C 56 15, 51 15, 50 12 C 49 15, 44 15, 44 10 Z" fill="#C41E3A"/>' +
+      '<circle cx="50" cy="11" r="2.2" fill="#8f1428"/>' +
     '</svg>';
 
   var container = el('div', 'display:none;position:fixed;bottom:98px;right:20px;width:380px;height:600px;max-height:80vh;background:#FFFBF5;border-radius:16px;box-shadow:0px 4px 20px rgba(0,0,0,0.25);z-index:999999;overflow:hidden;border:1px solid #E8C39E;flex-direction:column;', document.body);
