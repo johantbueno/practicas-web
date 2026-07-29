@@ -343,8 +343,8 @@
           {
             "badge": "Módulo IV",
             "titulo": "Investigación del Delito Financiero",
-            "desc": "Auditoría forense, análisis de asientos contables, fraudes a estados financieros, malversación de activos, conflictos de interés y soborno, y lavado de dinero — con ejemplos aplicados a República Dominicana (DGII, UAF, Ley 155-17). 10 preguntas de opción múltiple, calificación instantánea.",
-            "duracion": "10 preguntas · aproximadamente 15 minutos",
+            "desc": "Caso aplicado (Grupo Comercial Antillas, S.A.) de auditoría forense, análisis de asientos contables, fraude a estados financieros, malversación de activos, conflictos de interés, soborno y lavado de dinero — con marco legal de República Dominicana (Ley 155-17, Ley 448-06, DGII). Incluye a Nicole y calificación automática preliminar.",
+            "duracion": "5 secciones · aproximadamente 45 minutos, individual",
             "puntos": "100 pts",
             "aprobacion": "70% para aprobar",
             "url": "https://johantbueno.github.io/practicas-web/auditoria-forense-modulo-iv/"

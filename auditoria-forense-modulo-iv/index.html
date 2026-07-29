@@ -2,242 +2,1756 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Práctica Autocalificable — Módulo IV: Investigación del Delito Financiero</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Práctica: Investigación del Delito Financiero | Módulo IV</title>
+<meta name="description" content="Práctica autocalificable del Módulo IV — Investigación del Delito Financiero, Diplomado en Auditoría Forense y Gestión Avanzada del Fraude Corporativo. Caso aplicado con contexto de República Dominicana, con Nicole y calificación automática preliminar.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9A%96%EF%B8%8F%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --azul:#0b1f3a; --azul2:#163a63; --dorado:#c9a227; --gris:#4a4a4a; --verde:#1e7d3c; --rojo:#b3261e;
-  }
-  *{box-sizing:border-box;}
-  body{
-    font-family:'Segoe UI', Calibri, Arial, sans-serif;
-    background:linear-gradient(180deg,#0b1f3a 0%,#163a63 320px,#f4f6f9 320px);
-    margin:0; padding:0; color:#1c1c1c;
-  }
-  .wrap{max-width:840px; margin:0 auto; padding:24px 20px 60px;}
-  header{color:#fff; padding:30px 4px 20px;}
-  header .kicker{color:var(--dorado); font-weight:700; letter-spacing:.06em; font-size:.8rem; text-transform:uppercase;}
-  header h1{font-size:1.7rem; margin:.3rem 0 .2rem;}
-  header p{color:#c9d6e8; margin:0; font-size:.95rem;}
-  .card{background:#fff; border-radius:14px; box-shadow:0 6px 24px rgba(11,31,58,.10); padding:22px 24px; margin-bottom:18px; border:1px solid #e6e9ef;}
-  .meta{display:flex; gap:18px; flex-wrap:wrap; margin-bottom:6px;}
-  .meta span{background:#eef2f8; color:var(--azul2); font-size:.82rem; padding:5px 10px; border-radius:8px; font-weight:600;}
-  .q{font-weight:700; margin:0 0 10px; font-size:1.02rem;}
-  .opt{display:block; padding:10px 12px; margin:6px 0; border:1.5px solid #dde3ec; border-radius:10px; cursor:pointer; transition:.15s;}
-  .opt:hover{border-color:var(--dorado); background:#fffaf0;}
-  .opt input{margin-right:10px;}
-  .opt.correct{border-color:var(--verde); background:#eaf7ee;}
-  .opt.incorrect{border-color:var(--rojo); background:#fbeceb;}
-  .fb{display:none; margin-top:10px; font-size:.88rem; padding:10px 12px; border-radius:8px; background:#f4f6f9; color:var(--gris);}
-  .fb.show{display:block;}
-  #submitBtn{
-    display:block; width:100%; padding:16px; margin-top:10px; background:var(--azul); color:#fff;
-    border:none; border-radius:12px; font-size:1.05rem; font-weight:700; cursor:pointer; letter-spacing:.02em;
-  }
-  #submitBtn:hover{background:var(--azul2);}
-  #resultado{display:none; text-align:center; padding:26px; border-radius:14px; margin-top:20px;}
-  #resultado h2{margin:0 0 8px; font-size:1.6rem;}
-  .aprobado{background:#eaf7ee; border:2px solid var(--verde); color:#155c29;}
-  .reprobado{background:#fbeceb; border:2px solid var(--rojo); color:#7d211b;}
-  .barra{height:12px; background:#e6e9ef; border-radius:8px; overflow:hidden; margin:14px 0;}
-  .barra-fill{height:100%; background:linear-gradient(90deg,var(--dorado),#e0b93a); width:0%; transition:width .8s ease;}
-  footer{text-align:center; color:#8a94a6; font-size:.8rem; margin-top:30px;}
+:root{
+  --navy:#0b1f3a; --navy-dark:#081326; --gold:#c9a227;
+  --primary:#0f172a; --secondary:#334155; --muted:#64748b;
+  --bg-body:#f4f7fb; --bg-card:#ffffff; --border-light:#e2e8f0; --border-dark:#cbd5e1;
+  --green:#16a34a; --green-bg:#f0fdf4; --green-border:#22c55e;
+  --amber:#b45309; --amber-bg:#fffbeb; --amber-border:#f59e0b;
+  --red:#b91c1c; --red-bg:#fef2f2; --red-border:#ef4444;
+  --blue-bg:#eff6ff; --blue-border:#3b82f6;
+  --radius-lg:16px; --radius-md:12px; --radius-sm:8px;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.06);
+  --shadow-md:0 4px 6px -1px rgba(0,0,0,.1), 0 2px 4px -2px rgba(0,0,0,.1);
+  --shadow-lg:0 10px 15px -3px rgba(0,0,0,.12), 0 4px 6px -4px rgba(0,0,0,.1);
+  --sidebar-w:300px;
+}
+[data-theme="dark"]{
+  --navy:#5b9bd8; --primary:#f1f5f9; --secondary:#cbd5e1; --muted:#94a3b8;
+  --bg-body:#0b1220; --bg-card:#151f2f; --border-light:#283249; --border-dark:#3a4666;
+  --green-bg:#0c2417; --amber-bg:#2a2108; --red-bg:#2a1212; --blue-bg:#13233f;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.4); --shadow-md:0 4px 6px -1px rgba(0,0,0,.5); --shadow-lg:0 10px 15px -3px rgba(0,0,0,.5);
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{margin:0; background:var(--bg-body); color:var(--secondary); font-family:'Inter',ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif; line-height:1.7; transition:background-color .25s ease;}
+a{color:var(--navy);}
+.skip-link{position:absolute; left:-9999px; top:0; background:var(--navy); color:#fff; padding:.85rem 1.5rem; z-index:2000; border-radius:0 0 10px 0; font-weight:700; text-decoration:none;}
+.skip-link:focus{left:0;}
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible{outline:2px solid var(--navy); outline-offset:2px; border-radius:4px;}
+
+#progress-wrap{position:fixed; top:0; left:0; right:0; height:4px; z-index:1000; background:transparent;}
+#progress-bar{height:100%; width:0%; background:linear-gradient(90deg, var(--navy), var(--gold)); transition:width .1s linear;}
+
+.wrapper{display:flex; flex-direction:column; min-height:100vh; margin:0 auto;}
+@media (min-width:1024px){ .wrapper{flex-direction:row; align-items:flex-start; max-width:1440px; padding:0 1rem;} }
+
+/* SIDEBAR */
+.sidebar{background:var(--bg-card); padding:1.75rem 1.5rem; border-bottom:1px solid var(--border-light);}
+@media (min-width:1024px){
+  .sidebar{width:var(--sidebar-w); flex-shrink:0; position:sticky; top:1.5rem; height:calc(100vh - 3rem); overflow-y:auto; border-radius:var(--radius-lg); border:1px solid var(--border-light); box-shadow:var(--shadow-md); margin:1.5rem 0;}
+}
+.sidebar-header{display:flex; align-items:center; gap:10px; margin-bottom:1rem; padding-bottom:1rem; border-bottom:1px solid var(--border-light);}
+.sidebar-title{color:var(--primary); font-size:1.02rem; font-weight:800; text-transform:uppercase; letter-spacing:.04em; margin:0;}
+.header-actions{margin-left:auto; display:flex; gap:.4rem;}
+.icon-btn{background:none; border:1px solid var(--border-light); width:34px; height:34px; border-radius:8px; cursor:pointer; font-size:1rem; display:flex; align-items:center; justify-content:center; color:var(--secondary);}
+.icon-btn:hover{background:var(--bg-body); border-color:var(--border-dark);}
+.nav-toggle{display:none;}
+
+.progress-summary{margin-bottom:1.1rem;}
+.progress-summary-row{display:flex; justify-content:space-between; font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.03em; color:var(--muted); margin-bottom:.35rem;}
+#progress-count{color:var(--primary);}
+.progress-track{height:6px; border-radius:999px; background:var(--border-light); overflow:hidden;}
+.progress-fill{height:100%; width:0%; background:linear-gradient(90deg,var(--navy),var(--gold)); transition:width .3s ease;}
+.progress-fill.complete{background:linear-gradient(90deg,#16a34a,#22c55e);}
+
+.timer-box{background:var(--bg-body); border:1px solid var(--border-light); border-radius:var(--radius-md); padding:.85rem 1rem; margin-bottom:1.1rem; transition:background-color .3s ease, border-color .3s ease;}
+.timer-row{display:flex; justify-content:space-between; align-items:center; margin-bottom:.3rem;}
+.timer-label{font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.03em; color:var(--muted);}
+.timer-value{font-size:1.5rem; font-weight:800; color:var(--primary); font-family:ui-monospace,SFMono-Regular,Consolas,monospace; letter-spacing:.02em;}
+.timer-box.low{background:var(--red-bg); border-color:var(--red-border);}
+.timer-box.low .timer-value{color:var(--red); animation:timerPulse 1s ease-in-out infinite;}
+.timer-box.critical .timer-value{animation:timerPulse .5s ease-in-out infinite;}
+.timer-box.flatline{background:var(--bg-body); border-color:var(--border-dark);}
+.timer-box.flatline .timer-value{color:var(--muted); text-decoration:line-through;}
+#sound-toggle{width:28px; height:28px; font-size:.85rem; flex-shrink:0;}
+@keyframes timerPulse{0%,100%{opacity:1; transform:scale(1);} 50%{opacity:.55; transform:scale(1.05);}}
+#hearts-canvas{display:block; margin:.55rem auto 0;}
+@keyframes heartShake{0%,100%{transform:translateX(0);} 20%{transform:translateX(-2px);} 40%{transform:translateX(2px);} 60%{transform:translateX(-2px);} 80%{transform:translateX(2px);}}
+#hearts-canvas.critical{animation:heartShake .3s ease-in-out infinite;}
+.timer-box.overtime{background:var(--red-bg); border-color:var(--red-border);}
+.timer-box.overtime .timer-value{color:var(--red); animation:timerPulse .6s ease-in-out infinite;}
+.overtime-note{font-size:.66rem; color:var(--red); text-align:center; margin-top:.4rem; font-weight:700; line-height:1.3;}
+.fast-clock{width:26px; height:26px; border-radius:50%; border:2px solid var(--red); position:relative; margin:.55rem auto 0; display:none;}
+.timer-box.overtime .fast-clock{display:block;}
+.fast-clock-hand{position:absolute; top:50%; left:50%; width:2px; height:10px; background:var(--red); transform-origin:50% 100%; margin-top:-10px; margin-left:-1px; animation:fastSpin .4s linear infinite;}
+@keyframes fastSpin{ to{ transform:rotate(360deg); } }
+.card.cover{position:relative; overflow:hidden;}
+#cover-canvas{position:absolute; inset:0; width:100%; height:100%; opacity:.4; pointer-events:none;}
+.card.cover > *{position:relative; z-index:1;}
+.reveal-init{opacity:0; transform:translateY(18px); transition:opacity .6s cubic-bezier(.22,.9,.35,1), transform .6s cubic-bezier(.22,.9,.35,1);}
+.reveal-init.revealed{opacity:1; transform:translateY(0);}
+.btn-primary, .btn-secondary, .btn-block{position:relative; overflow:hidden; transition:transform .16s ease, box-shadow .16s ease, filter .16s ease;}
+.btn-primary:hover, .btn-secondary:hover, .btn-block:hover{transform:translateY(-2px);}
+.btn-primary:hover{box-shadow:var(--shadow-lg);}
+.btn-primary:active, .btn-secondary:active, .btn-block:active{transform:translateY(0) scale(.97);}
+.js-ripple{position:absolute; border-radius:50%; background:rgba(255,255,255,.55); transform:scale(0); animation:rippleAnim .6s ease-out forwards; pointer-events:none;}
+.btn-secondary .js-ripple, .btn-block .js-ripple{background:rgba(15,56,119,.18);}
+@keyframes rippleAnim{ to{ transform:scale(2.6); opacity:0; } }
+@media (prefers-reduced-motion: reduce){
+  .reveal-init{opacity:1; transform:none; transition:none;}
+  #cover-canvas{display:none;}
+  .btn-primary:hover, .btn-secondary:hover, .btn-block:hover, .btn-primary:active, .btn-secondary:active, .btn-block:active{transform:none;}
+  #hearts-canvas.critical{animation:none;}
+  .timer-box.overtime .timer-value{animation:none;}
+  .fast-clock-hand{animation:none;}
+}
+
+.nav ul{list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:.2rem;}
+.nav a{text-decoration:none; color:var(--muted); font-size:.9rem; font-weight:500; display:flex; align-items:center; justify-content:space-between; gap:.5rem; padding:.55rem .8rem; border-radius:var(--radius-sm); transition:all .2s ease;}
+.nav a:hover{background:var(--bg-body); color:var(--navy); transform:translateX(3px);}
+.nav a.active,.nav a.active:hover{background:var(--navy); color:#fff; transform:translateX(3px);}
+.nav a .pct{font-size:.68rem; font-weight:700; opacity:.75;}
+.nav a.done .pct::before{content:"✓ ";}
+
+.sidebar-actions{margin-top:1.25rem; padding-top:1.25rem; border-top:1px solid var(--border-light); display:flex; flex-direction:column; gap:.5rem;}
+.btn-block{width:100%; padding:.6rem .8rem; border-radius:var(--radius-sm); border:1px solid var(--border-light); background:var(--bg-body); color:var(--secondary); font-weight:600; font-size:.82rem; cursor:pointer; font-family:inherit;}
+.btn-block:hover{border-color:var(--navy); color:var(--navy);}
+
+@media (max-width:1023px){
+  .sidebar-collapsible{display:none;}
+  .sidebar.open .sidebar-collapsible{display:block;}
+  .nav-toggle{display:inline-flex;}
+  .sidebar-header{flex-wrap:wrap; row-gap:.6rem;}
+  .header-actions{flex-basis:100%; justify-content:flex-end; margin-left:0;}
+  .icon-btn{width:40px; height:40px;}
+  .fontsize-controls button{width:38px; height:38px;}
+}
+
+/* MAIN */
+.main{flex:1; padding:1.75rem 1rem 6.5rem; max-width:980px; margin:0 auto; width:100%;}
+@media (min-width:1024px){ .main{padding:1.75rem 2.5rem 5.5rem;} }
+
+.card.cover{background:linear-gradient(135deg,var(--navy),var(--navy-dark)); color:#fff; border-radius:var(--radius-lg); padding:2.5rem; margin-bottom:2rem; box-shadow:var(--shadow-lg);}
+.cover .eyebrow{text-transform:uppercase; letter-spacing:.08em; font-size:.78rem; font-weight:700; opacity:.85;}
+.cover h1{font-size:1.9rem; font-weight:800; margin:.4rem 0 .3rem; line-height:1.25;}
+.cover p.sub{margin:0 0 1.25rem; opacity:.92; font-size:1rem;}
+.cover-chips{display:flex; flex-wrap:wrap; gap:.6rem; margin-top:1.1rem;}
+.cover-chip{background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.22); border-radius:999px; padding:.4rem .9rem; font-size:.8rem; font-weight:600; letter-spacing:.01em;}
+.tutorial-steps{counter-reset:tut; list-style:none; padding:0; margin:1rem 0;}
+.tutorial-steps li{counter-increment:tut; position:relative; padding:.15rem 0 .9rem 2.5rem; font-size:.92rem;}
+.tutorial-steps li::before{content:counter(tut); position:absolute; left:0; top:0; width:1.7rem; height:1.7rem; border-radius:50%; background:var(--navy); color:#fff; font-weight:800; font-size:.8rem; display:flex; align-items:center; justify-content:center;}
+.help-box{display:flex; align-items:center; gap:.9rem; background:var(--blue-bg); border:1px solid var(--blue-border); border-radius:var(--radius-md); padding:1rem 1.25rem; margin-top:1.25rem;}
+.help-box a.btn-secondary{white-space:nowrap;}
+
+.card{background:var(--bg-card); padding:2rem; border-radius:var(--radius-lg); box-shadow:var(--shadow-sm); border:1px solid var(--border-light); margin-bottom:2rem; scroll-margin-top:1.25rem;}
+@media (max-width:640px){ .card{padding:1.35rem;} }
+.card.cover, .card.cover h1{color:#fff;}
+.card h1{font-size:1.7rem; font-weight:800; color:var(--primary); margin:0 0 1.1rem;}
+.card h2{font-size:1.2rem; font-weight:700; color:var(--navy); margin:1.75rem 0 .9rem; padding-bottom:.5rem; border-bottom:1px solid var(--border-light);}
+.card h2:first-child{margin-top:0;}
+.card h3{font-size:1.02rem; font-weight:700; color:var(--primary); margin:1.4rem 0 .7rem;}
+.card p{margin:0 0 1rem;}
+.step-badge{display:inline-flex; align-items:center; gap:.4rem; background:var(--blue-bg); color:var(--navy); border:1px solid var(--blue-border); font-weight:700; font-size:.72rem; text-transform:uppercase; letter-spacing:.04em; padding:.3rem .7rem; border-radius:999px; margin-bottom:.9rem;}
+
+.alert{border-radius:var(--radius-md); padding:1rem 1.25rem; margin:1rem 0; border:1px solid; font-size:.92rem;}
+.alert h3,.alert h4{margin-top:0;}
+.alert.info{background:var(--blue-bg); border-color:var(--blue-border);}
+.alert.gold{background:var(--amber-bg); border-color:var(--amber-border);}
+.alert.success{background:var(--green-bg); border-color:var(--green-border);}
+.alert.warn{background:var(--red-bg); border-color:var(--red-border);}
+
+.tbl-wrap{overflow-x:auto; margin:1rem 0; border-radius:var(--radius-sm); border:1px solid var(--border-light);}
+table.tp-table{width:100%; border-collapse:collapse; font-size:.87rem; min-width:560px;}
+table.tp-table th{background:var(--navy); color:#fff; text-align:left; padding:.6rem .7rem; font-weight:700; font-size:.78rem; text-transform:uppercase; letter-spacing:.02em;}
+table.tp-table td{padding:.55rem .7rem; border-top:1px solid var(--border-light); vertical-align:top;}
+table.tp-table tr:nth-child(even) td{background:var(--bg-body);}
+table.tp-table td.label-cell{font-weight:700; color:var(--primary); white-space:nowrap;}
+
+.field{margin-bottom:1rem;}
+.field label{display:flex; justify-content:space-between; align-items:baseline; gap:.5rem; font-weight:700; font-size:.82rem; color:var(--primary); margin-bottom:.35rem;}
+.field .wc{font-weight:600; font-size:.7rem; color:var(--muted); white-space:nowrap;}
+.field .wc.ok{color:var(--green);}
+.hint{font-size:.78rem; color:var(--muted); margin:-.2rem 0 .5rem;}
+input[type=text], input[type=email], select, textarea{
+  width:100%; padding:.55rem .75rem; border:1px solid var(--border-light); border-radius:var(--radius-sm);
+  font-size:1rem; font-family:inherit; background:var(--bg-card); color:var(--primary); transition:border-color .15s ease;
+}
+[data-theme="dark"] input, [data-theme="dark"] select, [data-theme="dark"] textarea{background:#0f1830;}
+input:focus, select:focus, textarea:focus{border-color:var(--navy); outline:none;}
+textarea{min-height:76px; resize:vertical;}
+textarea.tall{min-height:180px;}
+.field-grid{display:grid; grid-template-columns:1fr 1fr; gap:.9rem;}
+@media (max-width:640px){ .field-grid{grid-template-columns:1fr;} }
+
+.step-points{float:right; background:var(--gold); color:#3a2a00; font-weight:800; font-size:.72rem; padding:.25rem .6rem; border-radius:999px;}
+
+.evidence-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:.9rem; margin-top:1rem;}
+.evidence-item{border:1px solid var(--border-light); border-radius:var(--radius-md); padding:.9rem 1rem; background:var(--bg-body);}
+.evidence-item .e-icon{font-size:1.3rem; margin-bottom:.4rem; display:block;}
+.evidence-item strong{color:var(--primary); font-size:.88rem; display:block; margin-bottom:.2rem;}
+.evidence-item span{font-size:.8rem; color:var(--muted);}
+
+.glossary-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:.9rem; margin-top:1rem;}
+.gloss-item{border:1px solid var(--border-light); border-radius:var(--radius-md); padding:.9rem 1rem; background:var(--bg-body);}
+.gloss-item dt{font-weight:800; color:var(--navy); font-size:.85rem; margin-bottom:.3rem;}
+.gloss-item dd{margin:0; font-size:.82rem; color:var(--secondary);}
+
+ol.ins-list{padding-left:1.2rem;}
+ol.ins-list li{margin-bottom:.5rem;}
+
+.btn-primary{background:linear-gradient(135deg,var(--navy),var(--navy-dark)); color:#fff; border:none; padding:.9rem 1.6rem; border-radius:var(--radius-md); font-weight:700; font-size:1rem; cursor:pointer; box-shadow:var(--shadow-md); font-family:inherit;}
+.btn-primary:hover{filter:brightness(1.08);}
+.btn-secondary{background:var(--bg-body); color:var(--navy); border:1px solid var(--navy); padding:.7rem 1.2rem; border-radius:var(--radius-md); font-weight:700; font-size:.88rem; cursor:pointer; font-family:inherit;}
+.btn-secondary:hover{background:var(--blue-bg);}
+.btn-row{display:flex; flex-wrap:wrap; gap:.7rem; margin-top:1.25rem;}
+
+#submit-zone{text-align:center; padding:2.25rem 1.5rem;}
+#submit-zone p{max-width:560px; margin:0 auto 1.25rem;}
+
+.results{display:none;}
+.results.show{display:block;}
+.score-hero{display:flex; flex-wrap:wrap; align-items:center; gap:1.75rem; padding:1.5rem; border-radius:var(--radius-lg); border:1px solid; margin-bottom:1.5rem;}
+.score-hero.pass{background:var(--green-bg); border-color:var(--green-border);}
+.score-hero.warn{background:var(--amber-bg); border-color:var(--amber-border);}
+.score-hero.fail{background:var(--red-bg); border-color:var(--red-border);}
+.score-circle{width:110px; height:110px; border-radius:50%; display:flex; flex-direction:column; align-items:center; justify-content:center; background:var(--bg-card); box-shadow:var(--shadow-md); flex-shrink:0;}
+.score-circle .num{font-size:1.9rem; font-weight:800; color:var(--primary); line-height:1;}
+.score-circle .den{font-size:.72rem; color:var(--muted); font-weight:700;}
+.score-verdict h3{margin:0 0 .3rem; font-size:1.15rem;}
+.score-verdict p{margin:0; font-size:.92rem;}
+
+.crit{border:1px solid var(--border-light); border-radius:var(--radius-md); padding:1.1rem 1.25rem; margin-bottom:1rem; background:var(--bg-card);}
+.crit-head{display:flex; justify-content:space-between; align-items:center; gap:1rem; margin-bottom:.5rem; flex-wrap:wrap;}
+.crit-head strong{color:var(--primary); font-size:.95rem;}
+.crit-score{font-weight:800; font-size:.9rem; color:var(--navy); white-space:nowrap;}
+.crit-track{height:8px; border-radius:999px; background:var(--border-light); overflow:hidden; margin-bottom:.75rem;}
+.crit-fill{height:100%; border-radius:999px;}
+.crit-fill.hi{background:var(--green);}
+.crit-fill.mid{background:var(--amber);}
+.crit-fill.lo{background:var(--red);}
+.crit p.note{margin:0; font-size:.85rem; color:var(--muted);}
+
+footer.tp-footer{text-align:center; color:var(--muted); font-size:.8rem; padding:2rem 1rem; border-top:1px solid var(--border-light); margin-top:1rem;}
+
+/* ADVISOR (Nicole, asistente del Dr. Johan Tapia) */
+.advisor-fab{position:fixed; bottom:calc(1.5rem + env(safe-area-inset-bottom)); left:1.5rem; z-index:900; background:linear-gradient(135deg,var(--navy),var(--navy-dark)); color:#fff; border:none; border-radius:999px; padding:.85rem 1.2rem; display:flex; align-items:center; gap:.5rem; font-weight:700; font-size:.9rem; cursor:pointer; box-shadow:var(--shadow-lg); font-family:inherit;}
+.advisor-fab:hover{filter:brightness(1.1);}
+.proftapia-fab{position:fixed; bottom:calc(1.5rem + env(safe-area-inset-bottom)); right:1.5rem; z-index:900; background:linear-gradient(135deg,var(--gold),#a97f24); color:#2a1e00; text-decoration:none; border-radius:999px; padding:.85rem 1.2rem; display:flex; align-items:center; gap:.5rem; font-weight:700; font-size:.9rem; box-shadow:var(--shadow-lg); font-family:inherit;}
+.proftapia-fab:hover{filter:brightness(1.05);}
+.advisor-panel{position:fixed; bottom:calc(5.2rem + env(safe-area-inset-bottom)); left:1.5rem; width:min(360px,90vw); max-height:min(560px,70vh); background:var(--bg-card); border:1px solid var(--border-light); border-radius:var(--radius-lg); box-shadow:var(--shadow-lg); z-index:900; display:none; flex-direction:column; overflow:hidden;}
+.advisor-panel.open{display:flex;}
+.advisor-header{background:linear-gradient(135deg,var(--navy),var(--navy-dark)); color:#fff; padding:.9rem 1.1rem; display:flex; align-items:center; gap:.6rem;}
+.advisor-title{margin:0; font-weight:800; font-size:.95rem;}
+.advisor-header button{margin-left:auto; background:rgba(255,255,255,.15); border:none; color:#fff; width:28px; height:28px; border-radius:8px; cursor:pointer;}
+.advisor-body{flex:1; overflow-y:auto; padding:1rem; display:flex; flex-direction:column; gap:.6rem; background:var(--bg-body);}
+.advisor-msg{max-width:85%; padding:.6rem .85rem; border-radius:12px; font-size:.86rem; line-height:1.5;}
+.advisor-msg-bot{background:var(--bg-card); border:1px solid var(--border-light); align-self:flex-start; border-bottom-left-radius:2px;}
+.advisor-msg-user{background:var(--navy); color:#fff; align-self:flex-end; border-bottom-right-radius:2px;}
+.advisor-suggest{display:flex; flex-wrap:wrap; gap:.4rem; padding:0 1rem .75rem;}
+.advisor-suggest button{background:var(--blue-bg); border:1px solid var(--blue-border); color:var(--navy); font-size:.72rem; padding:.35rem .6rem; border-radius:999px; cursor:pointer; font-family:inherit;}
+.advisor-form{display:flex; gap:.5rem; padding:.75rem; border-top:1px solid var(--border-light); background:var(--bg-card);}
+.advisor-form input{flex:1;}
+.advisor-form button{background:var(--navy); color:#fff; border:none; width:38px; border-radius:var(--radius-sm); cursor:pointer; font-size:1rem;}
+
+@media print{
+  .sidebar, .advisor-fab, .advisor-panel, #progress-wrap, .btn-row, #submit-zone .btn-primary, .header-actions{display:none !important;}
+  .main{max-width:100%; padding:0;}
+  .card{box-shadow:none; border:1px solid #ccc; break-inside:avoid;}
+  body{background:#fff;}
+}
+
+.voice-row{display:flex; align-items:center; gap:.6rem; margin-top:-.4rem; margin-bottom:.9rem; flex-wrap:wrap;}
+.voice-btn{background:var(--blue-bg); border:1px solid var(--blue-border); color:var(--navy); font-weight:700; font-size:.8rem; padding:.65rem .9rem; min-height:40px; border-radius:999px; cursor:pointer; font-family:inherit;}
+.voice-btn:hover{filter:brightness(0.97);}
+.voice-btn.recording{background:var(--red-bg); border-color:var(--red-border); color:var(--red); animation:voicePulse 1.2s ease-in-out infinite;}
+.voice-btn.busy{opacity:.7; cursor:wait;}
+@keyframes voicePulse{ 0%,100%{opacity:1;} 50%{opacity:.55;} }
+.voice-status{font-size:.75rem; color:var(--muted);}
+.voice-status.err{color:var(--red);}
+.voice-status.ok{color:var(--green);}
+
+.speak-btn{display:inline-flex; align-items:center; gap:.4rem; background:var(--gold); color:#3a2a00; border:none; font-weight:800; font-size:.82rem; padding:.65rem .95rem; min-height:40px; border-radius:999px; cursor:pointer; font-family:inherit; margin:.4rem 0 1rem;}
+.speak-btn:hover{filter:brightness(1.05);}
+.speak-btn.speaking{background:var(--red-border); color:#fff; animation:voicePulse 1.2s ease-in-out infinite;}
+.fontsize-controls{display:flex; align-items:center; gap:.3rem;}
+.fontsize-controls button{background:none; border:1px solid var(--border-light); width:30px; height:30px; border-radius:8px; cursor:pointer; color:var(--secondary); font-weight:800; font-size:.85rem;}
+.fontsize-controls button:hover{border-color:var(--navy); color:var(--navy);}
+html[data-fontsize="grande"] body{font-size:1.14rem;}
+html[data-fontsize="xgrande"] body{font-size:1.3rem;}
+
+@keyframes medal-pop{0%{transform:scale(.4) rotate(-8deg); opacity:0;}60%{transform:scale(1.08) rotate(3deg); opacity:1;}100%{transform:scale(1) rotate(0deg); opacity:1;}}
+.medal-card{margin-top:1.5rem; text-align:center; padding:2rem 1.5rem; border-radius:var(--radius-lg); border:1px solid var(--border-light); background:radial-gradient(circle at top, rgba(201,162,39,.14), transparent 70%), var(--bg-card);}
+.medal-icon{font-size:4rem; display:inline-block; animation:medal-pop .6s cubic-bezier(.34,1.56,.64,1); filter:drop-shadow(0 6px 14px rgba(201,162,39,.45));}
+.medal-title{font-size:1.3rem; font-weight:800; color:#a97f1f; margin:.6rem 0 .2rem;}
+[data-theme="dark"] .medal-title{color:#f4c542;}
+.medal-sub{font-size:.9rem; color:var(--muted); margin:0 0 1.25rem;}
+.medal-actions{display:flex; gap:.7rem; justify-content:center; flex-wrap:wrap;}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header>
-    <div class="kicker">Diplomado en Auditoría Forense y Gestión Avanzada del Fraude Corporativo</div>
-    <h1>Práctica Autocalificable — Módulo IV</h1>
-    <p>Investigación del Delito Financiero · Informe Forense, Comunicación y Defensa Técnica</p>
-  </header>
+<a href="#main-content" class="skip-link">Saltar al contenido</a>
+<div id="progress-wrap"><div id="progress-bar"></div></div>
 
-  <div class="card" style="text-align:center;">
-    <div class="meta" style="justify-content:center;">
-      <span>10 preguntas</span>
-      <span>Opción múltiple</span>
-      <span>Calificación instantánea</span>
-      <span>Sin orden obligatorio</span>
+<div class="wrapper">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <span style="font-size:1.4rem;">⚖️</span>
+      <p class="sidebar-title">Auditoría Forense · Módulo IV</p>
+      <div class="header-actions">
+        <div class="fontsize-controls">
+          <button type="button" id="font-smaller" title="Letra más pequeña" aria-label="Reducir tamaño de letra">A−</button>
+          <button type="button" id="font-bigger" title="Letra más grande" aria-label="Aumentar tamaño de letra">A+</button>
+        </div>
+        <button class="icon-btn" id="theme-toggle" type="button" title="Cambiar tema" aria-label="Cambiar tema claro/oscuro">🌙</button>
+        <button class="icon-btn nav-toggle" id="nav-toggle" type="button" title="Abrir menú" aria-label="Abrir menú" aria-expanded="false">☰</button>
+      </div>
     </div>
-    <p style="color:var(--gris); margin:8px 0 0;">Responda las 10 preguntas y presione <strong>Calificar</strong> al final. Cada pregunta muestra la respuesta correcta y una breve explicación aplicada al contexto dominicano.</p>
+
+    <div class="sidebar-collapsible">
+      <div class="timer-box" id="timer-box">
+        <div class="timer-row">
+          <span class="timer-label">⏱️ Tiempo sugerido</span>
+          <button class="icon-btn" id="sound-toggle" type="button" title="Silenciar o activar el sonido" aria-label="Silenciar o activar el sonido del temporizador">🔔</button>
+        </div>
+        <div class="timer-value" id="timer-value">45:00</div>
+        <canvas id="hearts-canvas" width="230" height="40" aria-hidden="true"></canvas>
+        <div class="fast-clock" id="fast-clock" aria-hidden="true"><div class="fast-clock-hand"></div></div>
+        <div class="overtime-note" id="overtime-note" hidden>⏱️ Tiempo de referencia — no afecta su calificación</div>
+      </div>
+
+      <div class="progress-summary">
+        <div class="progress-summary-row"><span>Progreso general</span><span id="progress-count">0%</span></div>
+        <div class="progress-track"><div class="progress-fill" id="progress-fill-el"></div></div>
+        <p style="margin:.5rem 0 0; font-size:.7rem; color:var(--muted);">Sus respuestas se guardan automáticamente en este navegador.</p>
+      </div>
+
+      <nav class="nav" aria-label="Navegación de la práctica">
+        <ul>
+          <li><a href="#portada">⚖️ Portada e instrucciones</a></li>
+          <li><a href="#caso">📁 El caso: Grupo Comercial Antillas</a></li>
+          <li><a href="#paso1" data-step="paso1">1 · Auditoría forense y asientos <span class="pct" data-pct="paso1">0%</span></a></li>
+          <li><a href="#paso2" data-step="paso2">2 · Fraude a estados financieros <span class="pct" data-pct="paso2">0%</span></a></li>
+          <li><a href="#paso3" data-step="paso3">3 · Malversación de activos <span class="pct" data-pct="paso3">0%</span></a></li>
+          <li><a href="#paso4" data-step="paso4">4 · Soborno y lavado de dinero <span class="pct" data-pct="paso4">0%</span></a></li>
+          <li><a href="#paso5" data-step="paso5">5 · Conclusión pericial <span class="pct" data-pct="paso5">0%</span></a></li>
+          <li><a href="#rubrica">🧮 Rúbrica de evaluación</a></li>
+          <li><a href="#resultado">📤 Enviar y calificar</a></li>
+        </ul>
+      </nav>
+
+      <div class="sidebar-actions">
+        <button class="btn-block" id="btn-print" type="button">🖨️ Imprimir / Guardar PDF</button>
+        <button class="btn-block" id="btn-export" type="button">⬇️ Descargar mis respuestas</button>
+        <button class="btn-block" id="btn-clear" type="button">🗑️ Borrar todas mis respuestas</button>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main" id="main-content">
+
+    <section id="portada" class="card cover" style="scroll-margin-top:1.25rem;">
+      <canvas id="cover-canvas" aria-hidden="true"></canvas>
+      <p class="eyebrow">Diplomado en Auditoría Forense y Gestión Avanzada del Fraude Corporativo · Módulo IV</p>
+      <h1>Investigación del Delito Financiero</h1>
+      <p class="sub">Práctica aplicada con un caso de auditoría forense en el contexto de República Dominicana.</p>
+      <div class="cover-chips">
+        <span class="cover-chip">👤 Individual</span>
+        <span class="cover-chip">🎯 100 pts · 70% aprobación</span>
+        <span class="cover-chip">⏱️ Sin orden obligatorio</span>
+      </div>
+      <button class="speak-btn" data-speak-section="portada-speak" type="button" style="margin-top:1.1rem;">🔊 Escuchar la bienvenida</button>
+      <span id="portada-speak" hidden>Bienvenidos a la práctica del Módulo cuatro: Investigación del Delito Financiero. Van a analizar un caso realista de una empresa dominicana con varias señales de fraude, y responder cinco secciones cortas aplicando lo visto en clase: auditoría forense y asientos contables, fraude a estados financieros, malversación de activos, soborno y lavado de dinero, y una conclusión pericial. No hace falta memorizar nada ni escribir de más — pueden escribir con sus propias palabras, o grabar una nota de voz que el sistema convierte en texto automáticamente. Si tienen dudas, pueden preguntarle a Nicole.</span>
+    </section>
+
+    <section class="card" id="tutorial">
+      <span class="step-badge">📘 Tutorial</span>
+      <h1 style="font-size:1.35rem;">Cómo usar esta plataforma</h1>
+      <button class="speak-btn" data-speak-target="tutorial" type="button">🔊 Escuchar este tutorial</button>
+      <p><strong>Concepto:</strong> esta práctica le guía paso a paso por un caso de auditoría forense. No hace falta saber de tecnología ni memorizar nada. No hay que instalar nada ni crear una cuenta.</p>
+
+      <h2>Dos formas de responder cada sección</h2>
+      <p><strong>Definición:</strong> cada campo de respuesta acepta texto escrito o una nota de voz transcrita automáticamente.</p>
+      <p><strong>Ejemplo:</strong> si prefiere no escribir, puede simplemente hablar su respuesta en voz alta y el sistema la convierte en texto dentro del mismo campo.</p>
+
+      <h3>Paso a paso para grabar una nota de voz</h3>
+      <ol class="tutorial-steps">
+        <li>Mantenga presionado el botón <strong>"🎤 Mantenga presionado para grabar"</strong> debajo del campo que quiere responder (como una nota de voz de WhatsApp).</li>
+        <li>El navegador va a pedir permiso para usar el micrófono — presione <strong>Permitir</strong>.</li>
+        <li>Sin soltar el botón, hable su respuesta con calma.</li>
+        <li>Suelte el botón cuando termine — va a escuchar un sonido y verá "Transcribiendo…".</li>
+        <li>Espere unos segundos: el texto transcrito va a aparecer automáticamente en el campo.</li>
+        <li>Lea el texto y corrija cualquier palabra si hace falta, antes de continuar.</li>
+      </ol>
+
+      <h2>Progreso y calificación</h2>
+      <p>Sus respuestas se guardan automáticamente en este navegador mientras trabaja. Puede cerrar la página y volver más tarde a completar otra sección. No hay un orden obligatorio: puede responder las cinco secciones en el orden que prefiera. Al enviar, el sistema le da una nota preliminar y comentarios al instante.</p>
+
+      <div class="help-box">
+        <span style="font-size:1.6rem;">💬</span>
+        <div>
+          <strong>¿Tiene dudas mientras trabaja?</strong><br>
+          Puede preguntarle a <strong>Nicole</strong>, el asistente de esta misma página (botón "🎓 Nicole" abajo a la izquierda), o escribirle al
+          <strong>Prof. Johan Tapia</strong>, un asistente aparte, en
+          <a href="https://prof.johan.plataforma.cfd/" target="_blank" rel="noopener">prof.johan.plataforma.cfd</a>.
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <span class="step-badge">🎯 Objetivo y encuadre</span>
+      <h1 style="font-size:1.35rem;">Antes de empezar</h1>
+      <div class="alert info">
+        <strong>Objetivo:</strong> aplicar los conceptos del Módulo IV (auditoría forense, fraudes a estados financieros, malversación de activos, conflictos de interés y soborno, lavado de dinero) a un caso concreto, con el marco legal de República Dominicana. No se busca una respuesta perfecta, sino una respuesta bien fundamentada y aplicada al caso real.
+      </div>
+
+      <h2>Identificación</h2>
+      <p>Complete esto antes de enviar: su facilitador va a recibir la calificación identificada con estos datos.</p>
+      <div class="field-grid">
+        <div class="field"><label for="est_nombre">Nombre completo</label><input type="text" id="est_nombre" placeholder="Su nombre y apellido"></div>
+        <div class="field"><label for="est_correo">Correo (opcional)</label><input type="email" id="est_correo" placeholder="nombre@correo.com"></div>
+      </div>
+      <div class="field">
+        <label for="est_grupo">Institución / grupo (opcional)</label>
+        <input type="text" id="est_grupo" placeholder="Ej. Grupo 1, o su institución">
+      </div>
+
+      <h2>Instrucciones generales</h2>
+      <ol class="ins-list">
+        <li>Lea el caso completo en la sección "El caso" más abajo antes de responder.</li>
+        <li>Complete las <strong>5 secciones</strong>, en cualquier orden. Use ejemplos y referencias concretas al caso siempre que pueda.</li>
+        <li>Puede cerrar la página y volver más tarde a completar otra sección — sus respuestas quedan guardadas.</li>
+        <li>Al terminar, presione <strong>Enviar y Calificar</strong>: el sistema va a revisar el trabajo y le va a dar una nota preliminar y comentarios al instante.</li>
+      </ol>
+      <div class="alert warn">
+        <strong>⚠️ Sobre la calificación automática:</strong> el sistema evalúa si sus 5 secciones están completas y bien desarrolladas. No sustituye la revisión de su facilitador, quien leerá el contenido real de sus respuestas para la nota oficial del curso.
+      </div>
+    </section>
+
+    <section id="caso" class="card">
+      <span class="step-badge">📁 Caso práctico</span>
+      <h1 style="font-size:1.35rem;">El caso: Grupo Comercial Antillas, S.A.</h1>
+      <button class="speak-btn" data-speak-target="caso" type="button">🔊 Escuchar el caso</button>
+      <p>Grupo Comercial Antillas, S.A. es una empresa dominicana de importación y distribución de electrodomésticos, con oficina central en Santo Domingo y una sucursal en Santiago. Factura anualmente unos RD$450 millones y tiene una línea de crédito bancaria sujeta a covenants financieros. Usted es contratado como auditor forense externo tras una denuncia anónima recibida por el Comité de Auditoría. Estos son los hallazgos preliminares:</p>
+
+      <div class="evidence-grid">
+        <div class="evidence-item"><span class="e-icon">📒</span><strong>Asientos de fin de año</strong><span>El libro mayor muestra 6 asientos manuales de RD$495,000 cada uno, registrados el 30 y 31 de diciembre a las 11:40 p.m., todos por debajo del umbral de aprobación de RD$500,000 del Gerente Financiero.</span></div>
+        <div class="evidence-item"><span class="e-icon">🧾</span><strong>Venta a empresa relacionada</strong><span>Una factura electrónica (e-CF) de RD$18 millones se emitió el 31 de diciembre a "Distribuidora Antillas del Este", empresa cuyo accionista mayoritario es el mismo dueño de Grupo Comercial Antillas. La factura fue anulada el 4 de enero.</span></div>
+        <div class="evidence-item"><span class="e-icon">💵</span><strong>Caja chica y nómina</strong><span>Un empleado, "Wendy Féliz", aparece en nómina desde hace 8 meses en el departamento de Almacén de Santiago, pero el supervisor de esa sucursal no reconoce a nadie con ese nombre.</span></div>
+        <div class="evidence-item"><span class="e-icon">🤝</span><strong>Proveedor de fletes</strong><span>El 92% de los fletes de importación de los últimos 2 años se adjudicaron, sin licitación, a "Transporte Rápido del Caribe SRL", cuyo representante legal es cuñado del Gerente de Compras. Sus tarifas están un 30% por encima del promedio de mercado.</span></div>
+        <div class="evidence-item"><span class="e-icon">🏠</span><strong>Compra de inmueble</strong><span>Dos meses después de recibir un pago de "servicios de consultoría" de US$85,000 desde una empresa registrada en un paraíso fiscal, el accionista mayoritario compró un apartamento en Punta Cana mediante cinco pagos en efectivo de RD$980,000 cada uno, en fechas distintas.</span></div>
+        <div class="evidence-item"><span class="e-icon">📊</span><strong>Inventario en tránsito</strong><span>Al cierre del año, el inventario en tránsito reportado en libros es 40% superior al promedio de los últimos 3 cierres, sin que Compras haya autorizado un aumento en el volumen de pedidos.</span></div>
+      </div>
+
+      <div class="alert gold" style="margin-top:1.25rem;">
+        <strong>Su tarea:</strong> usted debe evaluar cada uno de estos hallazgos con los conceptos del Módulo IV, identificar qué tipo(s) de fraude podrían estar ocurriendo, qué marco legal dominicano aplicaría, y qué recomendaría hacer a continuación.
+      </div>
+    </section>
+
+    <section id="paso1" class="card">
+      <span class="step-badge">Sección 1</span><span class="step-points">Vale 20 pts</span>
+      <button class="speak-btn" data-speak-target="paso1" type="button">🔊 Escuchar esta sección</button>
+      <h1>Auditoría forense y análisis de asientos contables</h1>
+      <p>Analice los 6 asientos manuales de fin de año descritos en el caso. ¿Qué los hace sospechosos? ¿Qué técnica de análisis forense de asientos contables (journal entry testing) aplicaría para confirmar o descartar la sospecha, y qué evidencia adicional pediría?</p>
+      <div class="alert info"><strong>Guía:</strong> piense en el umbral de aprobación, el horario de registro, y qué fuente de datos dominicana (ej. DGII) podría ayudarle a cruzar información.</div>
+
+      <div class="field">
+        <label for="p1_respuesta">Su análisis <span class="wc" data-for="p1_respuesta">0 palabras</span></label>
+        <textarea class="tall" id="p1_respuesta" placeholder="Los asientos son sospechosos porque... Aplicaría la técnica de... porque... Pediría además..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p1_respuesta">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p1_respuesta"></span></div>
+      </div>
+    </section>
+
+    <section id="paso2" class="card">
+      <span class="step-badge">Sección 2</span><span class="step-points">Vale 20 pts</span>
+      <button class="speak-btn" data-speak-target="paso2" type="button">🔊 Escuchar esta sección</button>
+      <h1>Fraude a los estados financieros</h1>
+      <p>Analice la factura de RD$18 millones emitida a "Distribuidora Antillas del Este" y anulada días después. ¿Qué esquema de manipulación de ingresos describe mejor esta situación? Explique el efecto que tuvo sobre los estados financieros del cierre de año, y cómo podría comprobarse con datos fiscales dominicanos.</p>
+      <div class="alert info"><strong>Guía:</strong> piense en los reportes 606/607 de la DGII y en el concepto de empresas relacionadas.</div>
+
+      <div class="field">
+        <label for="p2_respuesta">Su análisis <span class="wc" data-for="p2_respuesta">0 palabras</span></label>
+        <textarea class="tall" id="p2_respuesta" placeholder="Este esquema corresponde a... porque... El efecto sobre los estados financieros fue... Se podría comprobar cruzando..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p2_respuesta">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p2_respuesta"></span></div>
+      </div>
+    </section>
+
+    <section id="paso3" class="card">
+      <span class="step-badge">Sección 3</span><span class="step-points">Vale 20 pts</span>
+      <button class="speak-btn" data-speak-target="paso3" type="button">🔊 Escuchar esta sección</button>
+      <h1>Malversación de activos e inventarios</h1>
+      <p>Analice DOS hallazgos del caso: (a) el empleado "Wendy Féliz" que nadie reconoce en Almacén Santiago, y (b) el inventario en tránsito 40% superior al promedio sin autorización de Compras. Nombre el tipo de fraude que representa cada uno, y qué control interno específico habría prevenido cada situación.</p>
+      <div class="alert info"><strong>Guía:</strong> uno de los dos casos es un esquema clásico de nómina; el otro se detecta con una técnica de "corte" (cut-off testing).</div>
+
+      <div class="field">
+        <label for="p3_respuesta">Su análisis <span class="wc" data-for="p3_respuesta">0 palabras</span></label>
+        <textarea class="tall" id="p3_respuesta" placeholder="El caso de Wendy Féliz corresponde a... y se habría prevenido con... El caso del inventario corresponde a... y se habría prevenido con..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p3_respuesta">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p3_respuesta"></span></div>
+      </div>
+    </section>
+
+    <section id="paso4" class="card">
+      <span class="step-badge">Sección 4</span><span class="step-points">Vale 20 pts</span>
+      <button class="speak-btn" data-speak-target="paso4" type="button">🔊 Escuchar esta sección</button>
+      <h1>Conflicto de interés, soborno y lavado de dinero</h1>
+      <p>Analice DOS hallazgos: (a) el proveedor de fletes vinculado por parentesco al Gerente de Compras, y (b) la compra del apartamento en efectivo fraccionado tras el pago de "consultoría" desde un paraíso fiscal. Para cada uno: identifique el problema, la(s) ley(es) dominicana(s) aplicable(s), y si el segundo caso encaja en alguna etapa del lavado de dinero (colocación, estratificación, integración) o en una tipología específica.</p>
+      <div class="alert info"><strong>Guía:</strong> el segundo caso combina dos elementos — piense por separado en el pago de consultoría y en la forma de pago del apartamento.</div>
+
+      <div class="field">
+        <label for="p4_respuesta">Su análisis <span class="wc" data-for="p4_respuesta">0 palabras</span></label>
+        <textarea class="tall" id="p4_respuesta" placeholder="El caso del proveedor de fletes es un... y aplicaría la Ley... El caso del apartamento corresponde a la etapa de... porque..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p4_respuesta">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p4_respuesta"></span></div>
+      </div>
+    </section>
+
+    <section id="paso5" class="card">
+      <span class="step-badge">Sección 5</span><span class="step-points">Vale 20 pts</span>
+      <button class="speak-btn" data-speak-target="paso5" type="button">🔊 Escuchar esta sección</button>
+      <h1>Conclusión pericial</h1>
+      <p>Redacte el párrafo de conclusión de su informe preliminar, dirigido al Comité de Auditoría. Indique: si los hallazgos, en conjunto, sugieren un patrón de fraude complejo con colusión (más de un responsable coordinado) o hechos aislados, y qué recomendaría hacer a continuación (a quién reportar, qué evidencia asegurar primero).</p>
+      <div class="alert info"><strong>Guía:</strong> un buen perito conecta los hallazgos entre sí en vez de tratarlos como seis problemas sueltos.</div>
+
+      <div class="field">
+        <label for="p5_respuesta">Su conclusión pericial <span class="wc" data-for="p5_respuesta">0 palabras</span></label>
+        <textarea class="tall" id="p5_respuesta" placeholder="En conjunto, estos hallazgos sugieren... Recomiendo como próximos pasos..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p5_respuesta">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p5_respuesta"></span></div>
+      </div>
+    </section>
+
+    <section id="rubrica" class="card">
+      <span class="step-badge">🧮 Referencia</span>
+      <h1 style="font-size:1.35rem;">Rúbrica de evaluación</h1>
+      <div class="tbl-wrap"><table class="tp-table">
+        <thead><tr><th>N°</th><th>Criterio</th><th>Indicador</th><th>Puntos</th></tr></thead>
+        <tbody id="rubrica-body"></tbody>
+      </table></div>
+      <h2>Referencias</h2>
+      <ul style="font-size:.85rem; color:var(--muted);">
+        <li>Congreso Nacional de la República Dominicana. <em>Ley No. 155-17 contra el Lavado de Activos y el Financiamiento del Terrorismo.</em></li>
+        <li>Congreso Nacional de la República Dominicana. <em>Ley No. 448-06 sobre Soborno en el Comercio y la Inversión.</em></li>
+        <li>Congreso Nacional de la República Dominicana. <em>Ley No. 340-06 sobre Compras y Contrataciones Públicas.</em></li>
+        <li>Association of Certified Fraud Examiners (ACFE). <em>Report to the Nations.</em></li>
+        <li>Dirección General de Impuestos Internos (DGII). <em>Comprobantes Fiscales Electrónicos (e-CF) y reportes 606/607.</em></li>
+        <li>Contenido base: Módulo IV, Diplomado en Auditoría Forense y Gestión Avanzada del Fraude Corporativo — caso ilustrativo adaptado al contexto dominicano.</li>
+      </ul>
+    </section>
+
+    <section id="resultado" class="card">
+      <div id="submit-zone">
+        <span class="step-badge">📤 Paso final</span>
+        <h1 style="font-size:1.4rem;">Enviar y calificar mis respuestas</h1>
+        <p>El sistema revisará automáticamente sus 5 secciones y le mostrará su nota, el detalle por criterio y retroalimentación personalizada según lo que usted escribió.</p>
+        <button class="btn-primary" id="btn-submit" type="button">📤 Enviar y Calificar</button>
+      </div>
+
+      <div id="results" class="results">
+        <div id="score-hero" class="score-hero">
+          <div class="score-circle"><span class="num" id="score-num">0</span><span class="den">/ 100 pts</span></div>
+          <div class="score-verdict">
+            <h3 id="score-title">—</h3>
+            <p id="score-desc">—</p>
+          </div>
+        </div>
+        <div id="ai-review" class="alert info" style="display:none;"></div>
+        <div id="crit-list"></div>
+        <div id="medal-zone" style="display:none;"></div>
+        <div class="btn-row">
+          <button class="btn-secondary" id="btn-export-2" type="button">⬇️ Descargar mis respuestas</button>
+          <button class="btn-secondary" id="btn-print-2" type="button">🖨️ Imprimir resultado</button>
+          <button class="btn-secondary" id="btn-recheck" type="button">✏️ Volver a revisar mis respuestas</button>
+        </div>
+      </div>
+    </section>
+
+    <footer class="tp-footer">
+      Módulo IV — Investigación del Delito Financiero · Diplomado en Auditoría Forense y Gestión Avanzada del Fraude Corporativo · 2026.<br>
+      Herramienta de autoevaluación con fines educativos. La nota oficial la determina su facilitador.<br>
+      Desarrollado por Johan Tapia, PhD.
+    </footer>
+  </main>
+</div>
+
+<!-- NICOLE (asistente virtual del Dr. Johan Tapia) -->
+<button id="advisor-toggle" class="advisor-fab" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="advisor-panel" title="Abrir a Nicole">
+  🎓 <span>Nicole</span>
+</button>
+<a href="https://prof.johan.plataforma.cfd/" target="_blank" rel="noopener" class="proftapia-fab" title="Abrir el asistente del Prof. Johan Tapia en una ventana nueva">
+  👨‍🏫 <span>Prof. Johan Tapia</span>
+</a>
+<div id="advisor-panel" class="advisor-panel" role="dialog" aria-labelledby="advisor-title-el">
+  <div class="advisor-header">
+    <span style="font-size:1.2rem;">🎓</span>
+    <p id="advisor-title-el" class="advisor-title">Nicole</p>
+    <button id="advisor-close" type="button" aria-label="Cerrar a Nicole">✕</button>
   </div>
-
-  <form id="quizForm"></form>
-
-  <button id="submitBtn" type="button" onclick="calificar()">Calificar práctica</button>
-
-  <div id="resultado"></div>
-
-  <footer>Módulo IV · Investigación del Delito Financiero · Contexto República Dominicana</footer>
+  <div id="advisor-body" class="advisor-body">
+    <div class="advisor-msg advisor-msg-bot">¡Hola! Soy Nicole, la asistente virtual del Dr. Johan Tapia. Pregúntame sobre el caso de Grupo Comercial Antillas, auditoría forense, fraude a estados financieros, malversación de activos, soborno, lavado de dinero, o cómo se califica esta práctica.</div>
+  </div>
+  <div class="advisor-suggest">
+    <button type="button" data-q="¿cómo se califica esta práctica?">¿Cómo se califica?</button>
+    <button type="button" data-q="que leyes dominicanas aplican al caso">Marco legal aplicable</button>
+    <button type="button" data-q="explicame el caso de nuevo">Explícame el caso</button>
+  </div>
+  <form id="advisor-form" class="advisor-form">
+    <input type="text" id="advisor-input" placeholder="Escribe tu pregunta…" aria-label="Escribe tu pregunta a Nicole">
+    <button type="submit" aria-label="Enviar pregunta">➤</button>
+  </form>
 </div>
 
 <script>
-const preguntas = [
-  {
-    q: "1. ¿Cuál es la diferencia principal entre auditoría externa tradicional y auditoría forense?",
-    opts: [
-      "No hay diferencia real, son sinónimos",
-      "La auditoría forense busca evidencia con estándar de prueba para un proceso legal; la externa busca opinión sobre razonabilidad de los EEFF",
-      "La auditoría forense solo aplica al sector público",
-      "La auditoría externa siempre incluye peritaje judicial"
-    ],
-    correcta: 1,
-    exp: "La auditoría externa (NIA) opina sobre razonabilidad de estados financieros. La forense reconstruye hechos con estándar de prueba, pensando en un eventual proceso legal o disciplinario."
-  },
-  {
-    q: "2. En República Dominicana, ¿qué fuente de datos es especialmente útil hoy para cruces forenses en asientos contables?",
-    opts: [
-      "Los reportes 606/607 y la facturación electrónica (e-CF) de la DGII",
-      "Solo las declaraciones juradas de renta anuales",
-      "Los estados de cuenta del Banco Central únicamente",
-      "El registro mercantil de la Cámara de Comercio"
-    ],
-    correcta: 0,
-    exp: "El e-CF y los reportes 606 (compras) / 607 (ventas) de la DGII dan datos estructurados con sello de tiempo, ideales para cruzar contra los estados financieros auditados."
-  },
-  {
-    q: "3. Según el ACFE (Report to the Nations), ¿cuál tipo de fraude es el MÁS FRECUENTE en número de casos?",
-    opts: [
-      "Fraude a los estados financieros",
-      "Corrupción",
-      "Malversación de activos",
-      "Lavado de dinero"
-    ],
-    correcta: 2,
-    exp: "Malversación de activos representa cerca del 85-89% de los casos, aunque su pérdida promedio por caso es menor que la del fraude a estados financieros."
-  },
-  {
-    q: "4. ¿Cuáles son los tres componentes del triángulo del fraude de Cressey?",
-    opts: [
-      "Dolo, culpa y negligencia",
-      "Presión, oportunidad y racionalización",
-      "Activo, pasivo y patrimonio",
-      "Colocación, estratificación e integración"
-    ],
-    correcta: 1,
-    exp: "El triángulo de Cressey explica por qué ocurre el fraude: una presión que empuja, una oportunidad que lo permite y una racionalización que lo justifica internamente."
-  },
-  {
-    q: "5. Un empleado factura a un cliente relacionado el 31 de diciembre y anula la factura el 3 de enero. ¿Qué esquema de fraude describe mejor esta situación?",
-    opts: [
-      "Malversación de activos por skimming",
-      "Ventas ficticias para inflar el cierre del período",
-      "Estructuración de depósitos (smurfing)",
-      "Conflicto de interés no declarado"
-    ],
-    correcta: 1,
-    exp: "Es un caso clásico de ventas ficticias: se infla artificialmente el ingreso del período que cierra, revirtiendo la operación apenas comienza el siguiente."
-  },
-  {
-    q: "6. ¿Qué diferencia hay entre 'skimming' y 'larceny' en la sustracción de efectivo?",
-    opts: [
-      "Son exactamente lo mismo",
-      "Skimming es efectivo nunca registrado; larceny es efectivo ya registrado que luego se sustrae",
-      "Skimming solo ocurre en bancos; larceny solo en comercios",
-      "Larceny es legal si el monto es menor a RD$50,000"
-    ],
-    correcta: 1,
-    exp: "Skimming ocurre antes de que el efectivo entre al sistema contable (nunca se registra); larceny ocurre después de que ya fue registrado."
-  },
-  {
-    q: "7. ¿Cuál es la principal ley dominicana que regula el soborno en el comercio y la inversión?",
-    opts: [
-      "Ley 155-17",
-      "Ley 340-06",
-      "Ley 448-06",
-      "Ley 479-08"
-    ],
-    correcta: 2,
-    exp: "La Ley 448-06 regula el Soborno en el Comercio y la Inversión. La Ley 340-06 es de Compras y Contrataciones Públicas, y la Ley 155-17 es la de Lavado de Activos."
-  },
-  {
-    q: "8. ¿Cuáles son las tres etapas clásicas del lavado de dinero, en orden?",
-    opts: [
-      "Presión, oportunidad, racionalización",
-      "Colocación, estratificación (layering), integración",
-      "Detección, investigación, sanción",
-      "KYC, ROS, PEP"
-    ],
-    correcta: 1,
-    exp: "Colocación (el efectivo ilícito entra al sistema), estratificación (se mueve para romper el rastro) e integración (se invierte en algo que luce legítimo)."
-  },
-  {
-    q: "9. En República Dominicana, ¿qué institución recibe los Reportes de Operación Sospechosa (ROS)?",
-    opts: [
-      "La DGII directamente",
-      "La UAF (Unidad de Análisis Financiero)",
-      "La Cámara de Comercio y Producción",
-      "El Ministerio de Hacienda y Economía (MHE)"
-    ],
-    correcta: 1,
-    exp: "La UAF es el actor central que recibe los ROS de los sujetos obligados bajo la Ley 155-17, y trabaja junto con la Superintendencia de Bancos y la DGII."
-  },
-  {
-    q: "10. Un fraude que combina manipulación contable, malversación de activos y lavado de dinero, ejecutado por varias personas coordinadas, se conoce como:",
-    opts: [
-      "Fraude simple de nómina",
-      "Fraude multicapa con colusión",
-      "Error material no intencional",
-      "Diferencia de conciliación bancaria"
-    ],
-    correcta: 1,
-    exp: "El fraude complejo o multicapa casi siempre involucra colusión entre varias personas, lo que anula controles diseñados pensando en que un solo actor no podría romper el proceso completo."
-  }
-];
+(function(){
+"use strict";
 
-const form = document.getElementById('quizForm');
-preguntas.forEach((p, i) => {
-  const card = document.createElement('div');
-  card.className = 'card';
-  card.innerHTML = `
-    <p class="q">${p.q}</p>
-    ${p.opts.map((o, j) => `
-      <label class="opt" id="opt-${i}-${j}">
-        <input type="radio" name="p${i}" value="${j}"> ${o}
-      </label>
-    `).join('')}
-    <div class="fb" id="fb-${i}"></div>
-  `;
-  form.appendChild(card);
+/* ---------- NICOLE, ASISTENTE VIRTUAL (n8n en VPS) ---------- */
+/* Si el VPS no responde (sin internet, servicio caído, etc.), la página
+   sigue funcionando 100% con el motor de reglas y la calificación heurística local. */
+var AI_BASE = 'https://n8n-inap.167.88.36.13.sslip.io/webhook';
+var AI_CHAT_URL = AI_BASE + '/inap-tutor-chat';
+var AI_GRADE_URL = AI_BASE + '/inap-grade';
+var AI_CHAT_TIMEOUT = 60000;
+var AI_GRADE_TIMEOUT = 650000;
+var VOICE_TRANSCRIBE_URL = 'https://n8n-inap.167.88.36.13.sslip.io/webhook/prof-johan-tapia-transcribir';
+
+/* ---------- NOTAS DE VOZ (mantener presionado -> transcribir -> completar el campo) ---------- */
+function pickRecorderMime(){
+  var candidates = ['audio/webm;codecs=opus','audio/webm','audio/mp4','audio/ogg;codecs=opus'];
+  for(var i=0;i<candidates.length;i++){
+    if(window.MediaRecorder && MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(candidates[i])) return candidates[i];
+  }
+  return '';
+}
+function beepVoz(freq, dur){
+  try{
+    var Ctx = window.AudioContext || window.webkitAudioContext;
+    var ctx = new Ctx();
+    var osc = ctx.createOscillator();
+    var gain = ctx.createGain();
+    osc.type = 'sine';
+    osc.frequency.value = freq;
+    gain.gain.setValueAtTime(0.18, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + dur);
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.start();
+    osc.stop(ctx.currentTime + dur);
+    osc.onended = function(){ ctx.close(); };
+  }catch(e){}
+}
+var VOZ_MIN_MS = 400;
+var VOZ_MAX_MS = 120000;
+var VOZ_LABEL_DEFAULT = '🎤 Mantenga presionado para grabar';
+function wireVoiceButtons(){
+  if(!navigator.mediaDevices || !window.MediaRecorder){
+    document.querySelectorAll('.voice-btn').forEach(function(btn){
+      btn.disabled = true; btn.title = 'Grabación de voz no disponible en este navegador';
+    });
+    return;
+  }
+  document.querySelectorAll('.voice-btn').forEach(function(btn){
+    var targetId = btn.getAttribute('data-target');
+    var textarea = document.getElementById(targetId);
+    var statusEl = document.querySelector('.voice-status[data-target-status="'+targetId+'"]');
+    if(!textarea) return;
+    btn.textContent = VOZ_LABEL_DEFAULT;
+    var mediaRecorder = null, chunks = [], stream = null, recording = false, pressActive = false;
+    var startedAt = 0, maxTimer = null, tickTimer = null;
+
+    function setStatus(msg, cls){
+      if(!statusEl) return;
+      statusEl.textContent = msg || '';
+      statusEl.className = 'voice-status' + (cls ? ' ' + cls : '');
+    }
+
+    function stopStream(){
+      if(stream){ stream.getTracks().forEach(function(t){ t.stop(); }); stream = null; }
+    }
+
+    function tick(){
+      var secs = Math.floor((Date.now() - startedAt) / 1000);
+      var m = Math.floor(secs / 60), s = secs % 60;
+      btn.textContent = '🔴 Grabando ' + m + ':' + (s < 10 ? '0' : '') + s + ' — suelte para enviar';
+    }
+
+    function startRecording(){
+      if(pressActive) return;
+      pressActive = true;
+      navigator.mediaDevices.getUserMedia({ audio:true }).then(function(s){
+        if(!pressActive){ s.getTracks().forEach(function(t){ t.stop(); }); return; }
+        stream = s;
+        chunks = [];
+        var mime = pickRecorderMime();
+        try{ mediaRecorder = mime ? new MediaRecorder(stream, { mimeType: mime }) : new MediaRecorder(stream); }
+        catch(e){ mediaRecorder = new MediaRecorder(stream); }
+        mediaRecorder.addEventListener('dataavailable', function(e){ if(e.data && e.data.size > 0) chunks.push(e.data); });
+        mediaRecorder.addEventListener('stop', function(){
+          stopStream();
+          clearTimeout(maxTimer); clearInterval(tickTimer);
+          btn.classList.remove('recording');
+          var duracion = Date.now() - startedAt;
+          if(duracion < VOZ_MIN_MS){
+            btn.textContent = VOZ_LABEL_DEFAULT;
+            setStatus('Grabación muy corta — mantenga presionado el botón mientras habla.', 'err');
+            return;
+          }
+          var blob = new Blob(chunks, { type: mediaRecorder.mimeType || 'audio/webm' });
+          uploadForTranscription(blob);
+        });
+        mediaRecorder.start();
+        recording = true;
+        startedAt = Date.now();
+        btn.classList.add('recording');
+        beepVoz(880, 0.1);
+        tick();
+        tickTimer = setInterval(tick, 500);
+        setStatus('Grabando… hable su respuesta y suelte el botón al terminar.', '');
+        maxTimer = setTimeout(function(){ if(recording) stopRecording(); }, VOZ_MAX_MS);
+      }).catch(function(){
+        pressActive = false;
+        setStatus('No se pudo acceder al micrófono. Revise los permisos del navegador, o simplemente escriba la respuesta.', 'err');
+      });
+    }
+
+    function stopRecording(){
+      if(!pressActive) return;
+      pressActive = false;
+      if(mediaRecorder && recording){
+        recording = false;
+        beepVoz(440, 0.12);
+        mediaRecorder.stop();
+      }
+    }
+
+    function uploadForTranscription(blob){
+      btn.disabled = true;
+      btn.classList.add('busy');
+      btn.textContent = '⏳ Transcribiendo…';
+      setStatus('Transcribiendo la nota de voz, un momento…', '');
+      var fd = new FormData();
+      var ext = (blob.type.indexOf('mp4') !== -1) ? 'm4a' : (blob.type.indexOf('ogg') !== -1 ? 'ogg' : 'webm');
+      fd.append('data', blob, 'nota-voz.' + ext);
+      fetchWithTimeout(VOICE_TRANSCRIBE_URL, { method:'POST', body: fd }, 60000).then(function(res){
+        if(!res.ok) throw new Error('HTTP ' + res.status);
+        return res.json();
+      }).then(function(data){
+        if(!data || !data.ok || !data.texto){ throw new Error('SIN_TEXTO'); }
+        var existing = textarea.value.trim();
+        textarea.value = existing ? (existing + ' ' + data.texto) : data.texto;
+        textarea.dispatchEvent(new Event('input'));
+        setStatus('✔ Nota de voz agregada. Puede revisarla y corregirla si hace falta.', 'ok');
+      }).catch(function(err){
+        var msg = (err && err.message === 'SIN_TEXTO')
+          ? 'No se logró entender el audio (el servicio de voz no reconoció ninguna palabra). Intente grabar de nuevo hablando más cerca del micrófono, o escriba la respuesta directamente.'
+          : 'No se pudo conectar con el servicio de transcripción. Revise su conexión a internet, o escriba la respuesta directamente.';
+        setStatus(msg, 'err');
+      }).finally(function(){
+        btn.disabled = false;
+        btn.classList.remove('busy');
+        btn.textContent = VOZ_LABEL_DEFAULT;
+      });
+    }
+
+    btn.addEventListener('mousedown', function(e){ e.preventDefault(); startRecording(); });
+    btn.addEventListener('touchstart', function(e){ e.preventDefault(); startRecording(); }, { passive:false });
+    ['mouseup','mouseleave','touchend','touchcancel'].forEach(function(evt){
+      btn.addEventListener(evt, stopRecording);
+    });
+  });
+}
+
+/* ---------- TAMAÑO DE LETRA (accesibilidad) ---------- */
+var FONT_LEVELS = ['normal','grande','xgrande'];
+function applyFontSize(level){
+  document.documentElement.setAttribute('data-fontsize', level);
+  try{ localStorage.setItem('tp_auditforense4_fontsize', level); }catch(e){}
+}
+applyFontSize(localStorage.getItem('tp_auditforense4_fontsize') || 'normal');
+document.getElementById('font-bigger').addEventListener('click', function(){
+  var cur = document.documentElement.getAttribute('data-fontsize') || 'normal';
+  var idx = FONT_LEVELS.indexOf(cur);
+  if(idx < FONT_LEVELS.length - 1) applyFontSize(FONT_LEVELS[idx+1]);
+});
+document.getElementById('font-smaller').addEventListener('click', function(){
+  var cur = document.documentElement.getAttribute('data-fontsize') || 'normal';
+  var idx = FONT_LEVELS.indexOf(cur);
+  if(idx > 0) applyFontSize(FONT_LEVELS[idx-1]);
 });
 
-function calificar(){
-  let correctas = 0;
-  preguntas.forEach((p, i) => {
-    const seleccion = form.querySelector(`input[name="p${i}"]:checked`);
-    const fb = document.getElementById(`fb-${i}`);
-    fb.classList.add('show');
-    if(!seleccion){
-      fb.innerHTML = `⚠️ No respondida. Respuesta correcta: <strong>${p.opts[p.correcta]}</strong><br>${p.exp}`;
-      document.getElementById(`opt-${i}-${p.correcta}`).classList.add('correct');
-      return;
+/* ---------- LEER EN VOZ ALTA ---------- */
+function stopSpeaking(){ if(window.speechSynthesis) speechSynthesis.cancel(); }
+function buildSpeakText(root){
+  var clone = root.cloneNode(true);
+  clone.querySelectorAll('button, .voice-row, .wc, script, select').forEach(function(el){ el.remove(); });
+  var text = clone.textContent || '';
+  return text.replace(/\s+/g,' ').trim();
+}
+function speak(text, btn){
+  if(!window.speechSynthesis || !text) return;
+  stopSpeaking();
+  var utter = new SpeechSynthesisUtterance(text);
+  utter.lang = 'es-ES';
+  utter.rate = 0.95;
+  var voices = speechSynthesis.getVoices();
+  var esVoice = voices.find(function(v){ return v.lang && v.lang.toLowerCase().indexOf('es') === 0; });
+  if(esVoice) utter.voice = esVoice;
+  if(btn){
+    document.querySelectorAll('.speak-btn.speaking').forEach(function(b){
+      b.classList.remove('speaking');
+      if(b.dataset.origLabel) b.textContent = b.dataset.origLabel;
+    });
+    if(!btn.dataset.origLabel) btn.dataset.origLabel = btn.textContent;
+    btn.classList.add('speaking');
+    btn.textContent = '⏹️ Detener lectura';
+    utter.onend = function(){ btn.classList.remove('speaking'); btn.textContent = btn.dataset.origLabel; };
+    utter.onerror = function(){ btn.classList.remove('speaking'); btn.textContent = btn.dataset.origLabel; };
+  }
+  speechSynthesis.speak(utter);
+}
+function wireSpeakButtons(){
+  if(!window.speechSynthesis){
+    document.querySelectorAll('.speak-btn').forEach(function(b){ b.disabled = true; b.title = 'La lectura en voz alta no está disponible en este navegador'; });
+    return;
+  }
+  document.querySelectorAll('.speak-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      if(btn.classList.contains('speaking')){
+        stopSpeaking();
+        btn.classList.remove('speaking');
+        if(btn.dataset.origLabel) btn.textContent = btn.dataset.origLabel;
+        return;
+      }
+      var sectionId = btn.getAttribute('data-speak-section');
+      var text;
+      if(sectionId){
+        var el = document.getElementById(sectionId);
+        text = el ? el.textContent.replace(/\s+/g,' ').trim() : '';
+      } else {
+        var root = document.getElementById(btn.getAttribute('data-speak-target'));
+        text = root ? buildSpeakText(root) : '';
+      }
+      speak(text, btn);
+    });
+  });
+}
+
+function fetchWithTimeout(url, options, timeoutMs){
+  var controller = new AbortController();
+  var timer = setTimeout(function(){ controller.abort(); }, timeoutMs);
+  return fetch(url, Object.assign({}, options, { signal: controller.signal }))
+    .finally(function(){ clearTimeout(timer); });
+}
+
+/* ---------- THEME ---------- */
+var themeBtn = document.getElementById('theme-toggle');
+function applyTheme(t){
+  document.documentElement.setAttribute('data-theme', t);
+  themeBtn.textContent = t === 'dark' ? '☀️' : '🌙';
+  localStorage.setItem('tp_auditforense4_theme', t);
+}
+applyTheme(localStorage.getItem('tp_auditforense4_theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+themeBtn.addEventListener('click', function(){
+  applyTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+});
+
+/* ---------- MOBILE NAV ---------- */
+var navToggle = document.getElementById('nav-toggle');
+var sidebar = document.getElementById('sidebar');
+navToggle.addEventListener('click', function(){
+  var open = sidebar.classList.toggle('open');
+  navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+});
+
+/* ---------- READING PROGRESS BAR ---------- */
+var progressBar = document.getElementById('progress-bar');
+window.addEventListener('scroll', function(){
+  var h = document.documentElement;
+  var scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+  progressBar.style.width = (scrolled || 0) + '%';
+}, { passive:true });
+
+/* ---------- ACTIVE NAV HIGHLIGHT ---------- */
+var navLinks = Array.prototype.slice.call(document.querySelectorAll('.nav a'));
+var sections = navLinks.map(function(a){ return document.querySelector(a.getAttribute('href')); }).filter(Boolean);
+var io = new IntersectionObserver(function(entries){
+  entries.forEach(function(entry){
+    var link = document.querySelector('.nav a[href="#' + entry.target.id + '"]');
+    if(!link) return;
+    if(entry.isIntersecting) navLinks.forEach(function(l){ l.classList.remove('active'); });
+    if(entry.isIntersecting) link.classList.add('active');
+  });
+}, { rootMargin: '-20% 0px -70% 0px' });
+sections.forEach(function(s){ io.observe(s); });
+
+/* ---------- HELPERS ---------- */
+function norm(s){ return (s === undefined || s === null) ? '' : String(s).trim(); }
+function stripAccents(s){ return norm(s).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,''); }
+function wordCount(s){ s = norm(s); return s ? s.split(/\s+/).filter(Boolean).length : 0; }
+function filled(s){ return norm(s).length > 0; }
+function clamp01(n){ return Math.max(0, Math.min(1, n)); }
+function val(id){ var el = document.getElementById(id); return el ? el.value : ''; }
+function labelOf(id){ var el = document.getElementById(id); if(!el) return id; var lab = document.querySelector('label[for="'+id+'"]'); return lab ? lab.textContent.replace(/\s*\d+\/\d+ palabras\s*/,'').trim() : id; }
+function escapeHtml(s){ var d = document.createElement('div'); d.textContent = norm(s); return d.innerHTML; }
+
+/* ---------- CAMPOS DE CADA SECCIÓN (calificados) ---------- */
+var STEP_FIELDS = {
+  paso1: ['p1_respuesta'],
+  paso2: ['p2_respuesta'],
+  paso3: ['p3_respuesta'],
+  paso4: ['p4_respuesta'],
+  paso5: ['p5_respuesta']
+};
+
+/* ---------- TEMPORIZADOR DE REFERENCIA (no cierra la practica) ---------- */
+var TIMER_MINUTES = 45;
+var TIMER_KEY = 'tp_auditforense4_deadline';
+var SOUND_MUTE_KEY = 'tp_auditforense4_sound_muted';
+var soundMuted = localStorage.getItem(SOUND_MUTE_KEY) === '1';
+var flatlinePlayed = false;
+var lastBeepAt = 0;
+var lastStabAt = 0;
+var lastOvertimeStabAt = 0;
+var NUM_CORAZONES = 5;
+
+function trazarCorazon(ctx, cx, cy, s){
+  ctx.beginPath();
+  ctx.moveTo(cx, cy + s * 0.32);
+  ctx.bezierCurveTo(cx, cy, cx - s * 0.5, cy - s * 0.5, cx - s * 0.5, cy);
+  ctx.bezierCurveTo(cx - s * 0.5, cy + s * 0.4, cx - s * 0.18, cy + s * 0.62, cx, cy + s * 0.88);
+  ctx.bezierCurveTo(cx + s * 0.18, cy + s * 0.62, cx + s * 0.5, cy + s * 0.4, cx + s * 0.5, cy);
+  ctx.bezierCurveTo(cx + s * 0.5, cy - s * 0.5, cx, cy, cx, cy + s * 0.32);
+  ctx.closePath();
+}
+function dibujarCorazones(pctVida){
+  var canvas = document.getElementById('hearts-canvas');
+  if(!canvas) return;
+  var ctx = canvas.getContext('2d');
+  var W = canvas.width, H = canvas.height;
+  ctx.clearRect(0, 0, W, H);
+  var s = 24, paso = 40, inicioX = (W - paso * (NUM_CORAZONES - 1)) / 2, cy = H / 2 - 4;
+  for(var i = 0; i < NUM_CORAZONES; i++){
+    var cx = inicioX + i * paso;
+    var segInicio = i / NUM_CORAZONES, segAncho = 1 / NUM_CORAZONES;
+    var frac = Math.max(0, Math.min(1, (pctVida - segInicio) / segAncho));
+    trazarCorazon(ctx, cx, cy, s);
+    ctx.fillStyle = 'rgba(0,0,0,.08)';
+    ctx.fill();
+    if(frac > 0){
+      ctx.save();
+      trazarCorazon(ctx, cx, cy, s);
+      ctx.clip();
+      ctx.fillStyle = pctVida <= 0 ? '#94a3b8' : '#e11d48';
+      ctx.fillRect(cx - s / 2, cy + s * 0.9 - (s * 1.4 * frac), s, s * 1.4 * frac);
+      ctx.restore();
     }
-    const val = parseInt(seleccion.value);
-    if(val === p.correcta){
-      correctas++;
-      document.getElementById(`opt-${i}-${val}`).classList.add('correct');
-      fb.innerHTML = `✅ Correcto. ${p.exp}`;
-    } else {
-      document.getElementById(`opt-${i}-${val}`).classList.add('incorrect');
-      document.getElementById(`opt-${i}-${p.correcta}`).classList.add('correct');
-      fb.innerHTML = `❌ Incorrecto. Respuesta correcta: <strong>${p.opts[p.correcta]}</strong><br>${p.exp}`;
+    trazarCorazon(ctx, cx, cy, s);
+    ctx.lineWidth = 1.3;
+    ctx.strokeStyle = 'rgba(0,0,0,.18)';
+    ctx.stroke();
+  }
+}
+function getDeadline(){
+  var d = parseInt(localStorage.getItem(TIMER_KEY), 10);
+  if(!d || isNaN(d)){
+    d = Date.now() + TIMER_MINUTES * 60000;
+    try{ localStorage.setItem(TIMER_KEY, String(d)); }catch(e){}
+  }
+  return d;
+}
+var timerDeadline = getDeadline();
+function playBeep(freq, dur, vol){
+  if(soundMuted) return;
+  try{
+    var Ctx = window.AudioContext || window.webkitAudioContext;
+    var ctx = new Ctx();
+    var osc = ctx.createOscillator(); var gain = ctx.createGain();
+    osc.type = 'sine'; osc.frequency.value = freq;
+    gain.gain.setValueAtTime(vol, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + dur);
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.start(); osc.stop(ctx.currentTime + dur);
+    osc.onended = function(){ ctx.close(); };
+  }catch(e){}
+}
+function playFlatline(){
+  if(soundMuted) return;
+  try{
+    var Ctx = window.AudioContext || window.webkitAudioContext;
+    var ctx = new Ctx();
+    var osc = ctx.createOscillator(); var gain = ctx.createGain();
+    osc.type = 'sawtooth';
+    osc.frequency.setValueAtTime(720, ctx.currentTime);
+    osc.frequency.linearRampToValueAtTime(160, ctx.currentTime + 2.2);
+    gain.gain.setValueAtTime(0.001, ctx.currentTime);
+    gain.gain.linearRampToValueAtTime(0.14, ctx.currentTime + 0.06);
+    gain.gain.setValueAtTime(0.14, ctx.currentTime + 1.8);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 2.3);
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.start(); osc.stop(ctx.currentTime + 2.4);
+    osc.onended = function(){ ctx.close(); };
+  }catch(e){}
+}
+function playAnguishStab(){
+  if(soundMuted) return;
+  try{
+    var Ctx = window.AudioContext || window.webkitAudioContext;
+    var ctx = new Ctx();
+    [1046.5, 987.77].forEach(function(freq){
+      var osc = ctx.createOscillator(); var gain = ctx.createGain();
+      osc.type = 'sawtooth';
+      osc.frequency.value = freq;
+      gain.gain.setValueAtTime(0.001, ctx.currentTime);
+      gain.gain.linearRampToValueAtTime(0.11, ctx.currentTime + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.35);
+      osc.connect(gain); gain.connect(ctx.destination);
+      osc.start(); osc.stop(ctx.currentTime + 0.4);
+    });
+    setTimeout(function(){ ctx.close(); }, 450);
+  }catch(e){}
+}
+function tickTimer(){
+  var wrapEl = document.getElementById('timer-box');
+  var valEl = document.getElementById('timer-value');
+  var overtimeNoteEl = document.getElementById('overtime-note');
+  var heartsEl = document.getElementById('hearts-canvas');
+  if(!wrapEl || !valEl) return;
+  var diffReal = timerDeadline - Date.now();
+  var remaining = diffReal < 0 ? 0 : diffReal;
+  var now = Date.now();
+  dibujarCorazones(Math.max(0, remaining / (TIMER_MINUTES * 60000)));
+  if(diffReal > 0){
+    var totalSec = Math.floor(remaining / 1000);
+    var m = Math.floor(totalSec / 60), s = totalSec % 60;
+    valEl.textContent = (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+    wrapEl.classList.remove('overtime');
+    if(overtimeNoteEl) overtimeNoteEl.hidden = true;
+    var criticalMode = remaining <= 10 * 60000;
+    wrapEl.classList.toggle('low', criticalMode);
+    var lastMinute = remaining <= 5 * 60000;
+    if(lastMinute){
+      var pctMin = remaining / (5 * 60000);
+      var eased = Math.pow(1 - pctMin, 3);
+      var interval = 3000 - eased * 2750;
+      if(now - lastBeepAt > interval){
+        lastBeepAt = now;
+        playBeep(920, 0.08, 0.14);
+      }
+      var stabInterval = 3500 - eased * 3150;
+      if(now - lastStabAt > stabInterval){
+        lastStabAt = now;
+        playAnguishStab();
+      }
     }
+    if(heartsEl) heartsEl.classList.toggle('critical', lastMinute);
+    wrapEl.classList.toggle('critical', lastMinute);
+  } else {
+    var extraMs = -diffReal;
+    var extraSec = Math.floor(extraMs / 1000);
+    var em = Math.floor(extraSec / 60), es = extraSec % 60;
+    valEl.textContent = '+' + (em < 10 ? '0' : '') + em + ':' + (es < 10 ? '0' : '') + es;
+    wrapEl.classList.remove('low', 'critical');
+    wrapEl.classList.add('overtime');
+    if(heartsEl) heartsEl.classList.remove('critical');
+    if(overtimeNoteEl) overtimeNoteEl.hidden = false;
+    if(!flatlinePlayed){
+      flatlinePlayed = true;
+      playFlatline();
+    }
+    if(now - lastOvertimeStabAt > 1800){
+      lastOvertimeStabAt = now;
+      playAnguishStab();
+    }
+  }
+}
+setInterval(tickTimer, 1000);
+tickTimer();
+var soundToggleBtn = document.getElementById('sound-toggle');
+soundToggleBtn.textContent = soundMuted ? '🔇' : '🔔';
+soundToggleBtn.addEventListener('click', function(){
+  soundMuted = !soundMuted;
+  try{ localStorage.setItem(SOUND_MUTE_KEY, soundMuted ? '1' : '0'); }catch(e){}
+  soundToggleBtn.textContent = soundMuted ? '🔇' : '🔔';
+});
+
+/* ===== EFECTOS DINAMICOS ===== */
+var prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function iniciarRedPortada(){
+  var canvas = document.getElementById('cover-canvas');
+  var cover = document.getElementById('portada');
+  if(!canvas || !cover || prefersReducedMotion) return;
+  var ctx = canvas.getContext('2d');
+  var ancho, alto, nodos = [];
+  var NUM_NODOS = 42, DIST_MAX = 130;
+  function redimensionar(){ ancho = canvas.width = cover.offsetWidth; alto = canvas.height = cover.offsetHeight; }
+  function crearNodos(){
+    nodos = [];
+    for(var i = 0; i < NUM_NODOS; i++){
+      nodos.push({ x: Math.random() * ancho, y: Math.random() * alto, vx: (Math.random() - 0.5) * 0.35, vy: (Math.random() - 0.5) * 0.35 });
+    }
+  }
+  function paso(){
+    ctx.clearRect(0, 0, ancho, alto);
+    for(var i = 0; i < nodos.length; i++){
+      var n = nodos[i];
+      n.x += n.vx; n.y += n.vy;
+      if(n.x < 0 || n.x > ancho) n.vx *= -1;
+      if(n.y < 0 || n.y > alto) n.vy *= -1;
+      ctx.beginPath(); ctx.arc(n.x, n.y, 1.8, 0, Math.PI * 2); ctx.fillStyle = 'rgba(255,255,255,.85)'; ctx.fill();
+      for(var j = i + 1; j < nodos.length; j++){
+        var m = nodos[j];
+        var dx = n.x - m.x, dy = n.y - m.y;
+        var dist = Math.sqrt(dx * dx + dy * dy);
+        if(dist < DIST_MAX){
+          ctx.beginPath(); ctx.moveTo(n.x, n.y); ctx.lineTo(m.x, m.y);
+          ctx.strokeStyle = 'rgba(201,162,39,' + ((1 - dist / DIST_MAX) * .5) + ')';
+          ctx.lineWidth = 1; ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(paso);
+  }
+  redimensionar(); crearNodos(); requestAnimationFrame(paso);
+  window.addEventListener('resize', function(){ redimensionar(); crearNodos(); });
+}
+iniciarRedPortada();
+
+function iniciarRevelado(){
+  var tarjetas = document.querySelectorAll('.main > .card');
+  if(!tarjetas.length) return;
+  if(prefersReducedMotion || !('IntersectionObserver' in window)) return;
+  tarjetas.forEach(function(el){ el.classList.add('reveal-init'); });
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){ entry.target.classList.add('revealed'); obs.unobserve(entry.target); }
+    });
+  }, { threshold: .12, rootMargin: '0px 0px -40px 0px' });
+  tarjetas.forEach(function(el){ obs.observe(el); });
+}
+iniciarRevelado();
+
+function iniciarRipple(){
+  document.addEventListener('click', function(e){
+    var btn = e.target.closest && e.target.closest('.btn-primary, .btn-secondary, .btn-block');
+    if(!btn) return;
+    var rect = btn.getBoundingClientRect();
+    var tam = Math.max(rect.width, rect.height) * 1.4;
+    var onda = document.createElement('span');
+    onda.className = 'js-ripple';
+    onda.style.width = onda.style.height = tam + 'px';
+    onda.style.left = (e.clientX - rect.left - tam / 2) + 'px';
+    onda.style.top = (e.clientY - rect.top - tam / 2) + 'px';
+    btn.appendChild(onda);
+    setTimeout(function(){ onda.remove(); }, 650);
+  });
+}
+iniciarRipple();
+
+function animarNumero(el, hasta, duracionMs){
+  if(prefersReducedMotion){ el.textContent = hasta; return; }
+  var inicio = performance.now();
+  function paso(ahora){
+    var t = Math.min(1, (ahora - inicio) / duracionMs);
+    var suavizado = 1 - Math.pow(1 - t, 3);
+    el.textContent = Math.round(hasta * suavizado);
+    if(t < 1) requestAnimationFrame(paso);
+  }
+  requestAnimationFrame(paso);
+}
+
+/* ---------- WORD COUNTERS ---------- */
+document.querySelectorAll('.wc[data-for]').forEach(function(span){
+  var target = document.getElementById(span.getAttribute('data-for'));
+  if(!target) return;
+  function update(){
+    var wc = wordCount(target.value);
+    span.textContent = wc + (wc === 1 ? ' palabra escrita' : ' palabras escritas');
+    span.classList.toggle('ok', wc > 0);
+  }
+  target.addEventListener('input', update);
+  update();
+});
+
+/* ---------- AUTOSAVE (localStorage) ---------- */
+var STORE_KEY = 'tp_auditforense4_respuestas_v1';
+var META_FIELDS = ['est_nombre', 'est_correo', 'est_grupo'];
+function allFieldIds(){
+  var ids = META_FIELDS.slice();
+  Object.keys(STEP_FIELDS).forEach(function(k){ ids = ids.concat(STEP_FIELDS[k]); });
+  return ids;
+}
+function saveAll(){
+  var data = {};
+  allFieldIds().forEach(function(id){ data[id] = val(id); });
+  try{ localStorage.setItem(STORE_KEY, JSON.stringify(data)); }catch(e){}
+}
+function loadAll(){
+  var raw; try{ raw = localStorage.getItem(STORE_KEY); }catch(e){ raw = null; }
+  if(!raw) return;
+  try{
+    var data = JSON.parse(raw);
+    Object.keys(data).forEach(function(id){
+      var el = document.getElementById(id);
+      if(el) el.value = data[id];
+    });
+  }catch(e){}
+}
+loadAll();
+document.querySelectorAll('.wc[data-for]').forEach(function(span){
+  var target = document.getElementById(span.getAttribute('data-for'));
+  if(target) target.dispatchEvent(new Event('input'));
+});
+
+var saveTimer = null;
+document.addEventListener('input', function(e){
+  var t = e.target;
+  if(t && t.id && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT')){
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(function(){ saveAll(); updateProgress(); }, 400);
+  }
+});
+document.addEventListener('change', function(e){
+  var t = e.target;
+  if(t && t.tagName === 'SELECT'){ saveAll(); updateProgress(); }
+});
+
+/* ---------- PROGRESS ---------- */
+function stepRatio(key){
+  var ids = STEP_FIELDS[key];
+  if(!ids || !ids.length) return 0;
+  var n = 0;
+  ids.forEach(function(id){ if(filled(val(id))) n++; });
+  return n / ids.length;
+}
+function updateProgress(){
+  var keys = Object.keys(STEP_FIELDS);
+  var total = 0;
+  keys.forEach(function(k){
+    var r = stepRatio(k);
+    total += r;
+    var pctEl = document.querySelector('.pct[data-pct="'+k+'"]');
+    var linkEl = document.querySelector('.nav a[data-step="'+k+'"]');
+    if(pctEl) pctEl.textContent = Math.round(r*100) + '%';
+    if(linkEl) linkEl.classList.toggle('done', r >= 0.95);
+  });
+  var overall = Math.round((total / keys.length) * 100);
+  document.getElementById('progress-count').textContent = overall + '%';
+  var fillEl = document.getElementById('progress-fill-el');
+  fillEl.style.width = overall + '%';
+  fillEl.classList.toggle('complete', overall >= 95);
+}
+updateProgress();
+
+/* ---------- RÚBRICA TABLE (static reference) ---------- */
+var RUBRICA = [
+  {n:1, key:'paso1', field:'p1_respuesta', criterio:'Auditoría forense y asientos contables', indicador:'Identifica correctamente por qué los asientos son sospechosos (umbral, horario) y propone una técnica de análisis forense concreta con evidencia adicional pertinente.', pts:20, minWords:80},
+  {n:2, key:'paso2', field:'p2_respuesta', criterio:'Fraude a los estados financieros', indicador:'Identifica el esquema de manipulación de ingresos correcto, explica su efecto en el cierre de año, y menciona una forma de comprobarlo con datos fiscales dominicanos.', pts:20, minWords:80},
+  {n:3, key:'paso3', field:'p3_respuesta', criterio:'Malversación de activos e inventarios', indicador:'Nombra correctamente los dos tipos de fraude (nómina fantasma y sobrevaloración de inventario) y propone un control interno específico para cada uno.', pts:20, minWords:80},
+  {n:4, key:'paso4', field:'p4_respuesta', criterio:'Conflicto de interés, soborno y lavado de dinero', indicador:'Identifica el conflicto de interés/soborno con su marco legal, y ubica correctamente el caso del apartamento en una etapa o tipología del lavado de dinero.', pts:20, minWords:80},
+  {n:5, key:'paso5', field:'p5_respuesta', criterio:'Conclusión pericial', indicador:'Conecta los hallazgos entre sí (patrón de fraude complejo/colusión) y propone próximos pasos concretos y razonables.', pts:20, minWords:70}
+];
+document.getElementById('rubrica-body').innerHTML = RUBRICA.map(function(r){
+  return '<tr><td class="label-cell">'+r.n+'</td><td>'+r.criterio+'</td><td>'+r.indicador+'</td><td class="label-cell">'+r.pts+'</td></tr>';
+}).join('') + '<tr><td colspan="3" class="label-cell">TOTAL</td><td class="label-cell">100</td></tr><tr><td colspan="3" class="label-cell">Aprobación mínima</td><td class="label-cell">70</td></tr>';
+
+/* ---------- GRADING ENGINE (ensayo libre: por longitud de la respuesta) ---------- */
+function wordFrac(id, minWords){
+  var wc = wordCount(val(id));
+  if(!minWords || minWords <= 0) return filled(val(id)) ? 1 : 0;
+  return clamp01(wc / minWords);
+}
+
+function buildCriterion(title, maxPoints, frac){
+  var score = Math.round(maxPoints * clamp01(frac) * 10) / 10;
+  var nota;
+  if(frac >= 0.85) nota = 'Respuesta extensa, desarrollada y fundamentada.';
+  else if(frac >= 0.45) nota = 'Respuesta parcial — puede profundizarse más, agregando ejemplos o datos concretos del caso.';
+  else nota = 'Respuesta muy breve o incompleta.';
+  return { title:title, maxPoints:maxPoints, score:score, nota:nota };
+}
+
+function runGrading(){
+  var criteria = RUBRICA.map(function(r){
+    return buildCriterion(r.criterio, r.pts, wordFrac(r.field, r.minWords));
+  });
+  var total = Math.round(criteria.reduce(function(a,c){ return a + c.score; },0) * 10) / 10;
+  return { criteria:criteria, total:total };
+}
+
+function critFillClass(pct){
+  if(pct >= 80) return 'hi';
+  if(pct >= 50) return 'mid';
+  return 'lo';
+}
+
+function renderResults(result){
+  var hero = document.getElementById('score-hero');
+  var title = document.getElementById('score-title');
+  var desc = document.getElementById('score-desc');
+  var num = document.getElementById('score-num');
+  animarNumero(num, result.total, 900);
+  hero.classList.remove('pass','warn','fail');
+  if(result.total >= 70){
+    hero.classList.add('pass');
+    title.textContent = '✅ Aprobado — ' + result.total + ' / 100 pts';
+    desc.textContent = 'Su análisis cumple con la aprobación mínima (70%). Esta nota es preliminar; su facilitador la confirmará.';
+  } else if(result.total >= 55){
+    hero.classList.add('warn');
+    title.textContent = '🟠 Cerca de aprobar — ' + result.total + ' / 100 pts';
+    desc.textContent = 'Está por debajo del 70% mínimo. Desarrolle más las secciones marcadas en rojo/ámbar, con más referencias concretas al caso.';
+  } else {
+    hero.classList.add('fail');
+    title.textContent = '🔴 Necesita trabajo adicional — ' + result.total + ' / 100 pts';
+    desc.textContent = 'Aún faltan varias secciones por completar o desarrollar. Consulte a Nicole y las guías de cada sección para avanzar.';
+  }
+
+  var listEl = document.getElementById('crit-list');
+  listEl.innerHTML = result.criteria.map(function(c){
+    var pct = Math.round((c.score / c.maxPoints) * 100);
+    return '<div class="crit">'+
+      '<div class="crit-head"><strong>'+c.title+'</strong><span class="crit-score">'+c.score+' / '+c.maxPoints+' pts</span></div>'+
+      '<div class="crit-track"><div class="crit-fill '+critFillClass(pct)+'" style="width:'+pct+'%;"></div></div>'+
+      '<p class="note">'+c.nota+'</p>'+
+      '</div>';
+  }).join('');
+
+  document.getElementById('results').classList.add('show');
+
+  if(result.total >= 70){
+    reproducirCelebracion();
+    lanzarConfeti();
+    mostrarMedalla(result.total);
+  } else {
+    document.getElementById('medal-zone').style.display = 'none';
+  }
+}
+
+/* ---------- SONIDO DE EXITO (sintetizado, sin archivos externos) ---------- */
+function reproducirSonidoExito(){
+  try{
+    var Ctx = window.AudioContext || window.webkitAudioContext;
+    var ctx = new Ctx();
+    var notas = [523.25, 659.25, 783.99, 1046.50];
+    notas.forEach(function(freq, i){
+      var osc = ctx.createOscillator();
+      var gain = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.value = freq;
+      var inicio = ctx.currentTime + i * 0.11;
+      gain.gain.setValueAtTime(0, inicio);
+      gain.gain.linearRampToValueAtTime(0.18, inicio + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.0001, inicio + 0.35);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(inicio);
+      osc.stop(inicio + 0.4);
+    });
+  }catch(e){ /* audio no disponible, silenciar sin romper la practica */ }
+}
+
+/* ---------- APLAUSOS (ruido blanco filtrado, sintetizado, sin archivos externos) ---------- */
+function reproducirAplausos(){
+  try{
+    var Ctx = window.AudioContext || window.webkitAudioContext;
+    var ctx = new Ctx();
+    var duracion = 2.4;
+    var sampleRate = ctx.sampleRate;
+    var bufferSize = Math.floor(sampleRate * duracion);
+    var buffer = ctx.createBuffer(1, bufferSize, sampleRate);
+    var data = buffer.getChannelData(0);
+    var numClaps = 70;
+    for(var i = 0; i < numClaps; i++){
+      var progreso = i / numClaps;
+      var start = Math.pow(progreso, 0.6) * (duracion - 0.18);
+      var startSample = Math.floor(start * sampleRate);
+      var clapLen = Math.floor(sampleRate * (0.015 + Math.random() * 0.03));
+      var amp = 0.3 + Math.random() * 0.45;
+      for(var s = 0; s < clapLen && (startSample + s) < bufferSize; s++){
+        var decay = 1 - (s / clapLen);
+        data[startSample + s] += (Math.random() * 2 - 1) * amp * decay;
+      }
+    }
+    var noiseSource = ctx.createBufferSource();
+    noiseSource.buffer = buffer;
+    var bandpass = ctx.createBiquadFilter();
+    bandpass.type = 'bandpass';
+    bandpass.frequency.value = 2200;
+    bandpass.Q.value = 0.6;
+    var gain = ctx.createGain();
+    gain.gain.setValueAtTime(0.8, ctx.currentTime);
+    gain.gain.linearRampToValueAtTime(0.0001, ctx.currentTime + duracion);
+    noiseSource.connect(bandpass);
+    bandpass.connect(gain);
+    gain.connect(ctx.destination);
+    noiseSource.start();
+    noiseSource.onended = function(){ try{ ctx.close(); }catch(e){} };
+  }catch(e){ /* audio no disponible, silenciar sin romper la practica */ }
+}
+
+/* ---------- VITORES / ALGARABIA (barridos de tono, sintetizados) ---------- */
+function reproducirVitores(){
+  try{
+    var Ctx = window.AudioContext || window.webkitAudioContext;
+    var ctx = new Ctx();
+    var vitores = [
+      { start:0.15, dur:0.55, f0:280, f1:850 },
+      { start:0.55, dur:0.5, f0:240, f1:760 },
+      { start:0.95, dur:0.45, f0:320, f1:900 }
+    ];
+    vitores.forEach(function(v){
+      var osc = ctx.createOscillator();
+      var gain = ctx.createGain();
+      osc.type = 'sawtooth';
+      var t0 = ctx.currentTime + v.start;
+      osc.frequency.setValueAtTime(v.f0, t0);
+      osc.frequency.linearRampToValueAtTime(v.f1, t0 + v.dur * 0.6);
+      osc.frequency.linearRampToValueAtTime(v.f0 * 0.85, t0 + v.dur);
+      gain.gain.setValueAtTime(0, t0);
+      gain.gain.linearRampToValueAtTime(0.1, t0 + 0.06);
+      gain.gain.linearRampToValueAtTime(0.0001, t0 + v.dur);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(t0);
+      osc.stop(t0 + v.dur + 0.05);
+    });
+    setTimeout(function(){ try{ ctx.close(); }catch(e){} }, 1600);
+  }catch(e){ /* audio no disponible, silenciar sin romper la practica */ }
+}
+
+/* ---------- CELEBRACION COMPLETA (campanas + aplausos + vitores) ---------- */
+function reproducirCelebracion(){
+  reproducirSonidoExito();
+  reproducirAplausos();
+  reproducirVitores();
+}
+
+/* ---------- CONFETI (via CDN, cargado bajo demanda) ---------- */
+var confettiScriptLoading = null;
+function ensureConfetti(){
+  if(window.confetti) return Promise.resolve();
+  if(confettiScriptLoading) return confettiScriptLoading;
+  confettiScriptLoading = new Promise(function(resolve){
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js';
+    s.onload = function(){ resolve(); };
+    s.onerror = function(){ resolve(); };
+    document.head.appendChild(s);
+  });
+  return confettiScriptLoading;
+}
+function lanzarConfeti(){
+  ensureConfetti().then(function(){
+    if(!window.confetti) return;
+    var colores = ['#c9a227', '#0b1f3a', '#5b9bd8'];
+    confetti({ particleCount: 90, spread: 75, origin: { y: 0.35 }, colors: colores });
+    setTimeout(function(){
+      confetti({ particleCount: 50, angle: 60, spread: 60, origin: { x: 0 }, colors: colores });
+      confetti({ particleCount: 50, angle: 120, spread: 60, origin: { x: 1 }, colors: colores });
+    }, 300);
+  });
+}
+
+/* ---------- MEDALLAS (tema del curso: ⚖️ Auditoría Forense) ---------- */
+var NIVELES_MEDALLA = [
+  { min: 90, icono: '🥇', titulo: 'Perito Forense Élite' },
+  { min: 80, icono: '🥈', titulo: 'Investigador de Fraude Certificado' },
+  { min: 70, icono: '🥉', titulo: 'Analista Forense en Formación' }
+];
+
+function obtenerNivelMedalla(total){
+  for(var i = 0; i < NIVELES_MEDALLA.length; i++){
+    if(total >= NIVELES_MEDALLA[i].min) return NIVELES_MEDALLA[i];
+  }
+  return null;
+}
+
+function dibujarInsignia(nivel, nombre, total){
+  var canvas = document.createElement('canvas');
+  canvas.width = 800; canvas.height = 500;
+  var ctx = canvas.getContext('2d');
+
+  var grad = ctx.createLinearGradient(0, 0, 800, 500);
+  grad.addColorStop(0, '#0b1f3a');
+  grad.addColorStop(1, '#081326');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, 800, 500);
+
+  ctx.strokeStyle = '#c9a227';
+  ctx.lineWidth = 6;
+  ctx.strokeRect(20, 20, 760, 460);
+
+  ctx.textAlign = 'center';
+  ctx.font = '120px sans-serif';
+  ctx.fillText(nivel.icono, 400, 190);
+
+  ctx.fillStyle = '#c9a227';
+  ctx.font = 'bold 32px Georgia, serif';
+  ctx.fillText(nivel.titulo, 400, 250);
+
+  ctx.fillStyle = '#f1f5f9';
+  ctx.font = 'bold 30px Arial';
+  ctx.fillText(nombre || 'Participante', 400, 310);
+
+  ctx.fillStyle = '#cbd5e1';
+  ctx.font = '22px Arial';
+  ctx.fillText('CERTIFICADO DE FINALIZACIÓN', 400, 350);
+  ctx.fillText('Módulo IV: Investigación del Delito Financiero', 400, 380);
+
+  ctx.fillStyle = '#94a3b8';
+  ctx.font = 'italic 18px Arial';
+  ctx.fillText('Johan Tapia, PhD · ' + new Date().toLocaleDateString('es-DO'), 400, 460);
+
+  return canvas;
+}
+
+function mostrarMedalla(total){
+  var nivel = obtenerNivelMedalla(total);
+  var zone = document.getElementById('medal-zone');
+  if(!nivel){ zone.style.display = 'none'; return; }
+
+  var nombre = (document.getElementById('est_nombre').value || '').trim() || 'Participante';
+  var canvas = dibujarInsignia(nivel, nombre, total);
+
+  zone.style.display = 'block';
+  zone.innerHTML =
+    '<div class="medal-card">' +
+      '<span class="medal-icon">' + nivel.icono + '</span>' +
+      '<div class="medal-title">' + nivel.titulo + '</div>' +
+      '<p class="medal-sub">¡Completó la práctica! Compártala con sus colegas.</p>' +
+      '<div class="medal-actions">' +
+        '<button class="btn-primary" id="btn-compartir-medalla" type="button">📤 Compartir insignia</button>' +
+        '<button class="btn-secondary" id="btn-descargar-medalla" type="button">⬇️ Descargar</button>' +
+      '</div>' +
+    '</div>';
+
+  document.getElementById('btn-descargar-medalla').addEventListener('click', function(){
+    var a = document.createElement('a');
+    a.download = 'insignia-auditoria-forense-modulo-iv-' + nombre.toLowerCase().replace(/[^a-z0-9]+/g,'-') + '.png';
+    a.href = canvas.toDataURL('image/png');
+    a.click();
   });
 
-  const nota = Math.round((correctas / preguntas.length) * 100);
-  const aprobado = nota >= 70;
-  const resultado = document.getElementById('resultado');
-  resultado.style.display = 'block';
-  resultado.className = aprobado ? 'aprobado' : 'reprobado';
-  resultado.innerHTML = `
-    <h2>${aprobado ? '¡Aprobado!' : 'No aprobado — puede repetir la práctica'}</h2>
-    <p>Obtuvo <strong>${correctas} de ${preguntas.length}</strong> respuestas correctas (${nota}%)</p>
-    <div class="barra"><div class="barra-fill" style="width:${nota}%"></div></div>
-    <p style="font-size:.85rem; opacity:.85;">Nota mínima de aprobación: 70%</p>
-  `;
-  resultado.scrollIntoView({behavior:'smooth', block:'center'});
-  document.getElementById('submitBtn').innerText = 'Recalificar';
+  document.getElementById('btn-compartir-medalla').addEventListener('click', function(){
+    canvas.toBlob(function(blob){
+      var archivo = new File([blob], 'insignia-auditoria-forense-modulo-iv.png', { type: 'image/png' });
+      if(navigator.canShare && navigator.canShare({ files: [archivo] })){
+        navigator.share({
+          files: [archivo],
+          title: nivel.titulo,
+          text: '¡Completé la práctica "' + nivel.titulo + '" del Módulo IV de Auditoría Forense!'
+        }).catch(function(){});
+      } else {
+        var a = document.createElement('a');
+        a.download = 'insignia-auditoria-forense-modulo-iv.png';
+        a.href = canvas.toDataURL('image/png');
+        a.click();
+      }
+    }, 'image/png');
+  });
 }
+
+function gatherGradingPayload(localResult){
+  var pasos = {};
+  Object.keys(STEP_FIELDS).forEach(function(key, i){
+    var respuestas = {};
+    STEP_FIELDS[key].forEach(function(id){
+      var v = val(id);
+      if(filled(v)) respuestas[labelOf(id)] = v;
+    });
+    pasos[key] = { criterio: RUBRICA[i].criterio, max: RUBRICA[i].pts, respuestas: respuestas };
+  });
+  return {
+    estudiante: { nombre: val('est_nombre') || '', correo: val('est_correo') || '' },
+    institucion: val('est_grupo') || '',
+    curso: 'auditoria-forense-gestion-fraude-corporativo',
+    unidad: 'modulo-iv-investigacion-delito-financiero',
+    pasos: pasos,
+    local: localResult ? {
+      total: localResult.total,
+      criterios: localResult.criteria.map(function(c){ return { titulo: c.title, puntaje: c.score, max: c.maxPoints }; })
+    } : null
+  };
+}
+
+function renderAIReview(data){
+  var box = document.getElementById('ai-review');
+  box.className = 'alert success';
+  var rows = data.criterios.map(function(c, i){
+    var nombre = RUBRICA[i] ? RUBRICA[i].criterio : ('Criterio ' + (i+1));
+    return '<li><strong>' + escapeHtml(nombre) + ':</strong> ' + c.puntaje + '/' + c.max + ' pts — ' + escapeHtml(c.comentario) + '</li>';
+  }).join('');
+  box.innerHTML = '<strong>🤖 Evaluación de Nicole:</strong> ' + data.total + ' / 100 pts.<br>' +
+    (data.comentario_general ? '<p style="margin:.5rem 0;">' + escapeHtml(data.comentario_general) + '</p>' : '') +
+    '<ul style="margin:.5rem 0 0; padding-left:1.2rem; font-size:.85rem;">' + rows + '</ul>' +
+    '<p style="margin:.6rem 0 0; font-size:.72rem; color:var(--muted);">Esta evaluación la genera el Tutor Virtual leyendo el contenido real de sus respuestas; es orientativa y no reemplaza la nota oficial de su facilitador.</p>';
+}
+
+function requestAIGrading(localResult){
+  var box = document.getElementById('ai-review');
+  box.style.display = 'block';
+  box.className = 'alert info';
+  box.innerHTML = '<strong>🤖 Nicole:</strong> analizando el contenido de sus respuestas (puede tardar hasta 10 minutos en este servidor, más si hay varios envíos a la vez) y notificando a su facilitador por correo. No necesita quedarse en esta pantalla — su nota automática ya quedó registrada arriba…';
+  fetchWithTimeout(AI_GRADE_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(gatherGradingPayload(localResult))
+  }, AI_GRADE_TIMEOUT).then(function(res){
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    return res.json();
+  }).then(function(data){
+    if(!data || !data.ok || !Array.isArray(data.criterios)) throw new Error((data && data.error) || 'respuesta inválida');
+    renderAIReview(data);
+  }).catch(function(){
+    box.className = 'alert warn';
+    box.innerHTML = '<strong>🤖 Nicole:</strong> no se pudo contactar el servicio de evaluación en este momento (puede estar desconectado o sin internet). Se muestra únicamente la evaluación automática local de esta página, que sigue siendo válida.';
+  });
+}
+
+document.getElementById('btn-submit').addEventListener('click', function(){
+  saveAll();
+  if(!filled(val('est_nombre'))){
+    alert('Antes de enviar, escriba su nombre completo (sección "Antes de empezar") para que su facilitador pueda identificar la entrega.');
+    document.getElementById('est_nombre').focus();
+    document.getElementById('portada').scrollIntoView({ behavior:'smooth' });
+    return;
+  }
+  var result = runGrading();
+  renderResults(result);
+  document.getElementById('results').scrollIntoView({ behavior:'smooth', block:'start' });
+  requestAIGrading(result);
+});
+document.getElementById('btn-recheck').addEventListener('click', function(){
+  document.getElementById('paso1').scrollIntoView({ behavior:'smooth' });
+});
+
+/* ---------- EXPORT / PRINT / CLEAR ---------- */
+function exportTxt(){
+  var lines = ['MÓDULO IV — INVESTIGACIÓN DEL DELITO FINANCIERO', 'Nombre: ' + (val('est_nombre') || '(sin especificar)'), 'Institución/Grupo: ' + (val('est_grupo') || '(sin especificar)'), '======================================================', ''];
+  var etiquetasPaso = { p1_respuesta:'1. Auditoría forense y asientos contables', p2_respuesta:'2. Fraude a los estados financieros', p3_respuesta:'3. Malversación de activos e inventarios', p4_respuesta:'4. Conflicto de interés, soborno y lavado de dinero', p5_respuesta:'5. Conclusión pericial' };
+  Object.keys(etiquetasPaso).forEach(function(id){
+    var v = val(id);
+    if(!filled(v)) return;
+    lines.push('--- ' + etiquetasPaso[id] + ' ---');
+    lines.push(v);
+    lines.push('');
+  });
+  var blob = new Blob([lines.join('\n')], { type:'text/plain;charset=utf-8' });
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  var name = (val('est_nombre') || 'modulo-iv-auditoria-forense').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+  a.download = (name || 'modulo-iv-auditoria-forense') + '.txt';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(a.href);
+}
+document.getElementById('btn-export').addEventListener('click', exportTxt);
+document.getElementById('btn-export-2').addEventListener('click', exportTxt);
+document.getElementById('btn-print').addEventListener('click', function(){ window.print(); });
+document.getElementById('btn-print-2').addEventListener('click', function(){ window.print(); });
+document.getElementById('btn-clear').addEventListener('click', function(){
+  if(!confirm('¿Seguro que desea borrar TODAS sus respuestas guardadas en este navegador? Esta acción no se puede deshacer.')) return;
+  try{ localStorage.removeItem(STORE_KEY); }catch(e){}
+  allFieldIds().forEach(function(id){ var el = document.getElementById(id); if(el) el.value = ''; });
+  document.querySelectorAll('.wc[data-for]').forEach(function(span){ var t = document.getElementById(span.getAttribute('data-for')); if(t) t.dispatchEvent(new Event('input')); });
+  updateProgress();
+  document.getElementById('results').classList.remove('show');
+  var aiBox = document.getElementById('ai-review');
+  aiBox.style.display = 'none';
+  aiBox.innerHTML = '';
+});
+
+/* ---------- NICOLE - respaldo con reglas (sin costo) ---------- */
+var advisorToggle = document.getElementById('advisor-toggle');
+var advisorPanel = document.getElementById('advisor-panel');
+var advisorClose = document.getElementById('advisor-close');
+var advisorBody = document.getElementById('advisor-body');
+var advisorForm = document.getElementById('advisor-form');
+var advisorInput = document.getElementById('advisor-input');
+
+function openAdvisor(){ advisorPanel.classList.add('open'); advisorToggle.setAttribute('aria-expanded','true'); advisorInput.focus(); }
+function closeAdvisor(){ advisorPanel.classList.remove('open'); advisorToggle.setAttribute('aria-expanded','false'); }
+advisorToggle.addEventListener('click', function(){ advisorPanel.classList.contains('open') ? closeAdvisor() : openAdvisor(); });
+advisorClose.addEventListener('click', closeAdvisor);
+
+function addMsg(text, who){
+  var div = document.createElement('div');
+  div.className = 'advisor-msg advisor-msg-' + (who === 'user' ? 'user' : 'bot');
+  div.textContent = text;
+  advisorBody.appendChild(div);
+  advisorBody.scrollTop = advisorBody.scrollHeight;
+  return div;
+}
+function addTyping(){
+  var div = addMsg('Escribiendo…', 'bot');
+  div.style.opacity = '.6';
+  return div;
+}
+function askTutorAI(q){
+  return fetchWithTimeout(AI_CHAT_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ message: q, contexto: 'MÓDULO IV (Investigación del Delito Financiero, Diplomado en Auditoría Forense y Gestión Avanzada del Fraude Corporativo): caso de Grupo Comercial Antillas, S.A., empresa dominicana de importación y distribución. Hallazgos: (1) 6 asientos manuales de RD$495,000 registrados de madrugada al cierre de año, justo debajo del umbral de aprobación de RD$500,000 — journal entry testing. (2) Factura de RD$18 millones a empresa relacionada emitida el 31 de diciembre y anulada el 4 de enero — ventas ficticias, fraude a estados financieros, comprobable con reportes 606/607 de la DGII. (3) Empleado fantasma en nómina de Almacén Santiago — malversación de activos, nómina fantasma. (4) Inventario en tránsito 40% superior sin autorización — sobrevaloración de inventario, cut-off testing. (5) Proveedor de fletes vinculado por parentesco al Gerente de Compras, sin licitación, tarifas 30% sobre mercado — conflicto de interés y soborno, Ley 448-06, Ley 340-06. (6) Pago de consultoría desde paraíso fiscal seguido de compra de apartamento con 5 pagos en efectivo fraccionados — lavado de dinero: integración (compra del inmueble) y estructuración/smurfing (pagos fraccionados), Ley 155-17, UAF. Las 5 secciones de la práctica: 1) Auditoría forense y asientos contables (20 pts), 2) Fraude a los estados financieros (20 pts), 3) Malversación de activos e inventarios (20 pts), 4) Conflicto de interés, soborno y lavado de dinero (20 pts), 5) Conclusión pericial — patrón de fraude complejo y colusión (20 pts). Aprobación mínima: 70/100.', curso: 'Auditoría Forense — Módulo IV: Investigación del Delito Financiero' })
+  }, AI_CHAT_TIMEOUT).then(function(res){
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    return res.json();
+  }).then(function(data){
+    if(!data || !filled(data.response)) throw new Error('respuesta vacía');
+    return data.response;
+  });
+}
+function askTutor(q){
+  return askTutorAI(q).catch(function(){ return answerFor(q); });
+}
+
+var QA = [
+  { kw:['calific','nota','puntaje','rubrica','aprobar','minimo'], a:'La nota va de 0 a 100, entre las 5 secciones (20 pts cada una). La aprobación mínima es 70%. El sistema revisa si sus secciones están completas y bien desarrolladas, no si son "perfectas". Su facilitador revisa el contenido real de sus respuestas para la nota oficial.' },
+  { kw:['caso', 'antillas', 'empresa', 'explicame el caso'], a:'El caso es Grupo Comercial Antillas, S.A., una empresa dominicana de importación y distribución. Tiene 6 hallazgos: asientos manuales sospechosos, una factura a empresa relacionada anulada días después, un empleado fantasma, inventario inflado, un proveedor de fletes vinculado por parentesco, y una compra de apartamento con pagos en efectivo fraccionados tras un pago sospechoso desde el extranjero. Puede repasar el detalle completo en la sección "El caso" de la página.' },
+  { kw:['asiento', 'seccion 1', 'sección 1', 'journal', 'benford'], a:'La Sección 1 pide analizar los asientos manuales del caso: por qué son sospechosos (umbral de aprobación, horario de registro) y qué técnica de journal entry testing aplicaría, más qué evidencia adicional pediría (por ejemplo, cruzar con datos de la DGII). Vale 20 puntos.' },
+  { kw:['estados financieros', 'ingresos ficticios', 'seccion 2', 'sección 2', '606', '607'], a:'La Sección 2 pide identificar el esquema de manipulación de ingresos en la factura anulada a la empresa relacionada, su efecto en el cierre de año, y cómo se comprobaría cruzando los reportes 606/607 de la DGII contra los estados financieros. Vale 20 puntos.' },
+  { kw:['malversacion', 'malversación', 'nomina', 'nómina', 'inventario', 'seccion 3', 'sección 3'], a:'La Sección 3 pide analizar el empleado fantasma (nómina) y el inventario inflado (activos), nombrando el tipo de fraude de cada uno y el control interno que lo habría prevenido. Vale 20 puntos.' },
+  { kw:['soborno', 'conflicto de interes', 'conflicto de interés', 'lavado', 'seccion 4', 'sección 4', '155-17', '448-06'], a:'La Sección 4 pide analizar el proveedor de fletes vinculado por parentesco (conflicto de interés/soborno, Ley 448-06) y la compra del apartamento en efectivo fraccionado (lavado de dinero, Ley 155-17) — identifique en qué etapa del lavado (colocación, estratificación, integración) o tipología encaja este último caso. Vale 20 puntos.' },
+  { kw:['conclusion', 'conclusión', 'pericial', 'seccion 5', 'sección 5', 'colusion', 'colusión'], a:'La Sección 5 pide redactar una conclusión pericial: si los hallazgos, en conjunto, sugieren un patrón de fraude complejo con colusión, y qué recomendaría hacer a continuación. Vale 20 puntos.' },
+  { kw:['nota de voz', 'voz', 'grabar', 'hablar', 'microfono', 'micrófono'], a:'Al lado de cada sección hay un botón "🎤 Mantenga presionado para grabar". Manténgalo presionado mientras habla su respuesta, y suéltelo al terminar — el sistema la convierte en texto automáticamente, como una nota de voz de WhatsApp.' },
+  { kw:['tiempo', 'cuanto dura', 'cuanto tarda', 'temporizador', 'reloj', '45 minutos'], a:'Hay un reloj en la barra lateral con 45 minutos sugeridos, pero es solo una guía — no bloquea nada ni envía nada solo. Tómese el tiempo que necesite; sus respuestas quedan guardadas en este navegador.' },
+  { kw:['orden', 'secuencia', 'primero', 'que seccion empiezo'], a:'No hay un orden obligatorio — puede responder las 5 secciones en el orden que prefiera, o saltar entre ellas usando el menú de la barra lateral.' },
+  { kw:['hola', 'ayuda', 'que puedes hacer', 'quien eres'], a:'Soy Nicole, la asistente virtual del Dr. Johan Tapia. Puedo ayudarte a pensar en el caso de Grupo Comercial Antillas, en qué tipo de fraude corresponde a cada hallazgo, qué ley dominicana aplica, o cómo funciona la calificación de esta práctica. No te voy a dar la respuesta ya hecha — eso lo construyes tú, aplicando lo visto en clase.' }
+];
+function normQ(s){ return stripAccents(s); }
+function answerFor(q){
+  var nq = normQ(q);
+  var best = null, bestScore = 0;
+  QA.forEach(function(entry){
+    var score = 0;
+    entry.kw.forEach(function(k){ if(nq.indexOf(normQ(k)) !== -1) score++; });
+    if(score > bestScore){ bestScore = score; best = entry; }
+  });
+  if(best) return best.a;
+  return 'No tengo una respuesta preparada para eso. Prueba preguntar por el caso, por una sección específica (asientos, estados financieros, malversación, soborno/lavado, conclusión), por el marco legal, o cómo se califica. Para dudas sobre su experiencia específica, consulte a su facilitador.';
+}
+advisorForm.addEventListener('submit', function(e){
+  e.preventDefault();
+  var q = norm(advisorInput.value);
+  if(!q) return;
+  addMsg(q, 'user');
+  advisorInput.value = '';
+  var typingEl = addTyping();
+  askTutor(q).then(function(answer){
+    typingEl.remove();
+    addMsg(answer, 'bot');
+  });
+});
+document.querySelectorAll('.advisor-suggest button').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var q = btn.getAttribute('data-q');
+    openAdvisor();
+    addMsg(q, 'user');
+    var typingEl = addTyping();
+    askTutor(q).then(function(answer){
+      typingEl.remove();
+      addMsg(answer, 'bot');
+    });
+  });
+});
+
+wireVoiceButtons();
+wireSpeakButtons();
+
+})();
 </script>
 </body>
 </html>
