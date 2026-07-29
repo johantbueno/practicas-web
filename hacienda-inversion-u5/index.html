@@ -1,0 +1,1969 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Práctica — Unidad V | El Ciclo de Vida de un Proyecto</title>
+<meta name="description" content="Práctica autocalificable de la Unidad V: El Ciclo de Vida de un Proyecto, curso Fundamentos de Planificación y Gestión de la Inversión Pública del Estado, CAPGEFI. Conceptos Básicos de Inversión Pública, Ciclo de Vida (Preinversión, Inversión, Operación y Mantenimiento), Etapas de Preinversión (Perfil, Prefactibilidad, Factibilidad) y Herramientas del SNIP. Por escrito o por nota de voz. Incluye a Nicole y calificación automática preliminar.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8F%9B%EF%B8%8F%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+:root{
+  --navy:#003877; --navy-dark:#002a5c; --gold:#c9982f;
+  --primary:#0f172a; --secondary:#334155; --muted:#64748b;
+  --bg-body:#f4f7fb; --bg-card:#ffffff; --border-light:#e2e8f0; --border-dark:#cbd5e1;
+  --green:#16a34a; --green-bg:#f0fdf4; --green-border:#22c55e;
+  --amber:#b45309; --amber-bg:#fffbeb; --amber-border:#f59e0b;
+  --red:#b91c1c; --red-bg:#fef2f2; --red-border:#ef4444;
+  --blue-bg:#eff6ff; --blue-border:#3b82f6;
+  --radius-lg:16px; --radius-md:12px; --radius-sm:8px;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.06);
+  --shadow-md:0 4px 6px -1px rgba(0,0,0,.1), 0 2px 4px -2px rgba(0,0,0,.1);
+  --shadow-lg:0 10px 15px -3px rgba(0,0,0,.12), 0 4px 6px -4px rgba(0,0,0,.1);
+  --sidebar-w:300px;
+}
+[data-theme="dark"]{
+  --navy:#5b9bd8; --primary:#f1f5f9; --secondary:#cbd5e1; --muted:#94a3b8;
+  --bg-body:#0b1220; --bg-card:#151f2f; --border-light:#283249; --border-dark:#3a4666;
+  --green-bg:#0c2417; --amber-bg:#2a2108; --red-bg:#2a1212; --blue-bg:#13233f;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.4); --shadow-md:0 4px 6px -1px rgba(0,0,0,.5); --shadow-lg:0 10px 15px -3px rgba(0,0,0,.5);
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{margin:0; background:var(--bg-body); color:var(--secondary); font-family:'Inter',ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif; line-height:1.7; transition:background-color .25s ease;}
+a{color:var(--navy);}
+.skip-link{position:absolute; left:-9999px; top:0; background:var(--navy); color:#fff; padding:.85rem 1.5rem; z-index:2000; border-radius:0 0 10px 0; font-weight:700; text-decoration:none;}
+.skip-link:focus{left:0;}
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible{outline:2px solid var(--navy); outline-offset:2px; border-radius:4px;}
+
+#progress-wrap{position:fixed; top:0; left:0; right:0; height:4px; z-index:1000; background:transparent;}
+#progress-bar{height:100%; width:0%; background:linear-gradient(90deg, var(--navy), var(--gold)); transition:width .1s linear;}
+
+.wrapper{display:flex; flex-direction:column; min-height:100vh; margin:0 auto;}
+@media (min-width:1024px){ .wrapper{flex-direction:row; align-items:flex-start; max-width:1440px; padding:0 1rem;} }
+
+/* SIDEBAR */
+.sidebar{background:var(--bg-card); padding:1.75rem 1.5rem; border-bottom:1px solid var(--border-light);}
+@media (min-width:1024px){
+  .sidebar{width:var(--sidebar-w); flex-shrink:0; position:sticky; top:1.5rem; height:calc(100vh - 3rem); overflow-y:auto; border-radius:var(--radius-lg); border:1px solid var(--border-light); box-shadow:var(--shadow-md); margin:1.5rem 0;}
+}
+.sidebar-header{display:flex; align-items:center; gap:10px; margin-bottom:1rem; padding-bottom:1rem; border-bottom:1px solid var(--border-light);}
+.sidebar-title{color:var(--primary); font-size:1.02rem; font-weight:800; text-transform:uppercase; letter-spacing:.04em; margin:0;}
+.header-actions{margin-left:auto; display:flex; gap:.4rem;}
+.icon-btn{background:none; border:1px solid var(--border-light); width:34px; height:34px; border-radius:8px; cursor:pointer; font-size:1rem; display:flex; align-items:center; justify-content:center; color:var(--secondary);}
+.icon-btn:hover{background:var(--bg-body); border-color:var(--border-dark);}
+.nav-toggle{display:none;}
+
+/* TEMPORIZADOR DE REFERENCIA */
+.timer-box{background:var(--bg-body); border:1px solid var(--border-light); border-radius:var(--radius-md); padding:.85rem 1rem; margin-bottom:1.1rem; transition:background-color .3s ease, border-color .3s ease;}
+.timer-row{display:flex; justify-content:space-between; align-items:center; margin-bottom:.3rem;}
+.timer-label{font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.03em; color:var(--muted);}
+.timer-value{font-size:1.5rem; font-weight:800; color:var(--primary); font-family:ui-monospace,SFMono-Regular,Consolas,monospace; letter-spacing:.02em;}
+.timer-box.low{background:var(--red-bg); border-color:var(--red-border);}
+.timer-box.low .timer-value{color:var(--red); animation:timerPulse 1s ease-in-out infinite;}
+.timer-box.flatline{background:var(--bg-body); border-color:var(--border-dark);}
+.timer-box.flatline .timer-value{color:var(--muted); text-decoration:line-through;}
+#sound-toggle{width:28px; height:28px; font-size:.85rem; flex-shrink:0;}
+@keyframes timerPulse{0%,100%{opacity:1; transform:scale(1);} 50%{opacity:.55; transform:scale(1.05);}}
+
+/* Corazones estilo "vida" de videojuego -- se van vaciando segun avanza el tiempo. */
+#hearts-canvas{display:block; margin:.55rem auto 0;}
+@keyframes heartShake{0%,100%{transform:translateX(0);} 20%{transform:translateX(-2px);} 40%{transform:translateX(2px);} 60%{transform:translateX(-2px);} 80%{transform:translateX(2px);}}
+#hearts-canvas.critical{animation:heartShake .3s ease-in-out infinite;}
+
+/* Modo "tiempo extra" -- tras los 60 minutos, puramente cosmetico, no afecta la aprobacion. */
+.timer-box.overtime{background:var(--red-bg); border-color:var(--red-border);}
+.timer-box.overtime .timer-value{color:var(--red); animation:timerPulse .6s ease-in-out infinite;}
+.overtime-note{font-size:.66rem; color:var(--red); text-align:center; margin-top:.4rem; font-weight:700; line-height:1.3;}
+.fast-clock{width:26px; height:26px; border-radius:50%; border:2px solid var(--red); position:relative; margin:.55rem auto 0; display:none;}
+.timer-box.overtime .fast-clock{display:block;}
+.fast-clock-hand{position:absolute; top:50%; left:50%; width:2px; height:10px; background:var(--red); transform-origin:50% 100%; margin-top:-10px; margin-left:-1px; animation:fastSpin .4s linear infinite;}
+@keyframes fastSpin{ to{ transform:rotate(360deg); } }
+
+/* MEDALLA */
+.medal-modal{position:fixed; inset:0; background:rgba(0,0,0,.65); z-index:2000; display:flex; align-items:center; justify-content:center; padding:1rem;}
+.medal-modal[hidden]{display:none;}
+.medal-modal-inner{background:var(--bg-card); border-radius:var(--radius-lg); padding:1.5rem; max-width:420px; width:100%; text-align:center; position:relative; box-shadow:var(--shadow-lg);}
+#medal-canvas{width:100%; max-width:300px; border-radius:12px; margin:.25rem auto 1rem; display:block; box-shadow:var(--shadow-md);}
+#medal-close{position:absolute; top:.75rem; right:.75rem;}
+
+.progress-summary{margin-bottom:1.1rem;}
+.progress-summary-row{display:flex; justify-content:space-between; font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.03em; color:var(--muted); margin-bottom:.35rem;}
+#progress-count{color:var(--primary);}
+.progress-track{height:6px; border-radius:999px; background:var(--border-light); overflow:hidden;}
+.progress-fill{height:100%; width:0%; background:linear-gradient(90deg,var(--navy),var(--gold)); transition:width .3s ease;}
+.progress-fill.complete{background:linear-gradient(90deg,#16a34a,#22c55e);}
+
+.nav ul{list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:.2rem;}
+.nav a{text-decoration:none; color:var(--muted); font-size:.9rem; font-weight:500; display:flex; align-items:center; justify-content:space-between; gap:.5rem; padding:.55rem .8rem; border-radius:var(--radius-sm); transition:all .2s ease;}
+.nav a:hover{background:var(--bg-body); color:var(--navy); transform:translateX(3px);}
+.nav a.active,.nav a.active:hover{background:var(--navy); color:#fff; transform:translateX(3px);}
+.nav a .pct{font-size:.68rem; font-weight:700; opacity:.75;}
+.nav a.done .pct::before{content:"✓ ";}
+
+.sidebar-actions{margin-top:1.25rem; padding-top:1.25rem; border-top:1px solid var(--border-light); display:flex; flex-direction:column; gap:.5rem;}
+.btn-block{width:100%; padding:.6rem .8rem; border-radius:var(--radius-sm); border:1px solid var(--border-light); background:var(--bg-body); color:var(--secondary); font-weight:600; font-size:.82rem; cursor:pointer; font-family:inherit;}
+.btn-block:hover{border-color:var(--navy); color:var(--navy);}
+
+@media (max-width:1023px){
+  .sidebar-collapsible{display:none;}
+  .sidebar.open .sidebar-collapsible{display:block;}
+  .nav-toggle{display:inline-flex;}
+  .sidebar-header{flex-wrap:wrap; row-gap:.6rem;}
+  .header-actions{flex-basis:100%; justify-content:flex-end; margin-left:0;}
+  .icon-btn{width:40px; height:40px;}
+  .fontsize-controls button{width:38px; height:38px;}
+}
+
+/* MAIN */
+.main{flex:1; padding:1.75rem 1rem 6.5rem; max-width:980px; margin:0 auto; width:100%;}
+@media (min-width:1024px){ .main{padding:1.75rem 2.5rem 5.5rem;} }
+
+.card.cover{background:linear-gradient(135deg,var(--navy),var(--navy-dark)); color:#fff; border-radius:var(--radius-lg); padding:2.5rem; margin-bottom:2rem; box-shadow:var(--shadow-lg);}
+.cover .eyebrow{text-transform:uppercase; letter-spacing:.08em; font-size:.78rem; font-weight:700; opacity:.85;}
+.cover h1{font-size:1.9rem; font-weight:800; margin:.4rem 0 .3rem; line-height:1.25;}
+.cover p.sub{margin:0 0 1.25rem; opacity:.92; font-size:1rem;}
+.cover-chips{display:flex; flex-wrap:wrap; gap:.6rem; margin-top:1.1rem;}
+.cover-chip{background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.22); border-radius:999px; padding:.4rem .9rem; font-size:.8rem; font-weight:600; letter-spacing:.01em;}
+.tutorial-steps{counter-reset:tut; list-style:none; padding:0; margin:1rem 0;}
+.tutorial-steps li{counter-increment:tut; position:relative; padding:.15rem 0 .9rem 2.5rem; font-size:.92rem;}
+.tutorial-steps li::before{content:counter(tut); position:absolute; left:0; top:0; width:1.7rem; height:1.7rem; border-radius:50%; background:var(--navy); color:#fff; font-weight:800; font-size:.8rem; display:flex; align-items:center; justify-content:center;}
+.help-box{display:flex; align-items:center; gap:.9rem; background:var(--blue-bg); border:1px solid var(--blue-border); border-radius:var(--radius-md); padding:1rem 1.25rem; margin-top:1.25rem;}
+.help-box a.btn-secondary{white-space:nowrap;}
+
+.card{background:var(--bg-card); padding:2rem; border-radius:var(--radius-lg); box-shadow:var(--shadow-sm); border:1px solid var(--border-light); margin-bottom:2rem; scroll-margin-top:1.25rem;}
+@media (max-width:640px){ .card{padding:1.35rem;} }
+.card.cover, .card.cover h1{color:#fff;}
+.card h1{font-size:1.7rem; font-weight:800; color:var(--primary); margin:0 0 1.1rem;}
+.card h2{font-size:1.2rem; font-weight:700; color:var(--navy); margin:1.75rem 0 .9rem; padding-bottom:.5rem; border-bottom:1px solid var(--border-light);}
+.card h2:first-child{margin-top:0;}
+.card h3{font-size:1.02rem; font-weight:700; color:var(--primary); margin:1.4rem 0 .7rem;}
+.card p{margin:0 0 1rem;}
+.step-badge{display:inline-flex; align-items:center; gap:.4rem; background:var(--blue-bg); color:var(--navy); border:1px solid var(--blue-border); font-weight:700; font-size:.72rem; text-transform:uppercase; letter-spacing:.04em; padding:.3rem .7rem; border-radius:999px; margin-bottom:.9rem;}
+
+.alert{border-radius:var(--radius-md); padding:1rem 1.25rem; margin:1rem 0; border:1px solid; font-size:.92rem;}
+.alert h3,.alert h4{margin-top:0;}
+.alert.info{background:var(--blue-bg); border-color:var(--blue-border);}
+.alert.gold{background:var(--amber-bg); border-color:var(--amber-border);}
+.alert.success{background:var(--green-bg); border-color:var(--green-border);}
+.alert.warn{background:var(--red-bg); border-color:var(--red-border);}
+
+.tbl-wrap{overflow-x:auto; margin:1rem 0; border-radius:var(--radius-sm); border:1px solid var(--border-light);}
+table.tp-table{width:100%; border-collapse:collapse; font-size:.87rem; min-width:560px;}
+table.tp-table th{background:var(--navy); color:#fff; text-align:left; padding:.6rem .7rem; font-weight:700; font-size:.78rem; text-transform:uppercase; letter-spacing:.02em;}
+table.tp-table td{padding:.55rem .7rem; border-top:1px solid var(--border-light); vertical-align:top;}
+table.tp-table tr:nth-child(even) td{background:var(--bg-body);}
+table.tp-table td.label-cell{font-weight:700; color:var(--primary); white-space:nowrap;}
+
+.field{margin-bottom:1rem;}
+.field label{display:flex; justify-content:space-between; align-items:baseline; gap:.5rem; font-weight:700; font-size:.82rem; color:var(--primary); margin-bottom:.35rem;}
+.field .wc{font-weight:600; font-size:.7rem; color:var(--muted); white-space:nowrap;}
+.field .wc.ok{color:var(--green);}
+.hint{font-size:.78rem; color:var(--muted); margin:-.2rem 0 .5rem;}
+input[type=text], input[type=email], select, textarea{
+  width:100%; padding:.55rem .75rem; border:1px solid var(--border-light); border-radius:var(--radius-sm);
+  font-size:1rem; font-family:inherit; background:var(--bg-card); color:var(--primary); transition:border-color .15s ease;
+}
+[data-theme="dark"] input, [data-theme="dark"] select, [data-theme="dark"] textarea{background:#0f1830;}
+input:focus, select:focus, textarea:focus{border-color:var(--navy); outline:none;}
+textarea{min-height:76px; resize:vertical;}
+textarea.tall{min-height:150px;}
+.field-grid{display:grid; grid-template-columns:1fr 1fr; gap:.9rem;}
+@media (max-width:640px){ .field-grid{grid-template-columns:1fr;} }
+
+.step-points{float:right; background:var(--gold); color:#3a2a00; font-weight:800; font-size:.72rem; padding:.25rem .6rem; border-radius:999px;}
+
+.glossary-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:.9rem; margin-top:1rem;}
+.gloss-item{border:1px solid var(--border-light); border-radius:var(--radius-md); padding:.9rem 1rem; background:var(--bg-body);}
+.gloss-item dt{font-weight:800; color:var(--navy); font-size:.85rem; margin-bottom:.3rem;}
+.gloss-item dd{margin:0; font-size:.82rem; color:var(--secondary);}
+
+ol.ins-list{padding-left:1.2rem;}
+ol.ins-list li{margin-bottom:.5rem;}
+
+.btn-primary{background:linear-gradient(135deg,var(--navy),var(--navy-dark)); color:#fff; border:none; padding:.9rem 1.6rem; border-radius:var(--radius-md); font-weight:700; font-size:1rem; cursor:pointer; box-shadow:var(--shadow-md); font-family:inherit;}
+.btn-primary:hover{filter:brightness(1.08);}
+.btn-secondary{background:var(--bg-body); color:var(--navy); border:1px solid var(--navy); padding:.7rem 1.2rem; border-radius:var(--radius-md); font-weight:700; font-size:.88rem; cursor:pointer; font-family:inherit;}
+.btn-secondary:hover{background:var(--blue-bg);}
+.btn-row{display:flex; flex-wrap:wrap; gap:.7rem; margin-top:1.25rem;}
+
+#submit-zone{text-align:center; padding:2.25rem 1.5rem;}
+#submit-zone p{max-width:560px; margin:0 auto 1.25rem;}
+
+.results{display:none;}
+.results.show{display:block;}
+.score-hero{display:flex; flex-wrap:wrap; align-items:center; gap:1.75rem; padding:1.5rem; border-radius:var(--radius-lg); border:1px solid; margin-bottom:1.5rem;}
+.score-hero.pass{background:var(--green-bg); border-color:var(--green-border);}
+.score-hero.warn{background:var(--amber-bg); border-color:var(--amber-border);}
+.score-hero.fail{background:var(--red-bg); border-color:var(--red-border);}
+.score-circle{width:110px; height:110px; border-radius:50%; display:flex; flex-direction:column; align-items:center; justify-content:center; background:var(--bg-card); box-shadow:var(--shadow-md); flex-shrink:0;}
+.score-circle .num{font-size:1.9rem; font-weight:800; color:var(--primary); line-height:1;}
+.score-circle .den{font-size:.72rem; color:var(--muted); font-weight:700;}
+.score-verdict h3{margin:0 0 .3rem; font-size:1.15rem;}
+.score-verdict p{margin:0; font-size:.92rem;}
+
+.crit{border:1px solid var(--border-light); border-radius:var(--radius-md); padding:1.1rem 1.25rem; margin-bottom:1rem; background:var(--bg-card);}
+.crit-head{display:flex; justify-content:space-between; align-items:center; gap:1rem; margin-bottom:.5rem; flex-wrap:wrap;}
+.crit-head strong{color:var(--primary); font-size:.95rem;}
+.crit-score{font-weight:800; font-size:.9rem; color:var(--navy); white-space:nowrap;}
+.crit-track{height:8px; border-radius:999px; background:var(--border-light); overflow:hidden; margin-bottom:.75rem;}
+.crit-fill{height:100%; border-radius:999px;}
+.crit-fill.hi{background:var(--green);}
+.crit-fill.mid{background:var(--amber);}
+.crit-fill.lo{background:var(--red);}
+.crit ul{margin:.3rem 0 0; padding-left:1.15rem; font-size:.85rem;}
+.crit ul li{margin-bottom:.3rem;}
+.tag-ok{color:var(--green); font-weight:700;}
+.tag-mid{color:var(--amber); font-weight:700;}
+.tag-low{color:var(--red); font-weight:700;}
+
+footer.tp-footer{text-align:center; color:var(--muted); font-size:.8rem; padding:2rem 1rem; border-top:1px solid var(--border-light); margin-top:1rem;}
+
+/* ADVISOR (Nicole, asistente del Dr. Johan Tapia) */
+.advisor-fab{position:fixed; bottom:calc(1.5rem + env(safe-area-inset-bottom)); left:1.5rem; z-index:900; background:linear-gradient(135deg,var(--navy),var(--navy-dark)); color:#fff; border:none; border-radius:999px; padding:.85rem 1.2rem; display:flex; align-items:center; gap:.5rem; font-weight:700; font-size:.9rem; cursor:pointer; box-shadow:var(--shadow-lg); font-family:inherit;}
+.advisor-fab:hover{filter:brightness(1.1);}
+.proftapia-fab{position:fixed; bottom:calc(1.5rem + env(safe-area-inset-bottom)); right:1.5rem; z-index:900; background:linear-gradient(135deg,var(--gold),#a97f24); color:#2a1e00; text-decoration:none; border-radius:999px; padding:.85rem 1.2rem; display:flex; align-items:center; gap:.5rem; font-weight:700; font-size:.9rem; box-shadow:var(--shadow-lg); font-family:inherit;}
+.proftapia-fab:hover{filter:brightness(1.05);}
+.advisor-panel{position:fixed; bottom:calc(5.2rem + env(safe-area-inset-bottom)); left:1.5rem; width:min(360px,90vw); max-height:min(560px,70vh); background:var(--bg-card); border:1px solid var(--border-light); border-radius:var(--radius-lg); box-shadow:var(--shadow-lg); z-index:900; display:none; flex-direction:column; overflow:hidden;}
+.advisor-panel.open{display:flex;}
+.advisor-header{background:linear-gradient(135deg,var(--navy),var(--navy-dark)); color:#fff; padding:.9rem 1.1rem; display:flex; align-items:center; gap:.6rem;}
+.advisor-title{margin:0; font-weight:800; font-size:.95rem;}
+.advisor-header button{margin-left:auto; background:rgba(255,255,255,.15); border:none; color:#fff; width:28px; height:28px; border-radius:8px; cursor:pointer;}
+.advisor-body{flex:1; overflow-y:auto; padding:1rem; display:flex; flex-direction:column; gap:.6rem; background:var(--bg-body);}
+.advisor-msg{max-width:85%; padding:.6rem .85rem; border-radius:12px; font-size:.86rem; line-height:1.5;}
+.advisor-msg-bot{background:var(--bg-card); border:1px solid var(--border-light); align-self:flex-start; border-bottom-left-radius:2px;}
+.advisor-msg-user{background:var(--navy); color:#fff; align-self:flex-end; border-bottom-right-radius:2px;}
+.advisor-suggest{display:flex; flex-wrap:wrap; gap:.4rem; padding:0 1rem .75rem;}
+.advisor-suggest button{background:var(--blue-bg); border:1px solid var(--blue-border); color:var(--navy); font-size:.72rem; padding:.35rem .6rem; border-radius:999px; cursor:pointer; font-family:inherit;}
+.advisor-form{display:flex; gap:.5rem; padding:.75rem; border-top:1px solid var(--border-light); background:var(--bg-card);}
+.advisor-form input{flex:1;}
+.advisor-form button{background:var(--navy); color:#fff; border:none; width:38px; border-radius:var(--radius-sm); cursor:pointer; font-size:1rem;}
+
+@media print{
+  .sidebar, .advisor-fab, .advisor-panel, #progress-wrap, .btn-row, #submit-zone .btn-primary, .header-actions, .medal-modal{display:none !important;}
+  .main{max-width:100%; padding:0;}
+  .card{box-shadow:none; border:1px solid #ccc; break-inside:avoid;}
+  body{background:#fff;}
+}
+
+.voice-row{display:flex; align-items:center; gap:.6rem; margin-top:-.4rem; margin-bottom:.9rem; flex-wrap:wrap;}
+.voice-btn{background:var(--blue-bg); border:1px solid var(--blue-border); color:var(--navy); font-weight:700; font-size:.8rem; padding:.65rem .9rem; min-height:40px; border-radius:999px; cursor:pointer; font-family:inherit;}
+.voice-btn:hover{filter:brightness(0.97);}
+.voice-btn.recording{background:var(--red-bg); border-color:var(--red-border); color:var(--red); animation:voicePulse 1.2s ease-in-out infinite;}
+.voice-btn.busy{opacity:.7; cursor:wait;}
+@keyframes voicePulse{ 0%,100%{opacity:1;} 50%{opacity:.55;} }
+.voice-status{font-size:.75rem; color:var(--muted);}
+.voice-status.err{color:var(--red);}
+.voice-status.ok{color:var(--green);}
+.fontsize-controls{display:flex; align-items:center; gap:.3rem;}
+.fontsize-controls button{background:none; border:1px solid var(--border-light); width:30px; height:30px; border-radius:8px; cursor:pointer; color:var(--secondary); font-weight:800; font-size:.85rem;}
+.fontsize-controls button:hover{border-color:var(--navy); color:var(--navy);}
+html[data-fontsize="grande"] body{font-size:1.14rem;}
+html[data-fontsize="xgrande"] body{font-size:1.3rem;}
+
+/* EFECTOS DINAMICOS: revelado al hacer scroll, micro-interacciones,
+   fondo animado en la portada, confeti al aprobar. Todo con
+   requestAnimationFrame/Canvas nativo, sin librerias nuevas. */
+.card.cover{position:relative; overflow:hidden;}
+#cover-canvas{position:absolute; inset:0; width:100%; height:100%; opacity:.4; pointer-events:none;}
+.card.cover > *{position:relative; z-index:1;}
+
+.reveal-init{opacity:0; transform:translateY(18px); transition:opacity .6s cubic-bezier(.22,.9,.35,1), transform .6s cubic-bezier(.22,.9,.35,1);}
+.reveal-init.revealed{opacity:1; transform:translateY(0);}
+
+.btn-primary, .btn-secondary, .btn-block{position:relative; overflow:hidden; transition:transform .16s ease, box-shadow .16s ease, filter .16s ease;}
+.btn-primary:hover, .btn-secondary:hover, .btn-block:hover{transform:translateY(-2px);}
+.btn-primary:hover{box-shadow:var(--shadow-lg);}
+.btn-primary:active, .btn-secondary:active, .btn-block:active{transform:translateY(0) scale(.97);}
+.js-ripple{position:absolute; border-radius:50%; background:rgba(255,255,255,.55); transform:scale(0); animation:rippleAnim .6s ease-out forwards; pointer-events:none;}
+.btn-secondary .js-ripple, .btn-block .js-ripple{background:rgba(15,56,119,.18);}
+@keyframes rippleAnim{ to{ transform:scale(2.6); opacity:0; } }
+
+#confetti-canvas{position:fixed; inset:0; width:100%; height:100%; pointer-events:none; z-index:3000;}
+
+@media (prefers-reduced-motion: reduce){
+  .reveal-init{opacity:1; transform:none; transition:none;}
+  #cover-canvas{display:none;}
+  .btn-primary:hover, .btn-secondary:hover, .btn-block:hover, .btn-primary:active, .btn-secondary:active, .btn-block:active{transform:none;}
+  #hearts-canvas.critical{animation:none;}
+  .timer-box.overtime .timer-value{animation:none;}
+  .fast-clock-hand{animation:none;}
+}
+
+/* ELIGE TU AVENTURA -- tarjetas de seleccion de caso (Paso 1) */
+.caso-cards{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:.9rem; margin:1rem 0;}
+.caso-card{display:flex; flex-direction:column; align-items:flex-start; gap:.3rem; text-align:left; background:var(--bg-body); border:2px solid var(--border-light); border-radius:var(--radius-md); padding:1rem 1.1rem; cursor:pointer; font-family:inherit; transition:border-color .15s ease, transform .15s ease, box-shadow .15s ease;}
+.caso-card:hover{border-color:var(--navy); transform:translateY(-2px); box-shadow:var(--shadow-md);}
+.caso-card.selected{border-color:var(--gold); background:var(--blue-bg); box-shadow:var(--shadow-md);}
+.caso-card-icon{font-size:1.8rem;}
+.caso-card-sector{font-size:.68rem; font-weight:800; text-transform:uppercase; letter-spacing:.04em; color:var(--navy);}
+.caso-card-title{font-size:.92rem; font-weight:700; color:var(--primary);}
+.caso-card-lugar{font-size:.76rem; color:var(--muted);}
+.caso-card.selected::after{content:"✓ Su misión actual"; font-size:.7rem; font-weight:800; color:var(--green); margin-top:.2rem;}
+</style>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Saltar al contenido</a>
+<div id="progress-wrap"><div id="progress-bar"></div></div>
+
+<div class="wrapper">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <span style="font-size:1.4rem;">🏛️</span>
+      <p class="sidebar-title">Unidad V · Ciclo de Vida</p>
+      <div class="header-actions">
+        <div class="fontsize-controls">
+          <button type="button" id="font-smaller" title="Letra más pequeña" aria-label="Reducir tamaño de letra">A−</button>
+          <button type="button" id="font-bigger" title="Letra más grande" aria-label="Aumentar tamaño de letra">A+</button>
+        </div>
+        <button class="icon-btn" id="theme-toggle" type="button" title="Cambiar tema" aria-label="Cambiar tema claro/oscuro">🌙</button>
+        <button class="icon-btn nav-toggle" id="nav-toggle" type="button" title="Abrir menú" aria-label="Abrir menú" aria-expanded="false">☰</button>
+      </div>
+    </div>
+
+    <div class="sidebar-collapsible">
+      <div class="timer-box" id="timer-box">
+        <div class="timer-row">
+          <span class="timer-label">⏱️ Tiempo sugerido</span>
+          <button class="icon-btn" id="sound-toggle" type="button" title="Silenciar o activar el sonido" aria-label="Silenciar o activar el sonido del temporizador">🔔</button>
+        </div>
+        <div class="timer-value" id="timer-value">60:00</div>
+        <canvas id="hearts-canvas" width="230" height="40" aria-hidden="true"></canvas>
+        <div class="fast-clock" id="fast-clock" aria-hidden="true"><div class="fast-clock-hand"></div></div>
+        <div class="overtime-note" id="overtime-note" hidden>⏱️ Tiempo de referencia — no afecta su calificación</div>
+      </div>
+
+      <div class="progress-summary">
+        <div class="progress-summary-row"><span>Progreso general</span><span id="progress-count">0%</span></div>
+        <div class="progress-track"><div class="progress-fill" id="progress-fill-el"></div></div>
+        <p style="margin:.5rem 0 0; font-size:.7rem; color:var(--muted);">Sus respuestas se guardan automáticamente en este navegador.</p>
+      </div>
+
+      <nav class="nav" aria-label="Navegación de la práctica">
+        <ul>
+          <li><a href="#portada">🏛️ Portada e instrucciones</a></li>
+          <li><a href="#marco-conceptual">📚 Marco conceptual</a></li>
+          <li><a href="#paso1" data-step="paso1">Paso 1 · Conceptos Básicos de Inversión <span class="pct" data-pct="paso1">0%</span></a></li>
+          <li><a href="#paso2" data-step="paso2">Paso 2 · Ciclo de Vida del Proyecto <span class="pct" data-pct="paso2">0%</span></a></li>
+          <li><a href="#paso3" data-step="paso3">Paso 3 · Perfil del Proyecto <span class="pct" data-pct="paso3">0%</span></a></li>
+          <li><a href="#paso4" data-step="paso4">Paso 4 · Prefactibilidad y Factibilidad <span class="pct" data-pct="paso4">0%</span></a></li>
+          <li><a href="#paso5" data-step="paso5">Paso 5 · Herramientas del SNIP <span class="pct" data-pct="paso5">0%</span></a></li>
+          <li><a href="#rubrica">🧮 Rúbrica de evaluación</a></li>
+          <li><a href="#resultado">📤 Enviar y calificar</a></li>
+        </ul>
+      </nav>
+
+      <div class="sidebar-actions">
+        <button class="btn-block" id="btn-qr" type="button">📱 Ver código QR de esta práctica</button>
+        <button class="btn-block" id="btn-print" type="button">🖨️ Imprimir / Guardar PDF</button>
+        <button class="btn-block" id="btn-export" type="button">⬇️ Descargar mis respuestas</button>
+        <button class="btn-block" id="btn-clear" type="button">🗑️ Borrar todas mis respuestas</button>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main" id="main-content">
+
+    <section id="portada" class="card cover" style="scroll-margin-top:1.25rem;">
+      <canvas id="cover-canvas" aria-hidden="true"></canvas>
+      <p class="eyebrow">Diplomado en Hacienda e Inversión Pública · Módulo: Fundamentos de Planificación y Gestión de la Inversión Pública del Estado · CAPGEFI</p>
+      <h1>Práctica — Unidad V</h1>
+      <p class="sub">El Ciclo de Vida de un Proyecto: Conceptos Básicos de Inversión Pública, Fases del Ciclo de Vida (Preinversión, Inversión, Operación y Mantenimiento), Etapas de Preinversión (Perfil, Prefactibilidad, Factibilidad) y Herramientas del SNIP</p>
+    </section>
+
+    <section class="card">
+      <span class="step-badge">Elija su caso</span>
+      <h1 style="font-size:1.35rem;">Esta práctica se resuelve sobre UN caso, ya preparado para usted</h1>
+      <div class="alert info">
+        Para que pueda enfocarse en aplicar los conceptos del SNPIP (y no en inventar un ejemplo desde cero), esta práctica le presenta <strong>5 casos reales ya redactados</strong>, de distintos sectores. En el Paso 1 va a elegir uno y trabajar sobre ese mismo caso durante los 5 pasos.
+      </div>
+      <div class="tbl-wrap"><table class="tp-table">
+        <thead><tr><th>Sector</th><th>Caso</th><th>Resumen</th></tr></thead>
+        <tbody>
+          <tr><td class="label-cell">Agua y Saneamiento</td><td>INAPA — Acueducto rural</td><td>Comunidad rural con enfermedades gastrointestinales por agua sin tratar.</td></tr>
+          <tr><td class="label-cell">Salud</td><td>Hospital público — Maternidad</td><td>Sala de maternidad con equipos obsoletos y alta demanda de partos.</td></tr>
+          <tr><td class="label-cell">Educación</td><td>Escuela rural</td><td>Escuela con aulas en mal estado y sobrecupo, sin espacio para todos los estudiantes de la zona.</td></tr>
+          <tr><td class="label-cell">Construcción / Infraestructura</td><td>Ayuntamiento — Caminos vecinales</td><td>Caminos rurales intransitables en época de lluvia, aislando varias comunidades.</td></tr>
+          <tr><td class="label-cell">Tecnología</td><td>Ministerio — Modernización institucional</td><td>Trámites internos manuales, lentos y sin seguimiento, entre varias direcciones.</td></tr>
+        </tbody>
+      </table></div>
+      <p>No hace falta pensar en su propia institución ni inventar datos — el caso que elija ya trae toda la información necesaria para responder los 5 pasos.</p>
+    </section>
+
+    <section class="card" id="tutorial">
+      <span class="step-badge">Tutorial</span>
+      <h1 style="font-size:1.35rem;">Cómo usar esta plataforma</h1>
+      <p><strong>Concepto:</strong> esta práctica se realiza <strong>después de revisar el material de estudio de la Unidad V: El Ciclo de Vida de un Proyecto</strong>. Tiene 5 pasos, cada uno con su concepto, una guía de llenado y espacio para sus respuestas — puede escribir directamente o grabar una nota de voz.</p>
+
+      <h2>Dos formas de responder cada pregunta</h2>
+      <p><strong>Definición:</strong> cada campo de respuesta larga acepta texto escrito o una nota de voz transcrita automáticamente.</p>
+      <p><strong>Ejemplo:</strong> si prefiere no escribir, puede simplemente hablar su respuesta en voz alta y el sistema la convierte en texto dentro del mismo campo.</p>
+
+      <h3>Paso a paso para grabar una nota de voz</h3>
+      <ol class="tutorial-steps">
+        <li>Mantenga presionado el botón <strong>"🎤 Mantenga presionado para grabar"</strong> debajo del campo que quiere responder (como una nota de voz de WhatsApp).</li>
+        <li>El navegador va a pedir permiso para usar el micrófono — presione <strong>Permitir</strong>.</li>
+        <li>Sin soltar el botón, hable su respuesta con calma.</li>
+        <li>Suelte el botón cuando termine — va a escuchar un sonido y verá "Transcribiendo…".</li>
+        <li>Espere unos segundos: el texto transcrito va a aparecer automáticamente en el campo.</li>
+        <li>Lea el texto y corrija cualquier palabra si hace falta, antes de continuar.</li>
+      </ol>
+
+      <h2>La medalla digital al terminar</h2>
+      <p>Cuando complete los 5 pasos y presione <strong>Enviar y Calificar</strong>, va a poder generar una <strong>medalla digital</strong> con su nombre para descargar o compartir por WhatsApp, correo o redes sociales, como recuerdo de haber completado esta práctica. <strong>Debe descargar esa medalla y colocarla como captura de pantalla en la entrega de la práctica individual de la plataforma del curso</strong>, como evidencia de haberla completado.</p>
+
+      <h2>Progreso, guardado y aprobación</h2>
+      <p>Sus respuestas se guardan automáticamente en este navegador mientras trabaja. Puede cerrar la página y volver más tarde a completar otra pregunta. Al presionar <strong>Enviar y Calificar</strong>, el sistema le da una nota preliminar orientativa y comentarios al instante.</p>
+      <div class="help-box">
+        <span style="font-size:1.6rem;">💬</span>
+        <div>
+          <strong>¿Tiene dudas mientras trabaja?</strong><br>
+          Puede preguntarle a <strong>Nicole</strong>, el asistente de esta misma página (botón "🎓 Nicole" abajo a la izquierda), o escribirle al
+          <strong>Prof. Johan Tapia</strong>, un asistente aparte, en
+          <a href="https://prof.johan.plataforma.cfd/" target="_blank" rel="noopener">prof.johan.plataforma.cfd</a>.
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <span class="step-badge">Objetivo y encuadre</span>
+      <h1 style="font-size:1.35rem;">Antes de empezar</h1>
+      <div class="alert info">
+        <strong>Objetivo de la actividad:</strong> aplicar los conceptos de inversión pública, ciclo de vida del proyecto y etapas de preinversión (perfil, prefactibilidad, factibilidad) vistos en la Unidad V, a un proyecto de inversión pública concreto.
+      </div>
+      <div class="alert gold">
+        <strong>Fundamento normativo:</strong> Ley No. 498-06 (SNPIP), Ley No. 1-12 (Estrategia Nacional de Desarrollo 2030), Ley No. 45-25 (MHE), Normas Técnicas del SNIP (Resolución 19-2018), y la Guía Metodológica de Formulación y Evaluación de Proyectos de Inversión Pública del MEPyD/MHE.
+      </div>
+      <h2>¿Cómo va a completar esta práctica?</h2>
+      <p>Como el encuentro es presencial, puede completarla solo/a o en equipo. Complete esto antes de enviar: su facilitador recibirá la calificación identificada con estos datos.</p>
+      <div class="field">
+        <label for="modo_trabajo">Modalidad</label>
+        <select id="modo_trabajo">
+          <option value="individual">Individual</option>
+          <option value="grupo">En equipo</option>
+        </select>
+      </div>
+      <div class="field-grid" id="bloque-individual">
+        <div class="field"><label for="ind_nombre">Nombre completo</label><input type="text" id="ind_nombre" placeholder="Su nombre y apellido"></div>
+        <div class="field"><label for="ind_correo">Correo institucional (opcional)</label><input type="text" id="ind_correo" placeholder="nombre@correo.com"></div>
+      </div>
+      <div class="field-grid" id="bloque-grupo" hidden>
+        <div class="field"><label for="grp_nombre">Nombre del equipo o grupo</label><input type="text" id="grp_nombre" placeholder="Ej: Equipo Innovación"></div>
+        <div class="field"><label for="grp_correo">Correo de contacto del equipo (opcional)</label><input type="text" id="grp_correo" placeholder="nombre@correo.com"></div>
+      </div>
+      <div class="field" id="bloque-integrantes" hidden>
+        <label for="grp_integrantes">Nombres de los integrantes del equipo (opcional)</label>
+        <textarea id="grp_integrantes" placeholder="Escriba el nombre completo de cada persona que participó, uno por línea o separados por coma"></textarea>
+      </div>
+      <h2>Instrucciones generales</h2>
+      <ol class="ins-list">
+        <li>Revise el <strong>material de estudio de la Unidad V</strong> (video o sesión presencial) antes de responder — esta práctica retoma directamente sus conceptos.</li>
+        <li>Elija si van a trabajar <strong>individual o en equipo</strong>, arriba, y luego seleccionen un <strong>proyecto de inversión pública real</strong> de los casos propuestos para mantenerlo como referencia durante los 5 pasos.</li>
+        <li>Completen los <strong>5 pasos</strong> en el orden indicado, por escrito o por nota de voz — si trabajan en equipo, decidan entre todos qué escribir en cada campo.</li>
+        <li>No hace falta que usen datos de su propia institución — los casos ya están redactados con toda la información necesaria.</li>
+        <li>Al finalizar, presionen <strong>Enviar y Calificar</strong>: el sistema revisará el trabajo y dará una nota preliminar orientativa y retroalimentación inmediata.</li>
+      </ol>
+      <div class="alert success">
+        <strong>🎓 Esta práctica es interactiva y autocalificable.</strong> Mientras trabaja, Nicole (botón 🎓 abajo a la izquierda) puede responder sus dudas conceptuales. Al terminar, el botón <strong>Enviar y Calificar</strong> evalúa al instante la completitud y calidad de cada paso, y además pide que el Tutor Virtual haga una segunda revisión sobre el contenido real de sus respuestas.
+      </div>
+      <div class="alert warn">
+        <strong>Sobre la calificación automática:</strong> el sistema evalúa <em>completitud, extensión y coherencia formal</em> de sus respuestas — no sustituye la revisión de contenido de su facilitador. Recuerde: <strong>la aprobación de esta práctica depende de completarla, no de la nota obtenida.</strong>
+      </div>
+    </section>
+
+    <section id="marco-conceptual" class="card">
+      <span class="step-badge">Referencia</span>
+      <h1 style="font-size:1.35rem;">Marco conceptual de referencia</h1>
+      <p>Consulte estos conceptos, ya vistos en el material de estudio de la Unidad V, mientras completa la actividad. También puede preguntarle a Nicole sobre cualquiera de ellos.</p>
+      <dl class="glossary-grid">
+        <div class="gloss-item"><dt>Proyecto de Inversión Pública (PIP)</dt><dd>Intervención planificada por el sector público que genera beneficios para la sociedad mediante la creación, mejora o mantenimiento de activos públicos. Requiere seis atributos: objetivo social y económico, financiamiento público, planificación y evaluación, impacto significativo, plazo definido y sostenibilidad.</dd></div>
+        <div class="gloss-item"><dt>Obra de Mantenimiento</dt><dd>Intervención limitada a reparaciones puntuales de áreas específicas para una mejora temporal. Es de corto plazo, riesgo mínimo y no expande la capacidad de servicio ni genera nuevo impacto social. Se gestiona vía presupuesto corriente, no por el SNIP.</dd></div>
+        <div class="gloss-item"><dt>Ciclo de Vida del Proyecto</dt><dd>Marco cronológico que sintetiza todas las etapas que una intervención debe surtir desde su concepción hasta la evaluación final. Comprende tres fases: Preinversión, Inversión, y Operación y Mantenimiento.</dd></div>
+        <div class="gloss-item"><dt>Preinversión</dt><dd>Fase de estudio donde se analiza la viabilidad del proyecto a través de tres etapas progresivas: Perfil (idea con información secundaria), Prefactibilidad (profundización con variables clave) y Factibilidad (estudio definitivo con información primaria precisa).</dd></div>
+        <div class="gloss-item"><dt>Perfil del Proyecto</dt><dd>Documento preliminar que identifica la idea del proyecto, justificación, objetivos aproximados y beneficiarios estimados. Se basa en información secundaria y juicio de expertos. Contiene 6 elementos: identificación, situación problemática, objetivos, beneficiarios, alternativas e inversiones estimadas.</dd></div>
+        <div class="gloss-item"><dt>Prefactibilidad</dt><dd>Estudio que profundiza la investigación iniciada en el perfil utilizando información secundaria principal. Incluye seis dimensiones: análisis de demanda, oferta, estudio de alternativas, estimación de inversiones, costos de operación y análisis de riesgos.</dd></div>
+        <div class="gloss-item"><dt>Factibilidad</dt><dd>Estudio definitivo basado en información primaria precisa (estudios de suelo, diseños finales, encuestas) con cálculos financieros y económicos demostrativos de viabilidad técnica y social.</dd></div>
+        <div class="gloss-item"><dt>Rentabilidad Social</dt><dd>Criterio de decisión final en el SNIP dominicano. Un proyecto puede tener rentabilidad financiera negativa (no genera dinero), pero si su impacto social y el bienestar general de la población son positivos, el SNIP otorga la viabilidad.</dd></div>
+        <div class="gloss-item"><dt>Puerta de Decisión</dt><dd>Mecanismo de filtro en el proceso de preinversión: cada etapa superada actúa como una puerta que decide si el proyecto avanza o se detiene. Si los indicadores de rentabilidad social no son favorables en la Prefactibilidad, el proyecto no debe avanzar a inversión.</dd></div>
+        <div class="gloss-item"><dt>SNIP</dt><dd>Sistema Nacional de Inversión Pública: conjunto de normas, órganos y procesos que regulan la formulación, evaluación y gestión de los proyectos de inversión pública en República Dominicana, bajo la rectoría del MHE.</dd></div>
+        <div class="gloss-item"><dt>Ley 498-06</dt><dd>Ley de Planificación e Inversión Pública que crea el SNPIP y establece las normas y procedimientos para la formulación, aprobación y ejecución de proyectos de inversión pública en República Dominicana.</dd></div>
+        <div class="gloss-item"><dt>Ley 1-12 (END 2030)</dt><dd>Estrategia Nacional de Desarrollo 2030: marco de planificación estratégica que orienta la inversión pública hacia los objetivos de desarrollo del país y establece las prioridades nacionales.</dd></div>
+      </dl>
+    </section>
+
+    <!-- ============ PASO 1 ============ -->
+    <section id="paso1" class="card">
+      <span class="step-badge">Paso 1 · 15 min</span><span class="step-points">Vale 20 pts</span>
+      <h1>Conceptos Básicos de Inversión Pública</h1>
+      <p><strong>Concepto:</strong> un proyecto de inversión pública (PIP) es una intervención planificada por el sector público que tiene como objetivo generar beneficios para la sociedad a través de la creación, mejora o mantenimiento de activos públicos. Se distingue de una obra de mantenimiento porque el PIP busca desarrollo social y económico con un alcance amplio e impacto a mediano-largo plazo, mientras que el mantenimiento se limita a reparaciones puntuales para una mejora temporal de corto plazo. Las seis características esenciales de un PIP son: objetivo social y económico, financiamiento público, planificación y evaluación, impacto significativo, plazo definido y sostenibilidad.</p>
+      <div class="alert info"><strong>Su misión:</strong> usted acaba de ser asignado(a) como responsable de planificación de uno de estos 5 proyectos reales. Toque una tarjeta para "entrar" a ese caso — con él va a trabajar los 5 pasos de esta práctica.</div>
+
+      <select id="p1_caso" style="display:none;" aria-hidden="true">
+        <option value="">Seleccione un caso…</option>
+        <option value="inapa">Agua y Saneamiento — INAPA: Acueducto rural (La Ciénaga, Barahona)</option>
+        <option value="hospital">Salud — Hospital público: Maternidad (El Cercado, San Juan)</option>
+        <option value="escuela">Educación — Escuela rural (Guananico, Puerto Plata)</option>
+        <option value="ayuntamiento">Construcción — Caminos vecinales (Cutupú, Jarumucú y El Puñal, Vallejuelo)</option>
+        <option value="ministerio">Tecnología — Modernización institucional (Dirección Regional Sur)</option>
+      </select>
+
+      <div class="caso-cards" id="caso-cards" role="group" aria-label="Elija su caso">
+        <button type="button" class="caso-card" data-caso="inapa">
+          <span class="caso-card-icon">💧</span>
+          <span class="caso-card-sector">Agua y Saneamiento</span>
+          <span class="caso-card-title">INAPA — Acueducto rural</span>
+          <span class="caso-card-lugar">📍 La Ciénaga, Barahona</span>
+        </button>
+        <button type="button" class="caso-card" data-caso="hospital">
+          <span class="caso-card-icon">🏥</span>
+          <span class="caso-card-sector">Salud</span>
+          <span class="caso-card-title">Hospital público — Maternidad</span>
+          <span class="caso-card-lugar">📍 El Cercado, San Juan</span>
+        </button>
+        <button type="button" class="caso-card" data-caso="escuela">
+          <span class="caso-card-icon">🎓</span>
+          <span class="caso-card-sector">Educación</span>
+          <span class="caso-card-title">Escuela rural</span>
+          <span class="caso-card-lugar">📍 Guananico, Puerto Plata</span>
+        </button>
+        <button type="button" class="caso-card" data-caso="ayuntamiento">
+          <span class="caso-card-icon">🏗️</span>
+          <span class="caso-card-sector">Construcción</span>
+          <span class="caso-card-title">Caminos vecinales</span>
+          <span class="caso-card-lugar">📍 Cutupú, Jarumucú y El Puñal, Vallejuelo</span>
+        </button>
+        <button type="button" class="caso-card" data-caso="ministerio">
+          <span class="caso-card-icon">💻</span>
+          <span class="caso-card-sector">Tecnología</span>
+          <span class="caso-card-title">Modernización institucional</span>
+          <span class="caso-card-lugar">📍 Dirección Regional Sur</span>
+        </button>
+      </div>
+      <div class="alert gold" id="p1_caso_desc">👆 Toque una tarjeta arriba para comenzar su misión y ver aquí la descripción completa del caso.</div>
+
+      <div class="field">
+        <label for="p1_clasificacion">Analice su caso: ¿califica como proyecto de inversión pública o como obra de mantenimiento? Fundamente su respuesta usando al menos tres de las seis características esenciales del PIP. <span class="wc" data-for="p1_clasificacion">0 palabras</span></label>
+        <textarea class="tall" id="p1_clasificacion" placeholder="Este caso califica como proyecto de inversión pública porque... Tiene objetivo social y económico al... Genera impacto significativo en... Su plazo definido abarca... A diferencia del mantenimiento que solo..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p1_clasificacion">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p1_clasificacion"></span></div>
+      </div>
+
+      <div class="field">
+        <label for="p1_diferencia">Explique la diferencia fundamental entre un proyecto de inversión pública y una obra de mantenimiento, según los criterios del SNIP. ¿Por qué es importante hacer esta distinción antes de registrar una intervención en el sistema? <span class="wc" data-for="p1_diferencia">0 palabras</span></label>
+        <textarea class="tall" id="p1_diferencia" placeholder="La diferencia es sustancial: el PIP busca desarrollo social con alcance amplio y mediano-largo plazo, mientras que la obra de mantenimiento es una reparación puntual de corto plazo... En el SNIP, confundir ambos puede llevar a registrar gastos corrientes como inversión..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p1_diferencia">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p1_diferencia"></span></div>
+      </div>
+    </section>
+
+    <!-- ============ PASO 2 ============ -->
+    <section id="paso2" class="card">
+      <span class="step-badge">Paso 2 · 15 min</span><span class="step-points">Vale 20 pts</span>
+      <h1>Ciclo de Vida del Proyecto</h1>
+      <p><strong>Concepto:</strong> el ciclo de vida de un proyecto sintetiza todas las etapas que debe surtir desde su concepción hasta la evaluación del cumplimiento de sus objetivos. Comprende tres fases principales: 1) Preinversión (Perfil → Prefactibilidad → Factibilidad), donde se analiza la viabilidad; 2) Inversión (Ejecución, Seguimiento y Control), que corresponde a la materialización física; y 3) Operación y Mantenimiento (Funcionamiento, Mantenimiento y Evaluación ex-post), donde el activo genera el servicio. Cada etapa de preinversión reduce la incertidumbre y profundiza el análisis.</p>
+      <div class="alert info"><strong>Guía:</strong> elija una de las tres fases principales y explique cómo se relaciona con las otras dos en el contexto de su caso.</div>
+
+      <div class="field-grid">
+        <div class="field">
+          <label for="p2_fase">Fase del ciclo de vida que va a analizar</label>
+          <select id="p2_fase">
+            <option value="">Seleccione…</option>
+            <option>Preinversión (Perfil → Prefactibilidad → Factibilidad)</option>
+            <option>Inversión (Ejecución → Seguimiento → Control)</option>
+            <option>Operación y Mantenimiento (Funcionamiento → Evaluación)</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label for="p2_explicacion">Describa la fase seleccionada, indicando sus etapas específicas y cómo se relaciona con las fases anteriores y posteriores del ciclo de vida en el contexto de su proyecto. <span class="wc" data-for="p2_explicacion">0 palabras</span></label>
+        <textarea class="tall" id="p2_explicacion" placeholder="La Preinversión es la fase de estudio que comienza con el Perfil, un documento preliminar basado en información secundaria... Luego avanza a la Prefactibilidad para profundizar variables clave... y finalmente a la Factibilidad con estudios de campo... Todo esto antes de pasar a la Inversión donde se ejecuta físicamente..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p2_explicacion">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p2_explicacion"></span></div>
+      </div>
+    </section>
+
+    <!-- ============ PASO 3 ============ -->
+    <section id="paso3" class="card">
+      <span class="step-badge">Paso 3 · 15 min</span><span class="step-points">Vale 20 pts</span>
+      <h1>Etapa de Preinversión: Perfil del Proyecto</h1>
+      <p><strong>Concepto:</strong> el perfil del proyecto es el documento preliminar que identifica la idea del proyecto, su justificación, objetivos aproximados, beneficiarios estimados y un primer análisis de riesgos. Se elabora con información secundaria (datos existentes, estadísticas, estudios previos) sin investigaciones de campo. Sus seis elementos de contenido son: 1) identificación del proyecto, 2) situación problemática, 3) objetivos generales, 4) beneficiarios, 5) alternativas de solución y 6) inversiones estimadas. El perfil actúa como filtro técnico: si demuestra viabilidad preliminar, el proyecto avanza a prefactibilidad.</p>
+      <div class="alert info"><strong>Guía:</strong> explique los elementos que debe contener un perfil y por qué se elabora con información secundaria en lugar de estudios de campo.</div>
+
+      <div class="field">
+        <label for="p3_contenido">Describa los seis elementos de contenido que debe incluir un perfil de proyecto según el SNIP. Para su caso, proponga al menos dos ejemplos concretos de cada elemento. <span class="wc" data-for="p3_contenido">0 palabras</span></label>
+        <textarea class="tall" id="p3_contenido" placeholder="1) Identificación: nombre del proyecto 'Construcción del Acueducto Rural...', institución proponente INAPA... 2) Situación problemática: enfermedades gastrointestinales por agua sin tratar... 3) Objetivos generales: reducir la incidencia de enfermedades... 4) Beneficiarios: 800 familias de La Ciénaga... 5) Alternativas: planta de tratamiento vs pozo profundo... 6) Inversiones estimadas: costo por metro cuadrado basado en proyectos similares..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p3_contenido">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p3_contenido"></span></div>
+      </div>
+
+      <div class="field">
+        <label for="p3_secundaria">¿Por qué el perfil se elabora con información secundaria y juicio de expertos, en lugar de requerir investigaciones de campo? ¿Qué ventaja tiene este enfoque para el proceso de formulación? <span class="wc" data-for="p3_secundaria">0 palabras</span></label>
+        <textarea class="tall" id="p3_secundaria" placeholder="El perfil usa información secundaria porque su propósito es filtrar ideas con costo mínimo, sin gastar recursos en estudios de campo costosos antes de saber si la idea es viable... Las ventajas incluyen: ahorro de recursos en proyectos inviables, rapidez en la toma de decisiones, y uso eficiente de datos censales y estadísticas existentes..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p3_secundaria">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p3_secundaria"></span></div>
+      </div>
+    </section>
+
+    <!-- ============ PASO 4 ============ -->
+    <section id="paso4" class="card">
+      <span class="step-badge">Paso 4 · 15 min</span><span class="step-points">Vale 20 pts</span>
+      <h1>Etapa de Preinversión: Prefactibilidad y Factibilidad</h1>
+      <p><strong>Concepto:</strong> el estudio de prefactibilidad profundiza la investigación iniciada en el perfil, utilizando información secundaria principal para definir con mayor precisión las variables del proyecto. Contiene seis dimensiones analíticas: análisis de demanda, análisis de oferta, estudio de alternativas, estimación de inversiones, costos de operación y análisis de riesgos. Si la prefactibilidad demuestra viabilidad técnica y económica preliminar, el proyecto avanza a factibilidad, que es el estudio definitivo basado en información primaria precisa (estudios de suelo, diseños finales, encuestas) con cálculos financieros y económicos demostrativos.</p>
+      <div class="alert info"><strong>Guía:</strong> explique el contenido del estudio de prefactibilidad y la progresión entre las tres etapas de preinversión.</div>
+
+      <div class="field">
+        <label for="p4_prefactibilidad">Describa las seis dimensiones analíticas que debe contener un estudio de prefactibilidad. Para su caso, ejemplifique al menos tres de ellas con datos concretos. <span class="wc" data-for="p4_prefactibilidad">0 palabras</span></label>
+        <textarea class="tall" id="p4_prefactibilidad" placeholder="1) Análisis de demanda: estimar cuántos niños en edad preescolar hay en el municipio... 2) Análisis de oferta: cuántas guarderías públicas existen actualmente y su capacidad... 3) Estudio de alternativas: evaluar tres posibles terrenos para la construcción... 4) Inversiones: costo de construcción por metro cuadrado... 5) Costos de operación: nómina de cuidadores y alimentos... 6) Riesgos: ambientales, sociales y financieros..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p4_prefactibilidad">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p4_prefactibilidad"></span></div>
+      </div>
+
+      <div class="field">
+        <label for="p4_progresion">Explique la progresión Perfil → Prefactibilidad → Factibilidad en términos de profundidad de análisis y reducción de incertidumbre. ¿Qué información nueva se incorpora en cada etapa y cómo se toma la decisión de continuar? <span class="wc" data-for="p4_progresion">0 palabras</span></label>
+        <textarea class="tall" id="p4_progresion" placeholder="En el Perfil se usa información secundaria y global para un primer filtro... En la Prefactibilidad se profundiza con estudios intermedios que definen variables técnicas y estiman inversiones probables... En la Factibilidad se llega con información primaria precisa y cálculos demostrativos... Cada etapa es una 'puerta de decisión': si los indicadores no son favorables, el proyecto no avanza..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p4_progresion">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p4_progresion"></span></div>
+      </div>
+    </section>
+
+    <!-- ============ PASO 5 ============ -->
+    <section id="paso5" class="card">
+      <span class="step-badge">Paso 5 · 15 min</span><span class="step-points">Vale 20 pts</span>
+      <h1>Herramientas del SNIP y Decisión de Inversión</h1>
+      <p><strong>Concepto:</strong> el SNIP establece que a mayor monto de inversión, mayor es la exigencia del nivel de preinversión (proyectos pequeños pueden aprobarse solo con Perfil, pero una gran infraestructura requiere Factibilidad). Cada etapa superada actúa como una "puerta de decisión": si los indicadores de rentabilidad social no son favorables en la Prefactibilidad, el proyecto no debe avanzar a inversión. La rentabilidad social es el criterio de decisión final en el SNIP dominicano: un proyecto puede tener rentabilidad financiera negativa, pero si su impacto social y bienestar general son positivos, el SNIP otorga la viabilidad.</p>
+      <div class="alert info"><strong>Guía:</strong> reflexione sobre cómo las herramientas del SNIP (etapas de preinversión, rentabilidad social, puertas de decisión) se aplican a su caso concreto.</div>
+
+      <div class="field">
+        <label for="p5_decision">Explique cómo funcionan las "puertas de decisión" en el proceso de preinversión del SNIP. ¿Qué ocurre si un proyecto no demuestra viabilidad en la etapa de prefactibilidad? ¿Puede aún avanzar a inversión? <span class="wc" data-for="p5_decision">0 palabras</span></label>
+        <textarea class="tall" id="p5_decision" placeholder="Las puertas de decisión son filtros: después del Perfil se decide si el proyecto amerita estudios más profundos; después de la Prefactibilidad se decide si los indicadores justifican una inversión mayor en estudios de factibilidad... Si la prefactibilidad no muestra viabilidad, el proyecto no debe avanzar porque sería un riesgo de 'elefante blanco'... En el SNIP dominicano, saltar etapas de preinversión es la forma más rápida de generar proyectos inviables..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p5_decision">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p5_decision"></span></div>
+      </div>
+
+      <div class="field">
+        <label for="p5_rentabilidad">Aplique el concepto de rentabilidad social a su proyecto. ¿Cómo se mediría el impacto social de su caso más allá de los indicadores financieros? ¿Qué beneficios intangibles o de bienestar general justificarían la inversión? <span class="wc" data-for="p5_rentabilidad">0 palabras</span></label>
+        <textarea class="tall" id="p5_rentabilidad" placeholder="La rentabilidad social del acueducto no se mide solo en términos financieros sino en: reducción de enfermedades gastrointestinales (ahorro en costos de salud), mejora en la calidad de vida de 800 familias, reducción de la mortalidad infantil, tiempo recuperado al no tener que acarrear agua... Aunque el proyecto no genere ingresos directos, su impacto social positivo justifica la inversión pública..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p5_rentabilidad">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p5_rentabilidad"></span></div>
+      </div>
+
+      <div class="alert gold">
+        <strong>Eje de cierre:</strong> el ciclo de vida es una progresión lógica. En el SNIP dominicano, no hacemos estudios por burocracia, sino para decidir con datos si la idea merece el dinero del pueblo. Saltar etapas de preinversión es la forma más rápida de generar elefantes blancos. Recuerde: la rentabilidad social, no solo la financiera, es el norte de la inversión pública.
+      </div>
+    </section>
+
+    <!-- ============ RÚBRICA ============ -->
+    <section id="rubrica" class="card">
+      <span class="step-badge">Referencia</span>
+      <h1 style="font-size:1.35rem;">Rúbrica de evaluación</h1>
+      <div class="tbl-wrap"><table class="tp-table">
+        <thead><tr><th>N°</th><th>Criterio</th><th>Indicador</th><th>Puntos</th></tr></thead>
+        <tbody id="rubrica-body"></tbody>
+      </table></div>
+      <div class="alert success" style="margin-top:1rem;">
+        <strong>Recuerde:</strong> esta rúbrica califica la <em>calidad</em> de su trabajo como retroalimentación. La <strong>aprobación de la práctica</strong> se otorga por completar los 5 pasos, no por alcanzar un puntaje mínimo.
+      </div>
+      <h2>Referencias</h2>
+      <ul style="font-size:.85rem; color:var(--muted);">
+        <li>Congreso Nacional de la República Dominicana. (2006). <em>Ley No. 498-06</em>, de Planificación e Inversión Pública.</li>
+        <li>Ministerio de Economía, Planificación y Desarrollo. (2017). <em>Normas Técnicas del Sistema Nacional de Inversión Pública.</em></li>
+        <li>MEPyD. (2018). <em>Metodología de Formulación de Proyectos de Inversión Pública.</em> Resolución No. 19-2018.</li>
+        <li>Ley No. 1-12. <em>Estrategia Nacional de Desarrollo 2030.</em></li>
+        <li>MEPyD. (2011). <em>Guía Metodológica de Formulación y Evaluación de Proyectos de Inversión Pública.</em></li>
+        <li>Congreso Nacional de la República Dominicana. (2025). <em>Ley No. 45-25</em>, que fusiona el Ministerio de Hacienda y el MEPyD.</li>
+      </ul>
+    </section>
+
+    <!-- ============ ENVÍO / RESULTADO ============ -->
+    <section id="resultado" class="card">
+      <div id="submit-zone">
+        <span class="step-badge">Paso final</span>
+        <h1 style="font-size:1.4rem;">Enviar y calificar mi trabajo</h1>
+        <p>El sistema revisará automáticamente sus 5 pasos y le mostrará una nota preliminar orientativa con el detalle por criterio. Recuerde: <strong>aprueba por completar la práctica, independientemente de la nota.</strong></p>
+        <button class="btn-primary" id="btn-submit" type="button">📤 Enviar y Calificar mi Trabajo</button>
+      </div>
+
+      <div id="results" class="results">
+        <div id="score-hero" class="score-hero">
+          <div class="score-circle"><span class="num" id="score-num">0</span><span class="den">/ 100 pts</span></div>
+          <div class="score-verdict">
+            <h3 id="score-title">—</h3>
+            <p id="score-desc">—</p>
+          </div>
+        </div>
+        <div id="ai-review" class="alert info" style="display:none;"></div>
+        <div id="crit-list"></div>
+        <div class="btn-row">
+          <button class="btn-primary" id="btn-medal" type="button" style="display:none;">🏅 Ver mi medalla</button>
+          <button class="btn-secondary" id="btn-export-2" type="button">⬇️ Descargar mis respuestas</button>
+          <button class="btn-secondary" id="btn-print-2" type="button">🖨️ Imprimir resultado</button>
+          <button class="btn-secondary" id="btn-recheck" type="button">✏️ Volver a revisar mis respuestas</button>
+        </div>
+      </div>
+    </section>
+
+    <footer class="tp-footer">
+      Práctica — Unidad V: El Ciclo de Vida de un Proyecto · Diplomado en Hacienda e Inversión Pública · CAPGEFI.<br>
+      Herramienta de autoevaluación con fines educativos. La aprobación se otorga por completar la práctica; la nota oficial del curso la determina su facilitador.<br>
+      Desarrollado por Johan Tapia, PhD.
+    </footer>
+  </main>
+</div>
+
+<!-- NICOLE (asistente virtual del Dr. Johan Tapia) -->
+<button id="advisor-toggle" class="advisor-fab" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="advisor-panel" title="Abrir a Nicole">
+  🎓 <span>Nicole</span>
+</button>
+<a href="https://prof.johan.plataforma.cfd/" target="_blank" rel="noopener" class="proftapia-fab" title="Abrir el asistente del Prof. Johan Tapia en una ventana nueva">
+  👨‍🏫 <span>Prof. Johan Tapia</span>
+</a>
+<div id="advisor-panel" class="advisor-panel" role="dialog" aria-labelledby="advisor-title-el">
+  <div class="advisor-header">
+    <span style="font-size:1.2rem;">🎓</span>
+    <p id="advisor-title-el" class="advisor-title">Nicole</p>
+    <button id="advisor-close" type="button" aria-label="Cerrar a Nicole">✕</button>
+  </div>
+  <div id="advisor-body" class="advisor-body">
+    <div class="advisor-msg advisor-msg-bot">¡Hola! Soy Nicole, la asistente virtual del Dr. Johan Tapia. Pregúntame sobre conceptos básicos de inversión pública, ciclo de vida del proyecto, perfil, prefactibilidad, factibilidad, obras de mantenimiento, rentabilidad social, o cómo funciona la calificación de esta práctica.</div>
+  </div>
+  <div class="advisor-suggest">
+    <button type="button" data-q="que es un proyecto de inversion publica">¿Qué es un PIP?</button>
+    <button type="button" data-q="que es el ciclo de vida">¿Qué es el ciclo de vida?</button>
+    <button type="button" data-q="que es la preinversion">¿Qué es la preinversión?</button>
+  </div>
+  <form id="advisor-form" class="advisor-form">
+    <input type="text" id="advisor-input" placeholder="Escribe tu pregunta…" aria-label="Escribe tu pregunta a Nicole">
+    <button type="submit" aria-label="Enviar pregunta">➤</button>
+  </form>
+</div>
+
+<!-- QR DE ESTA PRÁCTICA -->
+<div id="qr-modal" class="medal-modal" hidden role="dialog" aria-labelledby="qr-title">
+  <div class="medal-modal-inner">
+    <button class="icon-btn" id="qr-close" type="button" aria-label="Cerrar">✕</button>
+    <h3 id="qr-title" style="margin:0 0 .5rem; color:var(--primary);">📱 Código QR de esta práctica</h3>
+    <div id="qr-code-container" style="display:flex; justify-content:center; margin:.5rem 0 1rem; min-height:220px; align-items:center;"></div>
+    <p style="font-size:.78rem; color:var(--muted); margin:0 0 1rem;">Cualquiera puede escanear este código con la cámara de su celular para abrir esta práctica directamente.</p>
+    <div class="btn-row" style="justify-content:center;">
+      <button class="btn-secondary" id="qr-download" type="button">⬇️ Descargar imagen</button>
+    </div>
+  </div>
+</div>
+
+<!-- MEDALLA -->
+<div id="medal-modal" class="medal-modal" hidden role="dialog" aria-labelledby="medal-title">
+  <div class="medal-modal-inner">
+    <button class="icon-btn" id="medal-close" type="button" aria-label="Cerrar">✕</button>
+    <h3 id="medal-title" style="margin:0 0 .5rem; color:var(--primary);">🏅 ¡Felicidades!</h3>
+    <canvas id="medal-canvas" width="600" height="680"></canvas>
+    <div class="btn-row" style="justify-content:center;">
+      <button class="btn-primary" id="medal-download" type="button">⬇️ Descargar</button>
+      <button class="btn-secondary" id="medal-share" type="button">📤 Compartir</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+/* ---------- NICOLE, ASISTENTE VIRTUAL (n8n en VPS) ---------- */
+var AI_BASE = 'https://n8n-inap.167.88.36.13.sslip.io/webhook';
+var AI_CHAT_URL = AI_BASE + '/inap-tutor-chat';
+var AI_GRADE_URL = AI_BASE + '/inap-grade';
+var AI_CHAT_TIMEOUT = 60000;
+var AI_GRADE_TIMEOUT = 650000;
+var VOICE_TRANSCRIBE_URL = 'https://n8n-inap.167.88.36.13.sslip.io/webhook/prof-johan-tapia-transcribir';
+
+/* ---------- NOTAS DE VOZ ---------- */
+function pickRecorderMime(){
+  var candidates = ['audio/webm;codecs=opus','audio/webm','audio/mp4','audio/ogg;codecs=opus'];
+  for(var i=0;i<candidates.length;i++){
+    if(window.MediaRecorder && MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(candidates[i])) return candidates[i];
+  }
+  return '';
+}
+function beepVoz(freq, dur){
+  try{
+    var Ctx = window.AudioContext || window.webkitAudioContext;
+    var ctx = new Ctx();
+    var osc = ctx.createOscillator();
+    var gain = ctx.createGain();
+    osc.type = 'sine';
+    osc.frequency.value = freq;
+    gain.gain.setValueAtTime(0.18, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + dur);
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.start();
+    osc.stop(ctx.currentTime + dur);
+    osc.onended = function(){ ctx.close(); };
+  }catch(e){}
+}
+var VOZ_MIN_MS = 400;
+var VOZ_MAX_MS = 120000;
+var VOZ_LABEL_DEFAULT = '🎤 Mantenga presionado para grabar';
+function wireVoiceButtons(){
+  if(!navigator.mediaDevices || !window.MediaRecorder){
+    document.querySelectorAll('.voice-btn').forEach(function(btn){
+      btn.disabled = true; btn.title = 'Grabación de voz no disponible en este navegador';
+    });
+    return;
+  }
+  document.querySelectorAll('.voice-btn').forEach(function(btn){
+    var targetId = btn.getAttribute('data-target');
+    var textarea = document.getElementById(targetId);
+    var statusEl = document.querySelector('.voice-status[data-target-status="'+targetId+'"]');
+    if(!textarea) return;
+    btn.textContent = VOZ_LABEL_DEFAULT;
+    var mediaRecorder = null, chunks = [], stream = null, recording = false, pressActive = false;
+    var startedAt = 0, maxTimer = null, tickTimer = null;
+
+    function setStatus(msg, cls){
+      if(!statusEl) return;
+      statusEl.textContent = msg || '';
+      statusEl.className = 'voice-status' + (cls ? ' ' + cls : '');
+    }
+    function stopStream(){
+      if(stream){ stream.getTracks().forEach(function(t){ t.stop(); }); stream = null; }
+    }
+    function tick(){
+      var secs = Math.floor((Date.now() - startedAt) / 1000);
+      var m = Math.floor(secs / 60), s = secs % 60;
+      btn.textContent = '🔴 Grabando ' + m + ':' + (s < 10 ? '0' : '') + s + ' — suelte para enviar';
+    }
+    function startRecording(){
+      if(pressActive) return;
+      pressActive = true;
+      navigator.mediaDevices.getUserMedia({ audio:true }).then(function(s){
+        if(!pressActive){ s.getTracks().forEach(function(t){ t.stop(); }); return; }
+        stream = s;
+        chunks = [];
+        var mime = pickRecorderMime();
+        try{ mediaRecorder = mime ? new MediaRecorder(stream, { mimeType: mime }) : new MediaRecorder(stream); }
+        catch(e){ mediaRecorder = new MediaRecorder(stream); }
+        mediaRecorder.addEventListener('dataavailable', function(e){ if(e.data && e.data.size > 0) chunks.push(e.data); });
+        mediaRecorder.addEventListener('stop', function(){
+          stopStream();
+          clearTimeout(maxTimer); clearInterval(tickTimer);
+          btn.classList.remove('recording');
+          var duracion = Date.now() - startedAt;
+          if(duracion < VOZ_MIN_MS){
+            btn.textContent = VOZ_LABEL_DEFAULT;
+            setStatus('Grabación muy corta — mantenga presionado el botón mientras habla.', 'err');
+            return;
+          }
+          var blob = new Blob(chunks, { type: mediaRecorder.mimeType || 'audio/webm' });
+          uploadForTranscription(blob);
+        });
+        mediaRecorder.start();
+        recording = true;
+        startedAt = Date.now();
+        btn.classList.add('recording');
+        beepVoz(880, 0.1);
+        tick();
+        tickTimer = setInterval(tick, 500);
+        setStatus('Grabando… hable su respuesta y suelte el botón al terminar.', '');
+        maxTimer = setTimeout(function(){ if(recording) stopRecording(); }, VOZ_MAX_MS);
+      }).catch(function(){
+        pressActive = false;
+        setStatus('No se pudo acceder al micrófono. Revise los permisos del navegador, o simplemente escriba la respuesta.', 'err');
+      });
+    }
+    function stopRecording(){
+      if(!pressActive) return;
+      pressActive = false;
+      if(mediaRecorder && recording){
+        recording = false;
+        beepVoz(440, 0.12);
+        mediaRecorder.stop();
+      }
+    }
+    function uploadForTranscription(blob){
+      btn.disabled = true;
+      btn.classList.add('busy');
+      btn.textContent = '⏳ Transcribiendo…';
+      setStatus('Transcribiendo la nota de voz, un momento…', '');
+      var fd = new FormData();
+      var ext = (blob.type.indexOf('mp4') !== -1) ? 'm4a' : (blob.type.indexOf('ogg') !== -1 ? 'ogg' : 'webm');
+      fd.append('data', blob, 'nota-voz.' + ext);
+      fetchWithTimeout(VOICE_TRANSCRIBE_URL, { method:'POST', body: fd }, 60000).then(function(res){
+        if(!res.ok) throw new Error('HTTP ' + res.status);
+        return res.json();
+      }).then(function(data){
+        if(!data || !data.ok || !data.texto){ throw new Error('SIN_TEXTO'); }
+        var existing = textarea.value.trim();
+        textarea.value = existing ? (existing + ' ' + data.texto) : data.texto;
+        textarea.dispatchEvent(new Event('input'));
+        setStatus('✔ Nota de voz agregada. Puede revisarla y corregirla si hace falta.', 'ok');
+      }).catch(function(err){
+        var msg = (err && err.message === 'SIN_TEXTO')
+          ? 'No se logró entender el audio. Intente grabar de nuevo hablando más cerca del micrófono, o escriba la respuesta directamente.'
+          : 'No se pudo conectar con el servicio de transcripción. Revise su conexión a internet, o escriba la respuesta directamente.';
+        setStatus(msg, 'err');
+      }).finally(function(){
+        btn.disabled = false;
+        btn.classList.remove('busy');
+        btn.textContent = VOZ_LABEL_DEFAULT;
+      });
+    }
+    btn.addEventListener('mousedown', function(e){ e.preventDefault(); startRecording(); });
+    btn.addEventListener('touchstart', function(e){ e.preventDefault(); startRecording(); }, { passive:false });
+    ['mouseup','mouseleave','touchend','touchcancel'].forEach(function(evt){
+      btn.addEventListener(evt, stopRecording);
+    });
+  });
+}
+
+/* ---------- TAMAÑO DE LETRA ---------- */
+var FONT_LEVELS = ['normal','grande','xgrande'];
+function applyFontSize(level){
+  document.documentElement.setAttribute('data-fontsize', level);
+  try{ localStorage.setItem('tp_hiu5_fontsize', level); }catch(e){}
+}
+applyFontSize(localStorage.getItem('tp_hiu5_fontsize') || 'normal');
+document.getElementById('font-bigger').addEventListener('click', function(){
+  var cur = document.documentElement.getAttribute('data-fontsize') || 'normal';
+  var idx = FONT_LEVELS.indexOf(cur);
+  if(idx < FONT_LEVELS.length - 1) applyFontSize(FONT_LEVELS[idx+1]);
+});
+document.getElementById('font-smaller').addEventListener('click', function(){
+  var cur = document.documentElement.getAttribute('data-fontsize') || 'normal';
+  var idx = FONT_LEVELS.indexOf(cur);
+  if(idx > 0) applyFontSize(FONT_LEVELS[idx-1]);
+});
+
+function fetchWithTimeout(url, options, timeoutMs){
+  var controller = new AbortController();
+  var timer = setTimeout(function(){ controller.abort(); }, timeoutMs);
+  return fetch(url, Object.assign({}, options, { signal: controller.signal }))
+    .finally(function(){ clearTimeout(timer); });
+}
+
+/* ---------- THEME ---------- */
+var themeBtn = document.getElementById('theme-toggle');
+function applyTheme(t){
+  document.documentElement.setAttribute('data-theme', t);
+  themeBtn.textContent = t === 'dark' ? '☀️' : '🌙';
+  localStorage.setItem('tp_hiu5_theme', t);
+}
+applyTheme(localStorage.getItem('tp_hiu5_theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+themeBtn.addEventListener('click', function(){
+  applyTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+});
+
+/* ---------- CÓDIGO QR DE ESTA PRÁCTICA ---------- */
+document.getElementById('btn-qr').addEventListener('click', function(){
+  var container = document.getElementById('qr-code-container');
+  container.innerHTML = '';
+  var pageUrl = window.location.href.split('#')[0].split('?')[0];
+  if(window.QRCode){
+    new QRCode(container, { text: pageUrl, width: 220, height: 220, colorDark: '#003877', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.M });
+  } else {
+    container.innerHTML = '<p style="color:var(--red); font-size:.85rem; text-align:center;">No se pudo cargar el generador de QR. Verifique su conexión a internet e intente de nuevo.</p>';
+  }
+  document.getElementById('qr-modal').hidden = false;
+});
+document.getElementById('qr-close').addEventListener('click', function(){
+  document.getElementById('qr-modal').hidden = true;
+});
+document.getElementById('qr-download').addEventListener('click', function(){
+  var el = document.querySelector('#qr-code-container img') || document.querySelector('#qr-code-container canvas');
+  if(!el) return;
+  var dataUrl = el.tagName === 'CANVAS' ? el.toDataURL('image/png') : el.src;
+  var a = document.createElement('a');
+  a.href = dataUrl;
+  a.download = 'qr-practica-unidad5-ciclo-vida.png';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+});
+
+/* ---------- MOBILE NAV ---------- */
+var navToggle = document.getElementById('nav-toggle');
+var sidebar = document.getElementById('sidebar');
+navToggle.addEventListener('click', function(){
+  var open = sidebar.classList.toggle('open');
+  navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+});
+
+/* ---------- READING PROGRESS BAR ---------- */
+var progressBar = document.getElementById('progress-bar');
+window.addEventListener('scroll', function(){
+  var h = document.documentElement;
+  var scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+  progressBar.style.width = (scrolled || 0) + '%';
+}, { passive:true });
+
+/* ---------- ACTIVE NAV HIGHLIGHT ---------- */
+var navLinks = Array.prototype.slice.call(document.querySelectorAll('.nav a'));
+var sections = navLinks.map(function(a){ return document.querySelector(a.getAttribute('href')); }).filter(Boolean);
+var io = new IntersectionObserver(function(entries){
+  entries.forEach(function(entry){
+    var link = document.querySelector('.nav a[href="#' + entry.target.id + '"]');
+    if(!link) return;
+    if(entry.isIntersecting) navLinks.forEach(function(l){ l.classList.remove('active'); });
+    if(entry.isIntersecting) link.classList.add('active');
+  });
+}, { rootMargin: '-20% 0px -70% 0px' });
+sections.forEach(function(s){ io.observe(s); });
+
+/* ---------- TEMPORIZADOR DE REFERENCIA (no cierra la práctica) ---------- */
+var TIMER_MINUTES = 60;
+var TIMER_KEY = 'tp_hiu5_deadline';
+var SOUND_MUTE_KEY = 'tp_hi_sound_muted';
+var soundMuted = localStorage.getItem(SOUND_MUTE_KEY) === '1';
+var flatlinePlayed = false;
+var lastBeepAt = 0;
+var lastStabAt = 0;
+var lastOvertimeStabAt = 0;
+var NUM_CORAZONES = 5;
+
+/* Dibuja NUM_CORAZONES corazones tipo "vida" de videojuego (Zelda), cada
+   uno representando 1/5 del tiempo. Se vacian de derecha a izquierda segun
+   pasa el tiempo -- mismo lenguaje visual que una barra de vida de juego. */
+function trazarCorazon(ctx, cx, cy, s){
+  ctx.beginPath();
+  ctx.moveTo(cx, cy + s * 0.32);
+  ctx.bezierCurveTo(cx, cy, cx - s * 0.5, cy - s * 0.5, cx - s * 0.5, cy);
+  ctx.bezierCurveTo(cx - s * 0.5, cy + s * 0.4, cx - s * 0.18, cy + s * 0.62, cx, cy + s * 0.88);
+  ctx.bezierCurveTo(cx + s * 0.18, cy + s * 0.62, cx + s * 0.5, cy + s * 0.4, cx + s * 0.5, cy);
+  ctx.bezierCurveTo(cx + s * 0.5, cy - s * 0.5, cx, cy, cx, cy + s * 0.32);
+  ctx.closePath();
+}
+function dibujarCorazones(pctVida){
+  var canvas = document.getElementById('hearts-canvas');
+  if(!canvas) return;
+  var ctx = canvas.getContext('2d');
+  var W = canvas.width, H = canvas.height;
+  ctx.clearRect(0, 0, W, H);
+  var s = 24, paso = 40, inicioX = (W - paso * (NUM_CORAZONES - 1)) / 2, cy = H / 2 - 4;
+  for(var i = 0; i < NUM_CORAZONES; i++){
+    var cx = inicioX + i * paso;
+    var segInicio = i / NUM_CORAZONES, segAncho = 1 / NUM_CORAZONES;
+    var frac = Math.max(0, Math.min(1, (pctVida - segInicio) / segAncho));
+    trazarCorazon(ctx, cx, cy, s);
+    ctx.fillStyle = 'rgba(0,0,0,.08)';
+    ctx.fill();
+    if(frac > 0){
+      ctx.save();
+      trazarCorazon(ctx, cx, cy, s);
+      ctx.clip();
+      ctx.fillStyle = pctVida <= 0 ? '#94a3b8' : '#e11d48';
+      ctx.fillRect(cx - s / 2, cy + s * 0.9 - (s * 1.4 * frac), s, s * 1.4 * frac);
+      ctx.restore();
+    }
+    trazarCorazon(ctx, cx, cy, s);
+    ctx.lineWidth = 1.3;
+    ctx.strokeStyle = 'rgba(0,0,0,.18)';
+    ctx.stroke();
+  }
+}
+
+function getDeadline(){
+  var d = parseInt(localStorage.getItem(TIMER_KEY), 10);
+  if(!d || isNaN(d)){
+    d = Date.now() + TIMER_MINUTES * 60000;
+    try{ localStorage.setItem(TIMER_KEY, String(d)); }catch(e){}
+  }
+  return d;
+}
+var timerDeadline = getDeadline();
+
+function playBeep(freq, dur, vol){
+  if(soundMuted) return;
+  try{
+    var Ctx = window.AudioContext || window.webkitAudioContext;
+    var ctx = new Ctx();
+    var osc = ctx.createOscillator(); var gain = ctx.createGain();
+    osc.type = 'sine'; osc.frequency.value = freq;
+    gain.gain.setValueAtTime(vol, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + dur);
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.start(); osc.stop(ctx.currentTime + dur);
+    osc.onended = function(){ ctx.close(); };
+  }catch(e){}
+}
+function playFlatline(){
+  if(soundMuted) return;
+  try{
+    var Ctx = window.AudioContext || window.webkitAudioContext;
+    var ctx = new Ctx();
+    var osc = ctx.createOscillator(); var gain = ctx.createGain();
+    osc.type = 'sawtooth';
+    osc.frequency.setValueAtTime(720, ctx.currentTime);
+    osc.frequency.linearRampToValueAtTime(160, ctx.currentTime + 2.2);
+    gain.gain.setValueAtTime(0.001, ctx.currentTime);
+    gain.gain.linearRampToValueAtTime(0.14, ctx.currentTime + 0.06);
+    gain.gain.setValueAtTime(0.14, ctx.currentTime + 1.8);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 2.3);
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.start(); osc.stop(ctx.currentTime + 2.4);
+    osc.onended = function(){ ctx.close(); };
+  }catch(e){}
+}
+function playAnguishStab(){
+  if(soundMuted) return;
+  try{
+    var Ctx = window.AudioContext || window.webkitAudioContext;
+    var ctx = new Ctx();
+    [1046.5, 987.77].forEach(function(freq){
+      var osc = ctx.createOscillator(); var gain = ctx.createGain();
+      osc.type = 'sawtooth';
+      osc.frequency.value = freq;
+      gain.gain.setValueAtTime(0.001, ctx.currentTime);
+      gain.gain.linearRampToValueAtTime(0.11, ctx.currentTime + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.35);
+      osc.connect(gain); gain.connect(ctx.destination);
+      osc.start(); osc.stop(ctx.currentTime + 0.4);
+    });
+    setTimeout(function(){ ctx.close(); }, 450);
+  }catch(e){}
+}
+function tickTimer(){
+  var wrapEl = document.getElementById('timer-box');
+  var valEl = document.getElementById('timer-value');
+  var overtimeNoteEl = document.getElementById('overtime-note');
+  var heartsEl = document.getElementById('hearts-canvas');
+  if(!wrapEl || !valEl) return;
+  var diffReal = timerDeadline - Date.now();
+  var remaining = diffReal < 0 ? 0 : diffReal;
+  var now = Date.now();
+
+  dibujarCorazones(Math.max(0, remaining / (TIMER_MINUTES * 60000)));
+
+  if(diffReal > 0){
+    var totalSec = Math.floor(remaining / 1000);
+    var m = Math.floor(totalSec / 60), s = totalSec % 60;
+    valEl.textContent = (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+    wrapEl.classList.remove('overtime');
+    if(overtimeNoteEl) overtimeNoteEl.hidden = true;
+
+    var criticalMode = remaining <= 10 * 60000;
+    wrapEl.classList.toggle('low', criticalMode);
+    var lastMinute = remaining <= 5 * 60000;
+    if(lastMinute){
+      var pctMin = remaining / (5 * 60000);
+      var eased = Math.pow(1 - pctMin, 3);
+      var interval = 3000 - eased * 2750;
+      if(now - lastBeepAt > interval){
+        lastBeepAt = now;
+        playBeep(920, 0.08, 0.14);
+      }
+      var stabInterval = 3500 - eased * 3150;
+      if(now - lastStabAt > stabInterval){
+        lastStabAt = now;
+        playAnguishStab();
+      }
+    }
+    if(heartsEl) heartsEl.classList.toggle('critical', lastMinute);
+    wrapEl.classList.toggle('critical', lastMinute);
+  } else {
+    var extraMs = -diffReal;
+    var extraSec = Math.floor(extraMs / 1000);
+    var em = Math.floor(extraSec / 60), es = extraSec % 60;
+    valEl.textContent = '+' + (em < 10 ? '0' : '') + em + ':' + (es < 10 ? '0' : '') + es;
+    wrapEl.classList.remove('low', 'critical');
+    wrapEl.classList.add('overtime');
+    if(heartsEl) heartsEl.classList.remove('critical');
+    if(overtimeNoteEl) overtimeNoteEl.hidden = false;
+
+    if(!flatlinePlayed){
+      flatlinePlayed = true;
+      playFlatline();
+    }
+    if(now - lastOvertimeStabAt > 1800){
+      lastOvertimeStabAt = now;
+      playAnguishStab();
+    }
+  }
+}
+setInterval(tickTimer, 1000);
+tickTimer();
+var soundToggleBtn = document.getElementById('sound-toggle');
+soundToggleBtn.textContent = soundMuted ? '🔇' : '🔔';
+soundToggleBtn.addEventListener('click', function(){
+  soundMuted = !soundMuted;
+  try{ localStorage.setItem(SOUND_MUTE_KEY, soundMuted ? '1' : '0'); }catch(e){}
+  soundToggleBtn.textContent = soundMuted ? '🔇' : '🔔';
+});
+
+/* ---------- HELPERS ---------- */
+function norm(s){ return (s === undefined || s === null) ? '' : String(s).trim(); }
+function stripAccents(s){ return norm(s).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,''); }
+function wordCount(s){ s = norm(s); return s ? s.split(/\s+/).filter(Boolean).length : 0; }
+function filled(s){ return norm(s).length > 0; }
+function clamp01(n){ return Math.max(0, Math.min(1, n)); }
+function val(id){ var el = document.getElementById(id); return el ? el.value : ''; }
+function labelOf(id){ var el = document.getElementById(id); if(!el) return id; var lab = document.querySelector('label[for="'+id+'"]'); return lab ? lab.textContent.replace(/\s*\d+\/\d+ palabras\s*/,'').trim() : id; }
+function escapeHtml(s){ var d = document.createElement('div'); d.textContent = norm(s); return d.innerHTML; }
+
+/* ---------- CAMPOS DE CADA PASO ---------- */
+var STEP_FIELDS = {
+  paso1: ['p1_caso','p1_clasificacion','p1_diferencia'],
+  paso2: ['p2_fase','p2_explicacion'],
+  paso3: ['p3_contenido','p3_secundaria'],
+  paso4: ['p4_prefactibilidad','p4_progresion'],
+  paso5: ['p5_decision','p5_rentabilidad']
+};
+
+/* ---------- CASOS PRECARGADOS (para no obligar a inventar un ejemplo propio) ---------- */
+var CASOS = {
+  inapa: {
+    institucion: 'INAPA — Oficina Regional Sur (Barahona)',
+    proyecto: 'Acueducto rural para La Ciénaga',
+    texto: 'Contexto: La Ciénaga es una comunidad rural de la provincia Barahona, en la región Sur, con cerca de 800 familias dedicadas principalmente a la agricultura de subsistencia. Antecedentes: desde hace más de una década, el abastecimiento de agua depende de pozos artesanales y de una cañada cercana, sin ningún tipo de tratamiento ni cloración. Diagnóstico: el centro de salud local reporta que las enfermedades gastrointestinales, sobre todo en niños menores de cinco años, se mantienen entre las tres primeras causas de consulta durante todo el año, y se agravan en la temporada de lluvias por la contaminación de las fuentes superficiales. Actores clave: la comunidad, organizada en una junta de vecinos, ha solicitado en reiteradas ocasiones ante el ayuntamiento y ante INAPA la construcción de un acueducto con planta de tratamiento, pero el proyecto nunca ha sido formalmente priorizado ni incorporado a un instrumento de planificación.'
+  },
+  hospital: {
+    institucion: 'Hospital Municipal de El Cercado (San Juan)',
+    proyecto: 'Remozamiento de la sala de maternidad',
+    texto: 'Contexto: El Cercado es un municipio de la provincia San Juan, en la región Sur, cuyo hospital municipal es el único centro de referencia para varias secciones rurales de los alrededores. Antecedentes: la sala de maternidad fue construida hace 30 años y no ha recibido una intervención mayor desde entonces. Diagnóstico: el centro atiende un promedio de 40 partos mensuales, con equipos médicos obsoletos, capacidad física insuficiente para la demanda actual, y sin un área separada para atender complicaciones obstétricas. Actores clave: el personal médico y de enfermería reporta que las condiciones de infraestructura limitan la calidad de la atención y aumentan el riesgo en partos complicados, mientras que las autoridades de salud regionales han señalado este centro como prioritario en sus diagnósticos internos, sin que hasta ahora se haya formulado un proyecto de inversión pública formal.'
+  },
+  ayuntamiento: {
+    institucion: 'Ayuntamiento Municipal de Vallejuelo (San Juan)',
+    proyecto: 'Rehabilitación de los caminos vecinales de Cutupú, Jarumucú y El Puñal',
+    texto: 'Contexto: Cutupú, Jarumucú y El Puñal son tres secciones rurales del municipio de Vallejuelo, provincia San Juan, en la Sierra de Neiba, dedicadas principalmente al cultivo de habichuela y guandul. Antecedentes: los aproximadamente 15 kilómetros de caminos vecinales que conectan estas comunidades con la carretera principal nunca han recibido una intervención formal de pavimentación o drenaje. Diagnóstico: en la temporada de lluvias, los caminos se vuelven intransitables durante semanas, lo que aísla a cerca de 1,200 habitantes de la cabecera municipal. Esto afecta directamente el traslado diario de los estudiantes a la escuela, el acceso oportuno a atención médica de emergencia, y la salida de la producción agrícola local hacia los mercados de San Juan de la Maguana. Actores clave: los munícipes, a través de sus juntas de vecinos, han planteado esta necesidad en los presupuestos participativos municipales de los últimos años, sin que el ayuntamiento haya logrado priorizarla dentro de su cartera de inversión.'
+  },
+  ministerio: {
+    institucion: 'Dirección Regional Sur de un Ministerio (sede en San Juan de la Maguana)',
+    proyecto: 'Modernización del sistema de información institucional',
+    texto: 'Contexto: la Dirección Regional Sur de un ministerio, con sede en San Juan de la Maguana, atiende trámites de varias provincias vecinas (San Juan, Elías Piña, Azua). Antecedentes: desde su creación, la dirección ha gestionado sus trámites internos (licencias, certificados, correspondencia) de forma manual y en papel, repartidos entre varias oficinas que no comparten información entre sí. Diagnóstico: un trámite que en teoría debería resolverse en 5 días hábiles toma, en la práctica, entre 3 y 6 semanas, según reportes de los propios usuarios y de auditorías internas recientes. Actores clave: el personal técnico de la dirección reconoce que la falta de un sistema de información integrado dificulta cualquier seguimiento o rendición de cuentas sobre el estado real de cada expediente, y ha solicitado en varias ocasiones a la sede central una modernización tecnológica de sus procesos.'
+  },
+  escuela: {
+    institucion: 'Escuela Básica Rural de Guananico (Puerto Plata) — Ministerio de Educación',
+    proyecto: 'Construcción y rehabilitación de la escuela rural',
+    texto: 'Contexto: Guananico es un municipio de la provincia Puerto Plata, en la región Norte, cuya escuela básica rural es el único centro educativo disponible para varias comunidades de los alrededores. Antecedentes: la edificación fue construida hace más de 25 años y no ha recibido mantenimiento estructural mayor desde entonces. Diagnóstico: hoy presenta aulas con daños estructurales visibles, sin electricidad estable, y con baños insuficientes para la matrícula actual. Con el crecimiento de la población escolar de la zona en los últimos años, la escuela ya no tiene capacidad para todos los estudiantes en edad de asistir, y varios niños deben caminar más de una hora hacia el centro educativo más cercano con espacio disponible. Actores clave: la asociación de padres, madres y amigos de la escuela (APMAE) ha documentado esta situación ante el distrito educativo, que a su vez la ha remitido a la sede central del Ministerio de Educación como parte de su diagnóstico de infraestructura escolar pendiente.'
+  }
+};
+document.getElementById('p1_caso').addEventListener('change', function(){
+  var c = CASOS[this.value];
+  var box = document.getElementById('p1_caso_desc');
+  document.querySelectorAll('.caso-card').forEach(function(card){
+    card.classList.toggle('selected', card.getAttribute('data-caso') === this.value);
+  }.bind(this));
+  if(!c){ box.innerHTML = '👆 Toque una tarjeta arriba para comenzar su misión y ver aquí la descripción completa del caso.'; return; }
+  box.innerHTML = '<strong>🎯 Su misión: ' + c.institucion + ' — ' + c.proyecto + '.</strong><br>' + c.texto;
+  saveAll();
+});
+document.querySelectorAll('.caso-card').forEach(function(card){
+  card.addEventListener('click', function(){
+    var sel = document.getElementById('p1_caso');
+    sel.value = card.getAttribute('data-caso');
+    sel.dispatchEvent(new Event('change'));
+  });
+});
+
+/* ---------- MODALIDAD: INDIVIDUAL O EN EQUIPO ---------- */
+var modoSelect = document.getElementById('modo_trabajo');
+var bloqueIndividual = document.getElementById('bloque-individual');
+var bloqueGrupo = document.getElementById('bloque-grupo');
+var bloqueIntegrantes = document.getElementById('bloque-integrantes');
+function aplicarModo(){
+  var esGrupo = modoSelect.value === 'grupo';
+  bloqueIndividual.hidden = esGrupo;
+  bloqueGrupo.hidden = !esGrupo;
+  bloqueIntegrantes.hidden = !esGrupo;
+}
+modoSelect.addEventListener('change', function(){ aplicarModo(); saveAll(); });
+aplicarModo();
+function nombreIdentificacion(){
+  return modoSelect.value === 'grupo' ? (val('grp_nombre') || '') : (val('ind_nombre') || '');
+}
+function correoIdentificacion(){
+  return modoSelect.value === 'grupo' ? (val('grp_correo') || '') : (val('ind_correo') || '');
+}
+
+/* ---------- WORD COUNTERS ---------- */
+document.querySelectorAll('.wc[data-for]').forEach(function(span){
+  var target = document.getElementById(span.getAttribute('data-for'));
+  if(!target) return;
+  function update(){
+    var wc = wordCount(target.value);
+    span.textContent = wc + (wc === 1 ? ' palabra escrita' : ' palabras escritas');
+    span.classList.toggle('ok', wc > 0);
+  }
+  target.addEventListener('input', update);
+  update();
+});
+
+/* ---------- AUTOSAVE (localStorage) ---------- */
+var STORE_KEY = 'tp_hiu5_respuestas_v1';
+var META_FIELDS = ['modo_trabajo', 'ind_nombre', 'ind_correo', 'grp_nombre', 'grp_correo', 'grp_integrantes'];
+function allFieldIds(){
+  var ids = META_FIELDS.slice();
+  Object.keys(STEP_FIELDS).forEach(function(k){ ids = ids.concat(STEP_FIELDS[k]); });
+  return ids;
+}
+function saveAll(){
+  var data = {};
+  allFieldIds().forEach(function(id){ data[id] = val(id); });
+  try{ localStorage.setItem(STORE_KEY, JSON.stringify(data)); }catch(e){}
+}
+function loadAll(){
+  var raw; try{ raw = localStorage.getItem(STORE_KEY); }catch(e){ raw = null; }
+  if(!raw) return;
+  try{
+    var data = JSON.parse(raw);
+    Object.keys(data).forEach(function(id){
+      var el = document.getElementById(id);
+      if(el) el.value = data[id];
+    });
+  }catch(e){}
+}
+loadAll();
+aplicarModo();
+document.getElementById('p1_caso').dispatchEvent(new Event('change'));
+document.querySelectorAll('.wc[data-for]').forEach(function(span){
+  var target = document.getElementById(span.getAttribute('data-for'));
+  if(target) target.dispatchEvent(new Event('input'));
+});
+
+var saveTimer = null;
+document.addEventListener('input', function(e){
+  var t = e.target;
+  if(t && t.id && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT')){
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(function(){ saveAll(); updateProgress(); }, 400);
+  }
+});
+document.addEventListener('change', function(e){
+  var t = e.target;
+  if(t && t.tagName === 'SELECT'){ saveAll(); updateProgress(); }
+});
+
+/* ---------- PROGRESS ---------- */
+function stepRatio(key){
+  var ids = STEP_FIELDS[key];
+  if(!ids || !ids.length) return 0;
+  var n = 0;
+  ids.forEach(function(id){ if(filled(val(id))) n++; });
+  return n / ids.length;
+}
+function updateProgress(){
+  var keys = Object.keys(STEP_FIELDS);
+  var total = 0;
+  keys.forEach(function(k){
+    var r = stepRatio(k);
+    total += r;
+    var pctEl = document.querySelector('.pct[data-pct="'+k+'"]');
+    var linkEl = document.querySelector('.nav a[data-step="'+k+'"]');
+    if(pctEl) pctEl.textContent = Math.round(r*100) + '%';
+    if(linkEl) linkEl.classList.toggle('done', r >= 0.95);
+  });
+  var overall = Math.round((total / keys.length) * 100);
+  document.getElementById('progress-count').textContent = overall + '%';
+  var fillEl = document.getElementById('progress-fill-el');
+  fillEl.style.width = overall + '%';
+  fillEl.classList.toggle('complete', overall >= 95);
+}
+updateProgress();
+
+/* ---------- ¿PRÁCTICA COMPLETA? (determina la APROBACIÓN, no la nota) ---------- */
+function camposFaltantes(){
+  var faltan = [];
+  Object.keys(STEP_FIELDS).forEach(function(key){
+    STEP_FIELDS[key].forEach(function(id){
+      if(!filled(val(id))) faltan.push(labelOf(id));
+    });
+  });
+  return faltan;
+}
+function practicaCompleta(){ return camposFaltantes().length === 0; }
+
+/* ---------- RÚBRICA TABLE (referencia de calidad, no de aprobación) ---------- */
+var RUBRICA = [
+  {n:1, criterio:'Conceptos Básicos de Inversión Pública (Paso 1)', indicador:'Clasificación del caso como PIP o mantenimiento fundamentada, y diferencia entre ambos conceptos explicada correctamente.', pts:20},
+  {n:2, criterio:'Ciclo de Vida del Proyecto (Paso 2)', indicador:'Fase del ciclo de vida seleccionada y sus etapas descritas con relación a las demás fases.', pts:20},
+  {n:3, criterio:'Etapa de Preinversión — Perfil (Paso 3)', indicador:'Elementos del perfil descritos correctamente y fundamentación del uso de información secundaria.', pts:20},
+  {n:4, criterio:'Prefactibilidad y Factibilidad (Paso 4)', indicador:'Dimensiones analíticas de la prefactibilidad explicadas y progresión entre etapas de preinversión comprendida.', pts:20},
+  {n:5, criterio:'Herramientas del SNIP y Decisión de Inversión (Paso 5)', indicador:'Puertas de decisión explicadas y concepto de rentabilidad social aplicado al caso.', pts:20}
+];
+document.getElementById('rubrica-body').innerHTML = RUBRICA.map(function(r){
+  return '<tr><td class="label-cell">'+r.n+'</td><td>'+r.criterio+'</td><td>'+r.indicador+'</td><td class="label-cell">'+r.pts+'</td></tr>';
+}).join('') + '<tr><td colspan="3" class="label-cell">TOTAL (retroalimentación)</td><td class="label-cell">100</td></tr>';
+
+/* ---------- GRADING ENGINE ---------- */
+function ratioFilledFrac(ids){
+  if(!ids.length) return 0;
+  var n = 0; ids.forEach(function(id){ if(filled(val(id))) n++; });
+  return n / ids.length;
+}
+function singleWordFrac(id){ return filled(val(id)) ? 1 : 0; }
+
+function buildCriterion(title, maxPoints, items){
+  var score = 0;
+  items.forEach(function(it){ score += it.points * clamp01(it.frac); });
+  score = Math.round(score * 10) / 10;
+  var strong = [], mid = [], weak = [];
+  items.forEach(function(it){
+    if(it.frac >= 0.85) strong.push(it.label);
+    else if(it.frac >= 0.45) mid.push(it.label);
+    else weak.push(it.label);
+  });
+  return { title:title, maxPoints:maxPoints, score:score, strong:strong, mid:mid, weak:weak };
+}
+
+function gradeStep1(){
+  var items = [
+    { label:'Caso elegido', points:4, frac:filled(val('p1_caso'))?1:0 },
+    { label:'Clasificación como PIP o mantenimiento fundamentada', points:8, frac:singleWordFrac('p1_clasificacion') },
+    { label:'Diferencia entre PIP y mantenimiento explicada', points:8, frac:singleWordFrac('p1_diferencia') }
+  ];
+  return buildCriterion(RUBRICA[0].criterio, 20, items);
+}
+function gradeStep2(){
+  var items = [
+    { label:'Fase del ciclo de vida seleccionada', points:6, frac:filled(val('p2_fase'))?1:0 },
+    { label:'Descripción de la fase y su relación con el ciclo', points:14, frac:singleWordFrac('p2_explicacion') }
+  ];
+  return buildCriterion(RUBRICA[1].criterio, 20, items);
+}
+function gradeStep3(){
+  var items = [
+    { label:'Elementos del perfil descritos', points:10, frac:singleWordFrac('p3_contenido') },
+    { label:'Información secundaria y juicio de expertos fundamentados', points:10, frac:singleWordFrac('p3_secundaria') }
+  ];
+  return buildCriterion(RUBRICA[2].criterio, 20, items);
+}
+function gradeStep4(){
+  var items = [
+    { label:'Dimensiones de prefactibilidad descritas', points:10, frac:singleWordFrac('p4_prefactibilidad') },
+    { label:'Progresión entre etapas de preinversión explicada', points:10, frac:singleWordFrac('p4_progresion') }
+  ];
+  return buildCriterion(RUBRICA[3].criterio, 20, items);
+}
+function gradeStep5(){
+  var items = [
+    { label:'Puertas de decisión del SNIP explicadas', points:10, frac:singleWordFrac('p5_decision') },
+    { label:'Rentabilidad social aplicada al caso', points:10, frac:singleWordFrac('p5_rentabilidad') }
+  ];
+  return buildCriterion(RUBRICA[4].criterio, 20, items);
+}
+
+function runGrading(){
+  var criteria = [gradeStep1(), gradeStep2(), gradeStep3(), gradeStep4(), gradeStep5()];
+  var total = Math.round(criteria.reduce(function(a,c){ return a + c.score; },0) * 10) / 10;
+  return { criteria:criteria, total:total };
+}
+
+function critFillClass(pct){
+  if(pct >= 80) return 'hi';
+  if(pct >= 50) return 'mid';
+  return 'lo';
+}
+
+function renderResults(result){
+  var hero = document.getElementById('score-hero');
+  var title = document.getElementById('score-title');
+  var desc = document.getElementById('score-desc');
+  var num = document.getElementById('score-num');
+  animarNumero(num, result.total, 900);
+  hero.classList.remove('pass','warn','fail');
+
+  var completa = practicaCompleta();
+  var faltan = camposFaltantes();
+  var medalBtn = document.getElementById('btn-medal');
+
+  if(completa){
+    hero.classList.add('pass');
+    title.textContent = '✅ Práctica Aprobada — completada en su totalidad';
+    desc.textContent = 'Esta práctica se aprueba por haberla completado en su totalidad. La nota de ' + result.total + ' / 100 pts es retroalimentación sobre la calidad de sus respuestas — no afecta su aprobación.';
+    medalBtn.style.display = 'inline-flex';
+    fireConfetti();
+  } else if(faltan.length <= 4){
+    hero.classList.add('warn');
+    title.textContent = '🟠 Casi completa — faltan ' + faltan.length + ' campo(s)';
+    desc.textContent = 'Para aprobar debe completar todos los campos de los 5 pasos. Le falta: ' + faltan.slice(0,4).join('; ') + (faltan.length > 4 ? '…' : '') + '.';
+    medalBtn.style.display = 'none';
+  } else {
+    hero.classList.add('fail');
+    title.textContent = '🔴 Práctica incompleta — faltan ' + faltan.length + ' campos';
+    desc.textContent = 'Todavía faltan varios campos por completar en los 5 pasos. Revise la barra lateral: los pasos marcados sin ✓ tienen campos pendientes.';
+    medalBtn.style.display = 'none';
+  }
+
+  var listEl = document.getElementById('crit-list');
+  listEl.innerHTML = result.criteria.map(function(c){
+    var pct = Math.round((c.score / c.maxPoints) * 100);
+    var parts = [];
+    if(c.strong.length) parts.push('<li><span class="tag-ok">✔ Bien logrado:</span> ' + c.strong.join('; ') + '.</li>');
+    if(c.mid.length) parts.push('<li><span class="tag-mid">◐ Puede mejorar:</span> ' + c.mid.join('; ') + '.</li>');
+    if(c.weak.length) parts.push('<li><span class="tag-low">✖ Falta completar / profundizar:</span> ' + c.weak.join('; ') + '.</li>');
+    return '<div class="crit">'+
+      '<div class="crit-head"><strong>'+c.title+'</strong><span class="crit-score">'+c.score+' / '+c.maxPoints+' pts</span></div>'+
+      '<div class="crit-track"><div class="crit-fill '+critFillClass(pct)+'" style="width:'+pct+'%;"></div></div>'+
+      '<ul>'+parts.join('')+'</ul>'+
+      '</div>';
+  }).join('');
+
+  document.getElementById('results').classList.add('show');
+}
+
+function gatherGradingPayload(localResult){
+  var pasos = {};
+  Object.keys(STEP_FIELDS).forEach(function(key, i){
+    var respuestas = {};
+    STEP_FIELDS[key].forEach(function(id){
+      var v = val(id);
+      if(filled(v)) respuestas[labelOf(id)] = v;
+    });
+    pasos[key] = { criterio: RUBRICA[i].criterio, max: RUBRICA[i].pts, respuestas: respuestas };
+  });
+  return {
+    estudiante: { nombre: nombreIdentificacion(), correo: correoIdentificacion(), integrantes: val('grp_integrantes') || '', modalidad: modoSelect.value },
+    institucion: (CASOS[val('p1_caso')] ? CASOS[val('p1_caso')].institucion : '') || '',
+    curso: 'hacienda-inversion-publica',
+    unidad: 'u5',
+    aprobado_por_completitud: practicaCompleta(),
+    pasos: pasos,
+    local: localResult ? {
+      total: localResult.total,
+      criterios: localResult.criteria.map(function(c){ return { titulo: c.title, puntaje: c.score, max: c.maxPoints }; })
+    } : null
+  };
+}
+
+function renderAIReview(data){
+  var box = document.getElementById('ai-review');
+  box.className = 'alert success';
+  var rows = data.criterios.map(function(c, i){
+    var nombre = RUBRICA[i] ? RUBRICA[i].criterio : ('Criterio ' + (i+1));
+    return '<li><strong>' + escapeHtml(nombre) + ':</strong> ' + c.puntaje + '/' + c.max + ' pts — ' + escapeHtml(c.comentario) + '</li>';
+  }).join('');
+  box.innerHTML = '<strong>Evaluación de Nicole:</strong> ' + data.total + ' / 100 pts (retroalimentación, no afecta su aprobación).<br>' +
+    (data.comentario_general ? '<p style="margin:.5rem 0;">' + escapeHtml(data.comentario_general) + '</p>' : '') +
+    '<ul style="margin:.5rem 0 0; padding-left:1.2rem; font-size:.85rem;">' + rows + '</ul>' +
+    '<p style="margin:.6rem 0 0; font-size:.72rem; color:var(--muted);">Esta evaluación la genera el Tutor Virtual leyendo el contenido real de sus respuestas; es orientativa y no reemplaza la nota oficial de su facilitador.</p>';
+}
+
+function requestAIGrading(localResult){
+  var box = document.getElementById('ai-review');
+  box.style.display = 'block';
+  box.className = 'alert info';
+  box.innerHTML = '<strong>Nicole:</strong> analizando el contenido de sus respuestas (puede tardar hasta 10 minutos en este servidor) y notificando a su facilitador por correo. No necesita quedarse en esta pantalla — su aprobación por completitud ya quedó registrada arriba…';
+  fetchWithTimeout(AI_GRADE_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(gatherGradingPayload(localResult))
+  }, AI_GRADE_TIMEOUT).then(function(res){
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    return res.json();
+  }).then(function(data){
+    if(!data || !data.ok || !Array.isArray(data.criterios)) throw new Error((data && data.error) || 'respuesta inválida');
+    renderAIReview(data);
+  }).catch(function(){
+    box.className = 'alert warn';
+    box.innerHTML = '<strong>Nicole:</strong> no se pudo contactar el servicio de evaluación en este momento (puede estar desconectado o sin internet). Se muestra únicamente la evaluación automática local de esta página, que sigue siendo válida.';
+  });
+}
+
+document.getElementById('btn-submit').addEventListener('click', function(){
+  saveAll();
+  if(!filled(nombreIdentificacion())){
+    var esGrupo = modoSelect.value === 'grupo';
+    alert('Antes de enviar, escriba ' + (esGrupo ? 'el nombre del equipo' : 'su nombre completo') + ' en "¿Cómo va a completar esta práctica?" para que su facilitador pueda identificar la entrega.');
+    document.getElementById(esGrupo ? 'grp_nombre' : 'ind_nombre').focus();
+    document.getElementById('portada').scrollIntoView({ behavior:'smooth' });
+    return;
+  }
+  var result = runGrading();
+  renderResults(result);
+  document.getElementById('results').scrollIntoView({ behavior:'smooth', block:'start' });
+  requestAIGrading(result);
+});
+document.getElementById('btn-recheck').addEventListener('click', function(){
+  document.getElementById('paso1').scrollIntoView({ behavior:'smooth' });
+});
+
+/* ---------- MEDALLA DE FINALIZACIÓN ---------- */
+var TEMA_MEDALLA = {
+  icono: '🏛️',
+  fondo1: '#0b3d6b', fondo2: '#062341',
+  medalClaro: '#cfe8fb', medalMedio: '#4a90c9', medalOscuro: '#1f5c8f',
+  laurel: '#4a90c9',
+  eyebrow: 'CERTIFICADO DE FINALIZACIÓN'
+};
+
+function dibujarLaurel(ctx, cx, cy, r, color){
+  for(var lado = -1; lado <= 1; lado += 2){
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.scale(lado, 1);
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 4;
+    ctx.beginPath();
+    ctx.moveTo(r * 0.72, r * 0.78);
+    ctx.quadraticCurveTo(r * 1.28, 0, r * 0.92, -r * 0.9);
+    ctx.stroke();
+    for(var i = 0; i < 7; i++){
+      var t = i / 6;
+      var px = (r * 0.72) * (1 - t) + (r * 0.92) * t;
+      var py = (r * 0.78) * (1 - t) + (-r * 0.9) * t;
+      ctx.save();
+      ctx.translate(px, py);
+      ctx.rotate(-0.6 + t * 1.15);
+      ctx.beginPath();
+      ctx.ellipse(0, 0, 13, 6, 0, 0, Math.PI * 2);
+      ctx.fillStyle = color;
+      ctx.globalAlpha = 0.85;
+      ctx.fill();
+      ctx.restore();
+    }
+    ctx.restore();
+  }
+}
+
+function drawMedal(nombre, cursoLabel, unidadLabel){
+  var tema = TEMA_MEDALLA;
+  var canvas = document.getElementById('medal-canvas');
+  var ctx = canvas.getContext('2d');
+  var W = canvas.width, H = canvas.height;
+  ctx.clearRect(0,0,W,H);
+  var bgGrad = ctx.createLinearGradient(0,0,0,H);
+  bgGrad.addColorStop(0,tema.fondo1); bgGrad.addColorStop(1,tema.fondo2);
+  ctx.fillStyle = bgGrad; ctx.fillRect(0,0,W,H);
+
+  ctx.textAlign = 'center';
+  ctx.fillStyle = tema.laurel;
+  ctx.font = 'bold 18px Inter, sans-serif';
+  ctx.fillText(tema.eyebrow, W/2, 55);
+
+  var cx = W/2, cy = 300, r = 150;
+  dibujarLaurel(ctx, cx, cy, r + 25, tema.laurel);
+
+  var medalGrad = ctx.createRadialGradient(cx-50,cy-50,10,cx,cy,r);
+  medalGrad.addColorStop(0,tema.medalClaro); medalGrad.addColorStop(0.6,tema.medalMedio); medalGrad.addColorStop(1,tema.medalOscuro);
+  ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2); ctx.fillStyle = medalGrad; ctx.fill();
+  ctx.lineWidth = 8; ctx.strokeStyle = tema.medalOscuro; ctx.stroke();
+  ctx.beginPath(); ctx.arc(cx,cy,r-20,0,Math.PI*2); ctx.lineWidth=3; ctx.strokeStyle='rgba(255,255,255,.35)'; ctx.stroke();
+
+  ctx.fillStyle = tema.fondo1;
+  ctx.font = 'bold 82px Inter, sans-serif';
+  ctx.fillText(tema.icono, cx, cy+28);
+
+  ctx.fillStyle = '#ffffff';
+  ctx.font = 'bold 30px Inter, sans-serif';
+  ctx.fillText('PRÁCTICA COMPLETADA', W/2, cy+r+65);
+
+  ctx.fillStyle = tema.laurel;
+  ctx.font = '600 21px Inter, sans-serif';
+  wrapCanvasText(ctx, cursoLabel, W/2, cy+r+100, W-100, 26);
+
+  ctx.fillStyle = '#cbd5e1';
+  ctx.font = '17px Inter, sans-serif';
+  ctx.fillText(unidadLabel, W/2, cy+r+160);
+
+  ctx.fillStyle = '#ffffff';
+  ctx.font = 'bold 24px Inter, sans-serif';
+  ctx.fillText(nombre || 'Participante', W/2, cy+r+205);
+
+  ctx.fillStyle = '#94a3b8';
+  ctx.font = '14px Inter, sans-serif';
+  ctx.fillText('Johan Tapia, PhD · ' + new Date().toLocaleDateString('es-DO'), W/2, cy+r+235);
+}
+function wrapCanvasText(ctx, text, x, y, maxWidth, lineHeight){
+  var words = text.split(' ');
+  var line = '';
+  var lines = [];
+  for(var i=0;i<words.length;i++){
+    var test = line + words[i] + ' ';
+    if(ctx.measureText(test).width > maxWidth && line !== ''){
+      lines.push(line.trim()); line = words[i] + ' ';
+    } else { line = test; }
+  }
+  lines.push(line.trim());
+  lines.forEach(function(l, idx){ ctx.fillText(l, x, y + idx*lineHeight); });
+}
+document.getElementById('btn-medal').addEventListener('click', function(){
+  drawMedal(nombreIdentificacion(), 'Fundamentos de Planificación y Gestión de la Inversión Pública', 'Unidad V · El Ciclo de Vida de un Proyecto');
+  document.getElementById('medal-modal').hidden = false;
+});
+document.getElementById('medal-close').addEventListener('click', function(){
+  document.getElementById('medal-modal').hidden = true;
+});
+document.getElementById('medal-download').addEventListener('click', function(){
+  var canvas = document.getElementById('medal-canvas');
+  var a = document.createElement('a');
+  a.href = canvas.toDataURL('image/png');
+  var name = (nombreIdentificacion() || 'participante').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+  a.download = 'medalla-' + (name || 'participante') + '-unidad5-ciclo-vida.png';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+});
+document.getElementById('medal-share').addEventListener('click', function(){
+  var canvas = document.getElementById('medal-canvas');
+  canvas.toBlob(function(blob){
+    var file = new File([blob], 'medalla-unidad5-ciclo-vida.png', { type:'image/png' });
+    if(navigator.canShare && navigator.canShare({ files:[file] })){
+      navigator.share({ files:[file], title:'¡Completé mi práctica!', text:'Completé la Práctica de la Unidad V del Diplomado en Hacienda e Inversión Pública — CAPGEFI.' }).catch(function(){});
+    } else {
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'medalla-unidad5-ciclo-vida.png';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      URL.revokeObjectURL(a.href);
+      alert('Su navegador no admite compartir directamente. Se descargó la imagen — puede compartirla manualmente por WhatsApp, correo o redes sociales.');
+    }
+  }, 'image/png');
+});
+
+/* ---------- EXPORT / PRINT / CLEAR ---------- */
+function exportTxt(){
+  var casoSel = CASOS[val('p1_caso')];
+  var lines = ['PRÁCTICA — UNIDAD V: El Ciclo de Vida de un Proyecto (CAPGEFI)', (modoSelect.value === 'grupo' ? 'Equipo' : 'Nombre') + ': ' + (nombreIdentificacion() || '(sin especificar)'), 'Caso: ' + (casoSel ? (casoSel.institucion + ' — ' + casoSel.proyecto) : '(sin especificar)'), '======================================================', ''];
+  allFieldIds().forEach(function(id){
+    var v = val(id);
+    if(!filled(v)) return;
+    lines.push('- ' + labelOf(id) + ': ' + v);
+  });
+  var blob = new Blob([lines.join('\n')], { type:'text/plain;charset=utf-8' });
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  var name = (nombreIdentificacion() || 'practica-hacienda-inversion-u5').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+  a.download = (name || 'practica-hacienda-inversion-u5') + '.txt';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(a.href);
+}
+document.getElementById('btn-export').addEventListener('click', exportTxt);
+document.getElementById('btn-export-2').addEventListener('click', exportTxt);
+document.getElementById('btn-print').addEventListener('click', function(){ window.print(); });
+document.getElementById('btn-print-2').addEventListener('click', function(){ window.print(); });
+document.getElementById('btn-clear').addEventListener('click', function(){
+  if(!confirm('¿Seguro que desea borrar TODAS sus respuestas guardadas en este navegador? Esta acción no se puede deshacer.')) return;
+  try{ localStorage.removeItem(STORE_KEY); }catch(e){}
+  allFieldIds().forEach(function(id){ var el = document.getElementById(id); if(el) el.value = ''; });
+  document.querySelectorAll('.wc[data-for]').forEach(function(span){ var t = document.getElementById(span.getAttribute('data-for')); if(t) t.dispatchEvent(new Event('input')); });
+  updateProgress();
+  document.getElementById('results').classList.remove('show');
+  var aiBox = document.getElementById('ai-review');
+  aiBox.style.display = 'none';
+  aiBox.innerHTML = '';
+});
+
+/* ---------- NICOLE - respaldo con reglas (sin costo) ---------- */
+var advisorToggle = document.getElementById('advisor-toggle');
+var advisorPanel = document.getElementById('advisor-panel');
+var advisorClose = document.getElementById('advisor-close');
+var advisorBody = document.getElementById('advisor-body');
+var advisorForm = document.getElementById('advisor-form');
+var advisorInput = document.getElementById('advisor-input');
+
+function openAdvisor(){ advisorPanel.classList.add('open'); advisorToggle.setAttribute('aria-expanded','true'); advisorInput.focus(); }
+function closeAdvisor(){ advisorPanel.classList.remove('open'); advisorToggle.setAttribute('aria-expanded','false'); }
+advisorToggle.addEventListener('click', function(){ advisorPanel.classList.contains('open') ? closeAdvisor() : openAdvisor(); });
+advisorClose.addEventListener('click', closeAdvisor);
+
+function addMsg(text, who){
+  var div = document.createElement('div');
+  div.className = 'advisor-msg advisor-msg-' + (who === 'user' ? 'user' : 'bot');
+  div.textContent = text;
+  advisorBody.appendChild(div);
+  advisorBody.scrollTop = advisorBody.scrollHeight;
+  return div;
+}
+function addTyping(){
+  var div = addMsg('Escribiendo…', 'bot');
+  div.style.opacity = '.6';
+  return div;
+}
+function askTutorAI(q){
+  return fetchWithTimeout(AI_CHAT_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ message: q, contexto: 'MARCO CONCEPTUAL (Unidad V - El Ciclo de Vida de un Proyecto, curso Fundamentos de Planificacion y Gestion de la Inversion Publica del Estado, CAPGEFI):\nEsta practica aplica a cualquier institucion publica dominicana. Cuando des ejemplos, ofrece varios segun el tipo de institucion: INAPA/agua (acueducto rural, planta de tratamiento), hospital publico (remozamiento de maternidad, equipos medicos), ayuntamiento (rehabilitacion vial, drenaje pluvial), ministerio (modernizacion de sistemas, sede regional), institucion educativa (construccion de escuela, becas).\nPROYECTO DE INVERSION PUBLICA (PIP): Intervencion planificada del sector publico que genera beneficios para la sociedad mediante la creacion, mejora o mantenimiento de activos publicos. 6 caracteristicas: 1) Objetivo social y economico: satisfacer necesidades colectivas y fomentar desarrollo. 2) Financiamiento publico: recursos del Estado planificados en el presupuesto. 3) Planificacion y evaluacion: estudios de preinversion y control de gestion. 4) Impacto significativo: empleo, infraestructura y servicios. 5) Plazo definido: diseno, construccion, operacion y mantenimiento. 6) Sostenibilidad: resultados duraderos para el desarrollo nacional.\nOBRA DE MANTENIMIENTO: Reparaciones puntuales de areas especificas para mejora temporal. Corto plazo, accion inmediata. No expande capacidad de servicio. Se gestiona via presupuesto corriente, no por el SNIP. Error comun: intentar registrar gastos de mantenimiento como proyectos de inversion.\nCICLO DE VIDA DEL PROYECTO: Marco cronologico con 3 fases principales: 1) Preinversion (Perfil, Prefactibilidad, Factibilidad): fase de estudio de viabilidad. 2) Inversion (Ejecucion, Seguimiento, Control): materializacion fisica de la obra. 3) Operacion y Mantenimiento (Funcionamiento, Mantenimiento, Evaluacion ex-post): el activo genera el servicio. Cada etapa reduce incertidumbre.\nREDUCCION DE INCERTIDUMBRE: La preinversion busca convergencia de datos: Lim(I) -> 0 cuando Etapa -> Factibilidad. El nivel de precision sigue la jerarquia: Perfil < Prefactibilidad < Factibilidad.\nPERFIL DEL PROYECTO: Documento preliminar basado en informacion secundaria (datos existentes, estadisticas, estudios previos). 6 elementos: identificacion, situacion problematica, objetivos generales, beneficiarios, alternativas de solucion, inversiones estimadas. Se apoya en juicio de expertos. Sirve como filtro tecnico para decidir si continuar.\nPREFACTIBILIDAD: Estudio que profundiza el perfil con informacion secundaria principal. 6 dimensiones: analisis de demanda, analisis de oferta, estudio de alternativas, estimacion de inversiones, costos de operacion, analisis de riesgos. Identifica variables criticas para factibilidad. Es el momento de la Decision de Continuidad.\nFACTIBILIDAD: Estudio definitivo basado en informacion primaria precisa (estudios de suelo, disenos finales, encuestas). Calculos financieros y economicos demostrativos de viabilidad tecnica y social.\nRENTABILIDAD SOCIAL: Criterio de decision final en el SNIP dominicano. Un proyecto puede tener rentabilidad financiera negativa, pero si su impacto social y bienestar general son positivos, el SNIP otorga viabilidad. Se mide en terminos de impacto social y bienestar, no solo financieros.\nPUERTAS DE DECISION: Cada etapa de preinversion es un filtro. Si los indicadores no son favorables en Prefactibilidad, el proyecto no avanza. A mayor monto de inversion, mayor exigencia del nivel de preinversion. Saltar etapas genera elefantes blancos.\nLEY 498-06 (SNPIP): Ley de Planificacion e Inversion Publica. Establece las normas y procedimientos para la formulacion, aprobacion y ejecucion de proyectos de inversion publica.', curso: 'Fundamentos de Planificacion y Gestion de la Inversion Publica (CAPGEFI)' })
+  }, AI_CHAT_TIMEOUT).then(function(res){
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    return res.json();
+  }).then(function(data){
+    if(!data || !filled(data.response)) throw new Error('respuesta vacia');
+    return data.response;
+  });
+}
+function askTutor(q){
+  return askTutorAI(q).catch(function(){ return answerFor(q); });
+}
+function answerFor(q){
+  var nq = normQ(q);
+  var best = null, bestScore = 0;
+  QA.forEach(function(entry){
+    var score = 0;
+    entry.kw.forEach(function(k){ if(nq.indexOf(normQ(k)) !== -1) score++; });
+    if(score > bestScore){ bestScore = score; best = entry; }
+  });
+  if(best) return best.a;
+  return 'No tengo una respuesta preparada para eso. Prueba preguntar por un concepto (articulación inter-sistémica, SIGEF, GpRD, cooperación internacional, Compromisos de París, metas presidenciales, cadena de valor público), por un paso específico ("¿qué pide el paso 3?") o por la calificación. Para dudas sobre su institución específica, consulte a su facilitador.';
+}
+advisorForm.addEventListener('submit', function(e){
+  e.preventDefault();
+  var q = norm(advisorInput.value);
+  if(!q) return;
+  addMsg(q, 'user');
+  advisorInput.value = '';
+  var typingEl = addTyping();
+  askTutor(q).then(function(answer){
+    typingEl.remove();
+    addMsg(answer, 'bot');
+  });
+});
+document.querySelectorAll('.advisor-suggest button').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var q = btn.getAttribute('data-q');
+    openAdvisor();
+    addMsg(q, 'user');
+    var typingEl = addTyping();
+    askTutor(q).then(function(answer){
+      typingEl.remove();
+      addMsg(answer, 'bot');
+    });
+  });
+});
+
+wireVoiceButtons();
+
+/* ===== EFECTOS DINAMICOS ===== */
+var prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* Fondo animado tipo "red" en la portada -- nodos conectados por lineas que
+   derivan lentamente. Opacidad baja para no interferir con el texto. */
+function iniciarRedPortada(){
+  var canvas = document.getElementById('cover-canvas');
+  var cover = document.getElementById('portada');
+  if(!canvas || !cover || prefersReducedMotion) return;
+  var ctx = canvas.getContext('2d');
+  var ancho, alto, nodos = [];
+  var NUM_NODOS = 42, DIST_MAX = 130;
+
+  function redimensionar(){
+    ancho = canvas.width = cover.offsetWidth;
+    alto = canvas.height = cover.offsetHeight;
+  }
+  function crearNodos(){
+    nodos = [];
+    for(var i = 0; i < NUM_NODOS; i++){
+      nodos.push({
+        x: Math.random() * ancho, y: Math.random() * alto,
+        vx: (Math.random() - 0.5) * 0.35, vy: (Math.random() - 0.5) * 0.35
+      });
+    }
+  }
+  function paso(){
+    ctx.clearRect(0, 0, ancho, alto);
+    for(var i = 0; i < nodos.length; i++){
+      var n = nodos[i];
+      n.x += n.vx; n.y += n.vy;
+      if(n.x < 0 || n.x > ancho) n.vx *= -1;
+      if(n.y < 0 || n.y > alto) n.vy *= -1;
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, 1.8, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(255,255,255,.85)';
+      ctx.fill();
+      for(var j = i + 1; j < nodos.length; j++){
+        var m = nodos[j];
+        var dx = n.x - m.x, dy = n.y - m.y;
+        var dist = Math.sqrt(dx * dx + dy * dy);
+        if(dist < DIST_MAX){
+          ctx.beginPath();
+          ctx.moveTo(n.x, n.y); ctx.lineTo(m.x, m.y);
+          ctx.strokeStyle = 'rgba(201,152,47,' + ((1 - dist / DIST_MAX) * .5) + ')';
+          ctx.lineWidth = 1;
+          ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(paso);
+  }
+  redimensionar();
+  crearNodos();
+  requestAnimationFrame(paso);
+  window.addEventListener('resize', function(){ redimensionar(); crearNodos(); });
+}
+iniciarRedPortada();
+
+/* Revelado progresivo de las tarjetas al hacer scroll. */
+function iniciarRevelado(){
+  var tarjetas = document.querySelectorAll('.main > .card');
+  if(!tarjetas.length) return;
+  if(prefersReducedMotion || !('IntersectionObserver' in window)) return;
+  tarjetas.forEach(function(el){ el.classList.add('reveal-init'); });
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        entry.target.classList.add('revealed');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: .12, rootMargin: '0px 0px -40px 0px' });
+  tarjetas.forEach(function(el){ obs.observe(el); });
+}
+iniciarRevelado();
+
+/* Efecto de onda (ripple) al presionar botones. */
+function iniciarRipple(){
+  document.addEventListener('click', function(e){
+    var btn = e.target.closest && e.target.closest('.btn-primary, .btn-secondary, .btn-block');
+    if(!btn) return;
+    var rect = btn.getBoundingClientRect();
+    var tam = Math.max(rect.width, rect.height) * 1.4;
+    var onda = document.createElement('span');
+    onda.className = 'js-ripple';
+    onda.style.width = onda.style.height = tam + 'px';
+    onda.style.left = (e.clientX - rect.left - tam / 2) + 'px';
+    onda.style.top = (e.clientY - rect.top - tam / 2) + 'px';
+    btn.appendChild(onda);
+    setTimeout(function(){ onda.remove(); }, 650);
+  });
+}
+iniciarRipple();
+
+/* Cuenta animada del puntaje final (0 -> total) en vez de aparecer de golpe. */
+function animarNumero(el, hasta, duracionMs){
+  if(prefersReducedMotion){ el.textContent = hasta; return; }
+  var inicio = performance.now();
+  function paso(ahora){
+    var t = Math.min(1, (ahora - inicio) / duracionMs);
+    var suavizado = 1 - Math.pow(1 - t, 3); // easeOutCubic
+    el.textContent = Math.round(hasta * suavizado);
+    if(t < 1) requestAnimationFrame(paso);
+  }
+  requestAnimationFrame(paso);
+}
+
+/* Confeti al aprobar la practica -- canvas propio, sin libreria externa. */
+function fireConfetti(){
+  if(prefersReducedMotion) return;
+  var canvas = document.createElement('canvas');
+  canvas.id = 'confetti-canvas';
+  canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+  document.body.appendChild(canvas);
+  var ctx = canvas.getContext('2d');
+  var colores = ['#003877', '#c9982f', '#16a34a', '#eff6ff', '#5b9bd8'];
+  var piezas = [];
+  for(var i = 0; i < 140; i++){
+    piezas.push({
+      x: Math.random() * canvas.width, y: -20 - Math.random() * canvas.height * .5,
+      w: 6 + Math.random() * 6, h: 8 + Math.random() * 8,
+      vx: (Math.random() - 0.5) * 3, vy: 2 + Math.random() * 3,
+      rot: Math.random() * 360, vrot: (Math.random() - 0.5) * 12,
+      color: colores[Math.floor(Math.random() * colores.length)]
+    });
+  }
+  var inicio = performance.now();
+  function paso(ahora){
+    var t = ahora - inicio;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    var vivas = false;
+    piezas.forEach(function(p){
+      if(p.y > canvas.height + 30) return;
+      vivas = true;
+      p.x += p.vx; p.y += p.vy; p.vy += 0.03; p.rot += p.vrot;
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rot * Math.PI / 180);
+      ctx.fillStyle = p.color;
+      ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+      ctx.restore();
+    });
+    if(vivas && t < 6000){
+      requestAnimationFrame(paso);
+    } else {
+      canvas.remove();
+    }
+  }
+  requestAnimationFrame(paso);
+}
+
+})();
+</script>
+</body>
+</html>

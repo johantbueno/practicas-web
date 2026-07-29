@@ -50,6 +50,16 @@
             "puntos": "100 pts (retroalimentación)",
             "aprobacion": "Completar los 5 pasos",
             "url": "https://johantbueno.github.io/practicas-web/hacienda-inversion-u4/"
+          },
+          {
+            "badge": "Unidad 5",
+            "unidad": "u5",
+            "titulo": "El Ciclo de Vida de un Proyecto",
+            "desc": "Generada automaticamente a partir del documento fuente. Individual o en equipo.",
+            "duracion": "5 pasos · aproximadamente 1 hora, individual o en equipo",
+            "puntos": "100 pts (retroalimentación)",
+            "aprobacion": "Completar los 5 pasos",
+            "url": "https://johantbueno.github.io/practicas-web/hacienda-inversion-u5/"
           }
         ]
       }
