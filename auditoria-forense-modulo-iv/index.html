@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Práctica Autocalificable — Módulo IV: Investigación del Delito Financiero</title>
+<style>
+  :root{
+    --azul:#0b1f3a; --azul2:#163a63; --dorado:#c9a227; --gris:#4a4a4a; --verde:#1e7d3c; --rojo:#b3261e;
+  }
+  *{box-sizing:border-box;}
+  body{
+    font-family:'Segoe UI', Calibri, Arial, sans-serif;
+    background:linear-gradient(180deg,#0b1f3a 0%,#163a63 320px,#f4f6f9 320px);
+    margin:0; padding:0; color:#1c1c1c;
+  }
+  .wrap{max-width:840px; margin:0 auto; padding:24px 20px 60px;}
+  header{color:#fff; padding:30px 4px 20px;}
+  header .kicker{color:var(--dorado); font-weight:700; letter-spacing:.06em; font-size:.8rem; text-transform:uppercase;}
+  header h1{font-size:1.7rem; margin:.3rem 0 .2rem;}
+  header p{color:#c9d6e8; margin:0; font-size:.95rem;}
+  .card{background:#fff; border-radius:14px; box-shadow:0 6px 24px rgba(11,31,58,.10); padding:22px 24px; margin-bottom:18px; border:1px solid #e6e9ef;}
+  .meta{display:flex; gap:18px; flex-wrap:wrap; margin-bottom:6px;}
+  .meta span{background:#eef2f8; color:var(--azul2); font-size:.82rem; padding:5px 10px; border-radius:8px; font-weight:600;}
+  .q{font-weight:700; margin:0 0 10px; font-size:1.02rem;}
+  .opt{display:block; padding:10px 12px; margin:6px 0; border:1.5px solid #dde3ec; border-radius:10px; cursor:pointer; transition:.15s;}
+  .opt:hover{border-color:var(--dorado); background:#fffaf0;}
+  .opt input{margin-right:10px;}
+  .opt.correct{border-color:var(--verde); background:#eaf7ee;}
+  .opt.incorrect{border-color:var(--rojo); background:#fbeceb;}
+  .fb{display:none; margin-top:10px; font-size:.88rem; padding:10px 12px; border-radius:8px; background:#f4f6f9; color:var(--gris);}
+  .fb.show{display:block;}
+  #submitBtn{
+    display:block; width:100%; padding:16px; margin-top:10px; background:var(--azul); color:#fff;
+    border:none; border-radius:12px; font-size:1.05rem; font-weight:700; cursor:pointer; letter-spacing:.02em;
+  }
+  #submitBtn:hover{background:var(--azul2);}
+  #resultado{display:none; text-align:center; padding:26px; border-radius:14px; margin-top:20px;}
+  #resultado h2{margin:0 0 8px; font-size:1.6rem;}
+  .aprobado{background:#eaf7ee; border:2px solid var(--verde); color:#155c29;}
+  .reprobado{background:#fbeceb; border:2px solid var(--rojo); color:#7d211b;}
+  .barra{height:12px; background:#e6e9ef; border-radius:8px; overflow:hidden; margin:14px 0;}
+  .barra-fill{height:100%; background:linear-gradient(90deg,var(--dorado),#e0b93a); width:0%; transition:width .8s ease;}
+  footer{text-align:center; color:#8a94a6; font-size:.8rem; margin-top:30px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="kicker">Diplomado en Auditoría Forense y Gestión Avanzada del Fraude Corporativo</div>
+    <h1>Práctica Autocalificable — Módulo IV</h1>
+    <p>Investigación del Delito Financiero · Informe Forense, Comunicación y Defensa Técnica</p>
+  </header>
+
+  <div class="card" style="text-align:center;">
+    <div class="meta" style="justify-content:center;">
+      <span>10 preguntas</span>
+      <span>Opción múltiple</span>
+      <span>Calificación instantánea</span>
+      <span>Sin orden obligatorio</span>
+    </div>
+    <p style="color:var(--gris); margin:8px 0 0;">Responda las 10 preguntas y presione <strong>Calificar</strong> al final. Cada pregunta muestra la respuesta correcta y una breve explicación aplicada al contexto dominicano.</p>
+  </div>
+
+  <form id="quizForm"></form>
+
+  <button id="submitBtn" type="button" onclick="calificar()">Calificar práctica</button>
+
+  <div id="resultado"></div>
+
+  <footer>Módulo IV · Investigación del Delito Financiero · Contexto República Dominicana</footer>
+</div>
+
+<script>
+const preguntas = [
+  {
+    q: "1. ¿Cuál es la diferencia principal entre auditoría externa tradicional y auditoría forense?",
+    opts: [
+      "No hay diferencia real, son sinónimos",
+      "La auditoría forense busca evidencia con estándar de prueba para un proceso legal; la externa busca opinión sobre razonabilidad de los EEFF",
+      "La auditoría forense solo aplica al sector público",
+      "La auditoría externa siempre incluye peritaje judicial"
+    ],
+    correcta: 1,
+    exp: "La auditoría externa (NIA) opina sobre razonabilidad de estados financieros. La forense reconstruye hechos con estándar de prueba, pensando en un eventual proceso legal o disciplinario."
+  },
+  {
+    q: "2. En República Dominicana, ¿qué fuente de datos es especialmente útil hoy para cruces forenses en asientos contables?",
+    opts: [
+      "Los reportes 606/607 y la facturación electrónica (e-CF) de la DGII",
+      "Solo las declaraciones juradas de renta anuales",
+      "Los estados de cuenta del Banco Central únicamente",
+      "El registro mercantil de la Cámara de Comercio"
+    ],
+    correcta: 0,
+    exp: "El e-CF y los reportes 606 (compras) / 607 (ventas) de la DGII dan datos estructurados con sello de tiempo, ideales para cruzar contra los estados financieros auditados."
+  },
+  {
+    q: "3. Según el ACFE (Report to the Nations), ¿cuál tipo de fraude es el MÁS FRECUENTE en número de casos?",
+    opts: [
+      "Fraude a los estados financieros",
+      "Corrupción",
+      "Malversación de activos",
+      "Lavado de dinero"
+    ],
+    correcta: 2,
+    exp: "Malversación de activos representa cerca del 85-89% de los casos, aunque su pérdida promedio por caso es menor que la del fraude a estados financieros."
+  },
+  {
+    q: "4. ¿Cuáles son los tres componentes del triángulo del fraude de Cressey?",
+    opts: [
+      "Dolo, culpa y negligencia",
+      "Presión, oportunidad y racionalización",
+      "Activo, pasivo y patrimonio",
+      "Colocación, estratificación e integración"
+    ],
+    correcta: 1,
+    exp: "El triángulo de Cressey explica por qué ocurre el fraude: una presión que empuja, una oportunidad que lo permite y una racionalización que lo justifica internamente."
+  },
+  {
+    q: "5. Un empleado factura a un cliente relacionado el 31 de diciembre y anula la factura el 3 de enero. ¿Qué esquema de fraude describe mejor esta situación?",
+    opts: [
+      "Malversación de activos por skimming",
+      "Ventas ficticias para inflar el cierre del período",
+      "Estructuración de depósitos (smurfing)",
+      "Conflicto de interés no declarado"
+    ],
+    correcta: 1,
+    exp: "Es un caso clásico de ventas ficticias: se infla artificialmente el ingreso del período que cierra, revirtiendo la operación apenas comienza el siguiente."
+  },
+  {
+    q: "6. ¿Qué diferencia hay entre 'skimming' y 'larceny' en la sustracción de efectivo?",
+    opts: [
+      "Son exactamente lo mismo",
+      "Skimming es efectivo nunca registrado; larceny es efectivo ya registrado que luego se sustrae",
+      "Skimming solo ocurre en bancos; larceny solo en comercios",
+      "Larceny es legal si el monto es menor a RD$50,000"
+    ],
+    correcta: 1,
+    exp: "Skimming ocurre antes de que el efectivo entre al sistema contable (nunca se registra); larceny ocurre después de que ya fue registrado."
+  },
+  {
+    q: "7. ¿Cuál es la principal ley dominicana que regula el soborno en el comercio y la inversión?",
+    opts: [
+      "Ley 155-17",
+      "Ley 340-06",
+      "Ley 448-06",
+      "Ley 479-08"
+    ],
+    correcta: 2,
+    exp: "La Ley 448-06 regula el Soborno en el Comercio y la Inversión. La Ley 340-06 es de Compras y Contrataciones Públicas, y la Ley 155-17 es la de Lavado de Activos."
+  },
+  {
+    q: "8. ¿Cuáles son las tres etapas clásicas del lavado de dinero, en orden?",
+    opts: [
+      "Presión, oportunidad, racionalización",
+      "Colocación, estratificación (layering), integración",
+      "Detección, investigación, sanción",
+      "KYC, ROS, PEP"
+    ],
+    correcta: 1,
+    exp: "Colocación (el efectivo ilícito entra al sistema), estratificación (se mueve para romper el rastro) e integración (se invierte en algo que luce legítimo)."
+  },
+  {
+    q: "9. En República Dominicana, ¿qué institución recibe los Reportes de Operación Sospechosa (ROS)?",
+    opts: [
+      "La DGII directamente",
+      "La UAF (Unidad de Análisis Financiero)",
+      "La Cámara de Comercio y Producción",
+      "El Ministerio de Hacienda y Economía (MHE)"
+    ],
+    correcta: 1,
+    exp: "La UAF es el actor central que recibe los ROS de los sujetos obligados bajo la Ley 155-17, y trabaja junto con la Superintendencia de Bancos y la DGII."
+  },
+  {
+    q: "10. Un fraude que combina manipulación contable, malversación de activos y lavado de dinero, ejecutado por varias personas coordinadas, se conoce como:",
+    opts: [
+      "Fraude simple de nómina",
+      "Fraude multicapa con colusión",
+      "Error material no intencional",
+      "Diferencia de conciliación bancaria"
+    ],
+    correcta: 1,
+    exp: "El fraude complejo o multicapa casi siempre involucra colusión entre varias personas, lo que anula controles diseñados pensando en que un solo actor no podría romper el proceso completo."
+  }
+];
+
+const form = document.getElementById('quizForm');
+preguntas.forEach((p, i) => {
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.innerHTML = `
+    <p class="q">${p.q}</p>
+    ${p.opts.map((o, j) => `
+      <label class="opt" id="opt-${i}-${j}">
+        <input type="radio" name="p${i}" value="${j}"> ${o}
+      </label>
+    `).join('')}
+    <div class="fb" id="fb-${i}"></div>
+  `;
+  form.appendChild(card);
+});
+
+function calificar(){
+  let correctas = 0;
+  preguntas.forEach((p, i) => {
+    const seleccion = form.querySelector(`input[name="p${i}"]:checked`);
+    const fb = document.getElementById(`fb-${i}`);
+    fb.classList.add('show');
+    if(!seleccion){
+      fb.innerHTML = `⚠️ No respondida. Respuesta correcta: <strong>${p.opts[p.correcta]}</strong><br>${p.exp}`;
+      document.getElementById(`opt-${i}-${p.correcta}`).classList.add('correct');
+      return;
+    }
+    const val = parseInt(seleccion.value);
+    if(val === p.correcta){
+      correctas++;
+      document.getElementById(`opt-${i}-${val}`).classList.add('correct');
+      fb.innerHTML = `✅ Correcto. ${p.exp}`;
+    } else {
+      document.getElementById(`opt-${i}-${val}`).classList.add('incorrect');
+      document.getElementById(`opt-${i}-${p.correcta}`).classList.add('correct');
+      fb.innerHTML = `❌ Incorrecto. Respuesta correcta: <strong>${p.opts[p.correcta]}</strong><br>${p.exp}`;
+    }
+  });
+
+  const nota = Math.round((correctas / preguntas.length) * 100);
+  const aprobado = nota >= 70;
+  const resultado = document.getElementById('resultado');
+  resultado.style.display = 'block';
+  resultado.className = aprobado ? 'aprobado' : 'reprobado';
+  resultado.innerHTML = `
+    <h2>${aprobado ? '¡Aprobado!' : 'No aprobado — puede repetir la práctica'}</h2>
+    <p>Obtuvo <strong>${correctas} de ${preguntas.length}</strong> respuestas correctas (${nota}%)</p>
+    <div class="barra"><div class="barra-fill" style="width:${nota}%"></div></div>
+    <p style="font-size:.85rem; opacity:.85;">Nota mínima de aprobación: 70%</p>
+  `;
+  resultado.scrollIntoView({behavior:'smooth', block:'center'});
+  document.getElementById('submitBtn').innerText = 'Recalificar';
+}
+</script>
+</body>
+</html>

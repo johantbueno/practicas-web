@@ -329,5 +329,28 @@
         ]
       }
     ]
+  },
+  {
+    "nombre": "Diplomado en Auditoría Forense y Gestión Avanzada del Fraude Corporativo",
+    "icono": "🕵️",
+    "cursos": [
+      {
+        "nombre": "Informe Forense, Comunicación y Defensa Técnica",
+        "icono": "⚖️",
+        "tipoClase": "taller",
+        "tipoLabel": "Práctica autocalificable",
+        "practicas": [
+          {
+            "badge": "Módulo IV",
+            "titulo": "Investigación del Delito Financiero",
+            "desc": "Auditoría forense, análisis de asientos contables, fraudes a estados financieros, malversación de activos, conflictos de interés y soborno, y lavado de dinero — con ejemplos aplicados a República Dominicana (DGII, UAF, Ley 155-17). 10 preguntas de opción múltiple, calificación instantánea.",
+            "duracion": "10 preguntas · aproximadamente 15 minutos",
+            "puntos": "100 pts",
+            "aprobacion": "70% para aprobar",
+            "url": "https://johantbueno.github.io/practicas-web/auditoria-forense-modulo-iv/"
+          }
+        ]
+      }
+    ]
   }
 ]
