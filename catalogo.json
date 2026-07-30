@@ -118,6 +118,15 @@
             "puntos": "100 pts",
             "aprobacion": "70% mínimo",
             "url": "https://johantbueno.github.io/practicas-web/introduccion-ia-u1/"
+          },
+          {
+            "badge": "Unidad II",
+            "titulo": "El Arte del Prompt: Cómo Hablarle Bien a la IA",
+            "desc": "El método C.A.R.E. (Contexto, Acción, Resultado, Ejemplo) para escribir prompts efectivos, comparando un prompt débil contra un prompt C.A.R.E. en vivo con Nicole, análisis comparativo y reflexión final.",
+            "duracion": "45 minutos",
+            "puntos": "100 pts",
+            "aprobacion": "70% mínimo",
+            "url": "https://johantbueno.github.io/practicas-web/introduccion-ia-u2/"
           }
         ]
       }
