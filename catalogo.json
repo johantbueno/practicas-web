@@ -94,6 +94,15 @@
             "url": "https://johantbueno.github.io/practicas-web/innovacion-digital-cesac-m3/"
           },
           {
+            "badge": "Módulo 4",
+            "titulo": "Práctica: Cultura de Innovación, Metodologías Ágiles y Tendencias Tecnológicas",
+            "desc": "8 preguntas de opinión sobre cultura de innovación, metodologías ágiles, emprendimiento digital y tendencias tecnológicas emergentes, aplicadas a la seguridad aeroportuaria. Distinta al Proyecto Final. Individual.",
+            "duracion": "Aproximadamente 1 hora",
+            "puntos": "100 pts",
+            "aprobacion": "70% mínimo",
+            "url": "https://johantbueno.github.io/practicas-web/innovacion-digital-cesac-m4/"
+          },
+          {
             "badge": "Proyecto Final",
             "titulo": "Propuesta de Transformación Digital para el CESAC",
             "desc": "Diagnóstico, solución digital, beneficios, plan ágil y consideraciones éticas para un proceso real del CESAC. Culmina los 4 módulos del curso. Individual.",
