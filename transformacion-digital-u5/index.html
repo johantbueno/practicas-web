@@ -1329,64 +1329,23 @@ function buildCriterion(title, maxPoints, items){
   return { title:title, maxPoints:maxPoints, score:score, strong:strong, mid:mid, weak:weak };
 }
 
-function gradeStep1(){
-  var items = [
-    { label:'Área y dato sensible identificados con claridad', points:3, frac:ratioFilledFrac(['p1_area','p1_dato']) },
-    { label:'Consecuencia de falta de confidencialidad explicada', points:6, frac:singleWordFrac('p1_confidencialidad',25) },
-    { label:'Consecuencia de falta de disponibilidad explicada', points:6, frac:singleWordFrac('p1_disponibilidad',20) }
-  ];
-  return buildCriterion(RUBRICA[0].criterio, 15, items);
+function gradeStepGeneric(rubricaIdx, maxPoints, ids){
+  var per = maxPoints / ids.length;
+  var items = ids.map(function(id){
+    return { label: labelOf(id), points: per, frac: filled(val(id)) ? 1 : 0 };
+  });
+  return buildCriterion(RUBRICA[rubricaIdx].criterio, maxPoints, items);
 }
-function gradeStep2(){
-  var items = [
-    { label:'Amenaza seleccionada', points:3, frac:filled(val('p2_amenaza'))?1:0 },
-    { label:'Ejemplo posible en su institución', points:6, frac:singleWordFrac('p2_ejemplo',30) },
-    { label:'Señal de alerta identificada', points:6, frac:singleWordFrac('p2_senal',20) }
-  ];
-  return buildCriterion(RUBRICA[1].criterio, 15, items);
-}
-function gradeStep3(){
-  var items = [
-    { label:'Caso A (INAPA) identificado y resuelto', points:1.5, frac:filled(val('pc_a_amenaza'))?1:0 },
-    { label:'Acción propuesta para el Caso A', points:3.5, frac:singleWordFrac('pc_a_accion',15) },
-    { label:'Caso B (hospital) identificado y resuelto', points:1.5, frac:filled(val('pc_b_amenaza'))?1:0 },
-    { label:'Acción propuesta para el Caso B', points:3.5, frac:singleWordFrac('pc_b_accion',15) },
-    { label:'Caso C (ayuntamiento) identificado y resuelto', points:1.5, frac:filled(val('pc_c_amenaza'))?1:0 },
-    { label:'Acción propuesta para el Caso C', points:3.5, frac:singleWordFrac('pc_c_accion',15) },
-    { label:'Caso D (ministerio) identificado y resuelto', points:1.5, frac:filled(val('pc_d_amenaza'))?1:0 },
-    { label:'Acción propuesta para el Caso D', points:3.5, frac:singleWordFrac('pc_d_accion',15) }
-  ];
-  return buildCriterion(RUBRICA[2].criterio, 20, items);
-}
-function gradeStep4(){
-  var items = [
-    { label:'Hábito de contraseñas y uso de 2FA reportados', points:3, frac:ratioFilledFrac(['p3_habito','p3_2fa']) },
-    { label:'Ejemplo de frase de contraseña construido', points:3, frac:filled(val('p3_frase'))?1:0 },
-    { label:'Explicación del 2FA', points:9, frac:singleWordFrac('p3_explicacion',25) }
-  ];
-  return buildCriterion(RUBRICA[3].criterio, 15, items);
-}
-function gradeStep5(){
-  var items = [
-    { label:'Principio del Caso 1 identificado', points:3, frac:filled(val('p4_principio'))?1:0 },
-    { label:'Justificación del Caso 1', points:6, frac:singleWordFrac('p4_justificacion',25) },
-    { label:'Acción correcta propuesta en el Caso 1', points:6, frac:singleWordFrac('p4_accion',30) },
-    { label:'Principio del Caso 2 identificado', points:2, frac:filled(val('p4b_principio'))?1:0 },
-    { label:'Justificación del Caso 2', points:3, frac:singleWordFrac('p4b_justificacion',20) }
-  ];
-  return buildCriterion(RUBRICA[4].criterio, 20, items);
-}
-function gradeStep6(){
-  var items = [
-    { label:'Orden correcto del protocolo identificado', points:3, frac:filled(val('p5_orden'))?1:0 },
-    { label:'Acción inmediata descrita', points:6, frac:singleWordFrac('p5_accion',25) },
-    { label:'Reflexión sobre el rol de línea de defensa', points:6, frac:singleWordFrac('p5_reflexion',25) }
-  ];
-  return buildCriterion(RUBRICA[5].criterio, 15, items);
-}
+function gradeStep1(){ return gradeStepGeneric(0, 14, STEP_FIELDS.paso1); }
+function gradeStep2(){ return gradeStepGeneric(1, 14, STEP_FIELDS.paso2); }
+function gradeStep3(){ return gradeStepGeneric(2, 14, STEP_FIELDS.paso3); }
+function gradeStep4(){ return gradeStepGeneric(3, 14, STEP_FIELDS.paso4); }
+function gradeStep5(){ return gradeStepGeneric(4, 14, STEP_FIELDS.paso5); }
+function gradeStep6(){ return gradeStepGeneric(5, 10, STEP_FIELDS.paso6); }
+function gradeStep7(){ return gradeStepGeneric(6, 20, STEP_FIELDS.paso7); }
 
 function runGrading(){
-  var criteria = [gradeStep1(), gradeStep2(), gradeStep3(), gradeStep4(), gradeStep5(), gradeStep6()];
+  var criteria = [gradeStep1(), gradeStep2(), gradeStep3(), gradeStep4(), gradeStep5(), gradeStep6(), gradeStep7()];
   var total = Math.round(criteria.reduce(function(a,c){ return a + c.score; },0) * 10) / 10;
   return { criteria:criteria, total:total };
 }
@@ -1456,7 +1415,7 @@ function gatherGradingPayload(localResult){
   });
   return {
     estudiante: { nombre: nombreIdentificacion(), correo: correoIdentificacion(), integrantes: val('grp_integrantes') || '', modalidad: modoSelect.value },
-    institucion: val('p1_area') || '',
+    institucion: '',
     curso: 'transformacion-digital',
     unidad: 'u5',
     aprobado_por_completitud: practicaCompleta(),
@@ -1657,7 +1616,7 @@ document.getElementById('medal-share').addEventListener('click', function(){
 
 /* ---------- EXPORT / PRINT / CLEAR ---------- */
 function exportTxt(){
-  var lines = ['PRÁCTICA — UNIDAD III: Ciberseguridad para el Servidor Público (INAP)', (modoSelect.value === 'grupo' ? 'Equipo' : 'Nombre') + ': ' + (nombreIdentificacion() || '(sin especificar)'), 'Institución: ' + (val('p1_area') || '(sin especificar)'), '======================================================', ''];
+  var lines = ['PRÁCTICA — UNIDAD V: IA con responsabilidad pública (INAP)', (modoSelect.value === 'grupo' ? 'Equipo' : 'Nombre') + ': ' + (nombreIdentificacion() || '(sin especificar)'), '======================================================', ''];
   allFieldIds().forEach(function(id){
     var v = val(id);
     if(!filled(v)) return;
