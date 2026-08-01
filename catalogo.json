@@ -147,6 +147,23 @@
             "url": "https://johantbueno.github.io/practicas-web/introduccion-ia-u3/"
           }
         ]
+      },
+      {
+        "nombre": "Ofimática Básica — Nivel 1",
+        "icono": "💻",
+        "tipoClase": "taller",
+        "tipoLabel": "Taller introductorio",
+        "practicas": [
+          {
+            "badge": "Nivel 1",
+            "titulo": "Ofimática Básica: uso de la computadora",
+            "desc": "Qué es una computadora, dispositivos de entrada y salida, uso del mouse y el teclado, y manejo de archivos y carpetas en Windows. Con videos cortos de YouTube y notas de voz. Pensada para verse desde el celular.",
+            "duracion": "4 pasos · aproximadamente 45-50 min",
+            "puntos": "100 pts",
+            "aprobacion": "70% mínimo",
+            "url": "https://johantbueno.github.io/practicas-web/ofimatica-basica-nivel-1/"
+          }
+        ]
       }
     ]
   },
