@@ -136,6 +136,15 @@
             "puntos": "100 pts",
             "aprobacion": "70% mínimo",
             "url": "https://johantbueno.github.io/practicas-web/introduccion-ia-u2/"
+          },
+          {
+            "badge": "Unidad III",
+            "titulo": "IA para la Productividad: Documentos, Informes y Comunicación",
+            "desc": "Uso de IA generativa para redactar documentos institucionales, resumir textos largos, ajustar tono y estilo según la audiencia, redactar correos profesionales y verificar críticamente el contenido generado por IA antes de usarlo. Individual.",
+            "duracion": "60 minutos",
+            "puntos": "100 pts",
+            "aprobacion": "70% mínimo",
+            "url": "https://johantbueno.github.io/practicas-web/introduccion-ia-u3/"
           }
         ]
       }
