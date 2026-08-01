@@ -804,9 +804,9 @@ function wireVoiceButtons(){
 var FONT_LEVELS = ['normal','grande','xgrande'];
 function applyFontSize(level){
   document.documentElement.setAttribute('data-fontsize', level);
-  try{ localStorage.setItem('tp_iaU1_fontsize', level); }catch(e){}
+  try{ localStorage.setItem('tp_ofimaticaN1_fontsize', level); }catch(e){}
 }
-applyFontSize(localStorage.getItem('tp_iaU1_fontsize') || 'normal');
+applyFontSize(localStorage.getItem('tp_ofimaticaN1_fontsize') || 'normal');
 document.getElementById('font-bigger').addEventListener('click', function(){
   var cur = document.documentElement.getAttribute('data-fontsize') || 'normal';
   var idx = FONT_LEVELS.indexOf(cur);
@@ -830,9 +830,9 @@ var themeBtn = document.getElementById('theme-toggle');
 function applyTheme(t){
   document.documentElement.setAttribute('data-theme', t);
   themeBtn.textContent = t === 'dark' ? '☀️' : '🌙';
-  localStorage.setItem('tp_iaU1_theme', t);
+  localStorage.setItem('tp_ofimaticaN1_theme', t);
 }
-applyTheme(localStorage.getItem('tp_iaU1_theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+applyTheme(localStorage.getItem('tp_ofimaticaN1_theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
 themeBtn.addEventListener('click', function(){
   applyTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
 });
@@ -893,8 +893,8 @@ sections.forEach(function(s){ io.observe(s); });
 
 /* ---------- TEMPORIZADOR DE REFERENCIA (no cierra la práctica) ---------- */
 var TIMER_MINUTES = 50;
-var TIMER_KEY = 'tp_iaU1_deadline';
-var SOUND_MUTE_KEY = 'tp_ia_sound_muted';
+var TIMER_KEY = 'tp_ofimaticaN1_deadline';
+var SOUND_MUTE_KEY = 'tp_ofimatica_sound_muted';
 var soundMuted = localStorage.getItem(SOUND_MUTE_KEY) === '1';
 var flatlinePlayed = false;
 var lastBeepAt = 0;
