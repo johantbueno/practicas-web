@@ -396,5 +396,71 @@
         ]
       }
     ]
+  },
+  {
+    "nombre": "Comunicación Integral",
+    "icono": "📣",
+    "cursos": [
+      {
+        "nombre": "Inteligencia Artificial Aplicada a Recursos Humanos",
+        "icono": "🧠",
+        "tipoClase": "secuencial",
+        "tipoLabel": "Curso secuencial · 5 unidades",
+        "esSecuencial": true,
+        "cursoId": "ia-rrhh-ci",
+        "practicas": [
+          {
+            "badge": "Unidad I",
+            "unidad": "u1",
+            "titulo": "Fundamentos de la Inteligencia Artificial aplicados a Recursos Humanos",
+            "desc": "Identifique y clasifique casos organizacionales de RR. HH. según el tipo de IA (basada en reglas, Machine Learning, Deep Learning o IA Generativa) y justifique su aplicación. Individual o en equipo.",
+            "duracion": "5 pasos · aproximadamente 45 minutos, individual o en equipo",
+            "puntos": "100 pts (retroalimentación)",
+            "aprobacion": "Completar los 5 pasos",
+            "url": "https://johantbueno.github.io/practicas-web/ia-rrhh-u1/"
+          },
+          {
+            "badge": "Unidad II",
+            "unidad": "u2",
+            "titulo": "Inteligencia Artificial aplicada a Recursos Humanos",
+            "desc": "Diseñe un flujo de automatización y un asistente virtual (chatbot) para un proceso administrativo de RR. HH.: onboarding, gestión documental o consultas frecuentes de empleados. Individual o en equipo.",
+            "duracion": "5 pasos · aproximadamente 50 minutos, individual o en equipo",
+            "puntos": "100 pts (retroalimentación)",
+            "aprobacion": "Completar los 5 pasos",
+            "url": "https://johantbueno.github.io/practicas-web/ia-rrhh-u2/"
+          },
+          {
+            "badge": "Unidad III",
+            "unidad": "u3",
+            "titulo": "Automatización del Reclutamiento y Selección",
+            "desc": "Diseñe los criterios de un ATS inteligente para una vacante, identifique posibles sesgos algorítmicos en el proceso de selección y proponga mitigaciones concretas. Individual o en equipo.",
+            "duracion": "5 pasos · aproximadamente 55 minutos, individual o en equipo",
+            "puntos": "100 pts (retroalimentación)",
+            "aprobacion": "Completar los 5 pasos",
+            "url": "https://johantbueno.github.io/practicas-web/ia-rrhh-u3/"
+          },
+          {
+            "badge": "Unidad IV",
+            "unidad": "u4",
+            "titulo": "Analítica Predictiva y Gestión del Talento",
+            "desc": "Interprete indicadores de People Analytics (rotación, ausentismo, clima laboral) y diseñe un modelo simple de predicción de rotación laboral para apoyar decisiones basadas en datos. Individual o en equipo.",
+            "duracion": "5 pasos · aproximadamente 55 minutos, individual o en equipo",
+            "puntos": "100 pts (retroalimentación)",
+            "aprobacion": "Completar los 5 pasos",
+            "url": "https://johantbueno.github.io/practicas-web/ia-rrhh-u4/"
+          },
+          {
+            "badge": "Unidad V",
+            "unidad": "u5",
+            "titulo": "Herramientas de IA Generativa y Aspectos Éticos",
+            "desc": "Redacte un prompt (método CARE) para generar un documento de RR. HH., y analice un caso ético/regulatorio sobre privacidad y protección de datos en el uso de IA en gestión de personas. Individual o en equipo.",
+            "duracion": "5 pasos · aproximadamente 60 minutos, individual o en equipo",
+            "puntos": "100 pts (retroalimentación)",
+            "aprobacion": "Completar los 5 pasos",
+            "url": "https://johantbueno.github.io/practicas-web/ia-rrhh-u5/"
+          }
+        ]
+      }
+    ]
   }
 ]
