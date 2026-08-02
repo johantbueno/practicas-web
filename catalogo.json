@@ -460,6 +460,66 @@
             "url": "https://johantbueno.github.io/practicas-web/ia-rrhh-u5/"
           }
         ]
+      },
+      {
+        "nombre": "Diplomado en Formulación y Gestión de Proyectos",
+        "icono": "📊",
+        "tipoClase": "secuencial",
+        "tipoLabel": "Curso secuencial · 4 unidades + Trabajo Final",
+        "esSecuencial": true,
+        "cursoId": "formulacion-proyectos-ci",
+        "practicas": [
+          {
+            "badge": "Unidad I",
+            "unidad": "u1",
+            "titulo": "Identificación y Formulación de Proyectos",
+            "desc": "Diagnostique una necesidad institucional, mapee a sus actores clave (matriz de interés e influencia) y priorice iniciativas de proyecto con criterio técnico. Individual o en equipo.",
+            "duracion": "5 pasos · aproximadamente 50 minutos, individual o en equipo",
+            "puntos": "100 pts (retroalimentación)",
+            "aprobacion": "Completar los 5 pasos",
+            "url": "https://johantbueno.github.io/practicas-web/formulacion-proyectos-u1/"
+          },
+          {
+            "badge": "Unidad II",
+            "unidad": "u2",
+            "titulo": "Diseño de Proyectos mediante Marco Lógico",
+            "desc": "Construya el árbol de problemas, el árbol de objetivos y la Matriz de Marco Lógico simplificada (fin, propósito, componentes, indicadores, medios de verificación y supuestos) de su proyecto. Individual o en equipo.",
+            "duracion": "5 pasos · aproximadamente 60 minutos, individual o en equipo",
+            "puntos": "100 pts (retroalimentación)",
+            "aprobacion": "Completar los 5 pasos",
+            "url": "https://johantbueno.github.io/practicas-web/formulacion-proyectos-u2/"
+          },
+          {
+            "badge": "Unidad III",
+            "unidad": "u3",
+            "titulo": "Planificación, Presupuesto y Gestión de Riesgos",
+            "desc": "Elabore un cronograma simplificado, un presupuesto básico por rubro y una matriz de riesgos con estrategias de mitigación para su proyecto. Individual o en equipo.",
+            "duracion": "5 pasos · aproximadamente 60 minutos, individual o en equipo",
+            "puntos": "100 pts (retroalimentación)",
+            "aprobacion": "Completar los 5 pasos",
+            "url": "https://johantbueno.github.io/practicas-web/formulacion-proyectos-u3/"
+          },
+          {
+            "badge": "Unidad IV",
+            "unidad": "u4",
+            "titulo": "Monitoreo, Evaluación y Herramientas para la Gestión de Proyectos",
+            "desc": "Diseñe un plan de monitoreo y un plan de evaluación, y proponga dos herramientas digitales concretas para la gestión de su proyecto. Individual o en equipo.",
+            "duracion": "5 pasos · aproximadamente 55 minutos, individual o en equipo",
+            "puntos": "100 pts (retroalimentación)",
+            "aprobacion": "Completar los 5 pasos",
+            "url": "https://johantbueno.github.io/practicas-web/formulacion-proyectos-u4/"
+          },
+          {
+            "badge": "Trabajo Final",
+            "unidad": "final",
+            "titulo": "Trabajo Final — Perfil de Proyecto Integrador",
+            "desc": "Consolide en un perfil de proyecto completo todo lo desarrollado en las 4 unidades: resumen ejecutivo, marco lógico, cronograma, presupuesto, riesgos y plan de monitoreo/evaluación. Incluye medalla por niveles y certificado del diplomado. Individual o en equipo.",
+            "duracion": "7 pasos · aproximadamente 100 minutos, individual o en equipo",
+            "puntos": "100 pts (retroalimentación)",
+            "aprobacion": "Completar los 7 pasos",
+            "url": "https://johantbueno.github.io/practicas-web/formulacion-proyectos-final/"
+          }
+        ]
       }
     ]
   }
