@@ -522,5 +522,28 @@
         ]
       }
     ]
+  },
+  {
+    "nombre": "CCDE",
+    "icono": "📊",
+    "cursos": [
+      {
+        "nombre": "Curso de Ciencia de Datos",
+        "icono": "📊",
+        "tipoClase": "caso",
+        "tipoLabel": "Cuestionario final · Módulos I-VIII",
+        "practicas": [
+          {
+            "badge": "Cuestionario Final",
+            "titulo": "Cuestionario Final — Curso de Ciencia de Datos",
+            "desc": "22 preguntas (16 de selección múltiple, 5 de verdadero/falso y 1 de emparejamiento) que cubren los ocho módulos del curso: fundamentos, ingeniería de datos, programación, detección de anomalías, estadística aplicada, machine learning, visualización y gobernanza de datos. Autocalificado al instante, sin asistente de chat. Individual, hasta 3 intentos.",
+            "duracion": "22 preguntas · hasta 1 hora, 3 intentos",
+            "puntos": "100 pts",
+            "aprobacion": "70% mínimo",
+            "url": "https://johantbueno.github.io/practicas-web/ccde-ciencia-datos-cuestionario-final/"
+          }
+        ]
+      }
+    ]
   }
 ]

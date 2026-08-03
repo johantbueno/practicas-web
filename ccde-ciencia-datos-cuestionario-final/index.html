@@ -1,0 +1,1034 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Cuestionario Final — Curso de Ciencia de Datos | CCDE</title>
+<meta name="description" content="Cuestionario final autocalificado del Curso de Ciencia de Datos, Módulos I al VIII — CCDE.">
+<style>
+:root{
+  --navy:#0d2b4e; --navy-dark:#081a30; --accent:#3fd3c6; --accent-dark:#1fa89c;
+  --gold:#f2b544; --bg:#f4f7fb; --bg-card:#ffffff; --text:#152238; --text-soft:#5c6b82;
+  --border:#e1e8f0; --ok:#1f9d55; --bad:#d64545; --warn:#c9982f;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#0b1220; --bg-card:#121b2e; --text:#e7edf7; --text-soft:#9fb0c8; --border:#233049; }
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
+  background:var(--bg); color:var(--text); line-height:1.55;
+}
+a{color:var(--accent-dark);}
+.wrapper{display:flex; min-height:100vh;}
+.sidebar{
+  width:260px; flex-shrink:0; background:var(--navy); color:#fff;
+  padding:1.5rem 1.25rem; position:sticky; top:0; height:100vh; overflow-y:auto;
+  display:flex; flex-direction:column; gap:1.25rem;
+}
+.sidebar .brand{font-size:.78rem; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); font-weight:700;}
+.sidebar h1{font-size:1.05rem; margin:.2rem 0 0; line-height:1.3;}
+.sidebar .inst{font-size:.8rem; color:#b9c6dd; margin-top:.15rem;}
+.timer-box{
+  background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12);
+  border-radius:14px; padding:.9rem 1rem; text-align:center;
+}
+.timer-box #timer-value{font-size:1.9rem; font-weight:700; font-variant-numeric:tabular-nums;}
+.timer-box.low #timer-value{color:#ffb3b3; animation:pulse 1.4s infinite;}
+.timer-box.critical #timer-value{color:#ff6b6b; animation:pulse .6s infinite;}
+.timer-box.overtime #timer-value{color:#ff6b6b;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.55;}}
+#hearts-canvas{display:block; margin:.5rem auto 0;}
+#hearts-canvas.critical{animation:heartShake .35s infinite;}
+@keyframes heartShake{0%,100%{transform:translateX(0);}25%{transform:translateX(-2px);}75%{transform:translateX(2px);}}
+#fast-clock{display:none; margin:.4rem auto 0; width:22px; height:22px; border-radius:50%; border:2px solid #ff9f9f; border-top-color:transparent; animation:spin .4s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+#overtime-note{display:none; font-size:.72rem; color:#ffd9d9; margin-top:.4rem;}
+#sound-toggle{
+  background:none; border:1px solid rgba(255,255,255,.25); color:#fff; border-radius:8px;
+  padding:.3rem .6rem; font-size:.8rem; cursor:pointer; margin-top:.6rem; min-height:34px;
+}
+.progress-summary{font-size:.82rem; color:#cfd9ea;}
+.progress-summary .bar{background:rgba(255,255,255,.12); border-radius:99px; height:8px; overflow:hidden; margin-top:.35rem;}
+.progress-summary .bar-fill{height:100%; background:var(--accent); width:0%; transition:width .3s;}
+.sidebar-footer{margin-top:auto; font-size:.72rem; color:#8fa0bd;}
+
+.main{flex:1; padding:1.75rem 1.5rem 6.5rem; max-width:920px; margin:0 auto; width:100%;}
+.card{
+  background:var(--bg-card); border:1px solid var(--border); border-radius:18px;
+  padding:1.5rem; margin-bottom:1.25rem; position:relative; overflow:hidden;
+}
+.card.cover{
+  background:linear-gradient(135deg,var(--navy) 0%,var(--navy-dark) 100%);
+  color:#fff; padding:2rem 1.75rem;
+}
+.card.cover *{position:relative; z-index:1;}
+#cover-canvas{position:absolute; inset:0; opacity:.4;}
+.eyebrow{
+  display:inline-block; font-size:.72rem; letter-spacing:.09em; text-transform:uppercase;
+  font-weight:700; background:rgba(255,255,255,.12); color:var(--accent);
+  padding:.3rem .7rem; border-radius:99px; margin-bottom:.7rem;
+}
+.card.cover h2{font-size:1.55rem; margin:.1rem 0 .6rem; line-height:1.25;}
+.chips{display:flex; flex-wrap:wrap; gap:.5rem; margin-top:.9rem;}
+.chip{
+  background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.18);
+  border-radius:99px; padding:.35rem .8rem; font-size:.8rem;
+}
+.card h3{font-size:1.05rem; margin:0 0 .7rem;}
+.tutorial-step{display:flex; gap:.75rem; margin-bottom:.9rem;}
+.tutorial-step .num{
+  flex-shrink:0; width:28px; height:28px; border-radius:50%; background:var(--accent-dark);
+  color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:.85rem;
+}
+.tutorial-step p{margin:.1rem 0 0; font-size:.92rem; color:var(--text-soft);}
+
+.modulo-header{
+  font-size:.78rem; letter-spacing:.05em; text-transform:uppercase; font-weight:700;
+  color:var(--accent-dark); margin:1.6rem 0 .7rem; padding-bottom:.4rem; border-bottom:2px solid var(--border);
+}
+.modulo-header:first-of-type{margin-top:0;}
+.question{
+  background:var(--bg-card); border:1px solid var(--border); border-radius:14px;
+  padding:1.1rem 1.15rem; margin-bottom:.9rem; opacity:0; transform:translateY(14px);
+  transition:opacity .5s ease, transform .5s ease;
+}
+.question.revealed{opacity:1; transform:translateY(0);}
+.question .qtext{font-weight:600; margin:0 0 .8rem; font-size:1rem;}
+.opciones{display:flex; flex-direction:column; gap:.5rem;}
+.opcion{
+  display:flex; align-items:flex-start; gap:.6rem; padding:.6rem .75rem; border:1px solid var(--border);
+  border-radius:10px; cursor:pointer; font-size:.94rem; min-height:44px;
+}
+.opcion:hover{border-color:var(--accent-dark);}
+.opcion input{margin-top:.2rem; width:18px; height:18px; flex-shrink:0;}
+.opcion.correcta-mark{border-color:var(--ok); background:rgba(31,157,85,.08);}
+.opcion.incorrecta-mark{border-color:var(--bad); background:rgba(214,69,69,.08);}
+.match-row{display:flex; align-items:center; gap:.7rem; margin-bottom:.6rem; flex-wrap:wrap;}
+.match-row .term{
+  font-weight:600; background:var(--navy); color:#fff; padding:.4rem .8rem; border-radius:8px;
+  min-width:150px; font-size:.9rem;
+}
+.match-row select{
+  flex:1; min-width:220px; padding:.55rem .6rem; border-radius:8px; border:1px solid var(--border);
+  font-size:1rem; min-height:44px; background:var(--bg-card); color:var(--text);
+}
+.q-feedback{margin-top:.6rem; font-size:.85rem; padding:.55rem .7rem; border-radius:8px; display:none;}
+.q-feedback.show{display:block;}
+.q-feedback.ok{background:rgba(31,157,85,.12); color:var(--ok);}
+.q-feedback.bad{background:rgba(214,69,69,.12); color:var(--bad);}
+
+.btn{
+  border:none; border-radius:12px; padding:.85rem 1.5rem; font-size:1rem; font-weight:700;
+  cursor:pointer; position:relative; overflow:hidden; min-height:46px;
+  transition:transform .15s ease, box-shadow .15s ease;
+}
+.btn:hover{transform:translateY(-2px);}
+.btn-primary{background:var(--accent-dark); color:#fff;}
+.btn-secondary{background:var(--bg-card); color:var(--text); border:1px solid var(--border);}
+.js-ripple{position:absolute; border-radius:50%; background:rgba(255,255,255,.5); transform:scale(0); animation:ripple .6s linear; pointer-events:none;}
+@keyframes ripple{to{transform:scale(3); opacity:0;}}
+
+.warn-box{background:rgba(201,152,47,.12); border:1px solid var(--warn); color:var(--warn); border-radius:10px; padding:.7rem .9rem; font-size:.85rem; margin-bottom:1rem;}
+#results{display:none;}
+.score-hero{text-align:center; padding:1rem 0;}
+.score-num{font-size:3.2rem; font-weight:800; color:var(--accent-dark);}
+.score-label{font-size:.95rem; color:var(--text-soft);}
+.desglose{margin-top:1rem;}
+.desglose-row{display:flex; justify-content:space-between; padding:.5rem 0; border-bottom:1px solid var(--border); font-size:.88rem;}
+.badge-estado{padding:.15rem .55rem; border-radius:99px; font-size:.75rem; font-weight:700;}
+.badge-ok{background:rgba(31,157,85,.15); color:var(--ok);}
+.badge-bad{background:rgba(214,69,69,.15); color:var(--bad);}
+.medal-zone{text-align:center; margin-top:1.25rem; display:none;}
+.medal-zone canvas{max-width:280px; width:100%; border-radius:16px;}
+.medal-actions{display:flex; gap:.6rem; justify-content:center; flex-wrap:wrap; margin-top:.9rem;}
+
+.identificacion{display:grid; gap:.8rem; grid-template-columns:1fr 1fr;}
+.identificacion .full{grid-column:1/-1;}
+.identificacion label{display:block; font-size:.85rem; font-weight:600; margin-bottom:.35rem;}
+.identificacion input{
+  width:100%; padding:.6rem .7rem; border-radius:8px; border:1px solid var(--border);
+  font-size:1rem; min-height:44px; background:var(--bg-card); color:var(--text);
+}
+footer.credit{text-align:center; font-size:.78rem; color:var(--text-soft); padding:2rem 0 1rem;}
+
+@media (max-width:1023px){
+  .wrapper{flex-direction:column;}
+  .sidebar{width:100%; height:auto; position:static; flex-direction:row; flex-wrap:wrap; align-items:center; gap:1rem;}
+  .sidebar .brand-block{flex:1; min-width:160px;}
+  .timer-box{flex-basis:100%; order:3;}
+  .sidebar-footer{display:none;}
+  .main{padding:1.5rem 1rem 6.5rem;}
+  .identificacion{grid-template-columns:1fr;}
+}
+@media (prefers-reduced-motion: reduce){
+  .question{opacity:1; transform:none; transition:none;}
+  #cover-canvas{display:none;}
+  .btn:hover{transform:none;}
+}
+</style>
+</head>
+<body>
+<div class="wrapper">
+  <aside class="sidebar">
+    <div class="brand-block">
+      <div class="brand">CCDE</div>
+      <h1>Cuestionario Final</h1>
+      <div class="inst">Curso de Ciencia de Datos · Módulos I–VIII</div>
+    </div>
+    <div class="timer-box" id="timer-box">
+      <div id="timer-value">60:00</div>
+      <canvas id="hearts-canvas" width="120" height="24"></canvas>
+      <div id="fast-clock"></div>
+      <div id="overtime-note">⏱️ Tiempo de referencia — no afecta su calificación</div>
+      <button id="sound-toggle" type="button">🔔 Sonido</button>
+    </div>
+    <div class="progress-summary">
+      <span id="progress-text">0 de 22 preguntas respondidas</span>
+      <div class="bar"><div class="bar-fill" id="progress-fill"></div></div>
+    </div>
+    <div class="progress-summary" id="intentos-text">Intento 1 de 3 disponibles</div>
+    <div class="sidebar-footer">Desarrollado por Johan Tapia, PhD</div>
+  </aside>
+
+  <main class="main">
+    <section class="card cover">
+      <canvas id="cover-canvas"></canvas>
+      <span class="eyebrow">Cuestionario autocalificado</span>
+      <h2>Curso de Ciencia de Datos — Cuestionario Final</h2>
+      <p style="margin:0; color:#dfe7f4; font-size:.95rem;">Evaluación final que integra los ocho módulos del curso: fundamentos, ingeniería de datos, programación, detección de anomalías, estadística aplicada, machine learning, visualización, y gobernanza y ética de datos.</p>
+      <div class="chips">
+        <span class="chip">📝 22 preguntas</span>
+        <span class="chip">⏱️ 1 hora</span>
+        <span class="chip">🔁 3 intentos</span>
+        <span class="chip">🎯 70% para aprobar</span>
+        <span class="chip">👤 Individual</span>
+      </div>
+    </section>
+
+    <section class="card" id="tutorial">
+      <h3>Cómo responder este cuestionario</h3>
+      <div class="tutorial-step">
+        <div class="num">1</div>
+        <p>Escriba su nombre (y correo, opcional) en la sección de identificación, al inicio del formulario.</p>
+      </div>
+      <div class="tutorial-step">
+        <div class="num">2</div>
+        <p>En las preguntas de <strong>selección múltiple</strong> y <strong>verdadero/falso</strong>, marque la opción que considere correcta haciendo clic sobre ella.</p>
+      </div>
+      <div class="tutorial-step">
+        <div class="num">3</div>
+        <p>En la pregunta de <strong>emparejamiento</strong>, seleccione en cada lista desplegable la definición que corresponde a cada término.</p>
+      </div>
+      <div class="tutorial-step">
+        <div class="num">4</div>
+        <p>Al terminar, presione <strong>"Calificar cuestionario"</strong>. La nota se calcula al instante, comparando sus respuestas con la clave correcta — no requiere conexión a ningún servicio externo.</p>
+      </div>
+      <div class="tutorial-step">
+        <div class="num">5</div>
+        <p>Dispone de <strong>3 intentos</strong> y de <strong>1 hora</strong> para completar el cuestionario. Puede usar "Volver a intentar" para repetirlo hasta agotar sus intentos.</p>
+      </div>
+    </section>
+
+    <section class="card" id="identificacion-card">
+      <h3>Datos del participante</h3>
+      <div class="identificacion">
+        <div class="full">
+          <label for="est_nombre">Nombre completo *</label>
+          <input type="text" id="est_nombre" placeholder="Escriba su nombre">
+        </div>
+        <div>
+          <label for="est_correo">Correo electrónico (opcional)</label>
+          <input type="email" id="est_correo" placeholder="correo@ejemplo.com">
+        </div>
+        <div>
+          <label for="est_institucion">Institución / grupo (opcional)</label>
+          <input type="text" id="est_institucion" placeholder="CCDE">
+        </div>
+      </div>
+    </section>
+
+    <form id="quiz-form"></form>
+
+    <section class="card" id="submit-section" style="text-align:center;">
+      <p id="warn-incompleto" class="warn-box" style="display:none;"></p>
+      <button type="button" class="btn btn-primary" id="btn-submit">Calificar cuestionario</button>
+    </section>
+
+    <section class="card" id="results">
+      <div class="score-hero">
+        <div class="score-num" id="score-num">0</div>
+        <div class="score-label">de 100 puntos — <span id="score-estado"></span></div>
+      </div>
+      <div class="desglose" id="desglose"></div>
+      <div class="medal-zone" id="medal-zone">
+        <canvas id="medal-canvas" width="600" height="680"></canvas>
+        <div class="medal-actions">
+          <button class="btn btn-secondary" id="btn-descargar-medalla" type="button">⬇️ Descargar</button>
+          <button class="btn btn-secondary" id="btn-compartir-medalla" type="button">🔗 Compartir</button>
+        </div>
+      </div>
+      <div style="text-align:center; margin-top:1.25rem;">
+        <button class="btn btn-secondary" id="btn-reintentar" type="button">🔄 Volver a intentar</button>
+      </div>
+    </section>
+
+    <footer class="credit">Desarrollado por Johan Tapia, PhD</footer>
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+<script>
+(function(){
+"use strict";
+
+var prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------------- Banco de preguntas ---------------- */
+var QUESTIONS = [
+  {id:'M1P1', modulo:'Módulo I: Fundamentos de Ciencia de Datos', tipo:'mc',
+   texto:'¿Cuál de las siguientes opciones describe MEJOR el objetivo principal de la Ciencia de Datos?',
+   opciones:['Extraer conocimiento y valor a partir de datos para apoyar la toma de decisiones.',
+             'Almacenar grandes volúmenes de datos de forma segura.',
+             'Desarrollar aplicaciones web interactivas.',
+             'Administrar infraestructura de servidores.'], correcta:0},
+  {id:'M1P2', modulo:'Módulo I: Fundamentos de Ciencia de Datos', tipo:'mc',
+   texto:'El ciclo de vida de un proyecto de Ciencia de Datos incluye, en orden, las fases de:',
+   opciones:['Comprensión del negocio, obtención de datos, preprocesamiento, modelado, evaluación y despliegue.',
+             'Obtención de datos, modelado, evaluación, comprensión del negocio, preprocesamiento y despliegue.',
+             'Modelado, preprocesamiento, obtención de datos, comprensión del negocio, despliegue y evaluación.',
+             'Preprocesamiento, modelado, comprensión del negocio, obtención de datos, evaluación y despliegue.'], correcta:0},
+
+  {id:'M2P3', modulo:'Módulo II: Ingeniería de Datos y Arquitecturas Analíticas', tipo:'mc',
+   texto:'¿Qué diferencia principal existe entre un Data Warehouse y un Data Lake?',
+   opciones:['Un Data Warehouse almacena datos estructurados y procesados, mientras que un Data Lake almacena datos crudos en su formato nativo.',
+             'Un Data Lake solo almacena datos estructurados, mientras que un Data Warehouse almacena datos no estructurados.',
+             'Un Data Warehouse es más barato que un Data Lake.',
+             'Un Data Lake no permite consultas analíticas.'], correcta:0},
+  {id:'M2P4', modulo:'Módulo II: Ingeniería de Datos y Arquitecturas Analíticas', tipo:'mc',
+   texto:'En el contexto de la arquitectura Lambda, ¿qué capa se encarga del procesamiento en tiempo real?',
+   opciones:['Capa de velocidad (Speed Layer).', 'Capa por lotes (Batch Layer).',
+             'Capa de servicio (Serving Layer).', 'Capa de ingestión (Ingestion Layer).'], correcta:0},
+
+  {id:'M3P5', modulo:'Módulo III: Programación para Ciencia de Datos', tipo:'mc',
+   texto:'En Python, ¿qué librería se utiliza comúnmente para manipulación y análisis de datos con estructuras como DataFrame?',
+   opciones:['pandas', 'numpy', 'matplotlib', 'scikit-learn'], correcta:0},
+  {id:'M3P6', modulo:'Módulo III: Programación para Ciencia de Datos', tipo:'mc',
+   texto:'¿Cuál de las siguientes sentencias SQL se utiliza para combinar filas de dos tablas que tienen una relación basada en una columna común?',
+   opciones:['JOIN', 'SELECT', 'UNION', 'GROUP BY'], correcta:0},
+
+  {id:'M4P7', modulo:'Módulo IV: Detección de Anomalías y Análisis de Fraude', tipo:'mc',
+   texto:'En la detección de anomalías, ¿qué tipo de anomalía se refiere a un punto de datos que se desvía significativamente del resto de los datos en un conjunto?',
+   opciones:['Anomalía puntual (Point Anomaly).', 'Anomalía contextual (Contextual Anomaly).',
+             'Anomalía colectiva (Collective Anomaly).', 'Anomalía estructural.'], correcta:0},
+  {id:'M4P8', modulo:'Módulo IV: Detección de Anomalías y Análisis de Fraude', tipo:'mc',
+   texto:'¿Cuál de los siguientes métodos es comúnmente utilizado para la detección de fraudes en transacciones financieras?',
+   opciones:['Regresión logística con balances de clases y técnicas de muestreo.',
+             'Análisis de sentimientos en redes sociales.',
+             'Clustering jerárquico sin supervisión.',
+             'Regresión lineal simple.'], correcta:0},
+
+  {id:'M5P9', modulo:'Módulo V: Estadística Aplicada y Análisis Avanzado', tipo:'mc',
+   texto:'¿Qué prueba estadística se utiliza para determinar si existe una diferencia significativa entre las medias de dos grupos independientes?',
+   opciones:['Prueba t de Student para muestras independientes.', 'ANOVA de un factor.',
+             'Prueba de chi-cuadrado.', 'Correlación de Pearson.'], correcta:0},
+  {id:'M5P10', modulo:'Módulo V: Estadística Aplicada y Análisis Avanzado', tipo:'mc',
+   texto:'En un análisis de regresión lineal, ¿qué métrica indica el porcentaje de la variabilidad de la variable dependiente que es explicada por el modelo?',
+   opciones:['Coeficiente de determinación (R²).', 'Error cuadrático medio (MSE).',
+             'Error absoluto medio (MAE).', 'P-valor.'], correcta:0},
+
+  {id:'M6P11', modulo:'Módulo VI: Machine Learning', tipo:'mc',
+   texto:'¿Cuál es la diferencia fundamental entre el aprendizaje supervisado y el no supervisado?',
+   opciones:['En el supervisado se dispone de etiquetas (variable objetivo) para entrenar el modelo; en el no supervisado no hay etiquetas y se buscan patrones.',
+             'En el supervisado no se usan datos de entrenamiento.',
+             'En el no supervisado siempre se usan redes neuronales.',
+             'En el supervisado se usan solo datos numéricos.'], correcta:0},
+  {id:'M6P12', modulo:'Módulo VI: Machine Learning', tipo:'mc',
+   texto:'El método de validación cruzada (cross-validation) se utiliza principalmente para:',
+   opciones:['Evaluar la capacidad de generalización del modelo y evitar el sobreajuste.',
+             'Aumentar el tamaño del conjunto de entrenamiento generando datos sintéticos.',
+             'Reducir el número de características del modelo.',
+             'Mejorar la interpretabilidad del modelo.'], correcta:0},
+
+  {id:'M7P13', modulo:'Módulo VII: Visualización y Comunicación Analítica', tipo:'mc',
+   texto:'¿Qué tipo de gráfico es más adecuado para mostrar la distribución de una variable numérica continua?',
+   opciones:['Histograma.', 'Gráfico de barras.', 'Gráfico de líneas.', 'Diagrama de dispersión.'], correcta:0},
+  {id:'M7P14', modulo:'Módulo VII: Visualización y Comunicación Analítica', tipo:'mc',
+   texto:'El concepto de "storytelling con datos" se refiere a:',
+   opciones:['Contar una historia estructurada que guíe al público a través de los hallazgos y conclusiones de un análisis.',
+             'Crear gráficos coloridos sin ningún orden.',
+             'Mostrar todos los datos sin ningún filtro.',
+             'Utilizar exclusivamente tablas para comunicar resultados.'], correcta:0},
+
+  {id:'M8P15', modulo:'Módulo VIII: Gobernanza, Ética y Escalabilidad', tipo:'mc',
+   texto:'¿Cuál de los siguientes principios éticos busca asegurar que los modelos de datos no perpetúen desigualdades históricas?',
+   opciones:['Justicia (Fairness) y no discriminación.', 'Beneficencia.', 'Autonomía.', 'Transparencia total.'], correcta:0},
+  {id:'M8P16', modulo:'Módulo VIII: Gobernanza, Ética y Escalabilidad', tipo:'mc',
+   texto:'En el contexto de la gobernanza de datos, ¿qué rol se encarga de definir las políticas de acceso y uso de los datos?',
+   opciones:['Propietario de datos (Data Owner).', 'Custodio de datos (Data Custodian).',
+             'Usuario de datos (Data User).', 'Auditor de datos (Data Auditor).'], correcta:0},
+
+  {id:'VF1', modulo:'Verdadero / Falso', tipo:'vf',
+   texto:'En un proyecto de ciencia de datos, la fase de preprocesamiento consume la mayor parte del tiempo y es fundamental para la calidad del modelo.', correcta:true},
+  {id:'VF2', modulo:'Verdadero / Falso', tipo:'vf',
+   texto:'El sobreajuste (overfitting) ocurre cuando un modelo funciona bien en datos de entrenamiento pero mal en datos nuevos.', correcta:true},
+  {id:'VF3', modulo:'Verdadero / Falso', tipo:'vf',
+   texto:'La Ley No. 172-13 de República Dominicana regula la protección de datos personales en el sector público y privado.', correcta:true},
+  {id:'VF4', modulo:'Verdadero / Falso', tipo:'vf',
+   texto:'Los Data Lakes son ideales para almacenar datos estructurados únicamente.', correcta:false},
+  {id:'VF5', modulo:'Verdadero / Falso', tipo:'vf',
+   texto:'La escalabilidad vertical consiste en añadir más nodos a un sistema distribuido.', correcta:false},
+
+  {id:'EM1', modulo:'Emparejamiento', tipo:'match',
+   texto:'Empareje cada término con su definición correcta:',
+   pares:[
+     {term:'ETL', def:'Proceso de Extraer, Transformar y Cargar datos.'},
+     {term:'SQL', def:'Lenguaje estructurado para consultar bases de datos relacionales.'},
+     {term:'Random Forest', def:'Algoritmo de ensamble basado en múltiples árboles de decisión.'},
+     {term:'PCA', def:'Técnica de reducción de dimensionalidad que transforma los datos en componentes principales.'},
+     {term:'Reproducibilidad', def:'Capacidad de obtener los mismos resultados utilizando los mismos datos y código.'}
+   ]}
+];
+
+var TOTAL_ITEMS = 16 + 5 + 5; /* 16 MC + 5 VF + 5 pares del emparejamiento */
+var PTS_POR_ITEM = 100 / TOTAL_ITEMS;
+
+/* ---------------- Render de preguntas ---------------- */
+var form = document.getElementById('quiz-form');
+var moduloActual = '';
+QUESTIONS.forEach(function(q, idx){
+  if(q.modulo !== moduloActual){
+    moduloActual = q.modulo;
+    var h = document.createElement('div');
+    h.className = 'modulo-header';
+    h.textContent = moduloActual;
+    form.appendChild(h);
+  }
+  var wrap = document.createElement('div');
+  wrap.className = 'question';
+  wrap.id = 'q-' + q.id;
+
+  var p = document.createElement('p');
+  p.className = 'qtext';
+  p.textContent = (idx+1) + '. ' + q.texto;
+  wrap.appendChild(p);
+
+  if(q.tipo === 'mc'){
+    var cont = document.createElement('div');
+    cont.className = 'opciones';
+    q.opciones.forEach(function(opt, i){
+      var lbl = document.createElement('label');
+      lbl.className = 'opcion';
+      lbl.innerHTML = '<input type="radio" name="'+q.id+'" value="'+i+'"> <span>'+opt+'</span>';
+      cont.appendChild(lbl);
+    });
+    wrap.appendChild(cont);
+  } else if(q.tipo === 'vf'){
+    var cont2 = document.createElement('div');
+    cont2.className = 'opciones';
+    ['Verdadero','Falso'].forEach(function(txt, i){
+      var lbl = document.createElement('label');
+      lbl.className = 'opcion';
+      lbl.innerHTML = '<input type="radio" name="'+q.id+'" value="'+(i===0?'true':'false')+'"> <span>'+txt+'</span>';
+      cont2.appendChild(lbl);
+    });
+    wrap.appendChild(cont2);
+  } else if(q.tipo === 'match'){
+    var defsShuffled = q.pares.map(function(pr){return pr.def;});
+    shuffle(defsShuffled);
+    q.pares.forEach(function(pr, i){
+      var row = document.createElement('div');
+      row.className = 'match-row';
+      var opts = '<option value="">— Seleccione una definición —</option>' +
+        defsShuffled.map(function(d){ return '<option value="'+escAttr(d)+'">'+d+'</option>'; }).join('');
+      row.innerHTML = '<span class="term">'+pr.term+'</span><select data-em="'+i+'">'+opts+'</select>';
+      wrap.appendChild(row);
+    });
+  }
+
+  var fb = document.createElement('div');
+  fb.className = 'q-feedback';
+  fb.id = 'fb-' + q.id;
+  wrap.appendChild(fb);
+
+  form.appendChild(wrap);
+});
+
+function shuffle(arr){
+  for(var i=arr.length-1;i>0;i--){
+    var j = Math.floor(Math.random()*(i+1));
+    var t = arr[i]; arr[i]=arr[j]; arr[j]=t;
+  }
+  return arr;
+}
+function escAttr(s){ return String(s).replace(/"/g,'&quot;'); }
+
+/* ---------------- Revelado progresivo + progreso ---------------- */
+var preguntasEls = Array.prototype.slice.call(document.querySelectorAll('.question'));
+if('IntersectionObserver' in window && !prefersReducedMotion){
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){ en.target.classList.add('revealed'); obs.unobserve(en.target); }
+    });
+  }, {threshold:.12});
+  preguntasEls.forEach(function(el){ obs.observe(el); });
+} else {
+  preguntasEls.forEach(function(el){ el.classList.add('revealed'); });
+}
+
+function contarRespondidas(){
+  var n = 0;
+  QUESTIONS.forEach(function(q){
+    if(q.tipo === 'mc' || q.tipo === 'vf'){
+      if(form.querySelector('input[name="'+q.id+'"]:checked')) n++;
+    } else if(q.tipo === 'match'){
+      var selects = document.querySelectorAll('#q-'+q.id+' select');
+      var lleno = true;
+      selects.forEach(function(s){ if(!s.value) lleno = false; });
+      if(lleno) n++;
+    }
+  });
+  return n;
+}
+function actualizarProgreso(){
+  var n = contarRespondidas();
+  document.getElementById('progress-text').textContent = n + ' de ' + QUESTIONS.length + ' preguntas respondidas';
+  document.getElementById('progress-fill').style.width = Math.round(n/QUESTIONS.length*100) + '%';
+}
+form.addEventListener('change', actualizarProgreso);
+actualizarProgreso();
+
+/* ---------------- Autoguardado local ---------------- */
+var STORAGE_KEY = 'ccde_cd_final_respuestas';
+function guardarLocal(){
+  var data = {};
+  QUESTIONS.forEach(function(q){
+    if(q.tipo === 'mc' || q.tipo === 'vf'){
+      var el = form.querySelector('input[name="'+q.id+'"]:checked');
+      data[q.id] = el ? el.value : null;
+    } else if(q.tipo === 'match'){
+      var vals = [];
+      document.querySelectorAll('#q-'+q.id+' select').forEach(function(s){ vals.push(s.value); });
+      data[q.id] = vals;
+    }
+  });
+  data._nombre = document.getElementById('est_nombre').value;
+  data._correo = document.getElementById('est_correo').value;
+  data._institucion = document.getElementById('est_institucion').value;
+  try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); }catch(e){}
+}
+function restaurarLocal(){
+  var raw; try{ raw = localStorage.getItem(STORAGE_KEY); }catch(e){ raw = null; }
+  if(!raw) return;
+  var data; try{ data = JSON.parse(raw); }catch(e){ return; }
+  QUESTIONS.forEach(function(q){
+    if(q.tipo === 'mc' || q.tipo === 'vf'){
+      if(data[q.id]){
+        var el = form.querySelector('input[name="'+q.id+'"][value="'+data[q.id]+'"]');
+        if(el) el.checked = true;
+      }
+    } else if(q.tipo === 'match' && Array.isArray(data[q.id])){
+      var selects = document.querySelectorAll('#q-'+q.id+' select');
+      data[q.id].forEach(function(v, i){ if(selects[i]) selects[i].value = v; });
+    }
+  });
+  if(data._nombre) document.getElementById('est_nombre').value = data._nombre;
+  if(data._correo) document.getElementById('est_correo').value = data._correo;
+  if(data._institucion) document.getElementById('est_institucion').value = data._institucion;
+  actualizarProgreso();
+}
+restaurarLocal();
+form.addEventListener('change', guardarLocal);
+document.getElementById('est_nombre').addEventListener('input', guardarLocal);
+document.getElementById('est_correo').addEventListener('input', guardarLocal);
+document.getElementById('est_institucion').addEventListener('input', guardarLocal);
+
+/* ---------------- Intentos (máximo 3, persistidos en localStorage) ---------------- */
+var MAX_INTENTOS = 3;
+var INTENTOS_KEY = 'ccde_cd_final_intentos';
+var intentosUsados = parseInt(localStorage.getItem(INTENTOS_KEY), 10) || 0;
+var intentosTextEl = document.getElementById('intentos-text');
+function actualizarIntentosUI(){
+  var restantes = MAX_INTENTOS - intentosUsados;
+  intentosTextEl.textContent = restantes > 0
+    ? 'Intento ' + (intentosUsados+1) + ' de ' + MAX_INTENTOS + ' disponibles'
+    : 'Sin intentos disponibles (' + MAX_INTENTOS + ' de ' + MAX_INTENTOS + ' usados)';
+}
+actualizarIntentosUI();
+function sinIntentosDisponibles(){ return intentosUsados >= MAX_INTENTOS; }
+if(sinIntentosDisponibles()){
+  document.getElementById('btn-submit').disabled = true;
+  document.getElementById('btn-submit').style.opacity = '.5';
+  document.getElementById('warn-incompleto').style.display = 'block';
+  document.getElementById('warn-incompleto').textContent = 'Ya utilizó sus ' + MAX_INTENTOS + ' intentos disponibles para este cuestionario.';
+}
+
+/* ---------------- Temporizador con corazones (referencia, no bloquea el envío) ---------------- */
+var TIMER_MINUTES = 60;
+var DEADLINE_KEY = 'ccde_cd_final_deadline';
+var SOUND_MUTE_KEY = 'ccde_cd_sound_muted';
+var deadline = parseInt(localStorage.getItem(DEADLINE_KEY), 10);
+if(!deadline){
+  deadline = Date.now() + TIMER_MINUTES*60000;
+  try{ localStorage.setItem(DEADLINE_KEY, String(deadline)); }catch(e){}
+}
+var muted = localStorage.getItem(SOUND_MUTE_KEY) === '1';
+var soundBtn = document.getElementById('sound-toggle');
+function actualizarBotonSonido(){ soundBtn.textContent = muted ? '🔇 Sonido' : '🔔 Sonido'; }
+actualizarBotonSonido();
+soundBtn.addEventListener('click', function(){
+  muted = !muted;
+  try{ localStorage.setItem(SOUND_MUTE_KEY, muted ? '1':'0'); }catch(e){}
+  actualizarBotonSonido();
+});
+
+var audioCtx = null;
+function getAudioCtx(){
+  if(muted) return null;
+  if(!audioCtx){
+    try{ audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }catch(e){ return null; }
+  }
+  return audioCtx;
+}
+function playBeep(freq, dur){
+  var ctx = getAudioCtx(); if(!ctx) return;
+  try{
+    var o = ctx.createOscillator(), g = ctx.createGain();
+    o.type = 'sine'; o.frequency.value = freq;
+    g.gain.setValueAtTime(.12, ctx.currentTime);
+    g.gain.exponentialRampToValueAtTime(.001, ctx.currentTime + dur);
+    o.connect(g); g.connect(ctx.destination);
+    o.start(); o.stop(ctx.currentTime + dur);
+  }catch(e){}
+}
+function playStab(){
+  var ctx = getAudioCtx(); if(!ctx) return;
+  try{
+    [1046.5, 987.77].forEach(function(freq){
+      var o = ctx.createOscillator(), g = ctx.createGain();
+      o.type = 'sawtooth'; o.frequency.value = freq;
+      g.gain.setValueAtTime(.09, ctx.currentTime);
+      g.gain.exponentialRampToValueAtTime(.001, ctx.currentTime + .35);
+      o.connect(g); g.connect(ctx.destination);
+      o.start(); o.stop(ctx.currentTime + .35);
+    });
+  }catch(e){}
+}
+function playFlatline(){
+  var ctx = getAudioCtx(); if(!ctx) return;
+  try{
+    var o = ctx.createOscillator(), g = ctx.createGain();
+    o.type = 'sine'; o.frequency.value = 420;
+    g.gain.setValueAtTime(.1, ctx.currentTime);
+    g.gain.linearRampToValueAtTime(0, ctx.currentTime + 1.4);
+    o.connect(g); g.connect(ctx.destination);
+    o.start(); o.stop(ctx.currentTime + 1.4);
+  }catch(e){}
+}
+
+var NUM_CORAZONES = 5;
+var heartsCanvas = document.getElementById('hearts-canvas');
+var hctx = heartsCanvas.getContext('2d');
+function trazarCorazon(cx, cy, size, lleno){
+  hctx.beginPath();
+  var topCurveHeight = size*.3;
+  hctx.moveTo(cx, cy + topCurveHeight);
+  hctx.bezierCurveTo(cx, cy, cx - size/2, cy, cx - size/2, cy + topCurveHeight);
+  hctx.bezierCurveTo(cx - size/2, cy + (size+topCurveHeight)/2, cx, cy + (size+topCurveHeight)/2, cx, cy + size);
+  hctx.bezierCurveTo(cx, cy + (size+topCurveHeight)/2, cx + size/2, cy + (size+topCurveHeight)/2, cx + size/2, cy + topCurveHeight);
+  hctx.bezierCurveTo(cx + size/2, cy, cx, cy, cx, cy + topCurveHeight);
+  hctx.closePath();
+  hctx.fillStyle = lleno ? '#ff6b6b' : 'rgba(255,255,255,.18)';
+  hctx.fill();
+}
+function dibujarCorazones(pct){
+  hctx.clearRect(0,0,heartsCanvas.width, heartsCanvas.height);
+  var llenos = pct * NUM_CORAZONES;
+  for(var i=0;i<NUM_CORAZONES;i++){
+    var idxDesdeDerecha = NUM_CORAZONES - 1 - i;
+    trazarCorazon(10 + i*22, 4, 14, idxDesdeDerecha < llenos);
+  }
+}
+
+var timerBox = document.getElementById('timer-box');
+var timerValueEl = document.getElementById('timer-value');
+var fastClockEl = document.getElementById('fast-clock');
+var overtimeNoteEl = document.getElementById('overtime-note');
+var lowTriggered=false, criticalTriggered=false, overtimeTriggered=false;
+var stabInterval = null;
+
+function fmt(ms){
+  var s = Math.max(0, Math.round(ms/1000));
+  var m = Math.floor(s/60); s = s%60;
+  return (m<10?'0':'')+m+':'+(s<10?'0':'')+s;
+}
+function tickTimer(){
+  var remaining = deadline - Date.now();
+  if(remaining > 0){
+    timerValueEl.textContent = fmt(remaining);
+    dibujarCorazones(Math.max(0, remaining / (TIMER_MINUTES*60000)));
+    if(remaining <= 60000){
+      timerBox.classList.add('critical'); heartsCanvas.classList.add('critical');
+      if(!criticalTriggered){ criticalTriggered = true; }
+      var pctMin = remaining / 60000;
+      var interval = 250 + pctMin*1750;
+      if(!tickTimer._lastBeep || Date.now() - tickTimer._lastBeep > interval){
+        playBeep(900 + (1-pctMin)*300, .12);
+        if(Math.random() < .5) playStab();
+        tickTimer._lastBeep = Date.now();
+      }
+    } else if(remaining <= 10*60000){
+      if(!lowTriggered){ lowTriggered = true; }
+      timerBox.classList.add('low');
+    }
+  } else {
+    timerBox.classList.remove('low'); timerBox.classList.remove('critical');
+    timerBox.classList.add('overtime');
+    heartsCanvas.style.display = 'none';
+    fastClockEl.style.display = 'inline-block';
+    overtimeNoteEl.style.display = 'block';
+    var extra = Date.now() - deadline;
+    timerValueEl.textContent = '+' + fmt(extra);
+    if(!overtimeTriggered){
+      overtimeTriggered = true;
+      playFlatline();
+      stabInterval = setInterval(function(){ playStab(); }, 1800);
+    }
+  }
+}
+tickTimer();
+var timerHandle = setInterval(tickTimer, 500);
+
+/* ---------------- Fondo animado de portada ---------------- */
+var coverCanvas = document.getElementById('cover-canvas');
+if(coverCanvas && !prefersReducedMotion){
+  var cctx = coverCanvas.getContext('2d');
+  var nodos = [];
+  function resizeCover(){
+    var card = coverCanvas.closest('.card');
+    coverCanvas.width = card.clientWidth;
+    coverCanvas.height = card.clientHeight;
+  }
+  resizeCover();
+  window.addEventListener('resize', resizeCover);
+  for(var i=0;i<26;i++){
+    nodos.push({
+      x: Math.random()*coverCanvas.width, y: Math.random()*coverCanvas.height,
+      vx: (Math.random()-.5)*.3, vy: (Math.random()-.5)*.3
+    });
+  }
+  function drawCover(){
+    cctx.clearRect(0,0,coverCanvas.width, coverCanvas.height);
+    nodos.forEach(function(n){
+      n.x += n.vx; n.y += n.vy;
+      if(n.x<0||n.x>coverCanvas.width) n.vx*=-1;
+      if(n.y<0||n.y>coverCanvas.height) n.vy*=-1;
+    });
+    for(var a=0;a<nodos.length;a++){
+      for(var b=a+1;b<nodos.length;b++){
+        var dx=nodos[a].x-nodos[b].x, dy=nodos[a].y-nodos[b].y;
+        var d=Math.sqrt(dx*dx+dy*dy);
+        if(d<130){
+          cctx.strokeStyle='rgba(63,211,198,'+(1-d/130)*.35+')';
+          cctx.beginPath(); cctx.moveTo(nodos[a].x,nodos[a].y); cctx.lineTo(nodos[b].x,nodos[b].y); cctx.stroke();
+        }
+      }
+    }
+    nodos.forEach(function(n){
+      cctx.fillStyle='rgba(63,211,198,.7)';
+      cctx.beginPath(); cctx.arc(n.x,n.y,2,0,Math.PI*2); cctx.fill();
+    });
+    requestAnimationFrame(drawCover);
+  }
+  drawCover();
+}
+
+/* ---------------- Micro-interacción ripple en botones ---------------- */
+document.querySelectorAll('.btn').forEach(function(btn){
+  btn.addEventListener('click', function(e){
+    if(prefersReducedMotion) return;
+    var rect = btn.getBoundingClientRect();
+    var span = document.createElement('span');
+    span.className = 'js-ripple';
+    var size = Math.max(rect.width, rect.height);
+    span.style.width = span.style.height = size+'px';
+    span.style.left = (e.clientX - rect.left - size/2)+'px';
+    span.style.top = (e.clientY - rect.top - size/2)+'px';
+    btn.appendChild(span);
+    setTimeout(function(){ span.remove(); }, 650);
+  });
+});
+
+/* ---------------- Calificación (100% determinística, sin IA) ---------------- */
+function animarNumero(el, hasta, dur){
+  var inicio = 0, t0 = null;
+  function step(ts){
+    if(!t0) t0 = ts;
+    var p = Math.min(1, (ts-t0)/dur);
+    var eased = 1 - Math.pow(1-p, 3);
+    el.textContent = Math.round(inicio + (hasta-inicio)*eased);
+    if(p<1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+  /* Respaldo: si la pestaña está oculta/en segundo plano, rAF puede pausarse
+     indefinidamente (ej. el usuario cambia de app en móvil durante la calificación) */
+  setTimeout(function(){ el.textContent = hasta; }, dur + 400);
+}
+
+function calificar(){
+  if(sinIntentosDisponibles()) return;
+  var incompletas = QUESTIONS.length - contarRespondidas();
+  var warnEl = document.getElementById('warn-incompleto');
+  if(!document.getElementById('est_nombre').value.trim()){
+    warnEl.style.display = 'block';
+    warnEl.textContent = 'Por favor escriba su nombre antes de calificar.';
+    document.getElementById('est_nombre').focus();
+    return;
+  }
+  if(incompletas > 0){
+    warnEl.style.display = 'block';
+    warnEl.textContent = 'Tiene ' + incompletas + ' pregunta(s) sin responder. Puede continuar de todas formas o completarlas antes de calificar.';
+  } else {
+    warnEl.style.display = 'none';
+  }
+
+  var puntos = 0;
+  var resultadosPorModulo = {};
+  var ordenModulos = [];
+
+  QUESTIONS.forEach(function(q){
+    if(!resultadosPorModulo[q.modulo]){
+      resultadosPorModulo[q.modulo] = {correctas:0, total:0};
+      ordenModulos.push(q.modulo);
+    }
+    var fbEl = document.getElementById('fb-'+q.id);
+    fbEl.className = 'q-feedback show';
+
+    if(q.tipo === 'mc'){
+      resultadosPorModulo[q.modulo].total += 1;
+      var sel = form.querySelector('input[name="'+q.id+'"]:checked');
+      var val = sel ? parseInt(sel.value,10) : -1;
+      var ok = val === q.correcta;
+      if(ok){ puntos += PTS_POR_ITEM; resultadosPorModulo[q.modulo].correctas += 1; }
+      marcarOpciones(q, val);
+      fbEl.classList.add(ok?'ok':'bad');
+      fbEl.textContent = ok ? '✅ Correcto.' : '❌ Incorrecto. La respuesta correcta era: "'+q.opciones[q.correcta]+'".';
+    } else if(q.tipo === 'vf'){
+      resultadosPorModulo[q.modulo].total += 1;
+      var selVf = form.querySelector('input[name="'+q.id+'"]:checked');
+      var valVf = selVf ? selVf.value === 'true' : null;
+      var okVf = valVf === q.correcta;
+      if(okVf){ puntos += PTS_POR_ITEM; resultadosPorModulo[q.modulo].correctas += 1; }
+      marcarOpcionesVf(q, valVf);
+      fbEl.classList.add(okVf?'ok':'bad');
+      fbEl.textContent = okVf ? '✅ Correcto.' : '❌ Incorrecto. La respuesta correcta era: "'+(q.correcta?'Verdadero':'Falso')+'".';
+    } else if(q.tipo === 'match'){
+      resultadosPorModulo[q.modulo].total += q.pares.length;
+      var selects = document.querySelectorAll('#q-'+q.id+' select');
+      var correctasPar = 0;
+      selects.forEach(function(s, i){
+        var esperado = q.pares[i].def;
+        var acierto = s.value === esperado;
+        if(acierto){ puntos += PTS_POR_ITEM; correctasPar++; }
+        s.style.borderColor = acierto ? 'var(--ok)' : 'var(--bad)';
+      });
+      resultadosPorModulo[q.modulo].correctas += correctasPar;
+      var okAll = correctasPar === q.pares.length;
+      fbEl.classList.add(okAll?'ok':'bad');
+      fbEl.textContent = correctasPar + ' de ' + q.pares.length + ' pares correctos.';
+    }
+  });
+
+  var nota = Math.round(puntos);
+  var aprobado = nota >= 70;
+
+  document.getElementById('results').style.display = 'block';
+  animarNumero(document.getElementById('score-num'), nota, 900);
+  document.getElementById('score-estado').innerHTML = aprobado
+    ? '<span class="badge-estado badge-ok">Aprobado</span>'
+    : '<span class="badge-estado badge-bad">No aprobado</span>';
+
+  var desgloseEl = document.getElementById('desglose');
+  desgloseEl.innerHTML = '';
+  ordenModulos.forEach(function(mod){
+    var r = resultadosPorModulo[mod];
+    var row = document.createElement('div');
+    row.className = 'desglose-row';
+    row.innerHTML = '<span>'+mod+'</span><span>'+r.correctas+' / '+r.total+'</span>';
+    desgloseEl.appendChild(row);
+  });
+
+  clearInterval(timerHandle);
+  if(stabInterval) clearInterval(stabInterval);
+  try{ localStorage.removeItem(DEADLINE_KEY); }catch(e){}
+
+  intentosUsados++;
+  try{ localStorage.setItem(INTENTOS_KEY, String(intentosUsados)); }catch(e){}
+  actualizarIntentosUI();
+  if(sinIntentosDisponibles()){
+    document.getElementById('btn-reintentar').disabled = true;
+    document.getElementById('btn-reintentar').style.opacity = '.5';
+    document.getElementById('btn-reintentar').textContent = 'Sin intentos disponibles';
+  }
+
+  document.getElementById('submit-section').style.display = 'none';
+  document.getElementById('results').scrollIntoView({behavior: prefersReducedMotion ? 'auto':'smooth'});
+
+  if(aprobado){
+    dibujarMedalla(nota, document.getElementById('est_nombre').value.trim());
+    document.getElementById('medal-zone').style.display = 'block';
+    if(!prefersReducedMotion && window.confetti){
+      confetti({particleCount:140, spread:90, origin:{y:.6}, colors:['#3fd3c6','#1fa89c','#f2b544','#0d2b4e']});
+    }
+    playSuccessJingle();
+  }
+}
+
+function marcarOpciones(q, valSeleccionado){
+  var labels = document.querySelectorAll('#q-'+q.id+' .opcion');
+  labels.forEach(function(lbl, i){
+    if(i === q.correcta) lbl.classList.add('correcta-mark');
+    else if(i === valSeleccionado) lbl.classList.add('incorrecta-mark');
+    lbl.querySelector('input').disabled = true;
+  });
+}
+function marcarOpcionesVf(q, valSeleccionado){
+  var labels = document.querySelectorAll('#q-'+q.id+' .opcion');
+  labels.forEach(function(lbl, i){
+    var esVerdadero = i === 0;
+    if(esVerdadero === q.correcta) lbl.classList.add('correcta-mark');
+    else if(esVerdadero === valSeleccionado) lbl.classList.add('incorrecta-mark');
+    lbl.querySelector('input').disabled = true;
+  });
+}
+function playSuccessJingle(){
+  var ctx = getAudioCtx(); if(!ctx) return;
+  [523.25,659.25,783.99,1046.5].forEach(function(freq, i){
+    setTimeout(function(){ playBeep(freq, .3); }, i*130);
+  });
+}
+
+document.getElementById('btn-submit').addEventListener('click', calificar);
+document.getElementById('btn-reintentar').addEventListener('click', function(){
+  if(sinIntentosDisponibles()) return;
+  try{ localStorage.removeItem(STORAGE_KEY); }catch(e){}
+  try{ localStorage.removeItem(DEADLINE_KEY); }catch(e){}
+  location.reload();
+});
+
+/* ---------------- Medalla (tema CCDE — Ciencia de Datos) ---------------- */
+var TEMA_MEDALLA = {
+  icono:'📊', fondo1:'#0d2b4e', fondo2:'#081a30',
+  medalClaro:'#7fe8dc', medalMedio:'#3fd3c6', medalOscuro:'#1fa89c',
+  laurel:'#f2b544'
+};
+function nivelMedalla(nota){
+  if(nota>=90) return {titulo:'Científico(a) de Datos Experto(a)'};
+  if(nota>=80) return {titulo:'Analista de Datos Certificado(a)'};
+  return {titulo:'Aprendiz de Ciencia de Datos'};
+}
+function wrapCanvasText(ctx, text, x, y, maxWidth, lineHeight){
+  var words = text.split(' '), line = '', lines = [];
+  words.forEach(function(w){
+    var test = line + w + ' ';
+    if(ctx.measureText(test).width > maxWidth && line !== ''){
+      lines.push(line); line = w + ' ';
+    } else { line = test; }
+  });
+  lines.push(line);
+  lines.forEach(function(l, i){ ctx.fillText(l.trim(), x, y + i*lineHeight); });
+  return lines.length;
+}
+function dibujarLaurel(ctx, cx, cy, radio){
+  ctx.strokeStyle = TEMA_MEDALLA.laurel;
+  ctx.lineWidth = 3;
+  [-1,1].forEach(function(side){
+    ctx.beginPath();
+    ctx.moveTo(cx + side*(radio+10), cy+radio*.6);
+    ctx.quadraticCurveTo(cx + side*(radio+45), cy, cx + side*(radio+15), cy-radio*.7);
+    ctx.stroke();
+    for(var i=0;i<6;i++){
+      var t = i/6;
+      var lx = cx + side*(radio+10) + side*35*t;
+      var ly = cy + radio*.6 - radio*1.3*t;
+      ctx.beginPath();
+      ctx.ellipse(lx, ly, 10, 5, side*(-.6+t*1.1), 0, Math.PI*2);
+      ctx.fillStyle = TEMA_MEDALLA.laurel;
+      ctx.fill();
+    }
+  });
+}
+function dibujarMedalla(nota, nombre){
+  var canvas = document.getElementById('medal-canvas');
+  var ctx = canvas.getContext('2d');
+  var W = canvas.width, H = canvas.height;
+  var grad = ctx.createLinearGradient(0,0,0,H);
+  grad.addColorStop(0, TEMA_MEDALLA.fondo1); grad.addColorStop(1, TEMA_MEDALLA.fondo2);
+  ctx.fillStyle = grad; ctx.fillRect(0,0,W,H);
+
+  ctx.textAlign='center';
+  ctx.fillStyle='rgba(255,255,255,.75)';
+  ctx.font='bold 22px Segoe UI, sans-serif';
+  ctx.fillText('CERTIFICADO DE FINALIZACIÓN', W/2, 60);
+
+  var cx=W/2, cy=280, r=140;
+  dibujarLaurel(ctx, cx, cy, r);
+  var mgrad = ctx.createRadialGradient(cx,cy-30,20,cx,cy,r);
+  mgrad.addColorStop(0, TEMA_MEDALLA.medalClaro);
+  mgrad.addColorStop(.5, TEMA_MEDALLA.medalMedio);
+  mgrad.addColorStop(1, TEMA_MEDALLA.medalOscuro);
+  ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2); ctx.fillStyle=mgrad; ctx.fill();
+  ctx.font='bold 82px Segoe UI Emoji, Segoe UI, sans-serif';
+  ctx.fillStyle='#fff';
+  ctx.fillText(TEMA_MEDALLA.icono, cx, cy+30);
+
+  ctx.font='bold 26px Segoe UI, sans-serif';
+  ctx.fillStyle='#fff';
+  ctx.fillText('PRÁCTICA COMPLETADA', W/2, 470);
+
+  ctx.font='22px Segoe UI, sans-serif';
+  ctx.fillStyle='rgba(255,255,255,.9)';
+  wrapCanvasText(ctx, 'Cuestionario Final — Curso de Ciencia de Datos', W/2, 505, W-140, 28);
+
+  ctx.font='bold 20px Segoe UI, sans-serif';
+  ctx.fillStyle=TEMA_MEDALLA.medalClaro;
+  ctx.fillText(nivelMedalla(nota).titulo + ' · ' + nota + '/100', W/2, 565);
+
+  ctx.font='bold 30px Segoe UI, sans-serif';
+  ctx.fillStyle='#fff';
+  ctx.fillText(nombre || 'Participante', W/2, 610);
+
+  ctx.font='16px Segoe UI, sans-serif';
+  ctx.fillStyle='rgba(255,255,255,.65)';
+  var fecha = new Date().toLocaleDateString('es-DO', {year:'numeric', month:'long', day:'numeric'});
+  ctx.fillText('Johan Tapia, PhD · ' + fecha, W/2, 650);
+}
+
+document.getElementById('btn-descargar-medalla').addEventListener('click', function(){
+  var canvas = document.getElementById('medal-canvas');
+  var a = document.createElement('a');
+  a.download = 'medalla-ciencia-datos-ccde.png';
+  a.href = canvas.toDataURL('image/png');
+  a.click();
+});
+document.getElementById('btn-compartir-medalla').addEventListener('click', function(){
+  var canvas = document.getElementById('medal-canvas');
+  canvas.toBlob(function(blob){
+    var file = new File([blob], 'medalla-ciencia-datos-ccde.png', {type:'image/png'});
+    if(navigator.canShare && navigator.canShare({files:[file]})){
+      navigator.share({files:[file], title:'Mi medalla — Ciencia de Datos CCDE'}).catch(function(){});
+    } else {
+      var a = document.createElement('a');
+      a.download = 'medalla-ciencia-datos-ccde.png';
+      a.href = canvas.toDataURL('image/png');
+      a.click();
+      alert('Su navegador no permite compartir directamente. La medalla se descargó para que la comparta manualmente.');
+    }
+  });
+});
+
+})();
+</script>
+</body>
+</html>
