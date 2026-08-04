@@ -392,6 +392,15 @@
             "puntos": "100 pts",
             "aprobacion": "70% para aprobar",
             "url": "https://johantbueno.github.io/practicas-web/auditoria-forense-modulo-iv/"
+          },
+          {
+            "badge": "Trabajo Final",
+            "titulo": "Caso Integral: de la Investigación a la Gestión Avanzada del Fraude Corporativo",
+            "desc": "Trabajo final del diplomado con un caso integral (Constructora e Inmobiliaria Faro del Este, S.A.) que recorre el ciclo completo: triaje inicial e investigación forense, identificación y cuantificación del fraude, marco legal y remisión a autoridades (Ley 340-06, Ley 155-17, PEPCA, DGII, UAF), informe forense a la Junta Directiva, y diseño de un programa de gestión avanzada del fraude corporativo. Incluye a Nicole y calificación automática preliminar.",
+            "duracion": "5 secciones · aproximadamente 60 minutos, individual",
+            "puntos": "100 pts",
+            "aprobacion": "70% para aprobar",
+            "url": "https://johantbueno.github.io/practicas-web/auditoria-forense-final/"
           }
         ]
       }
