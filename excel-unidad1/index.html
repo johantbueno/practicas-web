@@ -231,6 +231,9 @@ footer.tp-footer{text-align:center; color:var(--muted); font-size:.8rem; padding
 .advisor-msg{max-width:85%; padding:.6rem .85rem; border-radius:12px; font-size:.86rem; line-height:1.5;}
 .advisor-msg-bot{background:var(--bg-card); border:1px solid var(--border-light); align-self:flex-start; border-bottom-left-radius:2px;}
 .advisor-msg-user{background:var(--navy); color:#fff; align-self:flex-end; border-bottom-right-radius:2px;}
+#advisor-voice-toggle.muted{opacity:.4;}
+.advisor-speak-btn{display:block; margin-top:.4rem; background:none; border:none; color:var(--navy); font-size:.72rem; font-weight:700; cursor:pointer; padding:0; font-family:inherit;}
+.advisor-speak-btn:disabled{opacity:.5; cursor:default;}
 .advisor-suggest{display:flex; flex-wrap:wrap; gap:.4rem; padding:0 1rem .75rem;}
 .advisor-suggest button{background:var(--blue-bg); border:1px solid var(--blue-border); color:var(--navy); font-size:.72rem; padding:.35rem .6rem; border-radius:999px; cursor:pointer; font-family:inherit;}
 .advisor-form{display:flex; gap:.5rem; padding:.75rem; border-top:1px solid var(--border-light); background:var(--bg-card);}
@@ -723,6 +726,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
   <div class="advisor-header">
     <span style="font-size:1.2rem;">🎓</span>
     <p id="advisor-title-el" class="advisor-title">Nicole</p>
+    <button id="advisor-voice-toggle" type="button" aria-pressed="true" title="Activar o desactivar las notas de voz de Nicole">🔊</button>
     <button id="advisor-close" type="button" aria-label="Cerrar a Nicole">✕</button>
   </div>
   <div id="advisor-body" class="advisor-body">
@@ -1807,10 +1811,51 @@ function closeAdvisor(){ advisorPanel.classList.remove('open'); advisorToggle.se
 advisorToggle.addEventListener('click', function(){ advisorPanel.classList.contains('open') ? closeAdvisor() : openAdvisor(); });
 advisorClose.addEventListener('click', closeAdvisor);
 
+var TTS_SUPPORTED = 'speechSynthesis' in window;
+var voiceEnabled = TTS_SUPPORTED && localStorage.getItem('tp_excelu1_voz_v1') !== 'off';
+var advisorVoiceToggle = document.getElementById('advisor-voice-toggle');
+function updateVoiceToggleUI(){
+  if(!advisorVoiceToggle) return;
+  advisorVoiceToggle.textContent = voiceEnabled ? '🔊' : '🔇';
+  advisorVoiceToggle.setAttribute('aria-pressed', String(voiceEnabled));
+  advisorVoiceToggle.classList.toggle('muted', !voiceEnabled);
+}
+function pickSpanishVoice(){
+  var voices = window.speechSynthesis.getVoices();
+  return voices.find(function(v){ return /^es/i.test(v.lang); }) || null;
+}
+function speak(text){
+  if(!TTS_SUPPORTED || !voiceEnabled) return;
+  window.speechSynthesis.cancel();
+  var utter = new SpeechSynthesisUtterance(text);
+  utter.lang = 'es-ES';
+  var voice = pickSpanishVoice();
+  if(voice) utter.voice = voice;
+  window.speechSynthesis.speak(utter);
+}
+if(TTS_SUPPORTED){
+  updateVoiceToggleUI();
+  advisorVoiceToggle.addEventListener('click', function(){
+    voiceEnabled = !voiceEnabled;
+    localStorage.setItem('tp_excelu1_voz_v1', voiceEnabled ? 'on' : 'off');
+    updateVoiceToggleUI();
+    if(!voiceEnabled) window.speechSynthesis.cancel();
+  });
+} else if(advisorVoiceToggle){
+  advisorVoiceToggle.style.display = 'none';
+}
 function addMsg(text, who){
   var div = document.createElement('div');
   div.className = 'advisor-msg advisor-msg-' + (who === 'user' ? 'user' : 'bot');
   div.textContent = text;
+  if(who !== 'user' && TTS_SUPPORTED){
+    var speakBtn = document.createElement('button');
+    speakBtn.type = 'button';
+    speakBtn.className = 'advisor-speak-btn';
+    speakBtn.textContent = '🔊 Escuchar';
+    speakBtn.addEventListener('click', function(){ speak(text); });
+    div.appendChild(speakBtn);
+  }
   advisorBody.appendChild(div);
   advisorBody.scrollTop = advisorBody.scrollHeight;
   return div;
@@ -1886,6 +1931,7 @@ advisorForm.addEventListener('submit', function(e){
   askTutor(q).then(function(answer){
     typingEl.remove();
     addMsg(answer, 'bot');
+    speak(answer);
   });
 });
 document.querySelectorAll('.advisor-suggest button').forEach(function(btn){
@@ -1897,6 +1943,7 @@ document.querySelectorAll('.advisor-suggest button').forEach(function(btn){
     askTutor(q).then(function(answer){
       typingEl.remove();
       addMsg(answer, 'bot');
+      speak(answer);
     });
   });
 });
