@@ -1335,10 +1335,23 @@ function provisionState(){
 function saveProvisionState(data){
   try{ localStorage.setItem(PROV_KEY, JSON.stringify(data)); }catch(e){}
 }
+function abrirExcelPopup(e){
+  e.preventDefault();
+  var url = this.getAttribute('href');
+  if(!url || url === '#') return;
+  var w = Math.min(1400, window.screen.availWidth - 80);
+  var h = Math.min(900, window.screen.availHeight - 80);
+  var left = Math.max(0, (window.screen.availWidth - w) / 2);
+  var top = Math.max(0, (window.screen.availHeight - h) / 2);
+  var win = window.open(url, 'excelPractica', 'width=' + w + ',height=' + h + ',left=' + left + ',top=' + top + ',resizable=yes,scrollbars=yes,toolbar=yes,location=yes');
+  if(win) win.focus();
+}
 function applyProvisionUI(data){
   if(!data || !data.embedUrl) return;
   document.querySelectorAll('a[id^="link-abrir-excel"]').forEach(function(a){
     a.href = data.embedUrl;
+    a.removeEventListener('click', abrirExcelPopup);
+    a.addEventListener('click', abrirExcelPopup);
   });
   document.getElementById('prov-listo').style.display = 'block';
   document.getElementById('btn-provisionar').textContent = '🔄 Generar una copia nueva';
