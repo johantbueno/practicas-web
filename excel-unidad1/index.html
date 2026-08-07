@@ -1344,7 +1344,11 @@ function abrirExcelPopup(e){
   var left = Math.max(0, (window.screen.availWidth - w) / 2);
   var top = Math.max(0, (window.screen.availHeight - h) / 2);
   var win = window.open(url, 'excelPractica', 'width=' + w + ',height=' + h + ',left=' + left + ',top=' + top + ',resizable=yes,scrollbars=yes,toolbar=yes,location=yes');
-  if(win) win.focus();
+  if(win) {
+    win.focus();
+  } else {
+    alert('El navegador bloqueó la ventana emergente del Excel. Por favor, permita ventanas emergentes para este sitio y vuelva a hacer clic en "Abrir mi copia de Excel ↗".\n\nEn la mayoría de navegadores: haga clic en el ícono de bloqueo de ventanas emergentes en la barra de direcciones (junto a la URL) y seleccione "Permitir siempre".');
+  }
 }
 function applyProvisionUI(data){
   if(!data || !data.embedUrl) return;
