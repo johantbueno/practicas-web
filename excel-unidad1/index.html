@@ -171,6 +171,11 @@ textarea.tall{min-height:150px;}
 
 .step-points{float:right; background:var(--gold); color:#ffffff; font-weight:800; font-size:.72rem; padding:.25rem .6rem; border-radius:999px;}
 
+/* VISTA PREVIA EMBEBIDA DEL EXCEL (solo lectura) */
+.preview-head{display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:.6rem; margin-bottom:.5rem; font-size:.85rem; font-weight:700; color:var(--navy);}
+.preview-frame-wrap{position:relative; width:100%; height:min(70vh,560px); min-height:320px; border:1px solid var(--border-light); border-radius:var(--radius-md); overflow:hidden; background:var(--bg-body);}
+.preview-frame-wrap iframe{width:100%; height:100%; border:0; display:block;}
+
 .glossary-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:.9rem; margin-top:1rem;}
 .gloss-item{border:1px solid var(--border-light); border-radius:var(--radius-md); padding:.9rem 1rem; background:var(--bg-body);}
 .gloss-item dt{font-weight:800; color:var(--navy); font-size:.85rem; margin-bottom:.3rem;}
@@ -446,6 +451,15 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
         <strong>✅ Su copia de Excel ya está lista.</strong> Ábrala en una pestaña nueva con el botón de abajo y trabájela ahí — los cambios se guardan solos. Puede volver a esta página en cualquier momento; el enlace también queda guardado en su navegador.
         <div class="btn-row" style="margin-top:.8rem;">
           <a class="btn-primary" id="link-abrir-excel" href="#" target="_blank" rel="noopener">📊 Abrir mi copia de Excel ↗</a>
+        </div>
+      </div>
+      <div id="prov-preview-zone" style="display:none; margin-top:1rem;">
+        <div class="preview-head">
+          <span>👁️ Vista previa de su Excel (solo lectura — para editar, use el botón de arriba)</span>
+          <button class="btn-secondary" id="btn-preview-refresh" type="button">🔄 Actualizar vista</button>
+        </div>
+        <div class="preview-frame-wrap">
+          <iframe id="preview-frame" src="" title="Vista previa de su copia de Excel" loading="lazy"></iframe>
         </div>
       </div>
       <h2>Instrucciones generales</h2>
@@ -1341,7 +1355,18 @@ function applyProvisionUI(data){
   });
   document.getElementById('prov-listo').style.display = 'block';
   document.getElementById('btn-provisionar').textContent = '🔄 Generar una copia nueva';
+  if(data.previewUrl){
+    document.getElementById('preview-frame').src = data.previewUrl;
+    document.getElementById('prov-preview-zone').style.display = 'block';
+  }
 }
+document.getElementById('btn-preview-refresh').addEventListener('click', function(){
+  var frame = document.getElementById('preview-frame');
+  var url = frame.getAttribute('src');
+  if(!url) return;
+  frame.src = 'about:blank';
+  setTimeout(function(){ frame.src = url; }, 50);
+});
 (function initProvision(){
   var existing = provisionState();
   if(existing) applyProvisionUI(existing);
