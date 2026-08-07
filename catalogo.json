@@ -164,6 +164,23 @@
             "url": "https://johantbueno.github.io/practicas-web/ofimatica-basica-nivel-1/"
           }
         ]
+      },
+      {
+        "nombre": "Excel 2010",
+        "icono": "📊",
+        "tipoClase": "secuencial",
+        "tipoLabel": "Curso secuencial · unidades",
+        "practicas": [
+          {
+            "badge": "Unidad I",
+            "titulo": "Conceptos Básicos y Generales",
+            "desc": "Práctica en un archivo de Excel real (Office 365, sin necesidad de cuenta de Microsoft): tabla dinámica de participantes, horario semanal, fórmulas SUMA y PROMEDIO, promedio de clientes potenciales, y quitar duplicados/ordenar alfabéticamente. Más 5 preguntas teóricas sobre filas, columnas y las pestañas de la cinta. Individual.",
+            "duracion": "aproximadamente 1 hora y media",
+            "puntos": "100 pts (70 del Excel real + 30 de teoría)",
+            "aprobacion": "Completar los 5 ejercicios y las 5 preguntas",
+            "url": "https://johantbueno.github.io/practicas-web/excel-unidad1/"
+          }
+        ]
       }
     ]
   },
