@@ -1009,7 +1009,7 @@ function dibujarCorazones(pctVida){
 }
 function getDeadline(){
   var d = parseInt(localStorage.getItem(TIMER_KEY), 10);
-  if(!d || isNaN(d)){
+  if(!d || isNaN(d) || d <= Date.now()){
     d = Date.now() + TIMER_MINUTES * 60000;
     try{ localStorage.setItem(TIMER_KEY, String(d)); }catch(e){}
   }
