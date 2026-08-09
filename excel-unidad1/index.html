@@ -466,6 +466,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
         <div class="preview-frame-wrap">
           <iframe id="preview-frame" src="" title="Vista previa de su copia de Excel" loading="lazy"></iframe>
         </div>
+        <p style="font-size:.85rem; color:var(--muted); margin-top:.5rem;">¿No ve nada en el recuadro de arriba? Presione <strong>"🔄 Generar una copia nueva"</strong> más arriba — esto crea un enlace nuevo y soluciona el problema en la mayoría de los casos.</p>
       </div>
       <h2>Instrucciones generales</h2>
       <ol class="ins-list">
@@ -1358,7 +1359,10 @@ function provisionState(){
   try{ return JSON.parse(raw); }catch(e){ return null; }
 }
 function saveProvisionState(data){
-  try{ localStorage.setItem(PROV_KEY, JSON.stringify(data)); }catch(e){}
+  try{
+    data.provisionedAt = data.provisionedAt || Date.now();
+    localStorage.setItem(PROV_KEY, JSON.stringify(data));
+  }catch(e){}
 }
 function abrirExcelPopup(e){
   e.preventDefault();
