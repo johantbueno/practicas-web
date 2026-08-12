@@ -302,18 +302,6 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
   .timer-box.overtime .timer-value{animation:none;}
   .fast-clock-hand{animation:none;}
 }
-/* GATE OVERLAY */
-#gate-overlay{position:fixed; inset:0; background:var(--bg-body); z-index:5000; display:flex; align-items:center; justify-content:center; padding:1.5rem;}
-.gate-card{background:var(--bg-card); border:1px solid var(--border-light); border-radius:var(--radius-lg); box-shadow:var(--shadow-lg); max-width:460px; width:100%; padding:2rem;}
-.gate-card h1{font-size:1.3rem; font-weight:800; color:var(--primary); margin:.5rem 0 .75rem;}
-.gate-card p{font-size:.92rem; margin:0 0 1rem;}
-.gate-card input{width:100%; padding:.65rem .8rem; border:1px solid var(--border-light); border-radius:var(--radius-sm); font-size:1rem; font-family:inherit; background:var(--bg-body); color:var(--primary); margin-bottom:1rem;}
-.gate-card .btn-primary{width:100%;}
-.gate-status{font-size:.85rem; margin-top:1rem; padding:.75rem 1rem; border-radius:var(--radius-sm); display:none;}
-.gate-status.show{display:block;}
-.gate-status.blocked{background:var(--red-bg); border:1px solid var(--red-border); color:var(--red);}
-.gate-status.warn{background:var(--amber-bg); border:1px solid var(--amber-border); color:var(--amber);}
-body.gate-locked .wrapper{display:none;}
 
 @media (prefers-reduced-motion: reduce){
   .reveal-init{opacity:1; transform:none; transition:none;}
@@ -839,10 +827,8 @@ body.gate-locked .wrapper{display:none;}
 var AI_BASE = 'https://n8n-inap.167.88.36.13.sslip.io/webhook';
 var AI_CHAT_URL = AI_BASE + '/inap-tutor-chat';
 var AI_GRADE_URL = AI_BASE + '/inap-grade';
-var AI_VERIFY_URL = AI_BASE + '/inap-verificar-progreso';
 var AI_CHAT_TIMEOUT = 60000;
 var AI_GRADE_TIMEOUT = 650000;
-var AI_VERIFY_TIMEOUT = 20000;
 var VOICE_TRANSCRIBE_URL = 'https://n8n-inap.167.88.36.13.sslip.io/webhook/prof-johan-tapia-transcribir';
 
 function fetchWithTimeout(url, options, timeoutMs){

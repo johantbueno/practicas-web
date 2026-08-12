@@ -302,18 +302,6 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
   .timer-box.overtime .timer-value{animation:none;}
   .fast-clock-hand{animation:none;}
 }
-/* GATE OVERLAY */
-#gate-overlay{position:fixed; inset:0; background:var(--bg-body); z-index:5000; display:flex; align-items:center; justify-content:center; padding:1.5rem;}
-.gate-card{background:var(--bg-card); border:1px solid var(--border-light); border-radius:var(--radius-lg); box-shadow:var(--shadow-lg); max-width:460px; width:100%; padding:2rem;}
-.gate-card h1{font-size:1.3rem; font-weight:800; color:var(--primary); margin:.5rem 0 .75rem;}
-.gate-card p{font-size:.92rem; margin:0 0 1rem;}
-.gate-card input{width:100%; padding:.65rem .8rem; border:1px solid var(--border-light); border-radius:var(--radius-sm); font-size:1rem; font-family:inherit; background:var(--bg-body); color:var(--primary); margin-bottom:1rem;}
-.gate-card .btn-primary{width:100%;}
-.gate-status{font-size:.85rem; margin-top:1rem; padding:.75rem 1rem; border-radius:var(--radius-sm); display:none;}
-.gate-status.show{display:block;}
-.gate-status.blocked{background:var(--red-bg); border:1px solid var(--red-border); color:var(--red);}
-.gate-status.warn{background:var(--amber-bg); border:1px solid var(--amber-border); color:var(--amber);}
-body.gate-locked .wrapper{display:none;}
 
 @media (prefers-reduced-motion: reduce){
   .reveal-init{opacity:1; transform:none; transition:none;}
@@ -325,20 +313,9 @@ body.gate-locked .wrapper{display:none;}
 }
 </style>
 </head>
-<body class="gate-locked">
+<body>
 <a href="#main-content" class="skip-link">Saltar al contenido</a>
 <div id="progress-wrap"><div id="progress-bar"></div></div>
-
-<div id="gate-overlay">
-  <div class="gate-card">
-    <span class="step-badge">🔒 Unidad bloqueada</span>
-    <h1>Antes de continuar…</h1>
-    <p>Esta práctica requiere haber completado la <strong>Unidad I</strong>. Escriba su nombre (el mismo que usó en esa unidad) para verificar su progreso.</p>
-    <input type="text" id="gate-nombre" placeholder="Su nombre completo">
-    <button class="btn-primary" id="gate-btn" type="button">Verificar y continuar</button>
-    <div class="gate-status" id="gate-status"></div>
-  </div>
-</div>
 
 <div class="wrapper">
   <aside class="sidebar" id="sidebar">
@@ -802,10 +779,8 @@ body.gate-locked .wrapper{display:none;}
 var AI_BASE = 'https://n8n-inap.167.88.36.13.sslip.io/webhook';
 var AI_CHAT_URL = AI_BASE + '/inap-tutor-chat';
 var AI_GRADE_URL = AI_BASE + '/inap-grade';
-var AI_VERIFY_URL = AI_BASE + '/inap-verificar-progreso';
 var AI_CHAT_TIMEOUT = 60000;
 var AI_GRADE_TIMEOUT = 650000;
-var AI_VERIFY_TIMEOUT = 20000;
 var VOICE_TRANSCRIBE_URL = 'https://n8n-inap.167.88.36.13.sslip.io/webhook/prof-johan-tapia-transcribir';
 
 function fetchWithTimeout(url, options, timeoutMs){
@@ -814,91 +789,6 @@ function fetchWithTimeout(url, options, timeoutMs){
   return fetch(url, Object.assign({}, options, { signal: controller.signal }))
     .finally(function(){ clearTimeout(timer); });
 }
-
-var UNIDAD_ACTUAL = 'u2';
-var UNIDAD_REQUERIDA = 'u1';
-var UNIDAD_REQUERIDA_LABEL = 'Unidad I';
-var UNIDAD_REQUERIDA_URL = 'https://johantbueno.github.io/practicas-web/formulacion-proyectos-u1/';
-var URL_MAP = {
-  u1: 'https://johantbueno.github.io/practicas-web/formulacion-proyectos-u1/',
-  u2: 'https://johantbueno.github.io/practicas-web/formulacion-proyectos-u2/',
-  u3: 'https://johantbueno.github.io/practicas-web/formulacion-proyectos-u3/',
-  u4: 'https://johantbueno.github.io/practicas-web/formulacion-proyectos-u4/',
-  final: 'https://johantbueno.github.io/practicas-web/formulacion-proyectos-final/'
-};
-
-(function(){
-  var GATE_KEY = 'inap_gate_' + UNIDAD_ACTUAL + '_' + 'formulacion-proyectos-ci';
-  var overlay = document.getElementById('gate-overlay');
-  var body = document.body;
-  var nombreInput = document.getElementById('gate-nombre');
-  var btn = document.getElementById('gate-btn');
-  var statusEl = document.getElementById('gate-status');
-
-  function unlock(nombre){
-    body.classList.remove('gate-locked');
-    if(overlay) overlay.style.display = 'none';
-    var estNombre = document.getElementById('est_nombre');
-    if(estNombre && !estNombre.value && nombre) estNombre.value = nombre;
-  }
-
-  try{
-    var saved = localStorage.getItem(GATE_KEY);
-    if(saved){ unlock(saved); return; }
-  }catch(e){}
-
-  function showStatus(msg, cls){
-    if(!statusEl) return;
-    statusEl.textContent = msg;
-    statusEl.className = 'gate-status show ' + (cls || '');
-  }
-
-  btn.addEventListener('click', function(){
-    var nombre = (nombreInput.value || '').trim();
-    if(!nombre){ showStatus('Escriba su nombre para continuar.', 'blocked'); return; }
-    btn.disabled = true;
-    btn.textContent = 'Verificando…';
-    var controller = new AbortController();
-    var timer = setTimeout(function(){ controller.abort(); }, AI_VERIFY_TIMEOUT);
-    fetch(AI_VERIFY_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ nombre: nombre, curso: 'formulacion-proyectos-ci', unidad_actual: UNIDAD_ACTUAL }),
-      signal: controller.signal
-    }).then(function(res){
-      clearTimeout(timer);
-      if(!res.ok) throw new Error('HTTP ' + res.status);
-      return res.json();
-    }).then(function(data){
-      btn.disabled = false;
-      btn.textContent = 'Verificar y continuar';
-      if(data && data.ok && data.desbloqueado){
-        try{ localStorage.setItem(GATE_KEY, nombre); }catch(e){}
-        unlock(nombre);
-      } else {
-        var reqUrl = (data && data.requiere_practica && URL_MAP[data.requiere_practica]) || UNIDAD_REQUERIDA_URL;
-        var reqLabel = (data && data.requiere_label) || UNIDAD_REQUERIDA_LABEL;
-        showStatus('No encontramos una entrega aprobada de "' + nombre + '" en la ' + reqLabel + '. Complétela primero aquí: ' + reqUrl, 'blocked');
-      }
-    }).catch(function(){
-      clearTimeout(timer);
-      btn.disabled = false;
-      btn.textContent = 'Verificar y continuar';
-      showStatus('⚠️ No se pudo verificar su progreso en este momento (posible problema de conexión). Puede continuar de todas formas — su facilitador verificará el orden manualmente si hace falta.', 'warn');
-      var contBtn = document.createElement('button');
-      contBtn.type = 'button';
-      contBtn.className = 'btn-secondary';
-      contBtn.style.marginTop = '.75rem';
-      contBtn.style.width = '100%';
-      contBtn.textContent = 'Continuar de todas formas';
-      contBtn.addEventListener('click', function(){
-        try{ localStorage.setItem(GATE_KEY, nombre); }catch(e){}
-        unlock(nombre);
-      });
-      statusEl.appendChild(contBtn);
-    });
-  });
-})();
 
 
 

@@ -470,9 +470,8 @@
       {
         "nombre": "Inteligencia Artificial Aplicada a Recursos Humanos",
         "icono": "🧠",
-        "tipoClase": "secuencial",
-        "tipoLabel": "Curso secuencial · 5 unidades",
-        "esSecuencial": true,
+        "tipoClase": "taller",
+        "tipoLabel": "5 unidades · orden libre",
         "cursoId": "ia-rrhh-ci",
         "practicas": [
           {
@@ -530,9 +529,8 @@
       {
         "nombre": "Diplomado en Formulación y Gestión de Proyectos",
         "icono": "📊",
-        "tipoClase": "secuencial",
-        "tipoLabel": "Curso secuencial · 4 unidades + Trabajo Final",
-        "esSecuencial": true,
+        "tipoClase": "taller",
+        "tipoLabel": "5 prácticas · orden libre",
         "cursoId": "formulacion-proyectos-ci",
         "practicas": [
           {
