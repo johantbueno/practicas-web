@@ -430,9 +430,8 @@
       {
         "nombre": "Inteligencia Artificial Aplicada",
         "icono": "📡",
-        "tipoClase": "secuencial",
-        "tipoLabel": "Curso secuencial · 3 unidades",
-        "esSecuencial": true,
+        "tipoClase": "taller",
+        "tipoLabel": "3 unidades · orden libre",
         "cursoId": "ia-aplicada-ci",
         "practicas": [
           {
