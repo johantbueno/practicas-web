@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Práctica — Unidad I | Inteligencia Artificial Aplicada</title>
-<meta name="description" content="Práctica autocalificable de la Unidad I: Fundamentos de Inteligencia Artificial, curso Inteligencia Artificial Aplicada, Comunicación Integral. Conceptos, tipos de IA, IA Generativa vs Predictiva, casos de uso y laboratorio con ChatGPT, Copilot, Gemini, Claude y DeepSeek. Por escrito o por nota de voz. Incluye a Nicole y calificación automática preliminar.">
+<title>Práctica — Unidad III | Inteligencia Artificial Aplicada</title>
+<meta name="description" content="Práctica autocalificable de la Unidad III: Creación de Contenido Digital con IA — Imágenes, Audio y Video, curso Inteligencia Artificial Aplicada, Comunicación Integral. Prompts visuales, ética de imágenes generadas, piezas de audio institucional, guiones de video y un laboratorio real de contenido. Por escrito o por nota de voz. Incluye a Nicole y calificación automática preliminar.">
 <meta name="color-scheme" content="light dark">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%A1%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -297,6 +297,19 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
 
 #confetti-canvas{position:fixed; inset:0; width:100%; height:100%; pointer-events:none; z-index:3000;}
 
+/* GATE OVERLAY */
+#gate-overlay{position:fixed; inset:0; background:var(--bg-body); z-index:5000; display:flex; align-items:center; justify-content:center; padding:1.5rem;}
+.gate-card{background:var(--bg-card); border:1px solid var(--border-light); border-radius:var(--radius-lg); box-shadow:var(--shadow-lg); max-width:460px; width:100%; padding:2rem;}
+.gate-card h1{font-size:1.3rem; font-weight:800; color:var(--primary); margin:.5rem 0 .75rem;}
+.gate-card p{font-size:.92rem; margin:0 0 1rem;}
+.gate-card input{width:100%; padding:.65rem .8rem; border:1px solid var(--border-light); border-radius:var(--radius-sm); font-size:1rem; font-family:inherit; background:var(--bg-body); color:var(--primary); margin-bottom:1rem;}
+.gate-card .btn-primary{width:100%;}
+.gate-status{font-size:.85rem; margin-top:1rem; padding:.75rem 1rem; border-radius:var(--radius-sm); display:none;}
+.gate-status.show{display:block;}
+.gate-status.blocked{background:var(--red-bg); border:1px solid var(--red-border); color:var(--red);}
+.gate-status.warn{background:var(--amber-bg); border:1px solid var(--amber-border); color:var(--amber);}
+body.gate-locked .wrapper{display:none;}
+
 @media (prefers-reduced-motion: reduce){
   .reveal-init{opacity:1; transform:none; transition:none;}
   #cover-canvas{display:none;}
@@ -311,11 +324,22 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
 <a href="#main-content" class="skip-link">Saltar al contenido</a>
 <div id="progress-wrap"><div id="progress-bar"></div></div>
 
+<div id="gate-overlay">
+  <div class="gate-card">
+    <span class="step-badge">🔒 Unidad bloqueada</span>
+    <h1>Antes de continuar…</h1>
+    <p>Esta práctica requiere haber completado y aprobado la <strong>Unidad II</strong>. Escriba su nombre (el mismo que usó en esa unidad) para verificar su progreso.</p>
+    <input type="text" id="gate-nombre" placeholder="Su nombre completo">
+    <button class="btn-primary" id="gate-btn" type="button">Verificar y continuar</button>
+    <div class="gate-status" id="gate-status"></div>
+  </div>
+</div>
+
 <div class="wrapper">
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
       <span style="font-size:1.4rem;">📡</span>
-      <p class="sidebar-title">Unidad I · IA Aplicada</p>
+      <p class="sidebar-title">Unidad III · IA Aplicada</p>
       <div class="header-actions">
         <div class="fontsize-controls">
           <button type="button" id="font-smaller" title="Letra más pequeña" aria-label="Reducir tamaño de letra">A−</button>
@@ -372,14 +396,14 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
 
     <section id="portada" class="card cover" style="scroll-margin-top:1.25rem;">
       <canvas id="cover-canvas" aria-hidden="true"></canvas>
-      <p class="eyebrow">UNIDAD I · FUNDAMENTOS — Curso Inteligencia Artificial Aplicada · Comunicación Integral</p>
-      <h1>Práctica — Unidad I</h1>
-      <p class="sub">Fundamentos de Inteligencia Artificial: conceptos clave, tipos de IA, IA Generativa vs Predictiva y un primer laboratorio con las herramientas más usadas hoy, aplicados a la comunicación institucional y organizacional.</p>
+      <p class="eyebrow">UNIDAD III · CONTENIDO DIGITAL CON IA — Curso Inteligencia Artificial Aplicada · Comunicación Integral</p>
+      <h1>Práctica — Unidad III</h1>
+      <p class="sub">Creación de Contenido Digital con IA: imágenes para campañas, audio institucional con voces neuronales, guiones de video con estructura profesional y el checklist de accesibilidad, aplicados a la comunicación de su organización.</p>
       <div class="cover-chips">
         <span class="cover-chip">Individual o en equipo</span>
         <span class="cover-chip">100 pts · aprobación mínima 70</span>
         <span class="cover-chip">6 pasos · aproximadamente 60 minutos</span>
-        <span class="cover-chip">Después de revisar el material de estudio de la Unidad I</span>
+        <span class="cover-chip">Después de revisar el material de estudio de la Unidad III</span>
         <span class="cover-chip">Gana una medalla digital al terminar</span>
       </div>
     </section>
@@ -387,7 +411,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
     <section class="card" id="tutorial">
       <span class="step-badge">Tutorial</span>
       <h1 style="font-size:1.35rem;">Cómo usar esta plataforma</h1>
-      <p><strong>Concepto:</strong> esta práctica se realiza <strong>después de revisar el material de estudio de la Unidad I</strong> (video o sesión presencial). Tiene 6 pasos, cada uno con su concepto, una guía de llenado y espacio para sus respuestas — puede escribir directamente o grabar una nota de voz.</p>
+      <p><strong>Concepto:</strong> esta práctica se realiza <strong>después de revisar el material de estudio de la Unidad III</strong> (video o sesión presencial). Tiene 6 pasos, cada uno con su concepto, una guía de llenado y espacio para sus respuestas — puede escribir directamente o grabar una nota de voz.</p>
 
       <h2>Dos formas de responder cada pregunta</h2>
       <p><strong>Definición:</strong> cada campo de respuesta larga acepta texto escrito o una nota de voz transcrita automáticamente.</p>
@@ -422,11 +446,12 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
     <section class="card">
       <span class="step-badge">Objetivo y encuadre</span>
       <h1 style="font-size:1.35rem;">Antes de empezar</h1>
+
       <div class="alert info">
-        <strong>Objetivo de la actividad:</strong> comprender qué es la Inteligencia Artificial y cómo funciona en términos simples, dominar los 12 conceptos básicos del área, diferenciar la IA Generativa de la IA Predictiva, identificar casos de uso reales de IA en el trabajo de comunicación, y crear cuenta y probar al menos dos de las cinco herramientas de IA generativa más usadas hoy.
+        <strong>Objetivo de la actividad:</strong> dominar el prompt visual para generar imágenes institucionales, comprender los límites éticos y legales del contenido generado, planificar piezas de audio y video con IA, y ejecutar un laboratorio real generando al menos una pieza de contenido digital.
       </div>
       <div class="alert gold">
-        <strong>Sobre este curso:</strong> "Inteligencia Artificial Aplicada" acompaña el trabajo diario de comunicación institucional y organizacional con herramientas de IA. Esta Unidad I sienta las bases: qué es la IA, sus conceptos, tipos y las herramientas disponibles hoy. Al terminar, usted estará listo/a para la Unidad II (Productividad y Automatización).
+        <strong>Sobre este curso:</strong> "Inteligencia Artificial Aplicada" acompaña el trabajo diario de comunicación institucional y organizacional con herramientas de IA. La Unidad II cubrió la productividad y la gestión institucional. Esta Unidad III se enfoca en el contenido digital: producir imágenes, audio y video con calidad profesional, sin un equipo de producción costoso.
       </div>
       <h2>¿Cómo va a completar esta práctica?</h2>
       <p>Puede completarla sola/o o en equipo. Complete esto antes de enviar: quien coordina el curso recibirá la calificación identificada con estos datos.</p>
@@ -450,11 +475,12 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
         <textarea id="grp_integrantes" placeholder="Escriba el nombre completo de cada persona que participó, uno por línea o separados por coma"></textarea>
       </div>
       <h2>Instrucciones generales</h2>
+
       <ol class="ins-list">
-        <li>Revise el <strong>material de estudio de la Unidad I</strong> (video o sesión presencial) antes de responder — esta práctica retoma directamente sus conceptos.</li>
+        <li>Revise el <strong>material de estudio de la Unidad III</strong> (video o sesión presencial) antes de responder — esta práctica retoma directamente sus conceptos.</li>
         <li>Elija si van a trabajar <strong>individual o en equipo</strong>, arriba.</li>
         <li>Complete los <strong>6 pasos</strong> en el orden indicado, por escrito o por nota de voz.</li>
-        <li>En el Paso 5 va a <strong>crear cuenta y probar de verdad</strong> al menos 2 de las 5 herramientas de IA generativa — necesitará conexión a internet en ese momento.</li>
+        <li>En el Paso 5 va a <strong>generar de verdad</strong> una pieza de contenido (una imagen o una narración de audio) — necesitará conexión a internet en ese momento.</li>
         <li>Al finalizar, presione <strong>Enviar y Calificar</strong>: el sistema revisará su trabajo y le dará una nota y retroalimentación inmediata.</li>
       </ol>
       <div class="alert success">
@@ -468,244 +494,187 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
     <section id="marco-conceptual" class="card">
       <span class="step-badge">Referencia, explicada en palabras simples</span>
       <h1 style="font-size:1.35rem;">Marco conceptual de referencia</h1>
-      <p>Consulte estos conceptos, ya vistos en el material de estudio de la Unidad I, mientras completa la actividad. También puede preguntarle a Nicole sobre cualquiera de ellos.</p>
+      <p>Consulte estos conceptos, ya vistos en el material de estudio de la Unidad III, mientras completa la actividad. También puede preguntarle a Nicole sobre cualquiera de ellos.</p>
 
-      <h2>1. ¿Qué es la Inteligencia Artificial?</h2>
-      <p>La IA permite a las computadoras realizar tareas que normalmente requieren inteligencia humana: reconocer imágenes, entender lenguaje, tomar decisiones. Una analogía simple: es como enseñarle a un niño a distinguir perros de gatos mostrándole millones de fotos, hasta que reconoce el patrón por sí mismo.</p>
-      <p>Ya usamos IA todos los días sin notarlo: los filtros de Instagram/TikTok, las recomendaciones de Netflix, las rutas de Google Maps, el filtro de correo no deseado de Gmail, Siri/Alexa, las sugerencias de compra de Amazon, el corrector del teléfono. Según McKinsey, el 88% de las organizaciones ya usa IA en al menos una función, y su adopción se asocia a un aumento promedio de 20-30% en productividad.</p>
-      <div class="video-grid">
-        <div><div class="video-wrap"><iframe src="https://www.youtube.com/embed/DdMvX37NzwY" title="¿Qué es la Inteligencia Artificial? — Explicación sencilla" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><p class="video-caption">¿Qué es la Inteligencia Artificial? — Explicación sencilla</p></div>
-        <div><div class="video-wrap"><iframe src="https://www.youtube.com/embed/sA2bUtu6rZc" title="Historia de la IA en 10 minutos — De Turing a ChatGPT" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><p class="video-caption">Historia de la IA en 10 minutos — De Turing a ChatGPT</p></div>
+      <h2>1. El prompt visual: 5 elementos</h2>
+      <p>Los generadores de imágenes con IA (DALL-E 3, Midjourney, Canva con IA, Ideogram) convierten una descripción en una imagen. Un prompt visual profesional combina:</p>
+      <div class="glossary-grid">
+        <div class="gloss-item"><dt>1. Sujeto</dt><dd>Qué o quién aparece: "un grupo de empleados públicos en una oficina moderna".</dd></div>
+        <div class="gloss-item"><dt>2. Estilo</dt><dd>El tratamiento visual: fotografía profesional, ilustración flat design, render 3D, acuarela.</dd></div>
+        <div class="gloss-item"><dt>3. Escena y contexto</dt><dd>Dónde y qué está pasando: "una mujer entrega un documento a un funcionario en un mostrador".</dd></div>
+        <div class="gloss-item"><dt>4. Composición y encuadre</dt><dd>Primer plano o plano general, encuadre horizontal, espacio para texto.</dd></div>
+        <div class="gloss-item"><dt>5. Color e iluminación</dt><dd>Paleta de colores, tipo de luz, fondo limpio sin distracciones.</dd></div>
       </div>
-
-      <h2>2. Glosario de 12 conceptos básicos</h2>
-      <dl class="glossary-grid">
-        <div class="gloss-item"><dt>1. Inteligencia Artificial (IA)</dt><dd>Programas capaces de realizar tareas que normalmente requieren inteligencia humana.</dd></div>
-        <div class="gloss-item"><dt>2. Machine Learning</dt><dd>Sistemas que aprenden patrones a partir de datos, sin que alguien programe cada regla a mano.</dd></div>
-        <div class="gloss-item"><dt>3. Deep Learning</dt><dd>Subtipo de Machine Learning basado en redes neuronales con muchas capas, capaz de reconocer patrones muy complejos (voz, imágenes).</dd></div>
-        <div class="gloss-item"><dt>4. Algoritmo</dt><dd>Conjunto de instrucciones paso a paso que sigue un programa para resolver un problema o tomar una decisión.</dd></div>
-        <div class="gloss-item"><dt>5. Datos (Data)</dt><dd>La información con la que se entrena y alimenta un sistema de IA. Sin datos de calidad, no hay IA útil.</dd></div>
-        <div class="gloss-item"><dt>6. Modelo de IA</dt><dd>El resultado entrenado de aplicar un algoritmo sobre datos: lo que efectivamente responde cuando se le hace una pregunta.</dd></div>
-        <div class="gloss-item"><dt>7. Modelo de Lenguaje Grande (LLM)</dt><dd>Un modelo entrenado con enormes cantidades de texto; es el "motor" detrás de ChatGPT, Claude, Gemini y similares.</dd></div>
-        <div class="gloss-item"><dt>8. Red Neuronal</dt><dd>Estructura matemática inspirada en el cerebro humano, formada por capas de "neuronas" artificiales conectadas entre sí.</dd></div>
-        <div class="gloss-item"><dt>9. Prompt</dt><dd>La instrucción o pregunta que usted le escribe a una IA generativa para obtener una respuesta.</dd></div>
-        <div class="gloss-item"><dt>10. Entrenamiento</dt><dd>Proceso mediante el cual un modelo de IA "aprende", ajustando sus parámetros a partir de grandes cantidades de datos.</dd></div>
-        <div class="gloss-item"><dt>11. Automatización</dt><dd>Uso de tecnología (con o sin IA) para que una tarea se ejecute sin intervención humana constante.</dd></div>
-        <div class="gloss-item"><dt>12. NLP — Procesamiento de Lenguaje Natural</dt><dd>Rama de la IA dedicada a que las computadoras entiendan y generen lenguaje humano, en texto o voz.</dd></div>
-      </dl>
       <div class="alert info" style="margin-top:1rem;">
-        <strong>Cómo se relacionan:</strong> los DATOS alimentan ALGORITMOS que forman el MACHINE LEARNING; dentro de este, el DEEP LEARNING y las REDES NEURONALES son las técnicas más avanzadas, y son las que hacen posible la IA GENERATIVA y los MODELOS DE LENGUAJE actuales. Es una pirámide: cada nivel se apoya en el anterior.
-      </div>
-      <div class="video-grid">
-        <div><div class="video-wrap"><iframe src="https://www.youtube.com/embed/aircAruvnKk" title="¿Qué son las redes neuronales? — Explicación visual (3Blue1Brown)" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><p class="video-caption">¿Qué son las redes neuronales? — Explicación visual (3Blue1Brown)</p></div>
-        <div><div class="video-wrap"><iframe src="https://www.youtube.com/embed/HMoaRIbOaN0" title="Machine Learning explicado de forma simple" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><p class="video-caption">Machine Learning explicado de forma simple</p></div>
-        <div><div class="video-wrap"><iframe src="https://www.youtube.com/embed/DazUaVu5MO0" title="Diferencias entre Machine Learning y Deep Learning" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><p class="video-caption">Diferencias entre Machine Learning y Deep Learning</p></div>
+        <strong>Herramientas por necesidad:</strong> Canva con IA para el 80% del trabajo cotidiano (plantillas + kit de marca), Ideogram cuando la pieza lleva <em>texto legible dentro</em> (carteles, banners, portadas), Adobe Firefly cuando la seguridad jurídica es crítica (entrenado solo con imágenes con licencia), y Midjourney para el máximo impacto artístico.
       </div>
 
-      <h2>3. Tipos de Inteligencia Artificial</h2>
-      <p><strong>Según sus capacidades:</strong></p>
-      <div class="care-grid">
-        <div class="care-box"><div class="letra">ANI</div><div class="nombre">IA Estrecha (existe hoy)</div><p>Hace una sola cosa muy bien: reconocer voz, recomendar contenido, generar texto. Todo lo que usamos actualmente es ANI.</p></div>
-        <div class="care-box"><div class="letra">AGI</div><div class="nombre">IA General (aún no existe)</div><p>Podría razonar y aprender cualquier tarea intelectual al nivel de una persona. Es un objetivo de investigación, no una realidad hoy.</p></div>
-        <div class="care-box"><div class="letra">ASI</div><div class="nombre">Superinteligencia (hipotética)</div><p>Superaría la inteligencia humana en todos los ámbitos. Es un escenario teórico y debatido, no algo disponible.</p></div>
+      <h2>2. Ética y legalidad de las imágenes generadas</h2>
+      <div class="glossary-grid">
+        <div class="gloss-item"><dt>Derechos de uso</dt><dd>Las imágenes que genera con DALL-E, Midjourney, Canva o Ideogram son suyas para uso comercial, según los términos de cada plataforma (verificarlos: cambian).</dd></div>
+        <div class="gloss-item"><dt>Nunca engañar</dt><dd>Una imagen generada no debe presentarse como fotografía real de eventos institucionales. Las personas reales merecen fotos reales.</dd></div>
+        <div class="gloss-item"><dt>Sesgos</dt><dd>Los generadores pueden reproducir estereotipos de género, etnia y rol social. Revisar que las imágenes representen la diversidad real de su comunidad.</dd></div>
+        <div class="gloss-item"><dt>Marcas y personas</dt><dd>No generar imágenes de personas reales sin autorización, ni incluir logos de terceros.</dd></div>
       </div>
-      <p><strong>Según su función:</strong></p>
+
+      <h2>3. Audio y video con IA</h2>
       <div class="care-grid">
-        <div class="care-box"><div class="letra">📊</div><div class="nombre">Analítica</div><p>Analiza datos existentes para encontrar patrones y explicar "qué pasó" (ej. paneles de indicadores).</p></div>
-        <div class="care-box"><div class="letra">🔮</div><div class="nombre">Predictiva</div><p>Usa datos históricos para anticipar "qué va a pasar" (ej. riesgo de renuncia de un empleado, demanda futura).</p></div>
-        <div class="care-box"><div class="letra">💬</div><div class="nombre">Conversacional</div><p>Sostiene un diálogo en lenguaje natural con una persona (ej. chatbots de atención al cliente).</p></div>
-        <div class="care-box"><div class="letra">✨</div><div class="nombre">Generativa</div><p>Crea contenido nuevo: texto, imágenes, audio, video o código, a partir de una instrucción (prompt).</p></div>
+        <div class="care-box"><div class="letra">🗣️</div><div class="nombre">Voces neuronales (TTS)</div><p>Texto a voz con calidad profesional: Microsoft Edge TTS (gratuito, con voces dominicanas) y ElevenLabs (premium, clonación de voz con autorización escrita).</p></div>
+        <div class="care-box"><div class="letra">🎵</div><div class="nombre">Música con IA</div><p>Suno genera canciones completas con voz e instrumentos desde una descripción. La versión PAGA da derechos comerciales; la gratuita NO.</p></div>
+        <div class="care-box"><div class="letra">🎬</div><div class="nombre">Guion de video</div><p>Estructura de 2 minutos: gancho (0:00-0:15), contexto (0:15-0:45), desarrollo (0:45-1:30), prueba (1:30-1:45) y llamada a la acción (1:45-2:00). Se escribe para el oído: frases cortas, una idea por oración.</p></div>
+        <div class="care-box"><div class="letra">🖥️</div><div class="nombre">Avatares digitales</div><p>HeyGen y Synthesia: presentadores virtuales que pronuncian su guion con gestos realistas, ideales para capacitaciones masivas y contenido recurrente.</p></div>
+      </div>
+
+      <h2>4. Accesibilidad: checklist de publicación</h2>
+      <div class="glossary-grid">
+        <div class="gloss-item"><dt>Subtítulos</dt><dd>La mayoría del video en redes se consume sin sonido. Generarlos con IA y corregirlos a mano (nombres propios, tecnicismos).</dd></div>
+        <div class="gloss-item"><dt>Transcripción</dt><dd>Disponible para quienes prefieren leer; obligatoria para accesibilidad.</dd></div>
+        <div class="gloss-item"><dt>Voz clonada</dt><dd>Nunca clonar la voz de alguien sin autorización expresa. Nunca usarla para hacer decir a alguien algo que no dijo.</dd></div>
+        <div class="gloss-item"><dt>Formatos</dt><dd>Vertical para redes, horizontal para web. Contraste y tamaño de texto legibles.</dd></div>
       </div>
     </section>
 
+    
     <!-- ============ PASO 1 ============ -->
     <section id="paso1" class="card">
-      <span class="step-badge">Paso 1 · 8 min</span><span class="step-points">Vale 15 pts</span>
-      <h1>¿Qué es la Inteligencia Artificial?</h1>
-      <p><strong>Concepto:</strong> antes de usar cualquier herramienta de IA, es importante poder explicar con sus propias palabras qué es y por qué ya forma parte de su vida diaria y de su trabajo.</p>
-      <div class="alert info"><strong>Guía:</strong> evite copiar la definición del marco conceptual — explíquelo como se lo explicaría a un compañero de trabajo que nunca ha oído hablar de esto.</div>
+      <span class="step-badge">Paso 1 · 12 min</span><span class="step-points">Vale 15 pts</span>
+      <h1>El prompt visual para una imagen institucional</h1>
+      <p><strong>Concepto:</strong> un prompt visual profesional combina 5 elementos: <strong>sujeto</strong> (qué o quién aparece), <strong>estilo</strong> (fotografía, ilustración, render), <strong>escena</strong> (dónde y qué pasa), <strong>composición</strong> (encuadre, espacio para texto) y <strong>color e iluminación</strong>. Entre más específico sea, más profesional será el resultado.</p>
+      <div class="alert info"><strong>Guía:</strong> piense en una imagen que su organización realmente necesitaría (banner web, portada de informe, pieza de campaña) y escriba el prompt visual completo con los 5 elementos. No hace falta generarla todavía — eso será en el Paso 5.</div>
 
       <div class="field">
-        <label for="p1_definicion">En sus propias palabras, ¿qué es la Inteligencia Artificial? <span class="wc" data-for="p1_definicion">0 palabras</span></label>
-        <textarea class="tall" id="p1_definicion" placeholder="Para mí, la Inteligencia Artificial es..."></textarea>
-        <div class="voice-row"><button type="button" class="voice-btn" data-target="p1_definicion">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p1_definicion"></span></div>
+        <label for="p1_imagen">¿Qué imagen institucional necesita su organización? <span class="wc" data-for="p1_imagen">0 palabras</span></label>
+        <textarea class="tall" id="p1_imagen" placeholder="Necesitaríamos una imagen para... (describa la pieza y dónde se usaría)"></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p1_imagen">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p1_imagen"></span></div>
       </div>
-
       <div class="field">
-        <label for="p1_ejemplo">Mencione un ejemplo cotidiano de IA que usted ya usa (en su vida diaria o en su trabajo de comunicación) <span class="wc" data-for="p1_ejemplo">0 palabras</span></label>
-        <textarea class="tall" id="p1_ejemplo" placeholder="Un ejemplo de IA que ya uso es..."></textarea>
-        <div class="voice-row"><button type="button" class="voice-btn" data-target="p1_ejemplo">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p1_ejemplo"></span></div>
+        <label for="p1_prompt">Escriba el prompt visual completo con los 5 elementos (sujeto, estilo, escena, composición, color) <span class="wc" data-for="p1_prompt">0 palabras</span></label>
+        <textarea class="tall" id="p1_prompt" placeholder="Fotografía profesional de... estilo... escena... encuadre... paleta..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p1_prompt">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p1_prompt"></span></div>
       </div>
-      <div class="hint">Ejemplos: recomendaciones de redes sociales/streaming, corrector ortográfico, asistente de voz, filtro de correo no deseado, rutas de mapas, un chatbot de atención en una página institucional.</div>
+      <div class="hint">Consejo: agregue "sin texto en la imagen" si la pieza no debe llevar texto dentro, o use Ideogram si necesita un cartel con texto legible.</div>
     </section>
 
     <!-- ============ PASO 2 ============ -->
     <section id="paso2" class="card">
       <span class="step-badge">Paso 2 · 10 min</span><span class="step-points">Vale 15 pts</span>
-      <h1>Conceptos básicos aplicados</h1>
-      <p><strong>Concepto:</strong> conocer el vocabulario básico de IA (Machine Learning, Deep Learning, algoritmo, prompt, LLM, entrenamiento, NLP, etc.) le permite entender de qué se habla en cualquier conversación sobre el tema, y comunicarlo con claridad a su propio equipo.</p>
-      <div class="alert info"><strong>Guía:</strong> elija <strong>4 conceptos</strong> del glosario de la sección "Marco conceptual" (de los 12) y explique cada uno con sus propias palabras, aplicándolo a un ejemplo de comunicación institucional u organizacional.</div>
+      <h1>Ética y legalidad de las imágenes generadas</h1>
+      <p><strong>Concepto:</strong> las imágenes generadas con IA plantean cuatro consideraciones: <strong>derechos de uso</strong> (son suyas según los términos de la plataforma, que cambian), <strong>no engañar</strong> (nunca presentarlas como fotos reales de eventos), <strong>sesgos</strong> (pueden reproducir estereotipos) y <strong>marcas y personas</strong> (no generar personas reales sin autorización ni logos de terceros).</p>
+      <div class="alert info"><strong>Guía:</strong> identifique un riesgo concreto que estas consideraciones plantean para su organización y proponga una regla interna para manejarlo.</div>
 
       <div class="field">
-        <label for="p2_conceptos">¿Qué 4 conceptos eligió?</label>
-        <input type="text" id="p2_conceptos" placeholder="Ej: Prompt, Machine Learning, NLP, Modelo de Lenguaje Grande (LLM)">
+        <label for="p2_riesgo">¿Qué riesgo concreto de las imágenes generadas identifica en su organización? <span class="wc" data-for="p2_riesgo">0 palabras</span></label>
+        <textarea class="tall" id="p2_riesgo" placeholder="Un riesgo concreto sería... (por ejemplo, usar una imagen generada como si fuera foto real de un evento)"></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p2_riesgo">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p2_riesgo"></span></div>
       </div>
       <div class="field">
-        <label for="p2_definiciones">Explique cada uno de los 4 conceptos elegidos con sus propias palabras y un ejemplo aplicado a la comunicación institucional u organizacional <span class="wc" data-for="p2_definiciones">0 palabras</span></label>
-        <textarea class="tall" id="p2_definiciones" placeholder="1) Prompt: ... Ejemplo: ... 2) Machine Learning: ... Ejemplo: ..."></textarea>
-        <div class="voice-row"><button type="button" class="voice-btn" data-target="p2_definiciones">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p2_definiciones"></span></div>
+        <label for="p2_regla">¿Qué regla interna propondría para manejar ese riesgo? <span class="wc" data-for="p2_regla">0 palabras</span></label>
+        <textarea class="tall" id="p2_regla" placeholder="Propondría la regla de que..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p2_regla">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p2_regla"></span></div>
       </div>
     </section>
 
     <!-- ============ PASO 3 ============ -->
     <section id="paso3" class="card">
       <span class="step-badge">Paso 3 · 10 min</span><span class="step-points">Vale 15 pts</span>
-      <h1>IA Generativa vs. IA Predictiva</h1>
-      <p><strong>Concepto:</strong> la IA Generativa <em>crea</em> contenido nuevo (texto, imágenes, audio, video, código); la IA Predictiva <em>anticipa</em> resultados a partir de datos históricos (riesgo, demanda, tendencias). No son opuestas: muchas veces trabajan juntas — por ejemplo, un área de Recursos Humanos puede usar IA Predictiva para detectar riesgo de renuncia de un empleado, y luego IA Generativa para redactar automáticamente un plan de retención.</p>
-      <div class="video-grid">
-        <div><div class="video-wrap"><iframe src="https://www.youtube.com/embed/HX7S8WGIbOI" title="IA Generativa vs. IA Predictiva — Diferencias explicadas" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><p class="video-caption">IA Generativa vs. IA Predictiva — Diferencias explicadas</p></div>
-        <div><div class="video-wrap"><iframe src="https://www.youtube.com/embed/eKs5JTTP_Mo" title="¿Qué es la IA Generativa?" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><p class="video-caption">¿Qué es la IA Generativa?</p></div>
-      </div>
-      <div class="alert info"><strong>Guía:</strong> explique la diferencia con sus propias palabras y proponga un ejemplo propio (no copiado del video) de cada tipo, aplicado a su área de comunicación.</div>
+      <h1>Una pieza de audio institucional con IA</h1>
+      <p><strong>Concepto:</strong> la IA permite producir audio profesional sin estudio de grabación: <strong>voces neuronales</strong> (texto a voz con Microsoft Edge TTS gratuito o ElevenLabs), <strong>música original</strong> (Suno, con plan pago para derechos comerciales) y <strong>edición con IA</strong> (Adobe Podcast para limpiar ruido, Descript para editar por texto). Usos típicos: narración de cursos, audio de bienvenida telefónica, guías de trámites, podcasts.</p>
+      <div class="alert info"><strong>Guía:</strong> elija una pieza de audio que su organización realmente necesitaría y describa cómo la produciría paso a paso con estas herramientas, incluyendo qué voz y qué estilo musical usaría.</div>
 
       <div class="field">
-        <label for="p3_diferencia">Explique con sus propias palabras la diferencia entre IA Generativa e IA Predictiva <span class="wc" data-for="p3_diferencia">0 palabras</span></label>
-        <textarea class="tall" id="p3_diferencia" placeholder="La IA Generativa... mientras que la IA Predictiva..."></textarea>
-        <div class="voice-row"><button type="button" class="voice-btn" data-target="p3_diferencia">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p3_diferencia"></span></div>
+        <label for="p3_pieza">¿Qué pieza de audio institucional planificaría? <span class="wc" data-for="p3_pieza">0 palabras</span></label>
+        <textarea class="tall" id="p3_pieza" placeholder="La pieza que produciría es... (un podcast, un audio de bienvenida, la narración de un curso, un jingle)"></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p3_pieza">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p3_pieza"></span></div>
       </div>
       <div class="field">
-        <label for="p3_ejemplo">Proponga un ejemplo propio de IA Generativa y uno de IA Predictiva aplicados a su trabajo <span class="wc" data-for="p3_ejemplo">0 palabras</span></label>
-        <textarea class="tall" id="p3_ejemplo" placeholder="Generativa: podría usarla para... Predictiva: podría usarla para..."></textarea>
-        <div class="voice-row"><button type="button" class="voice-btn" data-target="p3_ejemplo">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p3_ejemplo"></span></div>
+        <label for="p3_plan">Describa paso a paso cómo la produciría con las herramientas de IA <span class="wc" data-for="p3_plan">0 palabras</span></label>
+        <textarea class="tall" id="p3_plan" placeholder="Primero escribiría el guion con... Luego generaría la voz con... La música la haría con... Finalmente editaría con..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p3_plan">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p3_plan"></span></div>
       </div>
     </section>
 
     <!-- ============ PASO 4 ============ -->
     <section id="paso4" class="card">
-      <span class="step-badge">Paso 4 · 8 min</span><span class="step-points">Vale 15 pts</span>
-      <h1>Casos de uso en su entorno de trabajo</h1>
-      <p><strong>Concepto:</strong> la IA generativa ya se usa hoy para redactar correos difíciles, resumir artículos, crear presentaciones, generar reportes y actas, diseñar planes de capacitación, redactar políticas internas y memorandos, y automatizar respuestas frecuentes, entre muchas otras tareas.</p>
-      <div class="alert info"><strong>Guía:</strong> esta práctica aplica a cualquier tipo de organización con un área de comunicación. Elija el tipo que más se parezca a su realidad, o use cualquier otro.</div>
-      <div class="tbl-wrap"><table class="tp-table">
-        <thead><tr><th>Tipo de organización</th><th>Ejemplo de tarea de comunicación</th></tr></thead>
-        <tbody>
-          <tr><td class="label-cell">Empresa privada</td><td>Redactar el boletín interno mensual, generar publicaciones para redes sociales, preparar un comunicado de prensa.</td></tr>
-          <tr><td class="label-cell">ONG / organización sin fines de lucro</td><td>Redactar un informe para donantes, crear material de sensibilización, resumir el impacto de un proyecto.</td></tr>
-          <tr><td class="label-cell">Oficina de comunicación de una institución pública</td><td>Redactar una nota de prensa, resumir un discurso, generar respuestas para preguntas frecuentes de la ciudadanía.</td></tr>
-          <tr><td class="label-cell">Agencia de publicidad o comunicación</td><td>Generar ideas de campaña, redactar guiones cortos, adaptar un mismo mensaje a distintos públicos.</td></tr>
-        </tbody>
-      </table></div>
+      <span class="step-badge">Paso 4 · 10 min</span><span class="step-points">Vale 15 pts</span>
+      <h1>El guion de un video institucional</h1>
+      <p><strong>Concepto:</strong> un video institucional de 2 minutos sigue una estructura de 5 bloques: <strong>gancho</strong> (0:00-0:15, la pregunta o dato que engancha), <strong>contexto</strong> (0:15-0:45, el problema o la necesidad), <strong>desarrollo</strong> (0:45-1:30, la solución, el servicio, los pasos), <strong>prueba</strong> (1:30-1:45, testimonio o resultado concreto) y <strong>llamada a la acción</strong> (1:45-2:00, qué debe hacer el ciudadano). Se escribe para el oído: frases cortas, una idea por oración.</p>
+      <div class="alert info"><strong>Guía:</strong> elija un servicio, campaña o anuncio de su organización y escriba el guion completo de 60 a 90 segundos con los 5 bloques. Indique el tiempo de cada bloque y el texto narrado.</div>
 
       <div class="field">
-        <label for="p4_tipoOrganizacion">Tipo de organización que usará como referencia</label>
-        <select id="p4_tipoOrganizacion">
-          <option value="">Seleccione…</option>
-          <option>Empresa privada</option>
-          <option>ONG / organización sin fines de lucro</option>
-          <option>Oficina de comunicación de una institución pública</option>
-          <option>Agencia de publicidad o comunicación</option>
-          <option>Otro tipo de organización</option>
-        </select>
+        <label for="p4_tema">¿Qué tema o servicio eligió para el video? <span class="wc" data-for="p4_tema">0 palabras</span></label>
+        <textarea id="p4_tema" placeholder="El video presentaría... (describa el servicio o mensaje y su audiencia)"></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p4_tema">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p4_tema"></span></div>
       </div>
       <div class="field">
-        <label for="p4_caso1">Primer caso de uso concreto de IA en su propio trabajo de comunicación <span class="wc" data-for="p4_caso1">0 palabras</span></label>
-        <textarea class="tall" id="p4_caso1" placeholder="En mi trabajo podría usar IA para..."></textarea>
-        <div class="voice-row"><button type="button" class="voice-btn" data-target="p4_caso1">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p4_caso1"></span></div>
-      </div>
-      <div class="field">
-        <label for="p4_caso2">Segundo caso de uso concreto, distinto al anterior <span class="wc" data-for="p4_caso2">0 palabras</span></label>
-        <textarea class="tall" id="p4_caso2" placeholder="Otra tarea donde podría aplicar IA es..."></textarea>
-        <div class="voice-row"><button type="button" class="voice-btn" data-target="p4_caso2">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p4_caso2"></span></div>
+        <label for="p4_guion">Escriba el guion completo de 60-90 segundos con los 5 bloques <span class="wc" data-for="p4_guion">0 palabras</span></label>
+        <textarea class="tall" id="p4_guion" placeholder="GANCHO (0:00-0:15): Sabía usted que... CONTEXTO (0:15-0:45): ... DESARROLLO (0:45-1:30): ... PRUEBA: ... LLAMADA A LA ACCIÓN: ..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p4_guion">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p4_guion"></span></div>
       </div>
     </section>
 
     <!-- ============ PASO 5 ============ -->
     <section id="paso5" class="card">
-      <span class="step-badge">Paso 5 · 18 min</span><span class="step-points">Vale 25 pts</span>
-      <h1>Laboratorio: cree cuenta y pruebe las herramientas</h1>
-      <p><strong>Concepto:</strong> no existe una sola "IA" — hay varias herramientas de IA generativa, cada una con fortalezas distintas.</p>
+      <span class="step-badge">Paso 5 · 15 min</span><span class="step-points">Vale 25 pts</span>
+      <h1>Laboratorio: genere una pieza de contenido real</h1>
+      <p><strong>Concepto:</strong> la mejor forma de aprender a crear contenido con IA es creándolo de verdad. En este laboratorio va a generar una pieza real: una imagen con Canva/DALL-E/Ideogram, o una narración de audio con una voz neuronal.</p>
       <div class="tbl-wrap"><table class="tp-table">
-        <thead><tr><th>Herramienta</th><th>Empresa</th><th>Ideal para</th><th>Enlace</th></tr></thead>
+        <thead><tr><th>Herramienta</th><th>Para qué sirve</th><th>Enlace</th></tr></thead>
         <tbody>
-          <tr><td class="label-cell">ChatGPT</td><td>OpenAI</td><td>Conversación general, redacción, ideas, la más versátil para empezar.</td><td><a href="https://chat.openai.com/" target="_blank" rel="noopener">chat.openai.com</a></td></tr>
-          <tr><td class="label-cell">Microsoft Copilot</td><td>Microsoft</td><td>Integrado con Word, Excel, Outlook y Teams — útil si ya trabaja con Office 365.</td><td><a href="https://copilot.microsoft.com/" target="_blank" rel="noopener">copilot.microsoft.com</a></td></tr>
-          <tr><td class="label-cell">Google Gemini</td><td>Google</td><td>Integrado con Gmail, Docs y el buscador de Google.</td><td><a href="https://gemini.google.com/" target="_blank" rel="noopener">gemini.google.com</a></td></tr>
-          <tr><td class="label-cell">Claude</td><td>Anthropic</td><td>Respuestas cuidadosas y extensas; muy buena para documentos largos y redacción con matices.</td><td><a href="https://claude.ai/" target="_blank" rel="noopener">claude.ai</a></td></tr>
-          <tr><td class="label-cell">DeepSeek</td><td>DeepSeek</td><td>Fuerte en razonamiento lógico, de código abierto.</td><td><a href="https://www.deepseek.com/" target="_blank" rel="noopener">deepseek.com</a></td></tr>
+          <tr><td class="label-cell">Canva con IA</td><td>Diseños completos con plantillas; texto a imagen integrado.</td><td><a href="https://www.canva.com/" target="_blank" rel="noopener">canva.com</a></td></tr>
+          <tr><td class="label-cell">ChatGPT (DALL-E)</td><td>Generar imágenes desde la conversación; pedir variaciones con lenguaje natural.</td><td><a href="https://chat.openai.com/" target="_blank" rel="noopener">chat.openai.com</a></td></tr>
+          <tr><td class="label-cell">Ideogram</td><td>Carteles y banners con texto legible dentro de la imagen.</td><td><a href="https://ideogram.ai/" target="_blank" rel="noopener">ideogram.ai</a></td></tr>
+          <tr><td class="label-cell">Edge TTS</td><td>Texto a voz gratuito con voces dominicanas de alta calidad.</td><td><a href="https://ttsedge.com/" target="_blank" rel="noopener">ttsedge.com</a></td></tr>
+          <tr><td class="label-cell">Suno</td><td>Música original con voz e instrumentos desde una descripción.</td><td><a href="https://suno.com/" target="_blank" rel="noopener">suno.com</a></td></tr>
         </tbody>
       </table></div>
-      <div class="alert warn"><strong>Recuerde:</strong> nunca escriba en ninguna de estas herramientas información confidencial real (cédulas, contraseñas, datos personales de terceros, información interna sensible de su organización). Use siempre ejemplos genéricos o inventados.</div>
-      <div class="alert info"><strong>Guía:</strong> cree cuenta (si no la tiene) y pruebe efectivamente <strong>al menos 2 de las 5 herramientas</strong> de la tabla, cada una con un prompt real relacionado con una tarea de comunicación, y pegue aquí el resultado que obtuvo.</div>
+      <div class="alert warn"><strong>Recuerde:</strong> no use información confidencial ni imágenes de personas reales sin autorización. Para voz clonada de una persona real, se requiere autorización escrita — en esta práctica use solo voces genéricas.</div>
+      <div class="alert info"><strong>Guía:</strong> genere de verdad UNA pieza (imagen o narración de audio) y pegue aquí el prompt que usó y el resultado: si es una imagen, descríbala en detalle y pegue el enlace si la herramienta lo permite; si es audio, pegue el texto narrado y describa la voz que usó.</div>
 
-      <h2>Primera herramienta</h2>
       <div class="field">
-        <label for="p5_herramienta1">Herramienta utilizada</label>
-        <select id="p5_herramienta1">
+        <label for="p5_pieza">¿Qué pieza generó (imagen o audio)? <span class="wc" data-for="p5_pieza">0 palabras</span></label>
+        <textarea id="p5_pieza" placeholder="Generé una imagen para... / Generé una narración de audio para..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p5_pieza">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p5_pieza"></span></div>
+      </div>
+      <div class="field">
+        <label for="p5_herramienta">Herramienta utilizada</label>
+        <select id="p5_herramienta">
           <option value="">Seleccione…</option>
-          <option>ChatGPT</option>
-          <option>Microsoft Copilot</option>
-          <option>Google Gemini</option>
-          <option>Claude</option>
-          <option>DeepSeek</option>
+          <option>Canva con IA</option>
+          <option>ChatGPT (DALL-E)</option>
+          <option>Ideogram</option>
+          <option>Edge TTS (texto a voz)</option>
+          <option>Suno (música)</option>
+          <option>Otra herramienta</option>
         </select>
       </div>
       <div class="field">
-        <label for="p5_prompt1">Prompt que utilizó <span class="wc" data-for="p5_prompt1">0 palabras</span></label>
-        <textarea id="p5_prompt1" placeholder="Ej: Actúa como redactor institucional y escribe un correo breve anunciando..."></textarea>
-        <div class="voice-row"><button type="button" class="voice-btn" data-target="p5_prompt1">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p5_prompt1"></span></div>
+        <label for="p5_prompt">Prompt o instrucción que utilizó <span class="wc" data-for="p5_prompt">0 palabras</span></label>
+        <textarea class="tall" id="p5_prompt" placeholder="Pegue aquí el prompt visual o el texto que pidió narrar..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p5_prompt">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p5_prompt"></span></div>
       </div>
       <div class="field">
-        <label for="p5_resultado1">Resultado obtenido (péguelo aquí) <span class="wc" data-for="p5_resultado1">0 palabras</span></label>
-        <textarea class="tall" id="p5_resultado1" placeholder="Pegue aquí la respuesta que le dio la herramienta..."></textarea>
-        <div class="voice-row"><button type="button" class="voice-btn" data-target="p5_resultado1">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p5_resultado1"></span></div>
-      </div>
-
-      <h2>Segunda herramienta</h2>
-      <div class="field">
-        <label for="p5_herramienta2">Herramienta utilizada (distinta a la anterior)</label>
-        <select id="p5_herramienta2">
-          <option value="">Seleccione…</option>
-          <option>ChatGPT</option>
-          <option>Microsoft Copilot</option>
-          <option>Google Gemini</option>
-          <option>Claude</option>
-          <option>DeepSeek</option>
-        </select>
-      </div>
-      <div class="field">
-        <label for="p5_prompt2">Prompt que utilizó <span class="wc" data-for="p5_prompt2">0 palabras</span></label>
-        <textarea id="p5_prompt2" placeholder="Ej: Resume en 5 puntos el siguiente comunicado para publicarlo en redes..."></textarea>
-        <div class="voice-row"><button type="button" class="voice-btn" data-target="p5_prompt2">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p5_prompt2"></span></div>
-      </div>
-      <div class="field">
-        <label for="p5_resultado2">Resultado obtenido (péguelo aquí) <span class="wc" data-for="p5_resultado2">0 palabras</span></label>
-        <textarea class="tall" id="p5_resultado2" placeholder="Pegue aquí la respuesta que le dio la herramienta..."></textarea>
-        <div class="voice-row"><button type="button" class="voice-btn" data-target="p5_resultado2">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p5_resultado2"></span></div>
+        <label for="p5_resultado">Resultado obtenido: descríbalo (y pegue el enlace si lo tiene) <span class="wc" data-for="p5_resultado">0 palabras</span></label>
+        <textarea class="tall" id="p5_resultado" placeholder="La imagen generada muestra... (estilo, colores, elementos) / La narración quedó con voz... y dice..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p5_resultado">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p5_resultado"></span></div>
       </div>
     </section>
 
     <!-- ============ PASO 6 ============ -->
     <section id="paso6" class="card">
-      <span class="step-badge">Paso 6 · 6 min</span><span class="step-points">Vale 15 pts</span>
-      <h1>La supervisión humana es insustituible</h1>
-      <p><strong>Concepto:</strong> ninguna herramienta de IA sustituye el criterio humano. Antes de usar cualquier contenido generado por IA en su trabajo, aplique este proceso de 5 pasos: <strong>Revisar → Verificar → Corregir → Contextualizar → Aprobar.</strong></p>
-      <div class="glossary-grid">
-        <div class="gloss-item"><dt>1. Revisar</dt><dd>Leer completo el contenido generado, sin asumir que ya está listo.</dd></div>
-        <div class="gloss-item"><dt>2. Verificar</dt><dd>Confirmar que los datos, nombres, cifras o hechos mencionados sean correctos y reales.</dd></div>
-        <div class="gloss-item"><dt>3. Corregir</dt><dd>Ajustar el tono, el estilo o cualquier error antes de usarlo.</dd></div>
-        <div class="gloss-item"><dt>4. Contextualizar</dt><dd>Adaptarlo a la realidad, la cultura y el público específico de su organización.</dd></div>
-        <div class="gloss-item"><dt>5. Aprobar</dt><dd>Solo una persona responsable —no la IA— da el visto bueno final antes de publicar o enviar.</dd></div>
-      </div>
+      <span class="step-badge">Paso 6 · 8 min</span><span class="step-points">Vale 15 pts</span>
+      <h1>Accesibilidad y límites del contenido con IA</h1>
+      <p><strong>Concepto:</strong> el contenido institucional debe ser accesible para todos los ciudadanos: <strong>subtítulos</strong> revisados (la mayoría del video se consume sin sonido), <strong>transcripciones</strong> para quienes prefieren leer, <strong>formatos</strong> vertical y horizontal, y <strong>contraste legible</strong>. Además, la clonación de voz tiene un límite no negociable: <strong>jamás</strong> sin autorización expresa, y <strong>jamás</strong> para hacer decir a alguien algo que no dijo.</p>
+      <div class="alert info"><strong>Guía:</strong> aplique el checklist de accesibilidad a la pieza que generó en el Paso 5 y explique qué límite ético del contenido con IA es innegociable para usted y por qué.</div>
 
       <div class="field">
-        <label for="p6_revision">Aplique este proceso de 5 pasos a uno de los resultados que obtuvo en el Paso 5: ¿qué revisaría, verificaría o corregiría antes de usarlo de verdad? <span class="wc" data-for="p6_revision">0 palabras</span></label>
-        <textarea class="tall" id="p6_revision" placeholder="Del resultado que obtuve, revisaría... verificaría... corregiría..."></textarea>
-        <div class="voice-row"><button type="button" class="voice-btn" data-target="p6_revision">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p6_revision"></span></div>
+        <label for="p6_checklist">Aplique el checklist de accesibilidad a la pieza que generó: ¿qué le falta para publicarla de forma accesible? <span class="wc" data-for="p6_checklist">0 palabras</span></label>
+        <textarea class="tall" id="p6_checklist" placeholder="Para publicarla de forma accesible necesitaría agregar..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p6_checklist">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p6_checklist"></span></div>
       </div>
       <div class="field">
-        <label for="p6_compromiso">¿Qué compromiso personal asume para usar la IA de forma responsable en su trabajo de comunicación? <span class="wc" data-for="p6_compromiso">0 palabras</span></label>
-        <textarea class="tall" id="p6_compromiso" placeholder="Me comprometo a..."></textarea>
-        <div class="voice-row"><button type="button" class="voice-btn" data-target="p6_compromiso">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p6_compromiso"></span></div>
+        <label for="p6_limite">¿Qué límite ético del contenido generado con IA es innegociable para usted y por qué? <span class="wc" data-for="p6_limite">0 palabras</span></label>
+        <textarea class="tall" id="p6_limite" placeholder="Para mí es innegociable que... porque..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p6_limite">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p6_limite"></span></div>
       </div>
     </section>
 
@@ -719,8 +688,8 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
       </table></div>
       <h2>Referencias</h2>
       <ul style="font-size:.85rem; color:var(--muted);">
+        <li>Documentación pública de OpenAI (DALL-E), Midjourney, Canva, Ideogram, Adobe (Firefly), Suno, ElevenLabs, HeyGen y Synthesia.</li>
         <li>McKinsey &amp; Company. Encuestas sobre adopción global de Inteligencia Artificial en las organizaciones.</li>
-        <li>Documentación pública de OpenAI (ChatGPT), Microsoft (Copilot), Google (Gemini), Anthropic (Claude) y DeepSeek.</li>
       </ul>
     </section>
 
@@ -753,7 +722,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
     </section>
 
     <footer class="tp-footer">
-      Práctica — Unidad I: Fundamentos de Inteligencia Artificial · Curso Inteligencia Artificial Aplicada · Comunicación Integral.<br>
+      Práctica — Unidad III: Creación de Contenido Digital con IA — Imágenes, Audio y Video · Curso Inteligencia Artificial Aplicada · Comunicación Integral.<br>
       Herramienta de autoevaluación con fines educativos. La nota oficial del curso la determina quien coordina la capacitación.<br>
       Desarrollado por Johan Tapia, PhD.
     </footer>
@@ -988,6 +957,92 @@ function fetchWithTimeout(url, options, timeoutMs){
   return fetch(url, Object.assign({}, options, { signal: controller.signal }))
     .finally(function(){ clearTimeout(timer); });
 }
+
+var AI_VERIFY_URL = AI_BASE + '/inap-verificar-progreso';
+var AI_VERIFY_TIMEOUT = 20000;
+var UNIDAD_ACTUAL = 'u3';
+var UNIDAD_REQUERIDA = 'u2';
+var UNIDAD_REQUERIDA_LABEL = 'Unidad II';
+var UNIDAD_REQUERIDA_URL = 'https://johantbueno.github.io/practicas-web/ia-aplicada-ci-u2/';
+var URL_MAP = {
+  u1: 'https://johantbueno.github.io/practicas-web/ia-aplicada-ci-u1/',
+  u2: 'https://johantbueno.github.io/practicas-web/ia-aplicada-ci-u2/',
+  u3: 'https://johantbueno.github.io/practicas-web/ia-aplicada-ci-u3/'
+};
+
+(function(){
+  var GATE_KEY = 'inap_gate_' + UNIDAD_ACTUAL + '_' + 'ia-aplicada-ci';
+  var overlay = document.getElementById('gate-overlay');
+  var body = document.body;
+  var nombreInput = document.getElementById('gate-nombre');
+  var btn = document.getElementById('gate-btn');
+  var statusEl = document.getElementById('gate-status');
+
+  function unlock(nombre){
+    body.classList.remove('gate-locked');
+    if(overlay) overlay.style.display = 'none';
+    var estNombre = document.getElementById('ind_nombre');
+    if(estNombre && !estNombre.value && nombre) estNombre.value = nombre;
+  }
+
+  try{
+    var saved = localStorage.getItem(GATE_KEY);
+    if(saved){ unlock(saved); return; }
+  }catch(e){}
+
+  function showStatus(msg, cls){
+    if(!statusEl) return;
+    statusEl.textContent = msg;
+    statusEl.className = 'gate-status show ' + (cls || '');
+  }
+
+  btn.addEventListener('click', function(){
+    var nombre = (nombreInput.value || '').trim();
+    if(!nombre){ showStatus('Escriba su nombre para continuar.', 'blocked'); return; }
+    btn.disabled = true;
+    btn.textContent = 'Verificando…';
+    var controller = new AbortController();
+    var timer = setTimeout(function(){ controller.abort(); }, AI_VERIFY_TIMEOUT);
+    fetch(AI_VERIFY_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ nombre: nombre, curso: 'ia-aplicada-ci', unidad_actual: UNIDAD_ACTUAL }),
+      signal: controller.signal
+    }).then(function(res){
+      clearTimeout(timer);
+      if(!res.ok) throw new Error('HTTP ' + res.status);
+      return res.json();
+    }).then(function(data){
+      btn.disabled = false;
+      btn.textContent = 'Verificar y continuar';
+      if(data && data.ok && data.desbloqueado){
+        try{ localStorage.setItem(GATE_KEY, nombre); }catch(e){}
+        unlock(nombre);
+      } else {
+        var reqUrl = (data && data.requiere_practica && URL_MAP[data.requiere_practica]) || UNIDAD_REQUERIDA_URL;
+        var reqLabel = (data && data.requiere_label) || UNIDAD_REQUERIDA_LABEL;
+        showStatus('No encontramos una entrega aprobada de "' + nombre + '" en la ' + reqLabel + '. Complétela primero aquí: ' + reqUrl, 'blocked');
+      }
+    }).catch(function(){
+      clearTimeout(timer);
+      btn.disabled = false;
+      btn.textContent = 'Verificar y continuar';
+      showStatus('⚠️ No se pudo verificar su progreso en este momento (posible problema de conexión). Puede continuar de todas formas — su facilitador verificará el orden manualmente si hace falta.', 'warn');
+      var contBtn = document.createElement('button');
+      contBtn.type = 'button';
+      contBtn.className = 'btn-secondary';
+      contBtn.style.marginTop = '.75rem';
+      contBtn.style.width = '100%';
+      contBtn.textContent = 'Continuar de todas formas';
+      contBtn.addEventListener('click', function(){
+        try{ localStorage.setItem(GATE_KEY, nombre); }catch(e){}
+        unlock(nombre);
+      });
+      statusEl.appendChild(contBtn);
+    });
+  });
+})();
+
 
 /* ---------- THEME ---------- */
 var themeBtn = document.getElementById('theme-toggle');
@@ -1277,12 +1332,12 @@ function correoIdentificacion(){
 
 /* ---------- CAMPOS DE CADA PASO ---------- */
 var STEP_FIELDS = {
-  paso1: ['p1_definicion','p1_ejemplo'],
-  paso2: ['p2_conceptos','p2_definiciones'],
-  paso3: ['p3_diferencia','p3_ejemplo'],
-  paso4: ['p4_tipoOrganizacion','p4_caso1','p4_caso2'],
-  paso5: ['p5_herramienta1','p5_prompt1','p5_resultado1','p5_herramienta2','p5_prompt2','p5_resultado2'],
-  paso6: ['p6_revision','p6_compromiso']
+  paso1: ['p1_imagen','p1_prompt'],
+  paso2: ['p2_riesgo','p2_regla'],
+  paso3: ['p3_pieza','p3_plan'],
+  paso4: ['p4_tema','p4_guion'],
+  paso5: ['p5_pieza','p5_herramienta','p5_prompt','p5_resultado'],
+  paso6: ['p6_checklist','p6_limite']
 };
 var META_FIELDS = ['modo_trabajo', 'ind_nombre', 'ind_correo', 'grp_nombre', 'grp_correo', 'grp_integrantes'];
 function allFieldIds(){
@@ -1305,7 +1360,7 @@ document.querySelectorAll('.wc[data-for]').forEach(function(span){
 });
 
 /* ---------- AUTOSAVE (localStorage) ---------- */
-var STORE_KEY = 'tp_iaci_u1_respuestas_v1';
+var STORE_KEY = 'tp_iaci_u3_respuestas_v1';
 function saveAll(){
   var data = {};
   allFieldIds().forEach(function(id){ data[id] = val(id); });
@@ -1371,12 +1426,12 @@ updateProgress();
 
 /* ---------- RÚBRICA TABLE ---------- */
 var RUBRICA = [
-  {n:1, criterio:'¿Qué es la Inteligencia Artificial? (Paso 1)', indicador:'Definición propia de IA y ejemplo cotidiano concreto, sin copiar el marco conceptual.', pts:15},
-  {n:2, criterio:'Conceptos básicos aplicados (Paso 2)', indicador:'4 conceptos del glosario elegidos y explicados con ejemplo propio aplicado a la comunicación institucional.', pts:15},
-  {n:3, criterio:'IA Generativa vs. IA Predictiva (Paso 3)', indicador:'Diferencia explicada con claridad y ejemplo propio de cada tipo aplicado a su trabajo.', pts:15},
-  {n:4, criterio:'Casos de uso en su entorno de trabajo (Paso 4)', indicador:'Tipo de organización identificado y dos casos de uso concretos y distintos entre sí.', pts:15},
-  {n:5, criterio:'Laboratorio de herramientas (Paso 5)', indicador:'Dos herramientas de IA generativa distintas probadas, con prompt real y resultado obtenido pegado.', pts:25},
-  {n:6, criterio:'Supervisión humana (Paso 6)', indicador:'Aplicación del proceso Revisar-Verificar-Corregir-Contextualizar-Aprobar y compromiso personal de uso responsable.', pts:15}
+  {n:1, criterio:'El prompt visual (Paso 1)', indicador:'Imagen institucional identificada y prompt visual completo con sujeto, estilo, escena, composición y color.', pts:15},
+  {n:2, criterio:'Ética y legalidad de imágenes (Paso 2)', indicador:'Riesgo concreto identificado para su organización y regla interna propuesta para manejarlo.', pts:15},
+  {n:3, criterio:'Pieza de audio institucional (Paso 3)', indicador:'Pieza elegida y plan de producción paso a paso con herramientas de IA (voz, música, edición).', pts:15},
+  {n:4, criterio:'Guion de video (Paso 4)', indicador:'Guion completo de 60-90 segundos con los 5 bloques (gancho, contexto, desarrollo, prueba, llamada a la acción).', pts:15},
+  {n:5, criterio:'Laboratorio real de contenido (Paso 5)', indicador:'Pieza generada de verdad con herramienta, prompt pegado y resultado descrito o enlazado.', pts:25},
+  {n:6, criterio:'Accesibilidad y límites (Paso 6)', indicador:'Checklist de accesibilidad aplicado a su pieza y límite ético justificado.', pts:15}
 ];
 document.getElementById('rubrica-body').innerHTML = RUBRICA.map(function(r){
   return '<tr><td class="label-cell">'+r.n+'</td><td>'+r.criterio+'</td><td>'+r.indicador+'</td><td class="label-cell">'+r.pts+'</td></tr>';
@@ -1522,7 +1577,7 @@ function gatherGradingPayload(localResult){
   return {
     estudiante: { nombre: nombreIdentificacion(), correo: correoIdentificacion(), modalidad: val('modo_trabajo') },
     curso: 'ia-aplicada-ci',
-    unidad: 'u1',
+    unidad: 'u3',
     pasos: pasos,
     local: localResult ? {
       total: localResult.total,
@@ -1682,7 +1737,7 @@ function wrapCanvasText(ctx, text, x, y, maxWidth, lineHeight){
   lines.forEach(function(l, idx){ ctx.fillText(l, x, y + idx*lineHeight); });
 }
 document.getElementById('btn-medal').addEventListener('click', function(){
-  drawMedal(nombreIdentificacion(), 'Inteligencia Artificial Aplicada', 'Unidad I · Fundamentos de Inteligencia Artificial');
+  drawMedal(nombreIdentificacion(), 'Inteligencia Artificial Aplicada', 'Unidad III · Contenido Digital con IA');
   document.getElementById('medal-modal').hidden = false;
 });
 document.getElementById('medal-close').addEventListener('click', function(){
@@ -1701,7 +1756,7 @@ document.getElementById('medal-share').addEventListener('click', function(){
   canvas.toBlob(function(blob){
     var file = new File([blob], 'medalla-ia-aplicada-u1.png', { type:'image/png' });
     if(navigator.canShare && navigator.canShare({ files:[file] })){
-      navigator.share({ files:[file], title:'¡Completé mi práctica!', text:'Completé la Práctica de la Unidad I (Fundamentos de Inteligencia Artificial) del curso Inteligencia Artificial Aplicada — Comunicación Integral.' }).catch(function(){});
+      navigator.share({ files:[file], title:'¡Completé mi práctica!', text:'Completé la Práctica de la Unidad III (Creación de Contenido Digital con IA) del curso Inteligencia Artificial Aplicada — Comunicación Integral.' }).catch(function(){});
     } else {
       var a = document.createElement('a');
       a.href = URL.createObjectURL(blob);
@@ -1773,15 +1828,14 @@ function addTyping(){
   return div;
 }
 
-var CONTEXTO_UNIDAD = 'MARCO CONCEPTUAL DE REFERENCIA (Unidad I - Fundamentos de Inteligencia Artificial, curso Inteligencia Artificial Aplicada, Comunicación Integral). IMPORTANTE: explica todo en PALABRAS SIMPLES, pensando en participantes de un area de comunicacion, sin tecnicismos innecesarios.\\n'
-  + '- IA: programas capaces de hacer tareas que normalmente requieren inteligencia humana. Machine Learning: sistemas que aprenden patrones a partir de datos. Deep Learning: subtipo de ML con redes neuronales de muchas capas.\\n'
-  + '- Tipos segun capacidad: ANI (existe hoy, hace una sola cosa), AGI (aun no existe, razonaria como una persona), ASI (hipotetica, superaria a los humanos).\\n'
-  + '- Tipos segun funcion: Analitica (explica que paso), Predictiva (anticipa que va a pasar), Conversacional (dialoga), Generativa (crea contenido nuevo).\\n'
-  + '- IA Generativa vs Predictiva: la Generativa CREA contenido (texto, imagen, audio, video, codigo); la Predictiva ANTICIPA resultados a partir de datos historicos (riesgo, demanda, tendencias). Pueden trabajar juntas.\\n'
-  + '- Herramientas de IA Generativa: ChatGPT (OpenAI, la mas versatil), Microsoft Copilot (integrado con Office 365), Google Gemini (integrado con Gmail/Docs), Claude (Anthropic, muy buena con documentos largos), DeepSeek (fuerte en razonamiento, codigo abierto).\\n'
-  + '- Prompt: instruccion que se le escribe a la IA. LLM: modelo de lenguaje grande, el motor detras de estas herramientas.\\n'
-  + '- Supervision humana: antes de usar cualquier contenido de IA, aplicar Revisar, Verificar, Corregir, Contextualizar y Aprobar -- una persona, nunca la IA, da el visto bueno final.\\n\\n'
-  + 'LA PRACTICA tiene 6 pasos y 100 puntos (aprobacion minima 70%): Paso 1 Que es la IA (15), Paso 2 Conceptos basicos aplicados (15), Paso 3 Generativa vs Predictiva (15), Paso 4 Casos de uso (15), Paso 5 Laboratorio de herramientas (25), Paso 6 Supervision humana (15).';
+var CONTEXTO_UNIDAD = 'MARCO CONCEPTUAL DE REFERENCIA (Unidad III - Creacion de Contenido Digital con IA: Imagenes, Audio y Video, curso Inteligencia Artificial Aplicada, Comunicacion Integral). IMPORTANTE: explica todo en PALABRAS SIMPLES, pensando en participantes de un area de comunicacion, sin tecnicismos innecesarios.\\n'
+  + '- Prompt visual: combina 5 elementos: Sujeto (que o quien aparece), Estilo (fotografia, ilustracion flat design, render 3D), Escena y contexto (donde y que pasa), Composicion y encuadre (plano, espacio para texto) y Color e iluminacion (paleta, tipo de luz).\\n'
+  + '- Herramientas de imagenes: DALL-E 3 (integrado en ChatGPT), Midjourney (calidad artistica), Canva con IA (la mas practica, plantillas y kit de marca), Ideogram (la mejor con texto legible dentro de la imagen), Adobe Firefly (entrenado solo con licencias, seguridad juridica).\\n'
+  + '- Etica de imagenes: no presentar imagenes generadas como fotos reales de eventos; revisar sesgos de genero/etnia; no generar personas reales sin autorizacion ni logos de terceros; transparencia con la audiencia.\\n'
+  + '- Audio: voces neuronales (Edge TTS gratuito con voces dominicanas, ElevenLabs premium), musica con Suno (plan pago da derechos comerciales), edicion con Adobe Podcast (limpiar ruido) y Descript (editar por texto). Clonacion de voz: solo con autorizacion escrita, nunca para hacer decir algo que no se dijo.\\n'
+  + '- Video: guion con estructura de 5 bloques (gancho 0:00-0:15, contexto 0:15-0:45, desarrollo 0:45-1:30, prueba 1:30-1:45, llamada a la accion 1:45-2:00). Avatares digitales: HeyGen y Synthesia. Subtitulos SIEMPRE (la mayoria consume sin sonido) y transcripciones para accesibilidad.\\n\n'
+  + 'LA PRACTICA tiene 6 pasos y 100 puntos (aprobacion minima 70%): Paso 1 El prompt visual (15), Paso 2 Etica de imagenes (15), Paso 3 Audio institucional (15), Paso 4 Guion de video (15), Paso 5 Laboratorio real (25), Paso 6 Accesibilidad y limites (15).';
+
 
 function askTutorAI(q){
   return fetchWithTimeout(AI_CHAT_URL, {
@@ -1801,14 +1855,14 @@ function askTutor(q){
 }
 
 var QA = [
-  { kw:['calific','nota','puntaje','rubrica','aprobar','minimo'], a:'La nota va de 0 a 100, en 6 criterios: qué es la IA (15), conceptos básicos aplicados (15), Generativa vs Predictiva (15), casos de uso (15), laboratorio de herramientas (25) y supervisión humana (15). Aprobación mínima 70%.' },
-  { kw:['que es la ia', 'inteligencia artificial', 'que es ia'], a:'La Inteligencia Artificial son programas capaces de hacer tareas que normalmente requieren inteligencia humana: reconocer imágenes, entender lenguaje, tomar decisiones. La usamos todos los días sin notarlo: recomendaciones, mapas, correctores, filtros de correo.' },
-  { kw:['generativa', 'predictiva'], a:'La IA Generativa CREA contenido nuevo (texto, imágenes, audio, video, código) a partir de un prompt. La IA Predictiva ANTICIPA resultados usando datos históricos (por ejemplo, riesgo o demanda). No son opuestas: a menudo trabajan juntas.' },
-  { kw:['ani', 'agi', 'asi', 'tipos de ia'], a:'Según su capacidad: ANI (IA estrecha, hace una sola cosa muy bien, es todo lo que existe hoy), AGI (IA general, aún no existe, razonaría como una persona) y ASI (superinteligencia, hipotética). Según su función: Analítica, Predictiva, Conversacional y Generativa.' },
-  { kw:['chatgpt', 'copilot', 'gemini', 'claude', 'deepseek', 'herramientas'], a:'Las 5 herramientas de esta unidad: ChatGPT (OpenAI, la más versátil), Microsoft Copilot (integrado con Office 365), Google Gemini (integrado con Gmail/Docs), Claude (Anthropic, muy buena con documentos largos) y DeepSeek (fuerte en razonamiento, de código abierto).' },
-  { kw:['prompt', 'instruccion', 'instrucción'], a:'Un prompt es la instrucción o pregunta que usted le escribe a la IA. Entre más claro y específico sea, mejor será la respuesta que reciba.' },
-  { kw:['supervision', 'supervisión', 'revisar', 'verificar', 'confidencial'], a:'La supervisión humana es insustituible. Antes de usar cualquier contenido de IA: Revisar (leerlo completo), Verificar (que los datos sean correctos), Corregir (ajustar tono y errores), Contextualizar (adaptarlo a su organización) y Aprobar (una persona da el visto bueno, nunca la IA). Nunca escriba información confidencial en un chat de IA.' },
-  { kw:['hola', 'ayuda', 'quien eres'], a:'Soy Nicole, la asistente virtual del Dr. Johan Tapia. Puedo explicarte qué es la IA, los 12 conceptos básicos, IA Generativa vs Predictiva, las 5 herramientas, o cómo se califica esta práctica.' }
+  { kw:['calific','nota','puntaje','rubrica','aprobar','minimo'], a:'La nota va de 0 a 100, en 6 criterios: el prompt visual (15), ética de imágenes (15), pieza de audio (15), guion de video (15), laboratorio real (25) y accesibilidad y límites (15). Aprobación mínima 70%.' },
+  { kw:['prompt visual','imagen','dalle','canva','ideogram','midjourney'], a:'Un prompt visual combina 5 elementos: Sujeto (qué o quién aparece), Estilo (fotografía, ilustración, render 3D), Escena y contexto (dónde y qué pasa), Composición (encuadre, espacio para texto) y Color e iluminación. Canva para el 80% del trabajo, Ideogram para piezas con texto legible dentro, Firefly para seguridad jurídica.' },
+  { kw:['etica','ética','legal','derechos','enganar','sesgo','riesgo'], a:'Las imágenes que genera con DALL-E, Midjourney, Canva o Ideogram son suyas para uso comercial según los términos de cada plataforma (verificarlos, cambian). Nunca presentar una imagen generada como foto real de un evento. Revisar sesgos de género/etnia. No generar personas reales sin autorización ni logos de terceros.' },
+  { kw:['audio','voz','voz neural','narracion','tts','elevenlabs','suno'], a:'Para audio: Microsoft Edge TTS es gratuito con voces dominicanas de alta calidad. ElevenLabs es premium con clonación de voz (solo con autorización escrita). Suno genera música original — la versión paga da derechos comerciales, la gratuita NO. Adobe Podcast limpia ruido y Descript edita por texto.' },
+  { kw:['video','guion','avatares','heygen','synthesia','estructura'], a:'El guion de un video de 2 minutos: gancho (0:00-0:15, la pregunta o dato que engancha), contexto (0:15-0:45), desarrollo (0:45-1:30, la solución), prueba (1:30-1:45, testimonio o resultado) y llamada a la acción (1:45-2:00). Se escribe para el oído: frases cortas, una idea por oración.' },
+  { kw:['subtitulo','subtítulos','accesib','transcripcion','transcripción'], a:'Checklist de accesibilidad: subtítulos revisados a mano (la mayoría del video en redes se consume sin sonido), transcripción disponible, formatos vertical y horizontal, y contraste legible. La accesibilidad es obligación legal y ética.' },
+  { kw:['voz clonada','clonar','clonacion'], a:'La clonación de voz tiene límites no negociables: jamás sin autorización expresa de la persona, y jamás para hacer decir a alguien algo que no dijo. La voz de una persona es parte de su identidad.' },
+  { kw:['hola','ayuda','quien eres'], a:'Soy Nicole, la asistente virtual del Dr. Johan Tapia. Puedo explicarte el prompt visual, la ética de las imágenes generadas, el audio con IA, los guiones de video, la accesibilidad, o cómo se califica esta práctica.' }
 ];
 function normQ(s){ return stripAccents(s); }
 function answerFor(q){
@@ -1820,7 +1874,7 @@ function answerFor(q){
     if(score > bestScore){ bestScore = score; best = entry; }
   });
   if(best) return best.a;
-  return 'No tengo una respuesta preparada para eso. Prueba preguntar por qué es la IA, los tipos de IA, Generativa vs Predictiva, las herramientas (ChatGPT, Copilot, Gemini, Claude, DeepSeek), la supervisión humana, o la calificación.';
+  return 'No tengo una respuesta preparada para eso. Prueba preguntar por el prompt visual, las herramientas de imágenes (Canva, DALL-E, Ideogram), la ética del contenido generado, el audio con IA, los guiones de video, la accesibilidad, o la calificación.';
 }
 advisorForm.addEventListener('submit', function(e){
   e.preventDefault();

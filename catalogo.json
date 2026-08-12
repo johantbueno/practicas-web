@@ -431,7 +431,7 @@
         "nombre": "Inteligencia Artificial Aplicada",
         "icono": "📡",
         "tipoClase": "secuencial",
-        "tipoLabel": "Curso secuencial · Unidad I de varias",
+        "tipoLabel": "Curso secuencial · 3 unidades",
         "esSecuencial": true,
         "cursoId": "ia-aplicada-ci",
         "practicas": [
@@ -444,6 +444,26 @@
             "puntos": "100 pts",
             "aprobacion": "70% mínimo",
             "url": "https://johantbueno.github.io/practicas-web/ia-aplicada-ci-u1/"
+          },
+          {
+            "badge": "Unidad II",
+            "unidad": "u2",
+            "titulo": "Herramientas de IA para Productividad e IA Aplicada a la Gestión Institucional",
+            "desc": "Prompt engineering (los 5 elementos y las 4 técnicas), flujos de productividad (documentos, hojas de cálculo, presentaciones, correo, reuniones), casos de IA por área institucional (RRHH, finanzas, atención ciudadana, comunicación, gestión documental, planificación), principios éticos y laboratorio real ejecutando una tarea con ChatGPT, Copilot, Gemini, Claude o DeepSeek. Individual o en equipo.",
+            "duracion": "6 pasos · aproximadamente 60 minutos, individual o en equipo",
+            "puntos": "100 pts",
+            "aprobacion": "70% mínimo",
+            "url": "https://johantbueno.github.io/practicas-web/ia-aplicada-ci-u2/"
+          },
+          {
+            "badge": "Unidad III",
+            "unidad": "u3",
+            "titulo": "Creación de Contenido Digital con IA — Imágenes, Audio y Video",
+            "desc": "El prompt visual de 5 elementos, ética y legalidad de las imágenes generadas, piezas de audio institucional con voces neuronales y música con IA, guion de video con estructura profesional, y laboratorio real generando una pieza con Canva, DALL-E, Ideogram, Edge TTS o Suno. Individual o en equipo.",
+            "duracion": "6 pasos · aproximadamente 60 minutos, individual o en equipo",
+            "puntos": "100 pts",
+            "aprobacion": "70% mínimo",
+            "url": "https://johantbueno.github.io/practicas-web/ia-aplicada-ci-u3/"
           }
         ]
       },
