@@ -428,6 +428,26 @@
     "icono": "📣",
     "cursos": [
       {
+        "nombre": "Inteligencia Artificial Aplicada",
+        "icono": "📡",
+        "tipoClase": "secuencial",
+        "tipoLabel": "Curso secuencial · Unidad I de varias",
+        "esSecuencial": true,
+        "cursoId": "ia-aplicada-ci",
+        "practicas": [
+          {
+            "badge": "Unidad I",
+            "unidad": "u1",
+            "titulo": "Fundamentos de Inteligencia Artificial",
+            "desc": "Qué es la IA, glosario de 12 conceptos básicos, tipos de IA (ANI/AGI/ASI, Analítica/Predictiva/Conversacional/Generativa), IA Generativa vs Predictiva, casos de uso en comunicación institucional y organizacional, y laboratorio creando cuenta y probando ChatGPT, Copilot, Gemini, Claude y DeepSeek. Individual o en equipo.",
+            "duracion": "6 pasos · aproximadamente 60 minutos, individual o en equipo",
+            "puntos": "100 pts",
+            "aprobacion": "70% mínimo",
+            "url": "https://johantbueno.github.io/practicas-web/ia-aplicada-ci-u1/"
+          }
+        ]
+      },
+      {
         "nombre": "Inteligencia Artificial Aplicada a Recursos Humanos",
         "icono": "🧠",
         "tipoClase": "secuencial",
