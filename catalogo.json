@@ -198,6 +198,33 @@
             "puntos": "100 pts",
             "aprobacion": "70% mínimo",
             "url": "https://johantbueno.github.io/practicas-web/amicus-realty-modulo1/"
+          },
+          {
+            "badge": "Módulo II",
+            "titulo": "Inteligencia Artificial aplicada: contenido que capta y vende",
+            "desc": "Prompt profesional de 6 componentes, 3 publicaciones generadas con IA (captación, educativa, prueba social), calendario editorial con la regla 4-1-1, kit de marca en Canva, y reflexión sobre herramientas de IA. Individual.",
+            "duracion": "aproximadamente 1 hora",
+            "puntos": "100 pts",
+            "aprobacion": "70% mínimo",
+            "url": "https://johantbueno.github.io/practicas-web/amicus-realty-modulo2/"
+          },
+          {
+            "badge": "Módulo III",
+            "titulo": "Producción de video y presencia digital",
+            "desc": "Guion con la estructura Gancho-Valor-Llamado, Reel grabado/editado con subtítulos y publicado, video de propiedad generado desde fotos sin cámara, técnica de grabación con celular, y reflexión ética sobre el video con IA. Individual.",
+            "duracion": "aproximadamente 1 hora (más el tiempo de grabar/editar)",
+            "puntos": "100 pts",
+            "aprobacion": "70% mínimo",
+            "url": "https://johantbueno.github.io/practicas-web/amicus-realty-modulo3/"
+          },
+          {
+            "badge": "Módulo IV",
+            "titulo": "Automatización, CRM y seguimiento inteligente",
+            "desc": "WhatsApp Business configurado (bienvenida, ausencia, agenda), CRM con 10 prospectos clasificados por etapa del embudo, secuencia de 5 mensajes de seguimiento, simulación de publicidad en Meta, y Plan de Acción de 90 días. Individual.",
+            "duracion": "aproximadamente 1 hora",
+            "puntos": "100 pts",
+            "aprobacion": "70% mínimo",
+            "url": "https://johantbueno.github.io/practicas-web/amicus-realty-modulo4/"
           }
         ]
       }
