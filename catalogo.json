@@ -181,6 +181,25 @@
             "url": "https://johantbueno.github.io/practicas-web/excel-unidad1/"
           }
         ]
+      },
+      {
+        "nombre": "Inteligencia Artificial Aplicada al Marketing Digital — Amicus Realty",
+        "icono": "🏠",
+        "tipoClase": "secuencial",
+        "tipoLabel": "Curso secuencial · 4 módulos",
+        "esSecuencial": true,
+        "cursoId": "amicus-realty-ia-marketing",
+        "practicas": [
+          {
+            "badge": "Módulo I",
+            "titulo": "El asesor inmobiliario en la era digital: estrategia y marca personal",
+            "desc": "Nicho (matriz Zona × Tipo de propiedad × Cliente), promesa de valor, Ficha de Cliente Ideal, biografía de Instagram optimizada con IA, y ética en el uso de la IA. Individual.",
+            "duracion": "aproximadamente 1 hora",
+            "puntos": "100 pts",
+            "aprobacion": "70% mínimo",
+            "url": "https://johantbueno.github.io/practicas-web/amicus-realty-modulo1/"
+          }
+        ]
       }
     ]
   },
