@@ -1360,44 +1360,44 @@ function buildCriterion(title, maxPoints, items){
 
 function gradeStep1(){
   var items = [
-    { label:'Definición propia de Inteligencia Artificial', points:8, frac:wordFrac('p1_definicion',25) },
-    { label:'Ejemplo cotidiano de IA identificado', points:7, frac:wordFrac('p1_ejemplo',15) }
+    { label:'Imagen institucional identificada', points:5, frac:wordFrac('p1_imagen',10) },
+    { label:'Prompt visual completo con los 5 elementos (sujeto, estilo, escena, composición, color)', points:10, frac:wordFrac('p1_prompt',35) }
   ];
   return buildCriterion(RUBRICA[0].criterio, 15, items);
 }
 function gradeStep2(){
   var items = [
-    { label:'4 conceptos del glosario identificados', points:4, frac:singleWordFrac('p2_conceptos') },
-    { label:'Explicación propia y ejemplo aplicado de cada concepto', points:11, frac:wordFrac('p2_definiciones',60) }
+    { label:'Riesgo concreto identificado para su organización', points:7, frac:wordFrac('p2_riesgo',25) },
+    { label:'Regla interna propuesta para manejar ese riesgo', points:8, frac:wordFrac('p2_regla',20) }
   ];
   return buildCriterion(RUBRICA[1].criterio, 15, items);
 }
 function gradeStep3(){
   var items = [
-    { label:'Diferencia entre IA Generativa e IA Predictiva explicada', points:8, frac:wordFrac('p3_diferencia',30) },
-    { label:'Ejemplo propio de cada tipo aplicado a su trabajo', points:7, frac:wordFrac('p3_ejemplo',25) }
+    { label:'Pieza de audio institucional planificada', points:5, frac:wordFrac('p3_pieza',10) },
+    { label:'Plan de producción paso a paso con herramientas de IA', points:10, frac:wordFrac('p3_plan',35) }
   ];
   return buildCriterion(RUBRICA[2].criterio, 15, items);
 }
 function gradeStep4(){
   var items = [
-    { label:'Tipo de organización identificado', points:3, frac:singleWordFrac('p4_tipoOrganizacion') },
-    { label:'Primer caso de uso concreto', points:6, frac:wordFrac('p4_caso1',20) },
-    { label:'Segundo caso de uso concreto', points:6, frac:wordFrac('p4_caso2',20) }
+    { label:'Tema o servicio elegido para el video', points:4, frac:wordFrac('p4_tema',8) },
+    { label:'Guion completo de 60-90 segundos con los 5 bloques', points:11, frac:wordFrac('p4_guion',60) }
   ];
   return buildCriterion(RUBRICA[3].criterio, 15, items);
 }
 function gradeStep5(){
   var items = [
-    { label:'Primera herramienta, prompt y resultado', points:12, frac:ratioFilledFrac(['p5_herramienta1','p5_prompt1','p5_resultado1']) * clamp01(wordCount(val('p5_resultado1'))/15) },
-    { label:'Segunda herramienta, prompt y resultado', points:13, frac:ratioFilledFrac(['p5_herramienta2','p5_prompt2','p5_resultado2']) * clamp01(wordCount(val('p5_resultado2'))/15) }
+    { label:'Pieza y herramienta identificadas', points:5, frac:ratioFilledFrac(['p5_pieza','p5_herramienta']) },
+    { label:'Prompt o instrucción utilizada', points:8, frac:wordFrac('p5_prompt',25) },
+    { label:'Resultado obtenido, descrito o enlazado', points:12, frac:wordFrac('p5_resultado',20) }
   ];
   return buildCriterion(RUBRICA[4].criterio, 25, items);
 }
 function gradeStep6(){
   var items = [
-    { label:'Proceso Revisar-Verificar-Corregir-Contextualizar-Aprobar aplicado', points:8, frac:wordFrac('p6_revision',35) },
-    { label:'Compromiso personal de uso responsable', points:7, frac:wordFrac('p6_compromiso',15) }
+    { label:'Checklist de accesibilidad aplicado a su pieza', points:8, frac:wordFrac('p6_checklist',30) },
+    { label:'Límite ético justificado', points:7, frac:wordFrac('p6_limite',20) }
   ];
   return buildCriterion(RUBRICA[5].criterio, 15, items);
 }

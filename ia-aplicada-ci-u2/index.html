@@ -1372,44 +1372,45 @@ function buildCriterion(title, maxPoints, items){
 
 function gradeStep1(){
   var items = [
-    { label:'Definición propia de Inteligencia Artificial', points:8, frac:wordFrac('p1_definicion',25) },
-    { label:'Ejemplo cotidiano de IA identificado', points:7, frac:wordFrac('p1_ejemplo',15) }
+    { label:'Tarea real de su trabajo identificada', points:5, frac:wordFrac('p1_tarea',10) },
+    { label:'Prompt completo con los 5 elementos (rol, contexto, tarea, formato, restricciones)', points:10, frac:wordFrac('p1_prompt',40) }
   ];
   return buildCriterion(RUBRICA[0].criterio, 15, items);
 }
 function gradeStep2(){
   var items = [
-    { label:'4 conceptos del glosario identificados', points:4, frac:singleWordFrac('p2_conceptos') },
-    { label:'Explicación propia y ejemplo aplicado de cada concepto', points:11, frac:wordFrac('p2_definiciones',60) }
+    { label:'2 técnicas elegidas y justificadas', points:6, frac:wordFrac('p2_tecnicas',25) },
+    { label:'Aplicación concreta de cada técnica a una tarea propia', points:9, frac:wordFrac('p2_aplicacion',40) }
   ];
   return buildCriterion(RUBRICA[1].criterio, 15, items);
 }
 function gradeStep3(){
   var items = [
-    { label:'Diferencia entre IA Generativa e IA Predictiva explicada', points:8, frac:wordFrac('p3_diferencia',30) },
-    { label:'Ejemplo propio de cada tipo aplicado a su trabajo', points:7, frac:wordFrac('p3_ejemplo',25) }
+    { label:'Flujo de trabajo elegido y justificado', points:6, frac:wordFrac('p3_flujo',25) },
+    { label:'Aplicación paso a paso a una tarea real', points:9, frac:wordFrac('p3_aplicacion',40) }
   ];
   return buildCriterion(RUBRICA[2].criterio, 15, items);
 }
 function gradeStep4(){
   var items = [
-    { label:'Tipo de organización identificado', points:3, frac:singleWordFrac('p4_tipoOrganizacion') },
-    { label:'Primer caso de uso concreto', points:6, frac:wordFrac('p4_caso1',20) },
-    { label:'Segundo caso de uso concreto', points:6, frac:wordFrac('p4_caso2',20) }
+    { label:'Área de gestión institucional identificada', points:3, frac:singleWordFrac('p4_area') },
+    { label:'Primer uso concreto con beneficio', points:6, frac:wordFrac('p4_uso1',20) },
+    { label:'Segundo uso concreto, distinto al anterior', points:6, frac:wordFrac('p4_uso2',20) }
   ];
   return buildCriterion(RUBRICA[3].criterio, 15, items);
 }
 function gradeStep5(){
   var items = [
-    { label:'Primera herramienta, prompt y resultado', points:12, frac:ratioFilledFrac(['p5_herramienta1','p5_prompt1','p5_resultado1']) * clamp01(wordCount(val('p5_resultado1'))/15) },
-    { label:'Segunda herramienta, prompt y resultado', points:13, frac:ratioFilledFrac(['p5_herramienta2','p5_prompt2','p5_resultado2']) * clamp01(wordCount(val('p5_resultado2'))/15) }
+    { label:'Tarea real y herramienta identificadas', points:5, frac:ratioFilledFrac(['p5_tarea','p5_herramienta']) },
+    { label:'Prompt completo con los 5 elementos', points:8, frac:wordFrac('p5_prompt',35) },
+    { label:'Resultado obtenido y reflexión de ajustes', points:12, frac:wordFrac('p5_resultado',25) }
   ];
   return buildCriterion(RUBRICA[4].criterio, 25, items);
 }
 function gradeStep6(){
   var items = [
-    { label:'Proceso Revisar-Verificar-Corregir-Contextualizar-Aprobar aplicado', points:8, frac:wordFrac('p6_revision',35) },
-    { label:'Compromiso personal de uso responsable', points:7, frac:wordFrac('p6_compromiso',15) }
+    { label:'Al menos 2 principios éticos aplicados con ejemplo concreto', points:8, frac:wordFrac('p6_principios',30) },
+    { label:'Regla propuesta para la política interna de uso de IA', points:7, frac:wordFrac('p6_politica',15) }
   ];
   return buildCriterion(RUBRICA[5].criterio, 15, items);
 }
