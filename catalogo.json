@@ -186,7 +186,7 @@
         "nombre": "Inteligencia Artificial Aplicada al Marketing Digital — Amicus Realty",
         "icono": "🏠",
         "tipoClase": "secuencial",
-        "tipoLabel": "Curso secuencial · 4 módulos",
+        "tipoLabel": "Curso secuencial · 4 módulos + integración final",
         "esSecuencial": true,
         "cursoId": "amicus-realty-ia-marketing",
         "practicas": [
@@ -225,6 +225,15 @@
             "puntos": "100 pts",
             "aprobacion": "70% mínimo",
             "url": "https://johantbueno.github.io/practicas-web/amicus-realty-modulo4/"
+          },
+          {
+            "badge": "Encuentro 5 · Final",
+            "titulo": "Integración: Portafolio Comercial Digital y Plan de Acción de 90 días",
+            "desc": "Vitrina de su sistema completo (nicho, contenido, video, captación y seguimiento), diagnóstico honesto de fallos, Plan de Acción de 90 días con metas numéricas, dupla de rendición de cuentas, y reflexión final. Cierra el programa completo (Módulos I-IV). Individual.",
+            "duracion": "aproximadamente 45 minutos",
+            "puntos": "100 pts",
+            "aprobacion": "70% mínimo",
+            "url": "https://johantbueno.github.io/practicas-web/amicus-realty-final/"
           }
         ]
       }
