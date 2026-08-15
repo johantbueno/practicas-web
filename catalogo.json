@@ -661,6 +661,23 @@
             "url": "https://johantbueno.github.io/practicas-web/ccde-ciencia-datos-cuestionario-final/"
           }
         ]
+      },
+      {
+        "nombre": "Workshop People Analytics — CCDE Peralta González & Asociados",
+        "icono": "📊",
+        "tipoClase": "taller",
+        "tipoLabel": "Práctica autocalificable",
+        "practicas": [
+          {
+            "badge": "Módulo III",
+            "titulo": "Construya su Dashboard de People Analytics en Power BI",
+            "desc": "Simulador de los 3 clics clave de Power BI Desktop (Navegador de Excel, fórmula DAX, arrastrar campo a un visual) para ensayar desde el celular, seguido de 5 preguntas sobre el dashboard real construido en la PC con datos de nómina de la Contraloría General de la República. Individual.",
+            "duracion": "Simulador + 5 preguntas · aproximadamente 45 minutos (sin contar el ejercicio en Power BI Desktop)",
+            "puntos": "100 pts",
+            "aprobacion": "Completar el simulador y las 5 preguntas",
+            "url": "https://johantbueno.github.io/practicas-web/people-analytics-powerbi-m3/"
+          }
+        ]
       }
     ]
   },
