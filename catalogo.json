@@ -708,6 +708,15 @@
             "puntos": "100 pts",
             "aprobacion": "Completar el simulador y las 5 preguntas",
             "url": "https://johantbueno.github.io/practicas-web/powerbi-nivel-intermedio-cobranza/"
+          },
+          {
+            "badge": "Nivel Avanzado",
+            "titulo": "Dashboard de Marketing de Clientes en Power BI",
+            "desc": "Simulador de los 3 clics clave de Power BI Desktop (con una fórmula SWITCH de múltiples condiciones) y 5 preguntas sobre un dashboard real de marketing de clientes (5 columnas DAX derivadas, 8 medidas, 3 páginas con 18 visuales, incluye gráfico de dispersión y tabla). Requiere haber usado Power BI antes. Individual.",
+            "duracion": "Simulador + 5 preguntas · aproximadamente 50 minutos (sin contar el ejercicio en Power BI Desktop)",
+            "puntos": "100 pts",
+            "aprobacion": "Completar el simulador y las 5 preguntas",
+            "url": "https://johantbueno.github.io/practicas-web/powerbi-nivel-avanzado-marketing/"
           }
         ]
       }
