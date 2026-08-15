@@ -684,6 +684,23 @@
             "url": "https://johantbueno.github.io/practicas-web/people-analytics-powerbi-m3/"
           }
         ]
+      },
+      {
+        "nombre": "Ejercicios de Power BI por Nivel",
+        "icono": "🪜",
+        "tipoClase": "taller",
+        "tipoLabel": "3 niveles · orden libre",
+        "practicas": [
+          {
+            "badge": "Nivel Básico",
+            "titulo": "Construya su primer Dashboard en Power BI — Análisis de Canal de YouTube",
+            "desc": "Simulador de los 3 clics clave de Power BI Desktop y 5 preguntas sobre un dashboard real de analítica de YouTube (1 tabla, 2 columnas DAX, 5 medidas, 1 página con 8 visuales). Ideal para quien nunca ha usado Power BI. Individual.",
+            "duracion": "Simulador + 5 preguntas · aproximadamente 40 minutos (sin contar el ejercicio en Power BI Desktop)",
+            "puntos": "100 pts",
+            "aprobacion": "Completar el simulador y las 5 preguntas",
+            "url": "https://johantbueno.github.io/practicas-web/powerbi-nivel-basico-youtube/"
+          }
+        ]
       }
     ]
   },
