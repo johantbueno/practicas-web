@@ -661,9 +661,15 @@
             "url": "https://johantbueno.github.io/practicas-web/ccde-ciencia-datos-cuestionario-final/"
           }
         ]
-      },
+      }
+    ]
+  },
+  {
+    "nombre": "Workshop People Analytics en Power BI",
+    "icono": "📊",
+    "cursos": [
       {
-        "nombre": "Workshop People Analytics — CCDE Peralta González & Asociados",
+        "nombre": "Workshop People Analytics — Power BI",
         "icono": "📊",
         "tipoClase": "taller",
         "tipoLabel": "Práctica autocalificable",

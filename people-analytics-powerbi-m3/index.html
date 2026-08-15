@@ -389,7 +389,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
 
     <section id="portada" class="card cover">
       <canvas id="cover-canvas" aria-hidden="true"></canvas>
-      <p class="eyebrow">Workshop People Analytics · Módulo III · CCDE Peralta González &amp; Asociados</p>
+      <p class="eyebrow">Workshop People Analytics · Módulo III</p>
       <h1>Construya su Dashboard de People Analytics en Power BI</h1>
       <p class="sub">Datos reales de nómina (Contraloría General de la República) — ensaye los clics clave desde su celular, luego complete el ejercicio real en Power BI Desktop</p>
       <div class="cover-chips">
@@ -650,7 +650,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
     </section>
 
     <footer class="tp-footer">
-      Desarrollado por Johan Tapia, PhD · Workshop People Analytics · CCDE Peralta González &amp; Asociados
+      Desarrollado por Johan Tapia, PhD · Workshop People Analytics
     </footer>
   </main>
 </div>
@@ -697,7 +697,7 @@ var AI_GRADE_URL = AI_BASE + '/inap-grade';
 var VOICE_TRANSCRIBE_URL = AI_BASE + '/prof-johan-tapia-transcribir';
 var AI_GRADE_TIMEOUT = 650000;
 var AI_CHAT_TIMEOUT = 45000;
-var NICOLE_CONTEXTO = 'Práctica de Power BI Desktop: importar un Excel de nómina (7 tablas: Nomina_Hechos, Dim_Departamento, Dim_Estatus, Dim_Banda_Salarial, Dim_Calendario, Hist_Nomina_Mensual, Benchmarks), crear 5 relaciones, 4 columnas DAX calculadas, 11 medidas DAX, y un dashboard de 4 páginas con 16 visuales sobre People Analytics (headcount, brecha salarial de género, desempeño, capacitación, antigüedad). El curso es Workshop People Analytics Módulo III de CCDE Peralta González & Asociados.';
+var NICOLE_CONTEXTO = 'Práctica de Power BI Desktop: importar un Excel de nómina (7 tablas: Nomina_Hechos, Dim_Departamento, Dim_Estatus, Dim_Banda_Salarial, Dim_Calendario, Hist_Nomina_Mensual, Benchmarks), crear 5 relaciones, 4 columnas DAX calculadas, 11 medidas DAX, y un dashboard de 4 páginas con 16 visuales sobre People Analytics (headcount, brecha salarial de género, desempeño, capacitación, antigüedad). El curso es el Workshop People Analytics, Módulo III.';
 
 function fetchWithTimeout(url, options, timeoutMs){
   var controller = new AbortController();
@@ -770,7 +770,7 @@ document.getElementById('btn-clear').addEventListener('click', function(){
   if(confirm('¿Borrar todas sus respuestas guardadas en este navegador?')){ localStorage.removeItem(STORE_KEY); location.reload(); }
 });
 document.getElementById('btn-export').addEventListener('click', function(){
-  var lines = ['PRÁCTICA — Power BI: People Analytics (Workshop Módulo III, CCDE Peralta González & Asociados)', 'Nombre: ' + (nombreIdentificacion() || '(sin especificar)'), '======================================================', ''];
+  var lines = ['PRÁCTICA — Power BI: People Analytics (Workshop Módulo III)', 'Nombre: ' + (nombreIdentificacion() || '(sin especificar)'), '======================================================', ''];
   allFieldIds().forEach(function(id){ var v = val(id); if(filled(v)){ lines.push(labelOf(id) + ':'); lines.push(v); lines.push(''); } });
   var blob = new Blob([lines.join('\n')], { type:'text/plain;charset=utf-8' });
   var a = document.createElement('a');
@@ -1312,7 +1312,7 @@ function drawMedal(nombre, curso, unidad){
   ctx.fillText('Johan Tapia, PhD · '+fecha, w/2, h-30);
 }
 document.getElementById('btn-medal').addEventListener('click', function(){
-  drawMedal(nombreIdentificacion(), 'Workshop People Analytics · Power BI', 'Módulo III · CCDE Peralta González & Asociados');
+  drawMedal(nombreIdentificacion(), 'Workshop People Analytics · Power BI', 'Módulo III');
   document.getElementById('medal-modal').hidden = false;
 });
 document.getElementById('medal-close').addEventListener('click', function(){ document.getElementById('medal-modal').hidden = true; });
