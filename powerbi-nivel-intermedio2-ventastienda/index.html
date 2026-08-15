@@ -1036,7 +1036,7 @@ var soundMuted = localStorage.getItem(SOUND_MUTE_KEY) === '1';
     for(var i=0;i<n;i++){ trazarCorazon(hctx, 20+i*46, 18, 12, i < llenos); }
     heartsCanvas.classList.toggle('critical', pct <= (1/n) && pct > 0);
   }
-  var lastMinuteAudioStarted = false, flatlinePlayed = false, lastStabAt = 0, lastBeepAt = 0;
+  var lastMinuteAudioStarted = false, flatlinePlayed = false, lastStabAt = 0, lastBeepAt = 0, firstTick = true, overtimeSilent = false;
   function tick(){
     var remaining = d - Date.now();
     if(remaining > 0){
@@ -1065,9 +1065,20 @@ var soundMuted = localStorage.getItem(SOUND_MUTE_KEY) === '1';
       valueEl.textContent = '+'+(m2<10?'0':'')+m2+':'+(s2<10?'0':'')+s2;
       box.classList.add('overtime'); box.classList.remove('low'); overtimeNote.hidden = false; fastClock.style.display='block';
       dibujarCorazones(0);
-      if(!flatlinePlayed){ beep(220,.5); flatlinePlayed = true; }
-      if(Date.now()-lastStabAt > 1800){ stab(); lastStabAt = Date.now(); }
+      if(firstTick){
+        // La pagina se abrio con el cronometro YA vencido (localStorage de
+        // una sesion anterior) -- no alarmar de sorpresa. El sonido de
+        // sobretiempo se queda apagado el resto de esta sesion; solo se
+        // activa si el tiempo se vence MIENTRAS el usuario esta activo en
+        // la pagina (transicion real de positivo a negativo).
+        overtimeSilent = true;
+      }
+      if(!overtimeSilent){
+        if(!flatlinePlayed){ beep(220,.5); flatlinePlayed = true; }
+        if(Date.now()-lastStabAt > 1800){ stab(); lastStabAt = Date.now(); }
+      }
     }
+    firstTick = false;
   }
   tick(); setInterval(tick, 1000);
   document.getElementById('sound-toggle').addEventListener('click', function(){
