@@ -256,18 +256,38 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
 }
 
 /* ============ SIMULADOR POWER BI ============ */
-.sim-wrap{border:1px solid var(--border-light); border-radius:var(--radius-lg); overflow:hidden; margin:1.25rem 0; box-shadow:var(--shadow-sm); background:#fff; color:var(--pbi-text);}
-.sim-titlebar{background:var(--pbi-ribbon); border-bottom:1px solid var(--pbi-border); padding:.5rem .9rem; font-size:.72rem; font-weight:700; color:#605e5c; display:flex; align-items:center; gap:.5rem;}
-.sim-titlebar .dots{display:flex; gap:5px;}
-.sim-titlebar .dot{width:9px; height:9px; border-radius:50%; background:#d2d0ce;}
-.sim-ribbon{background:var(--pbi-ribbon); border-bottom:1px solid var(--pbi-border); padding:.6rem .9rem; display:flex; gap:1.4rem; flex-wrap:wrap;}
-.sim-rib-group{display:flex; flex-direction:column; align-items:center; gap:.3rem;}
-.sim-rib-btn{display:flex; flex-direction:column; align-items:center; gap:.25rem; padding:.35rem .5rem; border-radius:6px; cursor:pointer; border:1.5px solid transparent; background:none; font-family:inherit;}
-.sim-rib-btn .ico{width:26px; height:26px; border-radius:5px; display:flex; align-items:center; justify-content:center; font-size:1rem; background:#fff; border:1px solid var(--pbi-border);}
-.sim-rib-btn .lbl{font-size:.66rem; color:#323130; font-weight:600; white-space:nowrap;}
-.sim-rib-btn.hot{border-color:var(--pbi-yellow); box-shadow:0 0 0 3px rgba(242,200,17,.35); animation:simPulse 1.1s ease-in-out infinite;}
-@keyframes simPulse{0%,100%{box-shadow:0 0 0 3px rgba(242,200,17,.35);} 50%{box-shadow:0 0 0 7px rgba(242,200,17,.15);}}
-.sim-canvas{position:relative; background:#fff; min-height:220px; padding:1rem;}
+.sim-wrap{border:1px solid #8a8886; border-radius:6px; overflow:hidden; margin:1.25rem 0; box-shadow:0 6px 20px rgba(0,0,0,.18); background:#fff; color:var(--pbi-text);}
+
+/* Barra de título real de Windows: ícono + nombre de archivo a la izquierda, controles ─ ▢ ✕ a la derecha */
+.pbi-titlebar{background:#f3f2f1; border-bottom:1px solid var(--pbi-border); padding:.4rem .5rem .4rem .7rem; font-size:.72rem; font-weight:600; color:#323130; display:flex; align-items:center; gap:.5rem;}
+.pbi-logo{display:flex; align-items:flex-end; gap:1.5px; height:13px; flex-shrink:0;}
+.pbi-logo i{display:block; width:4px; border-radius:1px 1px 0 0; background:linear-gradient(180deg,#f6d660,#e8a33d);}
+.pbi-logo i:nth-child(1){height:6px;}
+.pbi-logo i:nth-child(2){height:10px;}
+.pbi-logo i:nth-child(3){height:13px; background:linear-gradient(180deg,#f2c811,#c98f1f);}
+.pbi-titlebar-text{flex:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+.pbi-winctl{display:flex; gap:0; font-size:.7rem; color:#605e5c; flex-shrink:0;}
+.pbi-winctl span{width:28px; height:20px; display:flex; align-items:center; justify-content:center; border-radius:3px;}
+.pbi-winctl span:last-child:hover{background:#e81123; color:#fff;}
+
+/* Cinta de opciones real: pestañas + botones con ícono y etiqueta */
+.pbi-ribbon{background:#faf9f8; border-bottom:1px solid var(--pbi-border);}
+.pbi-rib-tabs{display:flex; gap:1.1rem; padding:.35rem .9rem 0; font-size:.72rem; color:#605e5c; border-bottom:1px solid transparent;}
+.pbi-rib-tabs span{padding:.3rem .1rem .45rem; cursor:default;}
+.pbi-rib-tabs span.active{color:#252423; font-weight:700; border-bottom:2.5px solid var(--pbi-yellow);}
+.pbi-rib-buttons{padding:.5rem .8rem .6rem; display:flex; gap:1.3rem; flex-wrap:wrap; align-items:flex-start;}
+.pbi-rib-btn{position:relative; display:flex; flex-direction:column; align-items:center; gap:.25rem; padding:.3rem .5rem; border-radius:4px; border:1.5px solid transparent; background:none; font-family:inherit; min-width:52px;}
+.pbi-rib-btn .ico{width:24px; height:24px; display:flex; align-items:center; justify-content:center; font-size:1.05rem;}
+.pbi-rib-btn .lbl{font-size:.62rem; color:#323130; font-weight:600; white-space:nowrap;}
+.pbi-rib-btn.hot{border-color:var(--pbi-yellow); background:#fff8e1; box-shadow:0 0 0 3px rgba(242,200,17,.35); animation:simPulse 1.1s ease-in-out infinite;}
+@keyframes simPulse{0%,100%{box-shadow:0 0 0 3px rgba(242,200,17,.35);} 50%{box-shadow:0 0 0 7px rgba(242,200,17,.1);}}
+
+/* Marcador numerado ("dónde") + franja de instrucción con flecha ("qué hacer") */
+.pbi-coach-num{position:absolute; top:-9px; right:-9px; width:20px; height:20px; border-radius:50%; background:var(--navy); color:#fff; font-size:.72rem; font-weight:800; display:flex; align-items:center; justify-content:center; box-shadow:0 0 0 2px #fff; z-index:2;}
+.pbi-steps{background:#fffbea; border-bottom:1px solid #f0dfa0; padding:.55rem .9rem; font-size:.78rem; color:#5c4a12; display:flex; flex-direction:column; gap:.3rem;}
+.pbi-steps b{color:#3d3000;}
+
+.sim-canvas{position:relative; background:#f5f5f5; min-height:220px; padding:1.1rem;}
 .sim-caption{background:var(--blue-bg); border-top:1px solid var(--blue-border); padding:.85rem 1rem; display:flex; gap:.7rem; align-items:flex-start; font-size:.85rem; color:var(--primary);}
 .sim-caption .who{font-size:1.3rem; flex-shrink:0;}
 .sim-feedback{padding:.6rem 1rem; font-size:.82rem; font-weight:700; display:none;}
@@ -278,43 +298,58 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
 .sim-progress i.done{background:var(--gold);}
 
 /* Navegador (dialogo) */
-.pbi-navigator{border:1px solid var(--pbi-border); border-radius:8px; background:#fff; max-width:560px; margin:0 auto; box-shadow:0 4px 14px rgba(0,0,0,.12);}
+.pbi-navigator{border:1px solid var(--pbi-border); border-radius:2px; background:#fff; max-width:640px; margin:0 auto; box-shadow:0 4px 14px rgba(0,0,0,.18);}
 .pbi-nav-title{padding:.7rem 1rem; font-weight:700; font-size:.95rem; border-bottom:1px solid var(--pbi-border);}
-.pbi-nav-body{display:flex; min-height:200px;}
-.pbi-nav-list{flex:1; border-right:1px solid var(--pbi-border); padding:.5rem; max-height:260px; overflow-y:auto;}
+.pbi-nav-body{display:flex; min-height:220px;}
+.pbi-nav-list{flex:0 0 46%; border-right:1px solid var(--pbi-border); padding:.5rem; max-height:280px; overflow-y:auto;}
 .pbi-nav-item{display:flex; align-items:center; gap:.5rem; padding:.35rem .4rem; font-size:.82rem; border-radius:4px; cursor:pointer;}
 .pbi-nav-item:hover{background:#f3f2f1;}
-.pbi-nav-item input{margin:0;}
+.pbi-nav-item input{margin:0; accent-color:var(--gold); width:14px; height:14px; flex-shrink:0;}
+.pbi-nav-item .tbl-ico{color:#8a8886; flex-shrink:0;}
 .pbi-nav-item.decoy{color:#8a8886;}
-.pbi-nav-preview{flex:1; padding:.75rem; font-size:.78rem; color:#605e5c; display:flex; align-items:center; justify-content:center; text-align:center;}
+.pbi-nav-preview{flex:1; padding:0; font-size:.7rem; color:#605e5c; display:flex; flex-direction:column; overflow:hidden;}
+.pbi-nav-preview .ph{margin:auto; padding:.75rem; text-align:center;}
+.pbi-preview-grid{width:100%; border-collapse:collapse; font-size:.66rem;}
+.pbi-preview-grid th{background:#f3f2f1; border:1px solid var(--pbi-border); padding:.3rem .4rem; text-align:left; font-weight:700; color:#323130; white-space:nowrap;}
+.pbi-preview-grid td{border:1px solid var(--pbi-border); padding:.3rem .4rem; color:#605e5c; white-space:nowrap;}
 .pbi-nav-footer{border-top:1px solid var(--pbi-border); padding:.6rem .9rem; display:flex; justify-content:flex-end; gap:.5rem;}
-.pbi-btn-primary{background:var(--gold); color:#fff; border:none; padding:.4rem 1.1rem; border-radius:4px; font-weight:700; font-size:.8rem; cursor:pointer; opacity:.45;}
+.pbi-btn-primary{position:relative; background:var(--gold); color:#fff; border:none; padding:.4rem 1.1rem; border-radius:2px; font-weight:700; font-size:.8rem; cursor:pointer; opacity:.45;}
 .pbi-btn-primary.ready{opacity:1;}
-.pbi-btn-ghost{background:#fff; color:#323130; border:1px solid var(--pbi-border); padding:.4rem 1rem; border-radius:4px; font-size:.8rem; cursor:pointer;}
+.pbi-btn-ghost{background:#fff; color:#323130; border:1px solid var(--pbi-border); padding:.4rem 1rem; border-radius:2px; font-size:.8rem; cursor:pointer;}
 
 /* Barra de formulas DAX */
-.pbi-formula-bar{display:flex; align-items:center; gap:.5rem; border:1px solid var(--pbi-border); border-radius:6px; background:#fff; padding:.5rem .7rem; max-width:640px; margin:0 auto;}
+.pbi-formula-bar{position:relative; display:flex; align-items:center; gap:.5rem; border:1px solid var(--pbi-border); border-radius:2px; background:#fff; padding:.5rem .7rem; max-width:640px; margin:0 auto; box-shadow:0 1px 3px rgba(0,0,0,.08);}
 .pbi-fx{color:var(--gold); font-weight:800; font-style:italic; flex-shrink:0;}
 .pbi-formula-input{flex:1; border:none; outline:none; font-family:ui-monospace,SFMono-Regular,Consolas,monospace; font-size:.85rem; background:transparent; color:var(--pbi-text);}
 .pbi-formula-hint{max-width:640px; margin:.6rem auto 0; font-size:.78rem; color:#605e5c; text-align:center;}
 .pbi-formula-target{max-width:640px; margin:.9rem auto 0; background:#f3f2f1; border:1px dashed var(--pbi-border); border-radius:6px; padding:.6rem .8rem; font-family:ui-monospace,SFMono-Regular,Consolas,monospace; font-size:.8rem; color:#8a8886;}
 
+/* Panel lateral de Campos (imita el árbol de tablas real) */
+.pbi-fields-tree{font-size:.72rem; color:#605e5c; margin-bottom:.5rem; padding-bottom:.4rem; border-bottom:1px solid var(--pbi-border);}
+.pbi-fields-tree .tbl{font-weight:700; color:#323130; display:flex; align-items:center; gap:.3rem;}
+
 /* Arrastrar campo */
 .pbi-drag-stage{display:flex; gap:1rem; flex-wrap:wrap; justify-content:center; align-items:flex-start;}
-.pbi-field-list{background:#fff; border:1px solid var(--pbi-border); border-radius:6px; padding:.6rem; width:180px;}
+.pbi-field-list{background:#fff; border:1px solid var(--pbi-border); border-radius:2px; padding:.6rem; width:180px; box-shadow:0 1px 3px rgba(0,0,0,.06);}
 .pbi-field-list .hd{font-size:.68rem; font-weight:800; text-transform:uppercase; color:#605e5c; margin-bottom:.4rem;}
-.pbi-field-chip{display:flex; align-items:center; gap:.4rem; padding:.4rem .5rem; border-radius:5px; font-size:.78rem; cursor:pointer; border:1.5px solid transparent;}
+.pbi-field-chip{position:relative; display:flex; align-items:center; gap:.4rem; padding:.4rem .5rem; border-radius:5px; font-size:.78rem; cursor:pointer; border:1.5px solid transparent;}
 .pbi-field-chip:hover{background:#f3f2f1;}
 .pbi-field-chip.selected{border-color:var(--gold); background:#fff8e1;}
 .pbi-field-chip .sq{width:12px; height:12px; border-radius:2px; background:var(--gold); flex-shrink:0;}
-.pbi-visual-well{background:#fff; border:1px solid var(--pbi-border); border-radius:6px; padding:.6rem; width:180px;}
+.pbi-visual-well{background:#fff; border:1px solid var(--pbi-border); border-radius:2px; padding:.6rem; width:180px; box-shadow:0 1px 3px rgba(0,0,0,.06);}
 .pbi-visual-well .hd{font-size:.68rem; font-weight:800; text-transform:uppercase; color:#605e5c; margin-bottom:.4rem;}
-.pbi-well-slot{border:1.5px dashed var(--pbi-border); border-radius:6px; min-height:34px; display:flex; align-items:center; justify-content:center; font-size:.72rem; color:#a19f9d; padding:.3rem; cursor:pointer;}
+.pbi-well-slot{position:relative; border:1.5px dashed var(--pbi-border); border-radius:6px; min-height:34px; display:flex; align-items:center; justify-content:center; font-size:.72rem; color:#a19f9d; padding:.3rem; cursor:pointer;}
 .pbi-well-slot.hot{border-color:var(--pbi-yellow); background:rgba(242,200,17,.12); animation:simPulse 1.1s ease-in-out infinite;}
 .pbi-well-slot.filled{border-style:solid; border-color:var(--gold); background:#fff8e1; color:var(--pbi-text); font-weight:700;}
-.pbi-card-preview{background:#fff; border:1px solid var(--pbi-border); border-radius:6px; padding:1rem; width:150px; text-align:center;}
+.pbi-card-preview{background:#fff; border:1px solid var(--pbi-border); border-radius:2px; padding:1rem; width:150px; text-align:center; box-shadow:0 1px 3px rgba(0,0,0,.06);}
 .pbi-card-preview .big{font-size:1.5rem; font-weight:800; color:var(--navy); min-height:1.8rem;}
 .pbi-card-preview .lbl{font-size:.7rem; color:#605e5c; margin-top:.25rem;}
+
+@media (max-width:640px){
+  .pbi-nav-body{flex-direction:column;}
+  .pbi-nav-list{flex:none; border-right:none; border-bottom:1px solid var(--pbi-border); max-height:180px;}
+  .pbi-rib-buttons{gap:.8rem;}
+}
 
 .sim-checklist{list-style:none; padding:0; margin:1rem 0 0;}
 .sim-checklist li{display:flex; align-items:flex-start; gap:.5rem; font-size:.85rem; margin-bottom:.5rem; color:var(--secondary);}
@@ -456,18 +491,32 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
       <h2>🖱️ Simulación 1 · El Navegador de Excel (el paso donde más se equivocan)</h2>
       <p><strong>Por qué importa:</strong> el archivo de Excel de esta práctica trae, para cada tabla, DOS opciones parecidas: un nombre genérico (<code>Table_1</code>, <code>Table_2</code>...) y el nombre real ya definido (<code>Nomina_Hechos</code>, <code>Dim_Departamento</code>...). Si marca las genéricas, su dashboard queda con nombres feos y hay que renombrar todo después. <strong>Siempre marque las de nombre real.</strong></p>
       <div class="sim-wrap" id="sim1">
-        <div class="sim-titlebar"><span class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span> Navegador — Power BI Desktop</div>
+        <div class="pbi-titlebar">
+          <span class="pbi-logo"><i></i><i></i><i></i></span>
+          <span class="pbi-titlebar-text">Practica 3.xlsx — Power BI Desktop</span>
+          <span class="pbi-winctl"><span>─</span><span>▢</span><span>✕</span></span>
+        </div>
+        <div class="pbi-ribbon">
+          <div class="pbi-rib-tabs"><span>Archivo</span><span class="active">Inicio</span><span>Insertar</span><span>Modelado</span><span>Vista</span></div>
+          <div class="pbi-rib-buttons">
+            <div class="pbi-rib-btn"><span class="ico">📋</span><span class="lbl">Pegar</span></div>
+            <div class="pbi-rib-btn hot"><span class="ico">📥</span><span class="lbl">Obtener<br>datos ▾</span></div>
+            <div class="pbi-rib-btn"><span class="ico">🔄</span><span class="lbl">Actualizar</span></div>
+            <div class="pbi-rib-btn"><span class="ico">Σ</span><span class="lbl">Nueva<br>medida</span></div>
+          </div>
+        </div>
+        <div class="pbi-steps"><span><strong>Paso 1:</strong> en la lista de la izquierda ↓ marque ✓ las 7 tablas de <strong>nombre real</strong> (no las genéricas).</span><span><strong>Paso 2:</strong> cuando el botón "Cargar" se ponga amarillo, presiónelo →</span></div>
         <div class="sim-progress"><i data-sim1-p="0"></i><i data-sim1-p="1"></i></div>
         <div class="sim-canvas">
           <div class="pbi-navigator">
             <div class="pbi-nav-title">Navegador</div>
             <div class="pbi-nav-body">
-              <div class="pbi-nav-list" id="sim1-list"></div>
-              <div class="pbi-nav-preview" id="sim1-preview">Seleccione una tabla para ver la vista previa</div>
+              <div class="pbi-nav-list" id="sim1-list" style="position:relative;"><span class="pbi-coach-num" style="top:-9px; left:-9px; right:auto;">1</span></div>
+              <div class="pbi-nav-preview" id="sim1-preview"><div class="ph">Seleccione una tabla para ver la vista previa</div></div>
             </div>
             <div class="pbi-nav-footer">
               <button class="pbi-btn-ghost" type="button" disabled>Transformar datos</button>
-              <button class="pbi-btn-primary" id="sim1-cargar" type="button">Cargar</button>
+              <button class="pbi-btn-primary" id="sim1-cargar" type="button">Cargar<span class="pbi-coach-num">2</span></button>
             </div>
           </div>
         </div>
@@ -478,9 +527,23 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
       <h2>✍️ Simulación 2 · Escribir una fórmula DAX</h2>
       <p><strong>Por qué importa:</strong> las columnas calculadas y las medidas se escriben igual — un nombre, el signo <code>=</code>, y una fórmula. Practique el patrón con un ejemplo simplificado; en su PC escribirá la fórmula real y más completa de la guía.</p>
       <div class="sim-wrap" id="sim2">
-        <div class="sim-titlebar"><span class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span> Vista de datos — Nomina_Hechos</div>
+        <div class="pbi-titlebar">
+          <span class="pbi-logo"><i></i><i></i><i></i></span>
+          <span class="pbi-titlebar-text">Practica 3.xlsx — Power BI Desktop</span>
+          <span class="pbi-winctl"><span>─</span><span>▢</span><span>✕</span></span>
+        </div>
+        <div class="pbi-ribbon">
+          <div class="pbi-rib-tabs"><span>Archivo</span><span>Inicio</span><span>Insertar</span><span class="active">Herramientas de tabla</span><span>Vista</span></div>
+          <div class="pbi-rib-buttons">
+            <div class="pbi-rib-btn hot"><span class="ico">🧮</span><span class="lbl">Nueva<br>columna</span></div>
+            <div class="pbi-rib-btn"><span class="ico">Σ</span><span class="lbl">Nueva<br>medida</span></div>
+            <div class="pbi-rib-btn"><span class="ico">📐</span><span class="lbl">Formato</span></div>
+          </div>
+        </div>
+        <div class="pbi-steps"><span><strong>Paso único:</strong> escriba la fórmula completa en la barra ƒx de abajo ↓ (copie el patrón, respetando el signo <code>=</code>).</span></div>
         <div class="sim-canvas">
           <div class="pbi-formula-bar">
+            <span class="pbi-coach-num" style="top:-9px; left:-9px; right:auto;">1</span>
             <span class="pbi-fx">ƒx</span>
             <input type="text" class="pbi-formula-input" id="sim2-input" placeholder="Escriba aquí su fórmula DAX..." autocomplete="off" autocapitalize="off" spellcheck="false">
           </div>
@@ -494,10 +557,24 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
       <h2>📊 Simulación 3 · Arrastrar un campo para construir un visual</h2>
       <p><strong>Por qué importa:</strong> construir cualquier gráfico en Power BI es lo mismo: arrastrar el campo que quiere mostrar hacia el "pocito" (well) correcto del visual.</p>
       <div class="sim-wrap" id="sim3">
-        <div class="sim-titlebar"><span class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span> Vista de informe — Página en blanco</div>
+        <div class="pbi-titlebar">
+          <span class="pbi-logo"><i></i><i></i><i></i></span>
+          <span class="pbi-titlebar-text">Practica 3.xlsx — Power BI Desktop</span>
+          <span class="pbi-winctl"><span>─</span><span>▢</span><span>✕</span></span>
+        </div>
+        <div class="pbi-ribbon">
+          <div class="pbi-rib-tabs"><span>Archivo</span><span class="active">Inicio</span><span>Insertar</span><span>Modelado</span><span>Vista</span></div>
+          <div class="pbi-rib-buttons">
+            <div class="pbi-rib-btn"><span class="ico">📊</span><span class="lbl">Gráfico<br>de barras</span></div>
+            <div class="pbi-rib-btn"><span class="ico">🃏</span><span class="lbl">Tarjeta</span></div>
+            <div class="pbi-rib-btn"><span class="ico">📋</span><span class="lbl">Tabla</span></div>
+          </div>
+        </div>
+        <div class="pbi-steps"><span><strong>Paso 1:</strong> toque el campo "Σ Total_Servidores" en el panel Campos (izquierda) ↓</span><span><strong>Paso 2:</strong> luego toque el recuadro "Arrastre aquí" (derecha) →</span></div>
         <div class="sim-canvas">
           <div class="pbi-drag-stage">
-            <div class="pbi-field-list">
+            <div class="pbi-field-list" style="position:relative;">
+              <span class="pbi-coach-num" style="top:-9px; left:-9px; right:auto;">1</span>
               <div class="hd">Campos</div>
               <div class="pbi-field-chip" id="sim3-chip-1" data-field="Departamento">▤ Departamento</div>
               <div class="pbi-field-chip" id="sim3-chip-2" data-field="Total_Servidores">Σ Total_Servidores</div>
@@ -508,10 +585,10 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
               <div class="big" id="sim3-cardval"></div>
               <div class="lbl">Total_Servidores</div>
             </div>
-            <div class="pbi-visual-well">
+            <div class="pbi-visual-well" style="position:relative;">
               <div class="hd">Campos del visual</div>
               <div style="font-size:.7rem; color:#605e5c; margin-bottom:.2rem;">Valores</div>
-              <div class="pbi-well-slot" id="sim3-well">Arrastre aquí</div>
+              <div class="pbi-well-slot" id="sim3-well">Arrastre aquí<span class="pbi-coach-num">2</span></div>
             </div>
           </div>
         </div>
@@ -985,9 +1062,28 @@ var prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-redu
     { name:'Dim_Calendario' }, { name:'Dim_Departamento' }, { name:'Dim_Estatus' },
     { name:'Table_5', decoy:true }, { name:'Hist_Nomina_Mensual' }, { name:'Nomina_Hechos' }
   ];
+  var PREV_DATA = {
+    'Nomina_Hechos': { cols:['ID_Servidor','Departamento_ID','Salario_Bruto','Antiguedad_Anos'], rows:[['1024','7','48,500','6'],['1025','3','62,100','12'],['1026','7','39,800','2']] },
+    'Dim_Departamento': { cols:['Departamento_ID','Nombre_Departamento','Area_Funcional'], rows:[['3','Auditoría Interna Gub.','Fiscalización'],['7','Servicios Generales','Apoyo']] },
+    'Dim_Estatus': { cols:['Estatus_ID','Nombre_Estatus'], rows:[['1','De Carrera'],['2','Libre Nombramiento']] },
+    'Dim_Banda_Salarial': { cols:['Banda_ID','Rango_Min','Rango_Max'], rows:[['B1','25,000','40,000'],['B2','40,001','60,000']] },
+    'Dim_Calendario': { cols:['Fecha','Anio','Mes'], rows:[['2024-01-01','2024','Enero'],['2024-02-01','2024','Febrero']] },
+    'Hist_Nomina_Mensual': { cols:['Mes','Departamento_ID','Masa_Salarial'], rows:[['2024-01','7','1,850,200'],['2024-02','7','1,862,900']] },
+    'Benchmarks': { cols:['Cargo','Salario_Mercado'], rows:[['Analista','45,000'],['Supervisor','68,000']] }
+  };
+  function renderPreview(name, decoy){
+    var box = document.getElementById('sim1-preview');
+    if(decoy){ box.innerHTML = '<div class="ph">⚠️ "'+name+'" es un nombre genérico o de instrucciones — no la necesita para el dashboard.</div>'; return; }
+    var d = PREV_DATA[name];
+    if(!d){ box.innerHTML = '<div class="ph">'+name+' — nombre real ✓</div>'; return; }
+    var html = '<table class="pbi-preview-grid"><thead><tr>'+d.cols.map(function(c){return '<th>'+c+'</th>';}).join('')+'</tr></thead><tbody>';
+    d.rows.forEach(function(r){ html += '<tr>'+r.map(function(v){return '<td>'+v+'</td>';}).join('')+'</tr>'; });
+    html += '</tbody></table>';
+    box.innerHTML = html;
+  }
   var listEl = document.getElementById('sim1-list');
   var correctas = TABLAS.filter(function(t){ return !t.decoy; }).length;
-  listEl.innerHTML = TABLAS.map(function(t,i){
+  listEl.innerHTML = '<span class="pbi-coach-num" style="top:-9px; left:-9px; right:auto;">1</span>' + TABLAS.map(function(t,i){
     return '<label class="pbi-nav-item'+(t.decoy?' decoy':'')+'" data-name="'+t.name+'"><input type="checkbox" data-i="'+i+'"> ▤ '+t.name+'</label>';
   }).join('');
   var sim1Done = localStorage.getItem('tp_pbi_sim1') === '1';
@@ -1007,7 +1103,7 @@ var prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-redu
   listEl.addEventListener('click', function(e){
     var item = e.target.closest('.pbi-nav-item'); if(!item) return;
     var cb = item.querySelector('input'); if(e.target !== cb){ cb.checked = !cb.checked; }
-    document.getElementById('sim1-preview').textContent = item.getAttribute('data-name') + (item.classList.contains('decoy') ? ' — nombre genérico, evítela' : ' — nombre real ✓');
+    renderPreview(item.getAttribute('data-name'), item.classList.contains('decoy'));
     sim1Check();
   });
   document.getElementById('sim1-cargar').addEventListener('click', function(){
