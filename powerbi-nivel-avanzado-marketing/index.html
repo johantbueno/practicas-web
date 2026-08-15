@@ -612,21 +612,51 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
     <!-- ============ GUIA PARA LA PC ============ -->
     <section id="guia-pc" class="card">
       <span class="step-badge">Ahora vaya a su PC</span>
-      <h1 style="font-size:1.3rem;">Ejercicio real en Power BI Desktop</h1>
+      <h1 style="font-size:1.3rem;">Ejercicio real en Power BI Desktop — 7 actividades</h1>
       <div class="alert gold">
-        <strong>Con el patrón de los 3 pasos ya ensayado</strong>, siga la guía completa que le entregó su facilitador (instalación, importar el Excel, 5 columnas DAX derivadas, 8 medidas, y 3 páginas de dashboard con 18 visuales). Repita exactamente el mismo gesto de cada simulación para cada columna calculada, cada medida y cada visual — es el mismo patrón repetido, solo cambian los nombres.</p>
+        <strong>Con el patrón de los 3 pasos que ya ensayó arriba</strong>, siga estas 7 actividades en orden, en su propia PC, con el archivo <code>marketing_campaign.xlsx</code>. Cada una le explica primero el concepto y después le pide la acción — es el mismo gesto de las 3 simulaciones, repetido con nombres reales.
       </div>
-      <h2>Resumen de lo que va a construir</h2>
-      <div class="tbl-wrap"><table class="tp-table">
-        <thead><tr><th>Sección</th><th>Qué hace</th></tr></thead>
-        <tbody>
-          <tr><td class="label-cell">① Instalar</td><td>Power BI Desktop, gratis, desde Microsoft Store.</td></tr>
-          <tr><td class="label-cell">② Importar</td><td>El Excel con 1 hoja de 29 columnas — use el Navegador tal como lo ensayó arriba.</td></tr>
-          <tr><td class="label-cell">③ Columnas DAX</td><td>5 columnas calculadas: Edad, Total_Gasto, Total_Compras, Total_Campanas_Aceptadas, Segmento_Edad (mismo patrón SWITCH de la Simulación 2).</td></tr>
-          <tr><td class="label-cell">④ Medidas DAX</td><td>8 medidas (Total_Clientes, Ingreso_Promedio, Gasto_Total, Gasto_Promedio_Cliente, Tasa_Aceptacion_Ultima, Pct_Con_Quejas, Promedio_Campanas_Aceptadas, Compras_Web_Total).</td></tr>
-          <tr><td class="label-cell">⑤ Dashboard</td><td>3 páginas, 18 visuales (incluye gráfico de dispersión y tabla) — mismo patrón de la Simulación 3.</td></tr>
-        </tbody>
-      </table></div>
+
+      <h2>Actividad 1 · Abra Power BI Desktop</h2>
+      <p><strong>Qué es:</strong> Power BI Desktop es el programa gratuito de Microsoft donde va a construir el dashboard.</p>
+      <p><strong>Acción:</strong> ábralo y cierre la pantalla de bienvenida para llegar a un lienzo en blanco.</p>
+
+      <h2>Actividad 2 · Obtenga los datos</h2>
+      <p><strong>Qué es:</strong> este archivo trae una sola hoja, pero con 29 columnas — es la más ancha de las 4 prácticas de nivel.</p>
+      <p><strong>Acción:</strong> <strong>Inicio</strong> → <strong>Obtener datos</strong> → <strong>Libro de Excel</strong> → seleccione <code>marketing_campaign.xlsx</code> → en el Navegador marque <strong>Sheet1</strong> → <strong>Cargar</strong>, igual que en la Simulación 1.</p>
+
+      <h2>Actividad 3 · Cree las 4 columnas DAX simples</h2>
+      <p><strong>Qué es:</strong> estas 4 columnas suman o restan campos existentes — el mismo patrón que ya ensayó, sin condicionales todavía.</p>
+      <p><strong>Acción:</strong> en la tabla <strong>Marketing</strong>, cree:</p>
+      <div class="pbi-formula-target">Edad = 2014 - Marketing[Year_Birth]</div>
+      <div class="pbi-formula-target">Total_Gasto = Marketing[MntWines] + Marketing[MntFruits] + Marketing[MntMeatProducts] + Marketing[MntFishProducts] + Marketing[MntSweetProducts] + Marketing[MntGoldProds]</div>
+      <div class="pbi-formula-target">Total_Compras = Marketing[NumDealsPurchases] + Marketing[NumWebPurchases] + Marketing[NumCatalogPurchases] + Marketing[NumStorePurchases]</div>
+      <div class="pbi-formula-target">Total_Campanas_Aceptadas = Marketing[AcceptedCmp1] + Marketing[AcceptedCmp2] + Marketing[AcceptedCmp3] + Marketing[AcceptedCmp4] + Marketing[AcceptedCmp5] + Marketing[Response]</div>
+
+      <h2>Actividad 4 · Cree la columna DAX con SWITCH</h2>
+      <p><strong>Qué es:</strong> exactamente el patrón que practicó en la Simulación 2 — SWITCH(TRUE(), condición1, resultado1, condición2, resultado2, ..., resultado_final).</p>
+      <p><strong>Acción:</strong></p>
+      <div class="pbi-formula-target">Segmento_Edad = SWITCH(TRUE(), Marketing[Edad]&lt;30, "Joven (&lt;30)", Marketing[Edad]&lt;50, "Adulto (30-49)", Marketing[Edad]&lt;65, "Adulto Mayor (50-64)", "Senior (65+)")</div>
+
+      <h2>Actividad 5 · Cree las 8 medidas DAX</h2>
+      <p><strong>Qué es:</strong> las medidas se calculan al vuelo según el filtro activo — todas las tarjetas y gráficos del dashboard se apoyan en ellas.</p>
+      <p><strong>Acción:</strong> en la tabla <strong>Marketing</strong>, cree las 8 medidas:</p>
+      <div class="pbi-formula-target">Total_Clientes = COUNTROWS(Marketing)</div>
+      <div class="pbi-formula-target">Ingreso_Promedio = AVERAGE(Marketing[Income])</div>
+      <div class="pbi-formula-target">Gasto_Total = SUM(Marketing[Total_Gasto])</div>
+      <div class="pbi-formula-target">Gasto_Promedio_Cliente = AVERAGE(Marketing[Total_Gasto])</div>
+      <div class="pbi-formula-target">Tasa_Aceptacion_Ultima = DIVIDE(SUM(Marketing[Response]), [Total_Clientes])</div>
+      <div class="pbi-formula-target">Pct_Con_Quejas = DIVIDE(SUM(Marketing[Complain]), [Total_Clientes])</div>
+      <div class="pbi-formula-target">Promedio_Campanas_Aceptadas = AVERAGE(Marketing[Total_Campanas_Aceptadas])</div>
+      <div class="pbi-formula-target">Compras_Web_Total = SUM(Marketing[NumWebPurchases])</div>
+
+      <h2>Actividad 6 · Construya las páginas 1 y 2 (11 visuales)</h2>
+      <p><strong>Acción — Página 1 "Comportamiento de Compra" (6 visuales):</strong> título, 3 tarjetas (<code>Gasto_Total</code>, <code>Compras_Web_Total</code>, <code>Promedio_Campanas_Aceptadas</code>), un gráfico de columnas "Gasto Total por Segmento de Edad" y un gráfico de dispersión "Ingreso vs Gasto Total" (eje X <code>Income</code>, eje Y <code>Total_Gasto</code>, categoría <code>Segmento_Edad</code>).</p>
+      <p><strong>Acción — Página 2 "Campañas de Marketing" (5 visuales):</strong> título, un gráfico de columnas "Promedio de Campañas Aceptadas por Segmento", 2 tarjetas (<code>Tasa_Aceptacion_Ultima</code>, <code>Pct_Con_Quejas</code>) y una tabla "Aceptación por Nivel Educativo".</p>
+
+      <h2>Actividad 7 · Construya la Página 3 "Perfil de Clientes" (7 visuales)</h2>
+      <p><strong>Acción:</strong> título, 3 tarjetas (<code>Total_Clientes</code>, <code>Ingreso_Promedio</code>, <code>Gasto_Promedio_Cliente</code>), un gráfico de columnas "Clientes por Segmento de Edad", y 2 gráficos circulares ("Distribución por Educación" y "Distribución por Estado Civil").</p>
+
       <div class="help-box">
         <span style="font-size:1.6rem;">💬</span>
         <div>
@@ -961,7 +991,7 @@ var TIMER_MINUTES = 180;
 var SOUND_MUTE_KEY = 'tp_pbi_sound_muted';
 var soundMuted = localStorage.getItem(SOUND_MUTE_KEY) === '1';
 (function(){
-  var DEADLINE_KEY = 'tp_pbi_deadline';
+  var DEADLINE_KEY = 'tp_pbi_avanzado_deadline';
   var d = parseInt(localStorage.getItem(DEADLINE_KEY), 10);
   if(!d || isNaN(d)){ d = Date.now() + TIMER_MINUTES * 60000; try{ localStorage.setItem(DEADLINE_KEY, String(d)); }catch(e){} }
   var box = document.getElementById('timer-box');
@@ -1003,7 +1033,7 @@ var soundMuted = localStorage.getItem(SOUND_MUTE_KEY) === '1';
     for(var i=0;i<n;i++){ trazarCorazon(hctx, 20+i*46, 18, 12, i < llenos); }
     heartsCanvas.classList.toggle('critical', pct <= (1/n) && pct > 0);
   }
-  var lastMinuteAudioStarted = false, flatlinePlayed = false, lastStabAt = 0;
+  var lastMinuteAudioStarted = false, flatlinePlayed = false, lastStabAt = 0, lastBeepAt = 0;
   function tick(){
     var remaining = d - Date.now();
     if(remaining > 0){
@@ -1011,13 +1041,20 @@ var soundMuted = localStorage.getItem(SOUND_MUTE_KEY) === '1';
       valueEl.textContent = (m<10?'0':'')+m+':'+(s<10?'0':'')+s;
       box.classList.remove('overtime'); overtimeNote.hidden = true; fastClock.style.display='none';
       dibujarCorazones(Math.max(0, remaining/(TIMER_MINUTES*60000)));
-      var lastMinute = remaining <= 60000;
       box.classList.toggle('low', remaining <= 600000);
+      var lastMinute = remaining <= 5*60000;
       box.classList.toggle('critical', lastMinute);
       if(lastMinute){
-        var pctMin = remaining/60000;
-        var interval = 250 + pctMin*1750;
-        if(!lastMinuteAudioStarted || Date.now()-lastStabAt > interval){ beep(880+((1-pctMin)*300),.12); if(Date.now()-lastStabAt > interval*1.6){ stab(); lastStabAt = Date.now(); } lastMinuteAudioStarted = true; }
+        // Sonido confinado a los ULTIMOS 5 MINUTOS, curva cubica que
+        // arranca muy espaciada y se intensifica solo en el ultimo
+        // minuto, para no desesperar durante toda la ventana (convencion
+        // 2026-07-28 tras queja de Johan).
+        var pctMin = remaining/(5*60000);
+        var eased = Math.pow(1-pctMin, 3);
+        var interval = 3000 - eased*2750;
+        if(Date.now()-lastBeepAt > interval){ beep(880+((1-pctMin)*300),.12); lastBeepAt = Date.now(); lastMinuteAudioStarted = true; }
+        var stabInterval = 3500 - eased*3150;
+        if(Date.now()-lastStabAt > stabInterval){ stab(); lastStabAt = Date.now(); }
       }
     } else {
       var over = -remaining;
@@ -1090,7 +1127,7 @@ var prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-redu
   listEl.innerHTML = '<span class="pbi-coach-num" style="top:-9px; left:-9px; right:auto;">1</span>' + TABLAS.map(function(t,i){
     return '<label class="pbi-nav-item'+(t.decoy?' decoy':'')+'" data-name="'+t.name+'"><input type="checkbox" data-i="'+i+'"> ▤ '+t.name+'</label>';
   }).join('');
-  var sim1Done = localStorage.getItem('tp_pbi_sim1') === '1';
+  var sim1Done = localStorage.getItem('tp_pbi_avanzado_sim1') === '1';
   function sim1Check(){
     var boxes = listEl.querySelectorAll('input[type=checkbox]');
     var okChecked = 0, decoyChecked = 0;
@@ -1112,7 +1149,7 @@ var prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-redu
   });
   document.getElementById('sim1-cargar').addEventListener('click', function(){
     if(!sim1Check()) return;
-    localStorage.setItem('tp_pbi_sim1','1');
+    localStorage.setItem('tp_pbi_avanzado_sim1','1');
     document.getElementById('sim1_status').value = '1';
     document.getElementById('sim1-feedback').className = 'sim-feedback ok';
     document.getElementById('sim1-feedback').textContent = '✓ ¡Perfecto! Así se marcan las tablas correctas — en su PC repita esto mismo con el archivo real.';
@@ -1123,7 +1160,7 @@ var prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-redu
 
   /* ---- Simulación 2: fórmula DAX ---- */
   var input2 = document.getElementById('sim2-input');
-  var sim2Done = localStorage.getItem('tp_pbi_sim2') === '1';
+  var sim2Done = localStorage.getItem('tp_pbi_avanzado_sim2') === '1';
   function checkFormula(v){
     var s = v.toLowerCase().replace(/\s+/g,' ').trim();
     var tieneNombre = /segmento_edad\s*=/.test(s);
@@ -1139,7 +1176,7 @@ var prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-redu
     if(!filled(input2.value)){ fb.className='sim-feedback'; return; }
     if(r.ok){
       fb.className='sim-feedback ok'; fb.textContent='✓ ¡Correcto! Su fórmula tiene la estructura correcta.';
-      if(!sim2Done){ localStorage.setItem('tp_pbi_sim2','1'); sim2Done = true; document.getElementById('sim2_status').value='1';
+      if(!sim2Done){ localStorage.setItem('tp_pbi_avanzado_sim2','1'); sim2Done = true; document.getElementById('sim2_status').value='1';
         document.getElementById('sim2-caption').innerHTML = 'Nicole: ¡bien hecho! Domina el patrón SWITCH(TRUE()) — en su PC escribirá la fórmula real (con 4 categorías de edad) en Vista de datos → Nueva columna.';
         updateProgress(); saveAll(); }
     } else {
@@ -1150,7 +1187,7 @@ var prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-redu
 
   /* ---- Simulación 3: arrastrar campo ---- */
   var selectedChip = null;
-  var sim3Done = localStorage.getItem('tp_pbi_sim3') === '1';
+  var sim3Done = localStorage.getItem('tp_pbi_avanzado_sim3') === '1';
   document.querySelectorAll('.pbi-field-chip').forEach(function(chip){
     chip.addEventListener('click', function(){
       document.querySelectorAll('.pbi-field-chip').forEach(function(c){ c.classList.remove('selected'); });
@@ -1173,7 +1210,7 @@ var prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-redu
     document.getElementById('sim3-feedback').className = 'sim-feedback ok';
     document.getElementById('sim3-feedback').textContent = '✓ ¡Así se construye cualquier visual! Arrastre-y-suelte (o toque-y-toque) siempre funciona igual.';
     document.getElementById('sim3-caption').innerHTML = 'Nicole: perfecto. En su PC hará este mismo gesto para cada gráfico: arrastrar el campo correcto al "pocito" correcto del panel de Visualizaciones.';
-    if(!sim3Done){ localStorage.setItem('tp_pbi_sim3','1'); sim3Done = true; document.getElementById('sim3_status').value='1'; updateProgress(); saveAll(); }
+    if(!sim3Done){ localStorage.setItem('tp_pbi_avanzado_sim3','1'); sim3Done = true; document.getElementById('sim3_status').value='1'; updateProgress(); saveAll(); }
   });
   if(sim3Done){
     document.getElementById('sim3_status').value='1';
@@ -1343,7 +1380,7 @@ function gatherGradingPayload(localResult){
   });
   return {
     estudiante: { nombre: nombreIdentificacion(), correo: correoIdentificacion() },
-    curso: 'powerbi-people-analytics', unidad: 'm3',
+    curso: 'powerbi-nivel-avanzado-marketing', unidad: 'unica',
     aprobado_por_completitud: practicaCompleta(), pasos: pasos,
     local: localResult ? { total: localResult.total, criterios: localResult.criteria.map(function(c){ return { titulo:c.title, puntaje:c.score, max:c.maxPoints }; }) } : null
   };

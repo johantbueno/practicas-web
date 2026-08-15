@@ -612,21 +612,55 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
     <!-- ============ GUIA PARA LA PC ============ -->
     <section id="guia-pc" class="card">
       <span class="step-badge">Ahora vaya a su PC</span>
-      <h1 style="font-size:1.3rem;">Ejercicio real en Power BI Desktop</h1>
+      <h1 style="font-size:1.3rem;">Ejercicio real en Power BI Desktop — 7 actividades</h1>
       <div class="alert gold">
-        <strong>Con el patrón de los 3 pasos ya ensayado</strong>, siga la guía completa que le entregó su facilitador (instalación, importar el Excel, 2 columnas DAX, 5 medidas, y 1 página de dashboard con 8 visuales). Repita exactamente el mismo gesto de cada simulación para la columna calculada, cada medida y cada visual — es el mismo patrón repetido, solo cambian los nombres.</p>
+        <strong>Con el patrón de los 3 pasos que ya ensayó arriba</strong>, siga estas 7 actividades en orden, en su propia PC, con el archivo <code>Youtube.xlsx</code>. Cada una le explica primero el concepto y después le pide la acción — no necesita ningún conocimiento previo de Power BI. Es el mismo gesto de las 3 simulaciones, repetido con nombres reales.
       </div>
-      <h2>Resumen de lo que va a construir</h2>
+
+      <h2>Actividad 1 · Abra Power BI Desktop</h2>
+      <p><strong>Qué es:</strong> Power BI Desktop es un programa gratuito de Microsoft (disponible en Microsoft Store) que convierte los datos de un Excel en un dashboard interactivo — tarjetas, gráficos y tablas que se actualizan solos cuando usted hace clic en un filtro.</p>
+      <p><strong>Acción:</strong> instale Power BI Desktop si no lo tiene, ábralo, y cierre la pantalla de bienvenida. Verá un lienzo en blanco listo para un informe nuevo.</p>
+
+      <h2>Actividad 2 · Obtenga los datos del Excel</h2>
+      <p><strong>Qué es:</strong> "Obtener datos" es la puerta de entrada de Power BI a cualquier fuente externa — en este caso, un archivo de Excel.</p>
+      <p><strong>Acción:</strong> pestaña <strong>Inicio</strong> → <strong>Obtener datos</strong> → <strong>Libro de Excel</strong> → seleccione <code>Youtube.xlsx</code>. En el Navegador que se abre, marque la casilla de la tabla <strong>Analytics</strong> y presione <strong>Cargar</strong> — exactamente como practicó en la Simulación 1.</p>
+
+      <h2>Actividad 3 · Explore la tabla importada</h2>
+      <p><strong>Qué es:</strong> Power BI tiene 3 vistas, en los íconos de la barra izquierda: <strong>Informe</strong> (los gráficos), <strong>Datos</strong> (la tabla cruda) y <strong>Modelo</strong> (relaciones entre tablas — en este ejercicio solo hay una tabla, así que no la necesitará).</p>
+      <p><strong>Acción:</strong> cambie a la <strong>Vista de datos</strong> y revise las 5 columnas que trajo el Excel: <code>Fecha</code>, <code>Me gusta</code>, <code>Suscriptores</code>, <code>Vistas</code>, <code>Horas Reproduccion</code>. Confirme que <code>Fecha</code> tenga el ícono de calendario (tipo fecha) — si no fuera así, los gráficos de tendencia no funcionarían bien.</p>
+
+      <h2>Actividad 4 · Cree las 2 columnas calculadas DAX</h2>
+      <p><strong>Qué es:</strong> una <strong>columna calculada</strong> agrega un valor nuevo a cada fila de la tabla, calculado con una fórmula — queda guardada como una columna más, útil para agrupar o filtrar.</p>
+      <p><strong>Acción:</strong> en Vista de datos, pestaña <strong>Herramientas de tabla</strong> → <strong>Nueva columna</strong>, escriba estas 2 fórmulas (una a la vez, tal como practicó en la Simulación 2):</p>
+      <div class="pbi-formula-target">Anio = YEAR(Analytics[Fecha])</div>
+      <div class="pbi-formula-target">Categoria_Dia = IF(Analytics[Vistas] &gt;= 500, "Día fuerte 🔥", "Día normal")</div>
+
+      <h2>Actividad 5 · Cree las 5 medidas DAX</h2>
+      <p><strong>Qué es:</strong> a diferencia de una columna, una <strong>medida</strong> no guarda un valor por fila — se calcula "al vuelo" según los filtros activos en cada momento. Toda tarjeta y gráfico de este dashboard se apoya en una medida.</p>
+      <p><strong>Acción:</strong> pestaña <strong>Inicio</strong> → <strong>Nueva medida</strong>, cree las 5:</p>
+      <div class="pbi-formula-target">Total_Vistas = SUM(Analytics[Vistas])</div>
+      <div class="pbi-formula-target">Total_MeGusta = SUM(Analytics[Me gusta])</div>
+      <div class="pbi-formula-target">Total_Suscriptores_Ganados = SUM(Analytics[Suscriptores])</div>
+      <div class="pbi-formula-target">Horas_Reproduccion_Total = SUM(Analytics[Horas Reproduccion])</div>
+      <div class="pbi-formula-target">Tasa_Interaccion = DIVIDE([Total_MeGusta], [Total_Vistas])</div>
+
+      <h2>Actividad 6 · Construya las 4 tarjetas (cards)</h2>
+      <p><strong>Qué es:</strong> una tarjeta muestra un solo número grande — ideal para un indicador (KPI) que el lector debe ver de un vistazo, sin tener que interpretar un gráfico.</p>
+      <p><strong>Acción:</strong> en <strong>Vista de informe</strong>, con el lienzo vacío, marque la casilla de cada medida en el panel Datos (igual que ensayó en la Simulación 3) — Power BI crea automáticamente una tarjeta. Repita para <code>Total_Vistas</code>, <code>Tasa_Interaccion</code>, <code>Total_Suscriptores_Ganados</code> y <code>Horas_Reproduccion_Total</code>, y acomode las 4 en una fila arriba del lienzo.</p>
+
+      <h2>Actividad 7 · Construya los gráficos y el segmentador</h2>
+      <p><strong>Qué es:</strong> un <strong>gráfico de líneas</strong> muestra una tendencia en el tiempo; uno de <strong>barras</strong> compara categorías entre sí; un <strong>segmentador</strong> deja que el lector filtre todo el dashboard con un clic, sin tocar ninguna fórmula.</p>
+      <p><strong>Acción:</strong> agregue 3 visuales más al lienzo:</p>
       <div class="tbl-wrap"><table class="tp-table">
-        <thead><tr><th>Sección</th><th>Qué hace</th></tr></thead>
+        <thead><tr><th>Visual</th><th>Eje / Categoría</th><th>Valores</th></tr></thead>
         <tbody>
-          <tr><td class="label-cell">① Instalar</td><td>Power BI Desktop, gratis, desde Microsoft Store.</td></tr>
-          <tr><td class="label-cell">② Importar</td><td>El Excel con 1 hoja de datos — use el Navegador tal como lo ensayó arriba.</td></tr>
-          <tr><td class="label-cell">③ Columnas DAX</td><td>2 columnas calculadas (Anio, Categoria_Dia — mismo patrón de la Simulación 2).</td></tr>
-          <tr><td class="label-cell">④ Medidas DAX</td><td>5 medidas (Total_Vistas, Total_MeGusta, Total_Suscriptores_Ganados, Horas_Reproduccion_Total, Tasa_Interaccion).</td></tr>
-          <tr><td class="label-cell">⑤ Dashboard</td><td>1 página, 8 visuales — mismo patrón de la Simulación 3.</td></tr>
+          <tr><td class="label-cell">Gráfico de líneas</td><td><code>Fecha</code></td><td><code>Total_Vistas</code></td></tr>
+          <tr><td class="label-cell">Gráfico de barras</td><td><code>Categoria_Dia</code></td><td><code>Total_Vistas</code></td></tr>
+          <tr><td class="label-cell">Segmentador</td><td colspan="2"><code>Anio</code></td></tr>
         </tbody>
       </table></div>
+      <p>Para cerrar, agregue un cuadro de texto arriba de todo con el título del dashboard. Con esto su página queda con los 8 visuales (4 tarjetas + gráfico de líneas + gráfico de barras + segmentador + título).</p>
+
       <div class="help-box">
         <span style="font-size:1.6rem;">💬</span>
         <div>
@@ -960,7 +994,7 @@ var TIMER_MINUTES = 180;
 var SOUND_MUTE_KEY = 'tp_pbi_sound_muted';
 var soundMuted = localStorage.getItem(SOUND_MUTE_KEY) === '1';
 (function(){
-  var DEADLINE_KEY = 'tp_pbi_deadline';
+  var DEADLINE_KEY = 'tp_pbi_basico_deadline';
   var d = parseInt(localStorage.getItem(DEADLINE_KEY), 10);
   if(!d || isNaN(d)){ d = Date.now() + TIMER_MINUTES * 60000; try{ localStorage.setItem(DEADLINE_KEY, String(d)); }catch(e){} }
   var box = document.getElementById('timer-box');
@@ -1002,7 +1036,7 @@ var soundMuted = localStorage.getItem(SOUND_MUTE_KEY) === '1';
     for(var i=0;i<n;i++){ trazarCorazon(hctx, 20+i*46, 18, 12, i < llenos); }
     heartsCanvas.classList.toggle('critical', pct <= (1/n) && pct > 0);
   }
-  var lastMinuteAudioStarted = false, flatlinePlayed = false, lastStabAt = 0;
+  var lastMinuteAudioStarted = false, flatlinePlayed = false, lastStabAt = 0, lastBeepAt = 0;
   function tick(){
     var remaining = d - Date.now();
     if(remaining > 0){
@@ -1010,13 +1044,20 @@ var soundMuted = localStorage.getItem(SOUND_MUTE_KEY) === '1';
       valueEl.textContent = (m<10?'0':'')+m+':'+(s<10?'0':'')+s;
       box.classList.remove('overtime'); overtimeNote.hidden = true; fastClock.style.display='none';
       dibujarCorazones(Math.max(0, remaining/(TIMER_MINUTES*60000)));
-      var lastMinute = remaining <= 60000;
       box.classList.toggle('low', remaining <= 600000);
+      var lastMinute = remaining <= 5*60000;
       box.classList.toggle('critical', lastMinute);
       if(lastMinute){
-        var pctMin = remaining/60000;
-        var interval = 250 + pctMin*1750;
-        if(!lastMinuteAudioStarted || Date.now()-lastStabAt > interval){ beep(880+((1-pctMin)*300),.12); if(Date.now()-lastStabAt > interval*1.6){ stab(); lastStabAt = Date.now(); } lastMinuteAudioStarted = true; }
+        // Sonido confinado a los ULTIMOS 5 MINUTOS, curva cubica que
+        // arranca muy espaciada y se intensifica solo en el ultimo
+        // minuto, para no desesperar durante toda la ventana (convencion
+        // 2026-07-28 tras queja de Johan).
+        var pctMin = remaining/(5*60000);
+        var eased = Math.pow(1-pctMin, 3);
+        var interval = 3000 - eased*2750;
+        if(Date.now()-lastBeepAt > interval){ beep(880+((1-pctMin)*300),.12); lastBeepAt = Date.now(); lastMinuteAudioStarted = true; }
+        var stabInterval = 3500 - eased*3150;
+        if(Date.now()-lastStabAt > stabInterval){ stab(); lastStabAt = Date.now(); }
       }
     } else {
       var over = -remaining;
@@ -1089,7 +1130,7 @@ var prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-redu
   listEl.innerHTML = '<span class="pbi-coach-num" style="top:-9px; left:-9px; right:auto;">1</span>' + TABLAS.map(function(t,i){
     return '<label class="pbi-nav-item'+(t.decoy?' decoy':'')+'" data-name="'+t.name+'"><input type="checkbox" data-i="'+i+'"> ▤ '+t.name+'</label>';
   }).join('');
-  var sim1Done = localStorage.getItem('tp_pbi_sim1') === '1';
+  var sim1Done = localStorage.getItem('tp_pbi_basico_sim1') === '1';
   function sim1Check(){
     var boxes = listEl.querySelectorAll('input[type=checkbox]');
     var okChecked = 0, decoyChecked = 0;
@@ -1111,7 +1152,7 @@ var prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-redu
   });
   document.getElementById('sim1-cargar').addEventListener('click', function(){
     if(!sim1Check()) return;
-    localStorage.setItem('tp_pbi_sim1','1');
+    localStorage.setItem('tp_pbi_basico_sim1','1');
     document.getElementById('sim1_status').value = '1';
     document.getElementById('sim1-feedback').className = 'sim-feedback ok';
     document.getElementById('sim1-feedback').textContent = '✓ ¡Perfecto! Así se marcan las tablas correctas — en su PC repita esto mismo con el archivo real.';
@@ -1122,7 +1163,7 @@ var prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-redu
 
   /* ---- Simulación 2: fórmula DAX ---- */
   var input2 = document.getElementById('sim2-input');
-  var sim2Done = localStorage.getItem('tp_pbi_sim2') === '1';
+  var sim2Done = localStorage.getItem('tp_pbi_basico_sim2') === '1';
   function checkFormula(v){
     var s = v.toLowerCase().replace(/\s+/g,' ').trim();
     var tieneNombre = /categoria_dia\s*=/.test(s);
@@ -1139,7 +1180,7 @@ var prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-redu
     if(!filled(input2.value)){ fb.className='sim-feedback'; return; }
     if(r.ok){
       fb.className='sim-feedback ok'; fb.textContent='✓ ¡Correcto! Su fórmula tiene la estructura correcta.';
-      if(!sim2Done){ localStorage.setItem('tp_pbi_sim2','1'); sim2Done = true; document.getElementById('sim2_status').value='1';
+      if(!sim2Done){ localStorage.setItem('tp_pbi_basico_sim2','1'); sim2Done = true; document.getElementById('sim2_status').value='1';
         document.getElementById('sim2-caption').innerHTML = 'Nicole: ¡bien hecho! Domina el patrón de las columnas DAX — en su PC escribirá esta misma fórmula en Vista de datos → Nueva columna.';
         updateProgress(); saveAll(); }
     } else {
@@ -1150,7 +1191,7 @@ var prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-redu
 
   /* ---- Simulación 3: arrastrar campo ---- */
   var selectedChip = null;
-  var sim3Done = localStorage.getItem('tp_pbi_sim3') === '1';
+  var sim3Done = localStorage.getItem('tp_pbi_basico_sim3') === '1';
   document.querySelectorAll('.pbi-field-chip').forEach(function(chip){
     chip.addEventListener('click', function(){
       document.querySelectorAll('.pbi-field-chip').forEach(function(c){ c.classList.remove('selected'); });
@@ -1173,7 +1214,7 @@ var prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-redu
     document.getElementById('sim3-feedback').className = 'sim-feedback ok';
     document.getElementById('sim3-feedback').textContent = '✓ ¡Así se construye cualquier visual! Arrastre-y-suelte (o toque-y-toque) siempre funciona igual.';
     document.getElementById('sim3-caption').innerHTML = 'Nicole: perfecto. En su PC hará este mismo gesto para cada gráfico: arrastrar el campo correcto al "pocito" correcto del panel de Visualizaciones.';
-    if(!sim3Done){ localStorage.setItem('tp_pbi_sim3','1'); sim3Done = true; document.getElementById('sim3_status').value='1'; updateProgress(); saveAll(); }
+    if(!sim3Done){ localStorage.setItem('tp_pbi_basico_sim3','1'); sim3Done = true; document.getElementById('sim3_status').value='1'; updateProgress(); saveAll(); }
   });
   if(sim3Done){
     document.getElementById('sim3_status').value='1';
@@ -1343,7 +1384,7 @@ function gatherGradingPayload(localResult){
   });
   return {
     estudiante: { nombre: nombreIdentificacion(), correo: correoIdentificacion() },
-    curso: 'powerbi-people-analytics', unidad: 'm3',
+    curso: 'powerbi-nivel-basico-youtube', unidad: 'unica',
     aprobado_por_completitud: practicaCompleta(), pasos: pasos,
     local: localResult ? { total: localResult.total, criterios: localResult.criteria.map(function(c){ return { titulo:c.title, puntaje:c.score, max:c.maxPoints }; }) } : null
   };
