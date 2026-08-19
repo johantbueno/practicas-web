@@ -145,6 +145,15 @@
             "puntos": "100 pts",
             "aprobacion": "70% mínimo",
             "url": "https://johantbueno.github.io/practicas-web/introduccion-ia-u3/"
+          },
+          {
+            "badge": "Unidad IV",
+            "titulo": "Agentes de IA: Hermes, Codex, Grok y Claude Code",
+            "desc": "Qué es un agente de IA y en qué se diferencia de un chatbot, ejemplos reales (Hermes, Codex, Grok, Claude Code), cómo diseñar la automatización de una tarea del trabajo, y supervisión humana, permisos y riesgos. Individual.",
+            "duracion": "60 minutos",
+            "puntos": "100 pts",
+            "aprobacion": "70% mínimo",
+            "url": "https://johantbueno.github.io/practicas-web/introduccion-ia-u4/"
           }
         ]
       },
