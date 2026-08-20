@@ -265,6 +265,30 @@ footer.tp-footer{text-align:center; color:var(--muted); font-size:.8rem; padding
 html[data-fontsize="grande"] body{font-size:1.14rem;}
 html[data-fontsize="xgrande"] body{font-size:1.3rem;}
 
+/* CANVA: video, checklist de usos, simulador visual (Paso 4) */
+.video-embed{position:relative; width:100%; padding-bottom:56.25%; height:0; overflow:hidden; border-radius:var(--radius-md); margin:1rem 0; box-shadow:var(--shadow-md);}
+.video-embed iframe{position:absolute; top:0; left:0; width:100%; height:100%; border:0;}
+
+.check-list{list-style:none; padding:0; margin:1rem 0; display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:.6rem;}
+.check-list li{border:1px solid var(--border-light); border-radius:var(--radius-sm); background:var(--bg-body); transition:border-color .15s ease, background-color .15s ease;}
+.check-list li.checked{border-color:var(--navy); background:var(--blue-bg);}
+.check-list label{display:flex; align-items:flex-start; gap:.6rem; padding:.65rem .8rem; font-size:.86rem; color:var(--secondary); cursor:pointer;}
+.check-list input[type=checkbox]{margin-top:.2rem; width:16px; height:16px; accent-color:var(--navy); flex-shrink:0;}
+
+.sim-wrap{display:grid; grid-template-columns:1.1fr .9fr; gap:1.5rem; margin:1.1rem 0; align-items:start;}
+@media (max-width:760px){ .sim-wrap{grid-template-columns:1fr;} }
+.sim-type-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:.6rem; margin-bottom:.2rem;}
+.sim-type-btn{border:1px solid var(--border-light); background:var(--bg-body); border-radius:var(--radius-sm); padding:.7rem .5rem; font-size:.8rem; font-weight:600; color:var(--secondary); cursor:pointer; text-align:center; font-family:inherit;}
+.sim-type-btn.active{border-color:var(--navy); background:var(--blue-bg); color:var(--navy);}
+.sim-palette-row{display:flex; gap:.6rem; flex-wrap:wrap;}
+.sim-swatch{width:36px; height:36px; border-radius:50%; border:3px solid transparent; cursor:pointer; padding:0;}
+.sim-swatch.active{border-color:var(--bg-card); box-shadow:0 0 0 2px var(--primary);}
+.sim-preview-card{aspect-ratio:4/5; border-radius:var(--radius-lg); display:flex; flex-direction:column; justify-content:flex-end; padding:1.5rem; box-shadow:var(--shadow-lg); position:relative; overflow:hidden;}
+.sim-preview-type{position:absolute; top:1rem; left:1rem; background:rgba(255,255,255,.22); border-radius:999px; padding:.3rem .8rem; font-size:.7rem; font-weight:700; text-transform:uppercase; letter-spacing:.04em;}
+.sim-preview-headline{font-size:1.4rem; font-weight:800; line-height:1.25; margin-bottom:.4rem; word-break:break-word;}
+.sim-preview-sub{font-size:.88rem; opacity:.92; word-break:break-word;}
+.sim-preview-brand{position:absolute; bottom:1rem; right:1.25rem; font-size:.7rem; font-weight:700; opacity:.85; letter-spacing:.03em;}
+
 /* EFECTOS DINAMICOS: revelado al hacer scroll, micro-interacciones,
    fondo animado en la portada, confeti al aprobar. Todo con
    requestAnimationFrame/Canvas nativo, sin librerias nuevas. */
@@ -565,10 +589,66 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
 
     <!-- ============ PASO 4 ============ -->
     <section id="paso4" class="card">
-      <span class="step-badge">Paso 4 · 10 min</span><span class="step-points">Vale 15 pts</span>
+      <span class="step-badge">Paso 4 · 15 min</span><span class="step-points">Vale 15 pts</span>
       <h1>Kit de marca y carrusel en Canva</h1>
       <p><strong>Concepto:</strong> Canva con Magic Studio le permite crear contenido profesional en minutos, con consistencia visual (colores, fuentes, logo) en todas sus publicaciones.</p>
-      <div class="alert info"><strong>Guía:</strong> cree su kit de marca en Canva y un carrusel de 3 diapositivas promocionando una propiedad (real o ficticia), y pegue el enlace para compartir de su diseño.</div>
+
+      <h2>🎥 Usos de Canva para un agente inmobiliario</h2>
+      <p><strong>Video de referencia:</strong> vea este video antes de continuar — muestra aplicaciones prácticas de Canva para el día a día de un asesor inmobiliario.</p>
+      <div class="video-embed">
+        <iframe src="https://www.youtube.com/embed/JixQTSTgYpY" title="Todo esto puedes hacer con Canva como agente inmobiliario — Chuy Gastelum" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+      <p class="hint">Fuente: Chuy Gastelum, Coach Inmobiliario.</p>
+
+      <p><strong>Guía:</strong> marque los usos que planea aplicar en su trabajo — esto es solo para su propia planificación, no afecta su calificación.</p>
+      <ul class="check-list" id="canva-checklist">
+        <li><label><input type="checkbox" data-cl="redes"> Publicaciones para redes sociales</label></li>
+        <li><label><input type="checkbox" data-cl="flyer"> Flyers/volantes de propiedades</label></li>
+        <li><label><input type="checkbox" data-cl="beforeafter"> Carrusel "antes y después" de una remodelación</label></li>
+        <li><label><input type="checkbox" data-cl="reel"> Portadas o clips para Reels/videos cortos</label></li>
+        <li><label><input type="checkbox" data-cl="tarjeta"> Tarjeta de presentación digital</label></li>
+        <li><label><input type="checkbox" data-cl="qr"> Código QR para un cartel de "Se vende"</label></li>
+        <li><label><input type="checkbox" data-cl="openhouse"> Invitación a una jornada de puertas abiertas</label></li>
+        <li><label><input type="checkbox" data-cl="presentacion"> Presentación para un comprador</label></li>
+      </ul>
+
+      <h2>🎨 Simulador: pruebe el proceso de diseño</h2>
+      <p><strong>Concepto:</strong> antes de abrir Canva, practique aquí las mismas decisiones que tomaría allá: tipo de pieza, paleta de colores y mensaje.</p>
+      <div class="alert info"><strong>Guía:</strong> elija un tipo de pieza y una paleta, escriba un titular y un llamado a la acción, y vea la vista previa actualizarse — es una simulación dentro de la práctica, no un diseño real de Canva.</div>
+      <div class="sim-wrap">
+        <div class="sim-controls">
+          <div class="field">
+            <label>1. Tipo de pieza</label>
+            <div class="sim-type-grid" id="sim-type-grid">
+              <button type="button" class="sim-type-btn active" data-type="redes" data-icon="📱" data-label="Publicación">📱 Publicación redes</button>
+              <button type="button" class="sim-type-btn" data-type="flyer" data-icon="🏷️" data-label="Flyer">🏷️ Flyer de propiedad</button>
+              <button type="button" class="sim-type-btn" data-type="reel" data-icon="🎬" data-label="Reel">🎬 Portada de Reel</button>
+              <button type="button" class="sim-type-btn" data-type="tarjeta" data-icon="💳" data-label="Tarjeta">💳 Tarjeta de presentación</button>
+            </div>
+          </div>
+          <div class="field">
+            <label>2. Paleta de colores</label>
+            <div class="sim-palette-row" id="sim-palette-row">
+              <button type="button" class="sim-swatch active" data-bg="#003366" data-fg="#ffffff" style="background:#003366" title="Navy Amicus" aria-label="Paleta Navy"></button>
+              <button type="button" class="sim-swatch" data-bg="#00a6b4" data-fg="#00203f" style="background:#00a6b4" title="Teal" aria-label="Paleta Teal"></button>
+              <button type="button" class="sim-swatch" data-bg="#b45309" data-fg="#ffffff" style="background:#b45309" title="Dorado cálido" aria-label="Paleta Dorado"></button>
+              <button type="button" class="sim-swatch" data-bg="#166534" data-fg="#ffffff" style="background:#166534" title="Verde confianza" aria-label="Paleta Verde"></button>
+              <button type="button" class="sim-swatch" data-bg="#b91c1c" data-fg="#ffffff" style="background:#b91c1c" title="Rojo urgente" aria-label="Paleta Rojo"></button>
+            </div>
+          </div>
+          <div class="field"><label for="sim_headline">3. Titular</label><input type="text" id="sim_headline" placeholder="Ej: Tu próximo hogar te espera en Piantini" maxlength="60"></div>
+          <div class="field"><label for="sim_subtitle">4. Subtítulo o llamado a la acción</label><input type="text" id="sim_subtitle" placeholder="Ej: Agenda tu visita hoy · WhatsApp 809-000-0000" maxlength="70"></div>
+        </div>
+        <div class="sim-preview-card" id="sim-preview" style="background:#003366; color:#ffffff;">
+          <span class="sim-preview-type" id="sim-preview-type">📱 Publicación</span>
+          <div class="sim-preview-headline" id="sim-preview-headline">Escriba su titular aquí</div>
+          <div class="sim-preview-sub" id="sim-preview-sub">Escriba su subtítulo o llamado a la acción aquí</div>
+          <div class="sim-preview-brand">Amicus Realty</div>
+        </div>
+      </div>
+
+      <h2>🔗 Su diseño real en Canva</h2>
+      <div class="alert info"><strong>Guía:</strong> ahora sí, cree su kit de marca en Canva y un carrusel de 3 diapositivas promocionando una propiedad (real o ficticia), y pegue el enlace para compartir de su diseño.</div>
 
       <div class="field"><label for="p4_kit_link">Enlace de su diseño en Canva (compartir → obtener enlace)</label><input type="text" id="p4_kit_link" placeholder="https://www.canva.com/design/..."></div>
       <div class="field">
@@ -1885,6 +1965,104 @@ function fireConfetti(){
   }
   requestAnimationFrame(paso);
 }
+
+/* ---------- SIMULADOR CANVA + CHECKLIST DE USOS (Paso 4) ---------- */
+(function(){
+  var typeBtns = document.querySelectorAll('#sim-type-grid .sim-type-btn');
+  var swatches = document.querySelectorAll('#sim-palette-row .sim-swatch');
+  var headlineEl = document.getElementById('sim_headline');
+  var subEl = document.getElementById('sim_subtitle');
+  var preview = document.getElementById('sim-preview');
+  var previewType = document.getElementById('sim-preview-type');
+  var previewHeadline = document.getElementById('sim-preview-headline');
+  var previewSub = document.getElementById('sim-preview-sub');
+  var checklistBoxes = document.querySelectorAll('#canva-checklist input[type=checkbox]');
+  if(!preview || !headlineEl) return;
+
+  var SIM_KEY = 'tp_arim2_canva_sim_v1';
+
+  function activeTypeValue(){
+    var a = document.querySelector('#sim-type-grid .sim-type-btn.active');
+    return a ? a.getAttribute('data-type') : '';
+  }
+  function activeSwatchIndex(){
+    var arr = Array.prototype.slice.call(swatches);
+    for(var i = 0; i < arr.length; i++){ if(arr[i].classList.contains('active')) return i; }
+    return 0;
+  }
+  function updatePreview(){
+    var activeType = document.querySelector('#sim-type-grid .sim-type-btn.active');
+    var activeSwatch = document.querySelector('#sim-palette-row .sim-swatch.active');
+    if(activeType) previewType.textContent = activeType.getAttribute('data-icon') + ' ' + activeType.getAttribute('data-label');
+    if(activeSwatch){
+      preview.style.background = activeSwatch.getAttribute('data-bg');
+      preview.style.color = activeSwatch.getAttribute('data-fg');
+    }
+    previewHeadline.textContent = norm(headlineEl.value) || 'Escriba su titular aquí';
+    previewSub.textContent = norm(subEl.value) || 'Escriba su subtítulo o llamado a la acción aquí';
+  }
+  function saveSimState(){
+    var data = {
+      type: activeTypeValue(),
+      swatch: activeSwatchIndex(),
+      headline: headlineEl.value,
+      subtitle: subEl.value,
+      checks: Array.prototype.map.call(checklistBoxes, function(cb){ return cb.checked; })
+    };
+    try{ localStorage.setItem(SIM_KEY, JSON.stringify(data)); }catch(e){}
+  }
+  function loadSimState(){
+    var raw; try{ raw = localStorage.getItem(SIM_KEY); }catch(e){ raw = null; }
+    if(!raw) return;
+    try{
+      var data = JSON.parse(raw);
+      if(data.type){
+        typeBtns.forEach(function(b){ b.classList.toggle('active', b.getAttribute('data-type') === data.type); });
+      }
+      if(typeof data.swatch === 'number' && swatches[data.swatch]){
+        swatches.forEach(function(s){ s.classList.remove('active'); });
+        swatches[data.swatch].classList.add('active');
+      }
+      if(data.headline) headlineEl.value = data.headline;
+      if(data.subtitle) subEl.value = data.subtitle;
+      if(Array.isArray(data.checks)){
+        checklistBoxes.forEach(function(cb, i){
+          cb.checked = !!data.checks[i];
+          cb.closest('li').classList.toggle('checked', cb.checked);
+        });
+      }
+    }catch(e){}
+  }
+
+  typeBtns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      typeBtns.forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      updatePreview();
+      saveSimState();
+    });
+  });
+  swatches.forEach(function(sw){
+    sw.addEventListener('click', function(){
+      swatches.forEach(function(s){ s.classList.remove('active'); });
+      sw.classList.add('active');
+      updatePreview();
+      saveSimState();
+    });
+  });
+  [headlineEl, subEl].forEach(function(el){
+    el.addEventListener('input', function(){ updatePreview(); saveSimState(); });
+  });
+  checklistBoxes.forEach(function(cb){
+    cb.addEventListener('change', function(){
+      cb.closest('li').classList.toggle('checked', cb.checked);
+      saveSimState();
+    });
+  });
+
+  loadSimState();
+  updatePreview();
+})();
 
 })();
 </script>
