@@ -270,6 +270,36 @@
         ]
       },
       {
+        "nombre": "Prestación de Servicio y Atención a la Ciudadanía",
+        "icono": "🤝",
+        "tipoClase": "secuencial",
+        "tipoLabel": "Curso secuencial · 5 unidades",
+        "esSecuencial": true,
+        "cursoId": "atencion-ciudadania",
+        "practicas": [
+          {
+            "badge": "Unidad I",
+            "unidad": "u1",
+            "titulo": "Fundamentos del Servicio Público y Derechos del Ciudadano",
+            "desc": "Servicio público y sus principios, marco constitucional y Ley 41-08, Ley 107-13 y responsabilidad administrativa, derechos del ciudadano, cultura de servicio y ética, aplicados a su propia institución. Individual.",
+            "duracion": "6 pasos · aproximadamente 90 minutos, individual",
+            "puntos": "100 pts (retroalimentación)",
+            "aprobacion": "Completar los 6 pasos",
+            "url": "https://johantbueno.github.io/practicas-web/atencion-ciudadana-u1/"
+          },
+          {
+            "badge": "Unidad II",
+            "unidad": "u2",
+            "titulo": "Comunicación Efectiva en la Atención al Ciudadano",
+            "desc": "Fundamentos y barreras de la comunicación, escucha activa y empatía, claridad y lenguaje positivo, canales de atención, imagen institucional y coherencia comunicacional, técnica del sándwich, feedback y comunicación intercultural/inclusiva, aplicados a su propia institución. Requiere haber aprobado la Unidad I. Individual.",
+            "duracion": "6 pasos · aproximadamente 90 minutos, individual",
+            "puntos": "100 pts (retroalimentación)",
+            "aprobacion": "Completar los 6 pasos",
+            "url": "https://johantbueno.github.io/practicas-web/atencion-ciudadana-u2/"
+          }
+        ]
+      },
+      {
         "nombre": "Planificación Estratégica — Nivel 1 (en equipo)",
         "icono": "📊",
         "tipoClase": "taller",
