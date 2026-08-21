@@ -30,7 +30,7 @@
 *{box-sizing:border-box;}
 body{margin:0; background:var(--bg-body); color:var(--secondary); font-family:'Inter',ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif; line-height:1.7; transition:background-color .25s ease;}
 .wrap{max-width:980px; margin:0 auto; padding:0 1rem 4rem;}
-.icon-btn{position:fixed; top:1rem; right:1rem; background:var(--bg-card); border:1px solid var(--border-light); width:38px; height:38px; border-radius:10px; cursor:pointer; font-size:1.05rem; box-shadow:var(--shadow-sm); z-index:10;}
+.icon-btn{position:fixed; top:1rem; right:1rem; background:var(--bg-card); border:1px solid var(--border-light); width:38px; height:38px; border-radius:10px; cursor:pointer; font-size:1.05rem; box-shadow:var(--shadow-sm); z-index:30;}
 
 .hero{background:linear-gradient(135deg,var(--navy),var(--navy-dark)); color:#fff; padding:2.5rem 1.5rem 2rem; text-align:center; border-radius:0 0 24px 24px; margin-bottom:1.5rem; box-shadow:var(--shadow-lg);}
 .hero .eyebrow{text-transform:uppercase; letter-spacing:.1em; font-size:.78rem; font-weight:700; opacity:.85;}
@@ -38,9 +38,23 @@ body{margin:0; background:var(--bg-body); color:var(--secondary); font-family:'I
 .hero p{max-width:640px; margin:0 auto .8rem; opacity:.92; font-size:.98rem;}
 .racha-chip{display:inline-flex; align-items:center; gap:.4rem; background:rgba(255,255,255,.15); border:1px solid rgba(255,255,255,.3); padding:.4rem .9rem; border-radius:999px; font-weight:700; font-size:.85rem; margin-top:.3rem;}
 
-.search-wrap{max-width:520px; margin:0 auto -1.5rem; padding:0 1rem; position:relative; z-index:5;}
+.search-wrap{max-width:520px; margin:0 auto 1.25rem; padding:0 1rem; position:relative; z-index:5;}
 #search-box{width:100%; padding:.85rem 1.1rem; border:1px solid var(--border-light); border-radius:14px; background:var(--bg-card); color:var(--primary); font-size:.95rem; font-family:inherit; box-shadow:var(--shadow-md);}
 #search-box:focus{outline:none; border-color:var(--navy);}
+
+/* ---------- BARRA DE INSTITUCIONES (pegajosa, con scrollspy) ---------- */
+.inst-nav-wrap{position:sticky; top:0; z-index:20; background:var(--bg-body); padding:.6rem 0; margin-bottom:.5rem; transition:box-shadow .2s ease;}
+.inst-nav-wrap.stuck{box-shadow:var(--shadow-md);}
+.inst-nav-wrap{padding-right:3.25rem;}
+@media (min-width:1060px){ .inst-nav-wrap{padding-right:0;} }
+.inst-nav{max-width:980px; margin:0 auto; padding:0 1rem; display:flex; gap:.5rem; overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:thin;}
+.inst-nav::-webkit-scrollbar{height:5px;}
+.inst-nav::-webkit-scrollbar-thumb{background:var(--border-dark); border-radius:99px;}
+.inst-chip{flex-shrink:0; scroll-snap-align:start; display:inline-flex; align-items:center; gap:.4rem; text-decoration:none; background:var(--bg-card); border:1.5px solid var(--border-light); color:var(--secondary); font-size:.8rem; font-weight:700; padding:.45rem .9rem; border-radius:999px; white-space:nowrap; transition:all .15s ease; cursor:pointer; font-family:inherit;}
+.inst-chip:hover{border-color:var(--navy); color:var(--navy);}
+.inst-chip.active{background:var(--navy); border-color:var(--navy); color:#fff; box-shadow:var(--shadow-sm);}
+.inst-chip .n{opacity:.75; font-weight:600; font-size:.72rem;}
+.inst-chip.active .n{opacity:.85;}
 
 /* ---------- CATÁLOGO: institución → materia/curso → prácticas ---------- */
 .inst-section{margin-top:2.75rem; scroll-margin-top:1.25rem;}
@@ -124,6 +138,10 @@ footer{text-align:center; color:var(--muted); font-size:.8rem; padding:2.5rem 1r
 
 <div class="search-wrap">
   <input type="text" id="search-box" placeholder="🔍 Buscar por curso, institución o práctica…">
+</div>
+
+<div class="inst-nav-wrap" id="inst-nav-wrap">
+  <nav class="inst-nav" id="inst-nav" aria-label="Ir a una institución"></nav>
 </div>
 
 <div class="wrap">
@@ -286,15 +304,70 @@ function construirRuta(curso){
 }
 
 var instEl = document.getElementById('instituciones');
+var instNavEl = document.getElementById('inst-nav');
+var instNavWrap = document.getElementById('inst-nav-wrap');
+var sectionObserver = null;
 
 function slugify(s){
   return (s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+}
+
+/* Barra de instituciones: un chip por institucion con resultados visibles.
+   Al hacer clic hace scroll suave a esa seccion; el chip de la institucion
+   visible se resalta solo mientras se hace scroll (scrollspy). */
+function construirInstNav(instsVisibles){
+  instNavEl.innerHTML = '';
+  if(sectionObserver){ sectionObserver.disconnect(); sectionObserver = null; }
+  if(instsVisibles.length < 2) return; // no aporta nada con 0 o 1 institucion visible
+
+  instsVisibles.forEach(function(item){
+    var a = document.createElement('a');
+    a.href = '#' + item.slug;
+    a.className = 'inst-chip';
+    a.dataset.slug = item.slug;
+    a.innerHTML = (item.icono || '🏛️') + ' ' + item.nombreCorto + ' <span class="n">' + item.total + '</span>';
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      var target = document.getElementById(item.slug);
+      if(target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      history.replaceState(null, '', '#' + item.slug);
+    });
+    instNavEl.appendChild(a);
+  });
+
+  if('IntersectionObserver' in window){
+    sectionObserver = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(!entry.isIntersecting) return;
+        var slug = entry.target.id;
+        instNavEl.querySelectorAll('.inst-chip').forEach(function(chip){
+          chip.classList.toggle('active', chip.dataset.slug === slug);
+        });
+        var activeChip = instNavEl.querySelector('.inst-chip.active');
+        if(activeChip) activeChip.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      });
+    }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+    instsVisibles.forEach(function(item){
+      var section = document.getElementById(item.slug);
+      if(section) sectionObserver.observe(section);
+    });
+  }
+}
+
+window.addEventListener('scroll', function(){
+  instNavWrap.classList.toggle('stuck', window.scrollY > 40);
+}, { passive: true });
+
+function nombreCortoDe(nombre){
+  var primeraParte = (nombre || '').split(/[—\-]/)[0].trim();
+  return primeraParte.length > 26 ? primeraParte.slice(0, 24).trim() + '…' : primeraParte;
 }
 
 function render(filtro){
   filtro = (filtro || '').toLowerCase().trim();
   instEl.innerHTML = '';
   var totalVisible = 0;
+  var instsParaNav = [];
 
   INSTITUCIONES.forEach(function(inst, instIdx){
     var cursosConResultados = inst.cursos.map(function(curso){
@@ -310,6 +383,8 @@ function render(filtro){
 
     var instSlug = 'inst-' + (slugify(inst.nombre) || instIdx);
     var totalPracticasInst = cursosConResultados.reduce(function(n,c){ return n + c.practicas.length; }, 0);
+
+    instsParaNav.push({ slug: instSlug, icono: inst.icono, nombreCorto: nombreCortoDe(inst.nombre), total: totalPracticasInst });
 
     var instSection = document.createElement('section');
     instSection.className = 'inst-section';
@@ -405,6 +480,8 @@ function render(filtro){
   if(!totalVisible && !instEl.querySelector('.inst-section')){
     instEl.innerHTML = '<div class="empty-note">No se encontraron prácticas que coincidan con "' + filtro + '".</div>';
   }
+
+  construirInstNav(instsParaNav);
 }
 
 document.getElementById('search-box').addEventListener('input', function(e){
@@ -417,6 +494,10 @@ fetch('./catalogo.json').then(function(res){
 }).then(function(data){
   INSTITUCIONES = data;
   render('');
+  if(location.hash.length > 1){
+    var target = document.querySelector(location.hash);
+    if(target) setTimeout(function(){ target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 80);
+  }
 }).catch(function(err){
   instEl.innerHTML = '<div class="empty-note">No se pudo cargar el catálogo de prácticas. Intenta recargar la página.</div>';
   console.error('Error cargando catalogo.json:', err);
