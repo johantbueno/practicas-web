@@ -306,6 +306,16 @@
             "puntos": "100 pts (retroalimentación)",
             "aprobacion": "Completar los 6 pasos",
             "url": "https://johantbueno.github.io/practicas-web/atencion-ciudadana-u3/"
+          },
+          {
+            "badge": "Unidad IV",
+            "unidad": "u4",
+            "titulo": "Calidad en el Servicio y Cultura de Excelencia",
+            "desc": "Calidad real y percibida, experiencia del ciudadano y valor público, mejora continua e innovación, indicadores de calidad y eficiencia/eficacia, diseño de la experiencia del ciudadano (momentos de verdad, customer journey), simplificación de trámites, gobierno digital, inclusión, liderazgo y ética, aplicados a su propia institución. Requiere haber aprobado la Unidad III. Individual.",
+            "duracion": "6 pasos · aproximadamente 90 minutos, individual",
+            "puntos": "100 pts (retroalimentación)",
+            "aprobacion": "Completar los 6 pasos",
+            "url": "https://johantbueno.github.io/practicas-web/atencion-ciudadana-u4/"
           }
         ]
       },
