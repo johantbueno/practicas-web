@@ -316,6 +316,16 @@
             "puntos": "100 pts (retroalimentación)",
             "aprobacion": "Completar los 6 pasos",
             "url": "https://johantbueno.github.io/practicas-web/atencion-ciudadana-u4/"
+          },
+          {
+            "badge": "Unidad V",
+            "unidad": "u5",
+            "titulo": "Innovación, Digitalización y Mejora Continua en la Atención Ciudadana",
+            "desc": "Innovación pública y evolución del gobierno digital en RD, trámites en línea, interoperabilidad, firma e identidad digital, indicadores digitales, datos abiertos e inteligencia artificial responsable, retroalimentación ciudadana, mejora continua y gestión del cambio, brecha digital, ciberseguridad y liderazgo para la innovación, aplicados a su propia institución. Cierra las cinco unidades del curso. Requiere haber aprobado la Unidad IV. Individual.",
+            "duracion": "6 pasos · aproximadamente 90 minutos, individual",
+            "puntos": "100 pts (retroalimentación)",
+            "aprobacion": "Completar los 6 pasos",
+            "url": "https://johantbueno.github.io/practicas-web/atencion-ciudadana-u5/"
           }
         ]
       },
