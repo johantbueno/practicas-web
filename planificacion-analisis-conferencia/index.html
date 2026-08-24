@@ -96,6 +96,10 @@ body{margin:0; background:var(--bg-body); color:var(--secondary); font-family:'I
 .feedback strong{display:block; margin-bottom:.3rem;}
 .feedback .quote{margin-top:.5rem; padding-left:.7rem; border-left:3px solid var(--border-dark); color:var(--muted); font-style:italic; font-size:.82rem;}
 
+.scroll-hint{display:none; align-items:center; justify-content:center; gap:.4rem; text-align:center; margin-top:.9rem; padding:.5rem .7rem; border-radius:999px; background:var(--amber-bg); color:var(--amber); border:1px solid var(--amber-border); font-weight:700; font-size:.78rem; animation:bounceHint 1.4s ease-in-out infinite;}
+.scroll-hint.show{display:flex;}
+@keyframes bounceHint{ 0%,100%{transform:translateY(0);} 50%{transform:translateY(4px);} }
+
 /* DESARROLLO / VOZ dentro del overlay */
 .dev-block{margin-top:1.1rem; padding-top:1rem; border-top:1px dashed var(--border-dark);}
 .dev-block .dev-label{display:inline-flex; align-items:center; gap:.4rem; background:var(--amber-bg); color:var(--amber); border:1px solid var(--amber-border); font-weight:700; font-size:.68rem; text-transform:uppercase; letter-spacing:.04em; padding:.28rem .65rem; border-radius:999px; margin-bottom:.55rem;}
@@ -195,8 +199,9 @@ body{margin:0; background:var(--bg-body); color:var(--secondary); font-family:'I
           <div class="options" id="cpOptions"></div>
           <button class="btn" id="cpSubmit">Responder</button>
           <div class="feedback" id="cpFeedback"></div>
+          <div class="scroll-hint" id="scrollHint">⬇ Después de responder, sigan bajando: hay una pregunta de desarrollo con nota de voz</div>
 
-          <div class="dev-block">
+          <div class="dev-block" id="cpDevBlock">
             <div class="dev-label">✍️ Pregunta de desarrollo</div>
             <p class="dev-q" id="cpDevQ"></p>
             <textarea id="cpDevTextarea" placeholder="Escriban su respuesta aquí, o graben una nota de voz…"></textarea>
@@ -389,6 +394,9 @@ function openCheckpoint(id){
     document.getElementById('cpSubmit').textContent = 'Responder';
   }
 
+  const hint = document.getElementById('scrollHint');
+  hint.classList.toggle('show', !(cp.devText && cp.devText.trim()));
+
   document.getElementById('cpOverlay').classList.add('show');
 }
 
@@ -429,6 +437,11 @@ document.getElementById('cpSubmit').addEventListener('click', () => {
 
   document.getElementById('chip-' + cp.id).classList.toggle('done', cp.userCorrect);
   updateSummary();
+  saveState();
+
+  setTimeout(() => {
+    document.getElementById('cpDevBlock').scrollIntoView({behavior:'smooth', block:'start'});
+  }, 400);
 });
 
 document.getElementById('cpDevTextarea').addEventListener('input', (e) => {
@@ -436,7 +449,9 @@ document.getElementById('cpDevTextarea').addEventListener('input', (e) => {
   const cp = CHECKPOINTS.find(c => c.id === activeId);
   cp.devText = e.target.value;
   document.getElementById('cpDevCheck').classList.toggle('show', cp.devText.trim().length > 0);
+  document.getElementById('scrollHint').classList.remove('show');
   updateSummary();
+  saveState();
 });
 
 document.getElementById('cpContinue').addEventListener('click', () => {
@@ -455,7 +470,7 @@ function updateSummary(){
     const nombre = nombreIdentificacion();
     document.getElementById('scoreMsg').textContent = (nombre ? nombre + ', han' : 'Han') + ' completado las 5 estaciones del análisis, con sus preguntas de desarrollo. ¡Buen trabajo revisando la conferencia a fondo!';
     summary.scrollIntoView({behavior:'smooth', block:'center'});
-    if (!yaEnviado) { yaEnviado = true; enviarResultadoAMoodle(correctCount); }
+    if (!yaEnviado) { yaEnviado = true; saveState(); enviarResultadoAMoodle(correctCount); }
   }
 }
 
@@ -650,7 +665,7 @@ function aplicarModo(){
     hint.innerHTML = 'Con la cédula registramos la nota de esta actividad directo en su cuenta de <strong>auladigital.plataforma.cfd</strong>.';
   }
 }
-modoSelect.addEventListener('change', aplicarModo);
+modoSelect.addEventListener('change', () => { aplicarModo(); saveState(); });
 aplicarModo();
 function nombreIdentificacion(){
   return modoSelect.value === 'grupo'
@@ -658,8 +673,55 @@ function nombreIdentificacion(){
     : document.getElementById('ind_nombre').value.trim();
 }
 
+/* ---------- AUTOGUARDADO (localStorage) ---------- */
+const STATE_KEY = 'pei_video_u1_estado_v1';
+const IDENT_FIELDS = ['ind_nombre','p_institucion','grp_nombre','p_institucion_grp','grp_integrantes','p_cedulas'];
+
+function saveState(){
+  try {
+    const estado = {
+      modo: modoSelect.value,
+      campos: {},
+      yaEnviado,
+      checkpoints: CHECKPOINTS.map(cp => ({ id: cp.id, userIdx: cp.userIdx, userCorrect: cp.userCorrect, devText: cp.devText }))
+    };
+    IDENT_FIELDS.forEach(id => { estado.campos[id] = document.getElementById(id).value; });
+    localStorage.setItem(STATE_KEY, JSON.stringify(estado));
+  } catch (e) {}
+}
+
+function restoreState(){
+  let estado;
+  try { estado = JSON.parse(localStorage.getItem(STATE_KEY) || 'null'); } catch (e) { estado = null; }
+  if (!estado) return;
+
+  if (estado.modo) { modoSelect.value = estado.modo; aplicarModo(); }
+  IDENT_FIELDS.forEach(id => {
+    if (estado.campos && estado.campos[id] !== undefined) document.getElementById(id).value = estado.campos[id];
+  });
+  yaEnviado = !!estado.yaEnviado;
+
+  (estado.checkpoints || []).forEach(saved => {
+    const cp = CHECKPOINTS.find(c => c.id === saved.id);
+    if (!cp) return;
+    cp.userIdx = saved.userIdx;
+    cp.userCorrect = saved.userCorrect;
+    cp.devText = saved.devText || '';
+    if (cp.userIdx !== null || (cp.devText && cp.devText.trim())) {
+      reachedIds.add(cp.id);
+      document.getElementById('chip-' + cp.id).classList.add('reached');
+    }
+    if (cp.userCorrect) document.getElementById('chip-' + cp.id).classList.add('done');
+  });
+
+  updateSummary();
+}
+
+IDENT_FIELDS.forEach(id => document.getElementById(id).addEventListener('input', saveState));
+
 buildStations();
 wireVoiceButtons();
+restoreState();
 </script>
 </body>
 </html>
