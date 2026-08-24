@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Análisis de Conferencia — Unidad I | Planificación Estratégica en la Gestión Pública</title>
-<meta name="description" content="Análisis interactivo de una conferencia sobre Planificación Estratégica en la Gestión Pública, con preguntas guiadas por estación.">
+<meta name="description" content="Análisis interactivo de una conferencia sobre Planificación Estratégica en la Gestión Pública, con preguntas guiadas por estación, al estilo de un video interactivo H5P.">
 <meta name="color-scheme" content="light dark">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8E%A5%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -35,6 +35,7 @@ html{scroll-behavior:smooth;}
 body{margin:0; background:var(--bg-body); color:var(--secondary); font-family:'Inter',ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif; line-height:1.7;}
 .main{max-width:900px; margin:0 auto; padding:1.5rem 1rem 4rem;}
 @media (min-width:640px){ .main{padding:2rem 1.5rem 5rem;} }
+[hidden]{display:none !important;}
 
 .cover{background:linear-gradient(135deg,var(--navy),var(--navy-dark)); color:#fff; border-radius:var(--radius-lg); padding:2rem 1.5rem; margin-bottom:1.5rem; box-shadow:var(--shadow-lg);}
 .cover .eyebrow{text-transform:uppercase; letter-spacing:.08em; font-size:.75rem; font-weight:700; opacity:.85;}
@@ -49,60 +50,81 @@ body{margin:0; background:var(--bg-body); color:var(--secondary); font-family:'I
 .howto .num{flex:none; width:26px; height:26px; border-radius:50%; background:var(--navy); color:#fff; font-weight:800; font-size:.8rem; display:flex; align-items:center; justify-content:center;}
 .howto p{margin:0; font-size:.9rem;}
 
-/* NAME FIELD */
-.name-field{display:flex; flex-wrap:wrap; gap:.6rem; align-items:center;}
-.name-field input{flex:1; min-width:180px; padding:.65rem .85rem; border-radius:var(--radius-sm); border:1px solid var(--border-dark); font-family:inherit; font-size:.95rem; background:var(--bg-body); color:var(--primary);}
+/* FIELDS */
+.field{margin-bottom:1rem;}
+.field label{display:block; font-weight:700; font-size:.82rem; color:var(--primary); margin-bottom:.35rem;}
+.field-grid{display:grid; grid-template-columns:1fr 1fr; gap:.9rem;}
+@media (max-width:640px){ .field-grid{grid-template-columns:1fr;} }
+.field input[type=text], .field select, .field textarea{
+  width:100%; padding:.6rem .8rem; border:1px solid var(--border-dark); border-radius:var(--radius-sm);
+  font-size:.95rem; font-family:inherit; background:var(--bg-body); color:var(--primary);
+}
+.field input:focus, .field select:focus, .field textarea:focus{border-color:var(--navy); outline:none;}
 
-/* VIDEO */
+/* VIDEO + OVERLAY (estilo H5P: la pregunta aparece SOBRE el video) */
 .video-wrap{position:relative; width:100%; padding-top:56.25%; border-radius:var(--radius-md); overflow:hidden; background:#000; box-shadow:var(--shadow-md);}
 .video-wrap iframe{position:absolute; inset:0; width:100%; height:100%; border:0;}
 
-/* ESTACIONES progress */
-.stations{display:flex; gap:.5rem; flex-wrap:wrap; margin:1rem 0;}
+.cp-overlay{position:absolute; inset:0; background:rgba(4,12,26,.86); display:none; align-items:center; justify-content:center; padding:.75rem; overflow-y:auto; z-index:5; backdrop-filter:blur(2px);}
+.cp-overlay.show{display:flex;}
+.cp-panel{background:var(--bg-card); border-radius:var(--radius-lg); padding:1.1rem 1.2rem; width:100%; max-width:480px; max-height:100%; overflow-y:auto; box-shadow:var(--shadow-lg); margin:auto;}
+@media (min-width:640px){ .cp-panel{padding:1.5rem 1.6rem;} }
+.cp-badge{display:inline-flex; align-items:center; gap:.4rem; background:var(--blue-bg); color:var(--navy); border:1px solid var(--blue-border); font-weight:700; font-size:.7rem; text-transform:uppercase; letter-spacing:.04em; padding:.3rem .7rem; border-radius:999px; margin-bottom:.6rem;}
+.cp-panel h3{margin:.2rem 0 .9rem; font-size:1rem; color:var(--primary); font-weight:700; line-height:1.4;}
+
+.rewatch-btn{display:inline-flex; align-items:center; gap:.4rem; background:var(--bg-body); border:1px solid var(--border-dark); color:var(--secondary); font-weight:600; font-size:.78rem; padding:.45rem .8rem; border-radius:var(--radius-sm); cursor:pointer; margin-bottom:.9rem; font-family:inherit;}
+.rewatch-btn:hover{border-color:var(--navy); color:var(--navy);}
+
+.options{display:flex; flex-direction:column; gap:.5rem; margin-bottom:.9rem;}
+.opt{display:flex; align-items:flex-start; gap:.6rem; padding:.65rem .8rem; border:1px solid var(--border-dark); border-radius:var(--radius-sm); cursor:pointer; font-size:.88rem; transition:all .15s ease; background:var(--bg-body);}
+.opt:hover{border-color:var(--navy); background:var(--blue-bg);}
+.opt input{margin-top:.15rem; accent-color:var(--navy);}
+.opt.correct-answer{border-color:var(--green-border); background:var(--green-bg);}
+.opt.wrong-answer{border-color:var(--red-border); background:var(--red-bg);}
+
+.btn{display:inline-flex; align-items:center; gap:.4rem; background:var(--navy); color:#fff; border:none; font-weight:700; font-size:.88rem; padding:.65rem 1.2rem; border-radius:var(--radius-sm); cursor:pointer; font-family:inherit;}
+.btn:hover{background:var(--navy-dark);}
+.btn:disabled{opacity:.5; cursor:not-allowed;}
+.btn.secondary{background:var(--bg-body); color:var(--secondary); border:1px solid var(--border-dark);}
+.btn.secondary:hover{border-color:var(--navy); color:var(--navy);}
+.btn.block{width:100%; justify-content:center;}
+
+.feedback{margin-top:.9rem; padding:.9rem; border-radius:var(--radius-md); font-size:.86rem; display:none;}
+.feedback.show{display:block;}
+.feedback.correct{background:var(--green-bg); border:1px solid var(--green-border); color:var(--primary);}
+.feedback.incorrect{background:var(--red-bg); border:1px solid var(--red-border); color:var(--primary);}
+.feedback strong{display:block; margin-bottom:.3rem;}
+.feedback .quote{margin-top:.5rem; padding-left:.7rem; border-left:3px solid var(--border-dark); color:var(--muted); font-style:italic; font-size:.82rem;}
+
+/* DESARROLLO / VOZ dentro del overlay */
+.dev-block{margin-top:1.1rem; padding-top:1rem; border-top:1px dashed var(--border-dark);}
+.dev-block .dev-label{display:inline-flex; align-items:center; gap:.4rem; background:var(--amber-bg); color:var(--amber); border:1px solid var(--amber-border); font-weight:700; font-size:.68rem; text-transform:uppercase; letter-spacing:.04em; padding:.28rem .65rem; border-radius:999px; margin-bottom:.55rem;}
+.dev-block p.dev-q{margin:.25rem 0 .7rem; font-weight:600; color:var(--primary); font-size:.88rem;}
+.dev-block textarea{width:100%; min-height:80px; padding:.7rem .85rem; border-radius:var(--radius-sm); border:1px solid var(--border-dark); font-family:inherit; font-size:.86rem; background:var(--bg-body); color:var(--primary); resize:vertical;}
+.voice-row{display:flex; align-items:center; gap:.6rem; margin-top:.5rem; flex-wrap:wrap;}
+.voice-btn{background:var(--blue-bg); border:1px solid var(--blue-border); color:var(--navy); font-weight:700; font-size:.76rem; padding:.55rem .85rem; min-height:38px; border-radius:999px; cursor:pointer; font-family:inherit;}
+.voice-btn:hover{filter:brightness(0.97);}
+.voice-btn.recording{background:var(--red-bg); border-color:var(--red-border); color:var(--red); animation:voicePulse 1.2s ease-in-out infinite;}
+.voice-btn.busy{opacity:.7; cursor:wait;}
+@keyframes voicePulse{ 0%,100%{opacity:1;} 50%{opacity:.55;} }
+.voice-status{font-size:.72rem; color:var(--muted);}
+.voice-status.err{color:var(--red);}
+.voice-status.ok{color:var(--green);}
+.dev-check{margin-top:.45rem; font-size:.74rem; color:var(--green); font-weight:700; display:none;}
+.dev-check.show{display:block;}
+
+.cp-continue{margin-top:1.1rem; padding-top:1rem; border-top:1px solid var(--border-light);}
+
+/* ESTACIONES / capítulos, estilo H5P (barra de navegación bajo el video) */
+.stations{display:flex; gap:.5rem; flex-wrap:wrap; margin:1rem 0 0;}
 .station-chip{flex:1; min-width:80px; text-align:center; padding:.55rem .4rem; border-radius:999px; border:2px solid var(--border-light); background:var(--bg-body); font-size:.72rem; font-weight:700; color:var(--muted); cursor:pointer; transition:all .2s ease;}
 .station-chip:hover{border-color:var(--navy); color:var(--navy);}
 .station-chip.reached{border-color:var(--gold); color:var(--amber); background:var(--amber-bg);}
 .station-chip.done{border-color:var(--green-border); color:var(--green); background:var(--green-bg);}
 .station-chip.done::before{content:"✓ ";}
 
-/* QUESTION CARD */
-.q-card{border:2px solid var(--border-light); border-radius:var(--radius-lg); padding:1.25rem; margin-bottom:1.25rem; background:var(--bg-card); scroll-margin-top:1rem; opacity:.5; transition:opacity .3s ease, border-color .3s ease;}
-.q-card.active{opacity:1; border-color:var(--gold); box-shadow:var(--shadow-md);}
-.q-card.answered.correct{border-color:var(--green-border);}
-.q-card.answered.incorrect{border-color:var(--red-border);}
-.q-badge{display:inline-flex; align-items:center; gap:.4rem; background:var(--blue-bg); color:var(--navy); border:1px solid var(--blue-border); font-weight:700; font-size:.72rem; text-transform:uppercase; letter-spacing:.04em; padding:.3rem .7rem; border-radius:999px; margin-bottom:.7rem;}
-.q-card h3{margin:.2rem 0 .9rem; font-size:1.05rem; color:var(--primary); font-weight:700;}
-.q-hint{font-size:.85rem; color:var(--muted); font-style:italic; margin:0 0 1rem;}
-
-.rewatch-btn{display:inline-flex; align-items:center; gap:.4rem; background:var(--bg-body); border:1px solid var(--border-dark); color:var(--secondary); font-weight:600; font-size:.82rem; padding:.5rem .9rem; border-radius:var(--radius-sm); cursor:pointer; margin-bottom:1rem; font-family:inherit;}
-.rewatch-btn:hover{border-color:var(--navy); color:var(--navy);}
-
-.options{display:flex; flex-direction:column; gap:.55rem; margin-bottom:1rem;}
-.opt{display:flex; align-items:flex-start; gap:.65rem; padding:.75rem .9rem; border:1px solid var(--border-dark); border-radius:var(--radius-sm); cursor:pointer; font-size:.92rem; transition:all .15s ease; background:var(--bg-body);}
-.opt:hover{border-color:var(--navy); background:var(--blue-bg);}
-.opt input{margin-top:.15rem; accent-color:var(--navy);}
-.opt.selected{border-color:var(--navy); background:var(--blue-bg);}
-.opt.correct-answer{border-color:var(--green-border); background:var(--green-bg);}
-.opt.wrong-answer{border-color:var(--red-border); background:var(--red-bg);}
-.q-card.locked .opt{cursor:default; pointer-events:none;}
-
-.btn{display:inline-flex; align-items:center; gap:.4rem; background:var(--navy); color:#fff; border:none; font-weight:700; font-size:.9rem; padding:.7rem 1.3rem; border-radius:var(--radius-sm); cursor:pointer; font-family:inherit;}
-.btn:hover{background:var(--navy-dark);}
-.btn:disabled{opacity:.5; cursor:not-allowed;}
-.btn.secondary{background:var(--bg-body); color:var(--secondary); border:1px solid var(--border-dark);}
-.btn.secondary:hover{border-color:var(--navy); color:var(--navy);}
-
-.feedback{margin-top:1rem; padding:1rem; border-radius:var(--radius-md); font-size:.9rem; display:none;}
-.feedback.show{display:block;}
-.feedback.correct{background:var(--green-bg); border:1px solid var(--green-border); color:var(--primary);}
-.feedback.incorrect{background:var(--red-bg); border:1px solid var(--red-border); color:var(--primary);}
-.feedback strong{display:block; margin-bottom:.35rem;}
-.feedback .quote{margin-top:.6rem; padding-left:.8rem; border-left:3px solid var(--border-dark); color:var(--muted); font-style:italic; font-size:.85rem;}
-
-.locked-note{display:flex; align-items:center; gap:.5rem; color:var(--muted); font-size:.85rem; font-style:italic;}
-
 /* SUMMARY */
-#summary{display:none; text-align:center; padding:2.5rem 1.5rem; background:linear-gradient(135deg,var(--gold),#a97c1f); border-radius:var(--radius-lg); color:#fff; box-shadow:var(--shadow-lg);}
+#summary{display:none; text-align:center; padding:2.5rem 1.5rem; background:linear-gradient(135deg,var(--gold),#a97c1f); border-radius:var(--radius-lg); color:#fff; box-shadow:var(--shadow-lg); margin-top:1.25rem;}
 #summary.show{display:block;}
 #summary .medal{font-size:3rem; margin-bottom:.5rem;}
 #summary h2{margin:.2rem 0 .5rem; font-size:1.4rem;}
@@ -118,41 +140,89 @@ body{margin:0; background:var(--bg-body); color:var(--secondary); font-family:'I
   <div class="cover">
     <div class="eyebrow">INAP · Planificación Estratégica en la Gestión Pública · Unidad I</div>
     <h1>🎥 Análisis interactivo: Conferencia de Planificación Estratégica</h1>
-    <p>Analicen la conferencia en grupo o de forma individual. Pueden adelantar, retroceder y volver a ver cualquier fragmento las veces que necesiten antes de responder — no hay apuro ni penalización por revisar.</p>
+    <p>Analicen la conferencia en grupo o de forma individual. El video se pausa solo y la pregunta aparece justo encima — respondan ahí mismo, sin bajar ni subir la página.</p>
   </div>
 
   <div class="card">
     <div class="howto">
       <div class="num">1</div>
-      <p>El video se pausará solo en 5 estaciones. Conversen sobre lo que acaban de escuchar antes de responder.</p>
+      <p>El video se pausa solo en 5 estaciones y la pregunta aparece encima del video, como en cualquier video interactivo. Conversen antes de responder.</p>
     </div>
     <div class="howto">
       <div class="num">2</div>
-      <p>Si no están seguros, usen el botón <strong>"Volver a ver este fragmento"</strong> — retrocede el video 25 segundos y lo reproduce de nuevo.</p>
+      <p>Si no están seguros, usen <strong>"Volver a ver este fragmento"</strong> dentro de la pregunta — retrocede el video 25 segundos.</p>
     </div>
     <div class="howto">
       <div class="num">3</div>
-      <p>Pueden cambiar su respuesta las veces que quieran. Lo importante es entender el porqué, no acertar a la primera.</p>
+      <p>Pueden reintentar la respuesta las veces que quieran, y cada estación tiene además una <strong>pregunta de desarrollo</strong> sobre su propia institución — escrita o por nota de voz 🎤, como en WhatsApp, sin mínimo de palabras.</p>
     </div>
-    <div class="name-field" style="margin-top:1rem;">
-      <input type="text" id="nombreGrupo" placeholder="Nombre del participante o del grupo (opcional)">
+    <h3 style="margin-top:1.25rem;">¿Cómo van a completar esta actividad?</h3>
+    <div class="field">
+      <label for="modo_trabajo">Modalidad</label>
+      <select id="modo_trabajo">
+        <option value="individual">Individual</option>
+        <option value="grupo">En equipo</option>
+      </select>
     </div>
+    <div class="field-grid" id="bloque-individual">
+      <div class="field"><label for="ind_nombre">Nombre completo</label><input type="text" id="ind_nombre" placeholder="Su nombre y apellido"></div>
+      <div class="field"><label for="p_institucion">Institución</label><input type="text" id="p_institucion" placeholder="Ej: Alcaldía de..., Ministerio de..."></div>
+    </div>
+    <div class="field-grid" id="bloque-grupo" hidden>
+      <div class="field"><label for="grp_nombre">Nombre del equipo o grupo</label><input type="text" id="grp_nombre" placeholder="Ej: Equipo Los Almendros"></div>
+      <div class="field"><label for="p_institucion_grp">Institución</label><input type="text" id="p_institucion_grp" placeholder="Ej: Alcaldía de..., Ministerio de..."></div>
+    </div>
+    <div class="field" id="bloque-integrantes" hidden>
+      <label for="grp_integrantes">Nombres de los integrantes (opcional)</label>
+      <textarea id="grp_integrantes" placeholder="Uno por línea o separados por coma"></textarea>
+    </div>
+    <div class="field">
+      <label for="p_cedulas" id="lbl_cedulas">Cédula (la misma con la que entra a AulaDigital)</label>
+      <textarea id="p_cedulas" placeholder="Ej: 22500841287" rows="2"></textarea>
+    </div>
+    <p class="hint" id="hint_cedulas">Con la cédula registramos la nota de esta actividad directo en su cuenta de <strong>auladigital.plataforma.cfd</strong>.</p>
   </div>
 
   <div class="card">
     <div class="video-wrap">
       <div id="player"></div>
+
+      <div class="cp-overlay" id="cpOverlay">
+        <div class="cp-panel">
+          <div class="cp-badge" id="cpBadge"></div>
+          <h3 id="cpQuestion"></h3>
+          <button class="rewatch-btn" id="cpRewatch">⏪ Volver a ver este fragmento</button>
+          <div class="options" id="cpOptions"></div>
+          <button class="btn" id="cpSubmit">Responder</button>
+          <div class="feedback" id="cpFeedback"></div>
+
+          <div class="dev-block">
+            <div class="dev-label">✍️ Pregunta de desarrollo</div>
+            <p class="dev-q" id="cpDevQ"></p>
+            <textarea id="cpDevTextarea" placeholder="Escriban su respuesta aquí, o graben una nota de voz…"></textarea>
+            <div class="voice-row">
+              <button type="button" class="voice-btn" id="cpVoiceBtn" data-target="cpDevTextarea">🎤 Mantenga presionado para grabar</button>
+              <span class="voice-status" id="cpVoiceStatus" data-target-status="cpDevTextarea"></span>
+            </div>
+            <div class="dev-check" id="cpDevCheck">✔ Respuesta registrada</div>
+          </div>
+
+          <div class="cp-continue">
+            <button class="btn secondary block" id="cpContinue">▶ Continuar viendo el video</button>
+          </div>
+        </div>
+      </div>
     </div>
+
     <div class="stations" id="stations"></div>
   </div>
-
-  <div id="questions"></div>
 
   <div id="summary">
     <div class="medal">🏅</div>
     <h2>¡Ruta completada!</h2>
     <div class="score" id="scoreText">0 / 5</div>
     <p id="scoreMsg"></p>
+    <p id="syncEstado" style="font-size:.85rem; opacity:.95;"></p>
   </div>
 
   <p class="footer-note">Instituto Nacional de Administración Pública (INAP) — Planificación Estratégica en la Gestión Pública</p>
@@ -170,7 +240,8 @@ const CHECKPOINTS = [
       "Se limita únicamente a actores del sector privado"
     ],
     correct: 1,
-    explanation: "Montero explica que la planeación tradicional se concentraba solo en quienes tomaban decisiones, mientras que la estratégica “nos obliga a tomar en cuenta la diversidad de actores que inciden en la vida organizacional”, tanto internos como externos."
+    explanation: "La planeación tradicional se concentraba solo en quienes tomaban decisiones, mientras que la estratégica “nos obliga a tomar en cuenta la diversidad de actores que inciden en la vida organizacional”, tanto internos como externos.",
+    dev: "Piensen en su propia institución: ¿quiénes son los actores externos que deberían participar en su planificación estratégica y que hoy casi nunca son tomados en cuenta?"
   },
   {
     id: 2, time: 670, label: "11:10",
@@ -182,11 +253,12 @@ const CHECKPOINTS = [
       "Es un elemento opcional que puede omitirse"
     ],
     correct: 1,
-    explanation: "“La misión no es un invento del que va a construir el plan estratégico. La misión está dada previamente” en la norma que manda a desarrollar una competencia a un órgano de la administración pública."
+    explanation: "“La misión no es un invento del que va a construir el plan estratégico. La misión está dada previamente” en la norma que manda a desarrollar una competencia a un órgano de la administración pública.",
+    dev: "¿Cuál es la norma (ley, decreto o reglamento) que le da mandato legal a su institución? En sus palabras, ¿cuál es la misión que se desprende de esa norma?"
   },
   {
     id: 3, time: 1090, label: "18:10",
-    question: "¿Cuál es uno de los problemas más comunes con la planeación estratégica en la región, según Montero?",
+    question: "¿Cuál es uno de los problemas más comunes con la planeación estratégica en la región, según la conferencia?",
     options: [
       "Se evalúa demasiado y se planifica muy poco",
       "Nos quedamos en la formulación sin ejecutar, o ejecutamos sin evaluar",
@@ -194,7 +266,8 @@ const CHECKPOINTS = [
       "Los ciudadanos participan demasiado en el diseño del plan"
     ],
     correct: 1,
-    explanation: "Montero señala que “en muchos casos nos quedamos en la simple formulación... y no llegamos a la ejecución”, o que se ejecuta pero luego no se evalúa — y la evaluación es también un valor de la planificación estratégica."
+    explanation: "En muchos casos “nos quedamos en la simple formulación... y no llegamos a la ejecución”, o se ejecuta pero luego no se evalúa — y la evaluación es también un valor de la planificación estratégica.",
+    dev: "En su institución, ¿se evalúan los planes una vez ejecutados? Describan un ejemplo concreto (o la ausencia de ese ejemplo)."
   },
   {
     id: 4, time: 2285, label: "38:05",
@@ -206,11 +279,12 @@ const CHECKPOINTS = [
       "No forman parte del análisis institucional"
     ],
     correct: 1,
-    explanation: "Las fortalezas y debilidades se identifican dentro de la institución (dimensión interna); las oportunidades y amenazas son “factores exógenos, están fuera de la institución, pero afectan el cumplimiento de las metas”."
+    explanation: "Las fortalezas y debilidades se identifican dentro de la institución (dimensión interna); las oportunidades y amenazas son “factores exógenos, están fuera de la institución, pero afectan el cumplimiento de las metas”.",
+    dev: "Mencionen una oportunidad y una amenaza reales, externas a su institución, que estén afectando hoy el cumplimiento de sus metas."
   },
   {
     id: 5, time: 2720, label: "45:20",
-    question: "¿Qué Objetivo de Desarrollo Sostenible (ODS) resalta especialmente Montero para la administración pública?",
+    question: "¿Qué Objetivo de Desarrollo Sostenible (ODS) resalta especialmente la conferencia para la administración pública?",
     options: [
       "ODS 1: fin de la pobreza, únicamente",
       "ODS 16: instituciones sólidas, eficaces y garantes de la paz y la justicia",
@@ -218,14 +292,18 @@ const CHECKPOINTS = [
       "No menciona ningún ODS en particular"
     ],
     correct: 1,
-    explanation: "Montero destaca que no se puede planificar estratégicamente en la administración pública sin tener presentes los 17 ODS, “y sobre todo el objetivo número 16: instituciones sólidas, eficaces y garantes de la paz y la justicia”."
+    explanation: "No se puede planificar estratégicamente en la administración pública sin tener presentes los 17 ODS, “y sobre todo el objetivo número 16: instituciones sólidas, eficaces y garantes de la paz y la justicia”.",
+    dev: "¿Qué acción concreta podría tomar su institución para fortalecer instituciones sólidas y garantes de la justicia (ODS 16)?"
   }
 ];
+
+/* estado por estación: respuesta elegida, si acertó, texto de desarrollo */
+CHECKPOINTS.forEach(cp => { cp.userIdx = null; cp.userCorrect = false; cp.devText = ''; });
 
 let player;
 let playerReady = false;
 let reachedIds = new Set();
-let answeredCorrect = new Set();
+let activeId = null;
 let checkInterval;
 
 function loadYT(){
@@ -247,17 +325,18 @@ loadYT();
 function startWatcher(){
   checkInterval = setInterval(() => {
     if (!playerReady || typeof player.getCurrentTime !== 'function') return;
+    if (document.getElementById('cpOverlay').classList.contains('show')) return;
     const t = player.getCurrentTime();
     const state = player.getPlayerState();
-    if (state !== 1) return; // only while actually playing
+    if (state !== 1) return; // solo mientras reproduce
     CHECKPOINTS.forEach(cp => {
       if (!reachedIds.has(cp.id) && t >= cp.time) {
         reachedIds.add(cp.id);
         player.pauseVideo();
-        revealCheckpoint(cp.id);
+        openCheckpoint(cp.id);
       }
     });
-  }, 500);
+  }, 400);
 }
 
 function buildStations(){
@@ -268,101 +347,319 @@ function buildStations(){
     chip.id = 'chip-' + cp.id;
     chip.textContent = 'Estación ' + (i+1) + ' · ' + cp.label;
     chip.onclick = () => {
-      if (playerReady) { player.seekTo(cp.time, true); player.playVideo(); }
+      reachedIds.add(cp.id);
+      if (playerReady) player.pauseVideo();
+      openCheckpoint(cp.id);
     };
     wrap.appendChild(chip);
   });
 }
 
-function buildQuestions(){
-  const wrap = document.getElementById('questions');
-  CHECKPOINTS.forEach((cp, i) => {
-    const card = document.createElement('div');
-    card.className = 'q-card';
-    card.id = 'qcard-' + cp.id;
+function openCheckpoint(id){
+  const cp = CHECKPOINTS.find(c => c.id === id);
+  const i = CHECKPOINTS.indexOf(cp);
+  activeId = id;
+  document.getElementById('chip-' + id).classList.add('reached');
 
-    const optsHtml = cp.options.map((opt, idx) => `
-      <label class="opt" data-idx="${idx}">
-        <input type="radio" name="q${cp.id}" value="${idx}">
-        <span>${opt}</span>
-      </label>
-    `).join('');
+  document.getElementById('cpBadge').textContent = 'Estación ' + (i+1) + ' · minuto ' + cp.label;
+  document.getElementById('cpQuestion').textContent = cp.question;
+  document.getElementById('cpDevQ').textContent = cp.dev;
+  document.getElementById('cpDevTextarea').value = cp.devText || '';
+  document.getElementById('cpDevCheck').classList.toggle('show', !!(cp.devText && cp.devText.trim()));
+  document.getElementById('cpVoiceStatus').textContent = '';
 
-    card.innerHTML = `
-      <div class="q-badge">Estación ${i+1} · minuto ${cp.label}</div>
-      <h3>${cp.question}</h3>
-      <p class="q-hint" id="locked-${cp.id}">🔒 Esta pregunta se habilita cuando el video llegue a este punto (o si adelantas manualmente).</p>
-      <button class="rewatch-btn" onclick="rewatch(${cp.id}, ${cp.time})">⏪ Volver a ver este fragmento</button>
-      <div class="options">${optsHtml}</div>
-      <button class="btn" id="submit-${cp.id}" onclick="submitAnswer(${cp.id})" disabled>Responder</button>
-      <div class="feedback" id="feedback-${cp.id}"></div>
-    `;
-    wrap.appendChild(card);
+  const optsWrap = document.getElementById('cpOptions');
+  optsWrap.innerHTML = cp.options.map((opt, idx) => `
+    <label class="opt" data-idx="${idx}">
+      <input type="radio" name="cpOpt" value="${idx}" ${cp.userIdx === idx ? 'checked' : ''}>
+      <span>${opt}</span>
+    </label>
+  `).join('');
+  markOptionColors(cp);
+
+  const fb = document.getElementById('cpFeedback');
+  if (cp.userIdx !== null) {
+    fb.className = 'feedback show ' + (cp.userCorrect ? 'correct' : 'incorrect');
+    fb.innerHTML = `<strong>${cp.userCorrect ? '✅ ¡Correcto!' : '❌ No es la respuesta principal — pueden reintentar.'}</strong>
+      <div class="quote">${cp.explanation}</div>`;
+    document.getElementById('cpSubmit').textContent = 'Volver a intentar';
+  } else {
+    fb.className = 'feedback';
+    fb.innerHTML = '';
+    document.getElementById('cpSubmit').textContent = 'Responder';
+  }
+
+  document.getElementById('cpOverlay').classList.add('show');
+}
+
+function markOptionColors(cp){
+  document.querySelectorAll('#cpOptions .opt').forEach(o => {
+    const oi = parseInt(o.dataset.idx, 10);
+    o.classList.remove('correct-answer','wrong-answer');
+    if (cp.userIdx !== null) {
+      if (oi === cp.userIdx && !cp.userCorrect) o.classList.add('wrong-answer');
+      if (oi === cp.correct) o.classList.add('correct-answer');
+    }
   });
 }
 
-function revealCheckpoint(id){
-  const card = document.getElementById('qcard-' + id);
-  card.classList.add('active');
-  document.getElementById('locked-' + id).style.display = 'none';
-  document.getElementById('submit-' + id).disabled = false;
-  document.getElementById('chip-' + id).classList.add('reached');
-  card.scrollIntoView({behavior:'smooth', block:'center'});
-}
-
-function rewatch(id, time){
-  if (!playerReady) return;
-  reachedIds.add(id); // ensure it's unlocked even if they jump ahead manually
-  revealCheckpoint(id);
-  player.seekTo(Math.max(0, time - 25), true);
+document.getElementById('cpRewatch').addEventListener('click', () => {
+  if (!playerReady || activeId === null) return;
+  const cp = CHECKPOINTS.find(c => c.id === activeId);
+  document.getElementById('cpOverlay').classList.remove('show');
+  player.seekTo(Math.max(0, cp.time - 25), true);
   player.playVideo();
-}
+  reachedIds.delete(cp.id); // se volverá a pausar solo al llegar de nuevo al punto
+});
 
-function submitAnswer(id){
-  const cp = CHECKPOINTS.find(c => c.id === id);
-  const selected = document.querySelector(`input[name="q${id}"]:checked`);
+document.getElementById('cpSubmit').addEventListener('click', () => {
+  const cp = CHECKPOINTS.find(c => c.id === activeId);
+  const selected = document.querySelector('input[name="cpOpt"]:checked');
   if (!selected) return;
   const idx = parseInt(selected.value, 10);
-  const isCorrect = idx === cp.correct;
+  cp.userIdx = idx;
+  cp.userCorrect = idx === cp.correct;
+  markOptionColors(cp);
 
-  const card = document.getElementById('qcard-' + id);
-  card.querySelectorAll('.opt').forEach(o => {
-    const oi = parseInt(o.dataset.idx, 10);
-    o.classList.remove('selected','correct-answer','wrong-answer');
-    if (oi === idx) o.classList.add(isCorrect ? 'correct-answer' : 'wrong-answer');
-    if (oi === cp.correct) o.classList.add('correct-answer');
-  });
-
-  const fb = document.getElementById('feedback-' + id);
-  fb.className = 'feedback show ' + (isCorrect ? 'correct' : 'incorrect');
-  fb.innerHTML = `<strong>${isCorrect ? '✅ ¡Correcto!' : '❌ No es la respuesta principal — revisen de nuevo si quieren.'}</strong>
+  const fb = document.getElementById('cpFeedback');
+  fb.className = 'feedback show ' + (cp.userCorrect ? 'correct' : 'incorrect');
+  fb.innerHTML = `<strong>${cp.userCorrect ? '✅ ¡Correcto!' : '❌ No es la respuesta principal — pueden reintentar.'}</strong>
     <div class="quote">${cp.explanation}</div>`;
+  document.getElementById('cpSubmit').textContent = 'Volver a intentar';
 
-  document.getElementById('submit-' + id).textContent = 'Volver a intentar';
-  card.classList.toggle('answered', true);
-  card.classList.toggle('correct', isCorrect);
-  card.classList.toggle('incorrect', !isCorrect);
-
-  if (isCorrect) {
-    answeredCorrect.add(id);
-    document.getElementById('chip-' + id).classList.add('done');
-  }
+  document.getElementById('chip-' + cp.id).classList.toggle('done', cp.userCorrect);
   updateSummary();
-}
+});
 
+document.getElementById('cpDevTextarea').addEventListener('input', (e) => {
+  if (activeId === null) return;
+  const cp = CHECKPOINTS.find(c => c.id === activeId);
+  cp.devText = e.target.value;
+  document.getElementById('cpDevCheck').classList.toggle('show', cp.devText.trim().length > 0);
+  updateSummary();
+});
+
+document.getElementById('cpContinue').addEventListener('click', () => {
+  document.getElementById('cpOverlay').classList.remove('show');
+  if (playerReady) player.playVideo();
+});
+
+let yaEnviado = false;
 function updateSummary(){
-  if (answeredCorrect.size === CHECKPOINTS.length) {
+  const correctCount = CHECKPOINTS.filter(c => c.userCorrect).length;
+  const devCount = CHECKPOINTS.filter(c => c.devText && c.devText.trim().length > 0).length;
+  if (correctCount === CHECKPOINTS.length && devCount === CHECKPOINTS.length) {
     const summary = document.getElementById('summary');
     summary.classList.add('show');
-    document.getElementById('scoreText').textContent = answeredCorrect.size + ' / ' + CHECKPOINTS.length;
-    const nombre = document.getElementById('nombreGrupo').value.trim();
-    document.getElementById('scoreMsg').textContent = (nombre ? nombre + ', han' : 'Han') + ' completado las 5 estaciones del análisis. ¡Buen trabajo revisando la conferencia a fondo!';
+    document.getElementById('scoreText').textContent = correctCount + ' / ' + CHECKPOINTS.length;
+    const nombre = nombreIdentificacion();
+    document.getElementById('scoreMsg').textContent = (nombre ? nombre + ', han' : 'Han') + ' completado las 5 estaciones del análisis, con sus preguntas de desarrollo. ¡Buen trabajo revisando la conferencia a fondo!';
     summary.scrollIntoView({behavior:'smooth', block:'center'});
+    if (!yaEnviado) { yaEnviado = true; enviarResultadoAMoodle(correctCount); }
   }
+}
+
+/* ---------- SINCRONIZAR NOTA CON AULADIGITAL (MOODLE) ---------- */
+const RESULT_SYNC_URL = 'https://auladigital.plataforma.cfd/registrar-resultado-planificacion.php';
+const RESULT_SYNC_SECRET = 'pei-video-2026-aula-digital';
+
+function cedulasDelParticipante(){
+  const raw = document.getElementById('p_cedulas').value || '';
+  return raw.split(/[,\n]/).map(c => c.replace(/[^0-9]/g, '')).filter(c => c.length > 0);
+}
+
+function enviarResultadoAMoodle(correctCount){
+  const cedulas = cedulasDelParticipante();
+  const estado = document.getElementById('syncEstado');
+  if (cedulas.length === 0) {
+    if (estado) estado.textContent = '⚠️ No se registró la nota en AulaDigital porque no se indicó ninguna cédula.';
+    return;
+  }
+  const puntos = Math.round((correctCount / CHECKPOINTS.length) * 100);
+  const respuestas = CHECKPOINTS.map(cp => ({ pregunta: cp.question, texto: cp.devText || '' }));
+
+  if (estado) estado.textContent = '⏳ Registrando la nota en AulaDigital…';
+  Promise.all(cedulas.map(cedula => fetch(RESULT_SYNC_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ secret: RESULT_SYNC_SECRET, cedula, puntos, correctas: correctCount, total: CHECKPOINTS.length, respuestas })
+  }).then(r => r.json()).catch(() => ({ ok: false, msg: 'sin conexión' }))))
+  .then(results => {
+    const ok = results.filter(r => r && r.ok).length;
+    if (!estado) return;
+    if (ok === cedulas.length) {
+      estado.textContent = '✅ Nota registrada en AulaDigital para ' + ok + (ok === 1 ? ' cuenta.' : ' cuentas.');
+    } else if (ok > 0) {
+      estado.textContent = '⚠️ Se registró para ' + ok + ' de ' + cedulas.length + ' cédulas. Revisen que las demás estén bien escritas.';
+    } else {
+      estado.textContent = '❌ No se pudo registrar la nota — revisen las cédulas o avisen a su facilitador.';
+    }
+  });
+}
+
+/* ---------- NOTAS DE VOZ ---------- */
+const VOICE_TRANSCRIBE_URL = 'https://n8n-inap.167.88.36.13.sslip.io/webhook/prof-johan-tapia-transcribir';
+
+function fetchWithTimeout(url, options, timeoutMs){
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  return fetch(url, Object.assign({}, options, { signal: controller.signal }))
+    .finally(() => clearTimeout(timer));
+}
+function pickRecorderMime(){
+  const candidates = ['audio/webm;codecs=opus','audio/webm','audio/mp4','audio/ogg;codecs=opus'];
+  for (const c of candidates) {
+    if (window.MediaRecorder && MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(c)) return c;
+  }
+  return '';
+}
+function beepVoz(freq, dur){
+  try{
+    const Ctx = window.AudioContext || window.webkitAudioContext;
+    const ctx = new Ctx();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = 'sine';
+    osc.frequency.value = freq;
+    gain.gain.setValueAtTime(0.18, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + dur);
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.start();
+    osc.stop(ctx.currentTime + dur);
+    osc.onended = () => ctx.close();
+  }catch(e){}
+}
+const VOZ_MIN_MS = 400, VOZ_MAX_MS = 120000, VOZ_LABEL_DEFAULT = '🎤 Mantenga presionado para grabar';
+function wireVoiceButtons(){
+  if (!navigator.mediaDevices || !window.MediaRecorder) {
+    document.querySelectorAll('.voice-btn').forEach(btn => {
+      btn.disabled = true; btn.title = 'Grabación de voz no disponible en este navegador';
+    });
+    return;
+  }
+  document.querySelectorAll('.voice-btn').forEach(btn => {
+    const targetId = btn.getAttribute('data-target');
+    const textarea = document.getElementById(targetId);
+    const statusEl = document.querySelector(`.voice-status[data-target-status="${targetId}"]`);
+    if (!textarea) return;
+    btn.textContent = VOZ_LABEL_DEFAULT;
+    let mediaRecorder = null, chunks = [], stream = null, recording = false, pressActive = false;
+    let startedAt = 0, maxTimer = null, tickTimer = null;
+
+    function setStatus(msg, cls){ if (statusEl) { statusEl.textContent = msg || ''; statusEl.className = 'voice-status' + (cls ? ' ' + cls : ''); } }
+    function stopStream(){ if (stream) { stream.getTracks().forEach(t => t.stop()); stream = null; } }
+    function tick(){
+      const secs = Math.floor((Date.now() - startedAt) / 1000);
+      const m = Math.floor(secs / 60), s = secs % 60;
+      btn.textContent = '🔴 Grabando ' + m + ':' + (s < 10 ? '0' : '') + s + ' — suelte para enviar';
+    }
+    function startRecording(){
+      if (pressActive) return;
+      pressActive = true;
+      navigator.mediaDevices.getUserMedia({ audio: true }).then(s => {
+        if (!pressActive) { s.getTracks().forEach(t => t.stop()); return; }
+        stream = s; chunks = [];
+        const mime = pickRecorderMime();
+        try { mediaRecorder = mime ? new MediaRecorder(stream, { mimeType: mime }) : new MediaRecorder(stream); }
+        catch(e){ mediaRecorder = new MediaRecorder(stream); }
+        mediaRecorder.addEventListener('dataavailable', e => { if (e.data && e.data.size > 0) chunks.push(e.data); });
+        mediaRecorder.addEventListener('stop', () => {
+          stopStream();
+          clearTimeout(maxTimer); clearInterval(tickTimer);
+          btn.classList.remove('recording');
+          const duracion = Date.now() - startedAt;
+          if (duracion < VOZ_MIN_MS) {
+            btn.textContent = VOZ_LABEL_DEFAULT;
+            setStatus('Grabación muy corta — mantenga presionado el botón mientras habla.', 'err');
+            return;
+          }
+          const blob = new Blob(chunks, { type: mediaRecorder.mimeType || 'audio/webm' });
+          uploadForTranscription(blob);
+        });
+        mediaRecorder.start();
+        recording = true;
+        startedAt = Date.now();
+        btn.classList.add('recording');
+        beepVoz(880, 0.1);
+        tick();
+        tickTimer = setInterval(tick, 500);
+        setStatus('Grabando… hable su respuesta y suelte el botón al terminar.', '');
+        maxTimer = setTimeout(() => { if (recording) stopRecording(); }, VOZ_MAX_MS);
+      }).catch(() => {
+        pressActive = false;
+        setStatus('No se pudo acceder al micrófono. Revise los permisos del navegador, o simplemente escriba la respuesta.', 'err');
+      });
+    }
+    function stopRecording(){
+      if (!pressActive) return;
+      pressActive = false;
+      if (mediaRecorder && recording) { recording = false; beepVoz(440, 0.12); mediaRecorder.stop(); }
+    }
+    function uploadForTranscription(blob){
+      btn.disabled = true; btn.classList.add('busy'); btn.textContent = '⏳ Transcribiendo…';
+      setStatus('Transcribiendo la nota de voz, un momento…', '');
+      const fd = new FormData();
+      const ext = blob.type.indexOf('mp4') !== -1 ? 'm4a' : (blob.type.indexOf('ogg') !== -1 ? 'ogg' : 'webm');
+      fd.append('data', blob, 'nota-voz.' + ext);
+      fetchWithTimeout(VOICE_TRANSCRIBE_URL, { method: 'POST', body: fd }, 60000).then(res => {
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        return res.json();
+      }).then(data => {
+        if (!data || !data.ok || !data.texto) throw new Error('SIN_TEXTO');
+        const existing = textarea.value.trim();
+        textarea.value = existing ? (existing + ' ' + data.texto) : data.texto;
+        textarea.dispatchEvent(new Event('input'));
+        setStatus('✔ Nota de voz agregada. Puede revisarla y corregirla si hace falta.', 'ok');
+      }).catch(err => {
+        const msg = (err && err.message === 'SIN_TEXTO')
+          ? 'No se logró entender el audio. Intente grabar de nuevo hablando más cerca del micrófono, o escriba la respuesta directamente.'
+          : 'No se pudo conectar con el servicio de transcripción. Revise su conexión a internet, o escriba la respuesta directamente.';
+        setStatus(msg, 'err');
+      }).finally(() => {
+        btn.disabled = false; btn.classList.remove('busy'); btn.textContent = VOZ_LABEL_DEFAULT;
+      });
+    }
+    btn.addEventListener('mousedown', e => { e.preventDefault(); startRecording(); });
+    btn.addEventListener('touchstart', e => { e.preventDefault(); startRecording(); }, { passive: false });
+    ['mouseup','mouseleave','touchend','touchcancel'].forEach(evt => btn.addEventListener(evt, stopRecording));
+  });
+}
+
+/* ---------- MODALIDAD: INDIVIDUAL O EN EQUIPO ---------- */
+const modoSelect = document.getElementById('modo_trabajo');
+const bloqueIndividual = document.getElementById('bloque-individual');
+const bloqueGrupo = document.getElementById('bloque-grupo');
+const bloqueIntegrantes = document.getElementById('bloque-integrantes');
+function aplicarModo(){
+  const esGrupo = modoSelect.value === 'grupo';
+  bloqueIndividual.hidden = esGrupo;
+  bloqueGrupo.hidden = !esGrupo;
+  bloqueIntegrantes.hidden = !esGrupo;
+  const cedulasTa = document.getElementById('p_cedulas');
+  const lbl = document.getElementById('lbl_cedulas');
+  const hint = document.getElementById('hint_cedulas');
+  if (esGrupo) {
+    lbl.textContent = 'Cédula de cada integrante (una por línea)';
+    cedulasTa.placeholder = 'Ej:\n22500841287\n40241325188\n00112708870';
+    cedulasTa.rows = 4;
+    hint.innerHTML = 'Cada integrante que quiera recibir la nota en su cuenta de <strong>auladigital.plataforma.cfd</strong> debe poner aquí su propia cédula, una por línea — aunque trabajen en equipo, la nota se registra individualmente a cada quien.';
+  } else {
+    lbl.textContent = 'Cédula (la misma con la que entra a AulaDigital)';
+    cedulasTa.placeholder = 'Ej: 22500841287';
+    cedulasTa.rows = 2;
+    hint.innerHTML = 'Con la cédula registramos la nota de esta actividad directo en su cuenta de <strong>auladigital.plataforma.cfd</strong>.';
+  }
+}
+modoSelect.addEventListener('change', aplicarModo);
+aplicarModo();
+function nombreIdentificacion(){
+  return modoSelect.value === 'grupo'
+    ? document.getElementById('grp_nombre').value.trim()
+    : document.getElementById('ind_nombre').value.trim();
 }
 
 buildStations();
-buildQuestions();
+wireVoiceButtons();
 </script>
 </body>
 </html>
