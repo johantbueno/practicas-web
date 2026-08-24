@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Análisis de Conferencia — Unidad I | Planificación Estratégica en la Gestión Pública</title>
+<meta name="description" content="Análisis interactivo de una conferencia sobre Planificación Estratégica en la Gestión Pública, con preguntas guiadas por estación.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8E%A5%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#003877; --navy-dark:#002a5c; --gold:#c9982f;
+  --primary:#0f172a; --secondary:#334155; --muted:#64748b;
+  --bg-body:#f4f7fb; --bg-card:#ffffff; --border-light:#e2e8f0; --border-dark:#cbd5e1;
+  --green:#16a34a; --green-bg:#f0fdf4; --green-border:#22c55e;
+  --amber:#b45309; --amber-bg:#fffbeb; --amber-border:#f59e0b;
+  --red:#b91c1c; --red-bg:#fef2f2; --red-border:#ef4444;
+  --blue-bg:#eff6ff; --blue-border:#3b82f6;
+  --radius-lg:16px; --radius-md:12px; --radius-sm:8px;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.06);
+  --shadow-md:0 4px 6px -1px rgba(0,0,0,.1), 0 2px 4px -2px rgba(0,0,0,.1);
+  --shadow-lg:0 10px 15px -3px rgba(0,0,0,.12), 0 4px 6px -4px rgba(0,0,0,.1);
+}
+[data-theme="dark"]{
+  --navy:#5b9bd8; --primary:#f1f5f9; --secondary:#cbd5e1; --muted:#94a3b8;
+  --bg-body:#0b1220; --bg-card:#151f2f; --border-light:#283249; --border-dark:#3a4666;
+  --green-bg:#0c2417; --amber-bg:#2a2108; --red-bg:#2a1212; --blue-bg:#13233f;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.4); --shadow-md:0 4px 6px -1px rgba(0,0,0,.5); --shadow-lg:0 10px 15px -3px rgba(0,0,0,.5);
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{margin:0; background:var(--bg-body); color:var(--secondary); font-family:'Inter',ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif; line-height:1.7;}
+.main{max-width:900px; margin:0 auto; padding:1.5rem 1rem 4rem;}
+@media (min-width:640px){ .main{padding:2rem 1.5rem 5rem;} }
+
+.cover{background:linear-gradient(135deg,var(--navy),var(--navy-dark)); color:#fff; border-radius:var(--radius-lg); padding:2rem 1.5rem; margin-bottom:1.5rem; box-shadow:var(--shadow-lg);}
+.cover .eyebrow{text-transform:uppercase; letter-spacing:.08em; font-size:.75rem; font-weight:700; opacity:.85;}
+.cover h1{font-size:1.5rem; font-weight:800; margin:.4rem 0 .5rem; line-height:1.3;}
+.cover p{margin:0 0 .5rem; opacity:.92; font-size:.95rem;}
+@media (min-width:640px){ .cover{padding:2.5rem;} .cover h1{font-size:1.9rem;} }
+
+.card{background:var(--bg-card); padding:1.25rem; border-radius:var(--radius-lg); box-shadow:var(--shadow-sm); border:1px solid var(--border-light); margin-bottom:1.25rem;}
+@media (min-width:640px){ .card{padding:1.75rem;} }
+
+.howto{display:flex; gap:.7rem; align-items:flex-start; margin-bottom:.9rem;}
+.howto .num{flex:none; width:26px; height:26px; border-radius:50%; background:var(--navy); color:#fff; font-weight:800; font-size:.8rem; display:flex; align-items:center; justify-content:center;}
+.howto p{margin:0; font-size:.9rem;}
+
+/* NAME FIELD */
+.name-field{display:flex; flex-wrap:wrap; gap:.6rem; align-items:center;}
+.name-field input{flex:1; min-width:180px; padding:.65rem .85rem; border-radius:var(--radius-sm); border:1px solid var(--border-dark); font-family:inherit; font-size:.95rem; background:var(--bg-body); color:var(--primary);}
+
+/* VIDEO */
+.video-wrap{position:relative; width:100%; padding-top:56.25%; border-radius:var(--radius-md); overflow:hidden; background:#000; box-shadow:var(--shadow-md);}
+.video-wrap iframe{position:absolute; inset:0; width:100%; height:100%; border:0;}
+
+/* ESTACIONES progress */
+.stations{display:flex; gap:.5rem; flex-wrap:wrap; margin:1rem 0;}
+.station-chip{flex:1; min-width:80px; text-align:center; padding:.55rem .4rem; border-radius:999px; border:2px solid var(--border-light); background:var(--bg-body); font-size:.72rem; font-weight:700; color:var(--muted); cursor:pointer; transition:all .2s ease;}
+.station-chip:hover{border-color:var(--navy); color:var(--navy);}
+.station-chip.reached{border-color:var(--gold); color:var(--amber); background:var(--amber-bg);}
+.station-chip.done{border-color:var(--green-border); color:var(--green); background:var(--green-bg);}
+.station-chip.done::before{content:"✓ ";}
+
+/* QUESTION CARD */
+.q-card{border:2px solid var(--border-light); border-radius:var(--radius-lg); padding:1.25rem; margin-bottom:1.25rem; background:var(--bg-card); scroll-margin-top:1rem; opacity:.5; transition:opacity .3s ease, border-color .3s ease;}
+.q-card.active{opacity:1; border-color:var(--gold); box-shadow:var(--shadow-md);}
+.q-card.answered.correct{border-color:var(--green-border);}
+.q-card.answered.incorrect{border-color:var(--red-border);}
+.q-badge{display:inline-flex; align-items:center; gap:.4rem; background:var(--blue-bg); color:var(--navy); border:1px solid var(--blue-border); font-weight:700; font-size:.72rem; text-transform:uppercase; letter-spacing:.04em; padding:.3rem .7rem; border-radius:999px; margin-bottom:.7rem;}
+.q-card h3{margin:.2rem 0 .9rem; font-size:1.05rem; color:var(--primary); font-weight:700;}
+.q-hint{font-size:.85rem; color:var(--muted); font-style:italic; margin:0 0 1rem;}
+
+.rewatch-btn{display:inline-flex; align-items:center; gap:.4rem; background:var(--bg-body); border:1px solid var(--border-dark); color:var(--secondary); font-weight:600; font-size:.82rem; padding:.5rem .9rem; border-radius:var(--radius-sm); cursor:pointer; margin-bottom:1rem; font-family:inherit;}
+.rewatch-btn:hover{border-color:var(--navy); color:var(--navy);}
+
+.options{display:flex; flex-direction:column; gap:.55rem; margin-bottom:1rem;}
+.opt{display:flex; align-items:flex-start; gap:.65rem; padding:.75rem .9rem; border:1px solid var(--border-dark); border-radius:var(--radius-sm); cursor:pointer; font-size:.92rem; transition:all .15s ease; background:var(--bg-body);}
+.opt:hover{border-color:var(--navy); background:var(--blue-bg);}
+.opt input{margin-top:.15rem; accent-color:var(--navy);}
+.opt.selected{border-color:var(--navy); background:var(--blue-bg);}
+.opt.correct-answer{border-color:var(--green-border); background:var(--green-bg);}
+.opt.wrong-answer{border-color:var(--red-border); background:var(--red-bg);}
+.q-card.locked .opt{cursor:default; pointer-events:none;}
+
+.btn{display:inline-flex; align-items:center; gap:.4rem; background:var(--navy); color:#fff; border:none; font-weight:700; font-size:.9rem; padding:.7rem 1.3rem; border-radius:var(--radius-sm); cursor:pointer; font-family:inherit;}
+.btn:hover{background:var(--navy-dark);}
+.btn:disabled{opacity:.5; cursor:not-allowed;}
+.btn.secondary{background:var(--bg-body); color:var(--secondary); border:1px solid var(--border-dark);}
+.btn.secondary:hover{border-color:var(--navy); color:var(--navy);}
+
+.feedback{margin-top:1rem; padding:1rem; border-radius:var(--radius-md); font-size:.9rem; display:none;}
+.feedback.show{display:block;}
+.feedback.correct{background:var(--green-bg); border:1px solid var(--green-border); color:var(--primary);}
+.feedback.incorrect{background:var(--red-bg); border:1px solid var(--red-border); color:var(--primary);}
+.feedback strong{display:block; margin-bottom:.35rem;}
+.feedback .quote{margin-top:.6rem; padding-left:.8rem; border-left:3px solid var(--border-dark); color:var(--muted); font-style:italic; font-size:.85rem;}
+
+.locked-note{display:flex; align-items:center; gap:.5rem; color:var(--muted); font-size:.85rem; font-style:italic;}
+
+/* SUMMARY */
+#summary{display:none; text-align:center; padding:2.5rem 1.5rem; background:linear-gradient(135deg,var(--gold),#a97c1f); border-radius:var(--radius-lg); color:#fff; box-shadow:var(--shadow-lg);}
+#summary.show{display:block;}
+#summary .medal{font-size:3rem; margin-bottom:.5rem;}
+#summary h2{margin:.2rem 0 .5rem; font-size:1.4rem;}
+#summary p{opacity:.95; margin:0 0 1rem;}
+#summary .score{font-size:2.2rem; font-weight:900;}
+
+.footer-note{text-align:center; color:var(--muted); font-size:.8rem; margin-top:1.5rem;}
+</style>
+</head>
+<body>
+<div class="main">
+
+  <div class="cover">
+    <div class="eyebrow">INAP · Planificación Estratégica en la Gestión Pública · Unidad I</div>
+    <h1>🎥 Análisis interactivo: Conferencia de Planificación Estratégica</h1>
+    <p>Analicen la conferencia en grupo o de forma individual. Pueden adelantar, retroceder y volver a ver cualquier fragmento las veces que necesiten antes de responder — no hay apuro ni penalización por revisar.</p>
+  </div>
+
+  <div class="card">
+    <div class="howto">
+      <div class="num">1</div>
+      <p>El video se pausará solo en 5 estaciones. Conversen sobre lo que acaban de escuchar antes de responder.</p>
+    </div>
+    <div class="howto">
+      <div class="num">2</div>
+      <p>Si no están seguros, usen el botón <strong>"Volver a ver este fragmento"</strong> — retrocede el video 25 segundos y lo reproduce de nuevo.</p>
+    </div>
+    <div class="howto">
+      <div class="num">3</div>
+      <p>Pueden cambiar su respuesta las veces que quieran. Lo importante es entender el porqué, no acertar a la primera.</p>
+    </div>
+    <div class="name-field" style="margin-top:1rem;">
+      <input type="text" id="nombreGrupo" placeholder="Nombre del participante o del grupo (opcional)">
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="video-wrap">
+      <div id="player"></div>
+    </div>
+    <div class="stations" id="stations"></div>
+  </div>
+
+  <div id="questions"></div>
+
+  <div id="summary">
+    <div class="medal">🏅</div>
+    <h2>¡Ruta completada!</h2>
+    <div class="score" id="scoreText">0 / 5</div>
+    <p id="scoreMsg"></p>
+  </div>
+
+  <p class="footer-note">Instituto Nacional de Administración Pública (INAP) — Planificación Estratégica en la Gestión Pública</p>
+</div>
+
+<script>
+const CHECKPOINTS = [
+  {
+    id: 1, time: 345, label: "5:45",
+    question: "¿Por qué la planificación estratégica es distinta de la planificación tradicional en cuanto a los actores involucrados?",
+    options: [
+      "Solo participan los tomadores de decisión",
+      "Obliga a tomar en cuenta la diversidad de actores internos y externos",
+      "Elimina la necesidad de actores externos",
+      "Se limita únicamente a actores del sector privado"
+    ],
+    correct: 1,
+    explanation: "Montero explica que la planeación tradicional se concentraba solo en quienes tomaban decisiones, mientras que la estratégica “nos obliga a tomar en cuenta la diversidad de actores que inciden en la vida organizacional”, tanto internos como externos."
+  },
+  {
+    id: 2, time: 670, label: "11:10",
+    question: "¿De dónde surge la misión de una institución pública, según la conferencia?",
+    options: [
+      "La inventa quien elabora el plan estratégico",
+      "Está dada previamente por la norma que determina las competencias de la institución",
+      "La decide únicamente la ciudadanía en consulta abierta",
+      "Es un elemento opcional que puede omitirse"
+    ],
+    correct: 1,
+    explanation: "“La misión no es un invento del que va a construir el plan estratégico. La misión está dada previamente” en la norma que manda a desarrollar una competencia a un órgano de la administración pública."
+  },
+  {
+    id: 3, time: 1090, label: "18:10",
+    question: "¿Cuál es uno de los problemas más comunes con la planeación estratégica en la región, según Montero?",
+    options: [
+      "Se evalúa demasiado y se planifica muy poco",
+      "Nos quedamos en la formulación sin ejecutar, o ejecutamos sin evaluar",
+      "Hay un exceso de recursos económicos sin usar",
+      "Los ciudadanos participan demasiado en el diseño del plan"
+    ],
+    correct: 1,
+    explanation: "Montero señala que “en muchos casos nos quedamos en la simple formulación... y no llegamos a la ejecución”, o que se ejecuta pero luego no se evalúa — y la evaluación es también un valor de la planificación estratégica."
+  },
+  {
+    id: 4, time: 2285, label: "38:05",
+    question: "En el análisis FODA explicado en la conferencia, las oportunidades y amenazas ¿de qué dimensión provienen?",
+    options: [
+      "De la dimensión interna de la institución",
+      "De la dimensión externa: son factores exógenos, fuera de la institución",
+      "Son exactamente lo mismo que las fortalezas",
+      "No forman parte del análisis institucional"
+    ],
+    correct: 1,
+    explanation: "Las fortalezas y debilidades se identifican dentro de la institución (dimensión interna); las oportunidades y amenazas son “factores exógenos, están fuera de la institución, pero afectan el cumplimiento de las metas”."
+  },
+  {
+    id: 5, time: 2720, label: "45:20",
+    question: "¿Qué Objetivo de Desarrollo Sostenible (ODS) resalta especialmente Montero para la administración pública?",
+    options: [
+      "ODS 1: fin de la pobreza, únicamente",
+      "ODS 16: instituciones sólidas, eficaces y garantes de la paz y la justicia",
+      "ODS 17: alianzas para lograr los objetivos, únicamente",
+      "No menciona ningún ODS en particular"
+    ],
+    correct: 1,
+    explanation: "Montero destaca que no se puede planificar estratégicamente en la administración pública sin tener presentes los 17 ODS, “y sobre todo el objetivo número 16: instituciones sólidas, eficaces y garantes de la paz y la justicia”."
+  }
+];
+
+let player;
+let playerReady = false;
+let reachedIds = new Set();
+let answeredCorrect = new Set();
+let checkInterval;
+
+function loadYT(){
+  const tag = document.createElement('script');
+  tag.src = "https://www.youtube.com/iframe_api";
+  document.body.appendChild(tag);
+}
+window.onYouTubeIframeAPIReady = function(){
+  player = new YT.Player('player', {
+    videoId: 'VXws_Ajnlr8',
+    playerVars: { rel: 0, modestbranding: 1 },
+    events: {
+      onReady: function(){ playerReady = true; startWatcher(); }
+    }
+  });
+};
+loadYT();
+
+function startWatcher(){
+  checkInterval = setInterval(() => {
+    if (!playerReady || typeof player.getCurrentTime !== 'function') return;
+    const t = player.getCurrentTime();
+    const state = player.getPlayerState();
+    if (state !== 1) return; // only while actually playing
+    CHECKPOINTS.forEach(cp => {
+      if (!reachedIds.has(cp.id) && t >= cp.time) {
+        reachedIds.add(cp.id);
+        player.pauseVideo();
+        revealCheckpoint(cp.id);
+      }
+    });
+  }, 500);
+}
+
+function buildStations(){
+  const wrap = document.getElementById('stations');
+  CHECKPOINTS.forEach((cp, i) => {
+    const chip = document.createElement('div');
+    chip.className = 'station-chip';
+    chip.id = 'chip-' + cp.id;
+    chip.textContent = 'Estación ' + (i+1) + ' · ' + cp.label;
+    chip.onclick = () => {
+      if (playerReady) { player.seekTo(cp.time, true); player.playVideo(); }
+    };
+    wrap.appendChild(chip);
+  });
+}
+
+function buildQuestions(){
+  const wrap = document.getElementById('questions');
+  CHECKPOINTS.forEach((cp, i) => {
+    const card = document.createElement('div');
+    card.className = 'q-card';
+    card.id = 'qcard-' + cp.id;
+
+    const optsHtml = cp.options.map((opt, idx) => `
+      <label class="opt" data-idx="${idx}">
+        <input type="radio" name="q${cp.id}" value="${idx}">
+        <span>${opt}</span>
+      </label>
+    `).join('');
+
+    card.innerHTML = `
+      <div class="q-badge">Estación ${i+1} · minuto ${cp.label}</div>
+      <h3>${cp.question}</h3>
+      <p class="q-hint" id="locked-${cp.id}">🔒 Esta pregunta se habilita cuando el video llegue a este punto (o si adelantas manualmente).</p>
+      <button class="rewatch-btn" onclick="rewatch(${cp.id}, ${cp.time})">⏪ Volver a ver este fragmento</button>
+      <div class="options">${optsHtml}</div>
+      <button class="btn" id="submit-${cp.id}" onclick="submitAnswer(${cp.id})" disabled>Responder</button>
+      <div class="feedback" id="feedback-${cp.id}"></div>
+    `;
+    wrap.appendChild(card);
+  });
+}
+
+function revealCheckpoint(id){
+  const card = document.getElementById('qcard-' + id);
+  card.classList.add('active');
+  document.getElementById('locked-' + id).style.display = 'none';
+  document.getElementById('submit-' + id).disabled = false;
+  document.getElementById('chip-' + id).classList.add('reached');
+  card.scrollIntoView({behavior:'smooth', block:'center'});
+}
+
+function rewatch(id, time){
+  if (!playerReady) return;
+  reachedIds.add(id); // ensure it's unlocked even if they jump ahead manually
+  revealCheckpoint(id);
+  player.seekTo(Math.max(0, time - 25), true);
+  player.playVideo();
+}
+
+function submitAnswer(id){
+  const cp = CHECKPOINTS.find(c => c.id === id);
+  const selected = document.querySelector(`input[name="q${id}"]:checked`);
+  if (!selected) return;
+  const idx = parseInt(selected.value, 10);
+  const isCorrect = idx === cp.correct;
+
+  const card = document.getElementById('qcard-' + id);
+  card.querySelectorAll('.opt').forEach(o => {
+    const oi = parseInt(o.dataset.idx, 10);
+    o.classList.remove('selected','correct-answer','wrong-answer');
+    if (oi === idx) o.classList.add(isCorrect ? 'correct-answer' : 'wrong-answer');
+    if (oi === cp.correct) o.classList.add('correct-answer');
+  });
+
+  const fb = document.getElementById('feedback-' + id);
+  fb.className = 'feedback show ' + (isCorrect ? 'correct' : 'incorrect');
+  fb.innerHTML = `<strong>${isCorrect ? '✅ ¡Correcto!' : '❌ No es la respuesta principal — revisen de nuevo si quieren.'}</strong>
+    <div class="quote">${cp.explanation}</div>`;
+
+  document.getElementById('submit-' + id).textContent = 'Volver a intentar';
+  card.classList.toggle('answered', true);
+  card.classList.toggle('correct', isCorrect);
+  card.classList.toggle('incorrect', !isCorrect);
+
+  if (isCorrect) {
+    answeredCorrect.add(id);
+    document.getElementById('chip-' + id).classList.add('done');
+  }
+  updateSummary();
+}
+
+function updateSummary(){
+  if (answeredCorrect.size === CHECKPOINTS.length) {
+    const summary = document.getElementById('summary');
+    summary.classList.add('show');
+    document.getElementById('scoreText').textContent = answeredCorrect.size + ' / ' + CHECKPOINTS.length;
+    const nombre = document.getElementById('nombreGrupo').value.trim();
+    document.getElementById('scoreMsg').textContent = (nombre ? nombre + ', han' : 'Han') + ' completado las 5 estaciones del análisis. ¡Buen trabajo revisando la conferencia a fondo!';
+    summary.scrollIntoView({behavior:'smooth', block:'center'});
+  }
+}
+
+buildStations();
+buildQuestions();
+</script>
+</body>
+</html>
