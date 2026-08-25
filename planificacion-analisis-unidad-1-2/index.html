@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Análisis de Video — Unidad 1.2 | Planificación Estratégica en la Gestión Pública</title>
+<meta name="description" content="Análisis interactivo en video para la Unidad 1.2: Fundamentos del Sistema Nacional de Planificación e Inversión Pública (SNPIP), marco normativo y ciclo del PEI.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8E%A5%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#003877; --navy-dark:#002a5c; --gold:#c9982f;
+  --primary:#0f172a; --secondary:#334155; --muted:#64748b;
+  --bg-body:#f4f7fb; --bg-card:#ffffff; --border-light:#e2e8f0; --border-dark:#cbd5e1;
+  --green:#16a34a; --green-bg:#f0fdf4; --green-border:#22c55e;
+  --amber:#b45309; --amber-bg:#fffbeb; --amber-border:#f59e0b;
+  --red:#b91c1c; --red-bg:#fef2f2; --red-border:#ef4444;
+  --blue-bg:#eff6ff; --blue-border:#3b82f6;
+  --radius-lg:16px; --radius-md:12px; --radius-sm:8px;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.06);
+  --shadow-md:0 4px 6px -1px rgba(0,0,0,.1), 0 2px 4px -2px rgba(0,0,0,.1);
+  --shadow-lg:0 10px 15px -3px rgba(0,0,0,.12), 0 4px 6px -4px rgba(0,0,0,.1);
+}
+[data-theme="dark"]{
+  --navy:#5b9bd8; --primary:#f1f5f9; --secondary:#cbd5e1; --muted:#94a3b8;
+  --bg-body:#0b1220; --bg-card:#151f2f; --border-light:#283249; --border-dark:#3a4666;
+  --green-bg:#0c2417; --amber-bg:#2a2108; --red-bg:#2a1212; --blue-bg:#13233f;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.4); --shadow-md:0 4px 6px -1px rgba(0,0,0,.5); --shadow-lg:0 10px 15px -3px rgba(0,0,0,.5);
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{margin:0; background:var(--bg-body); color:var(--secondary); font-family:'Inter',ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif; line-height:1.7;}
+.main{max-width:900px; margin:0 auto; padding:1.5rem 1rem 4rem;}
+@media (min-width:640px){ .main{padding:2rem 1.5rem 5rem;} }
+[hidden]{display:none !important;}
+
+.cover{background:linear-gradient(135deg,var(--navy),var(--navy-dark)); color:#fff; border-radius:var(--radius-lg); padding:2rem 1.5rem; margin-bottom:1.5rem; box-shadow:var(--shadow-lg);}
+.cover .eyebrow{text-transform:uppercase; letter-spacing:.08em; font-size:.75rem; font-weight:700; opacity:.85;}
+.cover h1{font-size:1.5rem; font-weight:800; margin:.4rem 0 .5rem; line-height:1.3;}
+.cover p{margin:0 0 .5rem; opacity:.92; font-size:.95rem;}
+@media (min-width:640px){ .cover{padding:2.5rem;} .cover h1{font-size:1.9rem;} }
+
+.card{background:var(--bg-card); padding:1.25rem; border-radius:var(--radius-lg); box-shadow:var(--shadow-sm); border:1px solid var(--border-light); margin-bottom:1.25rem;}
+@media (min-width:640px){ .card{padding:1.75rem;} }
+
+.howto{display:flex; gap:.7rem; align-items:flex-start; margin-bottom:.9rem;}
+.howto .num{flex:none; width:26px; height:26px; border-radius:50%; background:var(--navy); color:#fff; font-weight:800; font-size:.8rem; display:flex; align-items:center; justify-content:center;}
+.howto p{margin:0; font-size:.9rem;}
+
+/* FIELDS */
+.field{margin-bottom:1rem;}
+.field label{display:block; font-weight:700; font-size:.82rem; color:var(--primary); margin-bottom:.35rem;}
+.field-grid{display:grid; grid-template-columns:1fr 1fr; gap:.9rem;}
+@media (max-width:540px){ .field-grid{grid-template-columns:1fr;} }
+.field input, .field select, .field textarea{width:100%; padding:.65rem .85rem; border-radius:var(--radius-sm); border:1px solid var(--border-dark); font-family:inherit; font-size:.9rem; background:var(--bg-body); color:var(--primary);}
+.field small{display:block; color:var(--muted); font-size:.75rem; margin-top:.25rem;}
+
+/* VIDEO WRAPPER CON OVERLAY ESTILO H5P */
+.video-wrap{position:relative; width:100%; border-radius:var(--radius-lg); overflow:hidden; background:#000; box-shadow:var(--shadow-lg); margin-bottom:1.25rem; aspect-ratio:16/9;}
+.video-wrap iframe{position:absolute; top:0; left:0; width:100%; height:100%; border:0;}
+
+.cp-overlay{position:absolute; inset:0; background:rgba(15,23,42,0.92); color:#fff; z-index:20; display:none; flex-direction:column; padding:1.25rem; overflow-y:auto;}
+@media (min-width:640px){ .cp-overlay{padding:2rem;} }
+.cp-overlay.show{display:flex;}
+
+.cp-header{display:flex; justify-content:space-between; align-items:center; margin-bottom:.75rem; gap:.5rem;}
+.cp-tag{background:var(--gold); color:#000; font-weight:800; font-size:.72rem; text-transform:uppercase; letter-spacing:.05em; padding:.25rem .6rem; border-radius:999px;}
+.cp-time{font-size:.8rem; opacity:.85; font-weight:600;}
+.cp-title{font-size:1.1rem; font-weight:800; margin:0 0 .9rem; line-height:1.35; color:#fff;}
+@media (min-width:640px){ .cp-title{font-size:1.25rem;} }
+
+.options{display:flex; flex-direction:column; gap:.55rem; margin-bottom:1rem;}
+.opt{display:flex; align-items:flex-start; gap:.65rem; padding:.7rem .85rem; border:1px solid rgba(255,255,255,0.2); border-radius:var(--radius-md); background:rgba(255,255,255,0.06); cursor:pointer; font-size:.88rem; transition:all .15s;}
+.opt:hover{background:rgba(255,255,255,0.14); border-color:rgba(255,255,255,0.4);}
+.opt input{margin-top:.15rem; accent-color:var(--gold);}
+.opt.correct-answer{border-color:var(--green-border); background:rgba(22,163,74,0.3);}
+.opt.wrong-answer{border-color:var(--red-border); background:rgba(185,28,28,0.3);}
+
+.btn{display:inline-flex; align-items:center; gap:.4rem; background:var(--navy); color:#fff; border:none; font-weight:700; font-size:.88rem; padding:.65rem 1.2rem; border-radius:var(--radius-sm); cursor:pointer; font-family:inherit;}
+.btn:hover{filter:brightness(1.15);}
+.btn:disabled{opacity:.5; cursor:not-allowed;}
+.btn.secondary{background:rgba(255,255,255,0.15); color:#fff; border:1px solid rgba(255,255,255,0.3);}
+.btn.secondary:hover{background:rgba(255,255,255,0.25);}
+.btn.gold{background:linear-gradient(135deg,var(--gold),#e0aa3e); color:#000; font-weight:800;}
+.btn.block{width:100%; justify-content:center;}
+
+.feedback{margin-top:.75rem; padding:.85rem; border-radius:var(--radius-md); font-size:.86rem; display:none;}
+.feedback.show{display:block;}
+.feedback.correct{background:rgba(22,163,74,0.25); border:1px solid var(--green-border); color:#dcfce7;}
+.feedback.incorrect{background:rgba(185,28,28,0.25); border:1px solid var(--red-border); color:#fee2e2;}
+.feedback strong{display:block; margin-bottom:.3rem;}
+.feedback .quote{margin-top:.4rem; padding-left:.7rem; border-left:3px solid var(--gold); color:#cbd5e1; font-style:italic; font-size:.82rem;}
+
+.dev-block{margin-top:1rem; padding-top:.9rem; border-top:1px dashed rgba(255,255,255,0.2);}
+.dev-block .dev-label{display:inline-flex; align-items:center; gap:.4rem; background:rgba(201,152,47,0.25); color:var(--gold); border:1px solid var(--gold); font-weight:700; font-size:.68rem; text-transform:uppercase; letter-spacing:.04em; padding:.25rem .6rem; border-radius:999px; margin-bottom:.45rem;}
+.dev-block p.dev-q{margin:.2rem 0 .6rem; font-weight:600; color:#f1f5f9; font-size:.88rem;}
+.dev-block textarea{width:100%; min-height:75px; padding:.65rem .8rem; border-radius:var(--radius-sm); border:1px solid rgba(255,255,255,0.3); font-family:inherit; font-size:.86rem; background:rgba(0,0,0,0.4); color:#fff; resize:vertical;}
+.voice-row{display:flex; align-items:center; gap:.6rem; margin-top:.45rem; flex-wrap:wrap;}
+.voice-btn{background:rgba(59,130,246,0.25); border:1px solid #3b82f6; color:#93c5fd; font-weight:700; font-size:.76rem; padding:.5rem .8rem; min-height:36px; border-radius:999px; cursor:pointer; font-family:inherit;}
+.voice-btn:hover{background:rgba(59,130,246,0.4);}
+.voice-btn.recording{background:rgba(239,68,68,0.4); border-color:#ef4444; color:#fca5a5; animation:voicePulse 1.2s ease-in-out infinite;}
+.voice-btn.busy{opacity:.7; cursor:wait;}
+@keyframes voicePulse{ 0%,100%{opacity:1;} 50%{opacity:.55;} }
+.voice-status{font-size:.72rem; color:#94a3b8;}
+.voice-status.err{color:#fca5a5;}
+.voice-status.ok{color:#86efac;}
+.dev-check{margin-top:.4rem; font-size:.74rem; color:#86efac; font-weight:700; display:none;}
+.dev-check.show{display:block;}
+
+.cp-continue{margin-top:1rem; padding-top:.9rem; border-top:1px solid rgba(255,255,255,0.15);}
+
+.chips{display:flex; flex-wrap:wrap; gap:.5rem; margin-bottom:1.25rem;}
+.chip{display:inline-flex; align-items:center; gap:.4rem; padding:.4rem .75rem; border-radius:999px; font-size:.78rem; font-weight:700; background:var(--bg-card); border:1px solid var(--border-light); color:var(--secondary); cursor:pointer; box-shadow:var(--shadow-sm);}
+.chip:hover{border-color:var(--navy); color:var(--navy);}
+.chip.done{background:var(--green-bg); border-color:var(--green-border); color:var(--green);}
+.chip.active{background:var(--navy); color:#fff; border-color:var(--navy);}
+
+#summary{display:none; text-align:center; padding:2.5rem 1.5rem; background:linear-gradient(135deg,var(--gold),#a97c1f); border-radius:var(--radius-lg); color:#fff; box-shadow:var(--shadow-lg); margin-top:1.25rem;}
+#summary.show{display:block;}
+#summary .medal{font-size:3rem; margin-bottom:.5rem;}
+#summary h2{margin:.2rem 0 .5rem; font-size:1.4rem;}
+#summary p{opacity:.95; margin:0 0 1rem;}
+#summary .score{font-size:2.2rem; font-weight:900;}
+
+.footer-note{text-align:center; color:var(--muted); font-size:.8rem; margin-top:1.5rem;}
+</style>
+</head>
+<body>
+<div class="main">
+
+  <div class="cover">
+    <div class="eyebrow">INAP · Planificación Estratégica en la Gestión Pública · Unidad 1.2</div>
+    <h1>🎥 Análisis interactivo: Planificación Estratégica Institucional</h1>
+    <p>Analicen la clase en grupo o de forma individual. El video se pausa solo en cada una de las 5 estaciones y la pregunta aparece encima de la pantalla — respondan ahí mismo sin desplazarse.</p>
+  </div>
+
+  <div class="card">
+    <div class="howto">
+      <div class="num">1</div>
+      <p>El video se detendrá automáticamente en 5 estaciones clave. Conversen y analicen antes de contestar.</p>
+    </div>
+    <div class="howto">
+      <div class="num">2</div>
+      <p>Si necesitan repasar el punto exacto, usen <strong>"Volver a ver este fragmento"</strong> para rebobinar 25 segundos.</p>
+    </div>
+    <div class="howto">
+      <div class="num">3</div>
+      <p>Cada estación incluye una <strong>pregunta de opción múltiple</strong> y una <strong>pregunta de desarrollo</strong> sobre su propia institución (por texto o nota de voz 🎤).</p>
+    </div>
+    <h3 style="margin-top:1.25rem;">¿Cómo van a completar esta actividad?</h3>
+    <div class="field">
+      <label for="modo_trabajo">Modalidad</label>
+      <select id="modo_trabajo">
+        <option value="individual">Individual</option>
+        <option value="grupo">En equipo</option>
+      </select>
+    </div>
+    <div class="field-grid" id="bloque-individual">
+      <div class="field">
+        <label for="estudiante_nombre">Nombre completo</label>
+        <input type="text" id="estudiante_nombre" placeholder="Ej. Juan Pérez">
+      </div>
+      <div class="field">
+        <label for="estudiante_cedula">Cédula</label>
+        <input type="text" id="estudiante_cedula" placeholder="001-0000000-0">
+        <small>Se usa para registrar su calificación en AulaDigital.</small>
+      </div>
+      <div class="field" style="grid-column:1/-1;">
+        <label for="estudiante_institucion">Institución pública donde labora</label>
+        <input type="text" id="estudiante_institucion" placeholder="Ej. INAP, MAP, MEPyD, MINERD, etc.">
+      </div>
+    </div>
+    <div id="bloque-grupo" hidden>
+      <div class="field-grid">
+        <div class="field">
+          <label for="grupo_nombre">Nombre del equipo / mesa</label>
+          <input type="text" id="grupo_nombre" placeholder="Ej. Equipo Los Estrategas">
+        </div>
+        <div class="field">
+          <label for="grupo_institucion">Institución(es)</label>
+          <input type="text" id="grupo_institucion" placeholder="Ej. MAP / INAP">
+        </div>
+      </div>
+      <div class="field">
+        <label for="grupo_integrantes">Integrantes (uno por línea, con nombre y cédula)</label>
+        <textarea id="grupo_integrantes" rows="3" placeholder="Juan Pérez — 001-0000000-0&#10;María Gómez — 402-0000000-0"></textarea>
+        <small>La calificación se registrará automáticamente a cada cédula listada.</small>
+      </div>
+    </div>
+  </div>
+
+  <div class="chips" id="chipsContainer"></div>
+
+  <div class="video-wrap" id="videoWrapper">
+    <div id="ytPlayer"></div>
+
+    <div class="cp-overlay" id="cpOverlay">
+      <div class="cp-header">
+        <span class="cp-tag" id="cpTag">Estación 1 de 5</span>
+        <span class="cp-time" id="cpTime">15:30</span>
+      </div>
+      <h2 class="cp-title" id="cpQuestion">Cargando pregunta...</h2>
+      <div class="options" id="cpOptions"></div>
+      <div style="display:flex; gap:.6rem; flex-wrap:wrap;">
+        <button class="btn gold" id="btnCheck">Comprobar respuesta</button>
+        <button class="btn secondary" id="btnRewind">⏪ Volver a ver este fragmento (-25s)</button>
+      </div>
+      <div class="feedback" id="cpFeedback"></div>
+
+      <div class="dev-block" id="devBlock">
+        <span class="dev-label">Pregunta de desarrollo institucional</span>
+        <p class="dev-q" id="devQuestion">Cargando pregunta de desarrollo...</p>
+        <textarea id="devInput" placeholder="Escriban su respuesta aquí o usen el botón de nota de voz..."></textarea>
+        <div class="voice-row">
+          <button type="button" class="voice-btn" id="btnVoice">🎤 Grabar nota de voz</button>
+          <span class="voice-status" id="voiceStatus">Hable claro al micrófono para transcribir</span>
+        </div>
+        <div class="dev-check" id="devCheck">✓ Respuesta de desarrollo guardada</div>
+      </div>
+
+      <div class="cp-continue" id="cpContinueWrap">
+        <button class="btn block" id="btnContinue">Continuar viendo el video ▶</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="summary">
+    <div class="medal">🏅</div>
+    <h2>¡Análisis de Video Completado!</h2>
+    <p>Han superado con éxito las 5 estaciones del análisis interactivo de la Unidad 1.2.</p>
+    <div class="score" id="finalScore">100 / 100</div>
+    <p id="syncStatus" style="margin-top:1rem; font-size:.92rem; opacity:.95;">Sincronizando con AulaDigital Moodle...</p>
+  </div>
+
+  <div class="footer-note">
+    Instituto Nacional de Administración Pública (INAP) · Planificación Estratégica en la Gestión Pública<br>
+    Desarrollado para el sistema de aprendizaje interactivo de AulaDigital.
+  </div>
+
+</div>
+
+<script>
+const CMID_UNIDAD = 444;
+const YOUTUBE_VIDEO_ID = "P68F_XZvOiA";
+const STATE_KEY = "pei_video_u1_2_estado_v1";
+const CHECKPOINTS = [
+  {
+    "id": 1,
+    "time": 930,
+    "label": "15:30",
+    "question": "¿Por qué la formulación del PEI se define como un 'ciclo continuo' y cuál es el objetivo central de su primera fase (Diagnóstico Contextual e Institucional)?",
+    "options": [
+      "Porque no es una línea recta que termina con la aprobación del documento, sino un círculo donde la última fase de evaluación alimenta directamente el inicio del siguiente PEI; y el diagnóstico analiza los factores internos y externos antes de decidir sobre el futuro",
+      "Porque el PEI debe redactarse de nuevo cada mes en una reunión de gabinete",
+      "Porque el diagnóstico solo analiza el gasto del presupuesto anterior sin considerar el contexto",
+      "Porque las leyes dominicanas exigen cambiar la misión de la entidad cada dos años"
+    ],
+    "correct": 0,
+    "explanation": "El facilitador subraya que la planificación no es una línea recta que termina cuando se aprueba el documento, sino un círculo donde la última fase de evaluación alimenta directamente el siguiente PEI. El diagnóstico contextual e institucional analiza los factores internos y externos antes de decidir absolutamente nada sobre el futuro.",
+    "dev": "En su institución, ¿cómo se utiliza la información de la evaluación del PEI anterior como insumo para el diagnóstico del nuevo ciclo de planificación?"
+  },
+  {
+    "id": 2,
+    "time": 2160,
+    "label": "36:00",
+    "question": "¿Cuál es el rol jurídico y metodológico fundamental de la Ley No. 498-06 y su Reglamento de Aplicación (Decreto 493-07) en la planificación pública dominicana?",
+    "options": [
+      "Es la norma rectora que crea el Sistema Nacional de Planificación e Inversión Pública (SNPIP), otorgando carácter vinculante y obligatorio a los instrumentos de planificación y articulando el ciclo de gestión con la Gestión para Resultados",
+      "Es un reglamento opcional que solo aplica a las empresas privadas que contratan con el Estado",
+      "Es una ley exclusiva para compras y contrataciones públicas de bienes informáticos",
+      "Es una resolución interna que solo regula la asignación de viáticos a directores"
+    ],
+    "correct": 0,
+    "explanation": "La Ley 498-06 es la norma rectora de la planificación en República Dominicana. Crea el SNPIP y establece los principios, objetivos y estructura obligatoria para todas las entidades públicas, articulando la formulación de los PEI con el PNPSP y la END 2030.",
+    "dev": "Mencionen una disposición legal o normativa específica del SNPIP (Ley 498-06, Decreto 493-07 o Ley 1-12) que determine de forma directa el proceso de planificación en su entidad."
+  },
+  {
+    "id": 3,
+    "time": 3630,
+    "label": "60:30",
+    "question": "¿Cómo articula el marco normativo complementario (Decretos 493-07 y 134-14) la Estrategia Nacional de Desarrollo (END 2030) con los Planes Estratégicos Institucionales (PEI)?",
+    "options": [
+      "Detalla los mecanismos concretos para que los objetivos del PEI se alineen de forma obligatoria con los 4 ejes estratégicos, objetivos generales y específicos de la END 2030 y las prioridades del PNPSP",
+      "Permite que cada institución elija libremente si desea o no alinearse con la Estrategia Nacional de Desarrollo",
+      "Establece que los PEI sustituyen por completo a la END 2030 durante períodos electorales",
+      "Exime a las instituciones autónomas de presentar vinculación con el PNPSP"
+    ],
+    "correct": 0,
+    "explanation": "El Decreto 493-07 (reglamento de la Ley 498-06) y el Decreto 134-14 regulan la articulación obligatoria de los PEI institucionales con los 4 ejes estratégicos de la END 2030 y los resultados comprometidos en el Plan Nacional Plurianual del Sector Público (PNPSP).",
+    "dev": "Identifiquen a cuál de los 4 ejes de la Estrategia Nacional de Desarrollo 2030 (Social, Institucional, Económico o Medioambiental) tributa principalmente la misión de su institución."
+  },
+  {
+    "id": 4,
+    "time": 5100,
+    "label": "85:00",
+    "question": "Al formular y revisar la Misión Institucional (Herramienta 2), ¿por qué es indispensable contrastarla rigurosamente contra las competencias legales de la entidad?",
+    "options": [
+      "Para verificar que la misión responda estrictamente al mandato legal que las leyes le confieren a la institución, asegurando que se entregue valor público real a los ciudadanos dentro del marco legal vigente",
+      "Para copiar textualmente la misión de una institución de otro país",
+      "Para reducir el presupuesto asignado por la DIGEPRES",
+      "Porque la ley prohíbe que las instituciones públicas tengan misión o visión declaradas"
+    ],
+    "correct": 0,
+    "explanation": "La Herramienta 2 del manual PEI establece que la revisión de la misión debe contrastar si lo que la entidad declara corresponde con precisión a lo que la ley le manda hacer, garantizando la legitimidad institucional y la entrega de valor público sin extralimitar funciones.",
+    "dev": "Analicen la declaración de Misión de su institución: ¿cumple con reflejar claramente el mandato legal de su ley de creación y la entrega de valor público a la ciudadanía?"
+  },
+  {
+    "id": 5,
+    "time": 6300,
+    "label": "1:45:00",
+    "question": "¿Cuál es la función técnica fundamental de las Unidades Institucionales de Planificación y Desarrollo (UIPyD) como contraparte técnica del SNPIP?",
+    "options": [
+      "Operativizar técnicamente los procesos de formulación, seguimiento y evaluación del PEI/POA, articulando a las autoridades y direcciones sustantivas con las directrices metodológicas del órgano rector (MEPyD)",
+      "Reemplazar a los directores de área en la toma de decisiones presupuestarias y contratación de personal",
+      "Administrar exclusivamente la infraestructura de redes y cómputos de la institución",
+      "Auditar los inventarios físicos de suministros de almacén al final de cada trimestre"
+    ],
+    "correct": 0,
+    "explanation": "Las UIPyD son las unidades técnico-metodológicas responsables de conducir los procesos de planificación estratégica y operativa, coordinando con cada dirección ejecutora y sirviendo de enlace oficial con el MEPyD conforme a la Ley 498-06.",
+    "dev": "¿Cómo coordina la UIPyD de su institución con las distintas áreas y direcciones sustantivas durante las etapas de formulación y seguimiento del PEI?"
+  }
+];
+
+/* ---------- VARIABLES DE ESTADO ---------- */
+let player = null;
+let playerReady = false;
+let checkInterval = null;
+let currentCpIndex = -1;
+let selectedOption = null;
+let isChecking = false;
+
+let state = {
+  activeStation: 0,
+  answers: {},
+  devAnswers: {},
+  completedStations: [],
+  score: 0,
+  isFinished: false
+};
+
+function loadState(){
+  try {
+    const saved = localStorage.getItem(STATE_KEY);
+    if(saved){
+      const parsed = JSON.parse(saved);
+      state = Object.assign(state, parsed);
+    }
+  } catch(e){}
+}
+
+function saveState(){
+  try {
+    localStorage.setItem(STATE_KEY, JSON.stringify(state));
+  } catch(e){}
+}
+
+function renderChips(){
+  const container = document.getElementById('chipsContainer');
+  container.innerHTML = '';
+  CHECKPOINTS.forEach((cp, idx) => {
+    const chip = document.createElement('button');
+    chip.className = 'chip';
+    chip.type = 'button';
+    const isDone = state.completedStations.includes(cp.id);
+    const isActive = (currentCpIndex === idx);
+    if(isDone) chip.classList.add('done');
+    if(isActive) chip.classList.add('active');
+
+    chip.innerHTML = `${isDone ? '✓ ' : ''}Estación ${cp.id} (${cp.label})`;
+    chip.onclick = () => {
+      if(player && playerReady){
+        player.seekTo(Math.max(0, cp.time - 5), true);
+        player.playVideo();
+      }
+    };
+    container.appendChild(chip);
+  });
+}
+
+function onYouTubeIframeAPIReady(){
+  player = new YT.Player('ytPlayer', {
+    videoId: YOUTUBE_VIDEO_ID,
+    playerVars: {
+      playsinline: 1,
+      rel: 0,
+      modestbranding: 1,
+      enablejsapi: 1,
+      origin: window.location.origin
+    },
+    events: {
+      onReady: (e) => {
+        playerReady = true;
+        startPlaybackMonitor();
+      },
+      onStateChange: (e) => {
+        if(e.data === YT.PlayerState.PLAYING){
+          startPlaybackMonitor();
+        } else {
+          stopPlaybackMonitor();
+        }
+      }
+    }
+  });
+}
+
+function startPlaybackMonitor(){
+  if(checkInterval) clearInterval(checkInterval);
+  checkInterval = setInterval(() => {
+    if(!player || !playerReady || currentCpIndex !== -1) return;
+    const curTime = player.getCurrentTime();
+    for(let i = 0; i < CHECKPOINTS.length; i++){
+      const cp = CHECKPOINTS[i];
+      if(curTime >= cp.time && curTime < (cp.time + 3) && !state.completedStations.includes(cp.id)){
+        player.pauseVideo();
+        openCheckpoint(i);
+        break;
+      }
+    }
+  }, 500);
+}
+
+function stopPlaybackMonitor(){
+  if(checkInterval){
+    clearInterval(checkInterval);
+    checkInterval = null;
+  }
+}
+
+function openCheckpoint(idx){
+  currentCpIndex = idx;
+  const cp = CHECKPOINTS[idx];
+  selectedOption = (state.answers[cp.id] !== undefined) ? state.answers[cp.id] : null;
+
+  document.getElementById('cpTag').textContent = `Estación ${cp.id} de ${CHECKPOINTS.length}`;
+  document.getElementById('cpTime').textContent = cp.label;
+  document.getElementById('cpQuestion').textContent = cp.question;
+  document.getElementById('devQuestion').textContent = cp.dev;
+
+  const optContainer = document.getElementById('cpOptions');
+  optContainer.innerHTML = '';
+
+  cp.options.forEach((optText, oIdx) => {
+    const label = document.createElement('label');
+    label.className = 'opt';
+    const radio = document.createElement('input');
+    radio.type = 'radio';
+    radio.name = `cp_opt_${cp.id}`;
+    radio.value = oIdx;
+    if(selectedOption === oIdx) radio.checked = true;
+
+    radio.onchange = () => {
+      selectedOption = oIdx;
+      document.querySelectorAll('.opt').forEach(l => {
+        l.classList.remove('correct-answer','wrong-answer');
+      });
+      document.getElementById('cpFeedback').classList.remove('show');
+    };
+
+    label.appendChild(radio);
+    const span = document.createElement('span');
+    span.textContent = optText;
+    label.appendChild(span);
+    optContainer.appendChild(label);
+  });
+
+  const devInput = document.getElementById('devInput');
+  devInput.value = state.devAnswers[cp.id] || '';
+  devInput.oninput = () => {
+    state.devAnswers[cp.id] = devInput.value;
+    saveState();
+    if(devInput.value.trim().length > 3){
+      document.getElementById('devCheck').classList.add('show');
+    }
+  };
+  if(devInput.value.trim().length > 3){
+    document.getElementById('devCheck').classList.add('show');
+  } else {
+    document.getElementById('devCheck').classList.remove('show');
+  }
+
+  const fb = document.getElementById('cpFeedback');
+  fb.className = 'feedback';
+  fb.innerHTML = '';
+
+  const overlay = document.getElementById('cpOverlay');
+  overlay.classList.add('show');
+  renderChips();
+}
+
+function checkAnswer(){
+  if(currentCpIndex === -1) return;
+  const cp = CHECKPOINTS[currentCpIndex];
+  if(selectedOption === null){
+    alert('Por favor seleccione una opción antes de comprobar.');
+    return;
+  }
+
+  state.answers[cp.id] = selectedOption;
+  const isCorrect = (selectedOption === cp.correct);
+  const fb = document.getElementById('cpFeedback');
+  fb.className = 'feedback show ' + (isCorrect ? 'correct' : 'incorrect');
+
+  if(isCorrect){
+    fb.innerHTML = `<strong>¡Excelente! Respuesta correcta (+20 pts)</strong>${cp.explanation ? `<div class="quote">"${cp.explanation}"</div>` : ''}`;
+    if(!state.completedStations.includes(cp.id)){
+      state.completedStations.push(cp.id);
+    }
+  } else {
+    fb.innerHTML = `<strong>Respuesta incorrecta</strong>Revise nuevamente el concepto o vuelva a ver el fragmento antes de reintentar.`;
+  }
+
+  const opts = document.querySelectorAll('.opt');
+  opts.forEach((l, idx) => {
+    l.classList.remove('correct-answer','wrong-answer');
+    if(idx === cp.correct) l.classList.add('correct-answer');
+    else if(idx === selectedOption && !isCorrect) l.classList.add('wrong-answer');
+  });
+
+  saveState();
+  renderChips();
+}
+
+function rewindCurrentFragment(){
+  if(player && playerReady && currentCpIndex !== -1){
+    const cp = CHECKPOINTS[currentCpIndex];
+    document.getElementById('cpOverlay').classList.remove('show');
+    currentCpIndex = -1;
+    const seekTime = Math.max(0, cp.time - 25);
+    player.seekTo(seekTime, true);
+    player.playVideo();
+  }
+}
+
+function continueVideo(){
+  if(currentCpIndex === -1) return;
+  const cp = CHECKPOINTS[currentCpIndex];
+  const devText = document.getElementById('devInput').value.trim();
+  if(devText){
+    state.devAnswers[cp.id] = devText;
+  }
+  if(!state.completedStations.includes(cp.id)){
+    state.completedStations.push(cp.id);
+  }
+  saveState();
+
+  document.getElementById('cpOverlay').classList.remove('show');
+  currentCpIndex = -1;
+  renderChips();
+
+  if(state.completedStations.length === CHECKPOINTS.length){
+    finishActivity();
+  } else if(player && playerReady){
+    player.playVideo();
+  }
+}
+
+function finishActivity(){
+  state.isFinished = true;
+  let correctCount = 0;
+  CHECKPOINTS.forEach(cp => {
+    if(state.answers[cp.id] === cp.correct) correctCount++;
+  });
+  state.score = Math.round((correctCount / CHECKPOINTS.length) * 100);
+  saveState();
+
+  const sum = document.getElementById('summary');
+  sum.classList.add('show');
+  document.getElementById('finalScore').textContent = `${state.score} / 100`;
+  sum.scrollIntoView({behavior:'smooth'});
+
+  syncWithMoodle(state.score, correctCount);
+}
+
+function getCedulasList(){
+  const modo = document.getElementById('modo_trabajo').value;
+  const cedulas = [];
+  if(modo === 'individual'){
+    const c = document.getElementById('estudiante_cedula').value.trim();
+    if(c) cedulas.push(c);
+  } else {
+    const raw = document.getElementById('grupo_integrantes').value;
+    const lines = raw.split('\n');
+    lines.forEach(l => {
+      const match = l.match(/\b\d{3}-?\d{7}-?\d{1}\b/) || l.match(/\b\d{11}\b/);
+      if(match){
+        cedulas.push(match[0]);
+      }
+    });
+  }
+  return cedulas;
+}
+
+function syncWithMoodle(puntos, correctas){
+  const syncStatus = document.getElementById('syncStatus');
+  const cedulas = getCedulasList();
+  if(cedulas.length === 0){
+    syncStatus.innerHTML = `<span style="color:#fef08a;">⚠️ Actividad completada con ${puntos} pts. Ingrese su cédula arriba para sincronizar su nota con AulaDigital.</span>`;
+    return;
+  }
+
+  const respuestasDev = [];
+  CHECKPOINTS.forEach(cp => {
+    respuestasDev.push({
+      pregunta: `Estación ${cp.id} (${cp.label}): ${cp.question}`,
+      texto: state.devAnswers[cp.id] || '(Sin respuesta de desarrollo)'
+    });
+  });
+
+  syncStatus.innerHTML = `Sincronizando ${cedulas.length} calificación(es) con AulaDigital...`;
+
+  const promises = cedulas.map(ced => {
+    return fetch('https://auladigital.plataforma.cfd/registrar-resultado-planificacion.php', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        secret: 'pei-video-2026-aula-digital',
+        cedula: ced,
+        cmid: CMID_UNIDAD,
+        puntos: puntos,
+        correctas: correctas,
+        total: CHECKPOINTS.length,
+        respuestas: respuestasDev
+      })
+    }).then(r => r.json());
+  });
+
+  Promise.all(promises).then(results => {
+    const oks = results.filter(r => r.ok).length;
+    syncStatus.innerHTML = `✅ ¡Calificación sincronizada exitosamente en AulaDigital! (${oks}/${cedulas.length} registrados, ${puntos} pts). Medalla otorgada automáticamente.`;
+  }).catch(err => {
+    syncStatus.innerHTML = `⚠️ Calificación guardada localmente (${puntos} pts). No se pudo contactar al servidor Moodle temporalmente.`;
+  });
+}
+
+/* ---------- NOTAS DE VOZ CON N8N / WHISPER ---------- */
+let mediaRecorder = null;
+let audioChunks = [];
+let isRecording = false;
+
+function setupVoiceRecording(){
+  const btn = document.getElementById('btnVoice');
+  const status = document.getElementById('voiceStatus');
+  const textarea = document.getElementById('devInput');
+
+  btn.onclick = async () => {
+    if(!isRecording){
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({audio:true});
+        mediaRecorder = new MediaRecorder(stream);
+        audioChunks = [];
+        mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
+        mediaRecorder.onstop = async () => {
+          btn.classList.remove('recording');
+          btn.classList.add('busy');
+          btn.textContent = '⏳ Transcribiendo...';
+          status.className = 'voice-status';
+          status.textContent = 'Enviando audio al transcriptor...';
+
+          const audioBlob = new Blob(audioChunks, {type:'audio/webm'});
+          const formData = new FormData();
+          formData.append('audio', audioBlob, 'nota_voz.webm');
+
+          try {
+            const resp = await fetch('https://n8n-inap.167.88.36.13.sslip.io/webhook/prof-johan-tapia-transcribir', {
+              method:'POST',
+              body:formData
+            });
+            const data = await resp.json();
+            const text = data.text || data.transcription || '';
+            if(text){
+              textarea.value = (textarea.value ? textarea.value + ' ' : '') + text;
+              textarea.dispatchEvent(new Event('input'));
+              status.className = 'voice-status ok';
+              status.textContent = '✓ Transcripción completada exitosamente';
+            } else {
+              status.className = 'voice-status err';
+              status.textContent = 'No se detectó voz clara en el audio.';
+            }
+          } catch(err){
+            status.className = 'voice-status err';
+            status.textContent = 'Error al transcribir. Escriba su respuesta directamente.';
+          } finally {
+            btn.classList.remove('busy');
+            btn.textContent = '🎤 Grabar otra nota';
+          }
+        };
+
+        mediaRecorder.start();
+        isRecording = true;
+        btn.classList.add('recording');
+        btn.textContent = '⏹ Detener grabación';
+        status.className = 'voice-status';
+        status.textContent = '🔴 Grabando... hable claro al micrófono';
+      } catch(err){
+        status.className = 'voice-status err';
+        status.textContent = 'Permiso de micrófono denegado.';
+      }
+    } else {
+      mediaRecorder.stop();
+      isRecording = false;
+    }
+  };
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  loadState();
+  renderChips();
+
+  document.getElementById('btnCheck').onclick = checkAnswer;
+  document.getElementById('btnRewind').onclick = rewindCurrentFragment;
+  document.getElementById('btnContinue').onclick = continueVideo;
+
+  const modo = document.getElementById('modo_trabajo');
+  modo.onchange = () => {
+    if(modo.value === 'individual'){
+      document.getElementById('bloque-individual').hidden = false;
+      document.getElementById('bloque-grupo').hidden = true;
+    } else {
+      document.getElementById('bloque-individual').hidden = true;
+      document.getElementById('bloque-grupo').hidden = false;
+    }
+  };
+
+  setupVoiceRecording();
+
+  // Load YouTube IFrame API
+  const tag = document.createElement('script');
+  tag.src = "https://www.youtube.com/iframe_api";
+  const firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+});
+</script>
+</body>
+</html>

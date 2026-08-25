@@ -517,16 +517,25 @@
         "nombre": "Videos Interactivos — Planificación Estratégica en la Gestión Pública",
         "icono": "🎥",
         "tipoClase": "taller",
-        "tipoLabel": "Videos interactivos con estaciones y notas de voz · 5 unidades",
+        "tipoLabel": "Videos interactivos con estaciones y notas de voz · 6 prácticas",
         "practicas": [
           {
-            "badge": "Unidad I",
+            "badge": "Unidad 1.1",
             "titulo": "Análisis de Conferencia: Planificación Estratégica y GbR",
             "desc": "Análisis interactivo de la conferencia sobre Planificación Estratégica en la Gestión Pública, ciclo de gestión y GbR con 5 estaciones, opción múltiple y preguntas de desarrollo.",
             "duracion": "5 estaciones · 45 minutos",
             "puntos": "100 pts (AulaDigital)",
             "aprobacion": "70% mínimo",
             "url": "https://johantbueno.github.io/practicas-web/planificacion-analisis-conferencia/"
+          },
+          {
+            "badge": "Unidad 1.2",
+            "titulo": "Análisis de Video: Planificación Estratégica Institucional",
+            "desc": "Fundamentos del SNPIP, Ley 498-06, Decreto 493-07, articulación con la END 2030, revisión de la Misión (Herramienta 2) y rol de las UIPyD.",
+            "duracion": "5 estaciones · 45 minutos",
+            "puntos": "100 pts (AulaDigital)",
+            "aprobacion": "70% mínimo",
+            "url": "https://johantbueno.github.io/practicas-web/planificacion-analisis-unidad-1-2/"
           },
           {
             "badge": "Unidad II",
@@ -561,7 +570,7 @@
             "desc": "Priorización metodológica de estrategias, validación vs aprobación oficial del PEI, reportes trimestrales y lecciones aprendidas.",
             "duracion": "5 estaciones · 45 minutos",
             "puntos": "100 pts (AulaDigital)",
-            "aprobacion": "70% practical",
+            "aprobacion": "70% mínimo",
             "url": "https://johantbueno.github.io/practicas-web/planificacion-analisis-unidad-5/"
           }
         ]
