@@ -477,8 +477,7 @@ const RESULT_SYNC_SECRET = 'pei-video-2026-aula-digital';
 
 function cedulasDelParticipante(){
   const raw = document.getElementById('p_cedulas').value || '';
-  return raw.split(/[,
-]/).map(c => c.replace(/[^0-9]/g, '')).filter(c => c.length > 0);
+  return raw.split(/[,\n]/).map(c => c.replace(/[^0-9]/g, '')).filter(c => c.length > 0);
 }
 
 function enviarResultadoAMoodle(correctCount){
