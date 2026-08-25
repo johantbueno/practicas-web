@@ -150,7 +150,7 @@ body{margin:0; background:var(--bg-body); color:var(--secondary); font-family:'I
   <div class="card">
     <div class="howto">
       <div class="num">1</div>
-      <p>El video se pausa solo en 5 estaciones y la pregunta aparece encima del video, como en cualquier video interactivo. Conversen antes de responder.</p>
+      <p>El video se pausa solo en 10 estaciones y la pregunta aparece encima del video, como en cualquier video interactivo. Conversen antes de responder.</p>
     </div>
     <div class="howto">
       <div class="num">2</div>
@@ -240,6 +240,21 @@ const STATE_KEY = "pei_video_u4_estado_v1";
 const CHECKPOINTS = [
   {
     "id": 1,
+    "time": 245,
+    "label": "04:05",
+    "question": "Según el calendario institucional real descrito en el video para el ciclo del POA, ¿en qué periodo del año se elabora el informe de monitoreo del PI, cerrando el ciclo justo a tiempo para alimentar la formulación del POA del año siguiente?",
+    "options": [
+      "Entre septiembre y noviembre del año anterior, coincidiendo con la formulación presupuestaria ante la Digepres",
+      "Durante los doce meses del año fiscal en curso, con sus cortes trimestrales de seguimiento",
+      "Entre diciembre y enero del año siguiente",
+      "Exclusivamente en junio, coincidiendo con la fecha de la versión del manual metodológico del MEPyD"
+    ],
+    "correct": 2,
+    "explanation": "El video establece con precisión tres momentos distintos del calendario institucional: la formulación del POA ocurre entre septiembre y noviembre del año anterior; el seguimiento continuo se ejecuta durante los doce meses del año fiscal en curso; y 'el monitoreo y el informe final, correspondientes al cuarto bloque, se elaboran entre diciembre y enero del año siguiente, cerrando el ciclo justo a tiempo para alimentar la formulación del POA del año siguiente'. Los otros tres periodos mencionados en las opciones corresponden a otras etapas reales del ciclo, no al monitoreo y el informe.",
+    "dev": "Piense en el calendario real de su propia institución (o una que conozca bien): ¿en qué meses del año se formula efectivamente el POA, en qué meses se le da seguimiento y en qué meses se elabora el informe de monitoreo? Compare ese calendario con el descrito en el video (formulación sept-nov, seguimiento continuo todo el año, monitoreo dic-ene) y explique qué ajustes de calendario recomendaría si no coinciden."
+  },
+  {
+    "id": 2,
     "time": 1080,
     "label": "18:00",
     "question": "¿Cuál es la diferencia fundamental entre los productos estratégicos y los productos misionales no estratégicos en el sistema de planificación dominicano?",
@@ -254,7 +269,7 @@ const CHECKPOINTS = [
     "dev": "Identifiquen en su institución un producto estratégico (que cambie una condición de la ciudadanía) y un producto misional indispensable (que sostiene el funcionamiento interno pero no va en el PEI)."
   },
   {
-    "id": 2,
+    "id": 3,
     "time": 1560,
     "label": "26:00",
     "question": "¿Por qué es indispensable que el costeo de las metas físicas del POA esté alineado con los techos presupuestarios del Marco de Gastos de Mediano Plazo (MGMP) y la DIGEPRES?",
@@ -269,7 +284,7 @@ const CHECKPOINTS = [
     "dev": "En su institución, ¿cómo se articula el equipo de Planificación con el área Financiera/Presupuestaria para verificar que las metas del POA cuenten con disponibilidad presupuestaria real?"
   },
   {
-    "id": 3,
+    "id": 4,
     "time": 2010,
     "label": "33:30",
     "question": "¿Cuáles son las 6 columnas fundamentales que estructuran la matriz del Plan Operativo Anual (POA) según el estándar metodológico?",
@@ -284,7 +299,22 @@ const CHECKPOINTS = [
     "dev": "Estructuren una fila de POA para un producto clave de su área: indiquen Producto, Unidad de medida, Meta física anual, Cronograma trimestral y Dirección responsable."
   },
   {
-    "id": 4,
+    "id": 5,
+    "time": 2270,
+    "label": "37:50",
+    "question": "Un producto misional no estratégico (por ejemplo, el mantenimiento de vehículos oficiales) nunca fue costeado dentro del PI porque no forma parte de la matriz de producción estratégica. Según el cuarto paso del proceso de formulación del POA explicado en el video, ¿cómo se determina correctamente su meta financiera?",
+    "options": [
+      "Se aplican las mismas herramientas 18 y 19 de costeo utilizadas para los productos estratégicos, adaptadas ahora a un producto de naturaleza operativa y no estratégica",
+      "Se estima de manera informal y aproximada, ya que al no ser estratégico no requiere una metodología de costeo técnica y rigurosa",
+      "Se retoma directamente el costeo que ya fue realizado para ese mismo producto dentro del documento del PI",
+      "La DIGEPRES asigna un monto fijo estándar a todos los productos misionales de cada institución, sin necesidad de costeo propio"
+    ],
+    "correct": 0,
+    "explanation": "El video es explícito en este punto: 'Para los productos misionales, que no pasaron por ese proceso de costeo estratégico, se aplica exactamente la misma metodología de costeo, las herramientas 18 y 19, adaptadas ahora a un producto de naturaleza operativa y no estratégica.' Es decir, el rigor metodológico del costeo no depende de si el producto es estratégico o misional, sino que se aplica por igual a ambos.",
+    "dev": "Identifique un producto misional real de su institución (uno que sostenga la operación diaria pero que nunca haya sido costeado formalmente porque no está en la matriz de producción estratégica del PI). Aplique, aunque sea de manera aproximada, la lógica de las herramientas 18 y 19 para estimar su meta financiera anual, tal como recomienda el video."
+  },
+  {
+    "id": 6,
     "time": 2910,
     "label": "48:30",
     "question": "¿Cuáles son los 5 procesos continuos que aseguran el seguimiento efectivo del PEI a través de la ejecución del POA?",
@@ -299,7 +329,22 @@ const CHECKPOINTS = [
     "dev": "¿Qué espacios o reuniones de reflexión periódica existen en su institución para analizar los reportes trimestrales de avance y tomar decisiones correctivas ante desviaciones?"
   },
   {
-    "id": 5,
+    "id": 7,
+    "time": 3760,
+    "label": "1:02:40",
+    "question": "Una institución reporta con orgullo haber cumplido el 100% de su meta anual de un producto de atención ciudadana. Según el ejemplo desarrollado en el video sobre el segundo proceso de seguimiento (el registro de información), ¿qué problema grave podría estar ocultando ese cumplimiento numérico perfecto si el registro no incluye variables poblacionales desagregadas?",
+    "options": [
+      "Que la atención se concentró de manera desproporcionada en ciertas zonas geográficas, dejando desatendidos a los sectores poblacionales más vulnerables que originalmente motivaron ese producto",
+      "Que el costeo del producto en las herramientas 18 y 19 fue calculado incorrectamente desde la formulación del PI",
+      "Que la meta física anual no fue desagregada correctamente en los cuatro trimestres del cronograma del POA",
+      "Que el producto en cuestión debió clasificarse como misional no estratégico en lugar de estratégico"
+    ],
+    "correct": 0,
+    "explanation": "El video ilustra este riesgo con un ejemplo concreto: si el registro desagregado por ubicación geográfica revela 'que el 90% de esa atención se concentró en la zona metropolitana de Santo Domingo, y apenas el 10% restante se distribuyó entre el resto del país, ese mismo cumplimiento numérico del 100% esconde, en realidad, una inequidad territorial grave'. Solo el registro desagregado por variables como sexo, discapacidad, ciclo de vida y ubicación geográfica permite detectar este tipo de problema.",
+    "dev": "Revise qué variables poblacionales (sexo, ciclo de vida, condición de discapacidad, ubicación geográfica, ámbito urbano o rural) registra actualmente su institución para algún producto o servicio que brinde. Con el diseño actual de esos formularios, ¿podría detectarse una inequidad territorial como la del ejemplo del video, o el registro solo captura totales numéricos globales?"
+  },
+  {
+    "id": 8,
     "time": 4200,
     "label": "1:10:00",
     "question": "¿Cuál es la diferencia metodológica entre la etapa de Seguimiento y la etapa de Monitoreo en la gestión orientada a resultados del PEI/POA?",
@@ -312,6 +357,36 @@ const CHECKPOINTS = [
     "correct": 1,
     "explanation": "El seguimiento revisa continuamente el avance de las actividades y productos (POA), mientras que el monitoreo evalúa sistemáticamente a través de la Herramienta 21 si esos productos están generando los resultados intermedios y estratégicos comprometidos en el PEI.",
     "dev": "Expliquen cómo su institución verifica no solo que las actividades del POA se cumplan ('hicimos los talleres o compras'), sino que efectivamente se estén alcanzando los resultados en la ciudadanía ('mejoró el servicio o se redujo el problema')."
+  },
+  {
+    "id": 9,
+    "time": 4667,
+    "label": "1:17:47",
+    "question": "El profesor afirma que, de los cinco procesos de seguimiento del PI a través del POA, uno de ellos es 'el proceso más importante de los cinco, porque es el que determina si todo el trabajo técnico anterior genera algún cambio real en la institución'. ¿A cuál de los cinco procesos se refiere?",
+    "options": [
+      "La reflexión y respuesta de los equipos de gestión",
+      "La recopilación de información sobre unidades de medida e indicadores",
+      "El registro sistemático de la ejecución diaria en cada dependencia",
+      "La elaboración de reportes consolidados por la unidad institucional de planificación y desarrollo"
+    ],
+    "correct": 0,
+    "explanation": "El video lo señala de manera directa al cerrar el tercer bloque: sin el quinto proceso, 'todo el esfuerzo técnico invertido en los cuatro procesos anteriores se queda, literalmente, en el papel, sin generar ningún cambio real en la ejecución cotidiana de la institución... de nada sirve tener información técnica excelente sin nadie, al final, actúa con base en ella'. Los otros cuatro procesos (recopilación, registro, reportes e informes) son insumos necesarios, pero es la reflexión y respuesta de los equipos de gestión la que convierte esa información en decisiones concretas.",
+    "dev": "Evalúe si en su institución existe un espacio formal, con periodicidad definida, donde el equipo de gestión efectivamente se reúna a discutir los hallazgos de los informes de seguimiento y monitoreo y tome decisiones documentadas de ajuste. Si ese espacio no existe o es solo informal, proponga cómo institucionalizarlo para evitar que los informes 'se archiven sin generar cambio real', como advierte el video."
+  },
+  {
+    "id": 10,
+    "time": 6552,
+    "label": "1:49:12",
+    "question": "Una institución formula metas físicas ambiciosas y técnicamente bien redactadas en su POA, pero nunca las somete a revisión ante la DIGEPRES para verificar si caben dentro del techo del MGMP, ni gestiona fuentes de financiamiento adicionales. Según los errores comunes identificados en el video sobre la formulación del POA, ¿en qué consecuencia concreta desemboca típicamente este error?",
+    "options": [
+      "El POA queda, en la práctica, como un documento de buenas intenciones, con metas físicas que carecen del respaldo financiero necesario para ejecutarse",
+      "La institución pierde de manera automática cualquier protección presupuestaria que ya tuviera asignada por la DIGEPRES en años anteriores",
+      "El producto correspondiente debe reclasificarse obligatoriamente de estratégico a misional no estratégico",
+      "La DIGEPRES rechaza formalmente todo el documento del PI institucional, obligando a reiniciar el diagnóstico desde cero"
+    ],
+    "correct": 0,
+    "explanation": "El video lo identifica como el tercer error común: 'la ausencia de vinculación presupuestaria, metas físicas ambiciosas y bien redactadas, pero que no cuentan con el respaldo financiero correspondiente ante la Digepres, condenando al POA a quedar como un documento de buenas intenciones', exactamente el mismo riesgo discutido al estudiar las fuentes de financiamiento en el segundo bloque de la unidad.",
+    "dev": "Revise si las metas físicas del POA de su institución cuentan siempre con una vinculación presupuestaria explícita y verificada ante la DIGEPRES y el techo del MGMP, o si existe el riesgo de que alguna meta quede como 'documento de buenas intenciones' sin financiamiento real. ¿Qué acción concreta tomaría para cerrar esa brecha: ajustar el alcance de la meta, gestionar cooperación internacional, o solicitar protección presupuestaria especial?"
   }
 ];
 
@@ -465,7 +540,7 @@ function updateSummary(){
     summary.classList.add('show');
     document.getElementById('scoreText').textContent = correctCount + ' / ' + CHECKPOINTS.length;
     const nombre = nombreIdentificacion();
-    document.getElementById('scoreMsg').textContent = (nombre ? nombre + ', han' : 'Han') + ' completado las 5 estaciones del análisis, con sus preguntas de desarrollo. ¡Buen trabajo revisando el video a fondo!';
+    document.getElementById('scoreMsg').textContent = (nombre ? nombre + ', han' : 'Han') + ' completado las 10 estaciones del análisis, con sus preguntas de desarrollo. ¡Buen trabajo revisando el video a fondo!';
     summary.scrollIntoView({behavior:'smooth', block:'center'});
     if (!yaEnviado) { yaEnviado = true; saveState(); enviarResultadoAMoodle(correctCount); }
   }

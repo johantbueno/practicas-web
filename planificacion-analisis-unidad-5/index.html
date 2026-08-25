@@ -150,7 +150,7 @@ body{margin:0; background:var(--bg-body); color:var(--secondary); font-family:'I
   <div class="card">
     <div class="howto">
       <div class="num">1</div>
-      <p>El video se pausa solo en 5 estaciones y la pregunta aparece encima del video, como en cualquier video interactivo. Conversen antes de responder.</p>
+      <p>El video se pausa solo en 10 estaciones y la pregunta aparece encima del video, como en cualquier video interactivo. Conversen antes de responder.</p>
     </div>
     <div class="howto">
       <div class="num">2</div>
@@ -240,6 +240,36 @@ const STATE_KEY = "pei_video_u5_estado_v1";
 const CHECKPOINTS = [
   {
     "id": 1,
+    "time": 854,
+    "label": "14:14",
+    "question": "Según el video, el documento del PI dedica secciones separadas al diagnóstico contextual, al diagnóstico institucional y al marco estratégico porque cada una responde a una pregunta distinta. ¿Qué pregunta responde específicamente el diagnóstico institucional?",
+    "options": [
+      "Responde al \"por qué\": por qué la institución debe intervenir en un problema determinado.",
+      "Responde al \"cómo\": cómo puede la institución intervenir, dado sus capacidades y fortalezas reales.",
+      "Responde al \"qué\": qué es exactamente lo que la institución va a hacer.",
+      "No responde a ninguna pregunta específica; solo enumera los actores involucrados en el proceso."
+    ],
+    "correct": 1,
+    "explanation": "El video es explícito: \"El diagnóstico contextual responde al por qué... El diagnóstico institucional responde al cómo, como puede la institución intervenir, dado sus capacidades y fortalezas reales... Y el marco estratégico responde al qué, qué es exactamente lo que la institución va a hacer.\" Confundir estas tres preguntas es, según el profesor, señal de que una sección del documento necesita reescribirse.",
+    "dev": "Aplica este marco de tres preguntas (por qué / cómo / qué) a un problema real de tu institución: redacta en una sola frase la respuesta a cada pregunta (diagnóstico contextual, diagnóstico institucional y marco estratégico) para ese problema específico."
+  },
+  {
+    "id": 2,
+    "time": 1514,
+    "label": "25:14",
+    "question": "En el ejemplo del Ministerio de Obras Públicas y Comunicaciones (MOPC) sobre la matriz de producción estratégica, la meta de kilómetros de carreteras mantenidas crece de 5.000 (año 1) a 5.600 km (año 3), y luego se mantiene en 5.600 km en el año 4 sin seguir subiendo. ¿Cómo interpreta el video esa estabilización en el año 4?",
+    "options": [
+      "Es un error de diseño de la meta que debería corregirse antes de aprobar el PI.",
+      "Es un signo de conformismo institucional que refleja falta de ambición en la gestión.",
+      "Refleja que la institución alcanzó su capacidad máxima sostenible de mantenimiento vial con los recursos disponibles, por lo que mantener la cifra es la meta técnicamente correcta.",
+      "Indica que el indicador fue mal seleccionado, porque una meta de producción siempre debe crecer de forma indefinida durante los cuatro años de vigencia del PI."
+    ],
+    "correct": 2,
+    "explanation": "El video lo aclara directamente: \"la meta crece de forma sostenida los primeros tres años, y luego se estabiliza en el cuarto año. Esto no es un error ni un signo de conformismo, refleja que la institución alcanzó su capacidad máxima sostenible de mantenimiento vial con los recursos disponibles... mantener esa cifra... es la meta técnicamente correcta.\"",
+    "dev": "Piensa en un producto estratégico de tu institución (por ejemplo, inspecciones realizadas, expedientes tramitados o capacitaciones impartidas). ¿En qué año podría tu institución alcanzar su capacidad máxima sostenible de producción, y por qué sería técnicamente correcto estabilizar la meta en ese punto en lugar de seguir aumentándola artificialmente?"
+  },
+  {
+    "id": 3,
     "time": 1740,
     "label": "29:00",
     "question": "¿Cuáles son las dos reglas metodológicas obligatorias para la priorización final de estrategias del PEI en la matriz de cruce frente a los Resultados Estratégicos?",
@@ -254,7 +284,22 @@ const CHECKPOINTS = [
     "dev": "En su institución, seleccionen un Resultado Estratégico clave e identifiquen qué estrategia institucional (FO, DO, FA o DA) está directamente vinculada para garantizar su cumplimiento."
   },
   {
-    "id": 2,
+    "id": 4,
+    "time": 2588,
+    "label": "43:08",
+    "question": "El manual PI 2024 separa la validación institucional en tres instancias: alto nivel, coordinación técnica y gestión operativa. Según el video, ¿qué ocurre típicamente cuando las funciones de estas tres instancias se concentran en una sola persona o en un solo comité?",
+    "options": [
+      "El proceso se vuelve más eficiente, porque se elimina la necesidad de coordinación entre niveles.",
+      "La instancia de alto nivel termina discutiendo detalles operativos que le restan tiempo a las decisiones estratégicas de política, o el nivel operativo termina tomando decisiones políticas para las que no tiene el mandato ni la visión de conjunto necesaria.",
+      "La Unidad Institucional de Planificación y Desarrollo (UIPyD) asume automáticamente las tres funciones para evitar conflictos internos.",
+      "El PI pierde validez jurídica, porque el manual exige que cada instancia esté conformada por un mínimo de diez personas distintas."
+    ],
+    "correct": 1,
+    "explanation": "El video advierte: \"Cuando estas tres funciones se concentran en una sola persona o en un solo comité, típicamente ocurre uno de dos problemas, o la instancia de alto nivel termina discutiendo detalles operativos que le restan tiempo a las decisiones estratégicas de política, o el nivel operativo termina tomando decisiones políticas para las que no tiene el mandato ni la visión de conjunto necesaria.\"",
+    "dev": "En tu institución, identifica quién ocupa (o debería ocupar) cada una de estas tres instancias: alto nivel, coordinación técnica y gestión operativa. ¿Existe algún caso en que estas funciones estén concentradas en muy pocas personas? ¿Qué riesgo concreto generaría eso, según la lógica explicada en el video?"
+  },
+  {
+    "id": 5,
     "time": 2940,
     "label": "49:00",
     "question": "¿Cuál es la diferencia jurídica y administrativa fundamental entre la Validación Institucional y la Aprobación Oficial del PEI?",
@@ -269,7 +314,22 @@ const CHECKPOINTS = [
     "dev": "¿Cuál es el procedimiento y acto administrativo formal mediante el cual se aprueba y formaliza el PEI en su entidad antes de ser remitido al MEPyD?"
   },
   {
-    "id": 3,
+    "id": 6,
+    "time": 3301,
+    "label": "55:01",
+    "question": "La estrategia de comunicación del PI, según el manual PI 2024, tiene cuatro componentes: comunicación interna, comunicación externa, participación ciudadana y capacitación. ¿Cuál de las siguientes opciones describe correctamente el componente de \"participación ciudadana\"?",
+    "options": [
+      "Sesiones informativas con el personal de todas las áreas, talleres de apropiación y una intranet institucional con acceso al PI completo.",
+      "Publicación en la página web institucional, redes sociales oficiales, ruedas de prensa y participación en espacios formales de rendición de cuentas.",
+      "Mecanismos de consulta a grupos de interés y actores clave, integrando las demandas territoriales registradas en el Registro Único de Demandas Ciudadanas Territoriales (RUDT).",
+      "Formación al personal sobre la metodología del PI, los indicadores de desempeño y los procesos de seguimiento y monitoreo."
+    ],
+    "correct": 2,
+    "explanation": "El video define el tercer componente así: \"la participación ciudadana, mecanismos de consulta a grupos de interés, actores clave e involucrados en la definición de prioridades, integrando además las demandas territoriales registradas en el registro único de demandas ciudadanas territoriales, el ruDT.\" Las otras opciones corresponden a comunicación interna, comunicación externa y capacitación, respectivamente.",
+    "dev": "Diseña, para tu propia institución, un mecanismo concreto de participación ciudadana para socializar tu PI (o un plan similar), explicando cómo recogerías las demandas o percepciones de la ciudadanía antes de definir las prioridades finales."
+  },
+  {
+    "id": 7,
     "time": 4260,
     "label": "71:00",
     "question": "En el Reporte Trimestral de Seguimiento (Secciones A, B, C y D), ¿por qué es fundamental la separación de roles entre las Direcciones Ejecutoras y la UIPyD?",
@@ -284,7 +344,22 @@ const CHECKPOINTS = [
     "dev": "¿Cómo coordina la UIPyD de su institución con las direcciones sustantivas para recopilar y verificar las evidencias y medios de verificación de los reportes trimestrales?"
   },
   {
-    "id": 4,
+    "id": 8,
+    "time": 4530,
+    "label": "1:15:30",
+    "question": "El sistema de semáforo del formato trimestral usa los umbrales verde (>=90%), amarillo (70-89%) y rojo (<70%). ¿Qué advierte el video sobre estos umbrales?",
+    "options": [
+      "Son fijos y obligatorios por ley para todas las instituciones públicas dominicanas, sin excepción posible.",
+      "Deben aplicarse siempre exactamente igual, sin importar el tipo de indicador, para mantener comparabilidad entre instituciones.",
+      "No son universales ni automáticos: pueden justificarse umbrales más estrictos para indicadores sensibles (como salud o seguridad ciudadana), pero deben definirse de forma explícita, documentada y consistente antes del seguimiento, nunca ajustarse después para maquillar un resultado.",
+      "Solo aplican al formato de seguimiento trimestral, pero no al consolidado anual, donde el semáforo se calcula con una escala distinta."
+    ],
+    "correct": 2,
+    "explanation": "El video lo explica con claridad: \"sus umbrales... no son universales ni automáticos... para un indicador de seguridad ciudadana o de salud pública, donde cualquier desviación tiene consecuencias directas sobre vidas humanas, podría ser razonable exigir un umbral de alerta amarilla más estricto, digamos 85% en lugar de 70%\", pero advierte que deben fijarse de antemano y \"no se ajusten después, sobre la marcha, para que un resultado que en realidad está en rojo aparezca artificialmente en amarillo.\"",
+    "dev": "Piensa en un indicador crítico de tu institución (por ejemplo, relacionado con seguridad, salud o derechos de los ciudadanos). ¿Qué umbral de alerta amarilla propondrías para ese indicador específico, y por qué justificarías que sea más estricto (o no) que el estándar general de 70-89%?"
+  },
+  {
+    "id": 9,
     "time": 5280,
     "label": "88:00",
     "question": "¿Cuál es la función principal del Capítulo 6 de Lecciones Aprendidas en el Informe de Evaluación Anual del PEI?",
@@ -299,7 +374,7 @@ const CHECKPOINTS = [
     "dev": "Mencionen un caso o experiencia en su institución donde un resultado no alcanzado o una dificultad operativa se convirtió en una lección aprendida que mejoró la planificación posterior."
   },
   {
-    "id": 5,
+    "id": 10,
     "time": 6510,
     "label": "1:48:30",
     "question": "¿Por qué la regla de secuenciación 'Primero Adentro, Después Afuera' y la adaptación territorial de canales son indispensables en la estrategia de socialización del PEI?",
@@ -465,7 +540,7 @@ function updateSummary(){
     summary.classList.add('show');
     document.getElementById('scoreText').textContent = correctCount + ' / ' + CHECKPOINTS.length;
     const nombre = nombreIdentificacion();
-    document.getElementById('scoreMsg').textContent = (nombre ? nombre + ', han' : 'Han') + ' completado las 5 estaciones del análisis, con sus preguntas de desarrollo. ¡Buen trabajo revisando el video a fondo!';
+    document.getElementById('scoreMsg').textContent = (nombre ? nombre + ', han' : 'Han') + ' completado las 10 estaciones del análisis, con sus preguntas de desarrollo. ¡Buen trabajo revisando el video a fondo!';
     summary.scrollIntoView({behavior:'smooth', block:'center'});
     if (!yaEnviado) { yaEnviado = true; saveState(); enviarResultadoAMoodle(correctCount); }
   }

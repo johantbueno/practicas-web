@@ -149,7 +149,7 @@ body{margin:0; background:var(--bg-body); color:var(--secondary); font-family:'I
   <div class="card">
     <div class="howto">
       <div class="num">1</div>
-      <p>El video se pausa solo en 5 estaciones y la pregunta aparece encima del video, como en cualquier video interactivo. Conversen antes de responder.</p>
+      <p>El video se pausa solo en 10 estaciones y la pregunta aparece encima del video, como en cualquier video interactivo. Conversen antes de responder.</p>
     </div>
     <div class="howto">
       <div class="num">2</div>
@@ -235,7 +235,20 @@ body{margin:0; background:var(--bg-body); color:var(--secondary); font-family:'I
 <script>
 const CHECKPOINTS = [
   {
-    id: 1, time: 345, label: "5:45",
+    id: 1, time: 45, label: "00:45",
+    question: "¿Cuál es, según el Dr. Montero, el gran aporte de la planificación estratégica moderna frente a la planificación tradicional en cuanto a los actores involucrados?",
+    options: [
+      "Que solo los tomadores de decisiones deben participar, para agilizar el proceso",
+      "Que nos obliga a tomar en cuenta la diversidad de actores, internos y externos, que inciden en la vida organizacional",
+      "Que elimina la necesidad de considerar actores externos para enfocarse solo en la eficiencia interna",
+      "Que la participación de actores es opcional y depende del tamaño de la institución"
+    ],
+    correct: 1,
+    explanation: "El Dr. Montero es explícito: \"el gran aporte de la planificación estratégica es que no solo nos permite, sino que nos obliga a tomar en cuenta la diversidad de actores que inciden en la vida organizacional. Actores, buena parte de ellos, internos, pero otra buena parte, actores externos\". Lo contrasta con la planificación tradicional, donde \"solo quienes iban a tomar decisiones se involucraban en el proceso de la planificación\".",
+    dev: "¿Qué actores internos y externos deberían participar en la planificación estratégica de tu institución y que actualmente podrían estar quedando excluidos? Explica por qué su inclusión mejoraría el plan."
+  },
+  {
+    id: 2, time: 345, label: "5:45",
     question: "¿Por qué la planificación estratégica es distinta de la planificación tradicional en cuanto a los actores involucrados?",
     options: [
       "Solo participan los tomadores de decisión",
@@ -248,7 +261,20 @@ const CHECKPOINTS = [
     dev: "Piensen en su propia institución: ¿quiénes son los actores externos que deberían participar en su planificación estratégica y que hoy casi nunca son tomados en cuenta?"
   },
   {
-    id: 2, time: 670, label: "11:10",
+    id: 3, time: 495, label: "08:15",
+    question: "Según el Dr. Montero, ¿cuáles son las fases del ciclo lógico de la planificación estratégica, más allá del simple diseño y aprobación del plan?",
+    options: [
+      "Diseño del plan y archivo del documento final una vez aprobado",
+      "Diseño participativo, aprobación por las autoridades competentes, aplicación de día a día, control, evaluación permanente y ajustes",
+      "Solo diagnóstico institucional y formulación de objetivos generales",
+      "Aprobación política del plan y su difusión mediática"
+    ],
+    correct: 1,
+    explanation: "El conferencista señala: \"tiene que haber un diseño participativo, tiene que haber una aprobación por parte de las autoridades competentes, pero tiene que haber una aplicación de día a día, tiene que haber un control, tiene que haber una evaluación permanente, tiene que darse los ajustes, porque en los planes estratégicos no se escriben en piedra\".",
+    dev: "De las fases del ciclo (diseño, aprobación, aplicación diaria, control, evaluación, ajuste), ¿cuál es la más débil en tu institución actualmente? Propón una acción concreta para fortalecerla."
+  },
+  {
+    id: 4, time: 670, label: "11:10",
     question: "¿De dónde surge la misión de una institución pública, según la conferencia?",
     options: [
       "La inventa quien elabora el plan estratégico",
@@ -261,7 +287,20 @@ const CHECKPOINTS = [
     dev: "¿Cuál es la norma (ley, decreto o reglamento) que le da mandato legal a su institución? En sus palabras, ¿cuál es la misión que se desprende de esa norma?"
   },
   {
-    id: 3, time: 1090, label: "18:10",
+    id: 5, time: 815, label: "13:35",
+    question: "¿Cuál es, según el Dr. Montero, el instrumento por excelencia para que el Estado cristalice su fin último: el bienestar social y el bien común?",
+    options: [
+      "El presupuesto nacional aprobado por el Congreso",
+      "La administración pública, como estructura organizacional que desarrolla actividad pública en favor de la gente",
+      "El poder legislativo y su capacidad de crear leyes",
+      "La cooperación internacional y el financiamiento externo"
+    ],
+    correct: 1,
+    explanation: "Cita textual: \"el instrumento por excelencia... para que el estado pueda cristalizar ese fin último, el bienestar social, el bien común, es precisamente la administración pública, esa estructura organizacional, ese conjunto de órganos... que desarrollan una actividad pública para llevar bienestar a la gente\". Además, señala que los valores de la planeación estratégica en el sector público (ética, transparencia, mérito, entrega de resultados) están subordinados a ese interés general.",
+    dev: "¿Cómo se refleja (o no) el fin último del bienestar social y el bien común en la misión declarada de tu institución? ¿Qué valor —ética, transparencia o mérito— crees que más urge fortalecer, y por qué?"
+  },
+  {
+    id: 6, time: 1090, label: "18:10",
     question: "¿Cuál es uno de los problemas más comunes con la planeación estratégica en la región, según la conferencia?",
     options: [
       "Se evalúa demasiado y se planifica muy poco",
@@ -274,7 +313,33 @@ const CHECKPOINTS = [
     dev: "En su institución, ¿se evalúan los planes una vez ejecutados? Describan un ejemplo concreto (o la ausencia de ese ejemplo)."
   },
   {
-    id: 4, time: 2285, label: "38:05",
+    id: 7, time: 1260, label: "21:00",
+    question: "¿Qué lección extrae el Dr. Montero de la pandemia de COVID-19 en relación con el enfoque prospectivo de la planificación estratégica?",
+    options: [
+      "Que la prospectiva es un ejercicio meramente teórico, sin utilidad práctica ante crisis reales",
+      "Que ya se venía alertando sobre el riesgo de una pandemia y que debimos trabajar con seriedad los escenarios prospectivos para anticiparnos",
+      "Que ninguna institución pudo, ni en teoría, haber anticipado un evento como el COVID-19",
+      "Que la pandemia demostró que los sistemas de salud de la región eran sólidos y estaban preparados"
+    ],
+    correct: 1,
+    explanation: "El Dr. Montero afirma: \"desde hacía muchos años se venía alertando sobre la posibilidad de una pandemia\" y que \"hoy nos hemos dado cuenta que los escenarios prospectivos debemos trabajar con seriedad\" para que \"la sorpresa no sea tan grande\". También sostiene que la pandemia \"lo que ha hecho es ponernos al desnudo, ahora no hay forma de maquillar los datos\", y que incluso países que se \"preciaban de tener sistemas de salud sólido\" descubrieron que no lo eran.",
+    dev: "¿Qué escenario futuro de alto impacto (crisis sanitaria, tecnológica, climática, etc.) debería tu institución empezar a anticipar hoy con un enfoque prospectivo? ¿Qué datos actuales de tu institución 'no se pueden maquillar'?"
+  },
+  {
+    id: 8, time: 1700, label: "28:20",
+    question: "Según el Dr. Montero, ¿cuál es una de las características centrales que definen a la administración pública del siglo XXI?",
+    options: [
+      "Su enfoque en maximizar los recursos económicos disponibles por encima de cualquier otro factor",
+      "Su enfoque de ciudadanía: centrarse en satisfacer las necesidades de la gente como condición para generar confianza",
+      "Su independencia total respecto a la evaluación de resultados",
+      "Su capacidad de operar con mínima relación directa con la ciudadanía"
+    ],
+    correct: 1,
+    explanation: "Cita textual: \"algo muy importante que tiene un valor enorme para la administración pública es el ciudadano... la administración pública del siglo 21 es una administración con enfoque de ciudadanía\". Agrega que \"si los gobiernos no son capaces de satisfacer las necesidades de la gente no hay forma de que se genere confianza, en consecuencia, el desarrollo social, el desarrollo del país sería una cuenta pendiente permanente\".",
+    dev: "¿Qué mecanismo concreto tiene (o podría implementar) tu institución para escuchar e incorporar las necesidades reales de los ciudadanos en su planificación estratégica?"
+  },
+  {
+    id: 9, time: 2285, label: "38:05",
     question: "En el análisis FODA explicado en la conferencia, las oportunidades y amenazas ¿de qué dimensión provienen?",
     options: [
       "De la dimensión interna de la institución",
@@ -287,7 +352,7 @@ const CHECKPOINTS = [
     dev: "Mencionen una oportunidad y una amenaza reales, externas a su institución, que estén afectando hoy el cumplimiento de sus metas."
   },
   {
-    id: 5, time: 2720, label: "45:20",
+    id: 10, time: 2720, label: "45:20",
     question: "¿Qué Objetivo de Desarrollo Sostenible (ODS) resalta especialmente la conferencia para la administración pública?",
     options: [
       "ODS 1: fin de la pobreza, únicamente",
@@ -467,7 +532,7 @@ function updateSummary(){
     summary.classList.add('show');
     document.getElementById('scoreText').textContent = correctCount + ' / ' + CHECKPOINTS.length;
     const nombre = nombreIdentificacion();
-    document.getElementById('scoreMsg').textContent = (nombre ? nombre + ', han' : 'Han') + ' completado las 5 estaciones del análisis, con sus preguntas de desarrollo. ¡Buen trabajo revisando la conferencia a fondo!';
+    document.getElementById('scoreMsg').textContent = (nombre ? nombre + ', han' : 'Han') + ' completado las 10 estaciones del análisis, con sus preguntas de desarrollo. ¡Buen trabajo revisando la conferencia a fondo!';
     summary.scrollIntoView({behavior:'smooth', block:'center'});
     if (!yaEnviado) { yaEnviado = true; saveState(); enviarResultadoAMoodle(correctCount); }
   }
