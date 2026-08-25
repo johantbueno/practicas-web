@@ -512,6 +512,59 @@
             "url": "https://johantbueno.github.io/practicas-web/transformacion-digital-u7/"
           }
         ]
+      },
+      {
+        "nombre": "Videos Interactivos — Planificación Estratégica en la Gestión Pública",
+        "icono": "🎥",
+        "tipoClase": "taller",
+        "tipoLabel": "Videos interactivos con estaciones y notas de voz · 5 unidades",
+        "practicas": [
+          {
+            "badge": "Unidad I",
+            "titulo": "Análisis de Conferencia: Planificación Estratégica y GbR",
+            "desc": "Análisis interactivo de la conferencia sobre Planificación Estratégica en la Gestión Pública, ciclo de gestión y GbR con 5 estaciones, opción múltiple y preguntas de desarrollo.",
+            "duracion": "5 estaciones · 45 minutos",
+            "puntos": "100 pts (AulaDigital)",
+            "aprobacion": "70% mínimo",
+            "url": "https://johantbueno.github.io/practicas-web/planificacion-analisis-conferencia/"
+          },
+          {
+            "badge": "Unidad II",
+            "titulo": "Análisis de Video: Diagnóstico Contextual e Institucional",
+            "desc": "Secuencia de las 12 herramientas de diagnóstico, análisis normativo, prioridades del PNPSP, formulación rigurosa de problemas y Matriz CAME.",
+            "duracion": "5 estaciones · 45 minutos",
+            "puntos": "100 pts (AulaDigital)",
+            "aprobacion": "70% mínimo",
+            "url": "https://johantbueno.github.io/practicas-web/planificacion-analisis-unidad-2/"
+          },
+          {
+            "badge": "Unidad III",
+            "titulo": "Análisis de Video: Diseño del Marco Estratégico e Indicadores",
+            "desc": "Cadena de valor pública (productos vs resultados), indicadores SMART, 4 dimensiones del desempeño público y misión basada en resultados.",
+            "duracion": "5 estaciones · 45 minutos",
+            "puntos": "100 pts (AulaDigital)",
+            "aprobacion": "70% mínimo",
+            "url": "https://johantbueno.github.io/practicas-web/planificacion-analisis-unidad-3/"
+          },
+          {
+            "badge": "Unidad IV",
+            "titulo": "Análisis de Video: Desarrollo del POA y Documento PEI",
+            "desc": "Productos estratégicos vs misionales, costeo y alineación presupuestaria con el MGMP, matriz del POA de 6 columnas y procesos de seguimiento continuo.",
+            "duracion": "5 estaciones · 45 minutos",
+            "puntos": "100 pts (AulaDigital)",
+            "aprobacion": "70% mínimo",
+            "url": "https://johantbueno.github.io/practicas-web/planificacion-analisis-unidad-4/"
+          },
+          {
+            "badge": "Unidad V",
+            "titulo": "Análisis de Video: Seguimiento, Monitoreo y Evaluación del PEI",
+            "desc": "Priorización metodológica de estrategias, validación vs aprobación oficial del PEI, reportes trimestrales y lecciones aprendidas.",
+            "duracion": "5 estaciones · 45 minutos",
+            "puntos": "100 pts (AulaDigital)",
+            "aprobacion": "70% practical",
+            "url": "https://johantbueno.github.io/practicas-web/planificacion-analisis-unidad-5/"
+          }
+        ]
       }
     ]
   },
