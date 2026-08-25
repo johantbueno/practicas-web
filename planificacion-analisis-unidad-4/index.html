@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Análisis de Video — Unidad IV | Planificación Estratégica en la Gestión Pública</title>
+<meta name="description" content="Análisis interactivo de la Unidad IV sobre Desarrollo del POA y Seguimiento, con preguntas guiadas por estación al estilo H5P.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8E%A5%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#003877; --navy-dark:#002a5c; --gold:#c9982f;
+  --primary:#0f172a; --secondary:#334155; --muted:#64748b;
+  --bg-body:#f4f7fb; --bg-card:#ffffff; --border-light:#e2e8f0; --border-dark:#cbd5e1;
+  --green:#16a34a; --green-bg:#f0fdf4; --green-border:#22c55e;
+  --amber:#b45309; --amber-bg:#fffbeb; --amber-border:#f59e0b;
+  --red:#b91c1c; --red-bg:#fef2f2; --red-border:#ef4444;
+  --blue-bg:#eff6ff; --blue-border:#3b82f6;
+  --radius-lg:16px; --radius-md:12px; --radius-sm:8px;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.06);
+  --shadow-md:0 4px 6px -1px rgba(0,0,0,.1), 0 2px 4px -2px rgba(0,0,0,.1);
+  --shadow-lg:0 10px 15px -3px rgba(0,0,0,.12), 0 4px 6px -4px rgba(0,0,0,.1);
+}
+[data-theme="dark"]{
+  --navy:#5b9bd8; --primary:#f1f5f9; --secondary:#cbd5e1; --muted:#94a3b8;
+  --bg-body:#0b1220; --bg-card:#151f2f; --border-light:#283249; --border-dark:#3a4666;
+  --green-bg:#0c2417; --amber-bg:#2a2108; --red-bg:#2a1212; --blue-bg:#13233f;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.4); --shadow-md:0 4px 6px -1px rgba(0,0,0,.5); --shadow-lg:0 10px 15px -3px rgba(0,0,0,.5);
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{margin:0; background:var(--bg-body); color:var(--secondary); font-family:'Inter',ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif; line-height:1.7;}
+.main{max-width:900px; margin:0 auto; padding:1.5rem 1rem 4rem;}
+@media (min-width:640px){ .main{padding:2rem 1.5rem 5rem;} }
+[hidden]{display:none !important;}
+
+.cover{background:linear-gradient(135deg,var(--navy),var(--navy-dark)); color:#fff; border-radius:var(--radius-lg); padding:2rem 1.5rem; margin-bottom:1.5rem; box-shadow:var(--shadow-lg);}
+.cover .eyebrow{text-transform:uppercase; letter-spacing:.08em; font-size:.75rem; font-weight:700; opacity:.85;}
+.cover h1{font-size:1.5rem; font-weight:800; margin:.4rem 0 .5rem; line-height:1.3;}
+.cover p{margin:0 0 .5rem; opacity:.92; font-size:.95rem;}
+@media (min-width:640px){ .cover{padding:2.5rem;} .cover h1{font-size:1.9rem;} }
+
+.card{background:var(--bg-card); padding:1.25rem; border-radius:var(--radius-lg); box-shadow:var(--shadow-sm); border:1px solid var(--border-light); margin-bottom:1.25rem;}
+@media (min-width:640px){ .card{padding:1.75rem;} }
+
+.howto{display:flex; gap:.7rem; align-items:flex-start; margin-bottom:.9rem;}
+.howto .num{flex:none; width:26px; height:26px; border-radius:50%; background:var(--navy); color:#fff; font-weight:800; font-size:.8rem; display:flex; align-items:center; justify-content:center;}
+.howto p{margin:0; font-size:.9rem;}
+
+/* FIELDS */
+.field{margin-bottom:1rem;}
+.field label{display:block; font-weight:700; font-size:.82rem; color:var(--primary); margin-bottom:.35rem;}
+.field-grid{display:grid; grid-template-columns:1fr 1fr; gap:.9rem;}
+@media (max-width:640px){ .field-grid{grid-template-columns:1fr;} }
+.field input[type=text], .field select, .field textarea{
+  width:100%; padding:.6rem .8rem; border:1px solid var(--border-dark); border-radius:var(--radius-sm);
+  font-size:.95rem; font-family:inherit; background:var(--bg-body); color:var(--primary);
+}
+.field input:focus, .field select:focus, .field textarea:focus{border-color:var(--navy); outline:none;}
+
+/* VIDEO + OVERLAY (estilo H5P: la pregunta aparece SOBRE el video) */
+.video-wrap{position:relative; width:100%; padding-top:56.25%; border-radius:var(--radius-md); overflow:hidden; background:#000; box-shadow:var(--shadow-md);}
+.video-wrap iframe{position:absolute; inset:0; width:100%; height:100%; border:0;}
+
+.cp-overlay{position:absolute; inset:0; background:rgba(4,12,26,.86); display:none; align-items:center; justify-content:center; padding:.75rem; overflow-y:auto; z-index:5; backdrop-filter:blur(2px);}
+.cp-overlay.show{display:flex;}
+.cp-panel{background:var(--bg-card); border-radius:var(--radius-lg); padding:1.1rem 1.2rem; width:100%; max-width:480px; max-height:100%; overflow-y:auto; box-shadow:var(--shadow-lg); margin:auto;}
+@media (min-width:640px){ .cp-panel{padding:1.5rem 1.6rem;} }
+.cp-badge{display:inline-flex; align-items:center; gap:.4rem; background:var(--blue-bg); color:var(--navy); border:1px solid var(--blue-border); font-weight:700; font-size:.7rem; text-transform:uppercase; letter-spacing:.04em; padding:.3rem .7rem; border-radius:999px; margin-bottom:.6rem;}
+.cp-panel h3{margin:.2rem 0 .9rem; font-size:1rem; color:var(--primary); font-weight:700; line-height:1.4;}
+
+.rewatch-btn{display:inline-flex; align-items:center; gap:.4rem; background:var(--bg-body); border:1px solid var(--border-dark); color:var(--secondary); font-weight:600; font-size:.78rem; padding:.45rem .8rem; border-radius:var(--radius-sm); cursor:pointer; margin-bottom:.9rem; font-family:inherit;}
+.rewatch-btn:hover{border-color:var(--navy); color:var(--navy);}
+
+.options{display:flex; flex-direction:column; gap:.5rem; margin-bottom:.9rem;}
+.opt{display:flex; align-items:flex-start; gap:.6rem; padding:.65rem .8rem; border:1px solid var(--border-dark); border-radius:var(--radius-sm); cursor:pointer; font-size:.88rem; transition:all .15s ease; background:var(--bg-body);}
+.opt:hover{border-color:var(--navy); background:var(--blue-bg);}
+.opt input{margin-top:.15rem; accent-color:var(--navy);}
+.opt.correct-answer{border-color:var(--green-border); background:var(--green-bg);}
+.opt.wrong-answer{border-color:var(--red-border); background:var(--red-bg);}
+
+.btn{display:inline-flex; align-items:center; gap:.4rem; background:var(--navy); color:#fff; border:none; font-weight:700; font-size:.88rem; padding:.65rem 1.2rem; border-radius:var(--radius-sm); cursor:pointer; font-family:inherit;}
+.btn:hover{background:var(--navy-dark);}
+.btn:disabled{opacity:.5; cursor:not-allowed;}
+.btn.secondary{background:var(--bg-body); color:var(--secondary); border:1px solid var(--border-dark);}
+.btn.secondary:hover{border-color:var(--navy); color:var(--navy);}
+.btn.block{width:100%; justify-content:center;}
+
+.feedback{margin-top:.9rem; padding:.9rem; border-radius:var(--radius-md); font-size:.86rem; display:none;}
+.feedback.show{display:block;}
+.feedback.correct{background:var(--green-bg); border:1px solid var(--green-border); color:var(--primary);}
+.feedback.incorrect{background:var(--red-bg); border:1px solid var(--red-border); color:var(--primary);}
+.feedback strong{display:block; margin-bottom:.3rem;}
+.feedback .quote{margin-top:.5rem; padding-left:.7rem; border-left:3px solid var(--border-dark); color:var(--muted); font-style:italic; font-size:.82rem;}
+
+.scroll-hint{display:none; align-items:center; justify-content:center; gap:.4rem; text-align:center; margin-top:.9rem; padding:.5rem .7rem; border-radius:999px; background:var(--amber-bg); color:var(--amber); border:1px solid var(--amber-border); font-weight:700; font-size:.78rem; animation:bounceHint 1.4s ease-in-out infinite;}
+.scroll-hint.show{display:flex;}
+@keyframes bounceHint{ 0%,100%{transform:translateY(0);} 50%{transform:translateY(4px);} }
+
+/* DESARROLLO / VOZ dentro del overlay */
+.dev-block{margin-top:1.1rem; padding-top:1rem; border-top:1px dashed var(--border-dark);}
+.dev-block .dev-label{display:inline-flex; align-items:center; gap:.4rem; background:var(--amber-bg); color:var(--amber); border:1px solid var(--amber-border); font-weight:700; font-size:.68rem; text-transform:uppercase; letter-spacing:.04em; padding:.28rem .65rem; border-radius:999px; margin-bottom:.55rem;}
+.dev-block p.dev-q{margin:.25rem 0 .7rem; font-weight:600; color:var(--primary); font-size:.88rem;}
+.dev-block textarea{width:100%; min-height:80px; padding:.7rem .85rem; border-radius:var(--radius-sm); border:1px solid var(--border-dark); font-family:inherit; font-size:.86rem; background:var(--bg-body); color:var(--primary); resize:vertical;}
+.voice-row{display:flex; align-items:center; gap:.6rem; margin-top:.5rem; flex-wrap:wrap;}
+.voice-btn{background:var(--blue-bg); border:1px solid var(--blue-border); color:var(--navy); font-weight:700; font-size:.76rem; padding:.55rem .85rem; min-height:38px; border-radius:999px; cursor:pointer; font-family:inherit;}
+.voice-btn:hover{filter:brightness(0.97);}
+.voice-btn.recording{background:var(--red-bg); border-color:var(--red-border); color:var(--red); animation:voicePulse 1.2s ease-in-out infinite;}
+.voice-btn.busy{opacity:.7; cursor:wait;}
+@keyframes voicePulse{ 0%,100%{opacity:1;} 50%{opacity:.55;} }
+.voice-status{font-size:.72rem; color:var(--muted);}
+.voice-status.err{color:var(--red);}
+.voice-status.ok{color:var(--green);}
+.dev-check{margin-top:.45rem; font-size:.74rem; color:var(--green); font-weight:700; display:none;}
+.dev-check.show{display:block;}
+
+.cp-continue{margin-top:1.1rem; padding-top:1rem; border-top:1px solid var(--border-light);}
+
+/* ESTACIONES / capítulos, estilo H5P (barra de navegación bajo el video) */
+.stations{display:flex; gap:.5rem; flex-wrap:wrap; margin:1rem 0 0;}
+.station-chip{flex:1; min-width:80px; text-align:center; padding:.55rem .4rem; border-radius:999px; border:2px solid var(--border-light); background:var(--bg-body); font-size:.72rem; font-weight:700; color:var(--muted); cursor:pointer; transition:all .2s ease;}
+.station-chip:hover{border-color:var(--navy); color:var(--navy);}
+.station-chip.reached{border-color:var(--gold); color:var(--amber); background:var(--amber-bg);}
+.station-chip.done{border-color:var(--green-border); color:var(--green); background:var(--green-bg);}
+.station-chip.done::before{content:"✓ ";}
+
+/* SUMMARY */
+#summary{display:none; text-align:center; padding:2.5rem 1.5rem; background:linear-gradient(135deg,var(--gold),#a97c1f); border-radius:var(--radius-lg); color:#fff; box-shadow:var(--shadow-lg); margin-top:1.25rem;}
+#summary.show{display:block;}
+#summary .medal{font-size:3rem; margin-bottom:.5rem;}
+#summary h2{margin:.2rem 0 .5rem; font-size:1.4rem;}
+#summary p{opacity:.95; margin:0 0 1rem;}
+#summary .score{font-size:2.2rem; font-weight:900;}
+
+.footer-note{text-align:center; color:var(--muted); font-size:.8rem; margin-top:1.5rem;}
+</style>
+</head>
+<body>
+<div class="main">
+
+  <div class="cover">
+    <div class="eyebrow">INAP · Planificación Estratégica en la Gestión Pública · Unidad IV</div>
+    <h1>🎥 Análisis interactivo: Desarrollo del POA y Seguimiento</h1>
+    <p>Analicen la clase de la Unidad IV en grupo o de forma individual. El video se pausa solo y la pregunta aparece justo encima — respondan ahí mismo, sin bajar ni subir la página.</p>
+  </div>
+
+  <div class="card">
+    <div class="howto">
+      <div class="num">1</div>
+      <p>El video se pausa solo en 5 estaciones y la pregunta aparece encima del video, como en cualquier video interactivo. Conversen antes de responder.</p>
+    </div>
+    <div class="howto">
+      <div class="num">2</div>
+      <p>Si no están seguros, usen <strong>"Volver a ver este fragmento"</strong> dentro de la pregunta — retrocede el video 25 segundos.</p>
+    </div>
+    <div class="howto">
+      <div class="num">3</div>
+      <p>Pueden reintentar la respuesta las veces que quieran, y cada estación tiene además una <strong>pregunta de desarrollo</strong> sobre su propia institución — escrita o por nota de voz 🎤, como en WhatsApp, sin mínimo de palabras.</p>
+    </div>
+    <h3 style="margin-top:1.25rem;">¿Cómo van a completar esta actividad?</h3>
+    <div class="field">
+      <label for="modo_trabajo">Modalidad</label>
+      <select id="modo_trabajo">
+        <option value="individual">Individual</option>
+        <option value="grupo">En equipo</option>
+      </select>
+    </div>
+    <div class="field-grid" id="bloque-individual">
+      <div class="field"><label for="ind_nombre">Nombre completo</label><input type="text" id="ind_nombre" placeholder="Su nombre y apellido"></div>
+      <div class="field"><label for="p_institucion">Institución</label><input type="text" id="p_institucion" placeholder="Ej: Alcaldía de..., Ministerio de..."></div>
+    </div>
+    <div class="field-grid" id="bloque-grupo" hidden>
+      <div class="field"><label for="grp_nombre">Nombre del equipo o grupo</label><input type="text" id="grp_nombre" placeholder="Ej: Equipo Los Almendros"></div>
+      <div class="field"><label for="p_institucion_grp">Institución</label><input type="text" id="p_institucion_grp" placeholder="Ej: Alcaldía de..., Ministerio de..."></div>
+    </div>
+    <div class="field" id="bloque-integrantes" hidden>
+      <label for="grp_integrantes">Nombres de los integrantes (opcional)</label>
+      <textarea id="grp_integrantes" placeholder="Uno por línea o separados por coma"></textarea>
+    </div>
+    <div class="field">
+      <label for="p_cedulas" id="lbl_cedulas">Cédula (la misma con la que entra a AulaDigital)</label>
+      <textarea id="p_cedulas" placeholder="Ej: 22500841287" rows="2"></textarea>
+    </div>
+    <p class="hint" id="hint_cedulas">Con la cédula registramos la nota de esta actividad directo en su cuenta de <strong>auladigital.plataforma.cfd</strong>.</p>
+  </div>
+
+  <div class="card">
+    <div class="video-wrap">
+      <div id="player"></div>
+
+      <div class="cp-overlay" id="cpOverlay">
+        <div class="cp-panel">
+          <div class="cp-badge" id="cpBadge"></div>
+          <h3 id="cpQuestion"></h3>
+          <button class="rewatch-btn" id="cpRewatch">⏪ Volver a ver este fragmento</button>
+          <div class="options" id="cpOptions"></div>
+          <button class="btn" id="cpSubmit">Responder</button>
+          <div class="feedback" id="cpFeedback"></div>
+          <div class="scroll-hint" id="scrollHint">⬇ Después de responder, sigan bajando: hay una pregunta de desarrollo con nota de voz</div>
+
+          <div class="dev-block" id="cpDevBlock">
+            <div class="dev-label">✍️ Pregunta de desarrollo</div>
+            <p class="dev-q" id="cpDevQ"></p>
+            <textarea id="cpDevTextarea" placeholder="Escriban su respuesta aquí, o graben una nota de voz…"></textarea>
+            <div class="voice-row">
+              <button type="button" class="voice-btn" id="cpVoiceBtn" data-target="cpDevTextarea">🎤 Mantenga presionado para grabar</button>
+              <span class="voice-status" id="cpVoiceStatus" data-target-status="cpDevTextarea"></span>
+            </div>
+            <div class="dev-check" id="cpDevCheck">✔ Respuesta registrada</div>
+          </div>
+
+          <div class="cp-continue">
+            <button class="btn secondary block" id="cpContinue">▶ Continuar viendo el video</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stations" id="stations"></div>
+  </div>
+
+  <div id="summary">
+    <div class="medal">🏅</div>
+    <h2>¡Ruta completada!</h2>
+    <div class="score" id="scoreText">0 / 5</div>
+    <p id="scoreMsg"></p>
+    <p id="syncEstado" style="font-size:.85rem; opacity:.95;"></p>
+  </div>
+
+  <p class="footer-note">Instituto Nacional de Administración Pública (INAP) — Planificación Estratégica en la Gestión Pública</p>
+</div>
+
+<script>
+const CMID_UNIDAD = 442;
+const YOUTUBE_VIDEO_ID = "PENDIENTE_U4";
+const STATE_KEY = "pei_video_u4_estado_v1";
+const CHECKPOINTS = [
+  {
+    "id": 1,
+    "time": 1080,
+    "label": "18:00",
+    "question": "¿Cuál es la diferencia fundamental entre los productos estratégicos y los productos misionales no estratégicos en el sistema de planificación dominicano?",
+    "options": [
+      "Los productos estratégicos se planifican en el PEI y en el POA porque generan transformaciones directas en la ciudadanía, mientras que los misionales (como gestión de nómina o mantenimiento) solo se planifican en el POA para sostener la operación institucional",
+      "Los productos misionales reciben el 100% del presupuesto nacional y sustituyen al PEI",
+      "Los productos estratégicos solo se ejecutan si sobran recursos económicos a final de año",
+      "El PEI debe incluir de forma obligatoria todas las tareas administrativas de rutina"
+    ],
+    "correct": 0,
+    "explanation": "El PEI planifica lo estratégico que transforma la realidad ciudadana (en la matriz de producción estratégica). El POA, en cambio, planifica todo: lo estratégico y lo misional, asegurando que las operaciones cotidianas de la entidad no colapsen mientras se persiguen los grandes objetivos.",
+    "dev": "Identifiquen en su institución un producto estratégico (que cambie una condición de la ciudadanía) y un producto misional indispensable (que sostiene el funcionamiento interno pero no va en el PEI)."
+  },
+  {
+    "id": 2,
+    "time": 1560,
+    "label": "26:00",
+    "question": "¿Por qué es indispensable que el costeo de las metas físicas del POA esté alineado con los techos presupuestarios del Marco de Gastos de Mediano Plazo (MGMP) y la DIGEPRES?",
+    "options": [
+      "Porque un POA con metas físicas financieramente desconectadas de los techos reales termina siendo un documento de buenas intenciones que no se podrá ejecutar, afectando la credibilidad institucional",
+      "Porque el MGMP es solo un documento opcional sin relevancia presupuestaria",
+      "Porque la DIGEPRES siempre aprueba cualquier solicitud presupuestaria sin revisar costeos",
+      "Porque el POA no requiere asignación presupuestaria durante el año fiscal"
+    ],
+    "correct": 0,
+    "explanation": "El costeo de productos conecta la planificación con el presupuesto. Las metas del POA deben caber dentro del techo del MGMP; de lo contrario, debe reajustarse el alcance o gestionar financiamiento formal ante la DIGEPRES para evitar comprometer metas sin recursos reales.",
+    "dev": "En su institución, ¿cómo se articula el equipo de Planificación con el área Financiera/Presupuestaria para verificar que las metas del POA cuenten con disponibilidad presupuestaria real?"
+  },
+  {
+    "id": 3,
+    "time": 2010,
+    "label": "33:30",
+    "question": "¿Cuáles son las 6 columnas fundamentales que estructuran la matriz del Plan Operativo Anual (POA) según el estándar metodológico?",
+    "options": [
+      "Leyes, Decretos, Resoluciones, Circulares, Organigrama y Firmas",
+      "Producto/Actividad, Unidad de medida, Meta física anual, Meta financiera (costo), Cronograma trimestral y Responsable",
+      "Problema central, Causas, Efectos, FODA, CAME y Misión",
+      "Nombre del funcionario, Cédula, Cargo, Salario, Horario y Vacaciones"
+    ],
+    "correct": 1,
+    "explanation": "Las seis columnas esenciales son: Producto/Actividad, Unidad de medida, Meta física anual, Meta financiera, Cronograma trimestral (Q1 a Q4) y Unidad responsable, las cuales se validan mutua y aritméticamente entre sí.",
+    "dev": "Estructuren una fila de POA para un producto clave de su área: indiquen Producto, Unidad de medida, Meta física anual, Cronograma trimestral y Dirección responsable."
+  },
+  {
+    "id": 4,
+    "time": 2910,
+    "label": "48:30",
+    "question": "¿Cuáles son los 5 procesos continuos que aseguran el seguimiento efectivo del PEI a través de la ejecución del POA?",
+    "options": [
+      "Auditoría externa, Sanción administrativa, Suspensión, Reclutamiento y Liquidación",
+      "Recopilación de información, Registro en sistemas, Elaboración de reportes trimestrales, Elaboración de informes anuales y Reflexión de los equipos de gestión",
+      "Compras, Almacenamiento, Distribución de insumos, Inventario físico y Facturación",
+      "Solicitud de viáticos, Autorización de firmas, Transferencia bancaria, Pago y Cierre"
+    ],
+    "correct": 1,
+    "explanation": "El seguimiento del PEI mediante el POA se realiza a través de cinco procesos continuos: recopilación de datos, registro riguroso, reportes trimestrales de avance, informes consolidados y espacios de reflexión institucional para tomar medidas correctivas a tiempo.",
+    "dev": "¿Qué espacios o reuniones de reflexión periódica existen en su institución para analizar los reportes trimestrales de avance y tomar decisiones correctivas ante desviaciones?"
+  },
+  {
+    "id": 5,
+    "time": 4200,
+    "label": "1:10:00",
+    "question": "¿Cuál es la diferencia metodológica entre la etapa de Seguimiento y la etapa de Monitoreo en la gestión orientada a resultados del PEI/POA?",
+    "options": [
+      "El seguimiento y el monitoreo son actividades idénticas que se aplican exactamente igual",
+      "El seguimiento acompaña la ejecución continua de productos, actividades y recursos en el corto plazo (POA), mientras que el monitoreo evalúa periódicamente (Herramienta 21) el logro de los resultados estratégicos e intermedios del PEI",
+      "El seguimiento solo lo aplica la Contraloría y el monitoreo el Congreso Nacional",
+      "El monitoreo se realiza exclusivamente cuando finaliza el período de 4 años de gobierno"
+    ],
+    "correct": 1,
+    "explanation": "El seguimiento revisa continuamente el avance de las actividades y productos (POA), mientras que el monitoreo evalúa sistemáticamente a través de la Herramienta 21 si esos productos están generando los resultados intermedios y estratégicos comprometidos en el PEI.",
+    "dev": "Expliquen cómo su institución verifica no solo que las actividades del POA se cumplan ('hicimos los talleres o compras'), sino que efectivamente se estén alcanzando los resultados en la ciudadanía ('mejoró el servicio o se redujo el problema')."
+  }
+];
+
+/* ---------- VARIABLES DE ESTADO ---------- */
+let player = null;
+let playerReady = false;
+let checkInterval = null;
+let activeId = null;
+const reachedIds = new Set();
+
+function buildStations(){
+  const container = document.getElementById('stations');
+  container.innerHTML = '';
+  CHECKPOINTS.forEach((cp, idx) => {
+    cp.userIdx = null;
+    cp.userCorrect = false;
+    cp.devText = '';
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'station-chip';
+    btn.id = 'chip-' + cp.id;
+    btn.textContent = 'Estación ' + cp.id + ' (' + cp.label + ')';
+    btn.addEventListener('click', () => {
+      if (playerReady && typeof player.seekTo === 'function') {
+        player.seekTo(Math.max(0, cp.time - 3), true);
+        player.playVideo();
+      }
+      openCheckpoint(cp.id);
+    });
+    container.appendChild(btn);
+  });
+}
+
+function openCheckpoint(id){
+  activeId = id;
+  const cp = CHECKPOINTS.find(c => c.id === id);
+  if (!cp) return;
+
+  document.getElementById('cpBadge').textContent = 'Estación ' + cp.id + ' de ' + CHECKPOINTS.length + ' · ' + cp.label;
+  document.getElementById('cpQuestion').textContent = cp.question;
+  document.getElementById('cpDevQ').textContent = cp.dev;
+  document.getElementById('cpDevTextarea').value = cp.devText || '';
+  document.getElementById('cpDevCheck').classList.toggle('show', (cp.devText || '').trim().length > 0);
+
+  const optsBox = document.getElementById('cpOptions');
+  optsBox.innerHTML = '';
+  cp.options.forEach((opt, idx) => {
+    const label = document.createElement('label');
+    label.className = 'opt';
+    const radio = document.createElement('input');
+    radio.type = 'radio';
+    radio.name = 'cp_opt';
+    radio.value = idx;
+    if (cp.userIdx === idx) radio.checked = true;
+    label.appendChild(radio);
+    const span = document.createElement('span');
+    span.textContent = opt;
+    label.appendChild(span);
+    optsBox.appendChild(label);
+  });
+
+  const fb = document.getElementById('cpFeedback');
+  fb.className = 'feedback';
+  fb.innerHTML = '';
+  fb.classList.remove('show');
+
+  const chip = document.getElementById('chip-' + cp.id);
+  chip.classList.add('reached');
+
+  if (cp.userIdx !== null) {
+    renderAnswerFeedback(cp, cp.userIdx);
+  }
+
+  document.getElementById('scrollHint').classList.add('show');
+  document.getElementById('cpOverlay').classList.add('show');
+}
+
+function renderAnswerFeedback(cp, selectedIdx){
+  const fb = document.getElementById('cpFeedback');
+  const chip = document.getElementById('chip-' + cp.id);
+  const labels = document.querySelectorAll('#cpOptions .opt');
+
+  labels.forEach((l, idx) => {
+    l.classList.remove('correct-answer','wrong-answer');
+    if (idx === cp.correct) l.classList.add('correct-answer');
+    else if (idx === selectedIdx) l.classList.add('wrong-answer');
+  });
+
+  if (selectedIdx === cp.correct) {
+    cp.userCorrect = true;
+    chip.classList.add('done');
+    fb.className = 'feedback correct show';
+    fb.innerHTML = '<strong>✅ ¡Correcto!</strong> ' + cp.explanation;
+  } else {
+    cp.userCorrect = false;
+    chip.classList.remove('done');
+    fb.className = 'feedback incorrect show';
+    fb.innerHTML = '<strong>❌ No exactamente.</strong> Pueden volver a ver el fragmento y seleccionar otra respuesta.<div class="quote">' + cp.explanation + '</div>';
+  }
+}
+
+document.getElementById('cpRewatch').addEventListener('click', () => {
+  if (activeId === null || !playerReady) return;
+  const cp = CHECKPOINTS.find(c => c.id === activeId);
+  if (!cp) return;
+  document.getElementById('cpOverlay').classList.remove('show');
+  player.seekTo(Math.max(0, cp.time - 25), true);
+  player.playVideo();
+});
+
+document.getElementById('cpSubmit').addEventListener('click', () => {
+  if (activeId === null) return;
+  const cp = CHECKPOINTS.find(c => c.id === activeId);
+  const sel = document.querySelector('input[name="cp_opt"]:checked');
+  if (!sel) {
+    alert('Por favor elijan una opción antes de responder.');
+    return;
+  }
+  const selectedIdx = parseInt(sel.value, 10);
+  cp.userIdx = selectedIdx;
+  renderAnswerFeedback(cp, selectedIdx);
+  updateSummary();
+  saveState();
+
+  setTimeout(() => {
+    document.getElementById('cpDevBlock').scrollIntoView({behavior:'smooth', block:'start'});
+  }, 400);
+});
+
+document.getElementById('cpDevTextarea').addEventListener('input', (e) => {
+  if (activeId === null) return;
+  const cp = CHECKPOINTS.find(c => c.id === activeId);
+  cp.devText = e.target.value;
+  document.getElementById('cpDevCheck').classList.toggle('show', cp.devText.trim().length > 0);
+  document.getElementById('scrollHint').classList.remove('show');
+  updateSummary();
+  saveState();
+});
+
+document.getElementById('cpContinue').addEventListener('click', () => {
+  document.getElementById('cpOverlay').classList.remove('show');
+  if (playerReady) player.playVideo();
+});
+
+let yaEnviado = false;
+function updateSummary(){
+  const correctCount = CHECKPOINTS.filter(c => c.userCorrect).length;
+  const devCount = CHECKPOINTS.filter(c => c.devText && c.devText.trim().length > 0).length;
+  if (correctCount === CHECKPOINTS.length && devCount === CHECKPOINTS.length) {
+    const summary = document.getElementById('summary');
+    summary.classList.add('show');
+    document.getElementById('scoreText').textContent = correctCount + ' / ' + CHECKPOINTS.length;
+    const nombre = nombreIdentificacion();
+    document.getElementById('scoreMsg').textContent = (nombre ? nombre + ', han' : 'Han') + ' completado las 5 estaciones del análisis, con sus preguntas de desarrollo. ¡Buen trabajo revisando el video a fondo!';
+    summary.scrollIntoView({behavior:'smooth', block:'center'});
+    if (!yaEnviado) { yaEnviado = true; saveState(); enviarResultadoAMoodle(correctCount); }
+  }
+}
+
+/* ---------- SINCRONIZAR NOTA CON AULADIGITAL (MOODLE) ---------- */
+const RESULT_SYNC_URL = 'https://auladigital.plataforma.cfd/registrar-resultado-planificacion.php';
+const RESULT_SYNC_SECRET = 'pei-video-2026-aula-digital';
+
+function cedulasDelParticipante(){
+  const raw = document.getElementById('p_cedulas').value || '';
+  return raw.split(/[,
+]/).map(c => c.replace(/[^0-9]/g, '')).filter(c => c.length > 0);
+}
+
+function enviarResultadoAMoodle(correctCount){
+  const cedulas = cedulasDelParticipante();
+  const estado = document.getElementById('syncEstado');
+  if (cedulas.length === 0) {
+    if (estado) estado.textContent = '⚠️ No se registró la nota en AulaDigital porque no se indicó ninguna cédula.';
+    return;
+  }
+  const puntos = Math.round((correctCount / CHECKPOINTS.length) * 100);
+  const respuestas = CHECKPOINTS.map(cp => ({ pregunta: cp.question, texto: cp.devText || '' }));
+
+  if (estado) estado.textContent = '⏳ Registrando la nota en AulaDigital…';
+  Promise.all(cedulas.map(cedula => fetch(RESULT_SYNC_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ secret: RESULT_SYNC_SECRET, cedula, puntos, correctas: correctCount, total: CHECKPOINTS.length, respuestas, cmid: CMID_UNIDAD })
+  }).then(r => r.json()).catch(() => ({ ok: false, msg: 'sin conexión' }))))
+  .then(results => {
+    const ok = results.filter(r => r && r.ok).length;
+    if (!estado) return;
+    if (ok === cedulas.length) {
+      estado.textContent = '✅ Nota registrada en AulaDigital para ' + ok + (ok === 1 ? ' cuenta.' : ' cuentas.');
+    } else if (ok > 0) {
+      estado.textContent = '⚠️ Se registró para ' + ok + ' de ' + cedulas.length + ' cédulas. Revisen que las demás estén bien escritas.';
+    } else {
+      estado.textContent = '❌ No se pudo registrar la nota — revisen las cédulas o avisen a su facilitador.';
+    }
+  });
+}
+
+/* ---------- NOTAS DE VOZ ---------- */
+const VOICE_TRANSCRIBE_URL = 'https://n8n-inap.167.88.36.13.sslip.io/webhook/prof-johan-tapia-transcribir';
+
+function fetchWithTimeout(url, options, timeoutMs){
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  return fetch(url, Object.assign({}, options, { signal: controller.signal }))
+    .finally(() => clearTimeout(timer));
+}
+function pickRecorderMime(){
+  const candidates = ['audio/webm;codecs=opus','audio/webm','audio/mp4','audio/ogg;codecs=opus'];
+  for (const c of candidates) {
+    if (window.MediaRecorder && MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(c)) return c;
+  }
+  return '';
+}
+function beepVoz(freq, dur){
+  try{
+    const Ctx = window.AudioContext || window.webkitAudioContext;
+    const ctx = new Ctx();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = 'sine';
+    osc.frequency.value = freq;
+    gain.gain.setValueAtTime(0.18, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + dur);
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.start();
+    osc.stop(ctx.currentTime + dur);
+    osc.onended = () => ctx.close();
+  }catch(e){}
+}
+const VOZ_MIN_MS = 400, VOZ_MAX_MS = 120000, VOZ_LABEL_DEFAULT = '🎤 Mantenga presionado para grabar';
+function wireVoiceButtons(){
+  if (!navigator.mediaDevices || !window.MediaRecorder) {
+    document.querySelectorAll('.voice-btn').forEach(btn => {
+      btn.disabled = true; btn.title = 'Grabación de voz no disponible en este navegador';
+    });
+    return;
+  }
+  document.querySelectorAll('.voice-btn').forEach(btn => {
+    const targetId = btn.getAttribute('data-target');
+    const textarea = document.getElementById(targetId);
+    const statusEl = document.querySelector(`.voice-status[data-target-status="${targetId}"]`);
+    if (!textarea) return;
+    btn.textContent = VOZ_LABEL_DEFAULT;
+    let mediaRecorder = null, chunks = [], stream = null, recording = false, pressActive = false;
+    let startedAt = 0, maxTimer = null, tickTimer = null;
+
+    function setStatus(msg, cls){ if (statusEl) { statusEl.textContent = msg || ''; statusEl.className = 'voice-status' + (cls ? ' ' + cls : ''); } }
+    function stopStream(){ if (stream) { stream.getTracks().forEach(t => t.stop()); stream = null; } }
+    function tick(){
+      const secs = Math.floor((Date.now() - startedAt) / 1000);
+      const m = Math.floor(secs / 60), s = secs % 60;
+      btn.textContent = '🔴 Grabando ' + m + ':' + (s < 10 ? '0' : '') + s + ' — suelte para enviar';
+    }
+    function startRecording(){
+      if (pressActive) return;
+      pressActive = true;
+      navigator.mediaDevices.getUserMedia({ audio: true }).then(s => {
+        if (!pressActive) { s.getTracks().forEach(t => t.stop()); return; }
+        stream = s; chunks = [];
+        const mime = pickRecorderMime();
+        try { mediaRecorder = mime ? new MediaRecorder(stream, { mimeType: mime }) : new MediaRecorder(stream); }
+        catch(e){ mediaRecorder = new MediaRecorder(stream); }
+        mediaRecorder.addEventListener('dataavailable', e => { if (e.data && e.data.size > 0) chunks.push(e.data); });
+        mediaRecorder.addEventListener('stop', () => {
+          stopStream();
+          clearTimeout(maxTimer); clearInterval(tickTimer);
+          btn.classList.remove('recording');
+          const duracion = Date.now() - startedAt;
+          if (duracion < VOZ_MIN_MS) {
+            btn.textContent = VOZ_LABEL_DEFAULT;
+            setStatus('Grabación muy corta — mantenga presionado el botón mientras habla.', 'err');
+            return;
+          }
+          const blob = new Blob(chunks, { type: mediaRecorder.mimeType || 'audio/webm' });
+          uploadForTranscription(blob);
+        });
+        mediaRecorder.start();
+        recording = true;
+        startedAt = Date.now();
+        btn.classList.add('recording');
+        beepVoz(880, 0.1);
+        tick();
+        tickTimer = setInterval(tick, 500);
+        setStatus('Grabando… hable su respuesta y suelte el botón al terminar.', '');
+        maxTimer = setTimeout(() => { if (recording) stopRecording(); }, VOZ_MAX_MS);
+      }).catch(() => {
+        pressActive = false;
+        setStatus('No se pudo acceder al micrófono. Revise los permisos del navegador, o simplemente escriba la respuesta.', 'err');
+      });
+    }
+    function stopRecording(){
+      if (!pressActive) return;
+      pressActive = false;
+      if (mediaRecorder && recording) { recording = false; beepVoz(440, 0.12); mediaRecorder.stop(); }
+    }
+    function uploadForTranscription(blob){
+      btn.disabled = true; btn.classList.add('busy'); btn.textContent = '⏳ Transcribiendo…';
+      setStatus('Transcribiendo la nota de voz, un momento…', '');
+      const fd = new FormData();
+      const ext = blob.type.indexOf('mp4') !== -1 ? 'm4a' : (blob.type.indexOf('ogg') !== -1 ? 'ogg' : 'webm');
+      fd.append('data', blob, 'nota-voz.' + ext);
+      fetchWithTimeout(VOICE_TRANSCRIBE_URL, { method: 'POST', body: fd }, 60000).then(res => {
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        return res.json();
+      }).then(data => {
+        if (!data || !data.ok || !data.texto) throw new Error('SIN_TEXTO');
+        const existing = textarea.value.trim();
+        textarea.value = existing ? (existing + ' ' + data.texto) : data.texto;
+        textarea.dispatchEvent(new Event('input'));
+        setStatus('✔ Nota de voz agregada. Puede revisarla y corregirla si hace falta.', 'ok');
+      }).catch(err => {
+        const msg = (err && err.message === 'SIN_TEXTO')
+          ? 'No se logró entender el audio. Intente grabar de nuevo hablando más cerca del micrófono, o escriba la respuesta directamente.'
+          : 'No se pudo conectar con el servicio de transcripción. Revise su conexión a internet, o escriba la respuesta directamente.';
+        setStatus(msg, 'err');
+      }).finally(() => {
+        btn.disabled = false; btn.classList.remove('busy'); btn.textContent = VOZ_LABEL_DEFAULT;
+      });
+    }
+    btn.addEventListener('mousedown', e => { e.preventDefault(); startRecording(); });
+    btn.addEventListener('touchstart', e => { e.preventDefault(); startRecording(); }, { passive: false });
+    ['mouseup','mouseleave','touchend','touchcancel'].forEach(evt => btn.addEventListener(evt, stopRecording));
+  });
+}
+
+/* ---------- MODALIDAD: INDIVIDUAL O EN EQUIPO ---------- */
+const modoSelect = document.getElementById('modo_trabajo');
+const bloqueIndividual = document.getElementById('bloque-individual');
+const bloqueGrupo = document.getElementById('bloque-grupo');
+const bloqueIntegrantes = document.getElementById('bloque-integrantes');
+function aplicarModo(){
+  const esGrupo = modoSelect.value === 'grupo';
+  bloqueIndividual.hidden = esGrupo;
+  bloqueGrupo.hidden = !esGrupo;
+  bloqueIntegrantes.hidden = !esGrupo;
+  const cedulasTa = document.getElementById('p_cedulas');
+  const lbl = document.getElementById('lbl_cedulas');
+  const hint = document.getElementById('hint_cedulas');
+  if (esGrupo) {
+    lbl.textContent = 'Cédula de cada integrante (una por línea)';
+    cedulasTa.placeholder = 'Ej:\n22500841287\n40241325188\n00112708870';
+    cedulasTa.rows = 4;
+    hint.innerHTML = 'Cada integrante que quiera recibir la nota en su cuenta de <strong>auladigital.plataforma.cfd</strong> debe poner aquí su propia cédula, una por línea — aunque trabajen en equipo, la nota se registra individualmente a cada quien.';
+  } else {
+    lbl.textContent = 'Cédula (la misma con la que entra a AulaDigital)';
+    cedulasTa.placeholder = 'Ej: 22500841287';
+    cedulasTa.rows = 2;
+    hint.innerHTML = 'Con la cédula registramos la nota de esta actividad directo en su cuenta de <strong>auladigital.plataforma.cfd</strong>.';
+  }
+}
+modoSelect.addEventListener('change', () => { aplicarModo(); saveState(); });
+aplicarModo();
+function nombreIdentificacion(){
+  return modoSelect.value === 'grupo'
+    ? document.getElementById('grp_nombre').value.trim()
+    : document.getElementById('ind_nombre').value.trim();
+}
+
+/* ---------- AUTOGUARDADO (localStorage) ---------- */
+const IDENT_FIELDS = ['ind_nombre','p_institucion','grp_nombre','p_institucion_grp','grp_integrantes','p_cedulas'];
+
+function saveState(){
+  try {
+    const estado = {
+      modo: modoSelect.value,
+      campos: {},
+      yaEnviado,
+      checkpoints: CHECKPOINTS.map(cp => ({ id: cp.id, userIdx: cp.userIdx, userCorrect: cp.userCorrect, devText: cp.devText }))
+    };
+    IDENT_FIELDS.forEach(id => { estado.campos[id] = document.getElementById(id).value; });
+    localStorage.setItem(STATE_KEY, JSON.stringify(estado));
+  } catch (e) {}
+}
+
+function restoreState(){
+  let estado;
+  try { estado = JSON.parse(localStorage.getItem(STATE_KEY) || 'null'); } catch (e) { estado = null; }
+  if (!estado) return;
+
+  if (estado.modo) { modoSelect.value = estado.modo; aplicarModo(); }
+  IDENT_FIELDS.forEach(id => {
+    if (estado.campos && estado.campos[id] !== undefined) document.getElementById(id).value = estado.campos[id];
+  });
+  yaEnviado = !!estado.yaEnviado;
+
+  (estado.checkpoints || []).forEach(saved => {
+    const cp = CHECKPOINTS.find(c => c.id === saved.id);
+    if (!cp) return;
+    cp.userIdx = saved.userIdx;
+    cp.userCorrect = saved.userCorrect;
+    cp.devText = saved.devText || '';
+    if (cp.userIdx !== null || (cp.devText && cp.devText.trim())) {
+      reachedIds.add(cp.id);
+      document.getElementById('chip-' + cp.id).classList.add('reached');
+    }
+    if (cp.userCorrect) document.getElementById('chip-' + cp.id).classList.add('done');
+  });
+
+  updateSummary();
+}
+
+IDENT_FIELDS.forEach(id => document.getElementById(id).addEventListener('input', saveState));
+
+/* ---------- REPRODUCTOR YOUTUBE (API) ---------- */
+function loadYT(){
+  const tag = document.createElement('script');
+  tag.src = "https://www.youtube.com/iframe_api";
+  document.body.appendChild(tag);
+}
+window.onYouTubeIframeAPIReady = function(){
+  player = new YT.Player('player', {
+    videoId: YOUTUBE_VIDEO_ID,
+    playerVars: { rel: 0, modestbranding: 1 },
+    events: {
+      onReady: function(){ playerReady = true; startWatcher(); }
+    }
+  });
+};
+loadYT();
+
+function startWatcher(){
+  checkInterval = setInterval(() => {
+    if (!playerReady || typeof player.getCurrentTime !== 'function') return;
+    if (document.getElementById('cpOverlay').classList.contains('show')) return;
+    const t = player.getCurrentTime();
+    const state = player.getPlayerState();
+    if (state !== 1) return; // solo mientras reproduce
+    CHECKPOINTS.forEach(cp => {
+      if (!reachedIds.has(cp.id) && t >= cp.time) {
+        reachedIds.add(cp.id);
+        player.pauseVideo();
+        openCheckpoint(cp.id);
+      }
+    });
+  }, 400);
+}
+
+buildStations();
+wireVoiceButtons();
+restoreState();
+</script>
+</body>
+</html>
