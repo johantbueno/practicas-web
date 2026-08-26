@@ -139,6 +139,30 @@ body{margin:0; background:var(--bg-body); color:var(--secondary); font-family:'I
 
 .rotate-fs-btn{position:absolute; top:.6rem; right:.6rem; z-index:3; display:inline-flex; align-items:center; gap:.35rem; background:rgba(15,23,42,.72); color:#fff; border:1px solid rgba(255,255,255,.35); font-weight:700; font-size:.72rem; padding:.4rem .7rem; border-radius:999px; cursor:pointer; font-family:inherit; backdrop-filter:blur(2px);}
 .rotate-fs-btn:hover{background:rgba(15,23,42,.9);}
+
+.mi-progreso-card{background:var(--bg-card); padding:1rem 1.1rem; border-radius:var(--radius-lg); box-shadow:var(--shadow-sm); border:1px solid var(--border-light); margin-bottom:1.25rem;}
+.mi-progreso-head{display:flex; align-items:center; justify-content:space-between; gap:.6rem; margin-bottom:.7rem; flex-wrap:wrap;}
+.mi-progreso-head strong{font-size:.9rem; color:var(--primary);}
+.mi-progreso-count{font-size:.76rem; font-weight:700; color:var(--muted);}
+.mi-progreso-grid{display:flex; flex-wrap:wrap; gap:.5rem;}
+.mi-progreso-item{flex:1 1 84px; text-align:center; padding:.5rem .4rem; border-radius:var(--radius-sm); border:1px solid var(--border-dark); font-size:.72rem; font-weight:700; color:var(--muted); text-decoration:none; background:var(--bg-body); cursor:pointer;}
+.mi-progreso-item.done{background:var(--green-bg); border-color:var(--green-border); color:var(--green);}
+.mi-progreso-item.current{border-color:var(--navy); box-shadow:0 0 0 2px var(--blue-bg) inset; cursor:default;}
+
+.mini-timeline{position:relative; height:8px; background:var(--border-light); border-radius:999px; margin:.7rem 0 1.1rem;}
+.mini-timeline-fill{position:absolute; top:0; left:0; height:100%; width:0%; background:var(--navy); border-radius:999px; transition:width .3s linear;}
+.mini-timeline-mark{position:absolute; top:50%; width:12px; height:12px; border-radius:50%; background:var(--bg-card); border:2px solid var(--navy); transform:translate(-50%,-50%);}
+.mini-timeline-mark.done{background:var(--green); border-color:var(--green-border);}
+
+.match-wrap{display:grid; grid-template-columns:1fr 1fr; gap:.6rem;}
+@media (max-width:640px){ .match-wrap{grid-template-columns:1fr;} }
+.match-item{display:block; width:100%; text-align:left; padding:.6rem .7rem; margin-bottom:.5rem; border:1px solid var(--border-dark); border-radius:var(--radius-sm); background:var(--bg-body); color:var(--primary); font-size:.82rem; cursor:pointer; font-family:inherit; line-height:1.4;}
+.match-item:hover{border-color:var(--navy);}
+.match-item.selected{border-color:var(--navy); background:var(--blue-bg);}
+.match-item.matched{border-color:var(--green-border); background:var(--green-bg); color:var(--green); cursor:default;}
+.match-item.wrong{border-color:var(--red-border); background:var(--red-bg); animation:shakeMatch .3s;}
+@keyframes shakeMatch{ 25%{transform:translateX(-4px);} 75%{transform:translateX(4px);} }
+.match-status{margin-top:.6rem; font-size:.82rem; font-weight:700; color:var(--muted);}
 </style>
 </head>
 <body>
@@ -149,6 +173,15 @@ body{margin:0; background:var(--bg-body); color:var(--secondary); font-family:'I
     <h1>🎥 Análisis interactivo: Aprobación, Monitoreo, Evaluación y Socialización</h1>
     <p>Analicen la clase de la Unidad V en grupo o de forma individual. El video se pausa solo y la pregunta aparece justo encima — respondan ahí mismo, sin bajar ni subir la página.</p>
   </div>
+
+  <div class="mi-progreso-card" id="miProgresoCard">
+    <div class="mi-progreso-head">
+      <strong>📊 Mi progreso en el curso</strong>
+      <span class="mi-progreso-count" id="miProgresoCount">0 / 6 completadas</span>
+    </div>
+    <div class="mi-progreso-grid" id="miProgresoGrid"></div>
+  </div>
+
 
   <div class="card">
     <div class="howto">
@@ -221,9 +254,24 @@ body{margin:0; background:var(--bg-body); color:var(--secondary); font-family:'I
           </div>
         </div>
       </div>
+
+    <div class="mini-timeline" id="miniTimeline">
+      <div class="mini-timeline-fill" id="miniTimelineFill"></div>
+    </div>
     </div>
 
     <div class="stations" id="stations"></div>
+  </div>
+
+
+  <div class="card">
+    <h2 style="margin:0 0 .3rem; font-size:1.05rem; color:var(--primary);">🔗 Repaso rápido: empareje los términos</h2>
+    <p style="margin:0 0 1rem; font-size:.85rem; color:var(--muted);">Toque un término y luego su definición. No afecta su calificación — es solo para reforzar lo aprendido.</p>
+    <div class="match-wrap">
+      <div class="match-col" id="matchTerms"></div>
+      <div class="match-col" id="matchDefs"></div>
+    </div>
+    <p class="match-status" id="matchStatus"></p>
   </div>
 
   <div id="summary">
@@ -428,7 +476,7 @@ function renderAnswerFeedback(cp, selectedIdx){
     cp.userCorrect = false;
     chip.classList.remove('done');
     fb.className = 'feedback incorrect show';
-    fb.innerHTML = '<strong>❌ No exactamente.</strong> Pueden volver a ver el fragmento y seleccionar otra respuesta.<div class="quote">' + cp.explanation + '</div>';
+    fb.innerHTML = '<strong>🤔 Casi — revisen este punto.</strong> Vuelvan a ver el fragmento y prueben otra respuesta.<div class="quote">' + cp.explanation + '</div>';
   }
 }
 
@@ -792,6 +840,107 @@ restoreState();
     if(!document.fullscreenElement && screen.orientation && screen.orientation.unlock){
       try{ screen.orientation.unlock(); }catch(e){}
     }
+  });
+})();
+
+/* ---------- MI PROGRESO (panel compartido entre las 6 practicas) ---------- */
+(function(){
+  var UNITS = [{"key":"pei_video_u1_estado_v1","label":"1.1","slug":"planificacion-analisis-conferencia"},{"key":"pei_video_u1_2_estado_v1","label":"1.2","slug":"planificacion-analisis-unidad-1-2"},{"key":"pei_video_u2_estado_v1","label":"II","slug":"planificacion-analisis-unidad-2"},{"key":"pei_video_u3_estado_v1","label":"III","slug":"planificacion-analisis-unidad-3"},{"key":"pei_video_u4_estado_v1","label":"IV","slug":"planificacion-analisis-unidad-4"},{"key":"pei_video_u5_estado_v1","label":"V","slug":"planificacion-analisis-unidad-5"}];
+  var CURRENT_SLUG = "planificacion-analisis-unidad-5";
+  var grid = document.getElementById('miProgresoGrid');
+  var countEl = document.getElementById('miProgresoCount');
+  if(!grid || !countEl) return;
+  var doneCount = 0;
+  UNITS.forEach(function(u){
+    var estado = null;
+    try{ estado = JSON.parse(localStorage.getItem(u.key) || 'null'); }catch(e){}
+    var done = !!(estado && (estado.yaEnviado || estado.isFinished));
+    if(done) doneCount++;
+    var isCurrent = u.slug === CURRENT_SLUG;
+    var el = document.createElement(isCurrent ? 'div' : 'a');
+    if(!isCurrent) el.href = '../' + u.slug + '/';
+    el.className = 'mi-progreso-item' + (done ? ' done' : '') + (isCurrent ? ' current' : '');
+    el.innerHTML = (done ? '✅ ' : '⚪ ') + 'Unidad ' + u.label;
+    grid.appendChild(el);
+  });
+  countEl.textContent = doneCount + ' / 6 completadas';
+})();
+
+/* ---------- MINI LINEA DE TIEMPO (marcas de estacion) ---------- */
+var VIDEO_DURATION_SECONDS = 7547;
+(function(){
+  var track = document.getElementById('miniTimeline');
+  if(!track || typeof CHECKPOINTS === 'undefined') return;
+  CHECKPOINTS.forEach(function(cp){
+    var mark = document.createElement('div');
+    mark.className = 'mini-timeline-mark';
+    mark.style.left = Math.min(100, (cp.time / VIDEO_DURATION_SECONDS) * 100) + '%';
+    track.appendChild(mark);
+  });
+})();
+function actualizarMiniTimeline(t){
+  var fill = document.getElementById('miniTimelineFill');
+  if(!fill) return;
+  fill.style.width = Math.min(100, (t / VIDEO_DURATION_SECONDS) * 100) + '%';
+}
+
+/* ---------- REPASO: EMPAREJAR TERMINOS (no afecta calificacion) ---------- */
+var MATCH_PAIRS = [
+  {
+    "term": "Diagnóstico institucional",
+    "def": "Responde a la pregunta 'cómo': cómo puede la institución intervenir, dado sus capacidades y fortalezas reales."
+  },
+  {
+    "term": "Meta estabilizada",
+    "def": "Cuando una meta de producción deja de crecer porque la institución alcanzó su capacidad máxima sostenible — no es un error."
+  },
+  {
+    "term": "Validación institucional",
+    "def": "Se separa en tres instancias: alto nivel, coordinación técnica y gestión operativa."
+  },
+  {
+    "term": "Participación ciudadana",
+    "def": "Componente de la estrategia de comunicación del PI que integra las demandas territoriales del RUDT."
+  }
+];
+(function(){
+  var termsEl = document.getElementById('matchTerms');
+  var defsEl = document.getElementById('matchDefs');
+  var statusEl = document.getElementById('matchStatus');
+  if(!termsEl || !defsEl) return;
+  var shuffledDefs = MATCH_PAIRS.map(function(p,i){ return {text:p.def, id:i}; }).sort(function(){ return Math.random()-0.5; });
+  var selectedTermId = null;
+  var matchedCount = 0;
+  MATCH_PAIRS.forEach(function(p,i){
+    var btn = document.createElement('button');
+    btn.type = 'button'; btn.className = 'match-item'; btn.textContent = p.term; btn.dataset.id = i;
+    btn.addEventListener('click', function(){
+      if(btn.classList.contains('matched')) return;
+      termsEl.querySelectorAll('.match-item').forEach(function(b){ b.classList.remove('selected'); });
+      btn.classList.add('selected');
+      selectedTermId = i;
+    });
+    termsEl.appendChild(btn);
+  });
+  shuffledDefs.forEach(function(d){
+    var btn = document.createElement('button');
+    btn.type = 'button'; btn.className = 'match-item'; btn.textContent = d.text; btn.dataset.id = d.id;
+    btn.addEventListener('click', function(){
+      if(btn.classList.contains('matched') || selectedTermId === null) return;
+      var termBtn = termsEl.querySelector('[data-id="' + selectedTermId + '"]');
+      if(parseInt(btn.dataset.id, 10) === selectedTermId){
+        btn.classList.add('matched'); termBtn.classList.add('matched');
+        btn.classList.remove('selected'); termBtn.classList.remove('selected');
+        matchedCount++;
+        statusEl.textContent = (matchedCount === MATCH_PAIRS.length ? '✅ ¡Completado! ' : '') + matchedCount + ' / ' + MATCH_PAIRS.length + ' emparejados';
+      } else {
+        btn.classList.add('wrong');
+        setTimeout(function(){ btn.classList.remove('wrong'); }, 350);
+      }
+      selectedTermId = null;
+      termsEl.querySelectorAll('.match-item').forEach(function(b){ b.classList.remove('selected'); });
+    });
+    defsEl.appendChild(btn);
   });
 })();
 </script>
