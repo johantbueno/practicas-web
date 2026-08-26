@@ -153,7 +153,7 @@ body{margin:0; background:var(--bg-body); color:var(--secondary); font-family:'I
   <div class="card">
     <div class="howto">
       <div class="num">1</div>
-      <p>El video se pausa solo en 10 estaciones y la pregunta aparece encima del video, como en cualquier video interactivo. Conversen antes de responder.</p>
+      <p>El video se pausa solo en 6 estaciones (las más importantes) y la pregunta aparece encima del video, como en cualquier video interactivo. Conversen antes de responder.</p>
     </div>
     <div class="howto">
       <div class="num">2</div>
@@ -244,21 +244,6 @@ const STATE_KEY = "pei_video_u2_estado_v1";
 const CHECKPOINTS = [
   {
     "id": 1,
-    "time": 373,
-    "label": "06:13",
-    "question": "En el microcaso ético planteado en el video, el equipo técnico del PI identificó mediante la herramienta 6 (matriz de comportamiento del problema) que la tasa de accidentalidad vial de su institución aumentó un 40% en los últimos tres años, pero el director pidió omitir ese dato del diagnóstico final para no afectar la imagen institucional ni la aprobación del presupuesto. Según el estándar profesional que plantea el facilitador, ¿qué debe hacer el equipo?",
-    "options": [
-      "Incluir el dato de manera objetiva, documentando la tendencia completa con su serie histórica, y proponer en el PI estrategias concretas para revertir la situación.",
-      "Omitir el dato del cuerpo principal del diagnóstico, pero comunicarlo verbalmente al Consejo Directivo, para no comprometer la aprobación del presupuesto.",
-      "Incluir el dato solo si un ente externo, como la Cámara de Cuentas, lo solicita expresamente, priorizando mientras tanto la autoridad jerárquica del director.",
-      "Presentar únicamente el promedio de los tres años en lugar de la serie histórica completa, para reducir el impacto visual sin faltar del todo a la verdad."
-    ],
-    "correct": 0,
-    "explanation": "El video es explícito: 'la decisión correcta... es que el equipo debe incluir el dato de manera objetiva, documentando la tendencia completa con su serie histórica, y proponer en el PI estrategias concretas para revertir esa situación'. Esto se fundamenta en la Ley 200-04 (deber de honestidad, art. 7), la Ley 41-08 (deber de informar con veracidad, art. 12) y el principio de honestidad metodológica del manual PI 2024. Omitir el dato 'no es una decisión administrativa neutral, es una violación ética', porque 'un plan que no parte de la realidad no puede transformar la realidad'.",
-    "dev": "Piensa en tu propia institución pública: ¿existe algún dato incómodo (una cifra en aumento, un indicador negativo, una queja recurrente) que podría estar en riesgo de omitirse en un diagnóstico institucional por razones de imagen? Describe ese dato y explica, con tus propias palabras, qué mecanismo concreto propondrías para garantizar que se documente con honestidad metodológica."
-  },
-  {
-    "id": 2,
     "time": 890,
     "label": "14:50",
     "question": "¿Por qué es indispensable seguir la secuencia de las 12 herramientas del diagnóstico institucional (H1 a H12) sin saltarse pasos ni alterar el orden metodológico?",
@@ -273,7 +258,7 @@ const CHECKPOINTS = [
     "dev": "Piensen en su propia institución: ¿qué consecuencias reales han observado cuando se formulan planes o presupuestos sin haber agotado un diagnóstico riguroso basado en evidencia?"
   },
   {
-    "id": 3,
+    "id": 2,
     "time": 1503,
     "label": "25:03",
     "question": "El manual PI 2024 exige recopilar seis tipos de normas para construir el marco normativo (herramienta 1), organizadas de mayor a menor jerarquía. ¿Cuál es el orden jerárquico correcto, de mayor a menor rango, según lo explicado en el video?",
@@ -288,7 +273,7 @@ const CHECKPOINTS = [
     "dev": "Identifica, para tu propia institución, un ejemplo real de cada uno de los tres primeros niveles jerárquicos (la disposición constitucional que la sustenta, su ley orgánica o de creación, y una ley sectorial relevante). Explica brevemente qué atribución concreta le otorga cada una."
   },
   {
-    "id": 4,
+    "id": 3,
     "time": 1938,
     "label": "32:18",
     "question": "El manual PI 2024 establece cinco elementos que debe contener toda misión institucional operativa (herramienta 2). ¿Cuál de esos elementos responde a la pregunta '¿para qué, o con qué fin?' y se ejemplifica en el video con una frase del tipo 'contribuyendo a mejorar la calidad de vida y el bienestar de la población'?",
@@ -303,7 +288,7 @@ const CHECKPOINTS = [
     "dev": "Redacta el elemento de 'valor público' que debería tener la misión de tu propia institución: en una sola frase, explica el impacto social o el resultado último que tu institución busca lograr en la vida de las personas a las que sirve."
   },
   {
-    "id": 5,
+    "id": 4,
     "time": 2180,
     "label": "36:20",
     "question": "¿Cómo se articula el análisis del marco normativo (Herramienta 1) con la revisión de la misión institucional (Herramienta 2)?",
@@ -318,7 +303,7 @@ const CHECKPOINTS = [
     "dev": "¿Consideran que la misión institucional de su entidad pública describe con claridad sus competencias legales, o identifican atribuciones sustantivas otorgadas por ley que hoy no están reflejadas en la misión?"
   },
   {
-    "id": 6,
+    "id": 5,
     "time": 2974,
     "label": "49:34",
     "question": "El manual PI 2024 exige desagregar obligatoriamente la caracterización poblacional por tres dimensiones mínimas: sexo, grupo etario y territorio. Cuando esos datos desagregados simplemente no existen, ¿cuál es el procedimiento correcto de cuatro pasos que establece el manual, según el video?",
@@ -333,7 +318,7 @@ const CHECKPOINTS = [
     "dev": "Identifica una dimensión poblacional (sexo, grupo etario o territorio) que tu institución actualmente NO desagregue en sus datos disponibles. Aplica los cuatro pasos del manual: documenta la brecha, justifica por qué crees que no existe esa desagregación, y propone una acción concreta para generarla."
   },
   {
-    "id": 7,
+    "id": 6,
     "time": 3645,
     "label": "1:00:45",
     "question": "Al adoptar prioridades del Plan Nacional Plurianual del Sector Público (PNPSP, Herramienta 3), ¿qué función cumple la 'hipótesis de política'?",
@@ -346,51 +331,6 @@ const CHECKPOINTS = [
     "correct": 2,
     "explanation": "Cada resultado del PNPSP adoptado debe sustentarse en una hipótesis causal de política pública: una explicación fundamentada de cómo las intervenciones, bienes y servicios que entrega la institución permitirán alcanzar el resultado de impacto esperado.",
     "dev": "Formulen una hipótesis de política aplicable a su institución: 'Si nuestra institución entrega [producto/servicio clave], entonces lograremos [efecto o beneficio concreto en la ciudadanía]'."
-  },
-  {
-    "id": 8,
-    "time": 4502,
-    "label": "1:15:02",
-    "question": "En el análisis de tendencia del problema de accidentalidad vial (herramienta 6, caso del MOVT, serie 2017-2022), la tasa de fallecidos por cada 100.000 habitantes cayó fuertemente en 2020 (a 10) pero repuntó en 2021 (11,2) y en 2022 alcanzó 16,8, superando los niveles previos a la pandemia. ¿Cuál es la conclusión diagnóstica correcta que plantea el facilitador a partir de esta serie histórica?",
-    "options": [
-      "La reducción de 2020 fue coyuntural, asociada a las restricciones de movilidad por la pandemia de COVID-19, y no a una transformación estructural del problema; la tendencia posterior indica un deterioro real que justifica una intervención prioritaria en el PI.",
-      "El problema de accidentalidad vial quedó resuelto en 2020, y el repunte de 2021-2022 debe tratarse en el PI como un problema completamente nuevo, no relacionado con el diagnóstico original.",
-      "Como la tasa de 2022 (16,8) sigue siendo menor que la de 2017 (23,1), la tendencia general del periodo es de mejora sostenida y el problema no amerita ser priorizado en la herramienta 7.",
-      "El dato de 2020 debe excluirse del análisis de tendencia por tratarse de un año atípico, y la conclusión diagnóstica debe basarse únicamente en la comparación 2017 versus 2022."
-    ],
-    "correct": 0,
-    "explanation": "El video es explícito: 'esa mejora, casi con seguridad, estuvo asociada a las restricciones de movilidad de la pandemia del COVID-19, no a una transformación estructural del problema... La reducción de 2020 fue coyuntural, no estructural. Y la tendencia posterior a la pandemia indica un deterioro real, lo que justifica una intervención prioritaria en el PI'. También aclara que 'no basta con mirar el último dato, hay que mirar toda la serie'.",
-    "dev": "Busca en tu institución una serie histórica real de al menos 3 o 4 años de algún indicador relevante (por ejemplo, quejas recibidas, tiempos de respuesta, cobertura de un servicio). Analiza si algún cambio observado en esa serie fue coyuntural (por una circunstancia externa temporal) o estructural (un cambio de fondo y sostenido), y justifica tu respuesta con los datos."
-  },
-  {
-    "id": 9,
-    "time": 5535,
-    "label": "1:32:15",
-    "question": "¿Cuál es un error metodológico crítico y recurrente al identificar y formular problemas institucionales (Herramientas 4 a 6)?",
-    "options": [
-      "Diferenciar claramente los síntomas visibles de las causas estructurales",
-      "Formular el problema como la falta de una solución preconcebida (ej: 'falta comprar computadoras') en vez de como una situación negativa real de la población",
-      "Analizar datos cuantitativos y series históricas del problema",
-      "Consultar las opiniones de los servidores públicos de distintas áreas"
-    ],
-    "correct": 1,
-    "explanation": "El facilitador advierte contra tres errores comunes: confundir el problema con la falta de presupuesto/causa, formularlo como una solución predeterminada (ej: 'necesitamos más hospitales' en vez de 'carencia de servicios de salud en zonas rurales'), o redactarlo como objetivo.",
-    "dev": "Identifiquen un problema en su institución que suele expresarse como 'falta de recursos' o 'falta de un sistema', y reescríbanlo describiendo la situación negativa real que experimentan los usuarios o la ciudadanía."
-  },
-  {
-    "id": 10,
-    "time": 6920,
-    "label": "1:55:20",
-    "question": "En la Matriz CAME (Herramienta 12), ¿qué tipo de estrategia institucional se deriva de cruzar una Debilidad interna con una Oportunidad externa?",
-    "options": [
-      "Estrategia de tipo Mantener (proteger capacidades ante amenazas)",
-      "Estrategia de tipo Afrontar (usar fortalezas para resistir riesgos)",
-      "Estrategia de tipo Corregir (aprovechar la oportunidad del entorno para superar la limitación interna)",
-      "Estrategia de tipo Explotar (maximizar fortalezas aprovechando oportunidades)"
-    ],
-    "correct": 2,
-    "explanation": "La lógica CAME establece cuatro orientaciones: Corregir debilidades (cruzadas con oportunidades), Afrontar amenazas (con fortalezas o debilidades), Mantener fortalezas (frente a amenazas), y Explotar oportunidades (con fortalezas).",
-    "dev": "Propongan una estrategia concreta de tipo CAME (Corregir, Afrontar, Mantener o Explotar) para su entidad, indicando qué elemento interno y qué factor del entorno externo están combinando."
   }
 ];
 
@@ -544,7 +484,7 @@ function updateSummary(){
     summary.classList.add('show');
     document.getElementById('scoreText').textContent = correctCount + ' / ' + CHECKPOINTS.length;
     const nombre = nombreIdentificacion();
-    document.getElementById('scoreMsg').textContent = (nombre ? nombre + ', han' : 'Han') + ' completado las 10 estaciones del análisis, con sus preguntas de desarrollo. ¡Buen trabajo revisando el video a fondo!';
+    document.getElementById('scoreMsg').textContent = (nombre ? nombre + ', han' : 'Han') + ' completado las 6 estaciones del análisis, con sus preguntas de desarrollo. ¡Buen trabajo revisando el video a fondo!';
     summary.scrollIntoView({behavior:'smooth', block:'center'});
     if (!yaEnviado) { yaEnviado = true; saveState(); enviarResultadoAMoodle(correctCount); }
   }
