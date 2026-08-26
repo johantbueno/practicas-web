@@ -133,13 +133,13 @@ body{margin:0; background:var(--bg-body); color:var(--secondary); font-family:'I
   <div class="cover">
     <div class="eyebrow">INAP · Planificación Estratégica en la Gestión Pública · Unidad 1.2</div>
     <h1>🎥 Análisis interactivo: Planificación Estratégica Institucional</h1>
-    <p>Analicen la clase en grupo o de forma individual. El video se pausa solo en cada una de las 10 estaciones y la pregunta aparece encima de la pantalla — respondan ahí mismo sin desplazarse.</p>
+    <p>Analicen la clase en grupo o de forma individual. El video se pausa solo en cada una de las 6 estaciones más importantes y la pregunta aparece encima de la pantalla — respondan ahí mismo sin desplazarse.</p>
   </div>
 
   <div class="card">
     <div class="howto">
       <div class="num">1</div>
-      <p>El video se detendrá automáticamente en 10 estaciones clave. Conversen y analicen antes de contestar.</p>
+      <p>El video se detendrá automáticamente en 6 estaciones clave. Conversen y analicen antes de contestar.</p>
     </div>
     <div class="howto">
       <div class="num">2</div>
@@ -229,7 +229,7 @@ body{margin:0; background:var(--bg-body); color:var(--secondary); font-family:'I
   <div id="summary">
     <div class="medal">🏅</div>
     <h2>¡Análisis de Video Completado!</h2>
-    <p>Han superado con éxito las 10 estaciones del análisis interactivo de la Unidad 1.2.</p>
+    <p>Han superado con éxito las 6 estaciones del análisis interactivo de la Unidad 1.2.</p>
     <div class="score" id="finalScore">100 / 100</div>
     <p id="syncStatus" style="margin-top:1rem; font-size:.92rem; opacity:.95;">Sincronizando con AulaDigital Moodle...</p>
   </div>
@@ -248,21 +248,6 @@ const STATE_KEY = "pei_video_u1_2_estado_v1";
 const CHECKPOINTS = [
   {
     "id": 1,
-    "time": 930,
-    "label": "15:30",
-    "question": "¿Por qué la formulación del PEI se define como un 'ciclo continuo' y cuál es el objetivo central de su primera fase (Diagnóstico Contextual e Institucional)?",
-    "options": [
-      "Porque no es una línea recta que termina con la aprobación del documento, sino un círculo donde la última fase de evaluación alimenta directamente el inicio del siguiente PEI; y el diagnóstico analiza los factores internos y externos antes de decidir sobre el futuro",
-      "Porque el PEI debe redactarse de nuevo cada mes en una reunión de gabinete",
-      "Porque el diagnóstico solo analiza el gasto del presupuesto anterior sin considerar el contexto",
-      "Porque las leyes dominicanas exigen cambiar la misión de la entidad cada dos años"
-    ],
-    "correct": 0,
-    "explanation": "El facilitador subraya que la planificación no es una línea recta que termina cuando se aprueba el documento, sino un círculo donde la última fase de evaluación alimenta directamente el siguiente PEI. El diagnóstico contextual e institucional analiza los factores internos y externos antes de decidir absolutamente nada sobre el futuro.",
-    "dev": "En su institución, ¿cómo se utiliza la información de la evaluación del PEI anterior como insumo para el diagnóstico del nuevo ciclo de planificación?"
-  },
-  {
-    "id": 2,
     "time": 1326,
     "label": "22:06",
     "question": "Según el manual PI 2024, ¿cuál es la diferencia clave entre el objetivo último de la Gestión Basada en Resultados (GBR) y el de la Gestión Orientada al Desarrollo (GORP)?",
@@ -277,7 +262,7 @@ const CHECKPOINTS = [
     "dev": "Piense en un indicador que actualmente use (o podría usar) su institución. Redacte primero una versión de ese indicador bajo la lógica de la GBR (midiendo actividad o proceso) y luego una versión bajo la lógica de la GORP (midiendo un cambio real en la vida de la población). Explique la diferencia entre ambas."
   },
   {
-    "id": 3,
+    "id": 2,
     "time": 1759,
     "label": "29:19",
     "question": "Un ministerio identifica un segmento de población que efectivamente presenta el problema de desarrollo y sería elegible para recibir la intervención, pero decide, de forma explícita y documentada, no atenderlo dentro del plan actual por restricciones de presupuesto y capacidad operativa. Según la clasificación de población del manual PI 2024, ¿cómo se denomina correctamente esta categoría?",
@@ -292,7 +277,7 @@ const CHECKPOINTS = [
     "dev": "Identifique, en su propia institución, un segmento real de la ciudadanía que podría calificar como 'población potencial postergada'. Explique por qué no se atiende en el periodo actual y qué tipo de documentación o justificación técnica debería existir para que esa decisión sea transparente y no arbitraria."
   },
   {
-    "id": 4,
+    "id": 3,
     "time": 2160,
     "label": "36:00",
     "question": "¿Cuál es el rol jurídico y metodológico fundamental de la Ley No. 498-06 y su Reglamento de Aplicación (Decreto 493-07) en la planificación pública dominicana?",
@@ -307,7 +292,7 @@ const CHECKPOINTS = [
     "dev": "Mencionen una disposición legal o normativa específica del SNPIP (Ley 498-06, Decreto 493-07 o Ley 1-12) que determine de forma directa el proceso de planificación en su entidad."
   },
   {
-    "id": 5,
+    "id": 4,
     "time": 2865,
     "label": "47:45",
     "question": "Al diagnosticar el problema de accidentalidad vial, el manual PI 2024 señala que el MOC debe aplicar, como mínimo, cuatro políticas transversales de la Ley 1-12. Según el ejemplo trabajado en el video, ¿cuál de las siguientes NO fue mencionada como una de esas cuatro políticas aplicadas a ese caso específico?",
@@ -322,7 +307,7 @@ const CHECKPOINTS = [
     "dev": "De las seis políticas transversales de la Ley 1-12 (derechos humanos, género, sostenibilidad ambiental, cohesión territorial, participación social y uso de las TIC), identifique cuáles aplican al problema central que atiende su institución y justifique brevemente cada una con un argumento concreto, no genérico."
   },
   {
-    "id": 6,
+    "id": 5,
     "time": 3394,
     "label": "56:34",
     "question": "Según la tabla oficial del marco de resultados del PNPSP citada en el manual PI 2024, para el resultado 'mejoradas las condiciones para alcanzar la seguridad vial' (medido con la tasa de fallecidos por accidentes de tránsito por cada 100,000 habitantes), ¿qué institución aparece como responsable y cuál como involucrada?",
@@ -337,7 +322,7 @@ const CHECKPOINTS = [
     "dev": "Piense en un resultado o problema que atienda su institución en el que, por sentido común, usted asumiría que su institución es la 'responsable', pero que al revisar la normativa con rigor podría en realidad corresponderle a otra entidad como rectora. Explique cómo verificaría esto antes de asumirlo."
   },
   {
-    "id": 7,
+    "id": 6,
     "time": 3630,
     "label": "60:30",
     "question": "¿Cómo articula el marco normativo complementario (Decretos 493-07 y 134-14) la Estrategia Nacional de Desarrollo (END 2030) con los Planes Estratégicos Institucionales (PEI)?",
@@ -350,51 +335,6 @@ const CHECKPOINTS = [
     "correct": 0,
     "explanation": "El Decreto 493-07 (reglamento de la Ley 498-06) y el Decreto 134-14 regulan la articulación obligatoria de los PEI institucionales con los 4 ejes estratégicos de la END 2030 y los resultados comprometidos en el Plan Nacional Plurianual del Sector Público (PNPSP).",
     "dev": "Identifiquen a cuál de los 4 ejes de la Estrategia Nacional de Desarrollo 2030 (Social, Institucional, Económico o Medioambiental) tributa principalmente la misión de su institución."
-  },
-  {
-    "id": 8,
-    "time": 5100,
-    "label": "85:00",
-    "question": "Al formular y revisar la Misión Institucional (Herramienta 2), ¿por qué es indispensable contrastarla rigurosamente contra las competencias legales de la entidad?",
-    "options": [
-      "Para verificar que la misión responda estrictamente al mandato legal que las leyes le confieren a la institución, asegurando que se entregue valor público real a los ciudadanos dentro del marco legal vigente",
-      "Para copiar textualmente la misión de una institución de otro país",
-      "Para reducir el presupuesto asignado por la DIGEPRES",
-      "Porque la ley prohíbe que las instituciones públicas tengan misión o visión declaradas"
-    ],
-    "correct": 0,
-    "explanation": "La Herramienta 2 del manual PEI establece que la revisión de la misión debe contrastar si lo que la entidad declara corresponde con precisión a lo que la ley le manda hacer, garantizando la legitimidad institucional y la entrega de valor público sin extralimitar funciones.",
-    "dev": "Analicen la declaración de Misión de su institución: ¿cumple con reflejar claramente el mandato legal de su ley de creación y la entrega de valor público a la ciudadanía?"
-  },
-  {
-    "id": 9,
-    "time": 6300,
-    "label": "1:45:00",
-    "question": "¿Cuál es la función técnica fundamental de las Unidades Institucionales de Planificación y Desarrollo (UIPyD) como contraparte técnica del SNPIP?",
-    "options": [
-      "Operativizar técnicamente los procesos de formulación, seguimiento y evaluación del PEI/POA, articulando a las autoridades y direcciones sustantivas con las directrices metodológicas del órgano rector (MEPyD)",
-      "Reemplazar a los directores de área en la toma de decisiones presupuestarias y contratación de personal",
-      "Administrar exclusivamente la infraestructura de redes y cómputos de la institución",
-      "Auditar los inventarios físicos de suministros de almacén al final de cada trimestre"
-    ],
-    "correct": 0,
-    "explanation": "Las UIPyD son las unidades técnico-metodológicas responsables de conducir los procesos de planificación estratégica y operativa, coordinando con cada dirección ejecutora y sirviendo de enlace oficial con el MEPyD conforme a la Ley 498-06.",
-    "dev": "¿Cómo coordina la UIPyD de su institución con las distintas áreas y direcciones sustantivas durante las etapas de formulación y seguimiento del PEI?"
-  },
-  {
-    "id": 10,
-    "time": 6497,
-    "label": "1:48:17",
-    "question": "En el ejemplo del árbol de problemas sobre accidentalidad vial que trae el manual PI 2024, la causa indirecta 'escasa señalización vial' se atribuye al MOC, al INTRANT y a los ayuntamientos como instituciones corresponsables, con base en el artículo 24 de la Ley 63-17. ¿Por qué se clasifican como corresponsables, a diferencia de las EDES en el caso del mantenimiento del alumbrado público, que aparecen como institución responsable?",
-    "options": [
-      "Porque 'corresponsable' significa que ninguna de las tres instituciones tiene una obligación legal real; es solo una recomendación técnica sin respaldo normativo.",
-      "Porque ninguna de las tres puede, por sí sola, resolver la señalización vial del país; la propia ley exige que se coordinen entre ellas, a diferencia de las EDES, que sí tienen la solución de su elemento exclusivamente en sus manos.",
-      "Porque se trata de una imprecisión del manual PI 2024, que no logró identificar con claridad a una sola institución responsable para esta causa.",
-      "Porque las tres instituciones comparten literalmente el mismo presupuesto asignado para atender esa causa indirecta."
-    ],
-    "correct": 1,
-    "explanation": "El video define el criterio con precisión: una institución corresponsable 'comparte la responsabilidad sobre ese elemento de la causa indirecta... no puede resolver [sola], requiere coordinación, acuerdos y trabajo conjunto con otras instituciones.' Y lo ilustra: 'Ninguna de estas tres instituciones puede, por sí sola, resolver la señalización vial del país, necesitan, obligatoriamente, coordinarse entre ellas', con base en el artículo 24 de la Ley 63-17. Esto contrasta con las EDES, donde 'la solución de ese elemento específico está, legalmente, en manos exclusivas de las EDES' (responsable, no corresponsable).",
-    "dev": "Identifique, dentro del árbol de problemas de su propia institución (o de un problema que su institución atienda), una causa indirecta que requiera corresponsabilidad con otras entidades. Indique qué instituciones estarían involucradas y, si lo sabe, la base legal que las vincula; si no la conoce, explique cómo la verificaría."
   }
 ];
 
