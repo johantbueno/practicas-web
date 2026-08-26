@@ -135,6 +135,9 @@ body{margin:0; background:var(--bg-body); color:var(--secondary); font-family:'I
 #summary .score{font-size:2.2rem; font-weight:900;}
 
 .footer-note{text-align:center; color:var(--muted); font-size:.8rem; margin-top:1.5rem;}
+
+.rotate-fs-btn{position:absolute; top:.6rem; right:.6rem; z-index:3; display:inline-flex; align-items:center; gap:.35rem; background:rgba(15,23,42,.72); color:#fff; border:1px solid rgba(255,255,255,.35); font-weight:700; font-size:.72rem; padding:.4rem .7rem; border-radius:999px; cursor:pointer; font-family:inherit; backdrop-filter:blur(2px);}
+.rotate-fs-btn:hover{background:rgba(15,23,42,.9);}
 </style>
 </head>
 <body>
@@ -189,6 +192,7 @@ body{margin:0; background:var(--bg-body); color:var(--secondary); font-family:'I
   <div class="card">
     <div class="video-wrap">
       <div id="player"></div>
+      <button type="button" class="rotate-fs-btn" id="btnRotateFs" title="Ver el video en pantalla completa y de lado">🔄 Pantalla completa</button>
 
       <div class="cp-overlay" id="cpOverlay">
         <div class="cp-panel">
@@ -786,6 +790,29 @@ IDENT_FIELDS.forEach(id => document.getElementById(id).addEventListener('input',
 buildStations();
 wireVoiceButtons();
 restoreState();
+
+/* ---------- PANTALLA COMPLETA + ROTAR A HORIZONTAL (movil) ---------- */
+(function(){
+  const wrap = document.querySelector('.video-wrap');
+  const btn = document.getElementById('btnRotateFs');
+  if(!wrap || !btn) return;
+  btn.addEventListener('click', async function(){
+    try{
+      if(wrap.requestFullscreen) await wrap.requestFullscreen();
+      else if(wrap.webkitRequestFullscreen) wrap.webkitRequestFullscreen();
+    }catch(e){}
+    try{
+      if(screen.orientation && screen.orientation.lock){
+        await screen.orientation.lock('landscape');
+      }
+    }catch(e){}
+  });
+  document.addEventListener('fullscreenchange', function(){
+    if(!document.fullscreenElement && screen.orientation && screen.orientation.unlock){
+      try{ screen.orientation.unlock(); }catch(e){}
+    }
+  });
+})();
 </script>
 </body>
 </html>
