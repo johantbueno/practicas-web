@@ -524,6 +524,8 @@ document.getElementById('cpContinue').addEventListener('click', () => {
 });
 
 let yaEnviado = false;
+let savedLastTime = 0;
+let sincronizandoNota = false;
 function updateSummary(){
   const correctCount = CHECKPOINTS.filter(c => c.userCorrect).length;
   const devCount = CHECKPOINTS.filter(c => c.devText && c.devText.trim().length > 0).length;
@@ -534,7 +536,7 @@ function updateSummary(){
     const nombre = nombreIdentificacion();
     document.getElementById('scoreMsg').textContent = (nombre ? nombre + ', han' : 'Han') + ' completado las 6 estaciones del análisis, con sus preguntas de desarrollo. ¡Buen trabajo revisando el video a fondo!';
     summary.scrollIntoView({behavior:'smooth', block:'center'});
-    if (!yaEnviado) { yaEnviado = true; saveState(); enviarResultadoAMoodle(correctCount); }
+    intentarSincronizarNota(correctCount);
   }
 }
 
@@ -552,13 +554,13 @@ function enviarResultadoAMoodle(correctCount){
   const estado = document.getElementById('syncEstado');
   if (cedulas.length === 0) {
     if (estado) estado.textContent = '⚠️ No se registró la nota en AulaDigital porque no se indicó ninguna cédula.';
-    return;
+    return Promise.resolve(false);
   }
   const puntos = Math.round((correctCount / CHECKPOINTS.length) * 100);
   const respuestas = CHECKPOINTS.map(cp => ({ pregunta: cp.question, texto: cp.devText || '' }));
 
   if (estado) estado.textContent = '⏳ Registrando la nota en AulaDigital…';
-  Promise.all(cedulas.map(cedula => fetch(RESULT_SYNC_URL, {
+  return Promise.all(cedulas.map(cedula => fetch(RESULT_SYNC_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ secret: RESULT_SYNC_SECRET, cedula, puntos, correctas: correctCount, total: CHECKPOINTS.length, respuestas, cmid: CMID_UNIDAD })
@@ -571,8 +573,9 @@ function enviarResultadoAMoodle(correctCount){
     } else if (ok > 0) {
       estado.textContent = '⚠️ Se registró para ' + ok + ' de ' + cedulas.length + ' cédulas. Revisen que las demás estén bien escritas.';
     } else {
-      estado.textContent = '❌ No se pudo registrar la nota — revisen las cédulas o avisen a su facilitador.';
+      estado.textContent = '❌ No se pudo registrar la nota — revisen las cédulas o avisen a su facilitador. Reintentaremos automáticamente en cuanto recuperen conexión.';
     }
+    return ok === cedulas.length;
   });
 }
 
@@ -746,6 +749,7 @@ function saveState(){
       modo: modoSelect.value,
       campos: {},
       yaEnviado,
+      lastTime: (playerReady && player && typeof player.getCurrentTime === 'function') ? Math.floor(player.getCurrentTime()) : (savedLastTime || 0),
       checkpoints: CHECKPOINTS.map(cp => ({ id: cp.id, userIdx: cp.userIdx, userCorrect: cp.userCorrect, devText: cp.devText }))
     };
     IDENT_FIELDS.forEach(id => { estado.campos[id] = document.getElementById(id).value; });
@@ -763,6 +767,7 @@ function restoreState(){
     if (estado.campos && estado.campos[id] !== undefined) document.getElementById(id).value = estado.campos[id];
   });
   yaEnviado = !!estado.yaEnviado;
+  savedLastTime = estado.lastTime || 0;
 
   (estado.checkpoints || []).forEach(saved => {
     const cp = CHECKPOINTS.find(c => c.id === saved.id);
@@ -793,7 +798,7 @@ window.onYouTubeIframeAPIReady = function(){
     videoId: YOUTUBE_VIDEO_ID,
     playerVars: { rel: 0, modestbranding: 1 },
     events: {
-      onReady: function(){ playerReady = true; startWatcher(); }
+      onReady: function(){ playerReady = true; startWatcher(); if (savedLastTime > 5) { player.seekTo(savedLastTime, true); mostrarAvisoRetomando(savedLastTime); } }
     }
   });
 };
@@ -943,6 +948,32 @@ var MATCH_PAIRS = [
     defsEl.appendChild(btn);
   });
 })();
+
+function intentarSincronizarNota(correctCount){
+  if (yaEnviado || sincronizandoNota) return;
+  sincronizandoNota = true;
+  Promise.resolve(enviarResultadoAMoodle(correctCount)).then(function(ok){
+    sincronizandoNota = false;
+    if (ok) { yaEnviado = true; saveState(); }
+  });
+}
+window.addEventListener('online', function(){
+  const correctCount = CHECKPOINTS.filter(function(c){ return c.userCorrect; }).length;
+  const devCount = CHECKPOINTS.filter(function(c){ return c.devText && c.devText.trim().length > 0; }).length;
+  if (!yaEnviado && correctCount === CHECKPOINTS.length && devCount === CHECKPOINTS.length) intentarSincronizarNota(correctCount);
+});
+
+function mostrarAvisoRetomando(segundos){
+  try{
+    const mm = Math.floor(segundos/60), ss = Math.floor(segundos%60).toString().padStart(2,'0');
+    const nota = document.createElement('div');
+    nota.textContent = '▶️ Retomamos el video donde se quedaron (' + mm + ':' + ss + ').';
+    nota.style.cssText = 'background:var(--blue-bg); color:var(--navy); border:1px solid var(--blue-border); border-radius:8px; padding:.5rem .8rem; font-size:.8rem; font-weight:700; margin:.5rem 0; text-align:center;';
+    const wrap = document.querySelector('.video-wrap');
+    if(wrap && wrap.parentNode) wrap.parentNode.insertBefore(nota, wrap);
+    setTimeout(function(){ nota.remove(); }, 8000);
+  }catch(e){}
+}
 </script>
 </body>
 </html>

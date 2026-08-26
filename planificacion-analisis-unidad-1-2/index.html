@@ -419,6 +419,9 @@ function loadState(){
 
 function saveState(){
   try {
+    if (playerReady && player && typeof player.getCurrentTime === 'function') {
+      state.lastTime = Math.floor(player.getCurrentTime());
+    }
     localStorage.setItem(STATE_KEY, JSON.stringify(state));
   } catch(e){}
 }
@@ -460,6 +463,7 @@ function onYouTubeIframeAPIReady(){
       onReady: (e) => {
         playerReady = true;
         startPlaybackMonitor();
+        if (state.lastTime > 5) { player.seekTo(state.lastTime, true); mostrarAvisoRetomando(state.lastTime); }
       },
       onStateChange: (e) => {
         if(e.data === YT.PlayerState.PLAYING){
@@ -477,6 +481,8 @@ function startPlaybackMonitor(){
   checkInterval = setInterval(() => {
     if(!player || !playerReady || currentCpIndex !== -1) return;
     const curTime = player.getCurrentTime();
+    actualizarMiniTimeline(curTime);
+    if (Math.floor(curTime) % 5 === 0) saveState();
     for(let i = 0; i < CHECKPOINTS.length; i++){
       const cp = CHECKPOINTS[i];
       if(curTime >= cp.time && curTime < (cp.time + 3) && !state.completedStations.includes(cp.id)){
@@ -624,20 +630,31 @@ function continueVideo(){
 }
 
 function finishActivity(){
-  state.isFinished = true;
   let correctCount = 0;
   CHECKPOINTS.forEach(cp => {
     if(state.answers[cp.id] === cp.correct) correctCount++;
   });
-  state.score = Math.round((correctCount / CHECKPOINTS.length) * 100);
-  saveState();
+  if(!state.isFinished){
+    state.isFinished = true;
+    state.score = Math.round((correctCount / CHECKPOINTS.length) * 100);
+    saveState();
+  }
 
   const sum = document.getElementById('summary');
   sum.classList.add('show');
   document.getElementById('finalScore').textContent = `${state.score} / 100`;
   sum.scrollIntoView({behavior:'smooth'});
 
-  syncWithMoodle(state.score, correctCount);
+  intentarSincronizarNota(correctCount);
+}
+
+function intentarSincronizarNota(correctCount){
+  if(state.syncOk || state.sincronizando) return;
+  state.sincronizando = true;
+  Promise.resolve(syncWithMoodle(state.score, correctCount)).then(function(ok){
+    state.sincronizando = false;
+    if(ok){ state.syncOk = true; saveState(); }
+  });
 }
 
 function getCedulasList(){
@@ -664,7 +681,7 @@ function syncWithMoodle(puntos, correctas){
   const cedulas = getCedulasList();
   if(cedulas.length === 0){
     syncStatus.innerHTML = `<span style="color:#fef08a;">⚠️ Actividad completada con ${puntos} pts. Ingrese su cédula arriba para sincronizar su nota con AulaDigital.</span>`;
-    return;
+    return Promise.resolve(false);
   }
 
   const respuestasDev = [];
@@ -690,14 +707,17 @@ function syncWithMoodle(puntos, correctas){
         total: CHECKPOINTS.length,
         respuestas: respuestasDev
       })
-    }).then(r => r.json());
+    }).then(r => r.json()).catch(() => ({ok:false}));
   });
 
-  Promise.all(promises).then(results => {
-    const oks = results.filter(r => r.ok).length;
-    syncStatus.innerHTML = `✅ ¡Calificación sincronizada exitosamente en AulaDigital! (${oks}/${cedulas.length} registrados, ${puntos} pts). Medalla otorgada automáticamente.`;
-  }).catch(err => {
-    syncStatus.innerHTML = `⚠️ Calificación guardada localmente (${puntos} pts). No se pudo contactar al servidor Moodle temporalmente.`;
+  return Promise.all(promises).then(results => {
+    const oks = results.filter(r => r && r.ok).length;
+    if(oks === cedulas.length){
+      syncStatus.innerHTML = `✅ ¡Calificación sincronizada exitosamente en AulaDigital! (${oks}/${cedulas.length} registrados, ${puntos} pts). Medalla otorgada automáticamente.`;
+    } else {
+      syncStatus.innerHTML = `⚠️ Calificación guardada localmente (${puntos} pts, ${oks}/${cedulas.length} registrados). Reintentaremos automáticamente en cuanto recuperen conexión.`;
+    }
+    return oks === cedulas.length;
   });
 }
 
@@ -774,6 +794,7 @@ function setupVoiceRecording(){
 document.addEventListener('DOMContentLoaded', () => {
   loadState();
   renderChips();
+  if(state.completedStations.length === CHECKPOINTS.length){ finishActivity(); }
 
   document.getElementById('btnCheck').onclick = checkAnswer;
   document.getElementById('btnRewind').onclick = rewindCurrentFragment;
@@ -922,6 +943,25 @@ var MATCH_PAIRS = [
     defsEl.appendChild(btn);
   });
 })();
+
+window.addEventListener('online', function(){
+  if(state.completedStations.length === CHECKPOINTS.length && !state.syncOk){
+    let correctCount = 0;
+    CHECKPOINTS.forEach(function(cp){ if(state.answers[cp.id] === cp.correct) correctCount++; });
+    intentarSincronizarNota(correctCount);
+  }
+});
+function mostrarAvisoRetomando(segundos){
+  try{
+    const mm = Math.floor(segundos/60), ss = Math.floor(segundos%60).toString().padStart(2,'0');
+    const nota = document.createElement('div');
+    nota.textContent = '▶️ Retomamos el video donde se quedaron (' + mm + ':' + ss + ').';
+    nota.style.cssText = 'background:var(--blue-bg); color:var(--navy); border:1px solid var(--blue-border); border-radius:8px; padding:.5rem .8rem; font-size:.8rem; font-weight:700; margin:.5rem 0; text-align:center;';
+    const wrap = document.getElementById('videoWrapper');
+    if(wrap && wrap.parentNode) wrap.parentNode.insertBefore(nota, wrap);
+    setTimeout(function(){ nota.remove(); }, 8000);
+  }catch(e){}
+}
 </script>
 </body>
 </html>
