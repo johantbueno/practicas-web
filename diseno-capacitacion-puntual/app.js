@@ -15,11 +15,11 @@
     objetivo: "Al finalizar la capacitación, los participantes estarán en capacidad de diseñar y operar una estrategia de marketing inmobiliario digital asistida por Inteligencia Artificial, produciendo contenido de alto impacto, automatizando la captación y el seguimiento de prospectos, y organizando su cartera comercial en un sistema de seguimiento medible, aplicable de inmediato a su gestión diaria en el mercado dominicano.",
     poblacion: "Asesores inmobiliarios de Amicus Realty, SRL, usuarios básicos de redes sociales y sin conocimientos técnicos previos en Inteligencia Artificial.",
     contenido:
-      "Módulo I. Estrategia y marca personal: el nuevo comprador inmobiliario dominicano, recorrido digital del cliente, definición de nicho (matriz Zona x Tipo de propiedad x Cliente), promesa de valor, ficha de cliente ideal, ética en el uso de IA.\n" +
-      "Módulo II. Inteligencia Artificial aplicada: contenido que capta y vende: anatomía del prompt profesional (Rol, Contexto, Tarea, Formato, Tono, Restricciones), comparativa ChatGPT/Gemini/Claude/Perplexity, descripciones de propiedad, guiones de video, calendario de contenido 30 días, diseño de piezas gráficas en Canva.\n" +
-      "Módulo III. Producción de video y presencia digital: grabación con celular, edición en CapCut (cortes, música, subtítulos automáticos), generación de video de propiedad a partir de fotos sin cámara, ética del video generado con IA.\n" +
-      "Módulo IV. Automatización, CRM y publicidad digital: programación de publicaciones (Meta Business Suite, Metricool), configuración de WhatsApp Business, CRM con embudo de 5 etapas, secuencias de seguimiento con IA, nociones de publicidad en Meta Ads.\n" +
-      "Integración final: vitrina del Portafolio Comercial Digital, diagnóstico de fallos y Plan de Acción de 90 días.",
+      "Módulo I. Estrategia y marca personal: nicho, promesa de valor y ética en el uso de IA.\n" +
+      "Módulo II. Contenido con IA: prompts profesionales, descripciones de propiedad y calendario editorial.\n" +
+      "Módulo III. Video y presencia digital: grabación con celular, edición en CapCut y video desde fotos.\n" +
+      "Módulo IV. Automatización, CRM y publicidad digital: WhatsApp Business, embudo de seguimiento y Meta Ads.\n" +
+      "Integración final: portafolio comercial digital y Plan de Acción de 90 días.",
     cargaHoraria: "60 horas",
     perfilFacilitador: "Profesional del área de Marketing Digital y/o Tecnología, con especialización o experiencia comprobada en herramientas de Inteligencia Artificial aplicadas al sector inmobiliario. Experiencia laboral y docente mínima de un (1) año.",
     recursos: "Plataforma de videoconferencia con salas de grupo y grabación (Zoom/Teams), conexión a internet estable, teléfono inteligente con al menos 5 GB libres, cuenta de Google activa, presentaciones digitales, guías visuales descargables, plantillas de trabajo (Declaración de Marca, Calendario de Contenido, CRM en Google Sheets, Plan de Acción de 90 días) y herramientas de IA gratuitas (ChatGPT, Gemini, Claude, Perplexity, Canva, CapCut)."
@@ -343,7 +343,7 @@
     var pageWidth = doc.internal.pageSize.getWidth();
     var pageHeight = doc.internal.pageSize.getHeight();
     var marginX = 54;
-    var marginBottom = 60;
+    var marginBottom = 46;
     var contentWidth = pageWidth - marginX * 2;
     var y = 0;
 
@@ -366,24 +366,24 @@
     }
 
     function campoPdf(etiqueta, valor) {
-      asegurarEspacio(26);
+      asegurarEspacio(24);
       doc.setFont("helvetica", "bold");
-      doc.setFontSize(10.5);
-      doc.text(etiqueta + ":", marginX, y);
-      y += 15;
-      doc.setFont("helvetica", "normal");
       doc.setFontSize(10);
+      doc.text(etiqueta + ":", marginX, y);
+      y += 13;
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(9.5);
       var lineas = valor ? lineasNoVacias(valor) : [];
       if (lineas.length === 0) lineas = [" "];
       lineas.forEach(function (linea) {
         var envueltas = doc.splitTextToSize(linea, contentWidth);
         envueltas.forEach(function (l) {
-          asegurarEspacio(13);
+          asegurarEspacio(12);
           doc.text(l, marginX, y);
-          y += 13;
+          y += 12;
         });
       });
-      y += 8;
+      y += 6;
     }
 
     function campoLineaUnicaPdf(etiqueta, valor) {
@@ -402,19 +402,19 @@
       if (firma) {
         try {
           var formato = firma.tipo === "png" ? "PNG" : "JPEG";
-          var anchoImg = 120, altoImg = 46;
-          doc.addImage(firma.dataUrl, formato, x + (ancho - anchoImg) / 2, yy, anchoImg, altoImg);
+          var anchoImg = 95, altoImg = 34;
+          doc.addImage(firma.dataUrl, formato, x + (ancho - anchoImg) / 2, yy + 4, anchoImg, altoImg);
         } catch (e) { /* firma opcional */ }
       }
-      yy += 52;
+      yy += 40;
       doc.setDrawColor(60, 60, 60);
       doc.setLineWidth(0.75);
       doc.line(x, yy, x + ancho, yy);
-      yy += 13;
+      yy += 11;
       doc.setFont("helvetica", "bold");
       doc.setFontSize(8.5);
       doc.text(etiqueta, x + ancho / 2, yy, { align: "center" });
-      yy += 12;
+      yy += 10;
       doc.setFont("helvetica", "normal");
       doc.setFontSize(8);
       doc.text("Fecha: " + (fechaISO ? fechaLegible(fechaISO) : "____________"), x + ancho / 2, yy, { align: "center" });
@@ -438,13 +438,12 @@
     campoPdf("Perfil del Facilitador", val.perfilFacilitador);
     campoPdf("Recursos Didácticos y Logísticos", val.recursos);
 
-    asegurarEspacio(140);
-    y += 20;
+    asegurarEspacio(150);
+    y += 10;
     var colAncho = contentWidth / 2 - 12;
     var finContraparte = bloqueFirmaPdf(marginX, colAncho, "Firma Contraparte de la Empresa y Fecha", fechas.fechaContraparte, firmas.Contraparte);
     var finFacilitador = bloqueFirmaPdf(marginX + contentWidth / 2 + 12, colAncho, "Firma Facilitador(es) y Fecha", fechas.fechaFacilitador, firmas.Facilitador);
-    y = Math.max(finContraparte, finFacilitador) + 30;
-    asegurarEspacio(70);
+    y = Math.max(finContraparte, finFacilitador) + 16;
     bloqueFirmaPdf(marginX + contentWidth / 2 - 110, 220, "Firma Asesor y Fecha", fechas.fechaAsesor, firmas.Asesor);
 
     // Página 2 — Instructivo de llenado
