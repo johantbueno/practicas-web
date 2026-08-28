@@ -268,22 +268,6 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
 .reveal-init{opacity:0; transform:translateY(18px); transition:opacity .6s cubic-bezier(.22,.9,.35,1), transform .6s cubic-bezier(.22,.9,.35,1);}
 .reveal-init.revealed{opacity:1; transform:translateY(0);}
 
-/* GATE DE DESBLOQUEO (requiere haber aprobado la Unidad IV) */
-body.gate-locked .wrapper{display:none;}
-#gate-overlay{min-height:100vh; display:flex; align-items:center; justify-content:center; padding:1.5rem; background:linear-gradient(135deg,var(--navy),var(--navy-dark));}
-#gate-overlay[hidden]{display:none;}
-.gate-card{background:var(--bg-card); border-radius:var(--radius-lg); padding:2.25rem; max-width:460px; width:100%; box-shadow:var(--shadow-lg); text-align:center;}
-.gate-card .gate-icon{font-size:2.4rem; margin-bottom:.5rem;}
-.gate-card h1{font-size:1.35rem; color:var(--primary); margin:0 0 .6rem;}
-.gate-card p{color:var(--secondary); font-size:.92rem; margin:0 0 1.1rem;}
-.gate-card .field{text-align:left;}
-#gate-msg{font-size:.85rem; margin-top:1rem; padding:.8rem 1rem; border-radius:var(--radius-md); display:none;}
-#gate-msg.show{display:block;}
-#gate-msg.err{background:var(--red-bg); color:var(--red); border:1px solid var(--red-border);}
-#gate-msg.warn{background:var(--amber-bg); color:var(--amber); border:1px solid var(--amber-border);}
-#gate-msg.ok{background:var(--green-bg); color:var(--green); border:1px solid var(--green-border);}
-#gate-msg a{color:inherit; font-weight:700;}
-
 .btn-primary, .btn-secondary, .btn-block{position:relative; overflow:hidden; transition:transform .16s ease, box-shadow .16s ease, filter .16s ease;}
 .btn-primary:hover, .btn-secondary:hover, .btn-block:hover{transform:translateY(-2px);}
 .btn-primary:hover{box-shadow:var(--shadow-lg);}
@@ -304,23 +288,9 @@ body.gate-locked .wrapper{display:none;}
 }
 </style>
 </head>
-<body class="gate-locked">
+<body>
 <a href="#main-content" class="skip-link">Saltar al contenido</a>
 <div id="progress-wrap"><div id="progress-bar"></div></div>
-
-<div id="gate-overlay">
-  <div class="gate-card">
-    <div class="gate-icon">🔒</div>
-    <h1>Unidad V — Innovación y Digitalización</h1>
-    <p>Esta práctica requiere haber aprobado la <strong>Unidad IV: Calidad en el Servicio y Cultura de Excelencia</strong>. Escriba su nombre tal como lo usó al completar esa práctica para verificar su avance.</p>
-    <div class="field">
-      <label for="gate-nombre">Su nombre completo</label>
-      <input type="text" id="gate-nombre" placeholder="Igual que en la Unidad IV">
-    </div>
-    <button class="btn-primary" id="gate-btn" type="button" style="width:100%; margin-top:.5rem;">Verificar y continuar</button>
-    <div id="gate-msg"></div>
-  </div>
-</div>
 
 <div class="wrapper" id="wrapper-real">
   <aside class="sidebar" id="sidebar">
@@ -824,94 +794,6 @@ var AI_GRADE_URL = AI_BASE + '/inap-grade';
 var AI_CHAT_TIMEOUT = 60000;
 var AI_GRADE_TIMEOUT = 650000;
 var VOICE_TRANSCRIBE_URL = 'https://n8n-inap.167.88.36.13.sslip.io/webhook/prof-johan-tapia-transcribir';
-
-/* ---------- GATE DE DESBLOQUEO (requiere Unidad IV aprobada) ---------- */
-/* Contrato: POST {nombre, curso, unidad_actual} -> {ok, desbloqueado, calificacion_previa, requiere_practica, requiere_label} */
-(function initGate(){
-  var GATE_URL = AI_BASE + '/inap-verificar-progreso';
-  var GATE_CURSO = 'atencion-ciudadania';
-  var UNIDAD_ACTUAL = 'u5';
-  var URL_MAP = { u1: 'https://johantbueno.github.io/practicas-web/atencion-ciudadana-u1/', u2: 'https://johantbueno.github.io/practicas-web/atencion-ciudadana-u2/', u3: 'https://johantbueno.github.io/practicas-web/atencion-ciudadana-u3/', u4: 'https://johantbueno.github.io/practicas-web/atencion-ciudadana-u4/' };
-  var GATE_STORE_KEY = 'inap_gate_atencion-ciudadania_u5';
-  var overlay = document.getElementById('gate-overlay');
-  var msgEl = document.getElementById('gate-msg');
-  var btn = document.getElementById('gate-btn');
-  var input = document.getElementById('gate-nombre');
-
-  function unlock(nombre){
-    document.body.classList.remove('gate-locked');
-    if(overlay) overlay.hidden = true;
-    var estNombre = document.getElementById('est_nombre');
-    if(estNombre && !estNombre.value && nombre) estNombre.value = nombre;
-    var gateInput = document.getElementById('gate-nombre');
-    if(gateInput && nombre){
-      try{ localStorage.setItem(GATE_STORE_KEY, nombre); }catch(e){}
-    }
-  }
-  function showMsg(text, cls){
-    if(!msgEl) return;
-    msgEl.textContent = text;
-    msgEl.className = 'show ' + cls;
-  }
-
-  var saved; try{ saved = localStorage.getItem(GATE_STORE_KEY); }catch(e){ saved = null; }
-  if(saved){ unlock(saved); return; }
-
-  if(!btn) return;
-  btn.addEventListener('click', function(){
-    var nombre = (input && input.value || '').trim();
-    if(!nombre){
-      showMsg('Escriba su nombre completo para continuar.', 'err');
-      if(input) input.focus();
-      return;
-    }
-    btn.disabled = true;
-    btn.textContent = 'Verificando…';
-    showMsg('Verificando su avance en la Unidad IV…', 'warn');
-
-    var ctrl = (typeof AbortController !== 'undefined') ? new AbortController() : null;
-    var timeoutId = setTimeout(function(){ if(ctrl) ctrl.abort(); }, 20000);
-
-    fetch(GATE_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ nombre: nombre, curso: GATE_CURSO, unidad_actual: UNIDAD_ACTUAL }),
-      signal: ctrl ? ctrl.signal : undefined
-    }).then(function(res){
-      clearTimeout(timeoutId);
-      if(!res.ok) throw new Error('HTTP ' + res.status);
-      return res.json();
-    }).then(function(data){
-      if(data && data.ok && data.desbloqueado){
-        showMsg('✔ Avance verificado. Cargando la práctica…', 'ok');
-        setTimeout(function(){ unlock(nombre); }, 500);
-      } else {
-        var req = (data && data.requiere_label) || 'la unidad anterior';
-        var url = (data && data.requiere_practica && URL_MAP[data.requiere_practica]) || URL_MAP.u4;
-        showMsg('Todavía no encontramos un registro de "' + req + '" aprobada a nombre de ' + nombre + '. Complete esa práctica primero: ' + url, 'warn');
-        btn.disabled = false;
-        btn.textContent = 'Verificar y continuar';
-      }
-    }).catch(function(){
-      clearTimeout(timeoutId);
-      showMsg('No se pudo verificar su avance en este momento (posible caída del servicio). Puede continuar de todas formas — su facilitador revisará el orden manualmente si hace falta.', 'warn');
-      btn.disabled = false;
-      btn.textContent = 'Verificar y continuar';
-      var seguirBtn = document.getElementById('gate-btn-continuar');
-      if(!seguirBtn){
-        seguirBtn = document.createElement('button');
-        seguirBtn.id = 'gate-btn-continuar';
-        seguirBtn.type = 'button';
-        seguirBtn.className = 'btn-secondary';
-        seguirBtn.style.width = '100%';
-        seguirBtn.style.marginTop = '.6rem';
-        seguirBtn.textContent = 'Continuar de todas formas';
-        seguirBtn.addEventListener('click', function(){ unlock(nombre); });
-        msgEl.parentNode.insertBefore(seguirBtn, msgEl.nextSibling);
-      }
-    });
-  });
-})();
 
 /* ---------- NOTAS DE VOZ ---------- */
 function pickRecorderMime(){

@@ -272,10 +272,8 @@
       {
         "nombre": "Prestación de Servicio y Atención a la Ciudadanía",
         "icono": "🤝",
-        "tipoClase": "secuencial",
-        "tipoLabel": "Curso secuencial · 5 unidades",
-        "esSecuencial": true,
-        "cursoId": "atencion-ciudadania",
+        "tipoClase": "taller",
+        "tipoLabel": "5 unidades · orden libre",
         "practicas": [
           {
             "badge": "Unidad I",
