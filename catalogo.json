@@ -272,10 +272,8 @@
       {
         "nombre": "Prestación de Servicio y Atención a la Ciudadanía",
         "icono": "🤝",
-        "tipoClase": "secuencial",
-        "tipoLabel": "Curso secuencial · 5 unidades",
-        "esSecuencial": true,
-        "cursoId": "atencion-ciudadania",
+        "tipoClase": "taller",
+        "tipoLabel": "5 unidades · orden libre",
         "practicas": [
           {
             "badge": "Unidad I",
@@ -617,7 +615,7 @@
         "nombre": "Inteligencia Artificial Aplicada",
         "icono": "📡",
         "tipoClase": "taller",
-        "tipoLabel": "3 unidades · orden libre",
+        "tipoLabel": "4 unidades · orden libre",
         "cursoId": "ia-aplicada-ci",
         "practicas": [
           {
@@ -649,6 +647,16 @@
             "puntos": "100 pts",
             "aprobacion": "70% mínimo",
             "url": "https://johantbueno.github.io/practicas-web/ia-aplicada-ci-u3/"
+          },
+          {
+            "badge": "Unidad IV",
+            "unidad": "u4",
+            "titulo": "IA Generativa Aplicada a la Empresa",
+            "desc": "El valor estratégico de la IA Generativa a escala empresarial (automatización de procesos, atención al ciudadano, apoyo a la toma de decisiones), dos casos prácticos ilustrativos de instituciones públicas, un modelo de adopción empresarial en 4 etapas, gobernanza y límites, y el laboratorio para construir su propio caso de negocio de IA Generativa. Individual o en equipo.",
+            "duracion": "6 pasos · aproximadamente 60 minutos, individual o en equipo",
+            "puntos": "100 pts",
+            "aprobacion": "70% mínimo",
+            "url": "https://johantbueno.github.io/practicas-web/ia-aplicada-ci-u4/"
           }
         ]
       },

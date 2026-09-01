@@ -3,23 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Práctica — Unidad III | Prestación de Servicio y Atención a la Ciudadanía</title>
-<meta name="description" content="Práctica autocalificable de la Unidad III: Manejo de Situaciones Difíciles y Resolución de Conflictos, curso Prestación de Servicio y Atención a la Ciudadanía, INAP. Tipología de ciudadanos difíciles, inteligencia emocional, escucha activa y modelo DESC, resolución de problemas, protocolos de emergencia y derechos del servidor, aplicados a su propia institución. Por escrito o por nota de voz. Incluye a Nicole y calificación automática preliminar.">
+<title>Práctica — Unidad IV | Inteligencia Artificial Aplicada</title>
+<meta name="description" content="Práctica autocalificable de la Unidad IV: IA Generativa Aplicada a la Empresa, curso Inteligencia Artificial Aplicada, Comunicación Integral. Valor estratégico de la IA Generativa, casos prácticos de instituciones públicas, modelo de adopción empresarial, laboratorio para construir un caso de negocio y gobernanza. Por escrito o por nota de voz. Incluye a Nicole y calificación automática preliminar.">
 <meta name="color-scheme" content="light dark">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A4%9D%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%A1%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <style>
 :root{
-  --navy:#1a2a3a; --navy-dark:#0f1a26; --gold:#e8955f;
+  --navy:#0d7377; --navy-dark:#093638; --gold:#8dc63f;
   --primary:#0f172a; --secondary:#334155; --muted:#64748b;
   --bg-body:#f4f7fb; --bg-card:#ffffff; --border-light:#e2e8f0; --border-dark:#cbd5e1;
   --green:#16a34a; --green-bg:#f0fdf4; --green-border:#22c55e;
   --amber:#b45309; --amber-bg:#fffbeb; --amber-border:#f59e0b;
   --red:#b91c1c; --red-bg:#fef2f2; --red-border:#ef4444;
-  --blue-bg:#fdf1e9; --blue-border:#e8955f;
+  --blue-bg:#eff6ff; --blue-border:#3b82f6;
   --radius-lg:16px; --radius-md:12px; --radius-sm:8px;
   --shadow-sm:0 1px 2px rgba(0,0,0,.06);
   --shadow-md:0 4px 6px -1px rgba(0,0,0,.1), 0 2px 4px -2px rgba(0,0,0,.1);
@@ -27,9 +27,10 @@
   --sidebar-w:300px;
 }
 [data-theme="dark"]{
-  --navy:#e8955f; --primary:#f1f5f9; --secondary:#cbd5e1; --muted:#94a3b8;
+  --navy:#5eead4; --primary:#f1f5f9; --secondary:#cbd5e1; --muted:#94a3b8;
   --bg-body:#0b1220; --bg-card:#151f2f; --border-light:#283249; --border-dark:#3a4666;
-  --green-bg:#0c2417; --amber-bg:#2a2108; --red-bg:#2a1212; --blue-bg:#2a1d13;
+  --green-bg:#0c2417; --amber-bg:#2a2108; --red-bg:#2a1212; --blue-bg:#13233f;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.4); --shadow-md:0 4px 6px -1px rgba(0,0,0,.5); --shadow-lg:0 10px 15px -3px rgba(0,0,0,.5);
 }
 *{box-sizing:border-box;}
 html{scroll-behavior:smooth;}
@@ -69,10 +70,12 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 #sound-toggle{width:28px; height:28px; font-size:.85rem; flex-shrink:0;}
 @keyframes timerPulse{0%,100%{opacity:1; transform:scale(1);} 50%{opacity:.55; transform:scale(1.05);}}
 
+/* Corazones estilo "vida" de videojuego -- se van vaciando segun avanza el tiempo. */
 #hearts-canvas{display:block; margin:.55rem auto 0;}
 @keyframes heartShake{0%,100%{transform:translateX(0);} 20%{transform:translateX(-2px);} 40%{transform:translateX(2px);} 60%{transform:translateX(-2px);} 80%{transform:translateX(2px);}}
 #hearts-canvas.critical{animation:heartShake .3s ease-in-out infinite;}
 
+/* Modo "tiempo extra" -- tras los 60 minutos, puramente cosmetico, no afecta la aprobacion. */
 .timer-box.overtime{background:var(--red-bg); border-color:var(--red-border);}
 .timer-box.overtime .timer-value{color:var(--red); animation:timerPulse .6s ease-in-out infinite;}
 .overtime-note{font-size:.66rem; color:var(--red); text-align:center; margin-top:.4rem; font-weight:700; line-height:1.3;}
@@ -81,6 +84,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .fast-clock-hand{position:absolute; top:50%; left:50%; width:2px; height:10px; background:var(--red); transform-origin:50% 100%; margin-top:-10px; margin-left:-1px; animation:fastSpin .4s linear infinite;}
 @keyframes fastSpin{ to{ transform:rotate(360deg); } }
 
+/* MEDALLA */
 .medal-modal{position:fixed; inset:0; background:rgba(0,0,0,.65); z-index:2000; display:flex; align-items:center; justify-content:center; padding:1rem;}
 .medal-modal[hidden]{display:none;}
 .medal-modal-inner{background:var(--bg-card); border-radius:var(--radius-lg); padding:1.5rem; max-width:420px; width:100%; text-align:center; position:relative; box-shadow:var(--shadow-lg);}
@@ -171,12 +175,24 @@ textarea.tall{min-height:150px;}
 .field-grid{display:grid; grid-template-columns:1fr 1fr; gap:.9rem;}
 @media (max-width:640px){ .field-grid{grid-template-columns:1fr;} }
 
-.step-points{float:right; background:var(--gold); color:#2a1500; font-weight:800; font-size:.72rem; padding:.25rem .6rem; border-radius:999px;}
+.step-points{float:right; background:var(--gold); color:#123; font-weight:800; font-size:.72rem; padding:.25rem .6rem; border-radius:999px;}
 
 .glossary-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:.9rem; margin-top:1rem;}
 .gloss-item{border:1px solid var(--border-light); border-radius:var(--radius-md); padding:.9rem 1rem; background:var(--bg-body);}
 .gloss-item dt{font-weight:800; color:var(--navy); font-size:.85rem; margin-bottom:.3rem;}
 .gloss-item dd{margin:0; font-size:.82rem; color:var(--secondary);}
+
+.care-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:.9rem; margin:1rem 0;}
+.care-box{border:1px solid var(--border-light); border-radius:var(--radius-md); padding:1rem; background:var(--bg-body); border-top:4px solid var(--navy);}
+.care-box .letra{font-size:1.6rem; font-weight:900; color:var(--navy); line-height:1;}
+.care-box .nombre{font-weight:800; color:var(--primary); font-size:.9rem; margin:.35rem 0 .3rem;}
+.care-box p{font-size:.82rem; margin:0;}
+
+.video-wrap{position:relative; width:100%; padding-top:56.25%; border-radius:var(--radius-md); overflow:hidden; margin:.75rem 0 1.1rem; box-shadow:var(--shadow-md); background:#000;}
+.video-wrap iframe{position:absolute; inset:0; width:100%; height:100%; border:0;}
+.video-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:1.1rem; margin:1rem 0;}
+.video-grid .video-wrap{margin:0 0 .4rem;}
+.video-caption{font-size:.78rem; color:var(--muted); margin:0;}
 
 ol.ins-list{padding-left:1.2rem;}
 ol.ins-list li{margin-bottom:.5rem;}
@@ -219,10 +235,10 @@ ol.ins-list li{margin-bottom:.5rem;}
 
 footer.tp-footer{text-align:center; color:var(--muted); font-size:.8rem; padding:2rem 1rem; border-top:1px solid var(--border-light); margin-top:1rem;}
 
-/* NICOLE */
+/* ADVISOR (Nicole, asistente del Dr. Johan Tapia) */
 .advisor-fab{position:fixed; bottom:calc(1.5rem + env(safe-area-inset-bottom)); left:1.5rem; z-index:900; background:linear-gradient(135deg,var(--navy),var(--navy-dark)); color:#fff; border:none; border-radius:999px; padding:.85rem 1.2rem; display:flex; align-items:center; gap:.5rem; font-weight:700; font-size:.9rem; cursor:pointer; box-shadow:var(--shadow-lg); font-family:inherit;}
 .advisor-fab:hover{filter:brightness(1.1);}
-.proftapia-fab{position:fixed; bottom:calc(1.5rem + env(safe-area-inset-bottom)); right:1.5rem; z-index:900; background:linear-gradient(135deg,var(--gold),#a9622f); color:#2a1500; text-decoration:none; border-radius:999px; padding:.85rem 1.2rem; display:flex; align-items:center; gap:.5rem; font-weight:700; font-size:.9rem; box-shadow:var(--shadow-lg); font-family:inherit;}
+.proftapia-fab{position:fixed; bottom:calc(1.5rem + env(safe-area-inset-bottom)); right:1.5rem; z-index:900; background:linear-gradient(135deg,var(--gold),#5c8a1f); color:#0f2400; text-decoration:none; border-radius:999px; padding:.85rem 1.2rem; display:flex; align-items:center; gap:.5rem; font-weight:700; font-size:.9rem; box-shadow:var(--shadow-lg); font-family:inherit;}
 .proftapia-fab:hover{filter:brightness(1.05);}
 .advisor-panel{position:fixed; bottom:calc(5.2rem + env(safe-area-inset-bottom)); left:1.5rem; width:min(360px,90vw); max-height:min(560px,70vh); background:var(--bg-card); border:1px solid var(--border-light); border-radius:var(--radius-lg); box-shadow:var(--shadow-lg); z-index:900; display:none; flex-direction:column; overflow:hidden;}
 .advisor-panel.open{display:flex;}
@@ -261,6 +277,9 @@ footer.tp-footer{text-align:center; color:var(--muted); font-size:.8rem; padding
 html[data-fontsize="grande"] body{font-size:1.14rem;}
 html[data-fontsize="xgrande"] body{font-size:1.3rem;}
 
+/* EFECTOS DINAMICOS: revelado al hacer scroll, micro-interacciones,
+   fondo animado en la portada, confeti al aprobar. Todo con
+   requestAnimationFrame/Canvas nativo, sin librerias nuevas. */
 .card.cover{position:relative; overflow:hidden;}
 #cover-canvas{position:absolute; inset:0; width:100%; height:100%; opacity:.4; pointer-events:none;}
 .card.cover > *{position:relative; z-index:1;}
@@ -273,10 +292,11 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
 .btn-primary:hover{box-shadow:var(--shadow-lg);}
 .btn-primary:active, .btn-secondary:active, .btn-block:active{transform:translateY(0) scale(.97);}
 .js-ripple{position:absolute; border-radius:50%; background:rgba(255,255,255,.55); transform:scale(0); animation:rippleAnim .6s ease-out forwards; pointer-events:none;}
-.btn-secondary .js-ripple, .btn-block .js-ripple{background:rgba(26,42,58,.18);}
+.btn-secondary .js-ripple, .btn-block .js-ripple{background:rgba(13,115,119,.18);}
 @keyframes rippleAnim{ to{ transform:scale(2.6); opacity:0; } }
 
 #confetti-canvas{position:fixed; inset:0; width:100%; height:100%; pointer-events:none; z-index:3000;}
+
 
 @media (prefers-reduced-motion: reduce){
   .reveal-init{opacity:1; transform:none; transition:none;}
@@ -292,11 +312,11 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
 <a href="#main-content" class="skip-link">Saltar al contenido</a>
 <div id="progress-wrap"><div id="progress-bar"></div></div>
 
-<div class="wrapper" id="wrapper-real">
+<div class="wrapper">
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
-      <span style="font-size:1.4rem;">🤝</span>
-      <p class="sidebar-title">Unidad III · Atención Ciudadana</p>
+      <span style="font-size:1.4rem;">📡</span>
+      <p class="sidebar-title">Unidad IV · IA Aplicada</p>
       <div class="header-actions">
         <div class="fontsize-controls">
           <button type="button" id="font-smaller" title="Letra más pequeña" aria-label="Reducir tamaño de letra">A−</button>
@@ -313,7 +333,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
           <span class="timer-label">⏱️ Tiempo sugerido</span>
           <button class="icon-btn" id="sound-toggle" type="button" title="Silenciar o activar el sonido" aria-label="Silenciar o activar el sonido del temporizador">🔔</button>
         </div>
-        <div class="timer-value" id="timer-value">90:00</div>
+        <div class="timer-value" id="timer-value">60:00</div>
         <canvas id="hearts-canvas" width="230" height="40" aria-hidden="true"></canvas>
         <div class="fast-clock" id="fast-clock" aria-hidden="true"><div class="fast-clock-hand"></div></div>
         <div class="overtime-note" id="overtime-note" hidden>⏱️ Tiempo de referencia — no afecta su calificación</div>
@@ -327,14 +347,14 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
 
       <nav class="nav" aria-label="Navegación de la práctica">
         <ul>
-          <li><a href="#portada">🤝 Portada e instrucciones</a></li>
+          <li><a href="#portada">📡 Portada e instrucciones</a></li>
           <li><a href="#marco-conceptual">📚 Marco conceptual</a></li>
-          <li><a href="#paso1" data-step="paso1">Paso 1 · Tipología de situaciones difíciles <span class="pct" data-pct="paso1">0%</span></a></li>
-          <li><a href="#paso2" data-step="paso2">Paso 2 · Inteligencia emocional <span class="pct" data-pct="paso2">0%</span></a></li>
-          <li><a href="#paso3" data-step="paso3">Paso 3 · Escucha, validación y DESC <span class="pct" data-pct="paso3">0%</span></a></li>
-          <li><a href="#paso4" data-step="paso4">Paso 4 · Resolución de problemas <span class="pct" data-pct="paso4">0%</span></a></li>
-          <li><a href="#paso5" data-step="paso5">Paso 5 · Prevención y reclamos <span class="pct" data-pct="paso5">0%</span></a></li>
-          <li><a href="#paso6" data-step="paso6">Paso 6 · Derechos y autocuidado <span class="pct" data-pct="paso6">0%</span></a></li>
+          <li><a href="#paso1" data-step="paso1">Paso 1 · Valor estratégico <span class="pct" data-pct="paso1">0%</span></a></li>
+          <li><a href="#paso2" data-step="paso2">Paso 2 · Caso: chatbot ciudadano <span class="pct" data-pct="paso2">0%</span></a></li>
+          <li><a href="#paso3" data-step="paso3">Paso 3 · Caso: asistente interno <span class="pct" data-pct="paso3">0%</span></a></li>
+          <li><a href="#paso4" data-step="paso4">Paso 4 · Modelo de adopción <span class="pct" data-pct="paso4">0%</span></a></li>
+          <li><a href="#paso5" data-step="paso5">Paso 5 · Su caso de negocio <span class="pct" data-pct="paso5">0%</span></a></li>
+          <li><a href="#paso6" data-step="paso6">Paso 6 · Gobernanza y límites <span class="pct" data-pct="paso6">0%</span></a></li>
           <li><a href="#rubrica">🧮 Rúbrica de evaluación</a></li>
           <li><a href="#resultado">📤 Enviar y calificar</a></li>
         </ul>
@@ -353,41 +373,22 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
 
     <section id="portada" class="card cover" style="scroll-margin-top:1.25rem;">
       <canvas id="cover-canvas" aria-hidden="true"></canvas>
-      <p class="eyebrow">Curso Prestación de Servicio y Atención a la Ciudadanía · INAP</p>
-      <h1>Práctica — Unidad III</h1>
-      <p class="sub">Manejo de Situaciones Difíciles y Resolución de Conflictos: tipología de ciudadanos difíciles, inteligencia emocional, técnicas de resolución y resolución de problemas, aplicados a su propia institución</p>
+      <p class="eyebrow">UNIDAD IV · IA GENERATIVA APLICADA A LA EMPRESA — Curso Inteligencia Artificial Aplicada · Comunicación Integral</p>
+      <h1>Práctica — Unidad IV</h1>
+      <p class="sub">IA Generativa Aplicada a la Empresa: del experimento individual al valor estratégico, con casos prácticos de instituciones públicas, un modelo de adopción empresarial y el laboratorio para construir su propio caso de negocio.</p>
       <div class="cover-chips">
-        <span class="cover-chip">Aplicable a cualquier institución pública</span>
-        <span class="cover-chip">Individual</span>
-        <span class="cover-chip">100 pts · aprueba al completarla</span>
-        <span class="cover-chip">Dura aproximadamente 90 minutos</span>
-        <span class="cover-chip">Después de revisar el material de estudio de la Unidad III (video o sesión presencial)</span>
+        <span class="cover-chip">Individual o en equipo</span>
+        <span class="cover-chip">100 pts · aprobación mínima 70</span>
+        <span class="cover-chip">6 pasos · aproximadamente 60 minutos</span>
+        <span class="cover-chip">Después de revisar el material de estudio de la Unidad IV</span>
         <span class="cover-chip">Gana una medalla digital al terminar</span>
       </div>
-    </section>
-
-    <section class="card">
-      <span class="step-badge">Ejemplos de situaciones difíciles</span>
-      <h1 style="font-size:1.35rem;">Piense en una situación difícil real que USTED haya enfrentado</h1>
-      <div class="alert info">
-        Esta práctica aplica a cualquier institución del Estado dominicano. Para pensar en un ejemplo concreto, aquí tiene tipos de situaciones difíciles típicas — elija la que se parezca más a su realidad diaria, o use cualquier otra situación real de su trabajo.
-      </div>
-      <div class="tbl-wrap"><table class="tp-table">
-        <thead><tr><th>Tipo de situación</th><th>Ejemplo típico en instituciones dominicanas</th></tr></thead>
-        <tbody>
-          <tr><td class="label-cell">Ciudadano molesto</td><td>Reclamo por una demora excesiva, un trámite con información contradictoria, un resultado negativo inesperado.</td></tr>
-          <tr><td class="label-cell">Ciudadano exigente</td><td>Solicita hablar con el director de inmediato, menciona contactos influyentes, cuestiona cada paso del proceso.</td></tr>
-          <tr><td class="label-cell">Ciudadano conflictivo</td><td>Insultos, golpes en el mostrador, amenazas de acudir a los medios o de agredir al personal.</td></tr>
-          <tr><td class="label-cell">Reclamo grupal</td><td>Varios ciudadanos organizados por un mismo problema, con posible cobertura de medios de comunicación.</td></tr>
-        </tbody>
-      </table></div>
-      <p>Puede usar cualquier situación real de su propia dependencia. No hace falta que sea exactamente uno de los ejemplos de la tabla — use la que usted conozca mejor porque la vivió o la observó directamente en su trabajo.</p>
     </section>
 
     <section class="card" id="tutorial">
       <span class="step-badge">Tutorial</span>
       <h1 style="font-size:1.35rem;">Cómo usar esta plataforma</h1>
-      <p><strong>Concepto:</strong> esta práctica se realiza <strong>después de revisar el material de estudio de la Unidad III</strong>. Tiene 6 pasos, cada uno con su concepto, una guía de llenado y espacio para sus respuestas — puede escribir directamente o grabar una nota de voz.</p>
+      <p><strong>Concepto:</strong> esta práctica se realiza <strong>después de revisar el material de estudio de la Unidad IV</strong> (video o sesión presencial). Tiene 6 pasos, cada uno con su concepto, una guía de llenado y espacio para sus respuestas — puede escribir directamente o grabar una nota de voz.</p>
 
       <h2>Dos formas de responder cada pregunta</h2>
       <p><strong>Definición:</strong> cada campo de respuesta larga acepta texto escrito o una nota de voz transcrita automáticamente.</p>
@@ -406,7 +407,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
       <h2>La medalla digital al terminar</h2>
       <p>Cuando complete los 6 pasos y presione <strong>Enviar y Calificar</strong>, va a poder generar una <strong>medalla digital</strong> con su nombre para descargar o compartir por WhatsApp, correo o redes sociales, como recuerdo de haber completado esta práctica.</p>
 
-      <h2>Progreso, guardado y aprobación</h2>
+      <h2>Progreso, guardado y calificación</h2>
       <p>Sus respuestas se guardan automáticamente en este navegador mientras trabaja. Puede cerrar la página y volver más tarde a completar otra pregunta. Al presionar <strong>Enviar y Calificar</strong>, el sistema le da una nota preliminar orientativa y comentarios al instante.</p>
       <div class="help-box">
         <span style="font-size:1.6rem;">💬</span>
@@ -422,259 +423,232 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
     <section class="card">
       <span class="step-badge">Objetivo y encuadre</span>
       <h1 style="font-size:1.35rem;">Antes de empezar</h1>
+
       <div class="alert info">
-        <strong>Objetivo de la actividad:</strong> analizar la tipología de situaciones difíciles, la inteligencia emocional aplicada, las técnicas de resolución de conflictos y el proceso de resolución de problemas, aplicando estos conceptos a una situación real que usted enfrenta en su propia institución.
+        <strong>Objetivo de la actividad:</strong> comprender el valor estratégico de la IA Generativa para una organización, analizar dos casos prácticos reales de instituciones públicas, aplicar un modelo de adopción empresarial, construir su propio caso de negocio de IA Generativa para su institución, y reconocer los límites de gobernanza que protegen a los ciudadanos.
       </div>
       <div class="alert gold">
-        <strong>Marco de referencia:</strong> ciudadano molesto, exigente y conflictivo; autoconocimiento, autocontrol, manejo del estrés y empatía; escucha activa en conflictos, validación emocional, modelo DESC y negociación win-win; identificación de problemas, protocolos de emergencia, prevención de conflictos, manejo de reclamos, y derechos del servidor público.
+        <strong>Sobre este curso:</strong> "Inteligencia Artificial Aplicada" acompaña el trabajo diario de comunicación institucional y organizacional con herramientas de IA. La Unidad III cubrió la creación de contenido digital. Esta Unidad IV cierra el curso llevando la IA Generativa del uso individual (herramientas, contenido) a la escala institucional: cómo una organización completa —incluyendo instituciones públicas— la adopta de forma estratégica, con casos reales y un marco de gobernanza responsable.
       </div>
       <h2>¿Cómo va a completar esta práctica?</h2>
-      <p>Esta práctica se completa de forma individual. Complete estos datos antes de enviar: su facilitador recibirá la calificación identificada con ellos.</p>
-      <div class="field-grid">
-        <div class="field"><label for="est_nombre">Nombre completo</label><input type="text" id="est_nombre" placeholder="Su nombre y apellido"></div>
-        <div class="field"><label for="est_institucion">Institución o dependencia donde labora</label><input type="text" id="est_institucion" placeholder="Ej: DGII, JCE, TSS, un ayuntamiento, un hospital público..."></div>
+      <p>Puede completarla sola/o o en equipo. Complete esto antes de enviar: quien coordina el curso recibirá la calificación identificada con estos datos.</p>
+      <div class="field">
+        <label for="modo_trabajo">Modalidad</label>
+        <select id="modo_trabajo">
+          <option value="individual">Individual</option>
+          <option value="grupo">En equipo</option>
+        </select>
       </div>
-      <div class="field"><label for="est_correo">Correo institucional (opcional)</label><input type="text" id="est_correo" placeholder="nombre@correo.gob.do"></div>
+      <div class="field-grid" id="bloque-individual">
+        <div class="field"><label for="ind_nombre">Nombre completo</label><input type="text" id="ind_nombre" placeholder="Su nombre y apellido"></div>
+        <div class="field"><label for="ind_correo">Correo (opcional)</label><input type="text" id="ind_correo" placeholder="nombre@correo.com"></div>
+      </div>
+      <div class="field-grid" id="bloque-grupo" hidden>
+        <div class="field"><label for="grp_nombre">Nombre del equipo o grupo</label><input type="text" id="grp_nombre" placeholder="Ej: Equipo Innovación"></div>
+        <div class="field"><label for="grp_correo">Correo de contacto del equipo (opcional)</label><input type="text" id="grp_correo" placeholder="nombre@correo.com"></div>
+      </div>
+      <div class="field" id="bloque-integrantes" hidden>
+        <label for="grp_integrantes">Nombres de los integrantes del equipo (opcional)</label>
+        <textarea id="grp_integrantes" placeholder="Escriba el nombre completo de cada persona que participó, uno por línea o separados por coma"></textarea>
+      </div>
       <h2>Instrucciones generales</h2>
+
       <ol class="ins-list">
-        <li>Revise el <strong>material de estudio de la Unidad III: Manejo de Situaciones Difíciles y Resolución de Conflictos</strong> antes de responder — esta práctica retoma directamente sus conceptos.</li>
-        <li>Complete la identificación de arriba y mantenga en mente, durante los 6 pasos, una <strong>situación difícil real</strong> que usted haya enfrentado en su institución.</li>
-        <li>Complete los <strong>6 pasos</strong> en el orden indicado, por escrito o por nota de voz. En cada uno, no se limite a definir un concepto: aplíquelo a una situación real de su propio trabajo.</li>
-        <li>Al finalizar, presione <strong>Enviar y Calificar</strong>: el sistema revisará el trabajo y dará una nota preliminar orientativa y retroalimentación inmediata.</li>
+        <li>Revise el <strong>material de estudio de la Unidad IV</strong> (video o sesión presencial) antes de responder — esta práctica retoma directamente sus conceptos.</li>
+        <li>Elija si van a trabajar <strong>individual o en equipo</strong>, arriba.</li>
+        <li>Complete los <strong>6 pasos</strong> en el orden indicado, por escrito o por nota de voz.</li>
+        <li>En el Paso 5 va a <strong>construir su propio caso de negocio</strong> de IA Generativa para un problema real de su institución.</li>
+        <li>Al finalizar, presione <strong>Enviar y Calificar</strong>: el sistema revisará su trabajo y le dará una nota y retroalimentación inmediata.</li>
       </ol>
       <div class="alert success">
         <strong>🎓 Esta práctica es interactiva y autocalificable.</strong> Mientras trabaja, Nicole (botón 🎓 abajo a la izquierda) puede responder sus dudas conceptuales. Al terminar, el botón <strong>Enviar y Calificar</strong> evalúa al instante la completitud y calidad de cada paso, y además pide que el Tutor Virtual haga una segunda revisión sobre el contenido real de sus respuestas.
       </div>
       <div class="alert warn">
-        <strong>Sobre la calificación automática:</strong> el sistema evalúa <em>completitud, extensión y coherencia formal</em> de sus respuestas — no sustituye la revisión de contenido de su facilitador. Recuerde: <strong>la aprobación de esta práctica depende de completarla, no de la nota obtenida.</strong>
+        <strong>Sobre la calificación automática:</strong> el sistema evalúa <em>completitud, extensión y coherencia formal</em> de sus respuestas — no sustituye la revisión de contenido de quien coordina el curso. La aprobación mínima de esta práctica es de 70 sobre 100 puntos.
       </div>
     </section>
 
     <section id="marco-conceptual" class="card">
-      <span class="step-badge">Referencia</span>
+      <span class="step-badge">Referencia, explicada en palabras simples</span>
       <h1 style="font-size:1.35rem;">Marco conceptual de referencia</h1>
-      <p>Consulte estos conceptos, ya vistos en el material de estudio de la Unidad III, mientras completa la actividad. También puede preguntarle a Nicole sobre cualquiera de ellos.</p>
-      <dl class="glossary-grid">
-        <div class="gloss-item"><dt>Ciudadano molesto</dt><dd>Manifiesta insatisfacción por un servicio, trato o resultado negativo. Su enojo es, casi siempre, una reacción legítima ante una experiencia real, no algo personal contra el servidor.</dd></div>
-        <div class="gloss-item"><dt>Ciudadano exigente</dt><dd>Expectativas muy altas, pide tratos especiales o respuestas inmediatas. Puede ser educado pero inflexible. Requiere firmeza con respeto, sin ceder a presiones fuera de la norma.</dd></div>
-        <div class="gloss-item"><dt>Ciudadano conflictivo</dt><dd>Busca confrontación: insultos, amenazas, agresión. Requiere protocolo de seguridad: distancia, no responder con agresividad, llamar a supervisor/seguridad, documentar.</dd></div>
-        <div class="gloss-item"><dt>Autoconocimiento y autocontrol</dt><dd>Reconocer los propios detonantes emocionales y gestionar esas emociones para actuar de forma profesional bajo presión: respirar, contar hasta 5, recordar "no es personal, es profesional".</dd></div>
-        <div class="gloss-item"><dt>Burnout</dt><dd>Síndrome de desgaste profesional por estrés laboral crónico. Señales: cansancio crónico, cinismo, irritabilidad, dificultad para concentrarse, dolores físicos sin causa médica.</dd></div>
-        <div class="gloss-item"><dt>Escucha activa en conflictos</dt><dd>Detenerse, escuchar todo sin interrumpir, observar, parafrasear, validar, preguntar. Desescala significativamente la agresividad del ciudadano.</dd></div>
-        <div class="gloss-item"><dt>Validación emocional</dt><dd>Reconocer los sentimientos del ciudadano como legítimos sin necesariamente estar de acuerdo con sus demandas. Baja la defensiva y abre al diálogo.</dd></div>
-        <div class="gloss-item"><dt>Modelo DESC</dt><dd>Describir (el hecho, sin juzgar), Expresar (cómo le afecta), Especificar (qué necesita que cambie), Consecuencias (el beneficio positivo del cambio). Comunicación asertiva de límites.</dd></div>
-        <div class="gloss-item"><dt>Negociación win-win</dt><dd>Separar personas del problema, enfocarse en intereses no posiciones, generar opciones, usar criterios objetivos (Fisher y Ury).</dd></div>
-        <div class="gloss-item"><dt>Técnica de los 5 porqués</dt><dd>Preguntar "por qué" repetidamente para llegar de un síntoma visible a la causa raíz real de un problema.</dd></div>
-        <div class="gloss-item"><dt>Protocolos de emergencia</dt><dd>Procedimientos establecidos para amenazas verbales, físicas, emergencias médicas, incendios y robos. Botón de pánico, llamado a seguridad, no confrontar.</dd></div>
-        <div class="gloss-item"><dt>Prevención de conflictos</dt><dd>Información clara desde el inicio, gestión realista de expectativas, capacitación del personal, sistemas de citas, empoderar al primer nivel.</dd></div>
-        <div class="gloss-item"><dt>Manejo de reclamos</dt><dd>Recepción, registro, clasificación, investigación, respuesta (máximo 15 días hábiles según Ley 107-13), acción correctiva, seguimiento.</dd></div>
-        <div class="gloss-item"><dt>Derechos del servidor público</dt><dd>Ambiente seguro, no ser agredido, capacitación, apoyo institucional, defensa ante quejas infundadas, salud mental (Ley 41-08 y Ley 107-13).</dd></div>
-        <div class="gloss-item"><dt>Documentación de incidentes</dt><dd>Fecha/hora/lugar, personas involucradas, descripción objetiva, acciones tomadas, resultado, lecciones aprendidas. Herramienta de aprendizaje, no punitiva.</dd></div>
-        <div class="gloss-item"><dt>Escalamiento</dt><dd>Reconocer cuándo un caso excede la propia autoridad y remitirlo correctamente, explicando siempre por qué al ciudadano, nunca con "eso no es mi problema".</dd></div>
-      </dl>
+      <p>Consulte estos conceptos, ya vistos en el material de estudio de la Unidad IV, mientras completa la actividad. También puede preguntarle a Nicole sobre cualquiera de ellos.</p>
 
-      <h2>📋 Un caso real de resolución compleja: la DGII</h2>
-      <p>Este caso es referencia útil para varios de los pasos — muestra cómo la escucha, la validación y el compromiso concreto transforman un conflicto de alta complejidad.</p>
-      <div class="tbl-wrap"><table class="tp-table">
-        <thead><tr><th>Situación</th><th>Estrategia aplicada</th><th>Resultado</th></tr></thead>
-        <tbody>
-          <tr><td class="label-cell">Empresaria con devolución de RD$450,000 rechazada, 8 meses y 5 visitas sin solución, con abogado y amenaza de ir a medios.</td><td>Escucha completa en sala privada (20 min); validación honesta; investigación del expediente; compromiso personal con plazo de 48h; acción concreta; cierre con agradecimiento.</td><td>Ciudadana satisfecha; sin demanda ni escándalo mediático.</td></tr>
-        </tbody>
-      </table></div>
+      <h2>1. Del uso individual al valor empresarial: 3 categorías estratégicas</h2>
+      <p>Cuando una organización pasa de "una persona probando ChatGPT" a un plan real de adopción, el valor de la IA Generativa se agrupa en tres grandes categorías:</p>
+      <div class="glossary-grid">
+        <div class="gloss-item"><dt>1. Automatización de procesos y documentos</dt><dd>Generar y resumir informes, actas, oficios y contratos; reducir el tiempo administrativo dedicado a redactar y transcribir.</dd></div>
+        <div class="gloss-item"><dt>2. Atención al ciudadano o cliente</dt><dd>Chatbots y asistentes que responden preguntas frecuentes y orientan trámites, disponibles fuera del horario de oficina.</dd></div>
+        <div class="gloss-item"><dt>3. Apoyo a la toma de decisiones</dt><dd>Analizar y resumir grandes volúmenes de información, redactar minutas ejecutivas y detectar patrones útiles para decisiones de gestión o de política pública.</dd></div>
+      </div>
+      <div class="alert info" style="margin-top:1rem;">
+        <strong>Un dato de contexto:</strong> encuestas globales de firmas como McKinsey &amp; Company muestran que la mayoría de las organizaciones ya experimentan con IA Generativa, pero solo una minoría ha logrado escalarla más allá de proyectos piloto — la diferencia casi siempre está en la gobernanza, no en la tecnología.
+      </div>
+
+      <h2>2. Casos prácticos: instituciones públicas que ya aplican IA Generativa</h2>
+      <p>Los dos casos que va a analizar en los Pasos 2 y 3 son <strong>ilustrativos</strong>, con nombres de instituciones ficticios, inspirados en patrones reales de adopción del sector público (chatbots ciudadanos y asistentes internos de conocimiento).</p>
+      <div class="care-grid">
+        <div class="care-box"><div class="letra">🏛️</div><div class="nombre">Atención ciudadana</div><p>Un chatbot municipal que responde preguntas sobre trámites con base en documentos oficiales, escalando a personal humano los casos complejos.</p></div>
+        <div class="care-box"><div class="letra">📚</div><div class="nombre">Conocimiento interno</div><p>Un asistente que ayuda al personal a redactar informes y consultar manuales internos, siempre con revisión humana antes de publicar.</p></div>
+      </div>
+
+      <h2>3. Modelo de adopción empresarial: 4 etapas</h2>
+      <div class="glossary-grid">
+        <div class="gloss-item"><dt>1. Diagnóstico</dt><dd>Identificar los procesos con mayor fricción y verificar qué datos y documentos oficiales están disponibles para sustentar una solución.</dd></div>
+        <div class="gloss-item"><dt>2. Piloto controlado</dt><dd>Probar con un equipo pequeño, un caso de uso acotado y supervisión humana constante, antes de comprometer recursos mayores.</dd></div>
+        <div class="gloss-item"><dt>3. Gobernanza</dt><dd>Definir reglas de uso, protección de datos y transparencia con el ciudadano <em>antes</em> de escalar, no después.</dd></div>
+        <div class="gloss-item"><dt>4. Escalamiento</dt><dd>Extender la solución a más áreas, ya con métricas de impacto validadas en el piloto.</dd></div>
+      </div>
+
+      <h2>4. Gobernanza y límites en el sector público</h2>
+      <div class="glossary-grid">
+        <div class="gloss-item"><dt>Transparencia</dt><dd>El ciudadano debe saber cuándo está interactuando con una IA, no con una persona.</dd></div>
+        <div class="gloss-item"><dt>Supervisión humana</dt><dd>Ninguna decisión que afecte derechos de una persona se deja al 100% en manos de la IA.</dd></div>
+        <div class="gloss-item"><dt>Protección de datos</dt><dd>Los datos personales se tratan según la normativa vigente (en República Dominicana, la Ley 172-13 de Protección de Datos de Carácter Personal).</dd></div>
+        <div class="gloss-item"><dt>Verificación de fuentes</dt><dd>Las respuestas deben anclarse en documentos oficiales, para evitar alucinaciones en información legal o de trámites.</dd></div>
+      </div>
     </section>
 
+    
     <!-- ============ PASO 1 ============ -->
     <section id="paso1" class="card">
-      <span class="step-badge">Paso 1 · 12 min</span><span class="step-points">Vale 15 pts</span>
-      <h1>Tipología de Situaciones Difíciles</h1>
-      <p><strong>Concepto:</strong> el ciudadano molesto reacciona ante una experiencia insatisfactoria legítima; el ciudadano exigente pide tratos especiales o respuestas inmediatas, a veces fuera de norma; el ciudadano conflictivo busca abiertamente la confrontación. Cada perfil requiere una estrategia distinta.</p>
-      <div class="alert info"><strong>Guía:</strong> elija el perfil que más enfrenta en su trabajo, identifique una señal de alerta típica, y describa una situación real con la forma en que la manejó.</div>
+      <span class="step-badge">Paso 1 · 10 min</span><span class="step-points">Vale 15 pts</span>
+      <h1>El valor estratégico de la IA Generativa en la empresa</h1>
+      <p><strong>Concepto:</strong> a nivel empresarial, la IA Generativa aporta valor en 3 categorías: <strong>automatización de procesos y documentos</strong> (informes, actas, oficios), <strong>atención al ciudadano o cliente</strong> (chatbots y asistentes) y <strong>apoyo a la toma de decisiones</strong> (resúmenes, análisis, minutas ejecutivas).</p>
+      <div class="alert info"><strong>Guía:</strong> piense en su organización, elija la categoría que más valor le aportaría hoy, y describa una necesidad real y concreta que encaje en esa categoría.</div>
 
       <div class="field">
-        <label for="p1_perfil">Perfil de ciudadano difícil que más enfrenta en su servicio</label>
-        <select id="p1_perfil">
+        <label for="p1_categoria">¿Qué categoría estratégica elige?</label>
+        <select id="p1_categoria">
           <option value="">Seleccione…</option>
-          <option>Ciudadano molesto / inconforme</option>
-          <option>Ciudadano exigente</option>
-          <option>Ciudadano conflictivo</option>
+          <option>Automatización de procesos y documentos</option>
+          <option>Atención al ciudadano o cliente</option>
+          <option>Apoyo a la toma de decisiones</option>
+          <option>Otra</option>
         </select>
       </div>
-
       <div class="field">
-        <label for="p1_senal">Señal de alerta que reconoce con más frecuencia en ese perfil</label>
-        <select id="p1_senal">
-          <option value="">Seleccione…</option>
-          <option>Voz elevada / lenguaje acusatorio</option>
-          <option>Pide hablar con "el jefe" / menciona contactos</option>
-          <option>Cuestiona cada paso del proceso</option>
-          <option>Insultos o amenazas verbales</option>
-          <option>Golpes en el mostrador / gestos intimidatorios</option>
-        </select>
+        <label for="p1_necesidad">Describa una necesidad real de su organización que encaje en esa categoría <span class="wc" data-for="p1_necesidad">0 palabras</span></label>
+        <textarea class="tall" id="p1_necesidad" placeholder="En mi organización, una necesidad real sería... (describa el proceso, área o situación concreta)"></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p1_necesidad">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p1_necesidad"></span></div>
       </div>
-
-      <div class="field">
-        <label for="p1_situacion">Describa una situación real (vivida u observada) con ese perfil de ciudadano <span class="wc" data-for="p1_situacion">0 palabras</span></label>
-        <textarea class="tall" id="p1_situacion" placeholder="Un ciudadano llegó y... la situación se desarrolló así..."></textarea>
-        <div class="voice-row"><button type="button" class="voice-btn" data-target="p1_situacion">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p1_situacion"></span></div>
-      </div>
-
-      <div class="field">
-        <label for="p1_manejo">¿Cómo manejó (o cómo manejaría) esa situación siguiendo la estrategia correcta para ese perfil? <span class="wc" data-for="p1_manejo">0 palabras</span></label>
-        <textarea id="p1_manejo" placeholder="Lo manejé/manejaría de esta forma..."></textarea>
-        <div class="voice-row"><button type="button" class="voice-btn" data-target="p1_manejo">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p1_manejo"></span></div>
-      </div>
+      <div class="hint">Consejo: entre más concreta sea la necesidad (un proceso, un formulario, una consulta que se repite), más fácil será justificar un caso de negocio más adelante.</div>
     </section>
 
     <!-- ============ PASO 2 ============ -->
     <section id="paso2" class="card">
-      <span class="step-badge">Paso 2 · 15 min</span><span class="step-points">Vale 17 pts</span>
-      <h1>Inteligencia Emocional Aplicada</h1>
-      <p><strong>Concepto:</strong> el autoconocimiento es reconocer nuestros propios detonantes emocionales; el autocontrol es gestionarlos para actuar con profesionalismo bajo presión. El manejo del estrés laboral previene el burnout, cuyas señales incluyen cansancio crónico, cinismo e irritabilidad.</p>
-      <div class="alert info"><strong>Guía:</strong> identifique su propio detonante emocional, describa una situación real de autocontrol, y una estrategia de manejo del estrés que aplica.</div>
+      <span class="step-badge">Paso 2 · 10 min</span><span class="step-points">Vale 15 pts</span>
+      <h1>Caso práctico: chatbot ciudadano con IA Generativa</h1>
+      <div class="alert gold"><strong>Caso ilustrativo (institución ficticia, con fines educativos):</strong> el <strong>Ayuntamiento de Villa Esperanza</strong> implementó un chatbot con IA Generativa en su sitio web y WhatsApp para responder preguntas sobre trámites municipales (licencias de construcción, pago de arbitrios, quejas). El chatbot responde <em>solo</em> con base en los documentos oficiales cargados del ayuntamiento, y cuando la consulta es compleja o legal, transfiere la conversación a personal humano. Tras seis meses, el tiempo promedio de respuesta bajó de un día a segundos, y el personal liberó tiempo para atender los casos complejos. Un riesgo real que enfrentaron: un ciudadano recibió una respuesta con un requisito que ya había cambiado, porque los documentos no se habían actualizado — se corrigió sincronizando los documentos oficiales cada mes y agregando un aviso de "verifique con la oficina" en trámites sensibles.</div>
+      <div class="alert info"><strong>Guía:</strong> identifique el problema concreto que resolvió este chatbot y analice el riesgo del caso: cómo se mitigó, o cómo debería mitigarse.</div>
 
       <div class="field">
-        <label for="p2_detonante">Detonante emocional que más le afecta en su trabajo</label>
-        <select id="p2_detonante">
-          <option value="">Seleccione…</option>
-          <option>Un ciudadano gritando o insultando</option>
-          <option>Una fila interminable que no avanza</option>
-          <option>Un sistema o trámite que falla</option>
-          <option>Acumulación de casos difíciles el mismo día</option>
-        </select>
+        <label for="p2_problema">¿Qué problema concreto resolvió el chatbot del Ayuntamiento de Villa Esperanza? <span class="wc" data-for="p2_problema">0 palabras</span></label>
+        <textarea class="tall" id="p2_problema" placeholder="El problema que resolvió fue..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p2_problema">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p2_problema"></span></div>
       </div>
       <div class="field">
-        <label for="p2_situacion_autocontrol">Describa una situación real donde tuvo que aplicar autocontrol antes de responder a un ciudadano <span class="wc" data-for="p2_situacion_autocontrol">0 palabras</span></label>
-        <textarea class="tall" id="p2_situacion_autocontrol" placeholder="Sentí que la irritación subía cuando... y logré (o no logré) mantener la calma porque..."></textarea>
-        <div class="voice-row"><button type="button" class="voice-btn" data-target="p2_situacion_autocontrol">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p2_situacion_autocontrol"></span></div>
-      </div>
-      <div class="field">
-        <label for="p2_estres">¿Qué estrategia de manejo del estrés laboral aplica (o debería aplicar) en su rutina diaria? <span class="wc" data-for="p2_estres">0 palabras</span></label>
-        <textarea class="tall" id="p2_estres" placeholder="Aplico/aplicaría..."></textarea>
-        <div class="voice-row"><button type="button" class="voice-btn" data-target="p2_estres">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p2_estres"></span></div>
-      </div>
-      <div class="field">
-        <label for="p2_burnout">Señal de alerta de burnout que reconoce en usted mismo o en algún compañero</label>
-        <select id="p2_burnout">
-          <option value="">Seleccione…</option>
-          <option>Cansancio crónico</option>
-          <option>Cinismo hacia el trabajo</option>
-          <option>Irritabilidad constante</option>
-          <option>Dificultad para concentrarse</option>
-          <option>Ninguna, no he notado señales</option>
-        </select>
+        <label for="p2_riesgo">¿Qué riesgo identifica en este caso y cómo se mitigó (o debería mitigarse)? <span class="wc" data-for="p2_riesgo">0 palabras</span></label>
+        <textarea class="tall" id="p2_riesgo" placeholder="El riesgo que identifico es... y se mitigaría/mitigó con..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p2_riesgo">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p2_riesgo"></span></div>
       </div>
     </section>
 
     <!-- ============ PASO 3 ============ -->
     <section id="paso3" class="card">
-      <span class="step-badge">Paso 3 · 15 min</span><span class="step-points">Vale 17 pts</span>
-      <h1>Escucha Activa, Validación y Modelo DESC</h1>
-      <p><strong>Concepto:</strong> la escucha activa aplicada a conflictos (detenerse, escuchar todo, observar, parafrasear, validar, preguntar) desescala la tensión. El modelo DESC (Describir, Expresar, Especificar, Consecuencias) permite comunicar límites de forma asertiva.</p>
-      <div class="alert info"><strong>Guía:</strong> aplique el parafraseo a una situación real, y luego construya un ejemplo completo del modelo DESC con sus cuatro partes.</div>
+      <span class="step-badge">Paso 3 · 10 min</span><span class="step-points">Vale 15 pts</span>
+      <h1>Caso práctico: asistente interno de conocimiento institucional</h1>
+      <div class="alert gold"><strong>Caso ilustrativo (institución ficticia, con fines educativos):</strong> el <strong>Instituto Dominicano de Desarrollo Municipal (INDOM)</strong> implementó un asistente interno de IA Generativa, disponible solo para su personal, entrenado sobre los manuales de procedimientos y resoluciones internas del instituto. El personal lo usa para redactar primeras versiones de informes y minutas, y para consultar al instante cómo proceder ante una situación administrativa, en vez de buscar en archivos físicos o carpetas digitales dispersas. A diferencia del chatbot del Ayuntamiento de Villa Esperanza (Paso 2), este asistente no atiende al público: cada informe que produce pasa por la revisión de un supervisor antes de publicarse o enviarse.</div>
+      <div class="alert info"><strong>Guía:</strong> compare este caso con el del Paso 2, y extraiga una lección que aplicaría en su propia institución.</div>
 
       <div class="field">
-        <label for="p3_parafraseo">Describa una situación real donde parafraseó (o parafrasearía) lo que un ciudadano le dijo, para confirmar que lo entendió <span class="wc" data-for="p3_parafraseo">0 palabras</span></label>
-        <textarea class="tall" id="p3_parafraseo" placeholder="El ciudadano dijo... yo parafraseé/parafrasearía: 'entonces, si entendí bien...'"></textarea>
-        <div class="voice-row"><button type="button" class="voice-btn" data-target="p3_parafraseo">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p3_parafraseo"></span></div>
+        <label for="p3_comparacion">Compare ambos casos: ¿en qué se diferencia el público de cada asistente (ciudadano vs. personal interno) y cómo cambia eso el nivel de supervisión necesario? <span class="wc" data-for="p3_comparacion">0 palabras</span></label>
+        <textarea class="tall" id="p3_comparacion" placeholder="La diferencia principal es que... por eso el nivel de supervisión..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p3_comparacion">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p3_comparacion"></span></div>
       </div>
       <div class="field">
-        <label for="p3_desc">Aplique el modelo DESC completo a una situación real de su trabajo (escriba las 4 partes: Describir, Expresar, Especificar, Consecuencias) <span class="wc" data-for="p3_desc">0 palabras</span></label>
-        <textarea class="tall" id="p3_desc" placeholder="D: ... E: ... S: ... C: ..."></textarea>
-        <div class="voice-row"><button type="button" class="voice-btn" data-target="p3_desc">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p3_desc"></span></div>
-      </div>
-      <div class="field">
-        <label for="p3_negociacion">Describa una situación real donde negoció (o negociaría) una solución win-win con un ciudadano exigente <span class="wc" data-for="p3_negociacion">0 palabras</span></label>
-        <textarea id="p3_negociacion" placeholder="El ciudadano pedía... yo ofrecí/ofrecería..."></textarea>
-        <div class="voice-row"><button type="button" class="voice-btn" data-target="p3_negociacion">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p3_negociacion"></span></div>
+        <label for="p3_leccion">¿Qué lección de alguno de los dos casos aplicaría en su propia institución? <span class="wc" data-for="p3_leccion">0 palabras</span></label>
+        <textarea class="tall" id="p3_leccion" placeholder="La lección que aplicaría es..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p3_leccion">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p3_leccion"></span></div>
       </div>
     </section>
 
     <!-- ============ PASO 4 ============ -->
     <section id="paso4" class="card">
-      <span class="step-badge">Paso 4 · 15 min</span><span class="step-points">Vale 17 pts</span>
-      <h1>Resolución de Problemas y Protocolos</h1>
-      <p><strong>Concepto:</strong> identificar un problema con precisión (recopilar información, definir con exactitud, usar los "5 porqués" para llegar a la causa raíz) evita soluciones equivocadas. Los protocolos de emergencia protegen la seguridad física y emocional de todos.</p>
-      <div class="alert info"><strong>Guía:</strong> identifique un problema real de su servicio, aplique la técnica de los 5 porqués para llegar a su causa raíz, y proponga alternativas de solución.</div>
+      <span class="step-badge">Paso 4 · 8 min</span><span class="step-points">Vale 15 pts</span>
+      <h1>Modelo de adopción empresarial de IA Generativa</h1>
+      <p><strong>Concepto:</strong> una organización adopta la IA Generativa en 4 etapas: <strong>diagnóstico</strong> (identificar procesos con fricción), <strong>piloto controlado</strong> (probar con un equipo pequeño y supervisión), <strong>gobernanza</strong> (definir reglas antes de escalar) y <strong>escalamiento</strong> (extender con métricas ya validadas).</p>
+      <div class="alert info"><strong>Guía:</strong> identifique en qué etapa está hoy su institución y describa qué necesitaría hacer para avanzar a la siguiente.</div>
 
       <div class="field">
-        <label for="p4_problema">Tipo de problema que identificó (síntoma visible)</label>
-        <select id="p4_problema">
+        <label for="p4_etapa">¿En qué etapa está su institución hoy?</label>
+        <select id="p4_etapa">
           <option value="">Seleccione…</option>
-          <option>Ciudadano enojado por demora</option>
-          <option>Información contradictoria entre empleados</option>
-          <option>Sistema o trámite que falla repetidamente</option>
-          <option>Fila o carga de trabajo excesiva</option>
+          <option>Aún no ha iniciado</option>
+          <option>Diagnóstico</option>
+          <option>Piloto controlado</option>
+          <option>Gobernanza</option>
+          <option>Escalamiento</option>
         </select>
       </div>
       <div class="field">
-        <label for="p4_causa_raiz">Aplique la técnica de los 5 porqués para llegar de ese síntoma a la causa raíz real <span class="wc" data-for="p4_causa_raiz">0 palabras</span></label>
-        <textarea class="tall" id="p4_causa_raiz" placeholder="¿Por qué pasa esto? Porque... ¿Por qué? Porque..."></textarea>
-        <div class="voice-row"><button type="button" class="voice-btn" data-target="p4_causa_raiz">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p4_causa_raiz"></span></div>
-      </div>
-      <div class="field">
-        <label for="p4_alternativas">Proponga al menos dos alternativas de solución para la causa raíz identificada, y cuál elegiría <span class="wc" data-for="p4_alternativas">0 palabras</span></label>
-        <textarea class="tall" id="p4_alternativas" placeholder="Alternativa 1: ... Alternativa 2: ... Elegiría... porque..."></textarea>
-        <div class="voice-row"><button type="button" class="voice-btn" data-target="p4_alternativas">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p4_alternativas"></span></div>
+        <label for="p4_plan">Describa qué necesitaría hacer su institución para avanzar a la siguiente etapa <span class="wc" data-for="p4_plan">0 palabras</span></label>
+        <textarea class="tall" id="p4_plan" placeholder="Para avanzar a la siguiente etapa, necesitaríamos..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p4_plan">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p4_plan"></span></div>
       </div>
     </section>
 
     <!-- ============ PASO 5 ============ -->
     <section id="paso5" class="card">
-      <span class="step-badge">Paso 5 · 15 min</span><span class="step-points">Vale 17 pts</span>
-      <h1>Prevención de Conflictos y Manejo de Reclamos</h1>
-      <p><strong>Concepto:</strong> la mayoría de las situaciones difíciles surgen de fallas previsibles: información poco clara, expectativas mal gestionadas, demoras sin explicación. El manejo adecuado de reclamos (recepción, registro, investigación, respuesta en máximo 15 días, acción correctiva) recupera la confianza ciudadana.</p>
-      <div class="alert info"><strong>Guía:</strong> elija una estrategia de prevención aplicable a su servicio, describa una situación real de reclamo, y explique cómo aplicaría el proceso completo de manejo de reclamos.</div>
+      <span class="step-badge">Paso 5 · 15 min</span><span class="step-points">Vale 25 pts</span>
+      <h1>Laboratorio: construya su propio caso de negocio</h1>
+      <p><strong>Concepto:</strong> un caso de negocio de IA Generativa responde 4 preguntas: ¿cuál es el <strong>problema</strong>?, ¿en qué <strong>área</strong> de la institución ocurre?, ¿qué <strong>solución</strong> con IA Generativa se propone?, y ¿cuál es el <strong>impacto esperado</strong> y el principal <strong>riesgo</strong> con su mitigación?</p>
+      <div class="alert info"><strong>Guía:</strong> elija un problema real de su institución (puede retomar el del Paso 1) y complete su propio caso de negocio de IA Generativa, con la misma estructura de los casos que analizó en los Pasos 2 y 3.</div>
 
       <div class="field">
-        <label for="p5_prevencion">Estrategia de prevención que aplicaría en su servicio</label>
-        <select id="p5_prevencion">
+        <label for="p5_problema">¿Qué problema real de su institución eligió? <span class="wc" data-for="p5_problema">0 palabras</span></label>
+        <textarea id="p5_problema" placeholder="El problema que elegí es..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p5_problema">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p5_problema"></span></div>
+      </div>
+      <div class="field">
+        <label for="p5_area">Área o proceso institucional</label>
+        <select id="p5_area">
           <option value="">Seleccione…</option>
-          <option>Información clara desde el inicio</option>
-          <option>Gestionar mejor las expectativas de plazos</option>
-          <option>Capacitación continua del personal</option>
-          <option>Sistema de citas y turnos</option>
-          <option>Empoderar al personal de primer nivel</option>
+          <option>Atención al ciudadano</option>
+          <option>Gestión documental</option>
+          <option>Recursos Humanos</option>
+          <option>Finanzas y presupuesto</option>
+          <option>Planificación y toma de decisiones</option>
+          <option>Otra</option>
         </select>
       </div>
       <div class="field">
-        <label for="p5_situacion_reclamo">Describa una situación real de reclamo que haya recibido o presenciado en su institución <span class="wc" data-for="p5_situacion_reclamo">0 palabras</span></label>
-        <textarea class="tall" id="p5_situacion_reclamo" placeholder="El reclamo fue el siguiente..."></textarea>
-        <div class="voice-row"><button type="button" class="voice-btn" data-target="p5_situacion_reclamo">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p5_situacion_reclamo"></span></div>
+        <label for="p5_solucion">Describa la solución con IA Generativa que propondría (qué herramienta o enfoque, cómo funcionaría) <span class="wc" data-for="p5_solucion">0 palabras</span></label>
+        <textarea class="tall" id="p5_solucion" placeholder="Propondría una solución que..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p5_solucion">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p5_solucion"></span></div>
       </div>
       <div class="field">
-        <label for="p5_proceso_reclamo">Aplique el proceso de manejo de reclamos a esa situación (recepción, registro, respuesta, acción correctiva) <span class="wc" data-for="p5_proceso_reclamo">0 palabras</span></label>
-        <textarea id="p5_proceso_reclamo" placeholder="Recibiría el reclamo así... lo registraría... la acción correctiva sería..."></textarea>
-        <div class="voice-row"><button type="button" class="voice-btn" data-target="p5_proceso_reclamo">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p5_proceso_reclamo"></span></div>
+        <label for="p5_impacto">Impacto esperado (tiempo, calidad, satisfacción) y principal riesgo con su mitigación <span class="wc" data-for="p5_impacto">0 palabras</span></label>
+        <textarea class="tall" id="p5_impacto" placeholder="El impacto esperado sería... El principal riesgo es... y se mitigaría con..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p5_impacto">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p5_impacto"></span></div>
       </div>
     </section>
 
     <!-- ============ PASO 6 ============ -->
     <section id="paso6" class="card">
-      <span class="step-badge">Paso 6 · 15 min</span><span class="step-points">Vale 17 pts</span>
-      <h1>Derechos del Servidor y Autocuidado</h1>
-      <p><strong>Concepto:</strong> el servidor público también tiene derechos: ambiente seguro, no ser agredido, capacitación, apoyo institucional, defensa y salud mental (Ley 41-08 y Ley 107-13). El autocuidado y la documentación de incidentes son responsabilidad profesional, no debilidad.</p>
-      <div class="alert info"><strong>Guía:</strong> identifique el derecho del servidor más relevante en su institución, reflexione sobre señales de alerta personal y autocuidado, y describa cómo documentaría un incidente real.</div>
+      <span class="step-badge">Paso 6 · 8 min</span><span class="step-points">Vale 15 pts</span>
+      <h1>Gobernanza y límites de la IA Generativa en la empresa</h1>
+      <p><strong>Concepto:</strong> la adopción responsable exige <strong>transparencia</strong> (el ciudadano sabe que interactúa con una IA), <strong>supervisión humana</strong> (ninguna decisión que afecte derechos queda 100% en manos de la IA), <strong>protección de datos</strong> (según la normativa vigente, en RD la Ley 172-13) y <strong>verificación de fuentes</strong> oficiales, para evitar respuestas incorrectas en trámites legales.</p>
+      <div class="alert info"><strong>Guía:</strong> aplique una salvaguarda de gobernanza al caso de negocio que propuso en el Paso 5, y explique qué límite es innegociable para usted en la adopción empresarial de IA Generativa.</div>
 
       <div class="field">
-        <label for="p6_derecho">Derecho del servidor público que considera más relevante en su institución</label>
-        <select id="p6_derecho">
-          <option value="">Seleccione…</option>
-          <option>Derecho a un ambiente seguro</option>
-          <option>Derecho a no ser agredido</option>
-          <option>Derecho a capacitación continua</option>
-          <option>Derecho a apoyo institucional</option>
-          <option>Derecho a la salud mental</option>
-        </select>
+        <label for="p6_salvaguarda">¿Qué salvaguarda de gobernanza aplicaría al caso que propuso en el Paso 5? <span class="wc" data-for="p6_salvaguarda">0 palabras</span></label>
+        <textarea class="tall" id="p6_salvaguarda" placeholder="La salvaguarda que aplicaría es..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p6_salvaguarda">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p6_salvaguarda"></span></div>
       </div>
       <div class="field">
-        <label for="p6_autocuidado">¿Qué señales de alerta personal (irritabilidad, cansancio, aislamiento) reconoce en usted mismo, y qué plan de autocuidado aplicaría? <span class="wc" data-for="p6_autocuidado">0 palabras</span></label>
-        <textarea class="tall" id="p6_autocuidado" placeholder="Las señales que reconozco son... mi plan de autocuidado sería..."></textarea>
-        <div class="voice-row"><button type="button" class="voice-btn" data-target="p6_autocuidado">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p6_autocuidado"></span></div>
-      </div>
-      <div class="field">
-        <label for="p6_documentacion">Describa cómo documentaría un incidente difícil real (fecha/hora, personas, descripción objetiva, resultado, lecciones aprendidas) <span class="wc" data-for="p6_documentacion">0 palabras</span></label>
-        <textarea id="p6_documentacion" placeholder="Documentaría el incidente así..."></textarea>
-        <div class="voice-row"><button type="button" class="voice-btn" data-target="p6_documentacion">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p6_documentacion"></span></div>
+        <label for="p6_limite">¿Qué límite es innegociable para usted en la adopción empresarial de IA Generativa, y por qué? <span class="wc" data-for="p6_limite">0 palabras</span></label>
+        <textarea class="tall" id="p6_limite" placeholder="Para mí es innegociable que... porque..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p6_limite">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p6_limite"></span></div>
       </div>
     </section>
 
@@ -686,17 +660,11 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
         <thead><tr><th>N°</th><th>Criterio</th><th>Indicador</th><th>Puntos</th></tr></thead>
         <tbody id="rubrica-body"></tbody>
       </table></div>
-      <div class="alert success" style="margin-top:1rem;">
-        <strong>Recuerde:</strong> esta rúbrica califica la <em>calidad</em> de su trabajo como retroalimentación. La <strong>aprobación de la práctica</strong> se otorga por completar los 6 pasos, no por alcanzar un puntaje mínimo.
-      </div>
       <h2>Referencias</h2>
       <ul style="font-size:.85rem; color:var(--muted);">
-        <li>Fisher, R. y Ury, W. (1981). <em>Getting to Yes: Negotiating Agreement Without Giving In.</em> Houghton Mifflin.</li>
-        <li>Congreso Nacional de la República Dominicana. (2013). <em>Ley No. 107-13 sobre los Derechos de las Personas en sus Relaciones con la Administración.</em></li>
-        <li>Congreso Nacional de la República Dominicana. (2008). <em>Ley No. 41-08 sobre Función Pública.</em></li>
-        <li>Código Penal de la República Dominicana. <em>Tipificación de amenazas, lesiones, coacción y ultraje a la autoridad.</em></li>
-        <li>Ministerio de Administración Pública (MAP). <em>Sistema Nacional de Quejas y Sugerencias del Ciudadano.</em></li>
-        <li>Instituto Nacional de Administración Pública (INAP). <em>Programas de capacitación en manejo de situaciones difíciles y resolución de conflictos.</em></li>
+        <li>McKinsey &amp; Company. Encuestas sobre adopción global de Inteligencia Artificial Generativa en las organizaciones.</li>
+        <li>Ley No. 172-13 sobre Protección de Datos de Carácter Personal (República Dominicana).</li>
+        <li>Los casos de instituciones públicas usados en esta unidad son ilustrativos, con nombres ficticios, creados con fines educativos.</li>
       </ul>
     </section>
 
@@ -705,7 +673,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
       <div id="submit-zone">
         <span class="step-badge">Paso final</span>
         <h1 style="font-size:1.4rem;">Enviar y calificar mi trabajo</h1>
-        <p>El sistema revisará automáticamente sus 6 pasos y le mostrará una nota preliminar orientativa con el detalle por criterio. Recuerde: <strong>aprueba por completar la práctica, independientemente de la nota.</strong></p>
+        <p>El sistema revisará automáticamente sus 6 pasos contra la rúbrica oficial y le mostrará su nota, el detalle por criterio y retroalimentación personalizada. Aprobación mínima: 70 de 100 pts.</p>
         <button class="btn-primary" id="btn-submit" type="button">📤 Enviar y Calificar mi Trabajo</button>
       </div>
 
@@ -729,8 +697,8 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
     </section>
 
     <footer class="tp-footer">
-      Práctica — Unidad III: Manejo de Situaciones Difíciles y Resolución de Conflictos · Curso Prestación de Servicio y Atención a la Ciudadanía · INAP.<br>
-      Herramienta de autoevaluación con fines educativos. La aprobación se otorga por completar la práctica; la nota oficial del curso la determina su facilitador.<br>
+      Práctica — Unidad IV: IA Generativa Aplicada a la Empresa · Curso Inteligencia Artificial Aplicada · Comunicación Integral.<br>
+      Herramienta de autoevaluación con fines educativos. La nota oficial del curso la determina quien coordina la capacitación.<br>
       Desarrollado por Johan Tapia, PhD.
     </footer>
   </main>
@@ -750,12 +718,12 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
     <button id="advisor-close" type="button" aria-label="Cerrar a Nicole">✕</button>
   </div>
   <div id="advisor-body" class="advisor-body">
-    <div class="advisor-msg advisor-msg-bot">¡Hola! Soy Nicole, la asistente virtual del Dr. Johan Tapia. Pregúntame sobre los tipos de ciudadanos difíciles, la inteligencia emocional, la escucha activa en conflictos, el modelo DESC, los protocolos de emergencia, los derechos del servidor público, o cómo funciona la calificación de esta práctica.</div>
+    <div class="advisor-msg advisor-msg-bot">¡Hola! Soy Nicole, la asistente virtual del Dr. Johan Tapia. Pregúntame sobre el valor estratégico de la IA Generativa, los casos prácticos de instituciones públicas, el modelo de adopción empresarial, cómo construir un caso de negocio, la gobernanza y sus límites, o cómo funciona la calificación de esta práctica.</div>
   </div>
   <div class="advisor-suggest">
     <button type="button" data-q="¿cómo se califica esta práctica?">¿Cómo se califica?</button>
-    <button type="button" data-q="que es el modelo desc">Modelo DESC</button>
-    <button type="button" data-q="cuales son los tipos de ciudadanos dificiles">Tipos de ciudadanos difíciles</button>
+    <button type="button" data-q="que es un caso de negocio de ia generativa">¿Qué es un caso de negocio?</button>
+    <button type="button" data-q="que es el modelo de adopcion empresarial">Modelo de adopción</button>
   </div>
   <form id="advisor-form" class="advisor-form">
     <input type="text" id="advisor-input" placeholder="Escribe tu pregunta…" aria-label="Escribe tu pregunta a Nicole">
@@ -944,9 +912,9 @@ function wireVoiceButtons(){
 var FONT_LEVELS = ['normal','grande','xgrande'];
 function applyFontSize(level){
   document.documentElement.setAttribute('data-fontsize', level);
-  try{ localStorage.setItem('tp_acu1_fontsize', level); }catch(e){}
+  try{ localStorage.setItem('tp_iaci_u1_fontsize', level); }catch(e){}
 }
-applyFontSize(localStorage.getItem('tp_acu1_fontsize') || 'normal');
+applyFontSize(localStorage.getItem('tp_iaci_u1_fontsize') || 'normal');
 document.getElementById('font-bigger').addEventListener('click', function(){
   var cur = document.documentElement.getAttribute('data-fontsize') || 'normal';
   var idx = FONT_LEVELS.indexOf(cur);
@@ -965,14 +933,16 @@ function fetchWithTimeout(url, options, timeoutMs){
     .finally(function(){ clearTimeout(timer); });
 }
 
+
+
 /* ---------- THEME ---------- */
 var themeBtn = document.getElementById('theme-toggle');
 function applyTheme(t){
   document.documentElement.setAttribute('data-theme', t);
   themeBtn.textContent = t === 'dark' ? '☀️' : '🌙';
-  localStorage.setItem('tp_acu1_theme', t);
+  localStorage.setItem('tp_iaci_u1_theme', t);
 }
-applyTheme(localStorage.getItem('tp_acu1_theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+applyTheme(localStorage.getItem('tp_iaci_u1_theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
 themeBtn.addEventListener('click', function(){
   applyTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
 });
@@ -983,7 +953,7 @@ document.getElementById('btn-qr').addEventListener('click', function(){
   container.innerHTML = '';
   var pageUrl = window.location.href.split('#')[0].split('?')[0];
   if(window.QRCode){
-    new QRCode(container, { text: pageUrl, width: 220, height: 220, colorDark: '#1a2a3a', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.M });
+    new QRCode(container, { text: pageUrl, width: 220, height: 220, colorDark: '#0d7377', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.M });
   } else {
     container.innerHTML = '<p style="color:var(--red); font-size:.85rem; text-align:center;">No se pudo cargar el generador de QR. Verifique su conexión a internet e intente de nuevo.</p>';
   }
@@ -998,7 +968,7 @@ document.getElementById('qr-download').addEventListener('click', function(){
   var dataUrl = el.tagName === 'CANVAS' ? el.toDataURL('image/png') : el.src;
   var a = document.createElement('a');
   a.href = dataUrl;
-  a.download = 'qr-practica-unidad1-atencion-ciudadana.png';
+  a.download = 'qr-practica-ia-aplicada-u4.png';
   document.body.appendChild(a); a.click(); document.body.removeChild(a);
 });
 
@@ -1032,9 +1002,9 @@ var io = new IntersectionObserver(function(entries){
 sections.forEach(function(s){ io.observe(s); });
 
 /* ---------- TEMPORIZADOR DE REFERENCIA (no cierra la práctica) ---------- */
-var TIMER_MINUTES = 90;
-var TIMER_KEY = 'tp_acu1_deadline';
-var SOUND_MUTE_KEY = 'tp_atencion_sound_muted';
+var TIMER_MINUTES = 60;
+var TIMER_KEY = 'tp_iaci_u1_deadline';
+var SOUND_MUTE_KEY = 'tp_iaci_u1_sound_muted';
 var soundMuted = localStorage.getItem(SOUND_MUTE_KEY) === '1';
 var flatlinePlayed = false;
 var lastBeepAt = 0;
@@ -1042,6 +1012,9 @@ var lastStabAt = 0;
 var lastOvertimeStabAt = 0;
 var NUM_CORAZONES = 5;
 
+/* Dibuja NUM_CORAZONES corazones tipo "vida" de videojuego (Zelda), cada
+   uno representando 1/5 del tiempo. Se vacian de derecha a izquierda segun
+   pasa el tiempo -- mismo lenguaje visual que una barra de vida de juego. */
 function trazarCorazon(ctx, cx, cy, s){
   ctx.beginPath();
   ctx.moveTo(cx, cy + s * 0.32);
@@ -1123,6 +1096,10 @@ function playFlatline(){
   }catch(e){}
 }
 function playAnguishStab(){
+  // "Punalada" de cuerdas disonante (segunda menor, Do6 vs Si5) para el
+  // ultimo minuto y el tiempo extra -- inspirado en el clasico "stinger" de
+  // cuerdas de peliculas de suspenso, pero sintetizado desde cero con
+  // osciladores (sin usar ninguna pieza real con copyright).
   if(soundMuted) return;
   try{
     var Ctx = window.AudioContext || window.webkitAudioContext;
@@ -1146,13 +1123,14 @@ function tickTimer(){
   var overtimeNoteEl = document.getElementById('overtime-note');
   var heartsEl = document.getElementById('hearts-canvas');
   if(!wrapEl || !valEl) return;
-  var diffReal = timerDeadline - Date.now();
+  var diffReal = timerDeadline - Date.now(); // sin recortar -- negativo en tiempo extra
   var remaining = diffReal < 0 ? 0 : diffReal;
   var now = Date.now();
 
   dibujarCorazones(Math.max(0, remaining / (TIMER_MINUTES * 60000)));
 
   if(diffReal > 0){
+    /* ---- Tiempo normal ---- */
     var totalSec = Math.floor(remaining / 1000);
     var m = Math.floor(totalSec / 60), s = totalSec % 60;
     valEl.textContent = (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
@@ -1163,6 +1141,9 @@ function tickTimer(){
     wrapEl.classList.toggle('low', criticalMode);
     var lastMinute = remaining <= 5 * 60000;
     if(lastMinute){
+      // El sonido de aceleracion (pitido + punaladas) queda confinado al
+      // ULTIMO MINUTO -- curva cubica: arranca muy espaciada y solo se
+      // intensifica de verdad en el ultimo minuto.
       var pctMin = remaining / (5 * 60000);
       var eased = Math.pow(1 - pctMin, 3);
       var interval = 3000 - eased * 2750;
@@ -1179,6 +1160,8 @@ function tickTimer(){
     if(heartsEl) heartsEl.classList.toggle('critical', lastMinute);
     wrapEl.classList.toggle('critical', lastMinute);
   } else {
+    /* ---- Tiempo extra -- puramente cosmetico, NO afecta la aprobacion
+       ni la calificacion (ver overtime-note). ---- */
     var extraMs = -diffReal;
     var extraSec = Math.floor(extraMs / 1000);
     var em = Math.floor(extraSec / 60), es = extraSec % 60;
@@ -1215,23 +1198,44 @@ function wordCount(s){ s = norm(s); return s ? s.split(/\s+/).filter(Boolean).le
 function filled(s){ return norm(s).length > 0; }
 function clamp01(n){ return Math.max(0, Math.min(1, n)); }
 function val(id){ var el = document.getElementById(id); return el ? el.value : ''; }
-function labelOf(id){ var el = document.getElementById(id); if(!el) return id; var lab = document.querySelector('label[for="'+id+'"]'); return lab ? lab.textContent.replace(/\s*\d+\s*palabras\s*/,'').trim() : id; }
+function labelOf(id){ var el = document.getElementById(id); if(!el) return id; var lab = document.querySelector('label[for="'+id+'"]'); return lab ? lab.textContent.replace(/\s*\d+\/\d+ palabras\s*/,'').trim() : id; }
 function escapeHtml(s){ var d = document.createElement('div'); d.textContent = norm(s); return d.innerHTML; }
+
+/* ---------- MODALIDAD: INDIVIDUAL O EN EQUIPO ---------- */
+var modoSelect = document.getElementById('modo_trabajo');
+var bloqueIndividual = document.getElementById('bloque-individual');
+var bloqueGrupo = document.getElementById('bloque-grupo');
+var bloqueIntegrantes = document.getElementById('bloque-integrantes');
+function aplicarModo(){
+  var esGrupo = modoSelect.value === 'grupo';
+  bloqueIndividual.hidden = esGrupo;
+  bloqueGrupo.hidden = !esGrupo;
+  bloqueIntegrantes.hidden = !esGrupo;
+}
+modoSelect.addEventListener('change', function(){ aplicarModo(); saveAll(); });
+aplicarModo();
+function nombreIdentificacion(){
+  return modoSelect.value === 'grupo' ? (val('grp_nombre') || '') : (val('ind_nombre') || '');
+}
+function correoIdentificacion(){
+  return modoSelect.value === 'grupo' ? (val('grp_correo') || '') : (val('ind_correo') || '');
+}
 
 /* ---------- CAMPOS DE CADA PASO ---------- */
 var STEP_FIELDS = {
-  paso1: ['p1_perfil','p1_senal','p1_situacion','p1_manejo'],
-  paso2: ['p2_detonante','p2_situacion_autocontrol','p2_estres','p2_burnout'],
-  paso3: ['p3_parafraseo','p3_desc','p3_negociacion'],
-  paso4: ['p4_problema','p4_causa_raiz','p4_alternativas'],
-  paso5: ['p5_prevencion','p5_situacion_reclamo','p5_proceso_reclamo'],
-  paso6: ['p6_derecho','p6_autocuidado','p6_documentacion']
+  paso1: ['p1_categoria','p1_necesidad'],
+  paso2: ['p2_problema','p2_riesgo'],
+  paso3: ['p3_comparacion','p3_leccion'],
+  paso4: ['p4_etapa','p4_plan'],
+  paso5: ['p5_problema','p5_area','p5_solucion','p5_impacto'],
+  paso6: ['p6_salvaguarda','p6_limite']
 };
-
-/* ---------- IDENTIFICACIÓN (individual) ---------- */
-function nombreIdentificacion(){ return val('est_nombre') || ''; }
-function correoIdentificacion(){ return val('est_correo') || ''; }
-function institucionIdentificacion(){ return val('est_institucion') || ''; }
+var META_FIELDS = ['modo_trabajo', 'ind_nombre', 'ind_correo', 'grp_nombre', 'grp_correo', 'grp_integrantes'];
+function allFieldIds(){
+  var ids = META_FIELDS.slice();
+  Object.keys(STEP_FIELDS).forEach(function(k){ ids = ids.concat(STEP_FIELDS[k]); });
+  return ids;
+}
 
 /* ---------- WORD COUNTERS ---------- */
 document.querySelectorAll('.wc[data-for]').forEach(function(span){
@@ -1247,13 +1251,7 @@ document.querySelectorAll('.wc[data-for]').forEach(function(span){
 });
 
 /* ---------- AUTOSAVE (localStorage) ---------- */
-var STORE_KEY = 'tp_acu3_respuestas_v1';
-var META_FIELDS = ['est_nombre', 'est_institucion', 'est_correo'];
-function allFieldIds(){
-  var ids = META_FIELDS.slice();
-  Object.keys(STEP_FIELDS).forEach(function(k){ ids = ids.concat(STEP_FIELDS[k]); });
-  return ids;
-}
+var STORE_KEY = 'tp_iaci_u4_respuestas_v1';
 function saveAll(){
   var data = {};
   allFieldIds().forEach(function(id){ data[id] = val(id); });
@@ -1271,6 +1269,7 @@ function loadAll(){
   }catch(e){}
 }
 loadAll();
+aplicarModo();
 document.querySelectorAll('.wc[data-for]').forEach(function(span){
   var target = document.getElementById(span.getAttribute('data-for'));
   if(target) target.dispatchEvent(new Event('input'));
@@ -1316,30 +1315,18 @@ function updateProgress(){
 }
 updateProgress();
 
-/* ---------- ¿PRÁCTICA COMPLETA? (determina la APROBACIÓN, no la nota) ---------- */
-function camposFaltantes(){
-  var faltan = [];
-  Object.keys(STEP_FIELDS).forEach(function(key){
-    STEP_FIELDS[key].forEach(function(id){
-      if(!filled(val(id))) faltan.push(labelOf(id));
-    });
-  });
-  return faltan;
-}
-function practicaCompleta(){ return camposFaltantes().length === 0; }
-
-/* ---------- RÚBRICA TABLE (referencia de calidad, no de aprobación) ---------- */
+/* ---------- RÚBRICA TABLE ---------- */
 var RUBRICA = [
-  {n:1, criterio:'Tipología de Situaciones Difíciles (Paso 1)', indicador:'Perfil de ciudadano difícil y señal de alerta identificados; situación real descrita; manejo correcto aplicado según el perfil.', pts:15},
-  {n:2, criterio:'Inteligencia Emocional Aplicada (Paso 2)', indicador:'Detonante emocional identificado; situación real de autocontrol descrita; estrategia de manejo del estrés y señal de burnout reconocidas.', pts:17},
-  {n:3, criterio:'Escucha Activa, Validación y Modelo DESC (Paso 3)', indicador:'Parafraseo aplicado a un caso real; modelo DESC completo con sus 4 partes; situación de negociación win-win descrita.', pts:17},
-  {n:4, criterio:'Resolución de Problemas y Protocolos (Paso 4)', indicador:'Problema identificado; técnica de los 5 porqués aplicada hasta la causa raíz; alternativas de solución evaluadas.', pts:17},
-  {n:5, criterio:'Prevención de Conflictos y Manejo de Reclamos (Paso 5)', indicador:'Estrategia de prevención elegida; situación real de reclamo descrita; proceso de manejo de reclamos aplicado correctamente.', pts:17},
-  {n:6, criterio:'Derechos del Servidor y Autocuidado (Paso 6)', indicador:'Derecho del servidor identificado; señales de alerta y plan de autocuidado descritos; documentación de incidente aplicada correctamente.', pts:17}
+  {n:1, criterio:'Valor estratégico de la IA Generativa (Paso 1)', indicador:'Categoría estratégica seleccionada y necesidad real de la organización descrita.', pts:15},
+  {n:2, criterio:'Caso: chatbot ciudadano (Paso 2)', indicador:'Problema resuelto por el caso identificado y riesgo analizado con su mitigación.', pts:15},
+  {n:3, criterio:'Caso: asistente interno (Paso 3)', indicador:'Comparación entre ambos casos y lección aplicable a su institución.', pts:15},
+  {n:4, criterio:'Modelo de adopción empresarial (Paso 4)', indicador:'Etapa actual de su institución identificada y plan para avanzar a la siguiente.', pts:15},
+  {n:5, criterio:'Laboratorio: su caso de negocio (Paso 5)', indicador:'Problema, área, solución con IA Generativa e impacto/riesgo de su propio caso de negocio.', pts:25},
+  {n:6, criterio:'Gobernanza y límites (Paso 6)', indicador:'Salvaguarda de gobernanza aplicada a su caso y límite ético justificado.', pts:15}
 ];
 document.getElementById('rubrica-body').innerHTML = RUBRICA.map(function(r){
   return '<tr><td class="label-cell">'+r.n+'</td><td>'+r.criterio+'</td><td>'+r.indicador+'</td><td class="label-cell">'+r.pts+'</td></tr>';
-}).join('') + '<tr><td colspan="3" class="label-cell">TOTAL (retroalimentación)</td><td class="label-cell">100</td></tr>';
+}).join('') + '<tr><td colspan="3" class="label-cell">TOTAL</td><td class="label-cell">100</td></tr><tr><td colspan="3" class="label-cell">Aprobación mínima</td><td class="label-cell">70</td></tr>';
 
 /* ---------- GRADING ENGINE ---------- */
 function ratioFilledFrac(ids){
@@ -1348,6 +1335,8 @@ function ratioFilledFrac(ids){
   return n / ids.length;
 }
 function singleWordFrac(id){ return filled(val(id)) ? 1 : 0; }
+/* Fraccion basada en un minimo razonable de palabras -- 0 si esta vacio,
+   crece linealmente hasta 1 al alcanzar minWords. */
 function wordFrac(id, minWords){
   var wc = wordCount(val(id));
   if(wc === 0) return 0;
@@ -1369,53 +1358,46 @@ function buildCriterion(title, maxPoints, items){
 
 function gradeStep1(){
   var items = [
-    { label:'Perfil de ciudadano difícil identificado', points:2, frac:singleWordFrac('p1_perfil') },
-    { label:'Señal de alerta seleccionada', points:3, frac:singleWordFrac('p1_senal') },
-    { label:'Situación real que ilustra el perfil elegido', points:6, frac:wordFrac('p1_situacion',40) },
-    { label:'Manejo correcto aplicado según el perfil', points:4, frac:wordFrac('p1_manejo',25) }
+    { label:'Categoría estratégica identificada', points:5, frac:singleWordFrac('p1_categoria') },
+    { label:'Necesidad real de la organización descrita', points:10, frac:wordFrac('p1_necesidad',30) }
   ];
   return buildCriterion(RUBRICA[0].criterio, 15, items);
 }
 function gradeStep2(){
   var items = [
-    { label:'Detonante emocional identificado', points:3, frac:singleWordFrac('p2_detonante') },
-    { label:'Situación real de autocontrol descrita', points:6, frac:wordFrac('p2_situacion_autocontrol',40) },
-    { label:'Estrategia de manejo del estrés descrita', points:5, frac:wordFrac('p2_estres',30) },
-    { label:'Señal de burnout reconocida', points:3, frac:singleWordFrac('p2_burnout') }
+    { label:'Problema resuelto por el caso identificado', points:7, frac:wordFrac('p2_problema',20) },
+    { label:'Riesgo identificado y su mitigación', points:8, frac:wordFrac('p2_riesgo',25) }
   ];
-  return buildCriterion(RUBRICA[1].criterio, 17, items);
+  return buildCriterion(RUBRICA[1].criterio, 15, items);
 }
 function gradeStep3(){
   var items = [
-    { label:'Parafraseo aplicado a una situación real', points:5, frac:wordFrac('p3_parafraseo',30) },
-    { label:'Modelo DESC completo con sus 4 partes', points:7, frac:wordFrac('p3_desc',45) },
-    { label:'Situación de negociación win-win descrita', points:5, frac:wordFrac('p3_negociacion',30) }
+    { label:'Comparación entre ambos casos', points:8, frac:wordFrac('p3_comparacion',30) },
+    { label:'Lección aplicable a su institución', points:7, frac:wordFrac('p3_leccion',20) }
   ];
-  return buildCriterion(RUBRICA[2].criterio, 17, items);
+  return buildCriterion(RUBRICA[2].criterio, 15, items);
 }
 function gradeStep4(){
   var items = [
-    { label:'Tipo de problema identificado', points:3, frac:singleWordFrac('p4_problema') },
-    { label:'Técnica de los 5 porqués aplicada hasta la causa raíz', points:8, frac:wordFrac('p4_causa_raiz',40) },
-    { label:'Alternativas de solución evaluadas', points:6, frac:wordFrac('p4_alternativas',35) }
+    { label:'Etapa actual de su institución identificada', points:4, frac:singleWordFrac('p4_etapa') },
+    { label:'Plan para avanzar a la siguiente etapa', points:11, frac:wordFrac('p4_plan',35) }
   ];
-  return buildCriterion(RUBRICA[3].criterio, 17, items);
+  return buildCriterion(RUBRICA[3].criterio, 15, items);
 }
 function gradeStep5(){
   var items = [
-    { label:'Estrategia de prevención seleccionada', points:3, frac:singleWordFrac('p5_prevencion') },
-    { label:'Situación real de reclamo descrita', points:8, frac:wordFrac('p5_situacion_reclamo',40) },
-    { label:'Proceso de manejo de reclamos aplicado', points:6, frac:wordFrac('p5_proceso_reclamo',35) }
+    { label:'Problema y área institucional identificados', points:5, frac:ratioFilledFrac(['p5_problema','p5_area']) },
+    { label:'Solución con IA Generativa propuesta', points:8, frac:wordFrac('p5_solucion',30) },
+    { label:'Impacto esperado y riesgo con su mitigación', points:12, frac:wordFrac('p5_impacto',35) }
   ];
-  return buildCriterion(RUBRICA[4].criterio, 17, items);
+  return buildCriterion(RUBRICA[4].criterio, 25, items);
 }
 function gradeStep6(){
   var items = [
-    { label:'Derecho del servidor identificado', points:3, frac:singleWordFrac('p6_derecho') },
-    { label:'Señales de alerta y plan de autocuidado descritos', points:8, frac:wordFrac('p6_autocuidado',40) },
-    { label:'Documentación de incidente aplicada correctamente', points:6, frac:wordFrac('p6_documentacion',35) }
+    { label:'Salvaguarda de gobernanza aplicada a su caso', points:8, frac:wordFrac('p6_salvaguarda',25) },
+    { label:'Límite ético justificado', points:7, frac:wordFrac('p6_limite',20) }
   ];
-  return buildCriterion(RUBRICA[5].criterio, 17, items);
+  return buildCriterion(RUBRICA[5].criterio, 15, items);
 }
 
 function runGrading(){
@@ -1435,29 +1417,25 @@ function renderResults(result){
   var title = document.getElementById('score-title');
   var desc = document.getElementById('score-desc');
   var num = document.getElementById('score-num');
+  var medalBtn = document.getElementById('btn-medal');
   animarNumero(num, result.total, 900);
   hero.classList.remove('pass','warn','fail');
-
-  var completa = practicaCompleta();
-  var faltan = camposFaltantes();
-  var medalBtn = document.getElementById('btn-medal');
-
-  if(completa){
-    hero.classList.add('pass');
-    title.textContent = '✅ Práctica Aprobada — completada en su totalidad';
-    desc.textContent = 'Esta práctica se aprueba por haberla completado en su totalidad. La nota de ' + result.total + ' / 100 pts es retroalimentación sobre la calidad de sus respuestas — no afecta su aprobación.';
+  if(result.total >= 70){
     medalBtn.style.display = 'inline-flex';
     fireConfetti();
-  } else if(faltan.length <= 4){
+    hero.classList.add('pass');
+    title.textContent = '✅ Aprobado — ' + result.total + ' / 100 pts';
+    desc.textContent = 'Su trabajo cumple con la aprobación mínima (70%). Revise los criterios en amarillo para pulir detalles.';
+  } else if(result.total >= 55){
+    medalBtn.style.display = 'none';
     hero.classList.add('warn');
-    title.textContent = '🟠 Casi completa — faltan ' + faltan.length + ' campo(s)';
-    desc.textContent = 'Para aprobar debe completar todos los campos de los 6 pasos. Le falta: ' + faltan.slice(0,4).join('; ') + (faltan.length > 4 ? '…' : '') + '.';
-    medalBtn.style.display = 'none';
+    title.textContent = '🟠 Cerca de aprobar — ' + result.total + ' / 100 pts';
+    desc.textContent = 'Está por debajo del 70% mínimo. Complete y profundice las secciones marcadas en rojo/ámbar antes de entregar.';
   } else {
-    hero.classList.add('fail');
-    title.textContent = '🔴 Práctica incompleta — faltan ' + faltan.length + ' campos';
-    desc.textContent = 'Todavía faltan varios campos por completar en los 6 pasos. Revise la barra lateral: los pasos marcados sin ✓ tienen campos pendientes.';
     medalBtn.style.display = 'none';
+    hero.classList.add('fail');
+    title.textContent = '🔴 Necesita trabajo adicional — ' + result.total + ' / 100 pts';
+    desc.textContent = 'Aún faltan varias secciones por completar o desarrollar. Use a Nicole y las guías de cada paso para avanzar.';
   }
 
   var listEl = document.getElementById('crit-list');
@@ -1488,11 +1466,9 @@ function gatherGradingPayload(localResult){
     pasos[key] = { criterio: RUBRICA[i].criterio, max: RUBRICA[i].pts, respuestas: respuestas };
   });
   return {
-    estudiante: { nombre: nombreIdentificacion(), correo: correoIdentificacion(), institucion: institucionIdentificacion() },
-    institucion: institucionIdentificacion(),
-    curso: 'atencion-ciudadania',
-    unidad: 'u3',
-    aprobado_por_completitud: practicaCompleta(),
+    estudiante: { nombre: nombreIdentificacion(), correo: correoIdentificacion(), modalidad: val('modo_trabajo') },
+    curso: 'ia-aplicada-ci',
+    unidad: 'u4',
     pasos: pasos,
     local: localResult ? {
       total: localResult.total,
@@ -1508,17 +1484,17 @@ function renderAIReview(data){
     var nombre = RUBRICA[i] ? RUBRICA[i].criterio : ('Criterio ' + (i+1));
     return '<li><strong>' + escapeHtml(nombre) + ':</strong> ' + c.puntaje + '/' + c.max + ' pts — ' + escapeHtml(c.comentario) + '</li>';
   }).join('');
-  box.innerHTML = '<strong>Evaluación de Nicole:</strong> ' + data.total + ' / 100 pts (retroalimentación, no afecta su aprobación).<br>' +
+  box.innerHTML = '<strong>🤖 Evaluación del Tutor Virtual:</strong> ' + data.total + ' / 100 pts.<br>' +
     (data.comentario_general ? '<p style="margin:.5rem 0;">' + escapeHtml(data.comentario_general) + '</p>' : '') +
     '<ul style="margin:.5rem 0 0; padding-left:1.2rem; font-size:.85rem;">' + rows + '</ul>' +
-    '<p style="margin:.6rem 0 0; font-size:.72rem; color:var(--muted);">Esta evaluación la genera el Tutor Virtual leyendo el contenido real de sus respuestas; es orientativa y no reemplaza la nota oficial de su facilitador.</p>';
+    '<p style="margin:.6rem 0 0; font-size:.72rem; color:var(--muted);">Esta evaluación es orientativa y no reemplaza la nota oficial de quien coordina el curso.</p>';
 }
 
 function requestAIGrading(localResult){
   var box = document.getElementById('ai-review');
   box.style.display = 'block';
   box.className = 'alert info';
-  box.innerHTML = '<strong>Nicole:</strong> analizando el contenido de sus respuestas (puede tardar hasta 10 minutos en este servidor) y notificando a su facilitador por correo. No necesita quedarse en esta pantalla — su aprobación por completitud ya quedó registrada arriba…';
+  box.innerHTML = '<strong>🤖 El Tutor Virtual</strong> está analizando el contenido de sus respuestas (puede tardar hasta 10 minutos). Su nota automática ya quedó registrada arriba…';
   fetchWithTimeout(AI_GRADE_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -1531,16 +1507,16 @@ function requestAIGrading(localResult){
     renderAIReview(data);
   }).catch(function(){
     box.className = 'alert warn';
-    box.innerHTML = '<strong>Nicole:</strong> no se pudo contactar el servicio de evaluación en este momento (puede estar desconectado o sin internet). Se muestra únicamente la evaluación automática local de esta página, que sigue siendo válida.';
+    box.innerHTML = '<strong>🤖 El Tutor Virtual:</strong> no se pudo contactar el servicio de evaluación en este momento. Se muestra únicamente la evaluación automática local de esta página, que sigue siendo válida.';
   });
 }
 
 document.getElementById('btn-submit').addEventListener('click', function(){
   saveAll();
   if(!filled(nombreIdentificacion())){
-    alert('Antes de enviar, escriba su nombre completo en "¿Cómo va a completar esta práctica?" para que su facilitador pueda identificar la entrega.');
-    document.getElementById('est_nombre').focus();
-    document.getElementById('portada').scrollIntoView({ behavior:'smooth' });
+    alert('Antes de enviar, escriba su nombre (o el nombre del equipo) en la sección "Antes de empezar" para que quede identificada su entrega.');
+    document.getElementById(modoSelect.value === 'grupo' ? 'grp_nombre' : 'ind_nombre').focus();
+    document.querySelectorAll('.card')[1].scrollIntoView({ behavior:'smooth' });
     return;
   }
   var result = runGrading();
@@ -1553,14 +1529,11 @@ document.getElementById('btn-recheck').addEventListener('click', function(){
 });
 
 /* ---------- MEDALLA DE FINALIZACIÓN ---------- */
-/* Tema visual de la medalla -- Prestacion de Servicio y Atencion a la
-   Ciudadania: icono 🤝, paleta navy/naranja (ver skill
-   inap-practica-autocalificable, registro de temas por curso). */
 var TEMA_MEDALLA = {
-  icono: '🤝',
-  fondo1: '#1a2a3a', fondo2: '#0f1a26',
-  medalClaro: '#f5c9a8', medalMedio: '#e8955f', medalOscuro: '#b5652f',
-  laurel: '#e8955f',
+  icono: '📡',
+  fondo1: '#0d3b3f', fondo2: '#062023',
+  medalClaro: '#d9f99d', medalMedio: '#8dc63f', medalOscuro: '#4d7c0f',
+  laurel: '#8dc63f',
   eyebrow: 'CERTIFICADO DE FINALIZACIÓN'
 };
 
@@ -1655,7 +1628,7 @@ function wrapCanvasText(ctx, text, x, y, maxWidth, lineHeight){
   lines.forEach(function(l, idx){ ctx.fillText(l, x, y + idx*lineHeight); });
 }
 document.getElementById('btn-medal').addEventListener('click', function(){
-  drawMedal(nombreIdentificacion(), 'Prestación de Servicio y Atención a la Ciudadanía', 'Unidad III · Manejo de Situaciones Difíciles y Resolución de Conflictos');
+  drawMedal(nombreIdentificacion(), 'Inteligencia Artificial Aplicada', 'Unidad IV · IA Generativa Aplicada a la Empresa');
   document.getElementById('medal-modal').hidden = false;
 });
 document.getElementById('medal-close').addEventListener('click', function(){
@@ -1666,19 +1639,19 @@ document.getElementById('medal-download').addEventListener('click', function(){
   var a = document.createElement('a');
   a.href = canvas.toDataURL('image/png');
   var name = (nombreIdentificacion() || 'participante').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
-  a.download = 'medalla-' + (name || 'participante') + '-unidad1-atencion-ciudadana.png';
+  a.download = 'medalla-' + (name || 'participante') + '-ia-aplicada-u4.png';
   document.body.appendChild(a); a.click(); document.body.removeChild(a);
 });
 document.getElementById('medal-share').addEventListener('click', function(){
   var canvas = document.getElementById('medal-canvas');
   canvas.toBlob(function(blob){
-    var file = new File([blob], 'medalla-unidad1-atencion-ciudadana.png', { type:'image/png' });
+    var file = new File([blob], 'medalla-ia-aplicada-u4.png', { type:'image/png' });
     if(navigator.canShare && navigator.canShare({ files:[file] })){
-      navigator.share({ files:[file], title:'¡Completé mi práctica!', text:'Completé la Práctica de la Unidad III del curso Prestación de Servicio y Atención a la Ciudadanía — INAP.' }).catch(function(){});
+      navigator.share({ files:[file], title:'¡Completé mi práctica!', text:'Completé la Práctica de la Unidad IV (IA Generativa Aplicada a la Empresa) del curso Inteligencia Artificial Aplicada — Comunicación Integral.' }).catch(function(){});
     } else {
       var a = document.createElement('a');
       a.href = URL.createObjectURL(blob);
-      a.download = 'medalla-unidad1-atencion-ciudadana.png';
+      a.download = 'medalla-ia-aplicada-u4.png';
       document.body.appendChild(a); a.click(); document.body.removeChild(a);
       URL.revokeObjectURL(a.href);
       alert('Su navegador no admite compartir directamente. Se descargó la imagen — puede compartirla manualmente por WhatsApp, correo o redes sociales.');
@@ -1688,7 +1661,7 @@ document.getElementById('medal-share').addEventListener('click', function(){
 
 /* ---------- EXPORT / PRINT / CLEAR ---------- */
 function exportTxt(){
-  var lines = ['PRÁCTICA — UNIDAD I: Fundamentos del Servicio Público y Derechos del Ciudadano (INAP)', 'Nombre: ' + (nombreIdentificacion() || '(sin especificar)'), 'Institución: ' + (institucionIdentificacion() || '(sin especificar)'), '======================================================', ''];
+  var lines = ['PRÁCTICA — UNIDAD IV: IA Generativa Aplicada a la Empresa (Comunicación Integral)', 'Nombre / Equipo: ' + (nombreIdentificacion() || '(sin especificar)'), '======================================================', ''];
   allFieldIds().forEach(function(id){
     var v = val(id);
     if(!filled(v)) return;
@@ -1697,8 +1670,8 @@ function exportTxt(){
   var blob = new Blob([lines.join('\n')], { type:'text/plain;charset=utf-8' });
   var a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
-  var name = (nombreIdentificacion() || 'practica-atencion-ciudadana-u1').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
-  a.download = (name || 'practica-atencion-ciudadana-u1') + '.txt';
+  var name = (nombreIdentificacion() || 'practica-ia-aplicada-u4').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+  a.download = (name || 'practica-ia-aplicada-u4') + '.txt';
   document.body.appendChild(a); a.click(); document.body.removeChild(a);
   URL.revokeObjectURL(a.href);
 }
@@ -1711,6 +1684,7 @@ document.getElementById('btn-clear').addEventListener('click', function(){
   try{ localStorage.removeItem(STORE_KEY); }catch(e){}
   allFieldIds().forEach(function(id){ var el = document.getElementById(id); if(el) el.value = ''; });
   document.querySelectorAll('.wc[data-for]').forEach(function(span){ var t = document.getElementById(span.getAttribute('data-for')); if(t) t.dispatchEvent(new Event('input')); });
+  aplicarModo();
   updateProgress();
   document.getElementById('results').classList.remove('show');
   var aiBox = document.getElementById('ai-review');
@@ -1744,11 +1718,21 @@ function addTyping(){
   div.style.opacity = '.6';
   return div;
 }
+
+var CONTEXTO_UNIDAD = 'MARCO CONCEPTUAL DE REFERENCIA (Unidad IV - IA Generativa Aplicada a la Empresa, curso Inteligencia Artificial Aplicada, Comunicacion Integral). IMPORTANTE: explica todo en PALABRAS SIMPLES, pensando en participantes de un area de comunicacion, sin tecnicismos innecesarios.\\n'
+  + '- 3 categorias de valor estrategico: Automatizacion de procesos y documentos (informes, actas, oficios), Atencion al ciudadano o cliente (chatbots y asistentes disponibles fuera de horario), Apoyo a la toma de decisiones (resumenes, analisis, minutas ejecutivas).\\n'
+  + '- Casos practicos ilustrativos (instituciones ficticias, con fines educativos): el Ayuntamiento de Villa Esperanza uso un chatbot de IA Generativa para tramites municipales, respondiendo solo con base en documentos oficiales y escalando a personal humano los casos complejos; el Instituto Dominicano de Desarrollo Municipal (INDOM) uso un asistente interno para ayudar al personal a redactar informes y consultar manuales, siempre con revision humana antes de publicar.\\n'
+  + '- Modelo de adopcion empresarial en 4 etapas: Diagnostico (identificar procesos con friccion), Piloto controlado (probar con un equipo pequeno y supervision), Gobernanza (definir reglas antes de escalar) y Escalamiento (extender con metricas ya validadas).\\n'
+  + '- Caso de negocio: responde 4 preguntas: cual es el problema, en que area ocurre, que solucion con IA Generativa se propone, y cual es el impacto esperado y el principal riesgo con su mitigacion.\\n'
+  + '- Gobernanza y limites en el sector publico: Transparencia (el ciudadano debe saber que interactua con una IA), Supervision humana obligatoria en decisiones que afectan derechos, Proteccion de datos personales (Ley 172-13 en Republica Dominicana), y Verificacion de fuentes oficiales para evitar respuestas incorrectas en tramites legales.\\n\n'
+  + 'LA PRACTICA tiene 6 pasos y 100 puntos (aprobacion minima 70%): Paso 1 Valor estrategico (15), Paso 2 Caso chatbot ciudadano (15), Paso 3 Caso asistente interno (15), Paso 4 Modelo de adopcion (15), Paso 5 Laboratorio: su caso de negocio (25), Paso 6 Gobernanza y limites (15).';
+
+
 function askTutorAI(q){
   return fetchWithTimeout(AI_CHAT_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ message: q, contexto: 'MARCO CONCEPTUAL (Unidad III - Manejo de Situaciones Dificiles y Resolucion de Conflictos, curso Prestacion de Servicio y Atencion a la Ciudadania, INAP):\\nCiudadano molesto: manifiesta insatisfaccion por un servicio, trato o resultado negativo. Su enojo es una reaccion legitima, no personal contra el servidor. Manejo: no tomarlo como personal, escuchar sin interrumpir, validar emociones, ofrecer soluciones concretas, seguir el procedimiento si se vuelve agresivo.\\nCiudadano exigente: expectativas muy altas, pide hablar con el jefe, menciona contactos, exige respuestas inmediatas, puede ser educado pero inflexible. Estrategia: calma y firmeza, explicar limites con respeto, no ceder a presiones fuera de norma, ofrecer lo que SI es posible, escalar si es necesario.\\nCiudadano conflictivo: busca confrontacion, insultos, amenazas, golpes en el mostrador. Protocolo de seguridad: distancia fisica, no responder con agresividad, llamar al supervisor, activar boton de panico si hay amenaza fisica, documentar el incidente. La seguridad fisica y emocional es siempre primero.\\nInteligencia emocional: autoconocimiento (reconocer detonantes emocionales, observar el propio lenguaje corporal), autocontrol (respirar profundo, contar hasta 5, recordar "no es personal, es profesional"). Manejo del estres laboral: prevencion, pausas, ritual de desconexion, apoyo social. Burnout: cansancio cronico, cinismo, irritabilidad, dificultad para concentrarse.\\nEmpatia en conflictos: no significa aceptar conductas agresivas. Tres niveles: cognitiva (entender el punto de vista), emocional (conectar con el sentimiento), compasiva (actuar para ayudar). Frases utiles: "entiendo su frustracion", "vamos a resolver esto juntos". Evitar: "calmese", "no es mi culpa".\\nEscucha activa en conflictos: detenerse, escuchar todo sin interrumpir, observar el lenguaje corporal, parafrasear ("entonces si entendi bien..."), validar la emocion sin juzgar, preguntar con preguntas abiertas. Desescala significativamente la agresividad.\\nValidacion emocional: reconocer los sentimientos como legitimos sin estar de acuerdo con las demandas. Respuesta efectiva: agradecer, resumir, explicar sin justificar en exceso, proponer, comprometerse, dar seguimiento. Nunca dejar al ciudadano sin una siguiente accion clara.\\nModelo DESC (comunicacion asertiva): Describir la situacion objetivamente sin juzgar, Expresar como afecta, Especificar que se necesita que cambie, Consecuencias positivas del cambio. Permite establecer limites con respeto.\\nNegociacion win-win (Fisher y Ury): separar personas del problema, enfocarse en intereses no posiciones, generar opciones mutuamente beneficiosas, usar criterios objetivos. Meta: que el ciudadano se sienta tratado con justicia aunque no obtenga todo lo que pidio.\\nResolucion de problemas: recopilar informacion, definir el problema con precision, identificar causas con la tecnica de los 5 porques, distinguir causas de sintomas, documentar. Generar alternativas: brainstorming, casos similares, consulta a expertos, benchmarking. Criterios: legalidad, viabilidad, rapidez, eficacia.\\nProtocolos de emergencia: amenazas verbales (calma, no responder agresivo, llamar supervisor), amenazas fisicas (alejarse, boton de panico, seguridad), emergencias medicas (llamar 911, no mover a la persona), incendios (protocolo de evacuacion), robos (no confrontar, memorizar caracteristicas, llamar a policia).\\nPrevencion de conflictos: informacion clara desde el inicio, gestionar expectativas (mejor decir 15 dias y entregar en 10), capacitar al personal (previene 80% de conflictos), sistemas de citas, retroalimentacion continua, empoderar al primer nivel.\\nManejo de reclamos: recepcion con actitud abierta, registro (fecha, hora, descripcion, evidencia), clasificacion, investigacion, respuesta en maximo 15 dias habiles (Ley 107-13), accion correctiva, seguimiento. Un reclamo bien atendido convierte a un detractor en un promotor.\\nTrabajo bajo presion y autocuidado: priorizar, mantener calidad sobre velocidad, no multitarea real, pausas estrategicas, pedir apoyo. Derechos del servidor: pausas de descanso, no ser agredido, capacitacion, supervision y apoyo, desarrollo profesional.\\nDerechos del servidor publico (Ley 41-08 y Ley 107-13): derecho a un ambiente seguro, a no ser agredido (conductas sancionables por Codigo Penal: amenazas, lesiones, coaccion, ultraje a la autoridad), a capacitacion, a apoyo institucional (legal, psicologico, administrativo), a defensa ante quejas infundadas, a la salud mental.\\nEscalamiento y mediacion: escalar cuando el ciudadano pide algo que excede la autoridad, hay riesgo legal, o no acepta ninguna solucion. Nunca decir "eso no es mi problema". Instancias: Defensor del Pueblo, Comision de Acceso a la Informacion, tribunales contencioso-administrativos, Procuraduria, mediacion comunitaria.\\nDocumentacion de incidentes: fecha/hora/lugar, personas involucradas, descripcion objetiva, acciones tomadas, resultado, lecciones aprendidas, recomendaciones. Herramienta de aprendizaje organizacional, no punitiva.\\nRole playing: tecnica de aprendizaje experiencial para practicar sin riesgo real. Pasos: preparacion, escenario, actuacion (5-10 min), retroalimentacion, reflexion, repeticion. El objetivo no es "ganar" al ciudadano sino practicar empatia y solucion de problemas.\\nCasos reales: empresaria en la DGII con devolucion rechazada 8 meses (resuelto con escucha, validacion, investigacion, compromiso de 48h); agricultores del IAD en San Juan (resuelto con el director saliendo personalmente, escucha publica de 30 min, compromiso de 30 dias cumplido).', curso: 'Prestación de Servicio y Atención a la Ciudadanía (INAP)' })
+    body: JSON.stringify({ message: q, contexto: CONTEXTO_UNIDAD, curso: 'Inteligencia Artificial Aplicada (Comunicación Integral)' })
   }, AI_CHAT_TIMEOUT).then(function(res){
     if(!res.ok) throw new Error('HTTP ' + res.status);
     return res.json();
@@ -1762,33 +1746,14 @@ function askTutor(q){
 }
 
 var QA = [
-  { kw:['calific','nota','puntaje','rubrica','aprobar','minimo','aprobacion'], a:'La nota de calidad va de 0 a 100, entre los 6 pasos (15+17+17+17+17+17). Pero la APROBACIÓN de esta práctica no depende de esa nota: se aprueba por completar los 6 pasos en su totalidad. La nota es solo retroalimentación para que usted mismo vea qué reforzar.' },
-  { kw:['ciudadano molesto', 'inconforme'], a:'El ciudadano molesto manifiesta insatisfacción por un servicio, trato o resultado negativo. Su enojo es una reacción legítima, no algo personal contra usted. Manejo: no lo tome como personal, escuche sin interrumpir, valide sus emociones y ofrezca soluciones concretas.' },
-  { kw:['ciudadano exigente'], a:'El ciudadano exigente tiene expectativas muy altas, pide hablar con el jefe o menciona contactos, y puede ser educado pero inflexible. La estrategia es mantener calma y firmeza, explicar los límites con respeto, y ofrecer lo que sí está dentro de sus posibilidades.' },
-  { kw:['ciudadano conflictivo', 'agresivo', 'amenaza'], a:'El ciudadano conflictivo busca la confrontación: insultos, amenazas, golpes en el mostrador. El protocolo de seguridad es mantener distancia, no responder con agresividad, llamar al supervisor o a seguridad, y documentar el incidente. Su seguridad física y emocional es siempre primero.' },
-  { kw:['inteligencia emocional', 'autoconocimiento', 'autocontrol'], a:'El autoconocimiento es reconocer sus propios detonantes emocionales. El autocontrol es gestionar esas emociones para actuar con profesionalismo: respirar profundo, contar hasta 5, y recordar "no es personal, es profesional".' },
-  { kw:['estres', 'burnout', 'desgaste'], a:'El burnout o síndrome de desgaste profesional surge del estrés laboral crónico. Señales de alerta: cansancio crónico, cinismo hacia el trabajo, irritabilidad constante, dificultad para concentrarse. Prevención: pausas breves, respiración diafragmática, rituales de desconexión y apoyo social.' },
-  { kw:['escucha activa', 'parafrasear'], a:'La escucha activa en conflictos tiene seis pasos: detenerse, escuchar todo sin interrumpir, observar el lenguaje corporal, parafrasear ("entonces si entendí bien..."), validar la emoción sin juzgar, y preguntar con preguntas abiertas. Desescala significativamente la agresividad del ciudadano.' },
-  { kw:['validacion emocional', 'validar'], a:'La validación emocional es reconocer los sentimientos del ciudadano como legítimos, sin necesariamente estar de acuerdo con sus demandas. Frases útiles: "entiendo su preocupación", "tiene razón en sentirse así".' },
-  { kw:['modelo desc', 'desc', 'describir expresar especificar'], a:'El modelo DESC tiene cuatro pasos para comunicar límites de forma asertiva: Describir la situación sin juzgar, Expresar cómo le afecta, Especificar qué necesita que cambie, y mencionar las Consecuencias positivas del cambio. Es la base del Paso 3.' },
-  { kw:['negociacion', 'win-win', 'fisher y ury'], a:'La negociación win-win se basa en separar a las personas del problema, enfocarse en los intereses reales (no en las posiciones declaradas), generar opciones que beneficien a ambas partes, y usar criterios objetivos como las normas institucionales.' },
-  { kw:['5 porques', 'cinco porques', 'causa raiz'], a:'La técnica de los 5 porqués sirve para llegar de un síntoma visible (por ejemplo, un ciudadano enojado) a la causa raíz real de un problema, preguntando "por qué" varias veces seguidas hasta encontrar el origen del fallo.' },
-  { kw:['protocolo', 'emergencia', 'boton de panico', 'seguridad'], a:'Los protocolos de emergencia cubren amenazas verbales (calma, no responder agresivo), amenazas físicas (alejarse, botón de pánico, llamar a seguridad), emergencias médicas (llamar al 911) e incendios (protocolo de evacuación). Existen para proteger a todos.' },
-  { kw:['prevencion', 'reclamo', 'queja'], a:'La prevención de conflictos incluye información clara desde el inicio, gestión realista de expectativas y capacitación del personal. El manejo de reclamos sigue un proceso de recepción, registro, investigación y respuesta en máximo 15 días hábiles según la Ley 107-13.' },
-  { kw:['derechos del servidor', 'derecho a un ambiente seguro'], a:'El servidor público también tiene derechos: a un ambiente seguro, a no ser agredido (esto es sancionable por el Código Penal), a capacitación, a apoyo institucional legal y psicológico, y a la salud mental. Ley 41-08 y Ley 107-13.' },
-  { kw:['documentar', 'documentacion de incidentes'], a:'Documentar un incidente incluye fecha/hora/lugar, personas involucradas, una descripción objetiva sin juicios de valor, las acciones tomadas, el resultado y las lecciones aprendidas. Es una herramienta de aprendizaje, no un castigo.' },
-  { kw:['escalar', 'escalamiento', 'defensor del pueblo'], a:'Se debe escalar un caso cuando excede su autoridad, requiere conocimiento técnico especializado, o el ciudadano no acepta ninguna solución. Nunca diga "eso no es mi problema" — diga "voy a consultar con quien tiene la información que usted necesita".' },
-  { kw:['nota de voz', 'voz', 'grabar', 'hablar', 'microfono', 'micrófono'], a:'Al lado de cada pregunta hay un botón "🎤 Mantenga presionado para grabar". Manténgalo presionado mientras habla su respuesta, y suéltelo al terminar — el sistema la convierte en texto automáticamente, como una nota de voz de WhatsApp.' },
-  { kw:['paso 1'], a:'El Paso 1 pide identificar el perfil de ciudadano difícil que más enfrenta, una señal de alerta típica, una situación real, y cómo la manejó correctamente. Vale 15 puntos.' },
-  { kw:['paso 2'], a:'El Paso 2 pide identificar su detonante emocional, describir una situación real de autocontrol, una estrategia de manejo del estrés, y una señal de burnout. Vale 17 puntos.' },
-  { kw:['paso 3'], a:'El Paso 3 pide aplicar el parafraseo a un caso real, construir un ejemplo completo del modelo DESC, y describir una negociación win-win. Vale 17 puntos.' },
-  { kw:['paso 4'], a:'El Paso 4 pide identificar un problema, aplicar la técnica de los 5 porqués hasta la causa raíz, y proponer alternativas de solución. Vale 17 puntos.' },
-  { kw:['paso 5'], a:'El Paso 5 pide elegir una estrategia de prevención, describir una situación real de reclamo, y aplicar el proceso completo de manejo de reclamos. Vale 17 puntos.' },
-  { kw:['paso 6'], a:'El Paso 6 pide identificar un derecho del servidor público, describir señales de alerta personal y un plan de autocuidado, y documentar un incidente real. Vale 17 puntos.' },
-  { kw:['guardar', 'se guarda', 'perder mis respuestas', 'autoguardado'], a:'Sus respuestas se guardan automáticamente en este navegador (localStorage) mientras escribe. Si cambia de computadora o borra el caché, se perderán — por eso le recomiendo usar "⬇️ Descargar mis respuestas" cuando avance.' },
-  { kw:['ejemplo', 'que situacion', 'que institucion'], a:'Puede usar cualquier situación difícil real que haya enfrentado: un ciudadano molesto por una demora, uno exigente que pidió hablar con el director, o uno conflictivo que se puso agresivo. Use la que usted haya vivido u observado directamente en su trabajo.' },
-  { kw:['unidad ii', 'unidad 2', 'no puedo entrar', 'bloqueado', 'gate'], a:'Esta Unidad III requiere haber completado la Unidad II. Si el sistema no reconoce su avance, escriba su nombre exactamente igual a como lo usó en la Unidad II, o use el botón "Continuar de todas formas" si el servicio de verificación no responde — su facilitador puede confirmar el orden manualmente después.' },
-  { kw:['hola', 'ayuda', 'que puedes hacer', 'quien eres'], a:'Soy Nicole, la asistente virtual del Dr. Johan Tapia. Puedo explicarte conceptos de la Unidad III (tipos de ciudadanos difíciles, inteligencia emocional, escucha activa en conflictos, modelo DESC, negociación, resolución de problemas, protocolos de emergencia, prevención, manejo de reclamos, derechos del servidor), orientarte sobre qué pide cada paso, o cómo funciona la calificación. Recuerda: se aprueba por completar la práctica, no por la nota.' }
+  { kw:['calific','nota','puntaje','rubrica','aprobar','minimo'], a:'La nota va de 0 a 100, en 6 criterios: valor estratégico (15), caso del chatbot ciudadano (15), caso del asistente interno (15), modelo de adopción (15), su caso de negocio (25) y gobernanza y límites (15). Aprobación mínima 70%.' },
+  { kw:['valor estrategico','categorias','automatizacion','atencion al ciudadano','toma de decisiones'], a:'La IA Generativa aporta valor empresarial en 3 categorías: Automatización de procesos y documentos (informes, actas, oficios), Atención al ciudadano o cliente (chatbots y asistentes), y Apoyo a la toma de decisiones (resúmenes, análisis, minutas ejecutivas).' },
+  { kw:['caso','chatbot','ayuntamiento','villa esperanza'], a:'El Ayuntamiento de Villa Esperanza (caso ilustrativo) implementó un chatbot que responde preguntas sobre trámites municipales solo con base en documentos oficiales, escalando a personal humano los casos complejos. Bajó el tiempo de respuesta de un día a segundos.' },
+  { kw:['asistente interno','indom','conocimiento institucional'], a:'El Instituto Dominicano de Desarrollo Municipal, INDOM (caso ilustrativo), usa un asistente interno solo para su personal, para redactar informes y consultar manuales — a diferencia del chatbot ciudadano, cada informe pasa por revisión humana antes de publicarse.' },
+  { kw:['adopcion','etapas','diagnostico','piloto','gobernanza','escalamiento'], a:'El modelo de adopción empresarial tiene 4 etapas: Diagnóstico (identificar procesos con fricción), Piloto controlado (probar con un equipo pequeño y supervisión), Gobernanza (definir reglas antes de escalar) y Escalamiento (extender con métricas ya validadas).' },
+  { kw:['caso de negocio','business case','laboratorio'], a:'Un caso de negocio de IA Generativa responde 4 preguntas: cuál es el problema, en qué área ocurre, qué solución con IA Generativa se propone, y cuál es el impacto esperado y el principal riesgo con su mitigación.' },
+  { kw:['gobernanza','limites','transparencia','datos','172-13'], a:'La adopción responsable exige transparencia (el ciudadano sabe que interactúa con una IA), supervisión humana en decisiones que afectan derechos, protección de datos personales (en RD, Ley 172-13) y verificación de fuentes oficiales para evitar errores en trámites legales.' },
+  { kw:['hola','ayuda','quien eres'], a:'Soy Nicole, la asistente virtual del Dr. Johan Tapia. Puedo explicarte el valor estratégico de la IA Generativa, los casos prácticos, el modelo de adopción empresarial, cómo construir un caso de negocio, la gobernanza y sus límites, o cómo se califica esta práctica.' }
 ];
 function normQ(s){ return stripAccents(s); }
 function answerFor(q){
@@ -1800,7 +1765,7 @@ function answerFor(q){
     if(score > bestScore){ bestScore = score; best = entry; }
   });
   if(best) return best.a;
-  return 'No tengo una respuesta preparada para eso. Prueba preguntar por un concepto (servicio público, principios, Constitución, Ley 41-08, Ley 107-13, responsabilidad administrativa, cultura de servicio, ética, meritocracia, gobierno digital), por un paso específico ("¿qué pide el paso 3?") o por la calificación. Para dudas sobre su institución específica, consulte a su facilitador.'
+  return 'No tengo una respuesta preparada para eso. Prueba preguntar por el valor estratégico de la IA Generativa, los casos prácticos (chatbot ciudadano o asistente interno), el modelo de adopción empresarial, cómo construir un caso de negocio, la gobernanza y sus límites, o la calificación.';
 }
 advisorForm.addEventListener('submit', function(e){
   e.preventDefault();
@@ -1871,7 +1836,7 @@ function iniciarRedPortada(){
         if(dist < DIST_MAX){
           ctx.beginPath();
           ctx.moveTo(n.x, n.y); ctx.lineTo(m.x, m.y);
-          ctx.strokeStyle = 'rgba(232,149,95,' + ((1 - dist / DIST_MAX) * .5) + ')';
+          ctx.strokeStyle = 'rgba(141,198,63,' + ((1 - dist / DIST_MAX) * .5) + ')';
           ctx.lineWidth = 1;
           ctx.stroke();
         }
@@ -1939,7 +1904,7 @@ function fireConfetti(){
   canvas.width = window.innerWidth; canvas.height = window.innerHeight;
   document.body.appendChild(canvas);
   var ctx = canvas.getContext('2d');
-  var colores = ['#1a2a3a', '#e8955f', '#16a34a', '#fdf1e9', '#f5c9a8'];
+  var colores = ['#0d7377', '#8dc63f', '#16a34a', '#eff6ff', '#5eead4'];
   var piezas = [];
   for(var i = 0; i < 140; i++){
     piezas.push({
