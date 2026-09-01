@@ -769,6 +769,25 @@
             "url": "https://johantbueno.github.io/practicas-web/formulacion-proyectos-final/"
           }
         ]
+      },
+      {
+        "nombre": "Big Data y Análisis de Datos",
+        "icono": "🗄️",
+        "tipoClase": "taller",
+        "tipoLabel": "1 unidad · orden libre",
+        "cursoId": "big-data-analisis-ci",
+        "practicas": [
+          {
+            "badge": "Unidad I",
+            "unidad": "u1",
+            "titulo": "Fundamentos del Big Data y Análisis de Datos",
+            "desc": "Identifique las cinco V del Big Data (Volumen, Velocidad, Variedad, Veracidad, Valor), clasifique casos reales según la V dominante, y reconozca los cuatro tipos de Análisis de Datos (Descriptivo, Exploratorio, Predictivo, Prescriptivo) dentro de la arquitectura de Big Data. Individual o en equipo.",
+            "duracion": "5 pasos · aproximadamente 45 minutos, individual o en equipo",
+            "puntos": "100 pts (retroalimentación)",
+            "aprobacion": "Completar los 5 pasos",
+            "url": "https://johantbueno.github.io/practicas-web/big-data-analisis-ci-u1/"
+          }
+        ]
       }
     ]
   },
