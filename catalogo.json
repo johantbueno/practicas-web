@@ -512,6 +512,76 @@
         ]
       },
       {
+        "nombre": "Herramientas de Transformación Digital — Video-Prácticas",
+        "icono": "🎬",
+        "tipoClase": "libre",
+        "tipoLabel": "6 video-prácticas · sin orden obligatorio",
+        "esSecuencial": false,
+        "cursoId": "transformacion-digital-video",
+        "practicas": [
+          {
+            "badge": "Video Unidad I",
+            "unidad": "video-u1",
+            "titulo": "Transformación Digital en la Gestión Pública (video + cuestionario)",
+            "desc": "Vea el video de la Unidad I y responda un cuestionario de 12 preguntas de selección múltiple más 3 de reflexión abierta. Autocalificable, individual o en equipo, dura aproximadamente 1 hora.",
+            "duracion": "12 preguntas + 3 de reflexión · aproximadamente 1 hora, individual o en equipo",
+            "puntos": "100 pts (retroalimentación)",
+            "aprobacion": "Completar el cuestionario y la reflexión",
+            "url": "https://johantbueno.github.io/practicas-web/transformacion-digital-video-u1/"
+          },
+          {
+            "badge": "Video Unidad II",
+            "unidad": "video-u2",
+            "titulo": "Innovación y Gestión del Cambio Digital (video + cuestionario)",
+            "desc": "Vea el video de la Unidad II y responda un cuestionario de 12 preguntas de selección múltiple más 3 de reflexión abierta. Autocalificable, individual o en equipo, dura aproximadamente 1 hora.",
+            "duracion": "12 preguntas + 3 de reflexión · aproximadamente 1 hora, individual o en equipo",
+            "puntos": "100 pts (retroalimentación)",
+            "aprobacion": "Completar el cuestionario y la reflexión",
+            "url": "https://johantbueno.github.io/practicas-web/transformacion-digital-video-u2/"
+          },
+          {
+            "badge": "Video Unidad III",
+            "unidad": "video-u3",
+            "titulo": "Ciberseguridad para el Servidor Público (video + cuestionario)",
+            "desc": "Vea el video de la Unidad III y responda un cuestionario de 12 preguntas de selección múltiple más 3 de reflexión abierta. Autocalificable, individual o en equipo, dura aproximadamente 1 hora.",
+            "duracion": "12 preguntas + 3 de reflexión · aproximadamente 1 hora, individual o en equipo",
+            "puntos": "100 pts (retroalimentación)",
+            "aprobacion": "Completar el cuestionario y la reflexión",
+            "url": "https://johantbueno.github.io/practicas-web/transformacion-digital-video-u3/"
+          },
+          {
+            "badge": "Video Unidad IV",
+            "unidad": "video-u4",
+            "titulo": "Gestión del Conocimiento y Big Data (video + cuestionario)",
+            "desc": "Vea el video de la Unidad IV y responda un cuestionario de 12 preguntas de selección múltiple más 3 de reflexión abierta. Autocalificable, individual o en equipo, dura aproximadamente 1 hora.",
+            "duracion": "12 preguntas + 3 de reflexión · aproximadamente 1 hora, individual o en equipo",
+            "puntos": "100 pts (retroalimentación)",
+            "aprobacion": "Completar el cuestionario y la reflexión",
+            "url": "https://johantbueno.github.io/practicas-web/transformacion-digital-video-u4/"
+          },
+          {
+            "badge": "Video Unidad V",
+            "unidad": "video-u5",
+            "titulo": "Inteligencia Artificial y Ética Digital (video + cuestionario)",
+            "desc": "Vea el video de la Unidad V y responda un cuestionario de 12 preguntas de selección múltiple más 3 de reflexión abierta. Autocalificable, individual o en equipo, dura aproximadamente 1 hora.",
+            "duracion": "12 preguntas + 3 de reflexión · aproximadamente 1 hora, individual o en equipo",
+            "puntos": "100 pts (retroalimentación)",
+            "aprobacion": "Completar el cuestionario y la reflexión",
+            "url": "https://johantbueno.github.io/practicas-web/transformacion-digital-video-u5/"
+          },
+          {
+            "badge": "Video Agenda Digital",
+            "unidad": "video-u6",
+            "titulo": "Agenda Digital 2030 (video + cuestionario)",
+            "desc": "Vea el video de la Agenda Digital 2030 y responda un cuestionario de 12 preguntas de selección múltiple más 3 de reflexión abierta. Autocalificable, individual o en equipo, dura aproximadamente 1 hora.",
+            "duracion": "12 preguntas + 3 de reflexión · aproximadamente 1 hora, individual o en equipo",
+            "puntos": "100 pts (retroalimentación)",
+            "aprobacion": "Completar el cuestionario y la reflexión",
+            "url": "https://johantbueno.github.io/practicas-web/transformacion-digital-video-u6/"
+          }
+        ]
+      },
+      {
         "nombre": "Videos Interactivos — Planificación Estratégica en la Gestión Pública",
         "icono": "🎥",
         "tipoClase": "taller",
