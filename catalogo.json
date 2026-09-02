@@ -588,6 +588,16 @@
             "puntos": "100 pts (retroalimentación)",
             "aprobacion": "Completar las 15 preguntas",
             "url": "https://johantbueno.github.io/practicas-web/transformacion-digital-enia/"
+          },
+          {
+            "badge": "Unidad V · Video corto",
+            "unidad": "u5-corta",
+            "titulo": "Unidad V — Inteligencia Artificial y Ética Digital (video corto, 56 min)",
+            "desc": "Version condensada (56 min) del video de la Unidad V, con 15 preguntas tipo checkpoint sobre fundamentos de IA, la ENIA y riesgos eticos. Al terminar se muestra la respuesta correcta de cada pregunta y se puede repetir la practica. Individual o en equipo.",
+            "duracion": "15 preguntas dentro de un video de 56 min, en equipo",
+            "puntos": "100 pts (retroalimentación)",
+            "aprobacion": "Completar las 15 preguntas",
+            "url": "https://johantbueno.github.io/practicas-web/transformacion-digital-video-u5-corta/"
           }
         ]
       },
