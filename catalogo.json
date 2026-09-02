@@ -578,6 +578,16 @@
             "puntos": "100 pts (retroalimentación)",
             "aprobacion": "Completar el cuestionario y la reflexión",
             "url": "https://johantbueno.github.io/practicas-web/transformacion-digital-video-u6/"
+          },
+          {
+            "badge": "ENIA · Video 45 min",
+            "unidad": "enia",
+            "titulo": "Estrategia Nacional de Inteligencia Artificial (ENIA) — video condensado",
+            "desc": "Video interactivo de 45 minutos (versión condensada del original) sobre los 8 pilares de la ENIA, con 15 preguntas de selección múltiple tipo checkpoint dentro del video. Al terminar se muestra la respuesta correcta de cada pregunta y se puede repetir la práctica. Individual o en equipo.",
+            "duracion": "15 preguntas dentro de un video de 45 min, en equipo",
+            "puntos": "100 pts (retroalimentación)",
+            "aprobacion": "Completar las 15 preguntas",
+            "url": "https://johantbueno.github.io/practicas-web/transformacion-digital-enia/"
           }
         ]
       },
