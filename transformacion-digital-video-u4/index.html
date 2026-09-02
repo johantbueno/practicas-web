@@ -341,7 +341,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
       <nav class="nav" aria-label="Navegación de la práctica">
   <ul>
     <li><a href="#portada">🎬 Portada e instrucciones</a></li>
-    <li><a href="#video">📺 Video de la Unidad</a></li>
+    <li><a href="#video">📺 Video interactivo (12 preguntas dentro)</a></li>
     <li><a href="#cuestionario" data-step="cuestionario">Cuestionario · 12 preguntas <span class="pct" data-pct="cuestionario">0%</span></a></li>
     <li><a href="#reflexion" data-step="reflexion">Reflexión abierta <span class="pct" data-pct="reflexion">0%</span></a></li>
     <li><a href="#rubrica">🧮 Rúbrica de evaluación</a></li>
@@ -444,19 +444,22 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
 <section id="video" class="card">
   <span class="step-badge">Video de la Unidad IV</span>
   <h1 style="font-size:1.35rem;">Gestión del Conocimiento y Big Data</h1>
-  <div style="position:relative; padding-top:56.25%; border-radius:var(--radius-md); overflow:hidden; margin-bottom:1rem;">
-    <iframe src="https://www.youtube.com/embed/BTuk5jWiPaQ" title="Video de la Unidad IV" style="position:absolute; inset:0; width:100%; height:100%; border:0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <div id="yt-wrap" style="position:relative; padding-top:56.25%; border-radius:var(--radius-md); overflow:hidden; margin-bottom:.75rem; background:#000;">
+    <div id="yt-player" style="position:absolute; inset:0; width:100%; height:100%;"></div>
+    <div id="yt-overlay" style="position:absolute; inset:0; background:rgba(11,31,58,.94); display:none; align-items:center; justify-content:center; padding:1rem; overflow-y:auto; z-index:5;"></div>
   </div>
-  <p>Vea el video completo antes de responder el cuestionario. Puede pausarlo y volver a esta página en cualquier momento — sus respuestas se guardan automáticamente.</p>
+  <p id="yt-progress-note" style="font-size:.8rem; color:var(--muted); margin:0 0 1rem;">El video se detendrá automáticamente en 12 puntos de control repartidos a lo largo de su duración para hacerle una pregunta — no podrá adelantar sin responder. Punto de control: <strong id="yt-progress-count">0 / 12</strong>.</p>
+  <p>Presione ▶ para comenzar. El video se pausará solo en 12 momentos para preguntarle algo puntual — respóndalo para continuar viendo. Los puntos de control están repartidos de forma uniforme a lo largo del video, no necesariamente coinciden con el inicio exacto de cada tema.</p>
 </section>
 
 <!-- ============ CUESTIONARIO ============ -->
 <section id="cuestionario" class="card">
-  <span class="step-badge">12 preguntas · 40 min</span><span class="step-points">Vale 60 pts</span>
+  <span class="step-badge">12 preguntas · durante el video</span><span class="step-points">Vale 60 pts</span>
   <h1>Cuestionario de selección múltiple</h1>
-  <p><strong>Concepto:</strong> marque la opción que considere correcta según el video de la Unidad IV. Cada pregunta vale 5 puntos.</p>
-  <div class="alert info"><strong>Guía:</strong> puede volver a ver el video las veces que necesite antes de responder.</div>
-  <div class="field mc-q">
+  <p id="cuest-nota-normal">Las 12 preguntas aparecen automáticamente <strong>sobre el video</strong> mientras lo ve, en el orden en que el video avanza. No hay nada que llenar aquí — solo suba a la sección "Video de la Unidad" y presione play.</p>
+  <p id="cuest-nota-fallback" style="display:none;" class="alert warn">No se pudo cargar el reproductor interactivo (puede deberse a la conexión). Vea el video de la unidad normalmente y responda aquí abajo las 12 preguntas.</p>
+  <p id="cuest-resumen" style="font-size:.85rem; color:var(--muted);">Progreso: <strong id="cuest-resumen-n">0 / 12</strong> preguntas respondidas.</p>
+  <div id="mc-fallback-list" style="display:none;"><div class="field mc-q">
   <label style="margin-bottom:.5rem;">1. En la jerarquia DIKW, un servidor publico del Ministerio de Educacion analiza las calificaciones de miles de estudiantes y descubre que los centros educativos rurales tienen un 23% mas de desercion que los urbanos. Este hallazgo pertenece al nivel de:</label>
   <input type="hidden" id="mc1" value="">
   <div class="mc-options"><label class="mc-opt"><input type="radio" name="mc1" value="0" onchange="window.__setMC('mc1','0')"> Datos</label><label class="mc-opt"><input type="radio" name="mc1" value="1" onchange="window.__setMC('mc1','1')"> Conocimiento</label><label class="mc-opt"><input type="radio" name="mc1" value="2" onchange="window.__setMC('mc1','2')"> Informacion</label><label class="mc-opt"><input type="radio" name="mc1" value="3" onchange="window.__setMC('mc1','3')"> Sabiduria</label></div>
@@ -528,6 +531,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
   <div class="mc-options"><label class="mc-opt"><input type="radio" name="mc12" value="0" onchange="window.__setMC('mc12','0')"> No permiten la edicion colaborativa de documentos por multiples usuarios simultaneamente.</label><label class="mc-opt"><input type="radio" name="mc12" value="1" onchange="window.__setMC('mc12','1')"> Son herramientas de codigo cerrado que requieren licencias costosas para su uso institucional.</label><label class="mc-opt"><input type="radio" name="mc12" value="2" onchange="window.__setMC('mc12','2')"> Requieren moderacion continua para evitar que la informacion se desactualice o se corrompa, lo que muchas instituciones no pueden garantizar por falta de un curador de conocimiento designado.</label><label class="mc-opt"><input type="radio" name="mc12" value="3" onchange="window.__setMC('mc12','3')"> No permiten la busqueda de contenido ni la creacion de enlaces internos entre paginas.</label></div>
 </div>
 
+</div>
 </section>
 
 <!-- ============ REFLEXIÓN ABIERTA ============ -->
@@ -670,6 +674,10 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
   </div>
 </div>
 
+<script>
+window.onYouTubeIframeAPIReady = function(){ if(window.__ytReady) window.__ytReady(); };
+</script>
+<script src="https://www.youtube.com/iframe_api"></script>
 <script>
 (function(){
 "use strict";
@@ -850,6 +858,118 @@ function restoreRadios(){
       var radio = document.querySelector('input[name="'+id+'"][value="'+v+'"]');
       if(radio) radio.checked = true;
     }
+  });
+}
+
+/* ---------- VIDEO INTERACTIVO ESTILO H5P: pausas con preguntas superpuestas ---------- */
+var YT_VIDEO_ID = 'BTuk5jWiPaQ';
+var ytPlayer = null;
+var ytDuracion = 0;
+var ytTriggers = [];
+var ytPollTimer = null;
+var ytCheckpointActivo = null;
+var ytRespondidos = {};
+function ytComputeTriggers(){
+  var ids = STEP_FIELDS.cuestionario;
+  var n = ids.length;
+  var dur = ytDuracion || 0;
+  ytTriggers = ids.map(function(id, i){ return { id:id, time: Math.round(dur * (i+1) / (n+1)) }; });
+}
+function ytActualizarContadores(){
+  var n = Object.keys(ytRespondidos).length;
+  var total = STEP_FIELDS.cuestionario.length;
+  var a = document.getElementById('yt-progress-count'); if(a) a.textContent = n + ' / ' + total;
+  var b = document.getElementById('cuest-resumen-n'); if(b) b.textContent = n + ' / ' + total;
+}
+var ytFallbackTimer = setTimeout(ytActivarFallback, 5000);
+function ytActivarFallback(){
+  if(ytPlayer) return;
+  var wrap = document.getElementById('yt-wrap');
+  if(wrap) wrap.innerHTML = '<iframe src="https://www.youtube.com/embed/' + YT_VIDEO_ID + '" title="Video de la unidad" style="position:absolute; inset:0; width:100%; height:100%; border:0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+  var note = document.getElementById('yt-progress-note'); if(note) note.style.display = 'none';
+  var a = document.getElementById('cuest-nota-normal'); if(a) a.style.display = 'none';
+  var b = document.getElementById('cuest-nota-fallback'); if(b) b.style.display = 'block';
+  var list = document.getElementById('mc-fallback-list'); if(list) list.style.display = 'block';
+}
+window.__ytReady = function(){
+  clearTimeout(ytFallbackTimer);
+  ytPlayer = new YT.Player('yt-player', {
+    videoId: YT_VIDEO_ID,
+    playerVars: { rel: 0, modestbranding: 1 },
+    events: {
+      onReady: function(){
+        ytDuracion = ytPlayer.getDuration() || 0;
+        ytComputeTriggers();
+      },
+      onStateChange: function(e){
+        if(e.data === YT.PlayerState.PLAYING){
+          if(!ytPollTimer) ytPollTimer = setInterval(ytCheckTime, 500);
+        } else {
+          if(ytPollTimer){ clearInterval(ytPollTimer); ytPollTimer = null; }
+        }
+      }
+    }
+  });
+};
+function ytCheckTime(){
+  if(!ytPlayer || ytCheckpointActivo) return;
+  var t = ytPlayer.getCurrentTime();
+  for(var i=0;i<ytTriggers.length;i++){
+    var trig = ytTriggers[i];
+    if(!ytRespondidos[trig.id] && t >= trig.time){
+      ytPlayer.seekTo(trig.time, true);
+      ytPlayer.pauseVideo();
+      ytMostrarCheckpoint(trig.id, i);
+      break;
+    }
+  }
+}
+function ytMostrarCheckpoint(qid, idx){
+  ytCheckpointActivo = qid;
+  var q = QUESTIONS_BANK[qid];
+  var overlay = document.getElementById('yt-overlay');
+  var opts = q.options.map(function(op, i){
+    return '<label class="mc-opt" data-i="'+i+'" style="background:#fff;"><input type="radio" name="ckp_'+qid+'" value="'+i+'"> '+escapeHtml(op)+'</label>';
+  }).join('');
+  overlay.innerHTML =
+    '<div style="background:var(--bg-card); border-radius:var(--radius-lg); padding:1.5rem; max-width:520px; width:100%; box-shadow:var(--shadow-lg);">' +
+    '<span class="step-badge">Punto de control ' + (idx+1) + ' / ' + STEP_FIELDS.cuestionario.length + '</span>' +
+    '<p style="font-weight:800; color:var(--primary); font-size:1.05rem; margin:.5rem 0 1rem;">' + escapeHtml(q.text) + '</p>' +
+    '<div class="mc-options" id="ckp-options">' + opts + '</div>' +
+    '<div id="ckp-feedback" style="margin-top:1rem; display:none;"></div>' +
+    '<button class="btn-primary" id="ckp-btn" type="button" style="margin-top:1.1rem;" disabled>Comprobar respuesta</button>' +
+    '</div>';
+  overlay.style.display = 'flex';
+  var radios = overlay.querySelectorAll('.mc-opt');
+  radios.forEach(function(r){
+    r.addEventListener('click', function(){
+      radios.forEach(function(x){ x.classList.remove('selected'); });
+      r.classList.add('selected');
+      r.querySelector('input').checked = true;
+      document.getElementById('ckp-btn').disabled = false;
+    });
+  });
+  document.getElementById('ckp-btn').addEventListener('click', function(){
+    var btn = document.getElementById('ckp-btn');
+    if(btn.textContent.indexOf('Continuar') !== -1){
+      ytRespondidos[qid] = true;
+      ytActualizarContadores();
+      saveAll(); updateProgress();
+      overlay.style.display = 'none';
+      ytCheckpointActivo = null;
+      ytPlayer.playVideo();
+      return;
+    }
+    var checked = overlay.querySelector('input[name="ckp_'+qid+'"]:checked');
+    if(!checked) return;
+    var chosen = Number(checked.value);
+    window.__setMC(qid, String(chosen));
+    var ok = chosen === q.correct;
+    var fb = document.getElementById('ckp-feedback');
+    fb.style.display = 'block';
+    fb.innerHTML = '<div class="alert ' + (ok ? 'success' : 'warn') + '" style="margin:0;"><strong>' + (ok ? '✔ Correcto.' : '✖ Incorrecto — la respuesta correcta es: ' + escapeHtml(q.options[q.correct])) + '</strong><br>' + escapeHtml(q.feedback) + '</div>';
+    radios.forEach(function(r){ r.style.pointerEvents = 'none'; });
+    btn.textContent = '▶ Continuar viendo';
   });
 }
 function fetchWithTimeout(url, options, timeoutMs){
@@ -1469,6 +1589,11 @@ document.getElementById('btn-retry').addEventListener('click', function(){
   });
   saveAll();
   updateProgress();
+  ytRespondidos = {};
+  ytCheckpointActivo = null;
+  ytActualizarContadores();
+  if(ytPlayer && ytPlayer.seekTo){ ytPlayer.seekTo(0, true); ytPlayer.pauseVideo(); }
+  document.getElementById('yt-overlay').style.display = 'none';
   document.getElementById('results').classList.remove('show');
   document.getElementById('video').scrollIntoView({ behavior:'smooth' });
 });
