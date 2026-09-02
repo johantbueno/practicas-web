@@ -1892,8 +1892,8 @@ function askTutorAI(q){
     if(!res.ok) throw new Error('HTTP ' + res.status);
     return res.json();
   }).then(function(data){
-    if(!data || !filled(data.response)) throw new Error('respuesta vacía');
-    return data.response;
+    if(!data || !filled((data.respuesta||data.response))) throw new Error('respuesta vacía');
+    return (data.respuesta||data.response);
   });
 }
 function askTutor(q){

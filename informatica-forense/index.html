@@ -796,7 +796,7 @@ function askTutorAI(q){
     if(!res.ok) throw new Error('HTTP ' + res.status);
     return res.json();
   }).then(function(data){
-    return (data && data.response) || 'No pude generar una respuesta en este momento. Intenta de nuevo en unos segundos.';
+    return (data && (data.respuesta||data.response)) || 'No pude generar una respuesta en este momento. Intenta de nuevo en unos segundos.';
   });
 }
 

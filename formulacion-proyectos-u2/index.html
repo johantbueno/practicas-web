@@ -1345,8 +1345,8 @@ updateProgress();
       if(!res.ok) throw new Error('HTTP ' + res.status);
       return res.json();
     }).then(function(data){
-      if(!data || !filled(data.response)) throw new Error('respuesta vacía');
-      box.textContent = data.response;
+      if(!data || !filled((data.respuesta||data.response))) throw new Error('respuesta vacía');
+      box.textContent = (data.respuesta||data.response);
     }).catch(function(){
       box.textContent = 'No se pudo contactar el servicio de IA en este momento. Puede reintentar en unos segundos, o continuar respondiendo imaginando cómo habría respondido Nicole.';
     }).finally(function(){
@@ -1746,8 +1746,8 @@ function askTutorAI(q){
     if(!res.ok) throw new Error('HTTP ' + res.status);
     return res.json();
   }).then(function(data){
-    if(!data || !filled(data.response)) throw new Error('respuesta vacía');
-    return data.response;
+    if(!data || !filled((data.respuesta||data.response))) throw new Error('respuesta vacía');
+    return (data.respuesta||data.response);
   });
 }
 function askTutor(q){

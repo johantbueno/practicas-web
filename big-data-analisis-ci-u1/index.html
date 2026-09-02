@@ -1310,15 +1310,16 @@ updateProgress();
     fetchWithTimeout(AI_CHAT_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message: prompt })
+      body: JSON.stringify({ message: prompt, contexto: CONTEXTO_UNIDAD, curso: 'Big Data y Análisis de Datos (Comunicación Integral)' })
     }, AI_CHAT_TIMEOUT).then(function(res){
       if(!res.ok) throw new Error('HTTP ' + res.status);
       return res.json();
     }).then(function(data){
-      if(!data || !filled(data.response)) throw new Error('respuesta vacía');
-      box.textContent = data.response;
+      var texto = data && (data.respuesta || data.response);
+      if(!filled(texto)) throw new Error('respuesta vacía');
+      box.textContent = texto;
     }).catch(function(){
-      box.textContent = 'No se pudo contactar el servicio de IA en este momento. Puede reintentar en unos segundos, o continuar respondiendo imaginando cómo habría respondido Nicole.';
+      box.textContent = '🎓 Nicole (respuesta preparada, el servicio de IA no respondió a tiempo): ' + answerFor(prompt);
     }).finally(function(){
       btn.disabled = false;
       btn.textContent = originalText;
@@ -1697,8 +1698,9 @@ function askTutorAI(q){
     if(!res.ok) throw new Error('HTTP ' + res.status);
     return res.json();
   }).then(function(data){
-    if(!data || !filled(data.response)) throw new Error('respuesta vacía');
-    return data.response;
+    var texto = data && (data.respuesta || data.response);
+    if(!filled(texto)) throw new Error('respuesta vacía');
+    return texto;
   });
 }
 function askTutor(q){
