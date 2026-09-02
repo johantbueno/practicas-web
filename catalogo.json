@@ -582,6 +582,26 @@
         ]
       },
       {
+        "nombre": "Herramientas de Transformación Digital — Actividad en Vivo",
+        "icono": "📣",
+        "tipoClase": "libre",
+        "tipoLabel": "Actividad interactiva en vivo (tipo Mentimeter), en equipo",
+        "esSecuencial": false,
+        "cursoId": "transformacion-digital-menti",
+        "practicas": [
+          {
+            "badge": "Tema 1 · En vivo",
+            "unidad": "menti-t1",
+            "titulo": "Mentimeter del Tema 1: Transformación Digital e IA",
+            "desc": "Actividad interactiva en vivo, en equipo: 8 preguntas (nube de palabras y opción múltiple con gráfico de barras en vivo) sobre el Tema 1. El facilitador proyecta la pantalla (agregar ?presentador=1 al enlace) y los equipos responden desde su celular con el mismo enlace y un código de sesión compartido.",
+            "duracion": "8 preguntas · aproximadamente 15-20 minutos, en equipo",
+            "puntos": "Sin calificación (actividad de participación)",
+            "aprobacion": "No aplica",
+            "url": "https://johantbueno.github.io/practicas-web/transformacion-digital-menti-t1/"
+          }
+        ]
+      },
+      {
         "nombre": "Videos Interactivos — Planificación Estratégica en la Gestión Pública",
         "icono": "🎥",
         "tipoClase": "taller",
