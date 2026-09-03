@@ -254,6 +254,8 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
 /* VIDEO INTERACTIVO */
 .video-wrap{position:relative; width:100%; padding-top:56.25%; border-radius:var(--radius-md); overflow:hidden; background:#000; box-shadow:var(--shadow-md);}
 .video-wrap iframe{position:absolute; inset:0; width:100%; height:100%; border:0;}
+.rotate-fs-btn{position:absolute; top:.6rem; right:.6rem; z-index:6; display:inline-flex; align-items:center; gap:.35rem; background:rgba(15,23,42,.72); color:#fff; border:1px solid rgba(255,255,255,.35); font-weight:700; font-size:.72rem; padding:.4rem .7rem; border-radius:999px; cursor:pointer; font-family:inherit; backdrop-filter:blur(2px); min-height:34px;}
+.rotate-fs-btn:hover{background:rgba(15,23,42,.9);}
 .mini-timeline{position:relative; height:8px; background:var(--border-light); border-radius:999px; margin:.9rem 0 0;}
 .mini-timeline-fill{position:absolute; top:0; left:0; height:100%; width:0%; background:var(--navy); border-radius:999px; transition:width .3s linear;}
 .cp-overlay{position:absolute; inset:0; background:rgba(4,12,26,.86); display:none; align-items:center; justify-content:center; padding:.75rem; overflow-y:auto; z-index:5; backdrop-filter:blur(2px);}
@@ -322,7 +324,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
       </div>
 
       <div class="progress-summary">
-        <div class="progress-summary-row"><span>Estaciones respondidas</span><span id="progress-count">0 / 8</span></div>
+        <div class="progress-summary-row"><span>Estaciones respondidas</span><span id="progress-count">0 / 9</span></div>
         <div class="progress-track"><div class="progress-fill" id="progress-fill-el"></div></div>
         <p style="margin:.5rem 0 0; font-size:.7rem; color:var(--muted);">Sus respuestas se guardan automáticamente en este navegador.</p>
       </div>
@@ -330,7 +332,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
       <nav class="nav" aria-label="Navegación de la práctica">
         <ul>
           <li><a href="#portada">🧠 Portada e instrucciones</a></li>
-          <li><a href="#video">📺 Video interactivo (8 estaciones)</a></li>
+          <li><a href="#video">📺 Video interactivo (9 estaciones)</a></li>
           <li><a href="#rubrica">🧮 Rúbrica de evaluación</a></li>
           <li><a href="#resultado">📤 Enviar y calificar</a></li>
         </ul>
@@ -354,7 +356,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
       <div class="cover-chips">
         <span class="cover-chip">Individual o en equipo</span>
         <span class="cover-chip">100 pts · aprueba con 70%</span>
-        <span class="cover-chip">8 estaciones dentro del video</span>
+        <span class="cover-chip">9 estaciones · 15 preguntas dentro del video</span>
         <span class="cover-chip">Puede reintentar hasta aprobar</span>
         <span class="cover-chip">Gana una medalla digital al aprobar</span>
       </div>
@@ -363,12 +365,14 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
     <section class="card" id="tutorial">
       <span class="step-badge">Tutorial</span>
       <h1 style="font-size:1.35rem;">Cómo usar esta plataforma</h1>
-      <p><strong>Concepto:</strong> esta práctica gira alrededor de un video sobre Inteligencia Artificial aplicada a Recursos Humanos. El video se pausará solo en <strong>8 estaciones</strong> para hacerle preguntas — de distinto tipo cada vez: verdadero/falso, selección múltiple, emparejar términos, o desarrollo (escrito o por nota de voz 🎤).</p>
+      <p><strong>Concepto:</strong> esta práctica gira alrededor de un video sobre Inteligencia Artificial aplicada a Recursos Humanos. El video se pausará solo en <strong>9 estaciones</strong> (15 preguntas en total) para hacerle preguntas — de distinto tipo cada vez: verdadero/falso, selección múltiple, emparejar términos, o desarrollo (escrito o por nota de voz 🎤).</p>
       <ol class="ins-list">
         <li>Presione play en el video — cuando llegue a cada estación, se pausará solo y aparecerá una pregunta encima del reproductor.</li>
         <li>Responda todas las preguntas de esa estación y presione <strong>"▶ Continuar viendo el video"</strong>.</li>
         <li>Si tiene dudas, use <strong>"⏪ Volver a ver este fragmento"</strong> antes de responder.</li>
       </ol>
+      <h2>Si pierde la conexión o cierra la página, no pierde su avance</h2>
+      <p>Cada estación que responda queda guardada de inmediato en este navegador. Si se corta internet, cierra la pestaña por error o recarga la página, al volver a entrar el video <strong>retoma exactamente donde se quedó</strong> — no tiene que repetir estaciones ya respondidas ni volver a ver ese contenido.</p>
       <h2>La retroalimentación aparece al final, no en cada pregunta</h2>
       <p>Mientras completa el video, sus respuestas quedan registradas pero <strong>no se le dice si acertó o no en el momento</strong>. Al terminar el video, presione <strong>Enviar y Calificar</strong>: ahí sí verá, pregunta por pregunta, cuál era la respuesta correcta.</p>
       <h2>¿No alcanzó el 70%? Puede volver a intentarlo</h2>
@@ -418,11 +422,12 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
 
     <!-- ============ VIDEO ============ -->
     <section id="video" class="card">
-      <span class="step-badge">Video interactivo · 8 estaciones</span>
+      <span class="step-badge">Video interactivo · 9 estaciones</span>
       <h1 style="font-size:1.35rem;">Inteligencia Artificial en Recursos Humanos</h1>
-      <p style="font-size:.85rem; color:var(--muted); margin-top:-.6rem;">El video se detendrá automáticamente en 8 puntos para hacerle preguntas. Estación: <strong id="cp-progress-count">0 / 8</strong>.</p>
+      <p style="font-size:.85rem; color:var(--muted); margin-top:-.6rem;">El video se detendrá automáticamente en 9 puntos para hacerle preguntas (15 en total). Estación: <strong id="cp-progress-count">0 / 9</strong>.</p>
       <div class="video-wrap">
         <div id="player"></div>
+        <button type="button" class="rotate-fs-btn" id="btnRotateFs" title="Ver el video en pantalla completa y de lado">🔄 Pantalla completa</button>
         <div class="cp-overlay" id="cpOverlay">
           <div class="cp-panel" id="cpPanel"></div>
         </div>
@@ -448,7 +453,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
       <div id="submit-zone">
         <span class="step-badge">Paso final</span>
         <h1 style="font-size:1.4rem;">Enviar y calificar mi trabajo</h1>
-        <p>El sistema revisará automáticamente sus 8 estaciones y le mostrará, pregunta por pregunta, la respuesta correcta.</p>
+        <p>El sistema revisará automáticamente sus 9 estaciones (15 preguntas) y le mostrará, pregunta por pregunta, la respuesta correcta.</p>
         <button class="btn-primary" id="btn-submit" type="button">📤 Enviar y Calificar mi Trabajo</button>
       </div>
 
@@ -594,40 +599,49 @@ document.addEventListener('input', function(e){
 var YT_VIDEO_ID = 'D6__8zGlmrU';
 
 var STATIONS = [
-  { id:'cp1', pauseAt:600, nextSeek:600, badge:'Estación 1 de 8 · minuto 05:25–10:00', questions:[
-    { id:'q1a', type:'vf', pts:5, text:'Verdadero o falso: hoy en día la Inteligencia Artificial en Recursos Humanos ya se aplica en más procesos que solo el reclutamiento, incluyendo evaluación del desempeño, clima laboral y análisis de compensación.', correct:true },
-    { id:'q1b', type:'vf', pts:5, text:'Verdadero o falso: la IA Generativa (como ChatGPT) es el único tipo de IA que existe hoy; los sistemas basados en reglas, el Machine Learning y el Deep Learning ya quedaron obsoletos.', correct:false }
+  { id:'cp1', pauseAt:600, nextSeek:600, badge:'Estación 1 de 9 · minuto 05:25–10:00', questions:[
+    { id:'q1a', type:'vf', pts:4, text:'Verdadero o falso: hoy en día la Inteligencia Artificial en Recursos Humanos ya se aplica en más procesos que solo el reclutamiento, incluyendo evaluación del desempeño, clima laboral y análisis de compensación.', correct:true },
+    { id:'q1b', type:'vf', pts:4, text:'Verdadero o falso: la IA Generativa (como ChatGPT) es el único tipo de IA que existe hoy; los sistemas basados en reglas, el Machine Learning y el Deep Learning ya quedaron obsoletos.', correct:false },
+    { id:'q1c', type:'vf', pts:4, text:'Verdadero o falso: usar Inteligencia Artificial en Recursos Humanos significa reemplazar por completo al equipo de RR. HH., sin necesidad de personas.', correct:false }
   ]},
-  { id:'cp2', pauseAt:978, nextSeek:978, badge:'Estación 2 de 8 · minuto 10:00–16:18', questions:[
-    { id:'q2', type:'match', pts:20, pairs:[
+  { id:'cp2', pauseAt:978, nextSeek:978, badge:'Estación 2 de 9 · minuto 10:00–16:18', questions:[
+    { id:'q2', type:'match', pts:18, pairs:[
       { term:'Chatbot que responde preguntas frecuentes de RR. HH. siguiendo un guion fijo de respuestas', def:'IA basada en reglas' },
       { term:'Modelo que aprende de datos históricos de rotación de personal para predecir quién podría renunciar', def:'Machine Learning' },
       { term:'Sistema que lee y clasifica automáticamente cientos de CVs o documentos escaneados analizando su contenido', def:'Deep Learning' },
       { term:'Herramienta que redacta un primer borrador de un manual de cultura organizacional a partir de una instrucción', def:'IA Generativa' }
     ]}
   ]},
-  { id:'cp3', pauseAt:1140, nextSeek:1140, badge:'Estación 3 de 8 · minuto 16:18–19:00', questions:[
-    { id:'q3', type:'mc', pts:10, text:'En el video se menciona el caso de una consultora cuya IA presentó información incorrecta o inventada, con apariencia de ser correcta — un fenómeno conocido como "alucinación". ¿Qué tipo de IA tiene este riesgo particular?',
-      options:['IA basada en reglas','IA Generativa','Deep Learning para reconocimiento de imágenes','Ninguna: las alucinaciones de la IA no son reales'], correct:1 }
+  { id:'cp3', pauseAt:1140, nextSeek:1140, badge:'Estación 3 de 9 · minuto 16:18–19:00', questions:[
+    { id:'q3', type:'mc', pts:6, text:'En el video se menciona el caso de una consultora cuya IA presentó información incorrecta o inventada, con apariencia de ser correcta — un fenómeno conocido como "alucinación". ¿Qué tipo de IA tiene este riesgo particular?',
+      options:['IA basada en reglas','IA Generativa','Deep Learning para reconocimiento de imágenes','Ninguna: las alucinaciones de la IA no son reales'], correct:1 },
+    { id:'q3b', type:'mc', pts:6, text:'Dado el riesgo de que la IA Generativa puede "alucinar", ¿qué práctica es más recomendable al usarla para generar documentos o análisis en RR. HH.?',
+      options:['Usar el resultado tal cual, sin revisarlo, para ahorrar tiempo','Verificar siempre la información generada antes de usarla, especialmente datos y cifras','Dejar de usar cualquier herramienta de IA Generativa por completo','Usarla solo para tareas donde los errores no importan'], correct:1 }
   ]},
-  { id:'cp4', pauseAt:1465, nextSeek:1465, badge:'Estación 4 de 8 · minuto 19:00–24:25', questions:[
-    { id:'q4a', type:'mc', pts:10, text:'Cuando una organización usa una herramienta de IA para redactar el primer borrador de su manual de cultura interna a partir de una instrucción en lenguaje natural, ¿qué tipo de IA está utilizando principalmente?',
+  { id:'cp4', pauseAt:1465, nextSeek:1465, badge:'Estación 4 de 9 · minuto 19:00–24:25', questions:[
+    { id:'q4a', type:'mc', pts:6, text:'Cuando una organización usa una herramienta de IA para redactar el primer borrador de su manual de cultura interna a partir de una instrucción en lenguaje natural, ¿qué tipo de IA está utilizando principalmente?',
       options:['IA basada en reglas','Machine Learning','IA Generativa','Ninguna: eso no lo puede hacer la IA'], correct:2 },
-    { id:'q4b', type:'mc', pts:10, text:'Un sistema que analiza automáticamente cientos de CVs, extrayendo experiencia, educación y habilidades para filtrar candidatos, se apoya principalmente en:',
+    { id:'q4b', type:'mc', pts:6, text:'Un sistema que analiza automáticamente cientos de CVs, extrayendo experiencia, educación y habilidades para filtrar candidatos, se apoya principalmente en:',
       options:['IA basada en reglas únicamente, sin ningún aprendizaje','Machine Learning y/o Deep Learning, que aprenden a interpretar el contenido de los documentos','Solo Deep Learning para reconocer las fotos de los candidatos','No es inteligencia artificial, es un programa básico'], correct:1 }
   ]},
-  { id:'cp5', pauseAt:1724, nextSeek:1958, badge:'Estación 5 de 8 · minuto 24:25–28:44', questions:[
-    { id:'q5', type:'mc', pts:10, text:'El caso de Amazon mencionado en el video —su sistema de IA para filtrar candidatos terminó penalizando los currículums de mujeres— es un ejemplo real y ampliamente documentado de sesgo algorítmico. ¿Cuál es la explicación más precisa de por qué ocurrió?',
-      options:['Alguien programó reglas explícitas para descartar candidatas mujeres','El modelo de Machine Learning aprendió patrones de datos históricos de contratación (mayoritariamente hombres) y replicó ese sesgo','Fue un error de Deep Learning al reconocer las fotos de los candidatos','Nunca ocurrió realmente: fue solo un rumor sin fundamento'], correct:1 }
+  { id:'cp5', pauseAt:1724, nextSeek:1860, badge:'Estación 5 de 9 · minuto 24:25–28:44', questions:[
+    { id:'q5', type:'mc', pts:6, text:'El caso de Amazon mencionado en el video —su sistema de IA para filtrar candidatos terminó penalizando los currículums de mujeres— es un ejemplo real y ampliamente documentado de sesgo algorítmico. ¿Cuál es la explicación más precisa de por qué ocurrió?',
+      options:['Alguien programó reglas explícitas para descartar candidatas mujeres','El modelo de Machine Learning aprendió patrones de datos históricos de contratación (mayoritariamente hombres) y replicó ese sesgo','Fue un error de Deep Learning al reconocer las fotos de los candidatos','Nunca ocurrió realmente: fue solo un rumor sin fundamento'], correct:1 },
+    { id:'q5b', type:'vf', pts:4, text:'Verdadero o falso: los sesgos algorítmicos como el caso de Amazon solo pueden ocurrir en empresas pequeñas o poco tecnológicas, nunca en empresas grandes y tecnológicas.', correct:false }
   ]},
-  { id:'cp6', pauseAt:2277, nextSeek:2277, badge:'Estación 6 de 8 · minuto 32:38–37:57', questions:[
+  { id:'cp5b', pauseAt:1958, nextSeek:1958, badge:'Estación 6 de 9 · minuto 31:00–32:38', questions:[
+    { id:'q5c', type:'mc', pts:6, text:'Según lo que se comenta en el video sobre las empresas que aplican IA en el reclutamiento, ¿qué marca la diferencia entre hacerlo "bien" o "mal"?',
+      options:['Usarla con supervisión y criterio humano, en vez de aplicarla ciegamente sin revisión','Usar la versión más cara del software de IA disponible en el mercado','Contratar una herramienta de IA distinta para cada vacante','Prescindir totalmente de la IA en todo el proceso'], correct:0 }
+  ]},
+  { id:'cp6', pauseAt:2277, nextSeek:2277, badge:'Estación 7 de 9 · minuto 32:38–37:57', questions:[
     { id:'q6', type:'dev', pts:10, text:'El video plantea si conviene usar la IA al 100% en el proceso de reclutamiento o de forma guiada, con supervisión humana. Pensando en su propia organización (o una que conozca bien): ¿en qué parte del proceso de reclutamiento SÍ debería intervenir siempre una persona, y en cuál podría apoyarse más en la IA? Justifique.' }
   ]},
-  { id:'cp7', pauseAt:2550, nextSeek:3155, badge:'Estación 7 de 8 · minuto 37:57–42:30', questions:[
-    { id:'q7', type:'mc', pts:10, text:'El video describe cómo la IA puede leer cientos de respuestas abiertas de una encuesta de clima laboral (y también datos de compensación) para detectar automáticamente el tono —positivo, negativo o neutral— o posibles inequidades. ¿Con qué tipo(s) de IA se relaciona principalmente esa capacidad de "entender" texto y datos complejos?',
-      options:['IA basada en reglas únicamente','Machine Learning y Deep Learning, que reconocen patrones y lenguaje','Solo IA Generativa','Ninguna: eso requiere revisión 100% manual'], correct:1 }
+  { id:'cp7', pauseAt:2550, nextSeek:3155, badge:'Estación 8 de 9 · minuto 37:57–42:30', questions:[
+    { id:'q7', type:'mc', pts:6, text:'El video describe cómo la IA puede leer cientos de respuestas abiertas de una encuesta de clima laboral (y también datos de compensación) para detectar automáticamente el tono —positivo, negativo o neutral— o posibles inequidades. ¿Con qué tipo(s) de IA se relaciona principalmente esa capacidad de "entender" texto y datos complejos?',
+      options:['IA basada en reglas únicamente','Machine Learning y Deep Learning, que reconocen patrones y lenguaje','Solo IA Generativa','Ninguna: eso requiere revisión 100% manual'], correct:1 },
+    { id:'q7b', type:'vf', pts:4, text:'Verdadero o falso: analizar el tono de las respuestas abiertas de una encuesta de clima laboral con IA elimina por completo la necesidad de que Recursos Humanos revise los resultados.', correct:false }
   ]},
-  { id:'cp8', pauseAt:3475, nextSeek:null, badge:'Estación 8 de 8 · minuto 52:35–57:55', questions:[
+  { id:'cp8', pauseAt:3475, nextSeek:null, badge:'Estación 9 de 9 · minuto 52:35–57:55', questions:[
     { id:'q8', type:'dev', pts:10, text:'Para cerrar: ¿cómo cree que la Inteligencia Artificial podría cambiar la cultura organizacional de su institución en los próximos años? Mencione un beneficio concreto y un riesgo concreto.' }
   ]}
 ];
@@ -645,6 +659,23 @@ function stationAnswered(st){
 }
 function stationsAnsweredCount(){
   var n = 0; STATIONS.forEach(function(st){ if(stationAnswered(st)) n++; }); return n;
+}
+/* Punto de inicio real de cada estacion = donde termina el contenido de la
+   estacion anterior (su nextSeek, o su propio pauseAt si es contigua). Así,
+   si el participante recarga la página o pierde la conexión, el video
+   retoma exactamente donde se quedó (no en 05:25), sin repetir contenido
+   ya visto ni preguntas ya respondidas. */
+var VIDEO_START_SECONDS = 325;
+var STATION_START = STATIONS.map(function(st, i){
+  if(i === 0) return VIDEO_START_SECONDS;
+  var prev = STATIONS[i-1];
+  return (prev.nextSeek !== null && prev.nextSeek !== undefined) ? prev.nextSeek : prev.pauseAt;
+});
+function getResumeStartSeconds(){
+  for(var i=0;i<STATIONS.length;i++){
+    if(!stationAnswered(STATIONS[i])) return STATION_START[i];
+  }
+  return STATIONS[STATIONS.length-1].pauseAt;
 }
 function updateStationProgress(){
   var n = stationsAnsweredCount();
@@ -668,11 +699,20 @@ function loadYT(){
 window.onYouTubeIframeAPIReady = function(){
   player = new YT.Player('player', {
     videoId: YT_VIDEO_ID,
-    playerVars: { rel:0, modestbranding:1, start:325 },
-    events: { onReady: function(){ playerReady = true; setInterval(ytPoll, 400); } }
+    playerVars: { rel:0, modestbranding:1, start: getResumeStartSeconds() },
+    events: { onReady: function(){ playerReady = true; setInterval(ytPoll, 400); mostrarAvisoRetomando(); } }
   });
 };
 loadYT();
+function mostrarAvisoRetomando(){
+  var n = stationsAnsweredCount();
+  if(n === 0 || n === STATIONS.length) return;
+  var note = document.createElement('p');
+  note.style.cssText = 'font-size:.8rem; color:var(--navy); margin:.6rem 0 0; font-weight:700;';
+  note.textContent = '↻ Se retomó su avance guardado: ya tiene ' + n + ' / ' + STATIONS.length + ' estaciones respondidas. El video continúa donde se quedó.';
+  var anchor = document.getElementById('cp-progress-count').closest('p');
+  if(anchor) anchor.insertAdjacentElement('afterend', note);
+}
 
 function ytPoll(){
   if(!playerReady || checkpointOpen) return;
@@ -1029,13 +1069,13 @@ document.getElementById('btn-submit').addEventListener('click', function(){
   requestAIGrading(result);
 });
 document.getElementById('btn-retry').addEventListener('click', function(){
-  if(!confirm('Esto borrará las respuestas de las 8 estaciones para volver a intentarlo. ¿Continuar?')) return;
+  if(!confirm('Esto borrará las respuestas de las 9 estaciones para volver a intentarlo. ¿Continuar?')) return;
   ANSWERS = {};
   saveAnswers();
   updateStationProgress();
   document.getElementById('results').classList.remove('show');
   var aiBox = document.getElementById('ai-review'); aiBox.style.display='none'; aiBox.innerHTML='';
-  if(playerReady){ player.seekTo(325, true); player.pauseVideo(); }
+  if(playerReady){ player.seekTo(VIDEO_START_SECONDS, true); player.pauseVideo(); }
   document.getElementById('video').scrollIntoView({ behavior:'smooth' });
 });
 document.getElementById('btn-print').addEventListener('click', function(){ window.print(); });
@@ -1051,7 +1091,7 @@ document.getElementById('btn-clear').addEventListener('click', function(){
 
 /* ---------- RÚBRICA TABLE ---------- */
 var RUBRICA = [
-  { n:1, criterio:'Preguntas objetivas', indicador:'6 preguntas (verdadero/falso, selección múltiple) más 1 ejercicio de emparejar términos, sobre casos reales de IA en RR. HH.', pts:80 },
+  { n:1, criterio:'Preguntas objetivas', indicador:'12 preguntas (5 verdadero/falso, 7 selección múltiple) más 1 ejercicio de emparejar términos (4 pares), sobre casos reales de IA en RR. HH.', pts:80 },
   { n:2, criterio:'Preguntas de desarrollo', indicador:'2 reflexiones (escritas o por nota de voz) sobre supervisión humana en reclutamiento y el impacto de la IA en la cultura organizacional.', pts:20 }
 ];
 document.getElementById('rubrica-body').innerHTML = RUBRICA.map(function(r){
@@ -1188,6 +1228,29 @@ document.getElementById('qr-download').addEventListener('click', function(){
   var a = document.createElement('a'); a.href = dataUrl; a.download = 'qr-practica-ia-rrhh-u1b.png';
   document.body.appendChild(a); a.click(); document.body.removeChild(a);
 });
+
+/* ---------- PANTALLA COMPLETA + ROTAR A HORIZONTAL (móvil, como YouTube) ---------- */
+(function(){
+  var wrap = document.querySelector('.video-wrap');
+  var btn = document.getElementById('btnRotateFs');
+  if(!wrap || !btn) return;
+  btn.addEventListener('click', function(){
+    var req = wrap.requestFullscreen || wrap.webkitRequestFullscreen;
+    var p = req ? req.call(wrap) : Promise.resolve();
+    Promise.resolve(p).catch(function(){}).then(function(){
+      try{
+        if(screen.orientation && screen.orientation.lock){
+          screen.orientation.lock('landscape').catch(function(){});
+        }
+      }catch(e){}
+    });
+  });
+  document.addEventListener('fullscreenchange', function(){
+    if(!document.fullscreenElement && screen.orientation && screen.orientation.unlock){
+      try{ screen.orientation.unlock(); }catch(e){}
+    }
+  });
+})();
 
 /* ---------- MOBILE NAV ---------- */
 var navToggle = document.getElementById('nav-toggle');
@@ -1396,7 +1459,7 @@ function addMsg(text, who){
 }
 function addTyping(){ var div = addMsg('Escribiendo…','bot'); div.style.opacity='.6'; return div; }
 
-var CONTEXTO_UNIDAD = "MARCO CONCEPTUAL DE REFERENCIA (Unidad I - Fundamentos de la Inteligencia Artificial, curso Inteligencia Artificial Aplicada a Recursos Humanos, Comunicacion Integral). Esta practica (I-B) es un video interactivo que aplica el mismo marco a casos reales.\n- IA basada en reglas: sigue instrucciones fijas programadas de antemano, no aprende por si sola (ej. chatbot de preguntas frecuentes).\n- Machine Learning: aprende patrones de datos historicos y mejora con la experiencia (ej. prediccion de rotacion, o el caso real de Amazon 2018: su sistema de IA para filtrar candidatos aprendio de datos historicos de contratacion mayoritariamente masculinos y termino penalizando curriculums de mujeres - sesgo algoritmico, no reglas explicitas).\n- Deep Learning: Machine Learning con redes neuronales de muchas capas, fuerte en imagenes, voz y texto complejo (ej. lectura automatica de CVs o documentos escaneados, analisis de sentimiento en encuestas de clima laboral).\n- IA Generativa: crea contenido nuevo (texto, imagenes, audio, codigo) a partir de una instruccion (ej. redactar un manual de cultura organizacional). Su riesgo particular es la 'alucinacion': generar contenido con apariencia correcta pero datos falsos o inventados (el video menciona el caso de una consultora con este problema).\n\nLA PRACTICA (I-B) tiene 8 estaciones dentro de un video (V/F, opcion multiple, emparejar terminos, y 2 preguntas de desarrollo con nota de voz), 100 puntos, aprobacion minima 70%. La retroalimentacion (respuestas correctas) se muestra solo al final, al presionar Enviar y Calificar. Si no alcanza 70 puntos, puede reintentar el cuestionario las veces que necesite.";
+var CONTEXTO_UNIDAD = "MARCO CONCEPTUAL DE REFERENCIA (Unidad I - Fundamentos de la Inteligencia Artificial, curso Inteligencia Artificial Aplicada a Recursos Humanos, Comunicacion Integral). Esta practica (I-B) es un video interactivo que aplica el mismo marco a casos reales.\n- IA basada en reglas: sigue instrucciones fijas programadas de antemano, no aprende por si sola (ej. chatbot de preguntas frecuentes).\n- Machine Learning: aprende patrones de datos historicos y mejora con la experiencia (ej. prediccion de rotacion, o el caso real de Amazon 2018: su sistema de IA para filtrar candidatos aprendio de datos historicos de contratacion mayoritariamente masculinos y termino penalizando curriculums de mujeres - sesgo algoritmico, no reglas explicitas).\n- Deep Learning: Machine Learning con redes neuronales de muchas capas, fuerte en imagenes, voz y texto complejo (ej. lectura automatica de CVs o documentos escaneados, analisis de sentimiento en encuestas de clima laboral).\n- IA Generativa: crea contenido nuevo (texto, imagenes, audio, codigo) a partir de una instruccion (ej. redactar un manual de cultura organizacional). Su riesgo particular es la 'alucinacion': generar contenido con apariencia correcta pero datos falsos o inventados (el video menciona el caso de una consultora con este problema).\n\nLA PRACTICA (I-B) tiene 9 estaciones dentro de un video, con 15 preguntas en total (5 V/F, 7 opcion multiple, 1 ejercicio de emparejar de 4 pares, y 2 preguntas de desarrollo con nota de voz), 100 puntos, aprobacion minima 70%. La retroalimentacion (respuestas correctas) se muestra solo al final, al presionar Enviar y Calificar. Si no alcanza 70 puntos, puede reintentar el cuestionario las veces que necesite.";
 
 function askTutorAI(q){
   return fetchWithTimeout(AI_CHAT_URL, {
@@ -1420,7 +1483,7 @@ var QA = [
   { kw:['alucinacion','alucina'], a:'Una "alucinación" de la IA Generativa es cuando genera contenido con apariencia correcta, pero con datos falsos o inventados. El video menciona un caso real de una consultora que presentó información incorrecta generada así.' },
   { kw:['amazon','sesgo','sesgo algoritmico'], a:'El caso de Amazon es real y ampliamente documentado (2018): su sistema de Machine Learning para filtrar candidatos aprendió de datos históricos de contratación —mayoritariamente hombres— y replicó ese patrón, penalizando currículums de mujeres. No fue una regla programada a propósito, fue un sesgo aprendido de los datos.' },
   { kw:['nota de voz','voz','grabar','microfono','micrófono'], a:'En las preguntas de desarrollo hay un botón "🎤 Mantenga presionado para grabar". Manténgalo presionado mientras habla su respuesta y suéltelo al terminar — se convierte en texto automáticamente.' },
-  { kw:['reintentar','de nuevo','otra vez','no aprobe','no pase'], a:'Si su nota queda debajo de 70, use el botón "🔄 Intentar de nuevo" en los resultados: borra las respuestas de las 8 estaciones y reinicia el video desde el principio para que lo intente otra vez, las veces que necesite.' },
+  { kw:['reintentar','de nuevo','otra vez','no aprobe','no pase'], a:'Si su nota queda debajo de 70, use el botón "🔄 Intentar de nuevo" en los resultados: borra las respuestas de las 9 estaciones y reinicia el video desde el principio para que lo intente otra vez, las veces que necesite.' },
   { kw:['hola','ayuda','que puedes hacer','quien eres'], a:'Soy Nicole, la asistente virtual del Dr. Johan Tapia. Puedo explicarte los 4 tipos de IA (reglas, Machine Learning, Deep Learning, IA Generativa) y los casos reales del video (McKinsey, Amazon), o cómo funciona la calificación de esta práctica.' }
 ];
 function answerFor(q){
