@@ -788,6 +788,16 @@
             "url": "https://johantbueno.github.io/practicas-web/ia-rrhh-u1/"
           },
           {
+            "badge": "Unidad I-B",
+            "unidad": "u1b",
+            "titulo": "Tipos de IA en RR. HH.: Casos Reales (Video Interactivo)",
+            "desc": "Video interactivo con 8 estaciones (verdadero/falso, selección múltiple, emparejar términos y desarrollo con nota de voz) sobre casos reales de IA en Recursos Humanos: McKinsey, Amazon, chatbots de CVs, People Analytics. Complementa la Unidad I. Individual o en equipo.",
+            "duracion": "8 estaciones · aproximadamente 45-50 minutos, individual o en equipo",
+            "puntos": "100 pts",
+            "aprobacion": "70% mínimo (puede reintentar)",
+            "url": "https://johantbueno.github.io/practicas-web/ia-rrhh-u1b/"
+          },
+          {
             "badge": "Unidad II",
             "unidad": "u2",
             "titulo": "Inteligencia Artificial aplicada a Recursos Humanos",

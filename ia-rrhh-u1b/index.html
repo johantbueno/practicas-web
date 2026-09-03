@@ -1,0 +1,1527 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Práctica I-B — Tipos de IA en RR. HH.: Casos Reales en Video | Inteligencia Artificial Aplicada a Recursos Humanos</title>
+<meta name="description" content="Video interactivo (aprox. 45-50 min) con preguntas tipo checkpoint (verdadero/falso, selección múltiple, emparejar y desarrollo con nota de voz) sobre casos reales de IA en Recursos Humanos. Individual o en equipo. Incluye a Nicole y calificación automática con reintentos.">
+<meta name="color-scheme" content="light dark">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A7%A0%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+:root{
+  --navy:#0d7377; --navy-dark:#093638; --gold:#8dc63f;
+  --primary:#0f172a; --secondary:#334155; --muted:#64748b;
+  --bg-body:#f4f7fb; --bg-card:#ffffff; --border-light:#e2e8f0; --border-dark:#cbd5e1;
+  --green:#16a34a; --green-bg:#f0fdf4; --green-border:#22c55e;
+  --amber:#b45309; --amber-bg:#fffbeb; --amber-border:#f59e0b;
+  --red:#b91c1c; --red-bg:#fef2f2; --red-border:#ef4444;
+  --blue-bg:#eff6ff; --blue-border:#3b82f6;
+  --radius-lg:16px; --radius-md:12px; --radius-sm:8px;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.06);
+  --shadow-md:0 4px 6px -1px rgba(0,0,0,.1), 0 2px 4px -2px rgba(0,0,0,.1);
+  --shadow-lg:0 10px 15px -3px rgba(0,0,0,.12), 0 4px 6px -4px rgba(0,0,0,.1);
+  --sidebar-w:300px;
+}
+[data-theme="dark"]{
+  --navy:#5eead4; --primary:#f1f5f9; --secondary:#cbd5e1; --muted:#94a3b8;
+  --bg-body:#0b1220; --bg-card:#151f2f; --border-light:#283249; --border-dark:#3a4666;
+  --green-bg:#0c2417; --amber-bg:#2a2108; --red-bg:#2a1212; --blue-bg:#13233f;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.4); --shadow-md:0 4px 6px -1px rgba(0,0,0,.5); --shadow-lg:0 10px 15px -3px rgba(0,0,0,.5);
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{margin:0; background:var(--bg-body); color:var(--secondary); font-family:'Inter',ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif; line-height:1.7; transition:background-color .25s ease;}
+a{color:var(--navy);}
+.skip-link{position:absolute; left:-9999px; top:0; background:var(--navy); color:#fff; padding:.85rem 1.5rem; z-index:2000; border-radius:0 0 10px 0; font-weight:700; text-decoration:none;}
+.skip-link:focus{left:0;}
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible{outline:2px solid var(--navy); outline-offset:2px; border-radius:4px;}
+
+#progress-wrap{position:fixed; top:0; left:0; right:0; height:4px; z-index:1000; background:transparent;}
+#progress-bar{height:100%; width:0%; background:linear-gradient(90deg, var(--navy), var(--gold)); transition:width .1s linear;}
+
+.wrapper{display:flex; flex-direction:column; min-height:100vh; margin:0 auto;}
+@media (min-width:1024px){ .wrapper{flex-direction:row; align-items:flex-start; max-width:1440px; padding:0 1rem;} }
+
+.sidebar{background:var(--bg-card); padding:1.75rem 1.5rem; border-bottom:1px solid var(--border-light);}
+@media (min-width:1024px){
+  .sidebar{width:var(--sidebar-w); flex-shrink:0; position:sticky; top:1.5rem; height:calc(100vh - 3rem); overflow-y:auto; border-radius:var(--radius-lg); border:1px solid var(--border-light); box-shadow:var(--shadow-md); margin:1.5rem 0;}
+}
+.sidebar-header{display:flex; align-items:center; gap:10px; margin-bottom:1rem; padding-bottom:1rem; border-bottom:1px solid var(--border-light);}
+.sidebar-title{color:var(--primary); font-size:1.02rem; font-weight:800; text-transform:uppercase; letter-spacing:.04em; margin:0;}
+.header-actions{margin-left:auto; display:flex; gap:.4rem;}
+.icon-btn{background:none; border:1px solid var(--border-light); width:34px; height:34px; border-radius:8px; cursor:pointer; font-size:1rem; display:flex; align-items:center; justify-content:center; color:var(--secondary);}
+.icon-btn:hover{background:var(--bg-body); border-color:var(--border-dark);}
+.nav-toggle{display:none;}
+
+.timer-box{background:var(--bg-body); border:1px solid var(--border-light); border-radius:var(--radius-md); padding:.85rem 1rem; margin-bottom:1.1rem; transition:background-color .3s ease, border-color .3s ease;}
+.timer-row{display:flex; justify-content:space-between; align-items:center; margin-bottom:.3rem;}
+.timer-label{font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.03em; color:var(--muted);}
+.timer-value{font-size:1.5rem; font-weight:800; color:var(--primary); font-family:ui-monospace,SFMono-Regular,Consolas,monospace; letter-spacing:.02em;}
+.timer-box.low{background:var(--red-bg); border-color:var(--red-border);}
+.timer-box.low .timer-value{color:var(--red); animation:timerPulse 1s ease-in-out infinite;}
+#sound-toggle{width:28px; height:28px; font-size:.85rem; flex-shrink:0;}
+@keyframes timerPulse{0%,100%{opacity:1; transform:scale(1);} 50%{opacity:.55; transform:scale(1.05);}}
+#hearts-canvas{display:block; margin:.55rem auto 0;}
+@keyframes heartShake{0%,100%{transform:translateX(0);} 20%{transform:translateX(-2px);} 40%{transform:translateX(2px);} 60%{transform:translateX(-2px);} 80%{transform:translateX(2px);}}
+#hearts-canvas.critical{animation:heartShake .3s ease-in-out infinite;}
+.timer-box.overtime{background:var(--red-bg); border-color:var(--red-border);}
+.timer-box.overtime .timer-value{color:var(--red); animation:timerPulse .6s ease-in-out infinite;}
+.overtime-note{font-size:.66rem; color:var(--red); text-align:center; margin-top:.4rem; font-weight:700; line-height:1.3;}
+.fast-clock{width:26px; height:26px; border-radius:50%; border:2px solid var(--red); position:relative; margin:.55rem auto 0; display:none;}
+.timer-box.overtime .fast-clock{display:block;}
+.fast-clock-hand{position:absolute; top:50%; left:50%; width:2px; height:10px; background:var(--red); transform-origin:50% 100%; margin-top:-10px; margin-left:-1px; animation:fastSpin .4s linear infinite;}
+@keyframes fastSpin{ to{ transform:rotate(360deg); } }
+
+.medal-modal{position:fixed; inset:0; background:rgba(0,0,0,.65); z-index:2000; display:flex; align-items:center; justify-content:center; padding:1rem;}
+.medal-modal[hidden]{display:none;}
+.medal-modal-inner{background:var(--bg-card); border-radius:var(--radius-lg); padding:1.5rem; max-width:420px; width:100%; text-align:center; position:relative; box-shadow:var(--shadow-lg);}
+#medal-canvas{width:100%; max-width:300px; border-radius:12px; margin:.25rem auto 1rem; display:block; box-shadow:var(--shadow-md);}
+#medal-close{position:absolute; top:.75rem; right:.75rem;}
+
+.progress-summary{margin-bottom:1.1rem;}
+.progress-summary-row{display:flex; justify-content:space-between; font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.03em; color:var(--muted); margin-bottom:.35rem;}
+#progress-count{color:var(--primary);}
+.progress-track{height:6px; border-radius:999px; background:var(--border-light); overflow:hidden;}
+.progress-fill{height:100%; width:0%; background:linear-gradient(90deg,var(--navy),var(--gold)); transition:width .3s ease;}
+.progress-fill.complete{background:linear-gradient(90deg,#16a34a,#22c55e);}
+
+.nav ul{list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:.2rem;}
+.nav a{text-decoration:none; color:var(--muted); font-size:.9rem; font-weight:500; display:flex; align-items:center; justify-content:space-between; gap:.5rem; padding:.55rem .8rem; border-radius:var(--radius-sm); transition:all .2s ease;}
+.nav a:hover{background:var(--bg-body); color:var(--navy); transform:translateX(3px);}
+.nav a.active,.nav a.active:hover{background:var(--navy); color:#fff; transform:translateX(3px);}
+
+.sidebar-actions{margin-top:1.25rem; padding-top:1.25rem; border-top:1px solid var(--border-light); display:flex; flex-direction:column; gap:.5rem;}
+.btn-block{width:100%; padding:.6rem .8rem; border-radius:var(--radius-sm); border:1px solid var(--border-light); background:var(--bg-body); color:var(--secondary); font-weight:600; font-size:.82rem; cursor:pointer; font-family:inherit;}
+.btn-block:hover{border-color:var(--navy); color:var(--navy);}
+
+@media (max-width:1023px){
+  .sidebar-collapsible{display:none;}
+  .sidebar.open .sidebar-collapsible{display:block;}
+  .nav-toggle{display:inline-flex;}
+  .sidebar-header{flex-wrap:wrap; row-gap:.6rem;}
+  .header-actions{flex-basis:100%; justify-content:flex-end; margin-left:0;}
+  .icon-btn{width:40px; height:40px;}
+  .fontsize-controls button{width:38px; height:38px;}
+}
+
+.main{flex:1; padding:1.75rem 1rem 6.5rem; max-width:980px; margin:0 auto; width:100%;}
+@media (min-width:1024px){ .main{padding:1.75rem 2.5rem 5.5rem;} }
+
+.card.cover{background:linear-gradient(135deg,var(--navy),var(--navy-dark)); color:#fff; border-radius:var(--radius-lg); padding:2.5rem; margin-bottom:2rem; box-shadow:var(--shadow-lg); position:relative; overflow:hidden;}
+.cover .eyebrow{text-transform:uppercase; letter-spacing:.08em; font-size:.78rem; font-weight:700; opacity:.85;}
+.cover h1{font-size:1.9rem; font-weight:800; margin:.4rem 0 .3rem; line-height:1.25;}
+.cover p.sub{margin:0 0 1.25rem; opacity:.92; font-size:1rem;}
+.cover-chips{display:flex; flex-wrap:wrap; gap:.6rem; margin-top:1.1rem;}
+.cover-chip{background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.22); border-radius:999px; padding:.4rem .9rem; font-size:.8rem; font-weight:600; letter-spacing:.01em;}
+#cover-canvas{position:absolute; inset:0; width:100%; height:100%; opacity:.4; pointer-events:none;}
+.card.cover > *{position:relative; z-index:1;}
+.tutorial-steps{counter-reset:tut; list-style:none; padding:0; margin:1rem 0;}
+.tutorial-steps li{counter-increment:tut; position:relative; padding:.15rem 0 .9rem 2.5rem; font-size:.92rem;}
+.tutorial-steps li::before{content:counter(tut); position:absolute; left:0; top:0; width:1.7rem; height:1.7rem; border-radius:50%; background:var(--navy); color:#fff; font-weight:800; font-size:.8rem; display:flex; align-items:center; justify-content:center;}
+.help-box{display:flex; align-items:center; gap:.9rem; background:var(--blue-bg); border:1px solid var(--blue-border); border-radius:var(--radius-md); padding:1rem 1.25rem; margin-top:1.25rem;}
+.help-box a.btn-secondary{white-space:nowrap;}
+
+.card{background:var(--bg-card); padding:2rem; border-radius:var(--radius-lg); box-shadow:var(--shadow-sm); border:1px solid var(--border-light); margin-bottom:2rem; scroll-margin-top:1.25rem;}
+@media (max-width:640px){ .card{padding:1.35rem;} }
+.card h1{font-size:1.7rem; font-weight:800; color:var(--primary); margin:0 0 1.1rem;}
+.card h2{font-size:1.2rem; font-weight:700; color:var(--navy); margin:1.75rem 0 .9rem; padding-bottom:.5rem; border-bottom:1px solid var(--border-light);}
+.card h2:first-child{margin-top:0;}
+.card p{margin:0 0 1rem;}
+.step-badge{display:inline-flex; align-items:center; gap:.4rem; background:var(--blue-bg); color:var(--navy); border:1px solid var(--blue-border); font-weight:700; font-size:.72rem; text-transform:uppercase; letter-spacing:.04em; padding:.3rem .7rem; border-radius:999px; margin-bottom:.9rem;}
+
+.alert{border-radius:var(--radius-md); padding:1rem 1.25rem; margin:1rem 0; border:1px solid; font-size:.92rem;}
+.alert h3,.alert h4{margin-top:0;}
+.alert.info{background:var(--blue-bg); border-color:var(--blue-border);}
+.alert.gold{background:var(--amber-bg); border-color:var(--amber-border);}
+.alert.success{background:var(--green-bg); border-color:var(--green-border);}
+.alert.warn{background:var(--red-bg); border-color:var(--red-border);}
+
+.tbl-wrap{overflow-x:auto; margin:1rem 0; border-radius:var(--radius-sm); border:1px solid var(--border-light);}
+table.tp-table{width:100%; border-collapse:collapse; font-size:.87rem; min-width:440px;}
+table.tp-table th{background:var(--navy); color:#fff; text-align:left; padding:.6rem .7rem; font-weight:700; font-size:.78rem; text-transform:uppercase; letter-spacing:.02em;}
+table.tp-table td{padding:.55rem .7rem; border-top:1px solid var(--border-light); vertical-align:top;}
+table.tp-table tr:nth-child(even) td{background:var(--bg-body);}
+table.tp-table td.label-cell{font-weight:700; color:var(--primary); white-space:nowrap;}
+
+.field{margin-bottom:1rem;}
+.field label{display:flex; justify-content:space-between; align-items:baseline; gap:.5rem; font-weight:700; font-size:.82rem; color:var(--primary); margin-bottom:.35rem;}
+input[type=text], input[type=email], select, textarea{
+  width:100%; padding:.55rem .75rem; border:1px solid var(--border-light); border-radius:var(--radius-sm);
+  font-size:1rem; font-family:inherit; background:var(--bg-card); color:var(--primary); transition:border-color .15s ease;
+}
+[data-theme="dark"] input, [data-theme="dark"] select, [data-theme="dark"] textarea{background:#0f1830;}
+input:focus, select:focus, textarea:focus{border-color:var(--navy); outline:none;}
+textarea{min-height:76px; resize:vertical;}
+.field-grid{display:grid; grid-template-columns:1fr 1fr; gap:.9rem;}
+@media (max-width:640px){ .field-grid{grid-template-columns:1fr;} }
+
+ol.ins-list{padding-left:1.2rem;}
+ol.ins-list li{margin-bottom:.5rem;}
+
+.btn-primary{background:linear-gradient(135deg,var(--navy),var(--navy-dark)); color:#fff; border:none; padding:.9rem 1.6rem; border-radius:var(--radius-md); font-weight:700; font-size:1rem; cursor:pointer; box-shadow:var(--shadow-md); font-family:inherit;}
+.btn-primary:hover{filter:brightness(1.08);}
+.btn-primary:disabled{opacity:.5; cursor:not-allowed; filter:none;}
+.btn-secondary{background:var(--bg-body); color:var(--navy); border:1px solid var(--navy); padding:.7rem 1.2rem; border-radius:var(--radius-md); font-weight:700; font-size:.88rem; cursor:pointer; font-family:inherit;}
+.btn-secondary:hover{background:var(--blue-bg);}
+.btn-row{display:flex; flex-wrap:wrap; gap:.7rem; margin-top:1.25rem;}
+
+#submit-zone{text-align:center; padding:2.25rem 1.5rem;}
+#submit-zone p{max-width:560px; margin:0 auto 1.25rem;}
+
+.results{display:none;}
+.results.show{display:block;}
+.score-hero{display:flex; flex-wrap:wrap; align-items:center; gap:1.75rem; padding:1.5rem; border-radius:var(--radius-lg); border:1px solid; margin-bottom:1.5rem;}
+.score-hero.pass{background:var(--green-bg); border-color:var(--green-border);}
+.score-hero.fail{background:var(--red-bg); border-color:var(--red-border);}
+.score-circle{width:110px; height:110px; border-radius:50%; display:flex; flex-direction:column; align-items:center; justify-content:center; background:var(--bg-card); box-shadow:var(--shadow-md); flex-shrink:0;}
+.score-circle .num{font-size:1.9rem; font-weight:800; color:var(--primary); line-height:1;}
+.score-circle .den{font-size:.72rem; color:var(--muted); font-weight:700;}
+.score-verdict h3{margin:0 0 .3rem; font-size:1.15rem;}
+.score-verdict p{margin:0; font-size:.92rem;}
+
+.crit{border:1px solid var(--border-light); border-radius:var(--radius-md); padding:1.1rem 1.25rem; margin-bottom:1rem; background:var(--bg-card);}
+.crit-head{display:flex; justify-content:space-between; align-items:center; gap:1rem; margin-bottom:.5rem; flex-wrap:wrap;}
+.crit-head strong{color:var(--primary); font-size:.95rem;}
+.tag-ok{color:var(--green); font-weight:700;}
+.tag-low{color:var(--red); font-weight:700;}
+
+footer.tp-footer{text-align:center; color:var(--muted); font-size:.8rem; padding:2rem 1rem; border-top:1px solid var(--border-light); margin-top:1rem;}
+
+.advisor-fab{position:fixed; bottom:calc(1.5rem + env(safe-area-inset-bottom)); left:1.5rem; z-index:900; background:linear-gradient(135deg,var(--navy),var(--navy-dark)); color:#fff; border:none; border-radius:999px; padding:.85rem 1.2rem; display:flex; align-items:center; gap:.5rem; font-weight:700; font-size:.9rem; cursor:pointer; box-shadow:var(--shadow-lg); font-family:inherit;}
+.advisor-fab:hover{filter:brightness(1.1);}
+.proftapia-fab{position:fixed; bottom:calc(1.5rem + env(safe-area-inset-bottom)); right:1.5rem; z-index:900; background:linear-gradient(135deg,var(--gold),#5f8c22); color:#0c2210; text-decoration:none; border-radius:999px; padding:.85rem 1.2rem; display:flex; align-items:center; gap:.5rem; font-weight:700; font-size:.9rem; box-shadow:var(--shadow-lg); font-family:inherit;}
+.proftapia-fab:hover{filter:brightness(1.05);}
+.advisor-panel{position:fixed; bottom:calc(5.2rem + env(safe-area-inset-bottom)); left:1.5rem; width:min(360px,90vw); max-height:min(560px,70vh); background:var(--bg-card); border:1px solid var(--border-light); border-radius:var(--radius-lg); box-shadow:var(--shadow-lg); z-index:900; display:none; flex-direction:column; overflow:hidden;}
+.advisor-panel.open{display:flex;}
+.advisor-header{background:linear-gradient(135deg,var(--navy),var(--navy-dark)); color:#fff; padding:.9rem 1.1rem; display:flex; align-items:center; gap:.6rem;}
+.advisor-title{margin:0; font-weight:800; font-size:.95rem;}
+.advisor-header button{margin-left:auto; background:rgba(255,255,255,.15); border:none; color:#fff; width:28px; height:28px; border-radius:8px; cursor:pointer;}
+.advisor-body{flex:1; overflow-y:auto; padding:1rem; display:flex; flex-direction:column; gap:.6rem; background:var(--bg-body);}
+.advisor-msg{max-width:85%; padding:.6rem .85rem; border-radius:12px; font-size:.86rem; line-height:1.5;}
+.advisor-msg-bot{background:var(--bg-card); border:1px solid var(--border-light); align-self:flex-start; border-bottom-left-radius:2px;}
+.advisor-msg-user{background:var(--navy); color:#fff; align-self:flex-end; border-bottom-right-radius:2px;}
+.advisor-suggest{display:flex; flex-wrap:wrap; gap:.4rem; padding:0 1rem .75rem;}
+.advisor-suggest button{background:var(--blue-bg); border:1px solid var(--blue-border); color:var(--navy); font-size:.72rem; padding:.35rem .6rem; border-radius:999px; cursor:pointer; font-family:inherit;}
+.advisor-form{display:flex; gap:.5rem; padding:.75rem; border-top:1px solid var(--border-light); background:var(--bg-card);}
+.advisor-form input{flex:1;}
+.advisor-form button{background:var(--navy); color:#fff; border:none; width:38px; border-radius:var(--radius-sm); cursor:pointer; font-size:1rem;}
+
+@media print{
+  .sidebar, .advisor-fab, .proftapia-fab, .advisor-panel, #progress-wrap, .btn-row, #submit-zone .btn-primary, .header-actions, .medal-modal{display:none !important;}
+  .main{max-width:100%; padding:0;}
+  .card{box-shadow:none; border:1px solid #ccc; break-inside:avoid;}
+  body{background:#fff;}
+}
+
+.voice-row{display:flex; align-items:center; gap:.6rem; margin-top:.5rem; margin-bottom:.4rem; flex-wrap:wrap;}
+.voice-btn{background:var(--blue-bg); border:1px solid var(--blue-border); color:var(--navy); font-weight:700; font-size:.8rem; padding:.65rem .9rem; min-height:40px; border-radius:999px; cursor:pointer; font-family:inherit;}
+.voice-btn:hover{filter:brightness(0.97);}
+.voice-btn.recording{background:var(--red-bg); border-color:var(--red-border); color:var(--red); animation:voicePulse 1.2s ease-in-out infinite;}
+.voice-btn.busy{opacity:.7; cursor:wait;}
+@keyframes voicePulse{ 0%,100%{opacity:1;} 50%{opacity:.55;} }
+.voice-status{font-size:.75rem; color:var(--muted);}
+.voice-status.err{color:var(--red);}
+.voice-status.ok{color:var(--green);}
+.fontsize-controls{display:flex; align-items:center; gap:.3rem;}
+.fontsize-controls button{background:none; border:1px solid var(--border-light); width:30px; height:30px; border-radius:8px; cursor:pointer; color:var(--secondary); font-weight:800; font-size:.85rem;}
+.fontsize-controls button:hover{border-color:var(--navy); color:var(--navy);}
+html[data-fontsize="grande"] body{font-size:1.14rem;}
+html[data-fontsize="xgrande"] body{font-size:1.3rem;}
+
+.reveal-init{opacity:0; transform:translateY(18px); transition:opacity .6s cubic-bezier(.22,.9,.35,1), transform .6s cubic-bezier(.22,.9,.35,1);}
+.reveal-init.revealed{opacity:1; transform:translateY(0);}
+.btn-primary, .btn-secondary, .btn-block{position:relative; overflow:hidden; transition:transform .16s ease, box-shadow .16s ease, filter .16s ease;}
+.btn-primary:hover, .btn-secondary:hover, .btn-block:hover{transform:translateY(-2px);}
+.btn-primary:active, .btn-secondary:active, .btn-block:active{transform:translateY(0) scale(.97);}
+.js-ripple{position:absolute; border-radius:50%; background:rgba(255,255,255,.55); transform:scale(0); animation:rippleAnim .6s ease-out forwards; pointer-events:none;}
+.btn-secondary .js-ripple, .btn-block .js-ripple{background:rgba(13,115,119,.18);}
+@keyframes rippleAnim{ to{ transform:scale(2.6); opacity:0; } }
+#confetti-canvas{position:fixed; inset:0; width:100%; height:100%; pointer-events:none; z-index:3000;}
+@media (prefers-reduced-motion: reduce){
+  .reveal-init{opacity:1; transform:none; transition:none;}
+  #cover-canvas{display:none;}
+  .btn-primary:hover, .btn-secondary:hover, .btn-block:hover, .btn-primary:active, .btn-secondary:active, .btn-block:active{transform:none;}
+  #hearts-canvas.critical{animation:none;}
+  .timer-box.overtime .timer-value{animation:none;}
+  .fast-clock-hand{animation:none;}
+}
+
+/* VIDEO INTERACTIVO */
+.video-wrap{position:relative; width:100%; padding-top:56.25%; border-radius:var(--radius-md); overflow:hidden; background:#000; box-shadow:var(--shadow-md);}
+.video-wrap iframe{position:absolute; inset:0; width:100%; height:100%; border:0;}
+.mini-timeline{position:relative; height:8px; background:var(--border-light); border-radius:999px; margin:.9rem 0 0;}
+.mini-timeline-fill{position:absolute; top:0; left:0; height:100%; width:0%; background:var(--navy); border-radius:999px; transition:width .3s linear;}
+.cp-overlay{position:absolute; inset:0; background:rgba(4,12,26,.86); display:none; align-items:center; justify-content:center; padding:.75rem; overflow-y:auto; z-index:5; backdrop-filter:blur(2px);}
+.cp-overlay.show{display:flex;}
+.cp-panel{background:var(--bg-card); border-radius:var(--radius-lg); padding:1.1rem 1.2rem; width:100%; max-width:520px; max-height:100%; overflow-y:auto; box-shadow:var(--shadow-lg); margin:auto;}
+@media (min-width:640px){ .cp-panel{padding:1.5rem 1.6rem;} }
+.cp-badge{display:inline-flex; align-items:center; gap:.4rem; background:var(--blue-bg); color:var(--navy); border:1px solid var(--blue-border); font-weight:700; font-size:.7rem; text-transform:uppercase; letter-spacing:.04em; padding:.3rem .7rem; border-radius:999px; margin-bottom:.6rem;}
+.cp-panel h3{margin:.2rem 0 .9rem; font-size:1rem; color:var(--primary); font-weight:700; line-height:1.4;}
+.rewatch-btn{display:inline-flex; align-items:center; gap:.4rem; background:var(--bg-body); border:1px solid var(--border-dark); color:var(--secondary); font-weight:600; font-size:.78rem; padding:.45rem .8rem; border-radius:var(--radius-sm); cursor:pointer; margin-bottom:.9rem; font-family:inherit;}
+.rewatch-btn:hover{border-color:var(--navy); color:var(--navy);}
+.cp-q-block{margin-bottom:1.2rem; padding-bottom:1.1rem; border-bottom:1px dashed var(--border-dark);}
+.cp-q-block:last-of-type{border-bottom:none; margin-bottom:.4rem; padding-bottom:0;}
+.cp-q-block p.cp-q-text{font-weight:700; color:var(--primary); font-size:.92rem; margin:0 0 .6rem;}
+.options{display:flex; flex-direction:column; gap:.5rem; margin-bottom:.2rem;}
+.opt{display:flex; align-items:flex-start; gap:.6rem; padding:.65rem .8rem; border:1px solid var(--border-dark); border-radius:var(--radius-sm); cursor:pointer; font-size:.88rem; transition:all .15s ease; background:var(--bg-body);}
+.opt:hover{border-color:var(--navy); background:var(--blue-bg);}
+.opt input{margin-top:.15rem; accent-color:var(--navy);}
+.opt.chosen{border-color:var(--navy); background:var(--blue-bg);}
+.cp-registered{margin-top:.7rem; padding:.6rem .8rem; border-radius:var(--radius-sm); background:var(--green-bg); border:1px solid var(--green-border); color:var(--green); font-size:.8rem; font-weight:700; display:none;}
+.cp-registered.show{display:block;}
+.dev-block textarea{width:100%; min-height:90px; padding:.7rem .85rem; border-radius:var(--radius-sm); border:1px solid var(--border-dark); font-family:inherit; font-size:.88rem; background:var(--bg-body); color:var(--primary); resize:vertical;}
+.cp-continue{margin-top:1.1rem; padding-top:1rem; border-top:1px solid var(--border-light); display:flex; gap:.6rem; flex-wrap:wrap;}
+.match-wrap{display:grid; grid-template-columns:1fr 1fr; gap:.6rem;}
+@media (max-width:520px){ .match-wrap{grid-template-columns:1fr;} }
+.match-item{display:block; width:100%; text-align:left; padding:.6rem .7rem; margin-bottom:.5rem; border:1px solid var(--border-dark); border-radius:var(--radius-sm); background:var(--bg-body); color:var(--primary); font-size:.8rem; cursor:pointer; font-family:inherit; line-height:1.4;}
+.match-item:hover{border-color:var(--navy);}
+.match-item.selected{border-color:var(--navy); background:var(--blue-bg);}
+.match-item.matched{border-color:var(--green-border); background:var(--green-bg); color:var(--green); cursor:default;}
+.match-item.wrong{border-color:var(--red-border); background:var(--red-bg); animation:shakeMatch .3s;}
+@keyframes shakeMatch{ 25%{transform:translateX(-4px);} 75%{transform:translateX(4px);} }
+.match-status{margin-top:.2rem; margin-bottom:.9rem; font-size:.82rem; font-weight:700; color:var(--muted);}
+.review-item{border:1px solid var(--border-light); border-radius:var(--radius-md); padding:1rem 1.1rem; margin-bottom:.9rem; background:var(--bg-card);}
+.review-item .rv-head{display:flex; justify-content:space-between; gap:.75rem; align-items:flex-start; margin-bottom:.4rem;}
+.review-item p{margin:.3rem 0; font-size:.85rem;}
+</style>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Saltar al contenido</a>
+<div id="progress-wrap"><div id="progress-bar"></div></div>
+
+<div class="wrapper">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <span style="font-size:1.4rem;">🧠</span>
+      <p class="sidebar-title">Unidad I-B · IA-RRHH</p>
+      <div class="header-actions">
+        <div class="fontsize-controls">
+          <button type="button" id="font-smaller" title="Letra más pequeña" aria-label="Reducir tamaño de letra">A−</button>
+          <button type="button" id="font-bigger" title="Letra más grande" aria-label="Aumentar tamaño de letra">A+</button>
+        </div>
+        <button class="icon-btn" id="theme-toggle" type="button" title="Cambiar tema" aria-label="Cambiar tema claro/oscuro">🌙</button>
+        <button class="icon-btn nav-toggle" id="nav-toggle" type="button" title="Abrir menú" aria-label="Abrir menú" aria-expanded="false">☰</button>
+      </div>
+    </div>
+
+    <div class="sidebar-collapsible">
+      <div class="timer-box" id="timer-box">
+        <div class="timer-row">
+          <span class="timer-label">⏱️ Tiempo sugerido</span>
+          <button class="icon-btn" id="sound-toggle" type="button" title="Silenciar o activar el sonido" aria-label="Silenciar o activar el sonido del temporizador">🔔</button>
+        </div>
+        <div class="timer-value" id="timer-value">50:00</div>
+        <canvas id="hearts-canvas" width="230" height="40" aria-hidden="true"></canvas>
+        <div class="fast-clock" id="fast-clock" aria-hidden="true"><div class="fast-clock-hand"></div></div>
+        <div class="overtime-note" id="overtime-note" hidden>⏱️ Tiempo de referencia — no afecta su calificación</div>
+      </div>
+
+      <div class="progress-summary">
+        <div class="progress-summary-row"><span>Estaciones respondidas</span><span id="progress-count">0 / 8</span></div>
+        <div class="progress-track"><div class="progress-fill" id="progress-fill-el"></div></div>
+        <p style="margin:.5rem 0 0; font-size:.7rem; color:var(--muted);">Sus respuestas se guardan automáticamente en este navegador.</p>
+      </div>
+
+      <nav class="nav" aria-label="Navegación de la práctica">
+        <ul>
+          <li><a href="#portada">🧠 Portada e instrucciones</a></li>
+          <li><a href="#video">📺 Video interactivo (8 estaciones)</a></li>
+          <li><a href="#rubrica">🧮 Rúbrica de evaluación</a></li>
+          <li><a href="#resultado">📤 Enviar y calificar</a></li>
+        </ul>
+      </nav>
+
+      <div class="sidebar-actions">
+        <button class="btn-block" id="btn-qr" type="button">📱 Ver código QR de esta práctica</button>
+        <button class="btn-block" id="btn-print" type="button">🖨️ Imprimir / Guardar PDF</button>
+        <button class="btn-block" id="btn-clear" type="button">🗑️ Borrar todas mis respuestas</button>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main" id="main-content">
+
+    <section id="portada" class="card cover">
+      <canvas id="cover-canvas" aria-hidden="true"></canvas>
+      <p class="eyebrow">Curso Inteligencia Artificial Aplicada a Recursos Humanos · Comunicación Integral</p>
+      <h1>Tipos de IA en RR. HH.: Casos Reales (Video Interactivo)</h1>
+      <p class="sub">Práctica I-B — complementa la Unidad I con un video interactivo sobre casos reales de IA aplicada a Recursos Humanos (McKinsey, Amazon, chatbots, People Analytics…)</p>
+      <div class="cover-chips">
+        <span class="cover-chip">Individual o en equipo</span>
+        <span class="cover-chip">100 pts · aprueba con 70%</span>
+        <span class="cover-chip">8 estaciones dentro del video</span>
+        <span class="cover-chip">Puede reintentar hasta aprobar</span>
+        <span class="cover-chip">Gana una medalla digital al aprobar</span>
+      </div>
+    </section>
+
+    <section class="card" id="tutorial">
+      <span class="step-badge">Tutorial</span>
+      <h1 style="font-size:1.35rem;">Cómo usar esta plataforma</h1>
+      <p><strong>Concepto:</strong> esta práctica gira alrededor de un video sobre Inteligencia Artificial aplicada a Recursos Humanos. El video se pausará solo en <strong>8 estaciones</strong> para hacerle preguntas — de distinto tipo cada vez: verdadero/falso, selección múltiple, emparejar términos, o desarrollo (escrito o por nota de voz 🎤).</p>
+      <ol class="ins-list">
+        <li>Presione play en el video — cuando llegue a cada estación, se pausará solo y aparecerá una pregunta encima del reproductor.</li>
+        <li>Responda todas las preguntas de esa estación y presione <strong>"▶ Continuar viendo el video"</strong>.</li>
+        <li>Si tiene dudas, use <strong>"⏪ Volver a ver este fragmento"</strong> antes de responder.</li>
+      </ol>
+      <h2>La retroalimentación aparece al final, no en cada pregunta</h2>
+      <p>Mientras completa el video, sus respuestas quedan registradas pero <strong>no se le dice si acertó o no en el momento</strong>. Al terminar el video, presione <strong>Enviar y Calificar</strong>: ahí sí verá, pregunta por pregunta, cuál era la respuesta correcta.</p>
+      <h2>¿No alcanzó el 70%? Puede volver a intentarlo</h2>
+      <p>Esta práctica se aprueba con <strong>70 de 100 puntos</strong>. Si su nota queda por debajo, el botón <strong>🔄 Intentar de nuevo</strong> reinicia el cuestionario (el video vuelve al inicio) para que lo intente otra vez, las veces que necesite, hasta lograr una nota satisfactoria.</p>
+      <div class="help-box">
+        <span style="font-size:1.6rem;">💬</span>
+        <div>
+          <strong>¿Tiene dudas mientras trabaja?</strong><br>
+          Puede preguntarle a <strong>Nicole</strong>, el asistente de esta misma página (botón "🎓 Nicole" abajo a la izquierda), o escribirle al
+          <strong>Prof. Johan Tapia</strong>, un asistente aparte, en
+          <a href="https://prof.johan.plataforma.cfd/" target="_blank" rel="noopener">prof.johan.plataforma.cfd</a>.
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <span class="step-badge">Objetivo y encuadre</span>
+      <h1 style="font-size:1.35rem;">Antes de empezar</h1>
+      <div class="alert info">
+        <strong>Objetivo de la actividad:</strong> reconocer, en casos reales de Recursos Humanos, si la Inteligencia Artificial usada es basada en reglas, Machine Learning, Deep Learning o IA Generativa — el mismo marco de la Unidad I, aplicado ahora a ejemplos reales discutidos en un video.
+      </div>
+      <div class="alert gold">
+        <strong>Sobre este curso:</strong> "Inteligencia Artificial Aplicada a Recursos Humanos" es un curso de Comunicación Integral organizado en 5 unidades. Esta Práctica I-B es un complemento en video de la Unidad I y puede realizarse en cualquier orden respecto a las demás prácticas del curso.
+      </div>
+      <h2>¿Cómo va a completar esta práctica?</h2>
+      <p>Puede completarla <strong>individual o en equipo</strong>. Complete esto antes de enviar: su facilitador recibirá la calificación identificada con estos datos.</p>
+      <div class="field">
+        <label for="modo_trabajo">Modalidad</label>
+        <select id="modo_trabajo">
+          <option value="individual">Individual</option>
+          <option value="grupo">En equipo</option>
+        </select>
+      </div>
+      <div class="field-grid" id="bloque-individual">
+        <div class="field"><label for="ind_nombre">Nombre completo</label><input type="text" id="ind_nombre" placeholder="Su nombre y apellido"></div>
+        <div class="field"><label for="ind_correo">Correo (opcional)</label><input type="text" id="ind_correo" placeholder="nombre@correo.com"></div>
+      </div>
+      <div class="field-grid" id="bloque-grupo" hidden>
+        <div class="field"><label for="grp_nombre">Nombre del equipo o grupo</label><input type="text" id="grp_nombre" placeholder="Ej: Equipo Innovación"></div>
+        <div class="field"><label for="grp_correo">Correo de contacto del equipo (opcional)</label><input type="text" id="grp_correo" placeholder="nombre@correo.com"></div>
+      </div>
+      <div class="field" id="bloque-integrantes" hidden>
+        <label for="grp_integrantes">Nombres de los integrantes del equipo (opcional)</label>
+        <textarea id="grp_integrantes" placeholder="Uno por línea o separados por coma"></textarea>
+      </div>
+    </section>
+
+    <!-- ============ VIDEO ============ -->
+    <section id="video" class="card">
+      <span class="step-badge">Video interactivo · 8 estaciones</span>
+      <h1 style="font-size:1.35rem;">Inteligencia Artificial en Recursos Humanos</h1>
+      <p style="font-size:.85rem; color:var(--muted); margin-top:-.6rem;">El video se detendrá automáticamente en 8 puntos para hacerle preguntas. Estación: <strong id="cp-progress-count">0 / 8</strong>.</p>
+      <div class="video-wrap">
+        <div id="player"></div>
+        <div class="cp-overlay" id="cpOverlay">
+          <div class="cp-panel" id="cpPanel"></div>
+        </div>
+      </div>
+      <div class="mini-timeline"><div class="mini-timeline-fill" id="miniTimelineFill"></div></div>
+    </section>
+
+    <!-- ============ RÚBRICA ============ -->
+    <section id="rubrica" class="card">
+      <span class="step-badge">Referencia</span>
+      <h1 style="font-size:1.35rem;">Rúbrica de evaluación</h1>
+      <div class="tbl-wrap"><table class="tp-table">
+        <thead><tr><th>N°</th><th>Criterio</th><th>Indicador</th><th>Puntos</th></tr></thead>
+        <tbody id="rubrica-body"></tbody>
+      </table></div>
+      <div class="alert success" style="margin-top:1rem;">
+        <strong>Recuerde:</strong> esta práctica se aprueba con <strong>70 de 100 puntos</strong>. Puede intentarla las veces que necesite hasta lograrlo.
+      </div>
+    </section>
+
+    <!-- ============ ENVÍO / RESULTADO ============ -->
+    <section id="resultado" class="card">
+      <div id="submit-zone">
+        <span class="step-badge">Paso final</span>
+        <h1 style="font-size:1.4rem;">Enviar y calificar mi trabajo</h1>
+        <p>El sistema revisará automáticamente sus 8 estaciones y le mostrará, pregunta por pregunta, la respuesta correcta.</p>
+        <button class="btn-primary" id="btn-submit" type="button">📤 Enviar y Calificar mi Trabajo</button>
+      </div>
+
+      <div id="results" class="results">
+        <div id="score-hero" class="score-hero">
+          <div class="score-circle"><span class="num" id="score-num">0</span><span class="den">/ 100 pts</span></div>
+          <div class="score-verdict">
+            <h3 id="score-title">—</h3>
+            <p id="score-desc">—</p>
+          </div>
+        </div>
+        <div id="ai-review" class="alert info" style="display:none;"></div>
+        <h2 style="margin-top:1.75rem;">Revisión pregunta por pregunta</h2>
+        <p style="font-size:.85rem; color:var(--muted);">Estas son las respuestas correctas de cada estación.</p>
+        <div id="quiz-review-list"></div>
+        <div class="btn-row">
+          <button class="btn-secondary" id="btn-retry" type="button">🔄 Intentar de nuevo</button>
+          <button class="btn-primary" id="btn-medal" type="button" style="display:none;">🏅 Ver mi medalla</button>
+          <button class="btn-secondary" id="btn-print-2" type="button">🖨️ Imprimir resultado</button>
+        </div>
+      </div>
+    </section>
+
+    <footer class="tp-footer">
+      Práctica I-B — Tipos de IA en RR. HH.: Casos Reales en Video · Curso Inteligencia Artificial Aplicada a Recursos Humanos · Comunicación Integral.<br>
+      Herramienta de autoevaluación con fines educativos. La nota oficial del curso la determina su facilitador.<br>
+      Desarrollado por Johan Tapia, PhD.
+    </footer>
+  </main>
+</div>
+
+<!-- NICOLE -->
+<button id="advisor-toggle" class="advisor-fab" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="advisor-panel" title="Abrir a Nicole">
+  🎓 <span>Nicole</span>
+</button>
+<a href="https://prof.johan.plataforma.cfd/" target="_blank" rel="noopener" class="proftapia-fab" title="Abrir el asistente del Prof. Johan Tapia en una ventana nueva">
+  👨‍🏫 <span>Prof. Johan Tapia</span>
+</a>
+<div id="advisor-panel" class="advisor-panel" role="dialog" aria-labelledby="advisor-title-el">
+  <div class="advisor-header">
+    <span style="font-size:1.2rem;">🎓</span>
+    <p id="advisor-title-el" class="advisor-title">Nicole</p>
+    <button id="advisor-close" type="button" aria-label="Cerrar a Nicole">✕</button>
+  </div>
+  <div id="advisor-body" class="advisor-body">
+    <div class="advisor-msg advisor-msg-bot">¡Hola! Soy Nicole, la asistente virtual del Dr. Johan Tapia. Pregúntame sobre los tipos de IA (reglas, Machine Learning, Deep Learning, IA Generativa) o sobre los casos del video.</div>
+  </div>
+  <div class="advisor-suggest">
+    <button type="button" data-q="cual es la diferencia entre machine learning y deep learning">ML vs Deep Learning</button>
+    <button type="button" data-q="que es una alucinacion de la ia generativa">¿Qué es una "alucinación"?</button>
+    <button type="button" data-q="como se califica esta practica">¿Cómo se califica?</button>
+  </div>
+  <form id="advisor-form" class="advisor-form">
+    <input type="text" id="advisor-input" placeholder="Escribe tu pregunta…" aria-label="Escribe tu pregunta a Nicole">
+    <button type="submit" aria-label="Enviar pregunta">➤</button>
+  </form>
+</div>
+
+<div id="qr-modal" class="medal-modal" hidden role="dialog" aria-labelledby="qr-title">
+  <div class="medal-modal-inner">
+    <button class="icon-btn" id="qr-close" type="button" aria-label="Cerrar">✕</button>
+    <h3 id="qr-title" style="margin:0 0 .5rem; color:var(--primary);">📱 Código QR de esta práctica</h3>
+    <div id="qr-code-container" style="display:flex; justify-content:center; margin:.5rem 0 1rem; min-height:220px; align-items:center;"></div>
+    <div class="btn-row" style="justify-content:center;">
+      <button class="btn-secondary" id="qr-download" type="button">⬇️ Descargar imagen</button>
+    </div>
+  </div>
+</div>
+
+<div id="medal-modal" class="medal-modal" hidden role="dialog" aria-labelledby="medal-title">
+  <div class="medal-modal-inner">
+    <button class="icon-btn" id="medal-close" type="button" aria-label="Cerrar">✕</button>
+    <h3 id="medal-title" style="margin:0 0 .5rem; color:var(--primary);">🏅 ¡Felicidades!</h3>
+    <canvas id="medal-canvas" width="600" height="680"></canvas>
+    <div class="btn-row" style="justify-content:center;">
+      <button class="btn-primary" id="medal-download" type="button">⬇️ Descargar</button>
+      <button class="btn-secondary" id="medal-share" type="button">📤 Compartir</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+/* ---------- NICOLE (n8n en VPS) ---------- */
+var AI_BASE = 'https://n8n-inap.167.88.36.13.sslip.io/webhook';
+var AI_CHAT_URL = AI_BASE + '/inap-tutor-chat';
+var AI_GRADE_URL = AI_BASE + '/inap-grade';
+var AI_CHAT_TIMEOUT = 60000;
+var AI_GRADE_TIMEOUT = 650000;
+var VOICE_TRANSCRIBE_URL = 'https://n8n-inap.167.88.36.13.sslip.io/webhook/prof-johan-tapia-transcribir';
+
+function fetchWithTimeout(url, options, timeoutMs){
+  var controller = new AbortController();
+  var timer = setTimeout(function(){ controller.abort(); }, timeoutMs);
+  return fetch(url, Object.assign({}, options, { signal: controller.signal })).finally(function(){ clearTimeout(timer); });
+}
+function norm(s){ return (s === undefined || s === null) ? '' : String(s).trim(); }
+function stripAccents(s){ return norm(s).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,''); }
+function wordCount(s){ s = norm(s); return s ? s.split(/\s+/).filter(Boolean).length : 0; }
+function filled(s){ return norm(s).length > 0; }
+function clamp01(n){ return Math.max(0, Math.min(1, n)); }
+function val(id){ var el = document.getElementById(id); return el ? el.value : ''; }
+function escapeHtml(s){ var d = document.createElement('div'); d.textContent = norm(s); return d.innerHTML; }
+
+/* ---------- MODALIDAD ---------- */
+var modoSelect = document.getElementById('modo_trabajo');
+var bloqueIndividual = document.getElementById('bloque-individual');
+var bloqueGrupo = document.getElementById('bloque-grupo');
+var bloqueIntegrantes = document.getElementById('bloque-integrantes');
+function aplicarModo(){
+  var esGrupo = modoSelect.value === 'grupo';
+  bloqueIndividual.hidden = esGrupo;
+  bloqueGrupo.hidden = !esGrupo;
+  bloqueIntegrantes.hidden = !esGrupo;
+}
+modoSelect.addEventListener('change', function(){ aplicarModo(); saveMeta(); });
+function nombreIdentificacion(){ return modoSelect.value === 'grupo' ? (val('grp_nombre') || '') : (val('ind_nombre') || ''); }
+function correoIdentificacion(){ return modoSelect.value === 'grupo' ? (val('grp_correo') || '') : (val('ind_correo') || ''); }
+
+/* ---------- AUTOSAVE META ---------- */
+var META_STORE_KEY = 'tp_iarrhh_u1b_meta_v1';
+var META_FIELDS = ['modo_trabajo','ind_nombre','ind_correo','grp_nombre','grp_correo','grp_integrantes'];
+function saveMeta(){
+  var data = {}; META_FIELDS.forEach(function(id){ data[id] = val(id); });
+  try{ localStorage.setItem(META_STORE_KEY, JSON.stringify(data)); }catch(e){}
+}
+function loadMeta(){
+  var raw; try{ raw = localStorage.getItem(META_STORE_KEY); }catch(e){ raw = null; }
+  if(!raw) return;
+  try{
+    var data = JSON.parse(raw);
+    Object.keys(data).forEach(function(id){ var el = document.getElementById(id); if(el) el.value = data[id]; });
+  }catch(e){}
+}
+loadMeta(); aplicarModo();
+document.addEventListener('input', function(e){
+  if(META_FIELDS.indexOf(e.target.id) !== -1) saveMeta();
+});
+
+/* ================= ESTACIONES DEL VIDEO ================= */
+var YT_VIDEO_ID = 'D6__8zGlmrU';
+
+var STATIONS = [
+  { id:'cp1', pauseAt:600, nextSeek:600, badge:'Estación 1 de 8 · minuto 05:25–10:00', questions:[
+    { id:'q1a', type:'vf', pts:5, text:'Verdadero o falso: hoy en día la Inteligencia Artificial en Recursos Humanos ya se aplica en más procesos que solo el reclutamiento, incluyendo evaluación del desempeño, clima laboral y análisis de compensación.', correct:true },
+    { id:'q1b', type:'vf', pts:5, text:'Verdadero o falso: la IA Generativa (como ChatGPT) es el único tipo de IA que existe hoy; los sistemas basados en reglas, el Machine Learning y el Deep Learning ya quedaron obsoletos.', correct:false }
+  ]},
+  { id:'cp2', pauseAt:978, nextSeek:978, badge:'Estación 2 de 8 · minuto 10:00–16:18', questions:[
+    { id:'q2', type:'match', pts:20, pairs:[
+      { term:'Chatbot que responde preguntas frecuentes de RR. HH. siguiendo un guion fijo de respuestas', def:'IA basada en reglas' },
+      { term:'Modelo que aprende de datos históricos de rotación de personal para predecir quién podría renunciar', def:'Machine Learning' },
+      { term:'Sistema que lee y clasifica automáticamente cientos de CVs o documentos escaneados analizando su contenido', def:'Deep Learning' },
+      { term:'Herramienta que redacta un primer borrador de un manual de cultura organizacional a partir de una instrucción', def:'IA Generativa' }
+    ]}
+  ]},
+  { id:'cp3', pauseAt:1140, nextSeek:1140, badge:'Estación 3 de 8 · minuto 16:18–19:00', questions:[
+    { id:'q3', type:'mc', pts:10, text:'En el video se menciona el caso de una consultora cuya IA presentó información incorrecta o inventada, con apariencia de ser correcta — un fenómeno conocido como "alucinación". ¿Qué tipo de IA tiene este riesgo particular?',
+      options:['IA basada en reglas','IA Generativa','Deep Learning para reconocimiento de imágenes','Ninguna: las alucinaciones de la IA no son reales'], correct:1 }
+  ]},
+  { id:'cp4', pauseAt:1465, nextSeek:1465, badge:'Estación 4 de 8 · minuto 19:00–24:25', questions:[
+    { id:'q4a', type:'mc', pts:10, text:'Cuando una organización usa una herramienta de IA para redactar el primer borrador de su manual de cultura interna a partir de una instrucción en lenguaje natural, ¿qué tipo de IA está utilizando principalmente?',
+      options:['IA basada en reglas','Machine Learning','IA Generativa','Ninguna: eso no lo puede hacer la IA'], correct:2 },
+    { id:'q4b', type:'mc', pts:10, text:'Un sistema que analiza automáticamente cientos de CVs, extrayendo experiencia, educación y habilidades para filtrar candidatos, se apoya principalmente en:',
+      options:['IA basada en reglas únicamente, sin ningún aprendizaje','Machine Learning y/o Deep Learning, que aprenden a interpretar el contenido de los documentos','Solo Deep Learning para reconocer las fotos de los candidatos','No es inteligencia artificial, es un programa básico'], correct:1 }
+  ]},
+  { id:'cp5', pauseAt:1724, nextSeek:1958, badge:'Estación 5 de 8 · minuto 24:25–28:44', questions:[
+    { id:'q5', type:'mc', pts:10, text:'El caso de Amazon mencionado en el video —su sistema de IA para filtrar candidatos terminó penalizando los currículums de mujeres— es un ejemplo real y ampliamente documentado de sesgo algorítmico. ¿Cuál es la explicación más precisa de por qué ocurrió?',
+      options:['Alguien programó reglas explícitas para descartar candidatas mujeres','El modelo de Machine Learning aprendió patrones de datos históricos de contratación (mayoritariamente hombres) y replicó ese sesgo','Fue un error de Deep Learning al reconocer las fotos de los candidatos','Nunca ocurrió realmente: fue solo un rumor sin fundamento'], correct:1 }
+  ]},
+  { id:'cp6', pauseAt:2277, nextSeek:2277, badge:'Estación 6 de 8 · minuto 32:38–37:57', questions:[
+    { id:'q6', type:'dev', pts:10, text:'El video plantea si conviene usar la IA al 100% en el proceso de reclutamiento o de forma guiada, con supervisión humana. Pensando en su propia organización (o una que conozca bien): ¿en qué parte del proceso de reclutamiento SÍ debería intervenir siempre una persona, y en cuál podría apoyarse más en la IA? Justifique.' }
+  ]},
+  { id:'cp7', pauseAt:2550, nextSeek:3155, badge:'Estación 7 de 8 · minuto 37:57–42:30', questions:[
+    { id:'q7', type:'mc', pts:10, text:'El video describe cómo la IA puede leer cientos de respuestas abiertas de una encuesta de clima laboral (y también datos de compensación) para detectar automáticamente el tono —positivo, negativo o neutral— o posibles inequidades. ¿Con qué tipo(s) de IA se relaciona principalmente esa capacidad de "entender" texto y datos complejos?',
+      options:['IA basada en reglas únicamente','Machine Learning y Deep Learning, que reconocen patrones y lenguaje','Solo IA Generativa','Ninguna: eso requiere revisión 100% manual'], correct:1 }
+  ]},
+  { id:'cp8', pauseAt:3475, nextSeek:null, badge:'Estación 8 de 8 · minuto 52:35–57:55', questions:[
+    { id:'q8', type:'dev', pts:10, text:'Para cerrar: ¿cómo cree que la Inteligencia Artificial podría cambiar la cultura organizacional de su institución en los próximos años? Mencione un beneficio concreto y un riesgo concreto.' }
+  ]}
+];
+var TOTAL_PTS = 100;
+
+var ANSWERS_KEY = 'tp_iarrhh_u1b_answers_v1';
+var ANSWERS = {};
+(function(){
+  try{ var raw = localStorage.getItem(ANSWERS_KEY); if(raw) ANSWERS = JSON.parse(raw) || {}; }catch(e){ ANSWERS = {}; }
+})();
+function saveAnswers(){ try{ localStorage.setItem(ANSWERS_KEY, JSON.stringify(ANSWERS)); }catch(e){} }
+
+function stationAnswered(st){
+  return st.questions.every(function(q){ return ANSWERS[q.id] !== undefined; });
+}
+function stationsAnsweredCount(){
+  var n = 0; STATIONS.forEach(function(st){ if(stationAnswered(st)) n++; }); return n;
+}
+function updateStationProgress(){
+  var n = stationsAnsweredCount();
+  document.getElementById('cp-progress-count').textContent = n + ' / ' + STATIONS.length;
+  document.getElementById('progress-count').textContent = n + ' / ' + STATIONS.length;
+  var pct = Math.round((n / STATIONS.length) * 100);
+  var fillEl = document.getElementById('progress-fill-el');
+  fillEl.style.width = pct + '%';
+  fillEl.classList.toggle('complete', n === STATIONS.length);
+  document.getElementById('miniTimelineFill').style.width = pct + '%';
+}
+updateStationProgress();
+
+/* ---------- REPRODUCTOR YOUTUBE ---------- */
+var player, playerReady = false, checkpointOpen = false;
+function loadYT(){
+  var tag = document.createElement('script');
+  tag.src = 'https://www.youtube.com/iframe_api';
+  document.body.appendChild(tag);
+}
+window.onYouTubeIframeAPIReady = function(){
+  player = new YT.Player('player', {
+    videoId: YT_VIDEO_ID,
+    playerVars: { rel:0, modestbranding:1, start:325 },
+    events: { onReady: function(){ playerReady = true; setInterval(ytPoll, 400); } }
+  });
+};
+loadYT();
+
+function ytPoll(){
+  if(!playerReady || checkpointOpen) return;
+  if(typeof player.getPlayerState !== 'function') return;
+  if(player.getPlayerState() !== 1) return;
+  var t = player.getCurrentTime();
+  for(var i=0;i<STATIONS.length;i++){
+    var st = STATIONS[i];
+    if(stationAnswered(st)){
+      if(st.nextSeek && t >= st.pauseAt && t < st.nextSeek - 1){
+        player.seekTo(st.nextSeek, true);
+      }
+      continue;
+    }
+    if(t >= st.pauseAt){ player.pauseVideo(); openCheckpoint(st); }
+    break;
+  }
+}
+
+var activeStation = null;
+var voiceWireCounter = 0;
+
+function renderQuestionBlock(q){
+  var html = '<div class="cp-q-block" data-qid="'+q.id+'">';
+  if(q.type === 'vf'){
+    html += '<p class="cp-q-text">'+escapeHtml(q.text)+'</p>';
+    html += '<div class="options" data-qtype="vf">';
+    ['Verdadero','Falso'].forEach(function(lab, idx){
+      var checked = ANSWERS[q.id] === (idx===0) ? 'checked' : '';
+      html += '<label class="opt"><input type="radio" name="'+q.id+'" value="'+idx+'" '+checked+'> '+lab+'</label>';
+    });
+    html += '</div>';
+  } else if(q.type === 'mc'){
+    html += '<p class="cp-q-text">'+escapeHtml(q.text)+'</p>';
+    html += '<div class="options" data-qtype="mc">';
+    q.options.forEach(function(opt, idx){
+      var checked = ANSWERS[q.id] === idx ? 'checked' : '';
+      html += '<label class="opt"><input type="radio" name="'+q.id+'" value="'+idx+'" '+checked+'> '+escapeHtml(opt)+'</label>';
+    });
+    html += '</div>';
+  } else if(q.type === 'dev'){
+    var savedText = ANSWERS[q.id] || '';
+    voiceWireCounter++;
+    var taId = 'ta_'+q.id;
+    html += '<p class="cp-q-text">'+escapeHtml(q.text)+'</p>';
+    html += '<div class="dev-block"><textarea id="'+taId+'" data-qid="'+q.id+'" placeholder="Escriba su respuesta aquí, o grabe una nota de voz…">'+escapeHtml(savedText)+'</textarea>';
+    html += '<div class="voice-row"><button type="button" class="voice-btn" data-target="'+taId+'">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="'+taId+'"></span></div></div>';
+  } else if(q.type === 'match'){
+    html += '<p class="cp-q-text">Empareje cada caso con el tipo de IA que le corresponde.</p>';
+    html += '<div class="match-wrap"><div class="match-col" id="matchTerms_'+q.id+'"></div><div class="match-col" id="matchDefs_'+q.id+'"></div></div>';
+    html += '<p class="match-status" id="matchStatus_'+q.id+'">0 / '+q.pairs.length+' emparejados</p>';
+  }
+  html += '</div>';
+  return html;
+}
+
+function buildMatchWidget(q){
+  var termsEl = document.getElementById('matchTerms_'+q.id);
+  var defsEl = document.getElementById('matchDefs_'+q.id);
+  var statusEl = document.getElementById('matchStatus_'+q.id);
+  if(!termsEl || !defsEl) return;
+  var shuffledDefs = q.pairs.map(function(p,i){ return { text:p.def, id:i }; }).sort(function(){ return Math.random()-0.5; });
+  var selectedTermId = null;
+  var matchedIds = {};
+  var savedDone = ANSWERS[q.id] === true;
+  function refreshContinueBtn(){
+    var btn = document.getElementById('cpSubmitBtn');
+    if(btn) btn.disabled = !canContinue(activeStation);
+  }
+  q.pairs.forEach(function(p, i){
+    var btn = document.createElement('button');
+    btn.type = 'button'; btn.className = 'match-item'; btn.textContent = p.term; btn.dataset.id = i;
+    if(savedDone){ btn.classList.add('matched'); matchedIds[i] = true; }
+    btn.addEventListener('click', function(){
+      if(btn.classList.contains('matched')) return;
+      termsEl.querySelectorAll('.match-item').forEach(function(b){ b.classList.remove('selected'); });
+      btn.classList.add('selected');
+      selectedTermId = i;
+    });
+    termsEl.appendChild(btn);
+  });
+  shuffledDefs.forEach(function(d){
+    var btn = document.createElement('button');
+    btn.type = 'button'; btn.className = 'match-item'; btn.textContent = d.text; btn.dataset.id = d.id;
+    if(savedDone){ btn.classList.add('matched'); }
+    btn.addEventListener('click', function(){
+      if(btn.classList.contains('matched') || selectedTermId === null) return;
+      var termBtn = termsEl.querySelector('[data-id="'+selectedTermId+'"]');
+      if(parseInt(btn.dataset.id,10) === selectedTermId){
+        btn.classList.add('matched'); termBtn.classList.add('matched');
+        btn.classList.remove('selected'); termBtn.classList.remove('selected');
+        matchedIds[selectedTermId] = true;
+        var doneCount = Object.keys(matchedIds).length;
+        statusEl.textContent = (doneCount === q.pairs.length ? '✅ ¡Completado! ' : '') + doneCount + ' / ' + q.pairs.length + ' emparejados';
+        if(doneCount === q.pairs.length){ ANSWERS[q.id] = true; saveAnswers(); }
+        refreshContinueBtn();
+      } else {
+        btn.classList.add('wrong');
+        setTimeout(function(){ btn.classList.remove('wrong'); }, 350);
+      }
+      selectedTermId = null;
+      termsEl.querySelectorAll('.match-item').forEach(function(b){ b.classList.remove('selected'); });
+    });
+    defsEl.appendChild(btn);
+  });
+  if(savedDone) statusEl.textContent = '✅ ¡Completado! ' + q.pairs.length + ' / ' + q.pairs.length + ' emparejados';
+}
+
+function canContinue(st){
+  return st.questions.every(function(q){
+    if(q.type === 'vf' || q.type === 'mc'){
+      var checked = document.querySelector('input[name="'+q.id+'"]:checked');
+      return !!checked;
+    }
+    if(q.type === 'dev'){
+      var ta = document.getElementById('ta_'+q.id);
+      return ta && filled(ta.value);
+    }
+    if(q.type === 'match'){
+      return ANSWERS[q.id] === true;
+    }
+    return false;
+  });
+}
+
+function openCheckpoint(st){
+  checkpointOpen = true;
+  activeStation = st;
+  var panel = document.getElementById('cpPanel');
+  var html = '<div class="cp-badge">'+escapeHtml(st.badge)+'</div>';
+  html += '<button type="button" class="rewatch-btn" id="cpRewatch">⏪ Volver a ver este fragmento</button>';
+  st.questions.forEach(function(q){ html += renderQuestionBlock(q); });
+  html += '<div class="cp-registered" id="cpRegistered">✔ Respuesta registrada. Continuando el video…</div>';
+  html += '<div class="cp-continue"><button class="btn-primary" id="cpSubmitBtn" type="button" disabled>▶ Continuar viendo el video</button></div>';
+  panel.innerHTML = html;
+
+  st.questions.forEach(function(q){ if(q.type === 'match') buildMatchWidget(q); });
+
+  panel.querySelectorAll('input[type=radio]').forEach(function(r){
+    r.addEventListener('change', function(){
+      panel.querySelectorAll('input[name="'+r.name+'"]').forEach(function(x){ x.closest('.opt').classList.remove('chosen'); });
+      r.closest('.opt').classList.add('chosen');
+      document.getElementById('cpSubmitBtn').disabled = !canContinue(st);
+    });
+  });
+  panel.querySelectorAll('textarea[data-qid]').forEach(function(ta){
+    ta.addEventListener('input', function(){
+      document.getElementById('cpSubmitBtn').disabled = !canContinue(st);
+    });
+  });
+  wireVoiceButtons(panel);
+  document.getElementById('cpSubmitBtn').disabled = !canContinue(st);
+
+  document.getElementById('cpRewatch').addEventListener('click', function(){
+    document.getElementById('cpOverlay').classList.remove('show');
+    checkpointOpen = false;
+    player.seekTo(Math.max(0, st.pauseAt - 30), true);
+    player.playVideo();
+  });
+  document.getElementById('cpSubmitBtn').addEventListener('click', function(){
+    if(!canContinue(st)) return;
+    st.questions.forEach(function(q){
+      if(q.type === 'vf'){
+        var r = document.querySelector('input[name="'+q.id+'"]:checked');
+        if(r) ANSWERS[q.id] = (r.value === '0');
+      } else if(q.type === 'mc'){
+        var r2 = document.querySelector('input[name="'+q.id+'"]:checked');
+        if(r2) ANSWERS[q.id] = parseInt(r2.value, 10);
+      } else if(q.type === 'dev'){
+        var ta = document.getElementById('ta_'+q.id);
+        if(ta) ANSWERS[q.id] = ta.value;
+      }
+    });
+    saveAnswers();
+    updateStationProgress();
+    document.getElementById('cpRegistered').classList.add('show');
+    document.getElementById('cpSubmitBtn').disabled = true;
+    setTimeout(function(){
+      document.getElementById('cpOverlay').classList.remove('show');
+      checkpointOpen = false;
+      player.playVideo();
+    }, 900);
+  });
+
+  document.getElementById('cpOverlay').classList.add('show');
+}
+
+/* ---------- CALIFICACIÓN ---------- */
+function computeScore(){
+  var score = 0;
+  var objMax = 0, objScore = 0, devMax = 0, devScore = 0;
+  var review = [];
+  STATIONS.forEach(function(st){
+    st.questions.forEach(function(q){
+      var ans = ANSWERS[q.id];
+      if(q.type === 'vf'){
+        var ok = ans === q.correct;
+        objMax += q.pts; if(ok) objScore += q.pts;
+        review.push({ text:q.text, type:'vf', ok:ok, chosenTxt: ans === undefined ? '(sin responder)' : (ans ? 'Verdadero' : 'Falso'), correctTxt: q.correct ? 'Verdadero' : 'Falso', pts:q.pts });
+      } else if(q.type === 'mc'){
+        var ok2 = ans === q.correct;
+        objMax += q.pts; if(ok2) objScore += q.pts;
+        review.push({ text:q.text, type:'mc', ok:ok2, chosenTxt: ans === undefined ? '(sin responder)' : q.options[ans], correctTxt: q.options[q.correct], pts:q.pts });
+      } else if(q.type === 'match'){
+        var ok3 = ans === true;
+        objMax += q.pts; if(ok3) objScore += q.pts;
+        review.push({ text:'Emparejar los casos con su tipo de IA (Estación 2)', type:'match', ok:ok3, pairs:q.pairs, pts:q.pts });
+      } else if(q.type === 'dev'){
+        var text = ans || '';
+        var wc = wordCount(text);
+        var frac = Math.min(1, wc / 35);
+        var pts = Math.round(q.pts * frac * 10) / 10;
+        devMax += q.pts; devScore += pts;
+        review.push({ text:q.text, type:'dev', devText:text, pts:pts, maxPts:q.pts });
+      }
+    });
+  });
+  score = Math.round((objScore + devScore) * 10) / 10;
+  return { score:score, objMax:objMax, objScore:Math.round(objScore*10)/10, devMax:devMax, devScore:Math.round(devScore*10)/10, review:review };
+}
+
+function renderQuizReview(result){
+  var box = document.getElementById('quiz-review-list');
+  box.innerHTML = result.review.map(function(r, i){
+    var html = '<div class="review-item"><div class="rv-head"><strong>'+(i+1)+'. '+escapeHtml(r.text)+'</strong>';
+    if(r.type !== 'dev') html += '<span class="'+(r.ok ? 'tag-ok' : 'tag-low')+'">'+(r.ok ? '✔ Correcta ('+r.pts+' pts)' : '✖ Incorrecta (0 pts)')+'</span>';
+    else html += '<span class="tag-ok">'+r.pts+' / '+r.maxPts+' pts</span>';
+    html += '</div>';
+    if(r.type === 'vf' || r.type === 'mc'){
+      if(!r.ok) html += '<p><strong>Su respuesta:</strong> '+escapeHtml(r.chosenTxt)+'</p>';
+      html += '<p><strong>Respuesta correcta:</strong> '+escapeHtml(r.correctTxt)+'</p>';
+    } else if(r.type === 'match'){
+      html += '<p><strong>Emparejamiento correcto:</strong></p><ul style="margin:.3rem 0 0; padding-left:1.2rem; font-size:.85rem;">' +
+        r.pairs.map(function(p){ return '<li>'+escapeHtml(p.term)+' → <strong>'+escapeHtml(p.def)+'</strong></li>'; }).join('') + '</ul>';
+    } else if(r.type === 'dev'){
+      html += '<p style="color:var(--muted);"><strong>Su respuesta:</strong> '+(escapeHtml(r.devText) || '(sin responder)')+'</p>';
+    }
+    html += '</div>';
+    return html;
+  }).join('');
+}
+
+function animarNumero(el, hasta, duracionMs){
+  if(prefersReducedMotion){ el.textContent = hasta; return; }
+  var inicio = performance.now();
+  function paso(ahora){
+    var t = Math.min(1, (ahora - inicio) / duracionMs);
+    var suavizado = 1 - Math.pow(1 - t, 3);
+    el.textContent = Math.round(hasta * suavizado);
+    if(t < 1) requestAnimationFrame(paso);
+  }
+  requestAnimationFrame(paso);
+}
+
+function renderResults(result){
+  var hero = document.getElementById('score-hero');
+  var title = document.getElementById('score-title');
+  var desc = document.getElementById('score-desc');
+  var num = document.getElementById('score-num');
+  animarNumero(num, result.score, 900);
+  hero.classList.remove('pass','fail');
+  var medalBtn = document.getElementById('btn-medal');
+  var aprobado = result.score >= 70;
+  if(aprobado){
+    hero.classList.add('pass');
+    title.textContent = '✅ Práctica aprobada';
+    desc.textContent = 'Obtuvo ' + result.score + ' / 100 pts — supera el mínimo de 70 pts requerido.';
+    medalBtn.style.display = 'inline-flex';
+    fireConfetti();
+  } else {
+    hero.classList.add('fail');
+    title.textContent = '🔴 Todavía no alcanza el 70% requerido';
+    desc.textContent = 'Obtuvo ' + result.score + ' / 100 pts. Revise la respuesta correcta de cada estación abajo y use "🔄 Intentar de nuevo" para volver a intentarlo.';
+    medalBtn.style.display = 'none';
+  }
+  renderQuizReview(result);
+  document.getElementById('results').classList.add('show');
+}
+
+function gatherGradingPayload(result){
+  var respuestasObjetivas = {}, respuestasDesarrollo = {};
+  result.review.forEach(function(r, i){
+    if(r.type === 'dev') respuestasDesarrollo['Pregunta ' + (i+1)] = r.devText || '(sin responder)';
+    else respuestasObjetivas['Pregunta ' + (i+1)] = (r.chosenTxt || (r.ok ? 'correcta' : 'incorrecta'));
+  });
+  return {
+    estudiante: { nombre: nombreIdentificacion(), correo: correoIdentificacion(), integrantes: val('grp_integrantes') || '', modalidad: modoSelect.value },
+    institucion: '',
+    curso: 'ia-rrhh-ci',
+    unidad: 'u1b',
+    aprobado_por_completitud: result.score >= 70,
+    pasos: {
+      objetivas: { criterio: 'Preguntas objetivas (V/F, opción múltiple, emparejar)', max: 80, respuestas: respuestasObjetivas },
+      desarrollo: { criterio: 'Preguntas de desarrollo', max: 20, respuestas: respuestasDesarrollo }
+    },
+    local: {
+      total: result.score,
+      criterios: [
+        { titulo:'Preguntas objetivas (V/F, opción múltiple, emparejar)', puntaje: result.objScore, max: result.objMax },
+        { titulo:'Preguntas de desarrollo', puntaje: result.devScore, max: result.devMax }
+      ]
+    }
+  };
+}
+
+function renderAIReview(data){
+  var box = document.getElementById('ai-review');
+  box.className = 'alert success';
+  var rows = (data.criterios || []).map(function(c){
+    return '<li><strong>'+escapeHtml(c.titulo || '')+':</strong> '+c.puntaje+'/'+c.max+' pts — '+escapeHtml(c.comentario || '')+'</li>';
+  }).join('');
+  box.innerHTML = '<strong>Evaluación de Nicole:</strong> ' + data.total + ' / 100 pts.<br>' +
+    (data.comentario_general ? '<p style="margin:.5rem 0;">' + escapeHtml(data.comentario_general) + '</p>' : '') +
+    '<ul style="margin:.5rem 0 0; padding-left:1.2rem; font-size:.85rem;">' + rows + '</ul>' +
+    '<p style="margin:.6rem 0 0; font-size:.72rem; color:var(--muted);">Esta evaluación la genera el Tutor Virtual leyendo el contenido real de sus respuestas de desarrollo; es orientativa y no reemplaza la nota oficial de su facilitador.</p>';
+}
+function requestAIGrading(result){
+  var box = document.getElementById('ai-review');
+  box.style.display = 'block';
+  box.className = 'alert info';
+  box.innerHTML = '<strong>Nicole:</strong> revisando el contenido de sus respuestas de desarrollo y notificando a su facilitador por correo…';
+  fetchWithTimeout(AI_GRADE_URL, {
+    method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(gatherGradingPayload(result))
+  }, AI_GRADE_TIMEOUT).then(function(res){
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    return res.json();
+  }).then(function(data){
+    if(!data || !data.ok || !Array.isArray(data.criterios)) throw new Error((data && data.error) || 'respuesta inválida');
+    renderAIReview(data);
+  }).catch(function(){
+    box.className = 'alert warn';
+    box.innerHTML = '<strong>Nicole:</strong> no se pudo contactar el servicio de evaluación en este momento. Se muestra únicamente la evaluación automática local de esta página, que sigue siendo válida.';
+  });
+}
+
+document.getElementById('btn-submit').addEventListener('click', function(){
+  saveMeta();
+  if(!filled(nombreIdentificacion())){
+    var esGrupo = modoSelect.value === 'grupo';
+    alert('Antes de enviar, escriba ' + (esGrupo ? 'el nombre del equipo' : 'su nombre completo') + ' en "Antes de empezar" para que su facilitador pueda identificar la entrega.');
+    document.getElementById(esGrupo ? 'grp_nombre' : 'ind_nombre').focus();
+    document.getElementById('portada').scrollIntoView({ behavior:'smooth' });
+    return;
+  }
+  var faltan = STATIONS.filter(function(st){ return !stationAnswered(st); }).length;
+  if(faltan > 0){
+    alert('Todavía faltan ' + faltan + ' estación(es) del video por responder. Complételas antes de enviar.');
+    document.getElementById('video').scrollIntoView({ behavior:'smooth' });
+    return;
+  }
+  var result = computeScore();
+  renderResults(result);
+  document.getElementById('results').scrollIntoView({ behavior:'smooth', block:'start' });
+  requestAIGrading(result);
+});
+document.getElementById('btn-retry').addEventListener('click', function(){
+  if(!confirm('Esto borrará las respuestas de las 8 estaciones para volver a intentarlo. ¿Continuar?')) return;
+  ANSWERS = {};
+  saveAnswers();
+  updateStationProgress();
+  document.getElementById('results').classList.remove('show');
+  var aiBox = document.getElementById('ai-review'); aiBox.style.display='none'; aiBox.innerHTML='';
+  if(playerReady){ player.seekTo(325, true); player.pauseVideo(); }
+  document.getElementById('video').scrollIntoView({ behavior:'smooth' });
+});
+document.getElementById('btn-print').addEventListener('click', function(){ window.print(); });
+document.getElementById('btn-print-2').addEventListener('click', function(){ window.print(); });
+document.getElementById('btn-clear').addEventListener('click', function(){
+  if(!confirm('¿Seguro que desea borrar TODAS sus respuestas guardadas en este navegador? Esta acción no se puede deshacer.')) return;
+  ANSWERS = {}; saveAnswers();
+  try{ localStorage.removeItem(META_STORE_KEY); }catch(e){}
+  META_FIELDS.forEach(function(id){ var el = document.getElementById(id); if(el) el.value=''; });
+  updateStationProgress();
+  document.getElementById('results').classList.remove('show');
+});
+
+/* ---------- RÚBRICA TABLE ---------- */
+var RUBRICA = [
+  { n:1, criterio:'Preguntas objetivas', indicador:'6 preguntas (verdadero/falso, selección múltiple) más 1 ejercicio de emparejar términos, sobre casos reales de IA en RR. HH.', pts:80 },
+  { n:2, criterio:'Preguntas de desarrollo', indicador:'2 reflexiones (escritas o por nota de voz) sobre supervisión humana en reclutamiento y el impacto de la IA en la cultura organizacional.', pts:20 }
+];
+document.getElementById('rubrica-body').innerHTML = RUBRICA.map(function(r){
+  return '<tr><td class="label-cell">'+r.n+'</td><td>'+r.criterio+'</td><td>'+r.indicador+'</td><td class="label-cell">'+r.pts+'</td></tr>';
+}).join('') + '<tr><td colspan="3" class="label-cell">TOTAL (mínimo 70 para aprobar)</td><td class="label-cell">100</td></tr>';
+
+/* ---------- NOTAS DE VOZ ---------- */
+function pickRecorderMime(){
+  var candidates = ['audio/webm;codecs=opus','audio/webm','audio/mp4','audio/ogg;codecs=opus'];
+  for(var i=0;i<candidates.length;i++){
+    if(window.MediaRecorder && MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(candidates[i])) return candidates[i];
+  }
+  return '';
+}
+function beepVoz(freq, dur){
+  try{
+    var Ctx = window.AudioContext || window.webkitAudioContext;
+    var ctx = new Ctx();
+    var osc = ctx.createOscillator(); var gain = ctx.createGain();
+    osc.type = 'sine'; osc.frequency.value = freq;
+    gain.gain.setValueAtTime(0.18, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + dur);
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.start(); osc.stop(ctx.currentTime + dur);
+    osc.onended = function(){ ctx.close(); };
+  }catch(e){}
+}
+var VOZ_MIN_MS = 400, VOZ_MAX_MS = 120000;
+var VOZ_LABEL_DEFAULT = '🎤 Mantenga presionado para grabar';
+function wireVoiceButtons(scope){
+  scope = scope || document;
+  if(!navigator.mediaDevices || !window.MediaRecorder){
+    scope.querySelectorAll('.voice-btn').forEach(function(btn){ btn.disabled = true; btn.title = 'Grabación de voz no disponible en este navegador'; });
+    return;
+  }
+  scope.querySelectorAll('.voice-btn').forEach(function(btn){
+    if(btn.dataset.wired === '1') return;
+    btn.dataset.wired = '1';
+    var targetId = btn.getAttribute('data-target');
+    var textarea = document.getElementById(targetId);
+    var statusEl = scope.querySelector('.voice-status[data-target-status="'+targetId+'"]') || document.querySelector('.voice-status[data-target-status="'+targetId+'"]');
+    if(!textarea) return;
+    btn.textContent = VOZ_LABEL_DEFAULT;
+    var mediaRecorder=null, chunks=[], stream=null, recording=false, pressActive=false, startedAt=0, maxTimer=null, tickTimer=null;
+    function setStatus(msg, cls){ if(!statusEl) return; statusEl.textContent = msg||''; statusEl.className = 'voice-status'+(cls?' '+cls:''); }
+    function stopStream(){ if(stream){ stream.getTracks().forEach(function(t){t.stop();}); stream=null; } }
+    function tick(){ var secs=Math.floor((Date.now()-startedAt)/1000); var m=Math.floor(secs/60), s=secs%60; btn.textContent='🔴 Grabando '+m+':'+(s<10?'0':'')+s+' — suelte para enviar'; }
+    function startRecording(){
+      if(pressActive) return; pressActive = true;
+      navigator.mediaDevices.getUserMedia({audio:true}).then(function(s){
+        if(!pressActive){ s.getTracks().forEach(function(t){t.stop();}); return; }
+        stream = s; chunks = [];
+        var mime = pickRecorderMime();
+        try{ mediaRecorder = mime ? new MediaRecorder(stream,{mimeType:mime}) : new MediaRecorder(stream); }
+        catch(e){ mediaRecorder = new MediaRecorder(stream); }
+        mediaRecorder.addEventListener('dataavailable', function(e){ if(e.data && e.data.size>0) chunks.push(e.data); });
+        mediaRecorder.addEventListener('stop', function(){
+          stopStream(); clearTimeout(maxTimer); clearInterval(tickTimer); btn.classList.remove('recording');
+          var duracion = Date.now()-startedAt;
+          if(duracion < VOZ_MIN_MS){ btn.textContent = VOZ_LABEL_DEFAULT; setStatus('Grabación muy corta — mantenga presionado el botón mientras habla.', 'err'); return; }
+          var blob = new Blob(chunks, {type: mediaRecorder.mimeType || 'audio/webm'});
+          uploadForTranscription(blob);
+        });
+        mediaRecorder.start(); recording = true; startedAt = Date.now();
+        btn.classList.add('recording'); beepVoz(880, 0.1); tick(); tickTimer = setInterval(tick, 500);
+        setStatus('Grabando… hable su respuesta y suelte el botón al terminar.', '');
+        maxTimer = setTimeout(function(){ if(recording) stopRecording(); }, VOZ_MAX_MS);
+      }).catch(function(){
+        pressActive = false;
+        setStatus('No se pudo acceder al micrófono. Revise los permisos del navegador, o simplemente escriba la respuesta.', 'err');
+      });
+    }
+    function stopRecording(){
+      if(!pressActive) return; pressActive = false;
+      if(mediaRecorder && recording){ recording = false; beepVoz(440, 0.12); mediaRecorder.stop(); }
+    }
+    function uploadForTranscription(blob){
+      btn.disabled = true; btn.classList.add('busy'); btn.textContent = '⏳ Transcribiendo…';
+      setStatus('Transcribiendo la nota de voz, un momento…', '');
+      var fd = new FormData();
+      var ext = (blob.type.indexOf('mp4')!==-1) ? 'm4a' : (blob.type.indexOf('ogg')!==-1 ? 'ogg' : 'webm');
+      fd.append('data', blob, 'nota-voz.'+ext);
+      fetchWithTimeout(VOICE_TRANSCRIBE_URL, {method:'POST', body:fd}, 60000).then(function(res){
+        if(!res.ok) throw new Error('HTTP '+res.status);
+        return res.json();
+      }).then(function(data){
+        if(!data || !data.ok || !data.texto) throw new Error('SIN_TEXTO');
+        var existing = textarea.value.trim();
+        textarea.value = existing ? (existing + ' ' + data.texto) : data.texto;
+        textarea.dispatchEvent(new Event('input'));
+        setStatus('✔ Nota de voz agregada. Puede revisarla y corregirla si hace falta.', 'ok');
+      }).catch(function(err){
+        var msg = (err && err.message === 'SIN_TEXTO')
+          ? 'No se logró entender el audio. Intente grabar de nuevo hablando más cerca del micrófono, o escriba la respuesta directamente.'
+          : 'No se pudo conectar con el servicio de transcripción. Revise su conexión a internet, o escriba la respuesta directamente.';
+        setStatus(msg, 'err');
+      }).finally(function(){
+        btn.disabled = false; btn.classList.remove('busy'); btn.textContent = VOZ_LABEL_DEFAULT;
+      });
+    }
+    btn.addEventListener('mousedown', function(e){ e.preventDefault(); startRecording(); });
+    btn.addEventListener('touchstart', function(e){ e.preventDefault(); startRecording(); }, {passive:false});
+    ['mouseup','mouseleave','touchend','touchcancel'].forEach(function(evt){ btn.addEventListener(evt, stopRecording); });
+  });
+}
+
+/* ---------- TAMAÑO DE LETRA ---------- */
+var FONT_LEVELS = ['normal','grande','xgrande'];
+function applyFontSize(level){ document.documentElement.setAttribute('data-fontsize', level); try{ localStorage.setItem('tp_iarrhh_u1b_fontsize', level); }catch(e){} }
+applyFontSize(localStorage.getItem('tp_iarrhh_u1b_fontsize') || 'normal');
+document.getElementById('font-bigger').addEventListener('click', function(){ var cur=document.documentElement.getAttribute('data-fontsize')||'normal'; var idx=FONT_LEVELS.indexOf(cur); if(idx<FONT_LEVELS.length-1) applyFontSize(FONT_LEVELS[idx+1]); });
+document.getElementById('font-smaller').addEventListener('click', function(){ var cur=document.documentElement.getAttribute('data-fontsize')||'normal'; var idx=FONT_LEVELS.indexOf(cur); if(idx>0) applyFontSize(FONT_LEVELS[idx-1]); });
+
+/* ---------- THEME ---------- */
+var themeBtn = document.getElementById('theme-toggle');
+function applyTheme(t){ document.documentElement.setAttribute('data-theme', t); themeBtn.textContent = t==='dark' ? '☀️' : '🌙'; localStorage.setItem('tp_iarrhh_u1b_theme', t); }
+applyTheme(localStorage.getItem('tp_iarrhh_u1b_theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+themeBtn.addEventListener('click', function(){ applyTheme(document.documentElement.getAttribute('data-theme')==='dark' ? 'light' : 'dark'); });
+
+/* ---------- QR ---------- */
+document.getElementById('btn-qr').addEventListener('click', function(){
+  var container = document.getElementById('qr-code-container');
+  container.innerHTML = '';
+  var pageUrl = window.location.href.split('#')[0].split('?')[0];
+  if(window.QRCode){ new QRCode(container, { text:pageUrl, width:220, height:220, colorDark:'#0d7377', colorLight:'#ffffff', correctLevel:QRCode.CorrectLevel.M }); }
+  else { container.innerHTML = '<p style="color:var(--red); font-size:.85rem; text-align:center;">No se pudo cargar el generador de QR. Verifique su conexión a internet e intente de nuevo.</p>'; }
+  document.getElementById('qr-modal').hidden = false;
+});
+document.getElementById('qr-close').addEventListener('click', function(){ document.getElementById('qr-modal').hidden = true; });
+document.getElementById('qr-download').addEventListener('click', function(){
+  var el = document.querySelector('#qr-code-container img') || document.querySelector('#qr-code-container canvas');
+  if(!el) return;
+  var dataUrl = el.tagName === 'CANVAS' ? el.toDataURL('image/png') : el.src;
+  var a = document.createElement('a'); a.href = dataUrl; a.download = 'qr-practica-ia-rrhh-u1b.png';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+});
+
+/* ---------- MOBILE NAV ---------- */
+var navToggle = document.getElementById('nav-toggle');
+var sidebar = document.getElementById('sidebar');
+navToggle.addEventListener('click', function(){ var open = sidebar.classList.toggle('open'); navToggle.setAttribute('aria-expanded', open ? 'true' : 'false'); });
+
+/* ---------- READING PROGRESS BAR ---------- */
+var progressBar = document.getElementById('progress-bar');
+window.addEventListener('scroll', function(){
+  var h = document.documentElement;
+  var scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+  progressBar.style.width = (scrolled || 0) + '%';
+}, {passive:true});
+
+/* ---------- ACTIVE NAV HIGHLIGHT ---------- */
+var navLinks = Array.prototype.slice.call(document.querySelectorAll('.nav a'));
+var sections = navLinks.map(function(a){ return document.querySelector(a.getAttribute('href')); }).filter(Boolean);
+var io = new IntersectionObserver(function(entries){
+  entries.forEach(function(entry){
+    var link = document.querySelector('.nav a[href="#'+entry.target.id+'"]');
+    if(!link) return;
+    if(entry.isIntersecting) navLinks.forEach(function(l){ l.classList.remove('active'); });
+    if(entry.isIntersecting) link.classList.add('active');
+  });
+}, { rootMargin:'-20% 0px -70% 0px' });
+sections.forEach(function(s){ io.observe(s); });
+
+/* ---------- TEMPORIZADOR DE REFERENCIA ---------- */
+var TIMER_MINUTES = 50;
+var TIMER_KEY = 'tp_iarrhh_u1b_deadline';
+var SOUND_MUTE_KEY = 'tp_iarrhh_sound_muted';
+var soundMuted = localStorage.getItem(SOUND_MUTE_KEY) === '1';
+var flatlinePlayed = false, lastBeepAt = 0, lastStabAt = 0, lastOvertimeStabAt = 0;
+var NUM_CORAZONES = 5;
+
+function trazarCorazon(ctx, cx, cy, s){
+  ctx.beginPath();
+  ctx.moveTo(cx, cy + s*0.32);
+  ctx.bezierCurveTo(cx, cy, cx - s*0.5, cy - s*0.5, cx - s*0.5, cy);
+  ctx.bezierCurveTo(cx - s*0.5, cy + s*0.4, cx - s*0.18, cy + s*0.62, cx, cy + s*0.88);
+  ctx.bezierCurveTo(cx + s*0.18, cy + s*0.62, cx + s*0.5, cy + s*0.4, cx + s*0.5, cy);
+  ctx.bezierCurveTo(cx + s*0.5, cy - s*0.5, cx, cy, cx, cy + s*0.32);
+  ctx.closePath();
+}
+function dibujarCorazones(pctVida){
+  var canvas = document.getElementById('hearts-canvas'); if(!canvas) return;
+  var ctx = canvas.getContext('2d'); var W=canvas.width, H=canvas.height;
+  ctx.clearRect(0,0,W,H);
+  var s=24, paso=40, inicioX=(W - paso*(NUM_CORAZONES-1))/2, cy=H/2-4;
+  for(var i=0;i<NUM_CORAZONES;i++){
+    var cx = inicioX + i*paso;
+    var segInicio = i/NUM_CORAZONES, segAncho = 1/NUM_CORAZONES;
+    var frac = Math.max(0, Math.min(1, (pctVida - segInicio)/segAncho));
+    trazarCorazon(ctx,cx,cy,s); ctx.fillStyle='rgba(0,0,0,.08)'; ctx.fill();
+    if(frac>0){ ctx.save(); trazarCorazon(ctx,cx,cy,s); ctx.clip(); ctx.fillStyle = pctVida<=0 ? '#94a3b8':'#e11d48'; ctx.fillRect(cx-s/2, cy+s*0.9-(s*1.4*frac), s, s*1.4*frac); ctx.restore(); }
+    trazarCorazon(ctx,cx,cy,s); ctx.lineWidth=1.3; ctx.strokeStyle='rgba(0,0,0,.18)'; ctx.stroke();
+  }
+}
+function getDeadline(){
+  var d = parseInt(localStorage.getItem(TIMER_KEY), 10);
+  if(!d || isNaN(d) || d <= Date.now()){ d = Date.now() + TIMER_MINUTES*60000; try{ localStorage.setItem(TIMER_KEY, String(d)); }catch(e){} }
+  return d;
+}
+var timerDeadline = getDeadline();
+function playBeep(freq,dur,vol){
+  if(soundMuted) return;
+  try{ var Ctx=window.AudioContext||window.webkitAudioContext; var ctx=new Ctx(); var osc=ctx.createOscillator(); var gain=ctx.createGain();
+    osc.type='sine'; osc.frequency.value=freq; gain.gain.setValueAtTime(vol, ctx.currentTime); gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime+dur);
+    osc.connect(gain); gain.connect(ctx.destination); osc.start(); osc.stop(ctx.currentTime+dur); osc.onended=function(){ctx.close();}; }catch(e){}
+}
+function playFlatline(){
+  if(soundMuted) return;
+  try{ var Ctx=window.AudioContext||window.webkitAudioContext; var ctx=new Ctx(); var osc=ctx.createOscillator(); var gain=ctx.createGain();
+    osc.type='sawtooth'; osc.frequency.setValueAtTime(720, ctx.currentTime); osc.frequency.linearRampToValueAtTime(160, ctx.currentTime+2.2);
+    gain.gain.setValueAtTime(0.001, ctx.currentTime); gain.gain.linearRampToValueAtTime(0.14, ctx.currentTime+0.06); gain.gain.setValueAtTime(0.14, ctx.currentTime+1.8); gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime+2.3);
+    osc.connect(gain); gain.connect(ctx.destination); osc.start(); osc.stop(ctx.currentTime+2.4); osc.onended=function(){ctx.close();}; }catch(e){}
+}
+function playAnguishStab(){
+  if(soundMuted) return;
+  try{ var Ctx=window.AudioContext||window.webkitAudioContext; var ctx=new Ctx();
+    [1046.5, 987.77].forEach(function(freq){ var osc=ctx.createOscillator(); var gain=ctx.createGain(); osc.type='sawtooth'; osc.frequency.value=freq;
+      gain.gain.setValueAtTime(0.001, ctx.currentTime); gain.gain.linearRampToValueAtTime(0.11, ctx.currentTime+0.02); gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime+0.35);
+      osc.connect(gain); gain.connect(ctx.destination); osc.start(); osc.stop(ctx.currentTime+0.4); });
+    setTimeout(function(){ ctx.close(); }, 450); }catch(e){}
+}
+function tickTimer(){
+  var wrapEl=document.getElementById('timer-box'), valEl=document.getElementById('timer-value'), overtimeNoteEl=document.getElementById('overtime-note'), heartsEl=document.getElementById('hearts-canvas');
+  if(!wrapEl||!valEl) return;
+  var diffReal = timerDeadline - Date.now();
+  var remaining = diffReal < 0 ? 0 : diffReal;
+  var now = Date.now();
+  dibujarCorazones(Math.max(0, remaining/(TIMER_MINUTES*60000)));
+  if(diffReal > 0){
+    var totalSec=Math.floor(remaining/1000), m=Math.floor(totalSec/60), s=totalSec%60;
+    valEl.textContent=(m<10?'0':'')+m+':'+(s<10?'0':'')+s;
+    wrapEl.classList.remove('overtime'); if(overtimeNoteEl) overtimeNoteEl.hidden = true;
+    var criticalMode = remaining <= 10*60000; wrapEl.classList.toggle('low', criticalMode);
+    var lastMinute = remaining <= 5*60000;
+    if(lastMinute){
+      var pctMin = remaining/(5*60000); var eased = Math.pow(1-pctMin,3);
+      var interval = 3000 - eased*2750;
+      if(now-lastBeepAt>interval){ lastBeepAt=now; playBeep(920,0.08,0.14); }
+      var stabInterval = 3500 - eased*3150;
+      if(now-lastStabAt>stabInterval){ lastStabAt=now; playAnguishStab(); }
+    }
+    if(heartsEl) heartsEl.classList.toggle('critical', lastMinute);
+    wrapEl.classList.toggle('critical', lastMinute);
+  } else {
+    var extraMs=-diffReal, extraSec=Math.floor(extraMs/1000), em=Math.floor(extraSec/60), es=extraSec%60;
+    valEl.textContent='+'+(em<10?'0':'')+em+':'+(es<10?'0':'')+es;
+    wrapEl.classList.remove('low','critical'); wrapEl.classList.add('overtime');
+    if(heartsEl) heartsEl.classList.remove('critical'); if(overtimeNoteEl) overtimeNoteEl.hidden = false;
+    if(!flatlinePlayed){ flatlinePlayed = true; playFlatline(); }
+    if(now-lastOvertimeStabAt>1800){ lastOvertimeStabAt=now; playAnguishStab(); }
+  }
+}
+setInterval(tickTimer, 1000); tickTimer();
+var soundToggleBtn = document.getElementById('sound-toggle');
+soundToggleBtn.textContent = soundMuted ? '🔇' : '🔔';
+soundToggleBtn.addEventListener('click', function(){ soundMuted = !soundMuted; try{ localStorage.setItem(SOUND_MUTE_KEY, soundMuted?'1':'0'); }catch(e){} soundToggleBtn.textContent = soundMuted ? '🔇' : '🔔'; });
+
+/* ---------- MEDALLA ---------- */
+var TEMA_MEDALLA = { icono:'🧠', fondo1:'#0d3b3f', fondo2:'#062023', medalClaro:'#d9f99d', medalMedio:'#8dc63f', medalOscuro:'#4d7c0f', laurel:'#8dc63f', eyebrow:'CERTIFICADO DE FINALIZACIÓN' };
+function dibujarLaurel(ctx, cx, cy, r, color){
+  for(var lado=-1; lado<=1; lado+=2){
+    ctx.save(); ctx.translate(cx,cy); ctx.scale(lado,1); ctx.strokeStyle=color; ctx.lineWidth=4;
+    ctx.beginPath(); ctx.moveTo(r*0.72, r*0.78); ctx.quadraticCurveTo(r*1.28, 0, r*0.92, -r*0.9); ctx.stroke();
+    for(var i=0;i<7;i++){
+      var t=i/6; var px=(r*0.72)*(1-t)+(r*0.92)*t; var py=(r*0.78)*(1-t)+(-r*0.9)*t;
+      ctx.save(); ctx.translate(px,py); ctx.rotate(-0.6 + t*1.15);
+      ctx.beginPath(); ctx.ellipse(0,0,13,6,0,0,Math.PI*2); ctx.fillStyle=color; ctx.globalAlpha=0.85; ctx.fill(); ctx.restore();
+    }
+    ctx.restore();
+  }
+}
+function wrapCanvasText(ctx, text, x, y, maxWidth, lineHeight){
+  var words = text.split(' '); var line=''; var lines=[];
+  for(var i=0;i<words.length;i++){
+    var test = line + words[i] + ' ';
+    if(ctx.measureText(test).width > maxWidth && line !== ''){ lines.push(line.trim()); line = words[i] + ' '; }
+    else { line = test; }
+  }
+  lines.push(line.trim());
+  lines.forEach(function(l, idx){ ctx.fillText(l, x, y + idx*lineHeight); });
+}
+function drawMedal(nombre, cursoLabel, unidadLabel){
+  var tema = TEMA_MEDALLA;
+  var canvas = document.getElementById('medal-canvas'); var ctx = canvas.getContext('2d');
+  var W=canvas.width, H=canvas.height; ctx.clearRect(0,0,W,H);
+  var bgGrad = ctx.createLinearGradient(0,0,0,H); bgGrad.addColorStop(0,tema.fondo1); bgGrad.addColorStop(1,tema.fondo2);
+  ctx.fillStyle = bgGrad; ctx.fillRect(0,0,W,H);
+  ctx.textAlign='center'; ctx.fillStyle=tema.laurel; ctx.font='bold 18px Inter, sans-serif'; ctx.fillText(tema.eyebrow, W/2, 55);
+  var cx=W/2, cy=300, r=150; dibujarLaurel(ctx,cx,cy,r+25,tema.laurel);
+  var medalGrad = ctx.createRadialGradient(cx-50,cy-50,10,cx,cy,r);
+  medalGrad.addColorStop(0,tema.medalClaro); medalGrad.addColorStop(0.6,tema.medalMedio); medalGrad.addColorStop(1,tema.medalOscuro);
+  ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2); ctx.fillStyle=medalGrad; ctx.fill();
+  ctx.lineWidth=8; ctx.strokeStyle=tema.medalOscuro; ctx.stroke();
+  ctx.beginPath(); ctx.arc(cx,cy,r-20,0,Math.PI*2); ctx.lineWidth=3; ctx.strokeStyle='rgba(255,255,255,.35)'; ctx.stroke();
+  ctx.fillStyle=tema.fondo1; ctx.font='bold 82px Inter, sans-serif'; ctx.fillText(tema.icono, cx, cy+28);
+  ctx.fillStyle='#ffffff'; ctx.font='bold 30px Inter, sans-serif'; ctx.fillText('PRÁCTICA COMPLETADA', W/2, cy+r+65);
+  ctx.fillStyle=tema.laurel; ctx.font='600 21px Inter, sans-serif'; wrapCanvasText(ctx, cursoLabel, W/2, cy+r+100, W-100, 26);
+  ctx.fillStyle='#cbd5e1'; ctx.font='17px Inter, sans-serif'; ctx.fillText(unidadLabel, W/2, cy+r+160);
+  ctx.fillStyle='#ffffff'; ctx.font='bold 24px Inter, sans-serif'; ctx.fillText(nombre || 'Participante', W/2, cy+r+205);
+  ctx.fillStyle='#94a3b8'; ctx.font='14px Inter, sans-serif'; ctx.fillText('Johan Tapia, PhD · ' + new Date().toLocaleDateString('es-DO'), W/2, cy+r+235);
+}
+document.getElementById('btn-medal').addEventListener('click', function(){
+  drawMedal(nombreIdentificacion(), 'Inteligencia Artificial Aplicada a Recursos Humanos', 'Práctica I-B · Tipos de IA en RR. HH. (video)');
+  document.getElementById('medal-modal').hidden = false;
+});
+document.getElementById('medal-close').addEventListener('click', function(){ document.getElementById('medal-modal').hidden = true; });
+document.getElementById('medal-download').addEventListener('click', function(){
+  var canvas = document.getElementById('medal-canvas');
+  var a = document.createElement('a'); a.href = canvas.toDataURL('image/png');
+  var name = (nombreIdentificacion() || 'participante').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+  a.download = 'medalla-' + (name || 'participante') + '-ia-rrhh-u1b.png';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+});
+document.getElementById('medal-share').addEventListener('click', function(){
+  var canvas = document.getElementById('medal-canvas');
+  canvas.toBlob(function(blob){
+    var file = new File([blob], 'medalla-ia-rrhh-u1b.png', {type:'image/png'});
+    if(navigator.canShare && navigator.canShare({files:[file]})){
+      navigator.share({ files:[file], title:'¡Completé mi práctica!', text:'Completé la Práctica I-B de Inteligencia Artificial Aplicada a Recursos Humanos.' }).catch(function(){});
+    } else {
+      var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'medalla-ia-rrhh-u1b.png';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(a.href);
+      alert('Su navegador no admite compartir directamente. Se descargó la imagen — puede compartirla manualmente.');
+    }
+  }, 'image/png');
+});
+
+/* ---------- NICOLE ---------- */
+var advisorToggle = document.getElementById('advisor-toggle');
+var advisorPanel = document.getElementById('advisor-panel');
+var advisorClose = document.getElementById('advisor-close');
+var advisorBody = document.getElementById('advisor-body');
+var advisorForm = document.getElementById('advisor-form');
+var advisorInput = document.getElementById('advisor-input');
+function openAdvisor(){ advisorPanel.classList.add('open'); advisorToggle.setAttribute('aria-expanded','true'); advisorInput.focus(); }
+function closeAdvisor(){ advisorPanel.classList.remove('open'); advisorToggle.setAttribute('aria-expanded','false'); }
+advisorToggle.addEventListener('click', function(){ advisorPanel.classList.contains('open') ? closeAdvisor() : openAdvisor(); });
+advisorClose.addEventListener('click', closeAdvisor);
+function addMsg(text, who){
+  var div = document.createElement('div'); div.className = 'advisor-msg advisor-msg-' + (who==='user'?'user':'bot'); div.textContent = text;
+  advisorBody.appendChild(div); advisorBody.scrollTop = advisorBody.scrollHeight; return div;
+}
+function addTyping(){ var div = addMsg('Escribiendo…','bot'); div.style.opacity='.6'; return div; }
+
+var CONTEXTO_UNIDAD = "MARCO CONCEPTUAL DE REFERENCIA (Unidad I - Fundamentos de la Inteligencia Artificial, curso Inteligencia Artificial Aplicada a Recursos Humanos, Comunicacion Integral). Esta practica (I-B) es un video interactivo que aplica el mismo marco a casos reales.\n- IA basada en reglas: sigue instrucciones fijas programadas de antemano, no aprende por si sola (ej. chatbot de preguntas frecuentes).\n- Machine Learning: aprende patrones de datos historicos y mejora con la experiencia (ej. prediccion de rotacion, o el caso real de Amazon 2018: su sistema de IA para filtrar candidatos aprendio de datos historicos de contratacion mayoritariamente masculinos y termino penalizando curriculums de mujeres - sesgo algoritmico, no reglas explicitas).\n- Deep Learning: Machine Learning con redes neuronales de muchas capas, fuerte en imagenes, voz y texto complejo (ej. lectura automatica de CVs o documentos escaneados, analisis de sentimiento en encuestas de clima laboral).\n- IA Generativa: crea contenido nuevo (texto, imagenes, audio, codigo) a partir de una instruccion (ej. redactar un manual de cultura organizacional). Su riesgo particular es la 'alucinacion': generar contenido con apariencia correcta pero datos falsos o inventados (el video menciona el caso de una consultora con este problema).\n\nLA PRACTICA (I-B) tiene 8 estaciones dentro de un video (V/F, opcion multiple, emparejar terminos, y 2 preguntas de desarrollo con nota de voz), 100 puntos, aprobacion minima 70%. La retroalimentacion (respuestas correctas) se muestra solo al final, al presionar Enviar y Calificar. Si no alcanza 70 puntos, puede reintentar el cuestionario las veces que necesite.";
+
+function askTutorAI(q){
+  return fetchWithTimeout(AI_CHAT_URL, {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({ message:q, contexto:CONTEXTO_UNIDAD, curso:'Inteligencia Artificial Aplicada a Recursos Humanos (Comunicación Integral)' })
+  }, AI_CHAT_TIMEOUT).then(function(res){
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    return res.json();
+  }).then(function(data){
+    if(!data || !filled((data.respuesta||data.response))) throw new Error('respuesta vacía');
+    return (data.respuesta||data.response);
+  });
+}
+function askTutor(q){ return askTutorAI(q).catch(function(){ return answerFor(q); }); }
+var QA = [
+  { kw:['calific','nota','puntaje','rubrica','aprobar','minimo','aprobacion','70'], a:'Esta práctica vale 100 puntos: 80 por las preguntas objetivas (verdadero/falso, selección múltiple y emparejar) y 20 por las 2 preguntas de desarrollo. Se aprueba con 70 puntos o más. Las respuestas correctas se muestran solo al final, y si no alcanza el 70% puede reintentar el cuestionario completo las veces que necesite.' },
+  { kw:['reglas','basada en reglas'], a:'La IA basada en reglas sigue instrucciones fijas programadas de antemano — no aprende por sí sola. Ejemplo en RR. HH.: un chatbot que responde preguntas frecuentes con un guion fijo de respuestas.' },
+  { kw:['machine learning','aprendizaje automatico'], a:'El Machine Learning aprende patrones de datos históricos y mejora con la experiencia. El caso de Amazon (2018) es un ejemplo real: su sistema de filtrado de candidatos aprendió de datos históricos de contratación mayoritariamente masculinos y terminó penalizando currículums de mujeres — no fue una regla explícita, sino un sesgo aprendido de los datos.' },
+  { kw:['deep learning','redes neuronales'], a:'El Deep Learning es Machine Learning con redes neuronales de muchas capas — fuerte en imágenes, voz y texto complejo. Ejemplo en RR. HH.: leer y clasificar automáticamente cientos de CVs o documentos escaneados analizando su contenido.' },
+  { kw:['ia generativa','generativa','chatgpt'], a:'La IA Generativa crea contenido nuevo (texto, imágenes, audio, código) a partir de una instrucción. Ejemplo en RR. HH.: redactar el primer borrador de un manual de cultura organizacional. Su riesgo particular es la "alucinación".' },
+  { kw:['alucinacion','alucina'], a:'Una "alucinación" de la IA Generativa es cuando genera contenido con apariencia correcta, pero con datos falsos o inventados. El video menciona un caso real de una consultora que presentó información incorrecta generada así.' },
+  { kw:['amazon','sesgo','sesgo algoritmico'], a:'El caso de Amazon es real y ampliamente documentado (2018): su sistema de Machine Learning para filtrar candidatos aprendió de datos históricos de contratación —mayoritariamente hombres— y replicó ese patrón, penalizando currículums de mujeres. No fue una regla programada a propósito, fue un sesgo aprendido de los datos.' },
+  { kw:['nota de voz','voz','grabar','microfono','micrófono'], a:'En las preguntas de desarrollo hay un botón "🎤 Mantenga presionado para grabar". Manténgalo presionado mientras habla su respuesta y suéltelo al terminar — se convierte en texto automáticamente.' },
+  { kw:['reintentar','de nuevo','otra vez','no aprobe','no pase'], a:'Si su nota queda debajo de 70, use el botón "🔄 Intentar de nuevo" en los resultados: borra las respuestas de las 8 estaciones y reinicia el video desde el principio para que lo intente otra vez, las veces que necesite.' },
+  { kw:['hola','ayuda','que puedes hacer','quien eres'], a:'Soy Nicole, la asistente virtual del Dr. Johan Tapia. Puedo explicarte los 4 tipos de IA (reglas, Machine Learning, Deep Learning, IA Generativa) y los casos reales del video (McKinsey, Amazon), o cómo funciona la calificación de esta práctica.' }
+];
+function answerFor(q){
+  var nq = stripAccents(q); var best=null, bestScore=0;
+  QA.forEach(function(entry){ var score=0; entry.kw.forEach(function(k){ if(nq.indexOf(stripAccents(k))!==-1) score++; }); if(score>bestScore){ bestScore=score; best=entry; } });
+  if(best) return best.a;
+  return 'No tengo una respuesta preparada para eso. Prueba preguntar por un tipo de IA (reglas, Machine Learning, Deep Learning, IA Generativa), por un caso del video (McKinsey, Amazon), o por la calificación.';
+}
+advisorForm.addEventListener('submit', function(e){
+  e.preventDefault();
+  var q = norm(advisorInput.value); if(!q) return;
+  addMsg(q,'user'); advisorInput.value='';
+  var typingEl = addTyping();
+  askTutor(q).then(function(answer){ typingEl.remove(); addMsg(answer,'bot'); });
+});
+document.querySelectorAll('.advisor-suggest button').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var q = btn.getAttribute('data-q'); openAdvisor(); addMsg(q,'user');
+    var typingEl = addTyping();
+    askTutor(q).then(function(answer){ typingEl.remove(); addMsg(answer,'bot'); });
+  });
+});
+
+/* ===== EFECTOS DINAMICOS ===== */
+var prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function iniciarRedPortada(){
+  var canvas = document.getElementById('cover-canvas'); var cover = document.getElementById('portada');
+  if(!canvas || !cover || prefersReducedMotion) return;
+  var ctx = canvas.getContext('2d'); var ancho, alto, nodos = [];
+  var NUM_NODOS = 42, DIST_MAX = 130;
+  function redimensionar(){ ancho = canvas.width = cover.offsetWidth; alto = canvas.height = cover.offsetHeight; }
+  function crearNodos(){ nodos=[]; for(var i=0;i<NUM_NODOS;i++){ nodos.push({x:Math.random()*ancho, y:Math.random()*alto, vx:(Math.random()-0.5)*0.35, vy:(Math.random()-0.5)*0.35}); } }
+  function paso(){
+    ctx.clearRect(0,0,ancho,alto);
+    for(var i=0;i<nodos.length;i++){
+      var n=nodos[i]; n.x+=n.vx; n.y+=n.vy;
+      if(n.x<0||n.x>ancho) n.vx*=-1; if(n.y<0||n.y>alto) n.vy*=-1;
+      ctx.beginPath(); ctx.arc(n.x,n.y,1.8,0,Math.PI*2); ctx.fillStyle='rgba(255,255,255,.85)'; ctx.fill();
+      for(var j=i+1;j<nodos.length;j++){
+        var m=nodos[j]; var dx=n.x-m.x, dy=n.y-m.y; var dist=Math.sqrt(dx*dx+dy*dy);
+        if(dist<DIST_MAX){ ctx.beginPath(); ctx.moveTo(n.x,n.y); ctx.lineTo(m.x,m.y); ctx.strokeStyle='rgba(141,198,63,'+((1-dist/DIST_MAX)*.5)+')'; ctx.lineWidth=1; ctx.stroke(); }
+      }
+    }
+    requestAnimationFrame(paso);
+  }
+  redimensionar(); crearNodos(); requestAnimationFrame(paso);
+  window.addEventListener('resize', function(){ redimensionar(); crearNodos(); });
+}
+iniciarRedPortada();
+
+function iniciarRevelado(){
+  var tarjetas = document.querySelectorAll('.main > .card'); if(!tarjetas.length) return;
+  if(prefersReducedMotion || !('IntersectionObserver' in window)) return;
+  tarjetas.forEach(function(el){ el.classList.add('reveal-init'); });
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){ if(entry.isIntersecting){ entry.target.classList.add('revealed'); obs.unobserve(entry.target); } });
+  }, { threshold:.12, rootMargin:'0px 0px -40px 0px' });
+  tarjetas.forEach(function(el){ obs.observe(el); });
+}
+iniciarRevelado();
+
+function iniciarRipple(){
+  document.addEventListener('click', function(e){
+    var btn = e.target.closest && e.target.closest('.btn-primary, .btn-secondary, .btn-block');
+    if(!btn) return;
+    var rect = btn.getBoundingClientRect(); var tam = Math.max(rect.width, rect.height)*1.4;
+    var onda = document.createElement('span'); onda.className='js-ripple';
+    onda.style.width = onda.style.height = tam+'px';
+    onda.style.left = (e.clientX-rect.left-tam/2)+'px'; onda.style.top=(e.clientY-rect.top-tam/2)+'px';
+    btn.appendChild(onda); setTimeout(function(){ onda.remove(); }, 650);
+  });
+}
+iniciarRipple();
+
+function fireConfetti(){
+  if(prefersReducedMotion) return;
+  var canvas = document.createElement('canvas'); canvas.id='confetti-canvas';
+  canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+  document.body.appendChild(canvas);
+  var ctx = canvas.getContext('2d');
+  var colores = ['#0d7377','#8dc63f','#16a34a','#eff6ff','#5eead4'];
+  var piezas = [];
+  for(var i=0;i<140;i++){
+    piezas.push({ x:Math.random()*canvas.width, y:-20-Math.random()*canvas.height*.5, w:6+Math.random()*6, h:8+Math.random()*8,
+      vx:(Math.random()-0.5)*3, vy:2+Math.random()*3, rot:Math.random()*360, vrot:(Math.random()-0.5)*12, color: colores[Math.floor(Math.random()*colores.length)] });
+  }
+  var inicio = performance.now();
+  function paso(ahora){
+    var t = ahora - inicio; ctx.clearRect(0,0,canvas.width,canvas.height); var vivas=false;
+    piezas.forEach(function(p){
+      if(p.y>canvas.height+30) return; vivas=true;
+      p.x+=p.vx; p.y+=p.vy; p.vy+=0.03; p.rot+=p.vrot;
+      ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.rot*Math.PI/180); ctx.fillStyle=p.color; ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h); ctx.restore();
+    });
+    if(vivas && t<6000){ requestAnimationFrame(paso); } else { canvas.remove(); }
+  }
+  requestAnimationFrame(paso);
+}
+
+})();
+</script>
+</body>
+</html>
