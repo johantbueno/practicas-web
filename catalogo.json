@@ -245,6 +245,25 @@
             "url": "https://johantbueno.github.io/practicas-web/amicus-realty-final/"
           }
         ]
+      },
+      {
+        "nombre": "Manejo de Power BI",
+        "icono": "📊",
+        "tipoClase": "curso",
+        "tipoLabel": "Curso · 5 unidades",
+        "cursoId": "manejo-powerbi-infotep",
+        "practicas": [
+          {
+            "badge": "Unidad 1",
+            "unidad": "u1",
+            "titulo": "Introducción a Power BI",
+            "desc": "Qué es Power BI y la inteligencia de negocios, ventajas y desventajas, comparación con Tableau y QlikView, instalación e inicio de sesión, y un primer recorrido por la interfaz. Incluye un simulador con un adelanto de la fórmula DAX y de arrastrar un campo a un visual (Unidades 2 y 3). Individual.",
+            "duracion": "Simulador + 5 preguntas · aproximadamente 45 minutos",
+            "puntos": "100 pts",
+            "aprobacion": "Completar el simulador y las 5 preguntas",
+            "url": "https://johantbueno.github.io/practicas-web/powerbi-infotep-u1/"
+          }
+        ]
       }
     ]
   },
