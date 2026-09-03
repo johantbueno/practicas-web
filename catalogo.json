@@ -857,6 +857,16 @@
             "url": "https://johantbueno.github.io/practicas-web/formulacion-proyectos-u1/"
           },
           {
+            "badge": "Unidad I-B",
+            "unidad": "u1b",
+            "titulo": "Identificación de Proyectos: Diagnóstico, Actores y Priorización (Video)",
+            "desc": "Video corto sobre el módulo de Identificación (árbol de problemas) más ejercicios escritos de matriz de interés e influencia de actores y priorización de iniciativas, con desarrollo por nota de voz. Complementa la Unidad I. Individual o en equipo.",
+            "duracion": "15 preguntas: video + matriz + priorización + desarrollo · aproximadamente 40-45 minutos, individual o en equipo",
+            "puntos": "100 pts",
+            "aprobacion": "70% mínimo (puede reintentar)",
+            "url": "https://johantbueno.github.io/practicas-web/formulacion-proyectos-u1b/"
+          },
+          {
             "badge": "Unidad II",
             "unidad": "u2",
             "titulo": "Diseño de Proyectos mediante Marco Lógico",
