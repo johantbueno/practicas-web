@@ -1,0 +1,1889 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Práctica — Unidad I | BPM para la Transformación Digital de Procesos</title>
+<meta name="description" content="Práctica autocalificable de la Unidad I del curso BPM para la Transformación Digital de Procesos. Diagnóstico AS-IS de un proceso real, identificación de hand-offs críticos, propuesta de dueño de proceso y nivel de madurez digital. Por escrito o por nota de voz. Incluye a Nicole y calificación automática preliminar.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%BB%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+:root{
+  --navy:#003877; --navy-dark:#002a5c; --gold:#c9982f;
+  --primary:#0f172a; --secondary:#334155; --muted:#64748b;
+  --bg-body:#f4f7fb; --bg-card:#ffffff; --border-light:#e2e8f0; --border-dark:#cbd5e1;
+  --green:#16a34a; --green-bg:#f0fdf4; --green-border:#22c55e;
+  --amber:#b45309; --amber-bg:#fffbeb; --amber-border:#f59e0b;
+  --red:#b91c1c; --red-bg:#fef2f2; --red-border:#ef4444;
+  --blue-bg:#eff6ff; --blue-border:#3b82f6;
+  --radius-lg:16px; --radius-md:12px; --radius-sm:8px;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.06);
+  --shadow-md:0 4px 6px -1px rgba(0,0,0,.1), 0 2px 4px -2px rgba(0,0,0,.1);
+  --shadow-lg:0 10px 15px -3px rgba(0,0,0,.12), 0 4px 6px -4px rgba(0,0,0,.1);
+  --sidebar-w:300px;
+}
+[data-theme="dark"]{
+  --navy:#5b9bd8; --primary:#f1f5f9; --secondary:#cbd5e1; --muted:#94a3b8;
+  --bg-body:#0b1220; --bg-card:#151f2f; --border-light:#283249; --border-dark:#3a4666;
+  --green-bg:#0c2417; --amber-bg:#2a2108; --red-bg:#2a1212; --blue-bg:#13233f;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.4); --shadow-md:0 4px 6px -1px rgba(0,0,0,.5); --shadow-lg:0 10px 15px -3px rgba(0,0,0,.5);
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{margin:0; background:var(--bg-body); color:var(--secondary); font-family:'Inter',ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif; line-height:1.7; transition:background-color .25s ease;}
+a{color:var(--navy);}
+.skip-link{position:absolute; left:-9999px; top:0; background:var(--navy); color:#fff; padding:.85rem 1.5rem; z-index:2000; border-radius:0 0 10px 0; font-weight:700; text-decoration:none;}
+.skip-link:focus{left:0;}
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible{outline:2px solid var(--navy); outline-offset:2px; border-radius:4px;}
+
+#progress-wrap{position:fixed; top:0; left:0; right:0; height:4px; z-index:1000; background:transparent;}
+#progress-bar{height:100%; width:0%; background:linear-gradient(90deg, var(--navy), var(--gold)); transition:width .1s linear;}
+
+.wrapper{display:flex; flex-direction:column; min-height:100vh; margin:0 auto;}
+@media (min-width:1024px){ .wrapper{flex-direction:row; align-items:flex-start; max-width:1440px; padding:0 1rem;} }
+
+/* SIDEBAR */
+.sidebar{background:var(--bg-card); padding:1.75rem 1.5rem; border-bottom:1px solid var(--border-light);}
+@media (min-width:1024px){
+  .sidebar{width:var(--sidebar-w); flex-shrink:0; position:sticky; top:1.5rem; height:calc(100vh - 3rem); overflow-y:auto; border-radius:var(--radius-lg); border:1px solid var(--border-light); box-shadow:var(--shadow-md); margin:1.5rem 0;}
+}
+.sidebar-header{display:flex; align-items:center; gap:10px; margin-bottom:1rem; padding-bottom:1rem; border-bottom:1px solid var(--border-light);}
+.sidebar-title{color:var(--primary); font-size:1.02rem; font-weight:800; text-transform:uppercase; letter-spacing:.04em; margin:0;}
+.header-actions{margin-left:auto; display:flex; gap:.4rem;}
+.icon-btn{background:none; border:1px solid var(--border-light); width:34px; height:34px; border-radius:8px; cursor:pointer; font-size:1rem; display:flex; align-items:center; justify-content:center; color:var(--secondary);}
+.icon-btn:hover{background:var(--bg-body); border-color:var(--border-dark);}
+.nav-toggle{display:none;}
+
+/* TEMPORIZADOR DE REFERENCIA */
+.timer-box{background:var(--bg-body); border:1px solid var(--border-light); border-radius:var(--radius-md); padding:.85rem 1rem; margin-bottom:1.1rem; transition:background-color .3s ease, border-color .3s ease;}
+.timer-row{display:flex; justify-content:space-between; align-items:center; margin-bottom:.3rem;}
+.timer-label{font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.03em; color:var(--muted);}
+.timer-value{font-size:1.5rem; font-weight:800; color:var(--primary); font-family:ui-monospace,SFMono-Regular,Consolas,monospace; letter-spacing:.02em;}
+.timer-box.low{background:var(--red-bg); border-color:var(--red-border);}
+.timer-box.low .timer-value{color:var(--red); animation:timerPulse 1s ease-in-out infinite;}
+.timer-box.flatline{background:var(--bg-body); border-color:var(--border-dark);}
+.timer-box.flatline .timer-value{color:var(--muted); text-decoration:line-through;}
+#sound-toggle{width:28px; height:28px; font-size:.85rem; flex-shrink:0;}
+@keyframes timerPulse{0%,100%{opacity:1; transform:scale(1);} 50%{opacity:.55; transform:scale(1.05);}}
+
+/* Corazones estilo "vida" de videojuego -- se van vaciando segun avanza el tiempo. */
+#hearts-canvas{display:block; margin:.55rem auto 0;}
+@keyframes heartShake{0%,100%{transform:translateX(0);} 20%{transform:translateX(-2px);} 40%{transform:translateX(2px);} 60%{transform:translateX(-2px);} 80%{transform:translateX(2px);}}
+#hearts-canvas.critical{animation:heartShake .3s ease-in-out infinite;}
+
+/* Modo "tiempo extra" -- tras los 60 minutos, puramente cosmetico, no afecta la aprobacion. */
+.timer-box.overtime{background:var(--red-bg); border-color:var(--red-border);}
+.timer-box.overtime .timer-value{color:var(--red); animation:timerPulse .6s ease-in-out infinite;}
+.overtime-note{font-size:.66rem; color:var(--red); text-align:center; margin-top:.4rem; font-weight:700; line-height:1.3;}
+.fast-clock{width:26px; height:26px; border-radius:50%; border:2px solid var(--red); position:relative; margin:.55rem auto 0; display:none;}
+.timer-box.overtime .fast-clock{display:block;}
+.fast-clock-hand{position:absolute; top:50%; left:50%; width:2px; height:10px; background:var(--red); transform-origin:50% 100%; margin-top:-10px; margin-left:-1px; animation:fastSpin .4s linear infinite;}
+@keyframes fastSpin{ to{ transform:rotate(360deg); } }
+
+/* MEDALLA */
+.medal-modal{position:fixed; inset:0; background:rgba(0,0,0,.65); z-index:2000; display:flex; align-items:center; justify-content:center; padding:1rem;}
+.medal-modal[hidden]{display:none;}
+.medal-modal-inner{background:var(--bg-card); border-radius:var(--radius-lg); padding:1.5rem; max-width:420px; width:100%; text-align:center; position:relative; box-shadow:var(--shadow-lg);}
+#medal-canvas{width:100%; max-width:300px; border-radius:12px; margin:.25rem auto 1rem; display:block; box-shadow:var(--shadow-md);}
+#medal-close{position:absolute; top:.75rem; right:.75rem;}
+
+.progress-summary{margin-bottom:1.1rem;}
+.progress-summary-row{display:flex; justify-content:space-between; font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.03em; color:var(--muted); margin-bottom:.35rem;}
+#progress-count{color:var(--primary);}
+.progress-track{height:6px; border-radius:999px; background:var(--border-light); overflow:hidden;}
+.progress-fill{height:100%; width:0%; background:linear-gradient(90deg,var(--navy),var(--gold)); transition:width .3s ease;}
+.progress-fill.complete{background:linear-gradient(90deg,#16a34a,#22c55e);}
+
+.nav ul{list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:.2rem;}
+.nav a{text-decoration:none; color:var(--muted); font-size:.9rem; font-weight:500; display:flex; align-items:center; justify-content:space-between; gap:.5rem; padding:.55rem .8rem; border-radius:var(--radius-sm); transition:all .2s ease;}
+.nav a:hover{background:var(--bg-body); color:var(--navy); transform:translateX(3px);}
+.nav a.active,.nav a.active:hover{background:var(--navy); color:#fff; transform:translateX(3px);}
+.nav a .pct{font-size:.68rem; font-weight:700; opacity:.75;}
+.nav a.done .pct::before{content:"✓ ";}
+
+.sidebar-actions{margin-top:1.25rem; padding-top:1.25rem; border-top:1px solid var(--border-light); display:flex; flex-direction:column; gap:.5rem;}
+.btn-block{width:100%; padding:.6rem .8rem; border-radius:var(--radius-sm); border:1px solid var(--border-light); background:var(--bg-body); color:var(--secondary); font-weight:600; font-size:.82rem; cursor:pointer; font-family:inherit;}
+.btn-block:hover{border-color:var(--navy); color:var(--navy);}
+
+@media (max-width:1023px){
+  .sidebar-collapsible{display:none;}
+  .sidebar.open .sidebar-collapsible{display:block;}
+  .nav-toggle{display:inline-flex;}
+  .sidebar-header{flex-wrap:wrap; row-gap:.6rem;}
+  .header-actions{flex-basis:100%; justify-content:flex-end; margin-left:0;}
+  .icon-btn{width:40px; height:40px;}
+  .fontsize-controls button{width:38px; height:38px;}
+}
+
+/* MAIN */
+.main{flex:1; padding:1.75rem 1rem 6.5rem; max-width:980px; margin:0 auto; width:100%;}
+@media (min-width:1024px){ .main{padding:1.75rem 2.5rem 5.5rem;} }
+
+.card.cover{background:linear-gradient(135deg,var(--navy),var(--navy-dark)); color:#fff; border-radius:var(--radius-lg); padding:2.5rem; margin-bottom:2rem; box-shadow:var(--shadow-lg);}
+.cover .eyebrow{text-transform:uppercase; letter-spacing:.08em; font-size:.78rem; font-weight:700; opacity:.85;}
+.cover h1{font-size:1.9rem; font-weight:800; margin:.4rem 0 .3rem; line-height:1.25;}
+.cover p.sub{margin:0 0 1.25rem; opacity:.92; font-size:1rem;}
+.cover-chips{display:flex; flex-wrap:wrap; gap:.6rem; margin-top:1.1rem;}
+.cover-chip{background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.22); border-radius:999px; padding:.4rem .9rem; font-size:.8rem; font-weight:600; letter-spacing:.01em;}
+.tutorial-steps{counter-reset:tut; list-style:none; padding:0; margin:1rem 0;}
+.tutorial-steps li{counter-increment:tut; position:relative; padding:.15rem 0 .9rem 2.5rem; font-size:.92rem;}
+.tutorial-steps li::before{content:counter(tut); position:absolute; left:0; top:0; width:1.7rem; height:1.7rem; border-radius:50%; background:var(--navy); color:#fff; font-weight:800; font-size:.8rem; display:flex; align-items:center; justify-content:center;}
+.help-box{display:flex; align-items:center; gap:.9rem; background:var(--blue-bg); border:1px solid var(--blue-border); border-radius:var(--radius-md); padding:1rem 1.25rem; margin-top:1.25rem;}
+.help-box a.btn-secondary{white-space:nowrap;}
+
+.card{background:var(--bg-card); padding:2rem; border-radius:var(--radius-lg); box-shadow:var(--shadow-sm); border:1px solid var(--border-light); margin-bottom:2rem; scroll-margin-top:1.25rem;}
+@media (max-width:640px){ .card{padding:1.35rem;} }
+.card.cover, .card.cover h1{color:#fff;}
+.card h1{font-size:1.7rem; font-weight:800; color:var(--primary); margin:0 0 1.1rem;}
+.card h2{font-size:1.2rem; font-weight:700; color:var(--navy); margin:1.75rem 0 .9rem; padding-bottom:.5rem; border-bottom:1px solid var(--border-light);}
+.card h2:first-child{margin-top:0;}
+.card h3{font-size:1.02rem; font-weight:700; color:var(--primary); margin:1.4rem 0 .7rem;}
+.card p{margin:0 0 1rem;}
+.step-badge{display:inline-flex; align-items:center; gap:.4rem; background:var(--blue-bg); color:var(--navy); border:1px solid var(--blue-border); font-weight:700; font-size:.72rem; text-transform:uppercase; letter-spacing:.04em; padding:.3rem .7rem; border-radius:999px; margin-bottom:.9rem;}
+
+.alert{border-radius:var(--radius-md); padding:1rem 1.25rem; margin:1rem 0; border:1px solid; font-size:.92rem;}
+.alert h3,.alert h4{margin-top:0;}
+.alert.info{background:var(--blue-bg); border-color:var(--blue-border);}
+.alert.gold{background:var(--amber-bg); border-color:var(--amber-border);}
+.alert.success{background:var(--green-bg); border-color:var(--green-border);}
+.alert.warn{background:var(--red-bg); border-color:var(--red-border);}
+
+.tbl-wrap{overflow-x:auto; margin:1rem 0; border-radius:var(--radius-sm); border:1px solid var(--border-light);}
+table.tp-table{width:100%; border-collapse:collapse; font-size:.87rem; min-width:560px;}
+table.tp-table th{background:var(--navy); color:#fff; text-align:left; padding:.6rem .7rem; font-weight:700; font-size:.78rem; text-transform:uppercase; letter-spacing:.02em;}
+table.tp-table td{padding:.55rem .7rem; border-top:1px solid var(--border-light); vertical-align:top;}
+table.tp-table tr:nth-child(even) td{background:var(--bg-body);}
+table.tp-table td.label-cell{font-weight:700; color:var(--primary); white-space:nowrap;}
+
+.field{margin-bottom:1rem;}
+.field label{display:flex; justify-content:space-between; align-items:baseline; gap:.5rem; font-weight:700; font-size:.82rem; color:var(--primary); margin-bottom:.35rem;}
+.field .wc{font-weight:600; font-size:.7rem; color:var(--muted); white-space:nowrap;}
+.field .wc.ok{color:var(--green);}
+.hint{font-size:.78rem; color:var(--muted); margin:-.2rem 0 .5rem;}
+input[type=text], input[type=email], select, textarea{
+  width:100%; padding:.55rem .75rem; border:1px solid var(--border-light); border-radius:var(--radius-sm);
+  font-size:1rem; font-family:inherit; background:var(--bg-card); color:var(--primary); transition:border-color .15s ease;
+}
+[data-theme="dark"] input, [data-theme="dark"] select, [data-theme="dark"] textarea{background:#0f1830;}
+input:focus, select:focus, textarea:focus{border-color:var(--navy); outline:none;}
+textarea{min-height:76px; resize:vertical;}
+textarea.tall{min-height:150px;}
+.field-grid{display:grid; grid-template-columns:1fr 1fr; gap:.9rem;}
+@media (max-width:640px){ .field-grid{grid-template-columns:1fr;} }
+
+.step-points{float:right; background:var(--gold); color:#3a2a00; font-weight:800; font-size:.72rem; padding:.25rem .6rem; border-radius:999px;}
+
+.glossary-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:.9rem; margin-top:1rem;}
+.gloss-item{border:1px solid var(--border-light); border-radius:var(--radius-md); padding:.9rem 1rem; background:var(--bg-body);}
+.gloss-item dt{font-weight:800; color:var(--navy); font-size:.85rem; margin-bottom:.3rem;}
+.gloss-item dd{margin:0; font-size:.82rem; color:var(--secondary);}
+
+ol.ins-list{padding-left:1.2rem;}
+ol.ins-list li{margin-bottom:.5rem;}
+
+.btn-primary{background:linear-gradient(135deg,var(--navy),var(--navy-dark)); color:#fff; border:none; padding:.9rem 1.6rem; border-radius:var(--radius-md); font-weight:700; font-size:1rem; cursor:pointer; box-shadow:var(--shadow-md); font-family:inherit;}
+.btn-primary:hover{filter:brightness(1.08);}
+.btn-secondary{background:var(--bg-body); color:var(--navy); border:1px solid var(--navy); padding:.7rem 1.2rem; border-radius:var(--radius-md); font-weight:700; font-size:.88rem; cursor:pointer; font-family:inherit;}
+.btn-secondary:hover{background:var(--blue-bg);}
+.btn-row{display:flex; flex-wrap:wrap; gap:.7rem; margin-top:1.25rem;}
+
+#submit-zone{text-align:center; padding:2.25rem 1.5rem;}
+#submit-zone p{max-width:560px; margin:0 auto 1.25rem;}
+
+.results{display:none;}
+.results.show{display:block;}
+.score-hero{display:flex; flex-wrap:wrap; align-items:center; gap:1.75rem; padding:1.5rem; border-radius:var(--radius-lg); border:1px solid; margin-bottom:1.5rem;}
+.score-hero.pass{background:var(--green-bg); border-color:var(--green-border);}
+.score-hero.warn{background:var(--amber-bg); border-color:var(--amber-border);}
+.score-hero.fail{background:var(--red-bg); border-color:var(--red-border);}
+.score-circle{width:110px; height:110px; border-radius:50%; display:flex; flex-direction:column; align-items:center; justify-content:center; background:var(--bg-card); box-shadow:var(--shadow-md); flex-shrink:0;}
+.score-circle .num{font-size:1.9rem; font-weight:800; color:var(--primary); line-height:1;}
+.score-circle .den{font-size:.72rem; color:var(--muted); font-weight:700;}
+.score-verdict h3{margin:0 0 .3rem; font-size:1.15rem;}
+.score-verdict p{margin:0; font-size:.92rem;}
+
+.crit{border:1px solid var(--border-light); border-radius:var(--radius-md); padding:1.1rem 1.25rem; margin-bottom:1rem; background:var(--bg-card);}
+.crit-head{display:flex; justify-content:space-between; align-items:center; gap:1rem; margin-bottom:.5rem; flex-wrap:wrap;}
+.crit-head strong{color:var(--primary); font-size:.95rem;}
+.crit-score{font-weight:800; font-size:.9rem; color:var(--navy); white-space:nowrap;}
+.crit-track{height:8px; border-radius:999px; background:var(--border-light); overflow:hidden; margin-bottom:.75rem;}
+.crit-fill{height:100%; border-radius:999px;}
+.crit-fill.hi{background:var(--green);}
+.crit-fill.mid{background:var(--amber);}
+.crit-fill.lo{background:var(--red);}
+.crit ul{margin:.3rem 0 0; padding-left:1.15rem; font-size:.85rem;}
+.crit ul li{margin-bottom:.3rem;}
+.tag-ok{color:var(--green); font-weight:700;}
+.tag-mid{color:var(--amber); font-weight:700;}
+.tag-low{color:var(--red); font-weight:700;}
+
+footer.tp-footer{text-align:center; color:var(--muted); font-size:.8rem; padding:2rem 1rem; border-top:1px solid var(--border-light); margin-top:1rem;}
+
+/* ADVISOR (Nicole, asistente del Dr. Johan Tapia) */
+.advisor-fab{position:fixed; bottom:calc(1.5rem + env(safe-area-inset-bottom)); left:1.5rem; z-index:900; background:linear-gradient(135deg,var(--navy),var(--navy-dark)); color:#fff; border:none; border-radius:999px; padding:.85rem 1.2rem; display:flex; align-items:center; gap:.5rem; font-weight:700; font-size:.9rem; cursor:pointer; box-shadow:var(--shadow-lg); font-family:inherit;}
+.advisor-fab:hover{filter:brightness(1.1);}
+.proftapia-fab{position:fixed; bottom:calc(1.5rem + env(safe-area-inset-bottom)); right:1.5rem; z-index:900; background:linear-gradient(135deg,var(--gold),#a97f24); color:#2a1e00; text-decoration:none; border-radius:999px; padding:.85rem 1.2rem; display:flex; align-items:center; gap:.5rem; font-weight:700; font-size:.9rem; box-shadow:var(--shadow-lg); font-family:inherit;}
+.proftapia-fab:hover{filter:brightness(1.05);}
+.advisor-panel{position:fixed; bottom:calc(5.2rem + env(safe-area-inset-bottom)); left:1.5rem; width:min(360px,90vw); max-height:min(560px,70vh); background:var(--bg-card); border:1px solid var(--border-light); border-radius:var(--radius-lg); box-shadow:var(--shadow-lg); z-index:900; display:none; flex-direction:column; overflow:hidden;}
+.advisor-panel.open{display:flex;}
+.advisor-header{background:linear-gradient(135deg,var(--navy),var(--navy-dark)); color:#fff; padding:.9rem 1.1rem; display:flex; align-items:center; gap:.6rem;}
+.advisor-title{margin:0; font-weight:800; font-size:.95rem;}
+.advisor-header button{margin-left:auto; background:rgba(255,255,255,.15); border:none; color:#fff; width:28px; height:28px; border-radius:8px; cursor:pointer;}
+.advisor-body{flex:1; overflow-y:auto; padding:1rem; display:flex; flex-direction:column; gap:.6rem; background:var(--bg-body);}
+.advisor-msg{max-width:85%; padding:.6rem .85rem; border-radius:12px; font-size:.86rem; line-height:1.5;}
+.advisor-msg-bot{background:var(--bg-card); border:1px solid var(--border-light); align-self:flex-start; border-bottom-left-radius:2px;}
+.advisor-msg-user{background:var(--navy); color:#fff; align-self:flex-end; border-bottom-right-radius:2px;}
+.advisor-suggest{display:flex; flex-wrap:wrap; gap:.4rem; padding:0 1rem .75rem;}
+.advisor-suggest button{background:var(--blue-bg); border:1px solid var(--blue-border); color:var(--navy); font-size:.72rem; padding:.35rem .6rem; border-radius:999px; cursor:pointer; font-family:inherit;}
+.advisor-form{display:flex; gap:.5rem; padding:.75rem; border-top:1px solid var(--border-light); background:var(--bg-card);}
+.advisor-form input{flex:1;}
+.advisor-form button{background:var(--navy); color:#fff; border:none; width:38px; border-radius:var(--radius-sm); cursor:pointer; font-size:1rem;}
+
+@media print{
+  .sidebar, .advisor-fab, .advisor-panel, #progress-wrap, .btn-row, #submit-zone .btn-primary, .header-actions, .medal-modal{display:none !important;}
+  .main{max-width:100%; padding:0;}
+  .card{box-shadow:none; border:1px solid #ccc; break-inside:avoid;}
+  body{background:#fff;}
+}
+
+.voice-row{display:flex; align-items:center; gap:.6rem; margin-top:-.4rem; margin-bottom:.9rem; flex-wrap:wrap;}
+.voice-btn{background:var(--blue-bg); border:1px solid var(--blue-border); color:var(--navy); font-weight:700; font-size:.8rem; padding:.65rem .9rem; min-height:40px; border-radius:999px; cursor:pointer; font-family:inherit;}
+.voice-btn:hover{filter:brightness(0.97);}
+.voice-btn.recording{background:var(--red-bg); border-color:var(--red-border); color:var(--red); animation:voicePulse 1.2s ease-in-out infinite;}
+.voice-btn.busy{opacity:.7; cursor:wait;}
+@keyframes voicePulse{ 0%,100%{opacity:1;} 50%{opacity:.55;} }
+.voice-status{font-size:.75rem; color:var(--muted);}
+.voice-status.err{color:var(--red);}
+.voice-status.ok{color:var(--green);}
+.fontsize-controls{display:flex; align-items:center; gap:.3rem;}
+.fontsize-controls button{background:none; border:1px solid var(--border-light); width:30px; height:30px; border-radius:8px; cursor:pointer; color:var(--secondary); font-weight:800; font-size:.85rem;}
+.fontsize-controls button:hover{border-color:var(--navy); color:var(--navy);}
+html[data-fontsize="grande"] body{font-size:1.14rem;}
+html[data-fontsize="xgrande"] body{font-size:1.3rem;}
+
+/* EFECTOS DINAMICOS: revelado al hacer scroll, micro-interacciones,
+   fondo animado en la portada, confeti al aprobar. Todo con
+   requestAnimationFrame/Canvas nativo, sin librerias nuevas. */
+.card.cover{position:relative; overflow:hidden;}
+#cover-canvas{position:absolute; inset:0; width:100%; height:100%; opacity:.4; pointer-events:none;}
+.card.cover > *{position:relative; z-index:1;}
+
+.reveal-init{opacity:0; transform:translateY(18px); transition:opacity .6s cubic-bezier(.22,.9,.35,1), transform .6s cubic-bezier(.22,.9,.35,1);}
+.reveal-init.revealed{opacity:1; transform:translateY(0);}
+
+.btn-primary, .btn-secondary, .btn-block{position:relative; overflow:hidden; transition:transform .16s ease, box-shadow .16s ease, filter .16s ease;}
+.btn-primary:hover, .btn-secondary:hover, .btn-block:hover{transform:translateY(-2px);}
+.btn-primary:hover{box-shadow:var(--shadow-lg);}
+.btn-primary:active, .btn-secondary:active, .btn-block:active{transform:translateY(0) scale(.97);}
+.js-ripple{position:absolute; border-radius:50%; background:rgba(255,255,255,.55); transform:scale(0); animation:rippleAnim .6s ease-out forwards; pointer-events:none;}
+.btn-secondary .js-ripple, .btn-block .js-ripple{background:rgba(15,56,119,.18);}
+@keyframes rippleAnim{ to{ transform:scale(2.6); opacity:0; } }
+
+#confetti-canvas{position:fixed; inset:0; width:100%; height:100%; pointer-events:none; z-index:3000;}
+
+@media (prefers-reduced-motion: reduce){
+  .reveal-init{opacity:1; transform:none; transition:none;}
+  #cover-canvas{display:none;}
+  .btn-primary:hover, .btn-secondary:hover, .btn-block:hover, .btn-primary:active, .btn-secondary:active, .btn-block:active{transform:none;}
+  #hearts-canvas.critical{animation:none;}
+  .timer-box.overtime .timer-value{animation:none;}
+  .fast-clock-hand{animation:none;}
+}
+</style>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Saltar al contenido</a>
+<div id="progress-wrap"><div id="progress-bar"></div></div>
+
+<div class="wrapper">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <span style="font-size:1.4rem;">💻</span>
+      <p class="sidebar-title">Unidad I · HTD</p>
+      <div class="header-actions">
+        <div class="fontsize-controls">
+          <button type="button" id="font-smaller" title="Letra más pequeña" aria-label="Reducir tamaño de letra">A−</button>
+          <button type="button" id="font-bigger" title="Letra más grande" aria-label="Aumentar tamaño de letra">A+</button>
+        </div>
+        <button class="icon-btn" id="theme-toggle" type="button" title="Cambiar tema" aria-label="Cambiar tema claro/oscuro">🌙</button>
+        <button class="icon-btn nav-toggle" id="nav-toggle" type="button" title="Abrir menú" aria-label="Abrir menú" aria-expanded="false">☰</button>
+      </div>
+    </div>
+
+    <div class="sidebar-collapsible">
+      <div class="timer-box" id="timer-box">
+        <div class="timer-row">
+          <span class="timer-label">⏱️ Tiempo sugerido</span>
+          <button class="icon-btn" id="sound-toggle" type="button" title="Silenciar o activar el sonido" aria-label="Silenciar o activar el sonido del temporizador">🔔</button>
+        </div>
+        <div class="timer-value" id="timer-value">120:00</div>
+        <canvas id="hearts-canvas" width="230" height="40" aria-hidden="true"></canvas>
+        <div class="fast-clock" id="fast-clock" aria-hidden="true"><div class="fast-clock-hand"></div></div>
+        <div class="overtime-note" id="overtime-note" hidden>⏱️ Tiempo de referencia — no afecta su calificación</div>
+      </div>
+
+      <div class="progress-summary">
+        <div class="progress-summary-row"><span>Progreso general</span><span id="progress-count">0%</span></div>
+        <div class="progress-track"><div class="progress-fill" id="progress-fill-el"></div></div>
+        <p style="margin:.5rem 0 0; font-size:.7rem; color:var(--muted);">Sus respuestas se guardan automáticamente en este navegador.</p>
+      </div>
+
+      <nav class="nav" aria-label="Navegación de la práctica">
+        <ul>
+          <li><a href="#portada">💻 Portada e instrucciones</a></li>
+          <li><a href="#marco-conceptual">📚 Marco conceptual</a></li>
+          <li><a href="#paso1" data-step="paso1">Paso 1 · Diagnóstico AS-IS <span class="pct" data-pct="paso1">0%</span></a></li>
+          <li><a href="#paso2" data-step="paso2">Paso 2 · Hand-offs críticos <span class="pct" data-pct="paso2">0%</span></a></li>
+          <li><a href="#paso3" data-step="paso3">Paso 3 · Dueño de proceso <span class="pct" data-pct="paso3">0%</span></a></li>
+          <li><a href="#paso4" data-step="paso4">Paso 4 · Madurez digital <span class="pct" data-pct="paso4">0%</span></a></li>
+          <li><a href="#rubrica">🧮 Rúbrica de evaluación</a></li>
+          <li><a href="#resultado">📤 Enviar y calificar</a></li>
+        </ul>
+      </nav>
+
+      <div class="sidebar-actions">
+        <button class="btn-block" id="btn-qr" type="button">📱 Ver código QR de esta práctica</button>
+        <button class="btn-block" id="btn-print" type="button">🖨️ Imprimir / Guardar PDF</button>
+        <button class="btn-block" id="btn-export" type="button">⬇️ Descargar mis respuestas</button>
+        <button class="btn-block" id="btn-clear" type="button">🗑️ Borrar todas mis respuestas</button>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main" id="main-content">
+
+    <section id="portada" class="card cover" style="scroll-margin-top:1.25rem;">
+      <canvas id="cover-canvas" aria-hidden="true"></canvas>
+      <p class="eyebrow">Curso BPM para la Transformación Digital de Procesos · Facilitador: Johan Tapia, PhD</p>
+      <h1>Práctica — Unidad I</h1>
+      <p class="sub">Fundamentos de BPM y Transformación Digital: diagnóstico AS-IS de un proceso real, hand-offs críticos, dueño de proceso y nivel de madurez digital</p>
+      <div class="cover-chips">
+        <span class="cover-chip">Aplicable a cualquier organización</span>
+        <span class="cover-chip">Individual o en equipo</span>
+        <span class="cover-chip">100 pts · aprueba al completarla</span>
+        <span class="cover-chip">Dura aproximadamente 1 hora</span>
+        <span class="cover-chip">Después de revisar el material de estudio de la Unidad I</span>
+        <span class="cover-chip">Gana una medalla digital al terminar</span>
+      </div>
+    </section>
+
+    <section class="card">
+      <span class="step-badge">Ejemplos por tipo de proceso</span>
+      <h1 style="font-size:1.35rem;">Use un proceso real de SU propia organización</h1>
+      <div class="alert info">
+        Esta práctica aplica a cualquier organización. Para que le resulte más fácil pensar en un ejemplo concreto, aquí tiene procesos típicos de distintas áreas — elija el que se parezca más a su realidad, o use cualquier otro proceso real que conozca bien.
+      </div>
+      <div class="tbl-wrap"><table class="tp-table">
+        <thead><tr><th>Área</th><th>Ejemplo de proceso</th></tr></thead>
+        <tbody>
+          <tr><td class="label-cell">Compras</td><td>Solicitud de compra de un insumo, desde que se identifica la necesidad hasta que se recibe el producto (el mismo ejemplo guía del curso).</td></tr>
+          <tr><td class="label-cell">Ventas / Atención al cliente</td><td>Cotización a un cliente, gestión de una queja o devolución, activación de un nuevo servicio.</td></tr>
+          <tr><td class="label-cell">Recursos Humanos</td><td>Proceso de contratación, incorporación (onboarding) de un nuevo colaborador, solicitud de vacaciones.</td></tr>
+          <tr><td class="label-cell">Finanzas</td><td>Aprobación de un gasto, conciliación de una factura, reembolso de gastos de viaje.</td></tr>
+          <tr><td class="label-cell">Operaciones / Producción</td><td>Control de calidad de un lote, mantenimiento preventivo de un equipo, despacho de un pedido.</td></tr>
+        </tbody>
+      </table></div>
+      <p>Puede usar cualquier proceso real de su área específica, aunque no aparezca en la tabla — use el que usted conozca mejor.</p>
+    </section>
+
+    <section class="card" id="tutorial">
+      <span class="step-badge">Tutorial</span>
+      <h1 style="font-size:1.35rem;">Cómo usar esta plataforma</h1>
+      <p><strong>Concepto:</strong> esta práctica se realiza <strong>después de revisar el material de estudio de la Unidad I</strong> (video o sesión presencial). Tiene 4 pasos, cada uno con su concepto, una guía de llenado y espacio para sus respuestas — puede escribir directamente o grabar una nota de voz.</p>
+
+      <h2>Dos formas de responder cada pregunta</h2>
+      <p><strong>Definición:</strong> cada campo de respuesta larga acepta texto escrito o una nota de voz transcrita automáticamente.</p>
+      <p><strong>Ejemplo:</strong> si prefiere no escribir, puede simplemente hablar su respuesta en voz alta y el sistema la convierte en texto dentro del mismo campo.</p>
+
+      <h3>Paso a paso para grabar una nota de voz</h3>
+      <ol class="tutorial-steps">
+        <li>Mantenga presionado el botón <strong>"🎤 Mantenga presionado para grabar"</strong> debajo del campo que quiere responder (como una nota de voz de WhatsApp).</li>
+        <li>El navegador va a pedir permiso para usar el micrófono — presione <strong>Permitir</strong>.</li>
+        <li>Sin soltar el botón, hable su respuesta con calma.</li>
+        <li>Suelte el botón cuando termine — va a escuchar un sonido y verá "Transcribiendo…".</li>
+        <li>Espere unos segundos: el texto transcrito va a aparecer automáticamente en el campo.</li>
+        <li>Lea el texto y corrija cualquier palabra si hace falta, antes de continuar.</li>
+      </ol>
+
+      <h2>La medalla digital al terminar</h2>
+      <p>Cuando complete los 4 pasos y presione <strong>Enviar y Calificar</strong>, va a poder generar una <strong>medalla digital</strong> con su nombre para descargar o compartir por WhatsApp, correo o redes sociales, como recuerdo de haber completado esta práctica.</p>
+
+      <h2>Progreso, guardado y aprobación</h2>
+      <p>Sus respuestas se guardan automáticamente en este navegador mientras trabaja. Puede cerrar la página y volver más tarde a completar otra pregunta. Al presionar <strong>Enviar y Calificar</strong>, el sistema le da una nota preliminar orientativa y comentarios al instante.</p>
+      <div class="help-box">
+        <span style="font-size:1.6rem;">💬</span>
+        <div>
+          <strong>¿Tiene dudas mientras trabaja?</strong><br>
+          Puede preguntarle a <strong>Nicole</strong>, el asistente de esta misma página (botón "🎓 Nicole" abajo a la izquierda), o escribirle al
+          <strong>Prof. Johan Tapia</strong>, un asistente aparte, en
+          <a href="https://prof.johan.plataforma.cfd/" target="_blank" rel="noopener">prof.johan.plataforma.cfd</a>.
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <span class="step-badge">Objetivo y encuadre</span>
+      <h1 style="font-size:1.35rem;">Antes de empezar</h1>
+      <div class="alert info">
+        <strong>Objetivo de la actividad:</strong> realizar un diagnóstico preliminar de un proceso real de su organización — su estado actual (AS-IS), sus puntos críticos de transferencia entre áreas (hand-offs), un dueño de proceso propuesto, y su nivel de madurez digital — aplicando los conceptos vistos en el material de estudio de la Unidad I.
+      </div>
+      <div class="alert gold">
+        <strong>Fundamento conceptual:</strong> ciclo de vida de BPM (Definición, Implementación, Evaluación), la diferencia entre gestión por funciones y gestión por procesos, el ejemplo guía del curso (solicitud de compra), y el modelo de 4 niveles de madurez digital — todos vistos en la Unidad I.
+      </div>
+      <h2>¿Cómo va a completar esta práctica?</h2>
+      <p>Puede completarla solo/a o en equipo. Complete esto antes de enviar: su facilitador recibirá la calificación identificada con estos datos.</p>
+      <div class="field">
+        <label for="modo_trabajo">Modalidad</label>
+        <select id="modo_trabajo">
+          <option value="individual">Individual</option>
+          <option value="grupo">En equipo</option>
+        </select>
+      </div>
+      <div class="field-grid" id="bloque-individual">
+        <div class="field"><label for="ind_nombre">Nombre completo</label><input type="text" id="ind_nombre" placeholder="Su nombre y apellido"></div>
+        <div class="field"><label for="ind_correo">Correo (opcional)</label><input type="text" id="ind_correo" placeholder="nombre@correo.com"></div>
+      </div>
+      <div class="field-grid" id="bloque-grupo" hidden>
+        <div class="field"><label for="grp_nombre">Nombre del equipo o grupo</label><input type="text" id="grp_nombre" placeholder="Ej: Equipo Procesos"></div>
+        <div class="field"><label for="grp_correo">Correo de contacto del equipo (opcional)</label><input type="text" id="grp_correo" placeholder="nombre@correo.com"></div>
+      </div>
+      <div class="field" id="bloque-integrantes" hidden>
+        <label for="grp_integrantes">Nombres de los integrantes del equipo (opcional)</label>
+        <textarea id="grp_integrantes" placeholder="Escriba el nombre completo de cada persona que participó, uno por línea o separados por coma"></textarea>
+      </div>
+      <h2>Instrucciones generales</h2>
+      <ol class="ins-list">
+        <li>Revise el <strong>material de estudio de la Unidad I: Fundamentos de BPM y Transformación Digital</strong> antes de responder — esta práctica retoma directamente sus conceptos.</li>
+        <li>Elija si van a trabajar <strong>individual o en equipo</strong>, arriba, y luego seleccionen un <strong>proceso real</strong> de su organización para mantenerlo como referencia durante los 4 pasos.</li>
+        <li>Completen los <strong>4 pasos</strong> en el orden indicado, por escrito o por nota de voz — si trabajan en equipo, decidan entre todos qué escribir en cada campo.</li>
+        <li>Al finalizar, presionen <strong>Enviar y Calificar</strong>: el sistema revisará el trabajo y dará una nota preliminar orientativa y retroalimentación inmediata.</li>
+      </ol>
+      <div class="alert success">
+        <strong>🎓 Esta práctica es interactiva y autocalificable.</strong> Mientras trabaja, Nicole (botón 🎓 abajo a la izquierda) puede responder sus dudas conceptuales. Al terminar, el botón <strong>Enviar y Calificar</strong> evalúa al instante la completitud y calidad de cada paso, y además pide que el Tutor Virtual haga una segunda revisión sobre el contenido real de sus respuestas.
+      </div>
+      <div class="alert warn">
+        <strong>Sobre la calificación automática:</strong> el sistema evalúa <em>completitud, extensión y coherencia formal</em> de sus respuestas — no sustituye la revisión de contenido de su facilitador. Recuerde: <strong>la aprobación de esta práctica depende de completarla, no de la nota obtenida.</strong>
+      </div>
+    </section>
+
+    <section id="marco-conceptual" class="card">
+      <span class="step-badge">Referencia</span>
+      <h1 style="font-size:1.35rem;">Marco conceptual de referencia</h1>
+      <p>Consulte estos conceptos, ya vistos en el material de estudio de la Unidad I, mientras completa la actividad. También puede preguntarle a Nicole sobre cualquiera de ellos.</p>
+      <dl class="glossary-grid">
+        <div class="gloss-item"><dt>BPM</dt><dd>Business Process Management: metodología de gestión que modela, automatiza, integra, monitorea y optimiza de forma continua los procesos de negocio. No es un software.</dd></div>
+        <div class="gloss-item"><dt>BPR</dt><dd>Business Process Reengineering: rediseño radical de procesos, popularizado en los años 90 (Hammer y Champy). Antecesor de BPM, pero de un solo golpe, no iterativo.</dd></div>
+        <div class="gloss-item"><dt>BPMN</dt><dd>Business Process Model and Notation: la notación gráfica estándar para diagramar procesos. Se estudia a fondo en la Unidad II.</dd></div>
+        <div class="gloss-item"><dt>BPMS</dt><dd>Business Process Management Suite: el software que soporta el ciclo BPM completo. Se ve a fondo en la Unidad IV.</dd></div>
+        <div class="gloss-item"><dt>Gestión por funciones vs. por procesos</dt><dd>Por funciones: vertical, cada área optimiza su propia tarea. Por procesos: horizontal, se optimiza el flujo completo que entrega valor al cliente, con un dueño de proceso.</dd></div>
+        <div class="gloss-item"><dt>AS-IS / TO-BE</dt><dd>El proceso como es hoy (estado actual) frente a como debería ser (estado objetivo, ya rediseñado).</dd></div>
+        <div class="gloss-item"><dt>Hand-off</dt><dd>Punto donde la responsabilidad de una actividad pasa de un rol o área a otra. Zona típica de retrasos y pérdida de visibilidad.</dd></div>
+        <div class="gloss-item"><dt>Dueño de proceso (process owner)</dt><dd>Persona responsable del desempeño de un proceso de punta a punta, sin importar cuántas áreas atraviesa.</dd></div>
+        <div class="gloss-item"><dt>Digitalización</dt><dd>Reemplazar papel por pantalla. El proceso sigue siendo el mismo; solo cambia el medio.</dd></div>
+        <div class="gloss-item"><dt>Automatización</dt><dd>Los flujos entre sistemas se ejecutan solos, con mínima intervención humana.</dd></div>
+        <div class="gloss-item"><dt>Transformación digital</dt><dd>La tecnología cambia el modelo de negocio mismo: productos, canales, relación con el cliente — no solo una tarea puntual.</dd></div>
+        <div class="gloss-item"><dt>Madurez digital</dt><dd>Nivel de avance de una organización en su camino hacia la transformación digital, medido en 4 niveles (ver tabla abajo).</dd></div>
+      </dl>
+
+      <h2>⚙️ Los 4 niveles de madurez digital, con ejemplos por proceso</h2>
+      <p>Estos ejemplos son solo una guía — su propio proceso puede parecerse a uno de ellos o ser distinto, y eso está bien.</p>
+      <div class="tbl-wrap"><table class="tp-table">
+        <thead><tr><th>Nivel</th><th>Ejemplo: proceso de compras</th><th>Ejemplo: atención al cliente</th><th>Ejemplo: incorporación de personal</th></tr></thead>
+        <tbody>
+          <tr><td class="label-cell">1. Inicial</td><td>Las solicitudes se anotan en una libreta o se piden verbalmente, sin ningún registro.</td><td>Cada queja se atiende como pueda cada empleado, sin ningún registro ni seguimiento.</td><td>Cada nueva contratación se organiza de forma distinta, sin ninguna checklist.</td></tr>
+          <tr><td class="label-cell">2. Básico</td><td>Existe un formulario en Excel o Word, pero se envía por correo sin ningún flujo de aprobación.</td><td>Existe un correo o número dedicado a quejas, pero cada una se resuelve manualmente y sin trazabilidad.</td><td>Existe una checklist en PDF, pero cada paso se coordina manualmente por correo.</td></tr>
+          <tr><td class="label-cell">3. Desarrollado</td><td>La solicitud se hace y se aprueba completa en un sistema, con visibilidad del estado en cada etapa.</td><td>El cliente reporta y da seguimiento a su queja en un portal, con notificaciones automáticas.</td><td>El proceso de onboarding corre en un sistema, con tareas asignadas automáticamente a cada área.</td></tr>
+          <tr><td class="label-cell">4. Avanzado</td><td>El sistema sugiere al analista aprobar o escalar según patrones históricos, y genera alertas antes de que algo se retrase.</td><td>El sistema predice quejas recurrentes y prioriza casos automáticamente según su urgencia.</td><td>El sistema anticipa necesidades del nuevo colaborador (equipos, accesos) antes de su primer día.</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <!-- ============ PASO 1 ============ -->
+    <section id="paso1" class="card">
+      <span class="step-badge">Paso 1 · 20 min</span><span class="step-points">Vale 30 pts</span>
+      <h1>Diagnóstico AS-IS del proceso</h1>
+      <p><strong>Concepto:</strong> todo diagnóstico parte de describir, con precisión y sin idealizar, cómo funciona realmente un proceso hoy (AS-IS) — no cómo debería funcionar.</p>
+      <div class="alert info"><strong>Guía:</strong> seleccione un proceso real de su organización que hoy se gestione "por departamentos", sin un dueño de punta a punta. Va a usarlo como referencia en los 4 pasos de esta práctica.</div>
+
+      <div class="field-grid">
+        <div class="field"><label for="p1_organizacion">Organización o área</label><input type="text" id="p1_organizacion" placeholder="Ej: Área de Compras de mi empresa, Recursos Humanos, una pyme familiar..."></div>
+        <div class="field"><label for="p1_proceso">Proceso seleccionado</label><input type="text" id="p1_proceso" placeholder="Ej: Solicitud de compra, contratación de personal, atención de una queja..."></div>
+      </div>
+      <div class="hint">Otros ejemplos si no sabe por dónde empezar: cotización a un cliente, aprobación de un gasto, incorporación de un nuevo colaborador, mantenimiento de un equipo.</div>
+
+      <div class="field">
+        <label for="p1_descripcion">Describa cómo funciona hoy (AS-IS): actividades, participantes y el orden en que ocurren <span class="wc" data-for="p1_descripcion">0 palabras</span></label>
+        <textarea class="tall" id="p1_descripcion" placeholder="El colaborador solicita... luego el área de Compras revisa... y finalmente..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p1_descripcion">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p1_descripcion"></span></div>
+      </div>
+
+      <div class="field">
+        <label for="p1_participantes">¿Quiénes participan, y en qué orden pasa el trabajo de uno a otro? <span class="wc" data-for="p1_participantes">0 palabras</span></label>
+        <textarea id="p1_participantes" placeholder="El solicitante, luego el área de Compras, luego Finanzas, luego el proveedor..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p1_participantes">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p1_participantes"></span></div>
+      </div>
+    </section>
+
+    <!-- ============ PASO 2 ============ -->
+    <section id="paso2" class="card">
+      <span class="step-badge">Paso 2 · 15 min</span><span class="step-points">Vale 20 pts</span>
+      <h1>Hand-offs críticos</h1>
+      <p><strong>Concepto:</strong> un hand-off es el punto donde la responsabilidad de una actividad pasa de un rol o área a otra. Ahí es exactamente donde se pierde visibilidad, tiempo e información — como vimos en el ejemplo guía del curso (solicitud de compra, con sus hand-offs entre Solicitante, Compras, Finanzas y Proveedor).</p>
+      <div class="alert info"><strong>Guía:</strong> identifique, en el proceso que eligió, dónde se pierde visibilidad o se producen retrasos — esos son sus hand-offs críticos.</div>
+
+      <div class="field">
+        <label for="p2_handoffs">¿Dónde se pierde visibilidad o se producen retrasos en su proceso? <span class="wc" data-for="p2_handoffs">0 palabras</span></label>
+        <textarea class="tall" id="p2_handoffs" placeholder="Se pierde visibilidad cuando la solicitud pasa de... a..., porque..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p2_handoffs">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p2_handoffs"></span></div>
+      </div>
+    </section>
+
+    <!-- ============ PASO 3 ============ -->
+    <section id="paso3" class="card">
+      <span class="step-badge">Paso 3 · 15 min</span><span class="step-points">Vale 25 pts</span>
+      <h1>Dueño de proceso propuesto</h1>
+      <p><strong>Concepto:</strong> bajo gestión por procesos, hay un dueño de proceso (process owner) responsable del flujo completo de punta a punta — no solo de una parte, como ocurre en la gestión por funciones.</p>
+      <div class="alert info"><strong>Guía:</strong> defina quién debería ser el dueño del proceso de punta a punta, y explique por qué esa persona o ese rol.</div>
+
+      <div class="field">
+        <label for="p3_dueno">¿Quién debería ser el dueño de proceso de punta a punta?</label>
+        <input type="text" id="p3_dueno" placeholder="Ej: el Jefe de Compras, un coordinador de servicio al cliente...">
+      </div>
+      <div class="field">
+        <label for="p3_justificacion">Explique por qué esa persona o ese rol <span class="wc" data-for="p3_justificacion">0 palabras</span></label>
+        <textarea class="tall" id="p3_justificacion" placeholder="Debería ser esta persona porque..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p3_justificacion">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p3_justificacion"></span></div>
+      </div>
+    </section>
+
+    <!-- ============ PASO 4 ============ -->
+    <section id="paso4" class="card">
+      <span class="step-badge">Paso 4 · 15 min</span><span class="step-points">Vale 25 pts</span>
+      <h1>Nivel de madurez digital</h1>
+      <p><strong>Concepto:</strong> las organizaciones avanzan por niveles de madurez digital — Inicial, Básico, Desarrollado, Avanzado — no de la noche a la mañana. La mayoría se ubica hoy entre los niveles 1 y 2.</p>
+      <div class="alert info"><strong>Guía:</strong> no piense en teoría — piense en el proceso del Paso 1 y elija la opción que más se parece a como funciona <em>hoy mismo</em>, en la realidad.</div>
+
+      <div class="field">
+        <label for="p4_nivel">¿Cuál de estos 4 niveles describe mejor el proceso que eligió?</label>
+        <select id="p4_nivel">
+          <option value="">Seleccione…</option>
+          <option value="Inicial">Inicial: improvisado y reactivo, sin ningún registro ni sistema</option>
+          <option value="Básico">Básico: existe algún registro digital (Excel, PDF), pero sin flujo de aprobación ni trazabilidad</option>
+          <option value="Desarrollado">Desarrollado: corre en un sistema, con visibilidad del estado y flujo de aprobación</option>
+          <option value="Avanzado">Avanzado: además de correr en un sistema, se anticipa o sugiere acciones de forma automática</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="p4_justificacion">Explique con sus propias palabras por qué eligió esa opción <span class="wc" data-for="p4_justificacion">0 palabras</span></label>
+        <textarea class="tall" id="p4_justificacion" placeholder="Elegí esta opción porque, en la práctica, el proceso hoy funciona así..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p4_justificacion">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p4_justificacion"></span></div>
+      </div>
+    </section>
+
+    <!-- ============ RÚBRICA ============ -->
+    <section id="rubrica" class="card">
+      <span class="step-badge">Referencia</span>
+      <h1 style="font-size:1.35rem;">Rúbrica de evaluación</h1>
+      <div class="tbl-wrap"><table class="tp-table">
+        <thead><tr><th>N°</th><th>Criterio</th><th>Indicador</th><th>Puntos</th></tr></thead>
+        <tbody id="rubrica-body"></tbody>
+      </table></div>
+      <div class="alert success" style="margin-top:1rem;">
+        <strong>Recuerde:</strong> esta rúbrica califica la <em>calidad</em> de su trabajo como retroalimentación. La <strong>aprobación de la práctica</strong> se otorga por completar los 4 pasos, no por alcanzar un puntaje mínimo.
+      </div>
+      <h2>Referencias</h2>
+      <ul style="font-size:.85rem; color:var(--muted);">
+        <li>Ortiz Arenas, C. C. (2020). <em>Desarrollo de una Guía para Implementar BPM (Business Process Management) utilizando un MOOC</em> [Trabajo de grado]. Universidad Nacional Abierta y a Distancia (UNAD).</li>
+        <li>Hammer, M., &amp; Champy, J. (1993). <em>Reengineering the Corporation: A Manifesto for Business Revolution.</em></li>
+        <li>Garimella, K., Lees, M., &amp; Williams, B. (2008). <em>BPM (Business Process Management) para Dummies.</em></li>
+        <li>Object Management Group (OMG). <em>Business Process Model and Notation (BPMN), Version 2.0.</em></li>
+      </ul>
+    </section>
+
+    <!-- ============ ENVÍO / RESULTADO ============ -->
+    <section id="resultado" class="card">
+      <div id="submit-zone">
+        <span class="step-badge">Paso final</span>
+        <h1 style="font-size:1.4rem;">Enviar y calificar mi trabajo</h1>
+        <p>El sistema revisará automáticamente sus 4 pasos y le mostrará una nota preliminar orientativa con el detalle por criterio. Recuerde: <strong>aprueba por completar la práctica, independientemente de la nota.</strong></p>
+        <button class="btn-primary" id="btn-submit" type="button">📤 Enviar y Calificar mi Trabajo</button>
+      </div>
+
+      <div id="results" class="results">
+        <div id="score-hero" class="score-hero">
+          <div class="score-circle"><span class="num" id="score-num">0</span><span class="den">/ 100 pts</span></div>
+          <div class="score-verdict">
+            <h3 id="score-title">—</h3>
+            <p id="score-desc">—</p>
+          </div>
+        </div>
+        <div id="ai-review" class="alert info" style="display:none;"></div>
+        <div id="crit-list"></div>
+        <div class="btn-row">
+          <button class="btn-primary" id="btn-medal" type="button" style="display:none;">🏅 Ver mi medalla</button>
+          <button class="btn-secondary" id="btn-export-2" type="button">⬇️ Descargar mis respuestas</button>
+          <button class="btn-secondary" id="btn-print-2" type="button">🖨️ Imprimir resultado</button>
+          <button class="btn-secondary" id="btn-recheck" type="button">✏️ Volver a revisar mis respuestas</button>
+        </div>
+      </div>
+    </section>
+
+    <footer class="tp-footer">
+      Práctica — Unidad I: Fundamentos de BPM y Transformación Digital · Curso BPM para la Transformación Digital de Procesos.<br>
+      Herramienta de autoevaluación con fines educativos. La aprobación se otorga por completar la práctica; la nota oficial del curso la determina su facilitador.<br>
+      Desarrollado por Johan Tapia, PhD.
+    </footer>
+  </main>
+</div>
+
+<!-- NICOLE (asistente virtual del Dr. Johan Tapia) -->
+<button id="advisor-toggle" class="advisor-fab" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="advisor-panel" title="Abrir a Nicole">
+  🎓 <span>Nicole</span>
+</button>
+<a href="https://prof.johan.plataforma.cfd/" target="_blank" rel="noopener" class="proftapia-fab" title="Abrir el asistente del Prof. Johan Tapia en una ventana nueva">
+  👨‍🏫 <span>Prof. Johan Tapia</span>
+</a>
+<div id="advisor-panel" class="advisor-panel" role="dialog" aria-labelledby="advisor-title-el">
+  <div class="advisor-header">
+    <span style="font-size:1.2rem;">🎓</span>
+    <p id="advisor-title-el" class="advisor-title">Nicole</p>
+    <button id="advisor-close" type="button" aria-label="Cerrar a Nicole">✕</button>
+  </div>
+  <div id="advisor-body" class="advisor-body">
+    <div class="advisor-msg advisor-msg-bot">¡Hola! Soy Nicole, la asistente virtual del Dr. Johan Tapia. Pregúntame sobre digitalización, informatización, transformación digital, la Agenda Digital 2030, IA Generativa, la Ley 172-13, o cómo funciona la calificación de esta práctica.</div>
+  </div>
+  <div class="advisor-suggest">
+    <button type="button" data-q="¿cómo se califica esta práctica?">¿Cómo se califica?</button>
+    <button type="button" data-q="diferencia entre digitalizacion informatizacion y transformacion digital">Digitalización vs. transformación digital</button>
+    <button type="button" data-q="que es la agenda digital 2030">Agenda Digital 2030</button>
+  </div>
+  <form id="advisor-form" class="advisor-form">
+    <input type="text" id="advisor-input" placeholder="Escribe tu pregunta…" aria-label="Escribe tu pregunta a Nicole">
+    <button type="submit" aria-label="Enviar pregunta">➤</button>
+  </form>
+</div>
+
+<!-- QR DE ESTA PRÁCTICA -->
+<div id="qr-modal" class="medal-modal" hidden role="dialog" aria-labelledby="qr-title">
+  <div class="medal-modal-inner">
+    <button class="icon-btn" id="qr-close" type="button" aria-label="Cerrar">✕</button>
+    <h3 id="qr-title" style="margin:0 0 .5rem; color:var(--primary);">📱 Código QR de esta práctica</h3>
+    <div id="qr-code-container" style="display:flex; justify-content:center; margin:.5rem 0 1rem; min-height:220px; align-items:center;"></div>
+    <p style="font-size:.78rem; color:var(--muted); margin:0 0 1rem;">Cualquiera puede escanear este código con la cámara de su celular para abrir esta práctica directamente.</p>
+    <div class="btn-row" style="justify-content:center;">
+      <button class="btn-secondary" id="qr-download" type="button">⬇️ Descargar imagen</button>
+    </div>
+  </div>
+</div>
+
+<!-- MEDALLA -->
+<div id="medal-modal" class="medal-modal" hidden role="dialog" aria-labelledby="medal-title">
+  <div class="medal-modal-inner">
+    <button class="icon-btn" id="medal-close" type="button" aria-label="Cerrar">✕</button>
+    <h3 id="medal-title" style="margin:0 0 .5rem; color:var(--primary);">🏅 ¡Felicidades!</h3>
+    <canvas id="medal-canvas" width="600" height="680"></canvas>
+    <div class="btn-row" style="justify-content:center;">
+      <button class="btn-primary" id="medal-download" type="button">⬇️ Descargar</button>
+      <button class="btn-secondary" id="medal-share" type="button">📤 Compartir</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+/* ---------- NICOLE, ASISTENTE VIRTUAL (n8n en VPS) ---------- */
+var AI_BASE = 'https://n8n-inap.167.88.36.13.sslip.io/webhook';
+var AI_CHAT_URL = AI_BASE + '/inap-tutor-chat';
+var AI_GRADE_URL = AI_BASE + '/inap-grade';
+var AI_CHAT_TIMEOUT = 60000;
+var AI_GRADE_TIMEOUT = 650000;
+var VOICE_TRANSCRIBE_URL = 'https://n8n-inap.167.88.36.13.sslip.io/webhook/prof-johan-tapia-transcribir';
+
+/* ---------- NOTAS DE VOZ ---------- */
+function pickRecorderMime(){
+  var candidates = ['audio/webm;codecs=opus','audio/webm','audio/mp4','audio/ogg;codecs=opus'];
+  for(var i=0;i<candidates.length;i++){
+    if(window.MediaRecorder && MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(candidates[i])) return candidates[i];
+  }
+  return '';
+}
+function beepVoz(freq, dur){
+  try{
+    var Ctx = window.AudioContext || window.webkitAudioContext;
+    var ctx = new Ctx();
+    var osc = ctx.createOscillator();
+    var gain = ctx.createGain();
+    osc.type = 'sine';
+    osc.frequency.value = freq;
+    gain.gain.setValueAtTime(0.18, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + dur);
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.start();
+    osc.stop(ctx.currentTime + dur);
+    osc.onended = function(){ ctx.close(); };
+  }catch(e){}
+}
+var VOZ_MIN_MS = 400;
+var VOZ_MAX_MS = 120000;
+var VOZ_LABEL_DEFAULT = '🎤 Mantenga presionado para grabar';
+function wireVoiceButtons(){
+  if(!navigator.mediaDevices || !window.MediaRecorder){
+    document.querySelectorAll('.voice-btn').forEach(function(btn){
+      btn.disabled = true; btn.title = 'Grabación de voz no disponible en este navegador';
+    });
+    return;
+  }
+  document.querySelectorAll('.voice-btn').forEach(function(btn){
+    var targetId = btn.getAttribute('data-target');
+    var textarea = document.getElementById(targetId);
+    var statusEl = document.querySelector('.voice-status[data-target-status="'+targetId+'"]');
+    if(!textarea) return;
+    btn.textContent = VOZ_LABEL_DEFAULT;
+    var mediaRecorder = null, chunks = [], stream = null, recording = false, pressActive = false;
+    var startedAt = 0, maxTimer = null, tickTimer = null;
+
+    function setStatus(msg, cls){
+      if(!statusEl) return;
+      statusEl.textContent = msg || '';
+      statusEl.className = 'voice-status' + (cls ? ' ' + cls : '');
+    }
+    function stopStream(){
+      if(stream){ stream.getTracks().forEach(function(t){ t.stop(); }); stream = null; }
+    }
+    function tick(){
+      var secs = Math.floor((Date.now() - startedAt) / 1000);
+      var m = Math.floor(secs / 60), s = secs % 60;
+      btn.textContent = '🔴 Grabando ' + m + ':' + (s < 10 ? '0' : '') + s + ' — suelte para enviar';
+    }
+    function startRecording(){
+      if(pressActive) return;
+      pressActive = true;
+      navigator.mediaDevices.getUserMedia({ audio:true }).then(function(s){
+        if(!pressActive){ s.getTracks().forEach(function(t){ t.stop(); }); return; }
+        stream = s;
+        chunks = [];
+        var mime = pickRecorderMime();
+        try{ mediaRecorder = mime ? new MediaRecorder(stream, { mimeType: mime }) : new MediaRecorder(stream); }
+        catch(e){ mediaRecorder = new MediaRecorder(stream); }
+        mediaRecorder.addEventListener('dataavailable', function(e){ if(e.data && e.data.size > 0) chunks.push(e.data); });
+        mediaRecorder.addEventListener('stop', function(){
+          stopStream();
+          clearTimeout(maxTimer); clearInterval(tickTimer);
+          btn.classList.remove('recording');
+          var duracion = Date.now() - startedAt;
+          if(duracion < VOZ_MIN_MS){
+            btn.textContent = VOZ_LABEL_DEFAULT;
+            setStatus('Grabación muy corta — mantenga presionado el botón mientras habla.', 'err');
+            return;
+          }
+          var blob = new Blob(chunks, { type: mediaRecorder.mimeType || 'audio/webm' });
+          uploadForTranscription(blob);
+        });
+        mediaRecorder.start();
+        recording = true;
+        startedAt = Date.now();
+        btn.classList.add('recording');
+        beepVoz(880, 0.1);
+        tick();
+        tickTimer = setInterval(tick, 500);
+        setStatus('Grabando… hable su respuesta y suelte el botón al terminar.', '');
+        maxTimer = setTimeout(function(){ if(recording) stopRecording(); }, VOZ_MAX_MS);
+      }).catch(function(){
+        pressActive = false;
+        setStatus('No se pudo acceder al micrófono. Revise los permisos del navegador, o simplemente escriba la respuesta.', 'err');
+      });
+    }
+    function stopRecording(){
+      if(!pressActive) return;
+      pressActive = false;
+      if(mediaRecorder && recording){
+        recording = false;
+        beepVoz(440, 0.12);
+        mediaRecorder.stop();
+      }
+    }
+    function uploadForTranscription(blob){
+      btn.disabled = true;
+      btn.classList.add('busy');
+      btn.textContent = '⏳ Transcribiendo…';
+      setStatus('Transcribiendo la nota de voz, un momento…', '');
+      var fd = new FormData();
+      var ext = (blob.type.indexOf('mp4') !== -1) ? 'm4a' : (blob.type.indexOf('ogg') !== -1 ? 'ogg' : 'webm');
+      fd.append('data', blob, 'nota-voz.' + ext);
+      fetchWithTimeout(VOICE_TRANSCRIBE_URL, { method:'POST', body: fd }, 60000).then(function(res){
+        if(!res.ok) throw new Error('HTTP ' + res.status);
+        return res.json();
+      }).then(function(data){
+        if(!data || !data.ok || !data.texto){ throw new Error('SIN_TEXTO'); }
+        var existing = textarea.value.trim();
+        textarea.value = existing ? (existing + ' ' + data.texto) : data.texto;
+        textarea.dispatchEvent(new Event('input'));
+        setStatus('✔ Nota de voz agregada. Puede revisarla y corregirla si hace falta.', 'ok');
+      }).catch(function(err){
+        var msg = (err && err.message === 'SIN_TEXTO')
+          ? 'No se logró entender el audio. Intente grabar de nuevo hablando más cerca del micrófono, o escriba la respuesta directamente.'
+          : 'No se pudo conectar con el servicio de transcripción. Revise su conexión a internet, o escriba la respuesta directamente.';
+        setStatus(msg, 'err');
+      }).finally(function(){
+        btn.disabled = false;
+        btn.classList.remove('busy');
+        btn.textContent = VOZ_LABEL_DEFAULT;
+      });
+    }
+    btn.addEventListener('mousedown', function(e){ e.preventDefault(); startRecording(); });
+    btn.addEventListener('touchstart', function(e){ e.preventDefault(); startRecording(); }, { passive:false });
+    ['mouseup','mouseleave','touchend','touchcancel'].forEach(function(evt){
+      btn.addEventListener(evt, stopRecording);
+    });
+  });
+}
+
+/* ---------- TAMAÑO DE LETRA ---------- */
+var FONT_LEVELS = ['normal','grande','xgrande'];
+function applyFontSize(level){
+  document.documentElement.setAttribute('data-fontsize', level);
+  try{ localStorage.setItem('tp_bpmu1_fontsize', level); }catch(e){}
+}
+applyFontSize(localStorage.getItem('tp_bpmu1_fontsize') || 'normal');
+document.getElementById('font-bigger').addEventListener('click', function(){
+  var cur = document.documentElement.getAttribute('data-fontsize') || 'normal';
+  var idx = FONT_LEVELS.indexOf(cur);
+  if(idx < FONT_LEVELS.length - 1) applyFontSize(FONT_LEVELS[idx+1]);
+});
+document.getElementById('font-smaller').addEventListener('click', function(){
+  var cur = document.documentElement.getAttribute('data-fontsize') || 'normal';
+  var idx = FONT_LEVELS.indexOf(cur);
+  if(idx > 0) applyFontSize(FONT_LEVELS[idx-1]);
+});
+
+function fetchWithTimeout(url, options, timeoutMs){
+  var controller = new AbortController();
+  var timer = setTimeout(function(){ controller.abort(); }, timeoutMs);
+  return fetch(url, Object.assign({}, options, { signal: controller.signal }))
+    .finally(function(){ clearTimeout(timer); });
+}
+
+/* ---------- THEME ---------- */
+var themeBtn = document.getElementById('theme-toggle');
+function applyTheme(t){
+  document.documentElement.setAttribute('data-theme', t);
+  themeBtn.textContent = t === 'dark' ? '☀️' : '🌙';
+  localStorage.setItem('tp_bpmu1_theme', t);
+}
+applyTheme(localStorage.getItem('tp_bpmu1_theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+themeBtn.addEventListener('click', function(){
+  applyTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+});
+
+/* ---------- CÓDIGO QR DE ESTA PRÁCTICA ---------- */
+document.getElementById('btn-qr').addEventListener('click', function(){
+  var container = document.getElementById('qr-code-container');
+  container.innerHTML = '';
+  var pageUrl = window.location.href.split('#')[0].split('?')[0];
+  if(window.QRCode){
+    new QRCode(container, { text: pageUrl, width: 220, height: 220, colorDark: '#003877', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.M });
+  } else {
+    container.innerHTML = '<p style="color:var(--red); font-size:.85rem; text-align:center;">No se pudo cargar el generador de QR. Verifique su conexión a internet e intente de nuevo.</p>';
+  }
+  document.getElementById('qr-modal').hidden = false;
+});
+document.getElementById('qr-close').addEventListener('click', function(){
+  document.getElementById('qr-modal').hidden = true;
+});
+document.getElementById('qr-download').addEventListener('click', function(){
+  var el = document.querySelector('#qr-code-container img') || document.querySelector('#qr-code-container canvas');
+  if(!el) return;
+  var dataUrl = el.tagName === 'CANVAS' ? el.toDataURL('image/png') : el.src;
+  var a = document.createElement('a');
+  a.href = dataUrl;
+  a.download = 'qr-practica-unidad1-htd.png';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+});
+
+/* ---------- MOBILE NAV ---------- */
+var navToggle = document.getElementById('nav-toggle');
+var sidebar = document.getElementById('sidebar');
+navToggle.addEventListener('click', function(){
+  var open = sidebar.classList.toggle('open');
+  navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+});
+
+/* ---------- READING PROGRESS BAR ---------- */
+var progressBar = document.getElementById('progress-bar');
+window.addEventListener('scroll', function(){
+  var h = document.documentElement;
+  var scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+  progressBar.style.width = (scrolled || 0) + '%';
+}, { passive:true });
+
+/* ---------- ACTIVE NAV HIGHLIGHT ---------- */
+var navLinks = Array.prototype.slice.call(document.querySelectorAll('.nav a'));
+var sections = navLinks.map(function(a){ return document.querySelector(a.getAttribute('href')); }).filter(Boolean);
+var io = new IntersectionObserver(function(entries){
+  entries.forEach(function(entry){
+    var link = document.querySelector('.nav a[href="#' + entry.target.id + '"]');
+    if(!link) return;
+    if(entry.isIntersecting) navLinks.forEach(function(l){ l.classList.remove('active'); });
+    if(entry.isIntersecting) link.classList.add('active');
+  });
+}, { rootMargin: '-20% 0px -70% 0px' });
+sections.forEach(function(s){ io.observe(s); });
+
+/* ---------- TEMPORIZADOR DE REFERENCIA (no cierra la práctica) ---------- */
+var TIMER_MINUTES = 120;
+var TIMER_KEY = 'tp_bpmu1_deadline';
+var SOUND_MUTE_KEY = 'tp_htd_sound_muted';
+var soundMuted = localStorage.getItem(SOUND_MUTE_KEY) === '1';
+var flatlinePlayed = false;
+var lastBeepAt = 0;
+var lastStabAt = 0;
+var lastOvertimeStabAt = 0;
+var NUM_CORAZONES = 5;
+
+/* Dibuja NUM_CORAZONES corazones tipo "vida" de videojuego (Zelda), cada
+   uno representando 1/5 del tiempo. Se vacian de derecha a izquierda segun
+   pasa el tiempo -- mismo lenguaje visual que una barra de vida de juego. */
+function trazarCorazon(ctx, cx, cy, s){
+  ctx.beginPath();
+  ctx.moveTo(cx, cy + s * 0.32);
+  ctx.bezierCurveTo(cx, cy, cx - s * 0.5, cy - s * 0.5, cx - s * 0.5, cy);
+  ctx.bezierCurveTo(cx - s * 0.5, cy + s * 0.4, cx - s * 0.18, cy + s * 0.62, cx, cy + s * 0.88);
+  ctx.bezierCurveTo(cx + s * 0.18, cy + s * 0.62, cx + s * 0.5, cy + s * 0.4, cx + s * 0.5, cy);
+  ctx.bezierCurveTo(cx + s * 0.5, cy - s * 0.5, cx, cy, cx, cy + s * 0.32);
+  ctx.closePath();
+}
+function dibujarCorazones(pctVida){
+  var canvas = document.getElementById('hearts-canvas');
+  if(!canvas) return;
+  var ctx = canvas.getContext('2d');
+  var W = canvas.width, H = canvas.height;
+  ctx.clearRect(0, 0, W, H);
+  var s = 24, paso = 40, inicioX = (W - paso * (NUM_CORAZONES - 1)) / 2, cy = H / 2 - 4;
+  for(var i = 0; i < NUM_CORAZONES; i++){
+    var cx = inicioX + i * paso;
+    var segInicio = i / NUM_CORAZONES, segAncho = 1 / NUM_CORAZONES;
+    var frac = Math.max(0, Math.min(1, (pctVida - segInicio) / segAncho));
+    trazarCorazon(ctx, cx, cy, s);
+    ctx.fillStyle = 'rgba(0,0,0,.08)';
+    ctx.fill();
+    if(frac > 0){
+      ctx.save();
+      trazarCorazon(ctx, cx, cy, s);
+      ctx.clip();
+      ctx.fillStyle = pctVida <= 0 ? '#94a3b8' : '#e11d48';
+      ctx.fillRect(cx - s / 2, cy + s * 0.9 - (s * 1.4 * frac), s, s * 1.4 * frac);
+      ctx.restore();
+    }
+    trazarCorazon(ctx, cx, cy, s);
+    ctx.lineWidth = 1.3;
+    ctx.strokeStyle = 'rgba(0,0,0,.18)';
+    ctx.stroke();
+  }
+}
+
+function getDeadline(){
+  var d = parseInt(localStorage.getItem(TIMER_KEY), 10);
+  if(!d || isNaN(d) || d <= Date.now()){
+    d = Date.now() + TIMER_MINUTES * 60000;
+    try{ localStorage.setItem(TIMER_KEY, String(d)); }catch(e){}
+  }
+  return d;
+}
+var timerDeadline = getDeadline();
+
+function playBeep(freq, dur, vol){
+  if(soundMuted) return;
+  try{
+    var Ctx = window.AudioContext || window.webkitAudioContext;
+    var ctx = new Ctx();
+    var osc = ctx.createOscillator(); var gain = ctx.createGain();
+    osc.type = 'sine'; osc.frequency.value = freq;
+    gain.gain.setValueAtTime(vol, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + dur);
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.start(); osc.stop(ctx.currentTime + dur);
+    osc.onended = function(){ ctx.close(); };
+  }catch(e){}
+}
+function playFlatline(){
+  if(soundMuted) return;
+  try{
+    var Ctx = window.AudioContext || window.webkitAudioContext;
+    var ctx = new Ctx();
+    var osc = ctx.createOscillator(); var gain = ctx.createGain();
+    osc.type = 'sawtooth';
+    osc.frequency.setValueAtTime(720, ctx.currentTime);
+    osc.frequency.linearRampToValueAtTime(160, ctx.currentTime + 2.2);
+    gain.gain.setValueAtTime(0.001, ctx.currentTime);
+    gain.gain.linearRampToValueAtTime(0.14, ctx.currentTime + 0.06);
+    gain.gain.setValueAtTime(0.14, ctx.currentTime + 1.8);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 2.3);
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.start(); osc.stop(ctx.currentTime + 2.4);
+    osc.onended = function(){ ctx.close(); };
+  }catch(e){}
+}
+function playAnguishStab(){
+  // "Punalada" de cuerdas disonante (segunda menor, Do6 vs Si5) para el
+  // ultimo minuto y el tiempo extra -- inspirado en el clasico "stinger" de
+  // cuerdas de peliculas de suspenso, pero sintetizado desde cero con
+  // osciladores (sin usar ninguna pieza real con copyright).
+  if(soundMuted) return;
+  try{
+    var Ctx = window.AudioContext || window.webkitAudioContext;
+    var ctx = new Ctx();
+    [1046.5, 987.77].forEach(function(freq){
+      var osc = ctx.createOscillator(); var gain = ctx.createGain();
+      osc.type = 'sawtooth';
+      osc.frequency.value = freq;
+      gain.gain.setValueAtTime(0.001, ctx.currentTime);
+      gain.gain.linearRampToValueAtTime(0.11, ctx.currentTime + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.35);
+      osc.connect(gain); gain.connect(ctx.destination);
+      osc.start(); osc.stop(ctx.currentTime + 0.4);
+    });
+    setTimeout(function(){ ctx.close(); }, 450);
+  }catch(e){}
+}
+function tickTimer(){
+  var wrapEl = document.getElementById('timer-box');
+  var valEl = document.getElementById('timer-value');
+  var overtimeNoteEl = document.getElementById('overtime-note');
+  var heartsEl = document.getElementById('hearts-canvas');
+  if(!wrapEl || !valEl) return;
+  var diffReal = timerDeadline - Date.now(); // sin recortar -- negativo en tiempo extra
+  var remaining = diffReal < 0 ? 0 : diffReal;
+  var now = Date.now();
+
+  dibujarCorazones(Math.max(0, remaining / (TIMER_MINUTES * 60000)));
+
+  if(diffReal > 0){
+    /* ---- Tiempo normal (0 a 60 min) ---- */
+    var totalSec = Math.floor(remaining / 1000);
+    var m = Math.floor(totalSec / 60), s = totalSec % 60;
+    valEl.textContent = (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+    wrapEl.classList.remove('overtime');
+    if(overtimeNoteEl) overtimeNoteEl.hidden = true;
+
+    var criticalMode = remaining <= 10 * 60000;
+    wrapEl.classList.toggle('low', criticalMode);
+    var lastMinute = remaining <= 5 * 60000;
+    if(lastMinute){
+      // El sonido de aceleracion (pitido + punaladas) queda confinado al
+      // ULTIMO MINUTO -- el estado visual .low sigue empezando a los 10
+      // min, pero el audio antes sonaba los 10 minutos completos y Johan
+      // pidio restringirlo a solo el ultimo minuto (2026-07-21). Ambos se
+      // aceleran juntos de ~2s a ~250-350ms segun se acerca a cero.
+            // Curva cubica: arranca muy espaciada (~3-3.5s) y solo se
+      // intensifica de verdad en el ultimo minuto (2026-07-28).
+      var pctMin = remaining / (5 * 60000);
+      var eased = Math.pow(1 - pctMin, 3);
+      var interval = 3000 - eased * 2750;
+      if(now - lastBeepAt > interval){
+        lastBeepAt = now;
+        playBeep(920, 0.08, 0.14);
+      }
+      var stabInterval = 3500 - eased * 3150;
+      if(now - lastStabAt > stabInterval){
+        lastStabAt = now;
+        playAnguishStab();
+      }
+    }
+    if(heartsEl) heartsEl.classList.toggle('critical', lastMinute);
+    wrapEl.classList.toggle('critical', lastMinute);
+  } else {
+    /* ---- Tiempo extra (pasados los 60 min) -- puramente cosmetico, NO
+       afecta la aprobacion ni la calificacion (ver overtime-note). Cuenta
+       hacia ARRIBA el tiempo extra real, pero el "segundero" que se ve
+       (fast-clock) gira mucho mas rapido que un segundero real, a
+       proposito, solo para transmitir urgencia. ---- */
+    var extraMs = -diffReal;
+    var extraSec = Math.floor(extraMs / 1000);
+    var em = Math.floor(extraSec / 60), es = extraSec % 60;
+    valEl.textContent = '+' + (em < 10 ? '0' : '') + em + ':' + (es < 10 ? '0' : '') + es;
+    wrapEl.classList.remove('low', 'critical');
+    wrapEl.classList.add('overtime');
+    if(heartsEl) heartsEl.classList.remove('critical');
+    if(overtimeNoteEl) overtimeNoteEl.hidden = false;
+
+    if(!flatlinePlayed){
+      flatlinePlayed = true;
+      playFlatline();
+    }
+    if(now - lastOvertimeStabAt > 1800){
+      lastOvertimeStabAt = now;
+      playAnguishStab();
+    }
+  }
+}
+setInterval(tickTimer, 1000);
+tickTimer();
+var soundToggleBtn = document.getElementById('sound-toggle');
+soundToggleBtn.textContent = soundMuted ? '🔇' : '🔔';
+soundToggleBtn.addEventListener('click', function(){
+  soundMuted = !soundMuted;
+  try{ localStorage.setItem(SOUND_MUTE_KEY, soundMuted ? '1' : '0'); }catch(e){}
+  soundToggleBtn.textContent = soundMuted ? '🔇' : '🔔';
+});
+
+/* ---------- HELPERS ---------- */
+function norm(s){ return (s === undefined || s === null) ? '' : String(s).trim(); }
+function stripAccents(s){ return norm(s).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,''); }
+function wordCount(s){ s = norm(s); return s ? s.split(/\s+/).filter(Boolean).length : 0; }
+function filled(s){ return norm(s).length > 0; }
+function clamp01(n){ return Math.max(0, Math.min(1, n)); }
+function val(id){ var el = document.getElementById(id); return el ? el.value : ''; }
+function labelOf(id){ var el = document.getElementById(id); if(!el) return id; var lab = document.querySelector('label[for="'+id+'"]'); return lab ? lab.textContent.replace(/\s*\d+\/\d+ palabras\s*/,'').trim() : id; }
+function escapeHtml(s){ var d = document.createElement('div'); d.textContent = norm(s); return d.innerHTML; }
+
+/* ---------- CAMPOS DE CADA PASO ---------- */
+var STEP_FIELDS = {
+  paso1: ['p1_organizacion','p1_proceso','p1_descripcion','p1_participantes'],
+  paso2: ['p2_handoffs'],
+  paso3: ['p3_dueno','p3_justificacion'],
+  paso4: ['p4_nivel','p4_justificacion']
+};
+
+/* ---------- MODALIDAD: INDIVIDUAL O EN EQUIPO ---------- */
+var modoSelect = document.getElementById('modo_trabajo');
+var bloqueIndividual = document.getElementById('bloque-individual');
+var bloqueGrupo = document.getElementById('bloque-grupo');
+var bloqueIntegrantes = document.getElementById('bloque-integrantes');
+function aplicarModo(){
+  var esGrupo = modoSelect.value === 'grupo';
+  bloqueIndividual.hidden = esGrupo;
+  bloqueGrupo.hidden = !esGrupo;
+  bloqueIntegrantes.hidden = !esGrupo;
+}
+modoSelect.addEventListener('change', function(){ aplicarModo(); saveAll(); });
+aplicarModo();
+function nombreIdentificacion(){
+  return modoSelect.value === 'grupo' ? (val('grp_nombre') || '') : (val('ind_nombre') || '');
+}
+function correoIdentificacion(){
+  return modoSelect.value === 'grupo' ? (val('grp_correo') || '') : (val('ind_correo') || '');
+}
+
+/* ---------- WORD COUNTERS ---------- */
+document.querySelectorAll('.wc[data-for]').forEach(function(span){
+  var target = document.getElementById(span.getAttribute('data-for'));
+  if(!target) return;
+  function update(){
+    var wc = wordCount(target.value);
+    span.textContent = wc + (wc === 1 ? ' palabra escrita' : ' palabras escritas');
+    span.classList.toggle('ok', wc > 0);
+  }
+  target.addEventListener('input', update);
+  update();
+});
+
+/* ---------- AUTOSAVE (localStorage) ---------- */
+var STORE_KEY = 'tp_bpmu1_respuestas_v1';
+var META_FIELDS = ['modo_trabajo', 'ind_nombre', 'ind_correo', 'grp_nombre', 'grp_correo', 'grp_integrantes'];
+function allFieldIds(){
+  var ids = META_FIELDS.slice();
+  Object.keys(STEP_FIELDS).forEach(function(k){ ids = ids.concat(STEP_FIELDS[k]); });
+  return ids;
+}
+function saveAll(){
+  var data = {};
+  allFieldIds().forEach(function(id){ data[id] = val(id); });
+  try{ localStorage.setItem(STORE_KEY, JSON.stringify(data)); }catch(e){}
+}
+function loadAll(){
+  var raw; try{ raw = localStorage.getItem(STORE_KEY); }catch(e){ raw = null; }
+  if(!raw) return;
+  try{
+    var data = JSON.parse(raw);
+    Object.keys(data).forEach(function(id){
+      var el = document.getElementById(id);
+      if(el) el.value = data[id];
+    });
+  }catch(e){}
+}
+loadAll();
+aplicarModo();
+document.querySelectorAll('.wc[data-for]').forEach(function(span){
+  var target = document.getElementById(span.getAttribute('data-for'));
+  if(target) target.dispatchEvent(new Event('input'));
+});
+
+var saveTimer = null;
+document.addEventListener('input', function(e){
+  var t = e.target;
+  if(t && t.id && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT')){
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(function(){ saveAll(); updateProgress(); }, 400);
+  }
+});
+document.addEventListener('change', function(e){
+  var t = e.target;
+  if(t && t.tagName === 'SELECT'){ saveAll(); updateProgress(); }
+});
+
+/* ---------- PROGRESS ---------- */
+function stepRatio(key){
+  var ids = STEP_FIELDS[key];
+  if(!ids || !ids.length) return 0;
+  var n = 0;
+  ids.forEach(function(id){ if(filled(val(id))) n++; });
+  return n / ids.length;
+}
+function updateProgress(){
+  var keys = Object.keys(STEP_FIELDS);
+  var total = 0;
+  keys.forEach(function(k){
+    var r = stepRatio(k);
+    total += r;
+    var pctEl = document.querySelector('.pct[data-pct="'+k+'"]');
+    var linkEl = document.querySelector('.nav a[data-step="'+k+'"]');
+    if(pctEl) pctEl.textContent = Math.round(r*100) + '%';
+    if(linkEl) linkEl.classList.toggle('done', r >= 0.95);
+  });
+  var overall = Math.round((total / keys.length) * 100);
+  document.getElementById('progress-count').textContent = overall + '%';
+  var fillEl = document.getElementById('progress-fill-el');
+  fillEl.style.width = overall + '%';
+  fillEl.classList.toggle('complete', overall >= 95);
+}
+updateProgress();
+
+/* ---------- ¿PRÁCTICA COMPLETA? (determina la APROBACIÓN, no la nota) ---------- */
+function camposFaltantes(){
+  var faltan = [];
+  Object.keys(STEP_FIELDS).forEach(function(key){
+    STEP_FIELDS[key].forEach(function(id){
+      if(!filled(val(id))) faltan.push(labelOf(id));
+    });
+  });
+  return faltan;
+}
+function practicaCompleta(){ return camposFaltantes().length === 0; }
+
+/* ---------- RÚBRICA TABLE (referencia de calidad, no de aprobación) ---------- */
+var RUBRICA = [
+  {n:1, criterio:'Diagnóstico AS-IS del proceso (Paso 1)', indicador:'Organización y proceso identificados, descripción real de cómo funciona hoy, y participantes en orden.', pts:30},
+  {n:2, criterio:'Hand-offs críticos (Paso 2)', indicador:'Puntos de transferencia entre áreas donde se pierde visibilidad o se producen retrasos, identificados con claridad.', pts:20},
+  {n:3, criterio:'Dueño de proceso propuesto (Paso 3)', indicador:'Rol o persona propuesta como dueño de punta a punta, con justificación coherente.', pts:25},
+  {n:4, criterio:'Nivel de madurez digital (Paso 4)', indicador:'Nivel seleccionado con justificación basada en cómo funciona realmente el proceso hoy.', pts:25}
+];
+document.getElementById('rubrica-body').innerHTML = RUBRICA.map(function(r){
+  return '<tr><td class="label-cell">'+r.n+'</td><td>'+r.criterio+'</td><td>'+r.indicador+'</td><td class="label-cell">'+r.pts+'</td></tr>';
+}).join('') + '<tr><td colspan="3" class="label-cell">TOTAL (retroalimentación)</td><td class="label-cell">100</td></tr>';
+
+/* ---------- GRADING ENGINE ---------- */
+function ratioFilledFrac(ids){
+  if(!ids.length) return 0;
+  var n = 0; ids.forEach(function(id){ if(filled(val(id))) n++; });
+  return n / ids.length;
+}
+function singleWordFrac(id){ return filled(val(id)) ? 1 : 0; }
+
+function buildCriterion(title, maxPoints, items){
+  var score = 0;
+  items.forEach(function(it){ score += it.points * clamp01(it.frac); });
+  score = Math.round(score * 10) / 10;
+  var strong = [], mid = [], weak = [];
+  items.forEach(function(it){
+    if(it.frac >= 0.85) strong.push(it.label);
+    else if(it.frac >= 0.45) mid.push(it.label);
+    else weak.push(it.label);
+  });
+  return { title:title, maxPoints:maxPoints, score:score, strong:strong, mid:mid, weak:weak };
+}
+
+function gradeStep1(){
+  var items = [
+    { label:'Organización y proceso identificados con claridad', points:6, frac:ratioFilledFrac(['p1_organizacion','p1_proceso']) },
+    { label:'Descripción real de cómo funciona hoy (AS-IS)', points:14, frac:singleWordFrac('p1_descripcion',40) },
+    { label:'Participantes y orden del flujo', points:10, frac:singleWordFrac('p1_participantes',20) }
+  ];
+  return buildCriterion(RUBRICA[0].criterio, 30, items);
+}
+function gradeStep2(){
+  var items = [
+    { label:'Hand-offs críticos identificados con claridad', points:20, frac:singleWordFrac('p2_handoffs',35) }
+  ];
+  return buildCriterion(RUBRICA[1].criterio, 20, items);
+}
+function gradeStep3(){
+  var items = [
+    { label:'Dueño de proceso propuesto', points:8, frac:filled(val('p3_dueno'))?1:0 },
+    { label:'Justificación de la propuesta', points:17, frac:singleWordFrac('p3_justificacion',30) }
+  ];
+  return buildCriterion(RUBRICA[2].criterio, 25, items);
+}
+function gradeStep4(){
+  var items = [
+    { label:'Nivel de madurez digital seleccionado', points:8, frac:filled(val('p4_nivel'))?1:0 },
+    { label:'Justificación del nivel elegido', points:17, frac:singleWordFrac('p4_justificacion',30) }
+  ];
+  return buildCriterion(RUBRICA[3].criterio, 25, items);
+}
+function runGrading(){
+  var criteria = [gradeStep1(), gradeStep2(), gradeStep3(), gradeStep4()];
+  var total = Math.round(criteria.reduce(function(a,c){ return a + c.score; },0) * 10) / 10;
+  return { criteria:criteria, total:total };
+}
+
+function critFillClass(pct){
+  if(pct >= 80) return 'hi';
+  if(pct >= 50) return 'mid';
+  return 'lo';
+}
+
+function renderResults(result){
+  var hero = document.getElementById('score-hero');
+  var title = document.getElementById('score-title');
+  var desc = document.getElementById('score-desc');
+  var num = document.getElementById('score-num');
+  animarNumero(num, result.total, 900);
+  hero.classList.remove('pass','warn','fail');
+
+  var completa = practicaCompleta();
+  var faltan = camposFaltantes();
+  var medalBtn = document.getElementById('btn-medal');
+
+  if(completa){
+    hero.classList.add('pass');
+    title.textContent = '✅ Práctica Aprobada — completada en su totalidad';
+    desc.textContent = 'Esta práctica se aprueba por haberla completado en su totalidad. La nota de ' + result.total + ' / 100 pts es retroalimentación sobre la calidad de sus respuestas — no afecta su aprobación.';
+    medalBtn.style.display = 'inline-flex';
+    fireConfetti();
+  } else if(faltan.length <= 4){
+    hero.classList.add('warn');
+    title.textContent = '🟠 Casi completa — faltan ' + faltan.length + ' campo(s)';
+    desc.textContent = 'Para aprobar debe completar todos los campos de los 4 pasos. Le falta: ' + faltan.slice(0,4).join('; ') + (faltan.length > 4 ? '…' : '') + '.';
+    medalBtn.style.display = 'none';
+  } else {
+    hero.classList.add('fail');
+    title.textContent = '🔴 Práctica incompleta — faltan ' + faltan.length + ' campos';
+    desc.textContent = 'Todavía faltan varios campos por completar en los 4 pasos. Revise la barra lateral: los pasos marcados sin ✓ tienen campos pendientes.';
+    medalBtn.style.display = 'none';
+  }
+
+  var listEl = document.getElementById('crit-list');
+  listEl.innerHTML = result.criteria.map(function(c){
+    var pct = Math.round((c.score / c.maxPoints) * 100);
+    var parts = [];
+    if(c.strong.length) parts.push('<li><span class="tag-ok">✔ Bien logrado:</span> ' + c.strong.join('; ') + '.</li>');
+    if(c.mid.length) parts.push('<li><span class="tag-mid">◐ Puede mejorar:</span> ' + c.mid.join('; ') + '.</li>');
+    if(c.weak.length) parts.push('<li><span class="tag-low">✖ Falta completar / profundizar:</span> ' + c.weak.join('; ') + '.</li>');
+    return '<div class="crit">'+
+      '<div class="crit-head"><strong>'+c.title+'</strong><span class="crit-score">'+c.score+' / '+c.maxPoints+' pts</span></div>'+
+      '<div class="crit-track"><div class="crit-fill '+critFillClass(pct)+'" style="width:'+pct+'%;"></div></div>'+
+      '<ul>'+parts.join('')+'</ul>'+
+      '</div>';
+  }).join('');
+
+  document.getElementById('results').classList.add('show');
+}
+
+function gatherGradingPayload(localResult){
+  var pasos = {};
+  Object.keys(STEP_FIELDS).forEach(function(key, i){
+    var respuestas = {};
+    STEP_FIELDS[key].forEach(function(id){
+      var v = val(id);
+      if(filled(v)) respuestas[labelOf(id)] = v;
+    });
+    pasos[key] = { criterio: RUBRICA[i].criterio, max: RUBRICA[i].pts, respuestas: respuestas };
+  });
+  return {
+    estudiante: { nombre: nombreIdentificacion(), correo: correoIdentificacion(), integrantes: val('grp_integrantes') || '', modalidad: modoSelect.value },
+    institucion: val('p1_organizacion') || '',
+    curso: 'bpm-transformacion-digital',
+    unidad: 'u1',
+    aprobado_por_completitud: practicaCompleta(),
+    pasos: pasos,
+    local: localResult ? {
+      total: localResult.total,
+      criterios: localResult.criteria.map(function(c){ return { titulo: c.title, puntaje: c.score, max: c.maxPoints }; })
+    } : null
+  };
+}
+
+function renderAIReview(data){
+  var box = document.getElementById('ai-review');
+  box.className = 'alert success';
+  var rows = data.criterios.map(function(c, i){
+    var nombre = RUBRICA[i] ? RUBRICA[i].criterio : ('Criterio ' + (i+1));
+    return '<li><strong>' + escapeHtml(nombre) + ':</strong> ' + c.puntaje + '/' + c.max + ' pts — ' + escapeHtml(c.comentario) + '</li>';
+  }).join('');
+  box.innerHTML = '<strong>Evaluación de Nicole:</strong> ' + data.total + ' / 100 pts (retroalimentación, no afecta su aprobación).<br>' +
+    (data.comentario_general ? '<p style="margin:.5rem 0;">' + escapeHtml(data.comentario_general) + '</p>' : '') +
+    '<ul style="margin:.5rem 0 0; padding-left:1.2rem; font-size:.85rem;">' + rows + '</ul>' +
+    '<p style="margin:.6rem 0 0; font-size:.72rem; color:var(--muted);">Esta evaluación la genera el Tutor Virtual leyendo el contenido real de sus respuestas; es orientativa y no reemplaza la nota oficial de su facilitador.</p>';
+}
+
+function requestAIGrading(localResult){
+  var box = document.getElementById('ai-review');
+  box.style.display = 'block';
+  box.className = 'alert info';
+  box.innerHTML = '<strong>Nicole:</strong> analizando el contenido de sus respuestas (puede tardar hasta 10 minutos en este servidor) y notificando a su facilitador por correo. No necesita quedarse en esta pantalla — su aprobación por completitud ya quedó registrada arriba…';
+  fetchWithTimeout(AI_GRADE_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(gatherGradingPayload(localResult))
+  }, AI_GRADE_TIMEOUT).then(function(res){
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    return res.json();
+  }).then(function(data){
+    if(!data || !data.ok || !Array.isArray(data.criterios)) throw new Error((data && data.error) || 'respuesta inválida');
+    renderAIReview(data);
+  }).catch(function(){
+    box.className = 'alert warn';
+    box.innerHTML = '<strong>Nicole:</strong> no se pudo contactar el servicio de evaluación en este momento (puede estar desconectado o sin internet). Se muestra únicamente la evaluación automática local de esta página, que sigue siendo válida.';
+  });
+}
+
+document.getElementById('btn-submit').addEventListener('click', function(){
+  saveAll();
+  if(!filled(nombreIdentificacion())){
+    var esGrupo = modoSelect.value === 'grupo';
+    alert('Antes de enviar, escriba ' + (esGrupo ? 'el nombre del equipo' : 'su nombre completo') + ' en "¿Cómo va a completar esta práctica?" para que su facilitador pueda identificar la entrega.');
+    document.getElementById(esGrupo ? 'grp_nombre' : 'ind_nombre').focus();
+    document.getElementById('portada').scrollIntoView({ behavior:'smooth' });
+    return;
+  }
+  var result = runGrading();
+  renderResults(result);
+  document.getElementById('results').scrollIntoView({ behavior:'smooth', block:'start' });
+  requestAIGrading(result);
+});
+document.getElementById('btn-recheck').addEventListener('click', function(){
+  document.getElementById('paso1').scrollIntoView({ behavior:'smooth' });
+});
+
+/* ---------- MEDALLA DE FINALIZACIÓN ---------- */
+/* Tema visual de la medalla -- relacionado con el TEMA del curso, no con
+   la institucion (ver skill inap-practica-autocalificable, registro de
+   temas por curso). Transformacion Digital (generico, U1/U2): paleta
+   azul/tech. */
+var TEMA_MEDALLA = {
+  icono: '⚙️',
+  fondo1: '#0b2d4d', fondo2: '#071b30',
+  medalClaro: '#ffd9b3', medalMedio: '#e06b1f', medalOscuro: '#a34e14',
+  laurel: '#e06b1f',
+  eyebrow: 'CERTIFICADO DE FINALIZACIÓN'
+};
+
+function dibujarLaurel(ctx, cx, cy, r, color){
+  for(var lado = -1; lado <= 1; lado += 2){
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.scale(lado, 1);
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 4;
+    ctx.beginPath();
+    ctx.moveTo(r * 0.72, r * 0.78);
+    ctx.quadraticCurveTo(r * 1.28, 0, r * 0.92, -r * 0.9);
+    ctx.stroke();
+    for(var i = 0; i < 7; i++){
+      var t = i / 6;
+      var px = (r * 0.72) * (1 - t) + (r * 0.92) * t;
+      var py = (r * 0.78) * (1 - t) + (-r * 0.9) * t;
+      ctx.save();
+      ctx.translate(px, py);
+      ctx.rotate(-0.6 + t * 1.15);
+      ctx.beginPath();
+      ctx.ellipse(0, 0, 13, 6, 0, 0, Math.PI * 2);
+      ctx.fillStyle = color;
+      ctx.globalAlpha = 0.85;
+      ctx.fill();
+      ctx.restore();
+    }
+    ctx.restore();
+  }
+}
+
+function drawMedal(nombre, cursoLabel, unidadLabel){
+  var tema = TEMA_MEDALLA;
+  var canvas = document.getElementById('medal-canvas');
+  var ctx = canvas.getContext('2d');
+  var W = canvas.width, H = canvas.height;
+  ctx.clearRect(0,0,W,H);
+  var bgGrad = ctx.createLinearGradient(0,0,0,H);
+  bgGrad.addColorStop(0,tema.fondo1); bgGrad.addColorStop(1,tema.fondo2);
+  ctx.fillStyle = bgGrad; ctx.fillRect(0,0,W,H);
+
+  ctx.textAlign = 'center';
+  ctx.fillStyle = tema.laurel;
+  ctx.font = 'bold 18px Inter, sans-serif';
+  ctx.fillText(tema.eyebrow, W/2, 55);
+
+  var cx = W/2, cy = 300, r = 150;
+  dibujarLaurel(ctx, cx, cy, r + 25, tema.laurel);
+
+  var medalGrad = ctx.createRadialGradient(cx-50,cy-50,10,cx,cy,r);
+  medalGrad.addColorStop(0,tema.medalClaro); medalGrad.addColorStop(0.6,tema.medalMedio); medalGrad.addColorStop(1,tema.medalOscuro);
+  ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2); ctx.fillStyle = medalGrad; ctx.fill();
+  ctx.lineWidth = 8; ctx.strokeStyle = tema.medalOscuro; ctx.stroke();
+  ctx.beginPath(); ctx.arc(cx,cy,r-20,0,Math.PI*2); ctx.lineWidth=3; ctx.strokeStyle='rgba(255,255,255,.35)'; ctx.stroke();
+
+  ctx.fillStyle = tema.fondo1;
+  ctx.font = 'bold 82px Inter, sans-serif';
+  ctx.fillText(tema.icono, cx, cy+28);
+
+  ctx.fillStyle = '#ffffff';
+  ctx.font = 'bold 30px Inter, sans-serif';
+  ctx.fillText('PRÁCTICA COMPLETADA', W/2, cy+r+65);
+
+  ctx.fillStyle = tema.laurel;
+  ctx.font = '600 21px Inter, sans-serif';
+  wrapCanvasText(ctx, cursoLabel, W/2, cy+r+100, W-100, 26);
+
+  ctx.fillStyle = '#cbd5e1';
+  ctx.font = '17px Inter, sans-serif';
+  ctx.fillText(unidadLabel, W/2, cy+r+160);
+
+  ctx.fillStyle = '#ffffff';
+  ctx.font = 'bold 24px Inter, sans-serif';
+  ctx.fillText(nombre || 'Participante', W/2, cy+r+205);
+
+  ctx.fillStyle = '#94a3b8';
+  ctx.font = '14px Inter, sans-serif';
+  ctx.fillText('Johan Tapia, PhD · ' + new Date().toLocaleDateString('es-DO'), W/2, cy+r+235);
+}
+function wrapCanvasText(ctx, text, x, y, maxWidth, lineHeight){
+  var words = text.split(' ');
+  var line = '';
+  var lines = [];
+  for(var i=0;i<words.length;i++){
+    var test = line + words[i] + ' ';
+    if(ctx.measureText(test).width > maxWidth && line !== ''){
+      lines.push(line.trim()); line = words[i] + ' ';
+    } else { line = test; }
+  }
+  lines.push(line.trim());
+  lines.forEach(function(l, idx){ ctx.fillText(l, x, y + idx*lineHeight); });
+}
+document.getElementById('btn-medal').addEventListener('click', function(){
+  drawMedal(nombreIdentificacion(), 'BPM para la Transformación Digital de Procesos', 'Unidad I · Fundamentos de BPM y Transformación Digital');
+  document.getElementById('medal-modal').hidden = false;
+});
+document.getElementById('medal-close').addEventListener('click', function(){
+  document.getElementById('medal-modal').hidden = true;
+});
+document.getElementById('medal-download').addEventListener('click', function(){
+  var canvas = document.getElementById('medal-canvas');
+  var a = document.createElement('a');
+  a.href = canvas.toDataURL('image/png');
+  var name = (nombreIdentificacion() || 'participante').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+  a.download = 'medalla-' + (name || 'participante') + '-unidad1-htd.png';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+});
+document.getElementById('medal-share').addEventListener('click', function(){
+  var canvas = document.getElementById('medal-canvas');
+  canvas.toBlob(function(blob){
+    var file = new File([blob], 'medalla-unidad1-htd.png', { type:'image/png' });
+    if(navigator.canShare && navigator.canShare({ files:[file] })){
+      navigator.share({ files:[file], title:'¡Completé mi práctica!', text:'Completé la Práctica de la Unidad I del curso BPM para la Transformación Digital de Procesos.' }).catch(function(){});
+    } else {
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'medalla-unidad1-htd.png';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      URL.revokeObjectURL(a.href);
+      alert('Su navegador no admite compartir directamente. Se descargó la imagen — puede compartirla manualmente por WhatsApp, correo o redes sociales.');
+    }
+  }, 'image/png');
+});
+
+/* ---------- EXPORT / PRINT / CLEAR ---------- */
+function exportTxt(){
+  var lines = ['PRÁCTICA — UNIDAD I: Fundamentos de BPM y Transformación Digital', (modoSelect.value === 'grupo' ? 'Equipo' : 'Nombre') + ': ' + (nombreIdentificacion() || '(sin especificar)'), 'Organización: ' + (val('p1_organizacion') || '(sin especificar)'), '======================================================', ''];
+  allFieldIds().forEach(function(id){
+    var v = val(id);
+    if(!filled(v)) return;
+    lines.push('- ' + labelOf(id) + ': ' + v);
+  });
+  var blob = new Blob([lines.join('\n')], { type:'text/plain;charset=utf-8' });
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  var name = (nombreIdentificacion() || 'practica-transformacion-digital-u1').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+  a.download = (name || 'practica-transformacion-digital-u1') + '.txt';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(a.href);
+}
+document.getElementById('btn-export').addEventListener('click', exportTxt);
+document.getElementById('btn-export-2').addEventListener('click', exportTxt);
+document.getElementById('btn-print').addEventListener('click', function(){ window.print(); });
+document.getElementById('btn-print-2').addEventListener('click', function(){ window.print(); });
+document.getElementById('btn-clear').addEventListener('click', function(){
+  if(!confirm('¿Seguro que desea borrar TODAS sus respuestas guardadas en este navegador? Esta acción no se puede deshacer.')) return;
+  try{ localStorage.removeItem(STORE_KEY); }catch(e){}
+  allFieldIds().forEach(function(id){ var el = document.getElementById(id); if(el) el.value = ''; });
+  document.querySelectorAll('.wc[data-for]').forEach(function(span){ var t = document.getElementById(span.getAttribute('data-for')); if(t) t.dispatchEvent(new Event('input')); });
+  updateProgress();
+  document.getElementById('results').classList.remove('show');
+  var aiBox = document.getElementById('ai-review');
+  aiBox.style.display = 'none';
+  aiBox.innerHTML = '';
+});
+
+/* ---------- NICOLE - respaldo con reglas (sin costo) ---------- */
+var advisorToggle = document.getElementById('advisor-toggle');
+var advisorPanel = document.getElementById('advisor-panel');
+var advisorClose = document.getElementById('advisor-close');
+var advisorBody = document.getElementById('advisor-body');
+var advisorForm = document.getElementById('advisor-form');
+var advisorInput = document.getElementById('advisor-input');
+
+function openAdvisor(){ advisorPanel.classList.add('open'); advisorToggle.setAttribute('aria-expanded','true'); advisorInput.focus(); }
+function closeAdvisor(){ advisorPanel.classList.remove('open'); advisorToggle.setAttribute('aria-expanded','false'); }
+advisorToggle.addEventListener('click', function(){ advisorPanel.classList.contains('open') ? closeAdvisor() : openAdvisor(); });
+advisorClose.addEventListener('click', closeAdvisor);
+
+function addMsg(text, who){
+  var div = document.createElement('div');
+  div.className = 'advisor-msg advisor-msg-' + (who === 'user' ? 'user' : 'bot');
+  div.textContent = text;
+  advisorBody.appendChild(div);
+  advisorBody.scrollTop = advisorBody.scrollHeight;
+  return div;
+}
+function addTyping(){
+  var div = addMsg('Escribiendo…', 'bot');
+  div.style.opacity = '.6';
+  return div;
+}
+function askTutorAI(q){
+  return fetchWithTimeout(AI_CHAT_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ message: q, contexto: 'MARCO CONCEPTUAL (Unidad I - Fundamentos de BPM y Transformacion Digital, curso BPM para la Transformacion Digital de Procesos, facilitador Johan Tapia PhD):\\nBPM (Business Process Management): metodologia de gestion que modela, automatiza, integra, monitorea y optimiza de forma continua los procesos de negocio. No es un software.\\nBPM y transformacion digital: rediseñar como se ejecuta el trabajo apoyandose en tecnologia, nunca digitalizar el caos existente.\\nEvolucion historica: organizacion funcional (Taylor, silos verticales) -> Reingenieria/BPR (años 90, Hammer y Champy, rediseño radical) -> BPM (años 2000+, mejora continua e incremental).\\nGestion por funciones vs. por procesos: vertical/por departamento vs. horizontal/por proceso interfuncional con un dueño de proceso (process owner).\\nCiclo de vida BPM, 3 fases: Definicion (planificacion estrategica, analisis y modelacion AS-IS/TO-BE), Implementacion (diseño BPM, automatizacion e integracion), Evaluacion (monitorizacion, optimizacion).\\nBPMS (Business Process Management System/Suite): la tecnologia que habilita BPM — modela, ejecuta, simula, monitorea (BAM+BI).\\nDigitalizacion (papel a pantalla, mismo proceso) / Automatizacion (flujos entre sistemas se ejecutan solos) / Transformacion digital (cambia el modelo de negocio mismo) — tres niveles crecientes.\\n4 niveles de madurez digital: Inicial (improvisado, sin sistema), Basico (registro digital aislado, sin flujo), Desarrollado (proceso en sistema, con visibilidad), Avanzado (el sistema anticipa/sugiere automaticamente).\\nEjemplo guia del curso: proceso de solicitud de compra, con hand-offs entre Solicitante, Area de Compras, Finanzas y Proveedor — se modela en BPMN en la Unidad II, se mejora en la Unidad III, se automatiza en la Unidad IV.\\nHand-off: punto donde la responsabilidad pasa de un rol a otro; ahi se pierde visibilidad, tiempo e informacion.\\nDueño de proceso (process owner): responsable del desempeño de un proceso de punta a punta.\\nFactores de exito de un proyecto BPM: enfoque incremental (no radical), patrocinio ejecutivo, involucramiento de actores clave, gestion del cambio — la resistencia al cambio, no la tecnologia, es la causa mas comun de fracaso.', curso: 'BPM para la Transformacion Digital de Procesos' })
+  }, AI_CHAT_TIMEOUT).then(function(res){
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    return res.json();
+  }).then(function(data){
+    if(!data || !filled((data.respuesta||data.response))) throw new Error('respuesta vacía');
+    return (data.respuesta||data.response);
+  });
+}
+function askTutor(q){
+  return askTutorAI(q).catch(function(){ return answerFor(q); });
+}
+
+var QA = [
+  { kw:['calific','nota','puntaje','rubrica','aprobar','minimo','aprobacion'], a:'La nota de calidad va de 0 a 100, entre los 4 pasos (30+20+25+25). Pero la APROBACIÓN de esta práctica no depende de esa nota: se aprueba por completar los 4 pasos en su totalidad. La nota es solo retroalimentación para que usted mismo vea qué reforzar.' },
+  { kw:['bpm', 'que es bpm'], a:'BPM (Business Process Management) es una metodología de gestión — no un software — que modela, automatiza, integra, monitorea y optimiza de forma continua los procesos de negocio, alineándolos con la estrategia de la organización.' },
+  { kw:['digitalizacion', 'automatizacion', 'transformacion digital', 'diferencia entre'], a:'Digitalización: reemplazar papel por pantalla, el proceso sigue siendo el mismo. Automatización: los flujos entre sistemas se ejecutan solos. Transformación digital: la tecnología cambia el modelo de negocio mismo. BPM es el puente entre los tres niveles.' },
+  { kw:['gestion por funciones', 'gestion por procesos', 'silos'], a:'La gestión por funciones es vertical: cada departamento optimiza su propia tarea. La gestión por procesos es horizontal: se optimiza el flujo completo que entrega valor al cliente, con un dueño de proceso responsable de punta a punta.' },
+  { kw:['ciclo de vida', 'fases', 'definicion', 'implementacion', 'evaluacion'], a:'El ciclo de vida BPM tiene 3 fases: Definición (planificación estratégica, análisis AS-IS/TO-BE), Implementación (diseño y automatización), y Evaluación (monitorización y optimización). La optimización cierra el ciclo y abre uno nuevo — BPM no es un proyecto con final, es permanente.' },
+  { kw:['madurez digital', 'nivel', 'etapas'], a:'Los 4 niveles de madurez digital son: Inicial (improvisado, sin sistema), Básico (registro digital aislado, sin flujo), Desarrollado (proceso en sistema con visibilidad) y Avanzado (el sistema anticipa o sugiere automáticamente). Para el Paso 4, ubique su proceso en el nivel que mejor describe su estado ACTUAL, no el ideal.' },
+  { kw:['hand-off', 'handoff', 'hand off', 'traspaso', 'transferencia'], a:'Un hand-off es el punto donde la responsabilidad de una actividad pasa de un rol o área a otra. Ahí es exactamente donde se pierde visibilidad, tiempo e información — es lo que debe identificar en el Paso 2.' },
+  { kw:['dueño de proceso', 'process owner', 'quien deberia'], a:'El dueño de proceso (process owner) es la persona responsable del desempeño de un proceso de punta a punta, sin importar cuántas áreas atraviesa. No reemplaza a los jefes de departamento — añade una responsabilidad horizontal sobre el flujo completo.' },
+  { kw:['bpr', 'reingenieria', 'hammer', 'champy'], a:'La Reingeniería de Procesos (BPR) fue un rediseño radical de procesos, popularizado en los años 90 por Hammer y Champy. BPM tomó esa visión de procesos de punta a punta, pero la hizo continua e incremental en vez de un rediseño único y traumático.' },
+  { kw:['bpmn'], a:'BPMN (Business Process Model and Notation) es la notación estándar para diagramar procesos — la estudiará a fondo en la Unidad II. Por ahora solo necesita saber que existe y que es el "alfabeto" con el que se dibujan los procesos.' },
+  { kw:['bpms'], a:'Un BPMS (Business Process Management Suite) es la plataforma tecnológica que habilita BPM: permite modelar, ejecutar, simular y monitorear procesos. No reemplaza la metodología, la habilita. Se profundiza en la Unidad IV.' },
+  { kw:['nota de voz', 'voz', 'grabar', 'hablar', 'microfono', 'micrófono'], a:'Al lado de cada pregunta hay un botón "🎤 Mantenga presionado para grabar". Manténgalo presionado mientras habla su respuesta, y suéltelo al terminar — el sistema la convierte en texto automáticamente, como una nota de voz de WhatsApp.' },
+  { kw:['paso 1'], a:'El Paso 1 pide seleccionar un proceso real de su organización y describir cómo funciona hoy (AS-IS): quiénes participan y en qué orden. Vale 30 puntos — es el criterio de mayor peso.' },
+  { kw:['paso 2'], a:'El Paso 2 pide identificar los hand-offs críticos de ese proceso: dónde se pierde visibilidad o se producen retrasos. Vale 20 puntos.' },
+  { kw:['paso 3'], a:'El Paso 3 pide proponer quién debería ser el dueño de proceso de punta a punta, y justificarlo. Vale 25 puntos.' },
+  { kw:['paso 4'], a:'El Paso 4 pide ubicar el proceso en uno de los 4 niveles de madurez digital, y justificarlo con la realidad actual del proceso, no con lo ideal. Vale 25 puntos.' },
+  { kw:['guardar', 'se guarda', 'perder mis respuestas', 'autoguardado'], a:'Sus respuestas se guardan automáticamente en este navegador (localStorage) mientras escribe. Si cambia de computadora o borra el caché, se perderán — por eso le recomiendo usar "⬇️ Descargar mis respuestas" cuando avance.' },
+  { kw:['ejemplo', 'que proceso elijo', 'cual proceso'], a:'Puede usar cualquier proceso real de su organización: en Compras, una solicitud de compra; en Ventas, una cotización; en Recursos Humanos, una contratación; en Finanzas, la aprobación de un gasto. Use el que usted conozca mejor de su propio trabajo.' },
+  { kw:['hola', 'ayuda', 'que puedes hacer', 'quien eres'], a:'Soy Nicole, la asistente virtual del Dr. Johan Tapia. Puedo explicarte conceptos de la Unidad I (BPM, gestión por procesos, hand-offs, dueño de proceso, niveles de madurez digital), orientarte sobre qué pide cada paso, o cómo funciona la calificación. Recuerda: se aprueba por completar la práctica, no por la nota.' }
+];
+function normQ(s){ return stripAccents(s); }
+function answerFor(q){
+  var nq = normQ(q);
+  var best = null, bestScore = 0;
+  QA.forEach(function(entry){
+    var score = 0;
+    entry.kw.forEach(function(k){ if(nq.indexOf(normQ(k)) !== -1) score++; });
+    if(score > bestScore){ bestScore = score; best = entry; }
+  });
+  if(best) return best.a;
+  return 'No tengo una respuesta preparada para eso. Prueba preguntar por un concepto (digitalización, transformación digital, Agenda Digital 2030, IA Generativa, ética), por un paso específico ("¿qué pide el paso 3?") o por la calificación. Para dudas sobre su institución específica, consulte a su facilitador.';
+}
+advisorForm.addEventListener('submit', function(e){
+  e.preventDefault();
+  var q = norm(advisorInput.value);
+  if(!q) return;
+  addMsg(q, 'user');
+  advisorInput.value = '';
+  var typingEl = addTyping();
+  askTutor(q).then(function(answer){
+    typingEl.remove();
+    addMsg(answer, 'bot');
+  });
+});
+document.querySelectorAll('.advisor-suggest button').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var q = btn.getAttribute('data-q');
+    openAdvisor();
+    addMsg(q, 'user');
+    var typingEl = addTyping();
+    askTutor(q).then(function(answer){
+      typingEl.remove();
+      addMsg(answer, 'bot');
+    });
+  });
+});
+
+wireVoiceButtons();
+
+/* ===== EFECTOS DINAMICOS ===== */
+var prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* Fondo animado tipo "red" en la portada -- nodos conectados por lineas que
+   derivan lentamente. Opacidad baja para no interferir con el texto. */
+function iniciarRedPortada(){
+  var canvas = document.getElementById('cover-canvas');
+  var cover = document.getElementById('portada');
+  if(!canvas || !cover || prefersReducedMotion) return;
+  var ctx = canvas.getContext('2d');
+  var ancho, alto, nodos = [];
+  var NUM_NODOS = 42, DIST_MAX = 130;
+
+  function redimensionar(){
+    ancho = canvas.width = cover.offsetWidth;
+    alto = canvas.height = cover.offsetHeight;
+  }
+  function crearNodos(){
+    nodos = [];
+    for(var i = 0; i < NUM_NODOS; i++){
+      nodos.push({
+        x: Math.random() * ancho, y: Math.random() * alto,
+        vx: (Math.random() - 0.5) * 0.35, vy: (Math.random() - 0.5) * 0.35
+      });
+    }
+  }
+  function paso(){
+    ctx.clearRect(0, 0, ancho, alto);
+    for(var i = 0; i < nodos.length; i++){
+      var n = nodos[i];
+      n.x += n.vx; n.y += n.vy;
+      if(n.x < 0 || n.x > ancho) n.vx *= -1;
+      if(n.y < 0 || n.y > alto) n.vy *= -1;
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, 1.8, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(255,255,255,.85)';
+      ctx.fill();
+      for(var j = i + 1; j < nodos.length; j++){
+        var m = nodos[j];
+        var dx = n.x - m.x, dy = n.y - m.y;
+        var dist = Math.sqrt(dx * dx + dy * dy);
+        if(dist < DIST_MAX){
+          ctx.beginPath();
+          ctx.moveTo(n.x, n.y); ctx.lineTo(m.x, m.y);
+          ctx.strokeStyle = 'rgba(201,152,47,' + ((1 - dist / DIST_MAX) * .5) + ')';
+          ctx.lineWidth = 1;
+          ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(paso);
+  }
+  redimensionar();
+  crearNodos();
+  requestAnimationFrame(paso);
+  window.addEventListener('resize', function(){ redimensionar(); crearNodos(); });
+}
+iniciarRedPortada();
+
+/* Revelado progresivo de las tarjetas al hacer scroll. */
+function iniciarRevelado(){
+  var tarjetas = document.querySelectorAll('.main > .card');
+  if(!tarjetas.length) return;
+  if(prefersReducedMotion || !('IntersectionObserver' in window)) return;
+  tarjetas.forEach(function(el){ el.classList.add('reveal-init'); });
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        entry.target.classList.add('revealed');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: .12, rootMargin: '0px 0px -40px 0px' });
+  tarjetas.forEach(function(el){ obs.observe(el); });
+}
+iniciarRevelado();
+
+/* Efecto de onda (ripple) al presionar botones. */
+function iniciarRipple(){
+  document.addEventListener('click', function(e){
+    var btn = e.target.closest && e.target.closest('.btn-primary, .btn-secondary, .btn-block');
+    if(!btn) return;
+    var rect = btn.getBoundingClientRect();
+    var tam = Math.max(rect.width, rect.height) * 1.4;
+    var onda = document.createElement('span');
+    onda.className = 'js-ripple';
+    onda.style.width = onda.style.height = tam + 'px';
+    onda.style.left = (e.clientX - rect.left - tam / 2) + 'px';
+    onda.style.top = (e.clientY - rect.top - tam / 2) + 'px';
+    btn.appendChild(onda);
+    setTimeout(function(){ onda.remove(); }, 650);
+  });
+}
+iniciarRipple();
+
+/* Cuenta animada del puntaje final (0 -> total) en vez de aparecer de golpe. */
+function animarNumero(el, hasta, duracionMs){
+  if(prefersReducedMotion){ el.textContent = hasta; return; }
+  var inicio = performance.now();
+  function paso(ahora){
+    var t = Math.min(1, (ahora - inicio) / duracionMs);
+    var suavizado = 1 - Math.pow(1 - t, 3); // easeOutCubic
+    el.textContent = Math.round(hasta * suavizado);
+    if(t < 1) requestAnimationFrame(paso);
+  }
+  requestAnimationFrame(paso);
+}
+
+/* Confeti al aprobar la practica -- canvas propio, sin libreria externa. */
+function fireConfetti(){
+  if(prefersReducedMotion) return;
+  var canvas = document.createElement('canvas');
+  canvas.id = 'confetti-canvas';
+  canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+  document.body.appendChild(canvas);
+  var ctx = canvas.getContext('2d');
+  var colores = ['#003877', '#c9982f', '#16a34a', '#eff6ff', '#5b9bd8'];
+  var piezas = [];
+  for(var i = 0; i < 140; i++){
+    piezas.push({
+      x: Math.random() * canvas.width, y: -20 - Math.random() * canvas.height * .5,
+      w: 6 + Math.random() * 6, h: 8 + Math.random() * 8,
+      vx: (Math.random() - 0.5) * 3, vy: 2 + Math.random() * 3,
+      rot: Math.random() * 360, vrot: (Math.random() - 0.5) * 12,
+      color: colores[Math.floor(Math.random() * colores.length)]
+    });
+  }
+  var inicio = performance.now();
+  function paso(ahora){
+    var t = ahora - inicio;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    var vivas = false;
+    piezas.forEach(function(p){
+      if(p.y > canvas.height + 30) return;
+      vivas = true;
+      p.x += p.vx; p.y += p.vy; p.vy += 0.03; p.rot += p.vrot;
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rot * Math.PI / 180);
+      ctx.fillStyle = p.color;
+      ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+      ctx.restore();
+    });
+    if(vivas && t < 6000){
+      requestAnimationFrame(paso);
+    } else {
+      canvas.remove();
+    }
+  }
+  requestAnimationFrame(paso);
+}
+
+})();
+</script>
+</body>
+</html>

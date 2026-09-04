@@ -1060,5 +1060,31 @@
         ]
       }
     ]
+  },
+  {
+    "nombre": "BPM para la Transformación Digital de Procesos",
+    "icono": "⚙️",
+    "cursos": [
+      {
+        "nombre": "BPM para la Transformación Digital de Procesos",
+        "icono": "⚙️",
+        "tipoClase": "secuencial",
+        "tipoLabel": "Curso secuencial · 4 unidades + proyecto",
+        "esSecuencial": true,
+        "cursoId": "bpm-transformacion-digital",
+        "practicas": [
+          {
+            "badge": "Unidad I",
+            "unidad": "u1",
+            "titulo": "Fundamentos de BPM y Transformación Digital",
+            "desc": "Diagnóstico AS-IS de un proceso real de su organización: descripción del funcionamiento actual, hand-offs críticos, propuesta de dueño de proceso y nivel de madurez digital. Individual o en equipo.",
+            "duracion": "4 pasos · aproximadamente 1 hora, individual o en equipo",
+            "puntos": "100 pts (retroalimentación)",
+            "aprobacion": "Completar los 4 pasos",
+            "url": "https://johantbueno.github.io/practicas-web/bpm-transformacion-digital-u1/"
+          }
+        ]
+      }
+    ]
   }
 ]
