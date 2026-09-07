@@ -87,6 +87,7 @@ footer{text-align:center; color:var(--muted); font-size:.78rem; padding:1.5rem 1
 "use strict";
 var PREGUNTAS = [{"id": "p1", "tipo": "nube", "texto": "En una palabra: ¿qué es para su equipo la Transformación Digital?"}, {"id": "p2", "tipo": "mc", "texto": "¿Cuál de estos conceptos es el MÁS amplio y profundo?", "opciones": ["Transformación digital", "Digitalización", "Informatización", "Automatización"]}, {"id": "p3", "tipo": "mc", "texto": "¿Qué institución es el ente rector de las TIC en el Poder Ejecutivo dominicano?", "opciones": ["OGTIC", "INDOTEL", "MAP", "DIGEIG"]}, {"id": "p4", "tipo": "nube", "texto": "Mencionen una herramienta de IA generativa que su equipo use o conozca"}, {"id": "p5", "tipo": "mc", "texto": "¿Qué es una \"alucinación\" en un modelo de IA generativa?", "opciones": ["Generar información falsa con apariencia de veracidad", "Procesar imágenes de forma autónoma", "Un error del servidor por sobrecarga", "Un proceso de entrenamiento del modelo"]}, {"id": "p6", "tipo": "escala", "texto": "Del 1 al 5, ¿qué tan preparada está su institución para el Gobierno Inteligente?", "opciones": ["1 · Apenas iniciando", "2", "3", "4", "5 · Muy avanzada"]}, {"id": "p7", "tipo": "mc", "texto": "¿Cuál es la secuencia histórica correcta de evolución tecnológica del Estado?", "opciones": ["Informatización → Digitalización → Gob. electrónico → Gob. digital → Gob. inteligente", "Digitalización → Informatización → Gob. digital → Gob. electrónico → Gob. inteligente", "Gob. electrónico → Informatización → Digitalización → Gob. digital → Gob. inteligente", "Informatización → Gob. electrónico → Digitalización → Gob. inteligente → Gob. digital"]}, {"id": "p8", "tipo": "nube", "texto": "Para cerrar: en una palabra, ¿qué necesita su institución para avanzar en transformación digital?"}];
 var CURSO = 'transformacion-digital';
+var SESION_FIJA = 't1';
 var BASE = 'https://n8n-inap.167.88.36.13.sslip.io/webhook';
 var params = new URLSearchParams(location.search);
 var esPresentador = params.get('presentador') === '1';
@@ -112,30 +113,14 @@ function fetchJSON(url, body){
    VISTA FACILITADOR / PANTALLA
    ============================================================ */
 function renderPresentador(){
-  var sesion = localStorage.getItem('tp_menti_sesion') || '';
-  if(!sesion){
-    app.innerHTML =
-      '<div class="hero"><p class="eyebrow">Panel del facilitador</p><h1>Iniciar sesión en vivo</h1>' +
-      '<p>Elija un código corto para esta sesión (ej. el nombre del grupo). Los equipos deberán escribir el mismo código.</p></div>' +
-      '<div class="card"><div class="field"><label for="cod-sesion">Código de la sesión</label>' +
-      '<input type="text" id="cod-sesion" placeholder="Ej: PROPEPP-A" autocomplete="off"></div>' +
-      '<button class="btn-primary" id="btn-crear-sesion">Iniciar sesión</button></div>';
-    document.getElementById('btn-crear-sesion').addEventListener('click', function(){
-      var v = document.getElementById('cod-sesion').value.trim();
-      if(!v){ alert('Escriba un código para la sesión.'); return; }
-      localStorage.setItem('tp_menti_sesion', v);
-      renderPresentador();
-    });
-    return;
-  }
-
+  var sesion = SESION_FIJA;
   var idx = 0, revelado = false, resultadosTimer = null;
 
   function shell(){
     app.innerHTML =
-      '<div class="hero"><p class="eyebrow">Pantalla del facilitador · Sesión: ' + esc(sesion) + '</p>' +
+      '<div class="hero"><p class="eyebrow">Pantalla del facilitador</p>' +
       '<h1 id="pres-titulo">Tema 1 — Transformación Digital e IA</h1>' +
-      '<p>Proyecte esta pantalla. Los equipos responden desde sus celulares con el código <strong>' + esc(sesion) + '</strong>.</p></div>' +
+      '<p>Proyecte esta pantalla. Los equipos responden libremente desde sus celulares, sin necesidad de ningún código.</p></div>' +
       '<div class="card">' +
         '<span class="q-badge" id="pres-badge">Pregunta 1 / ' + PREGUNTAS.length + '</span>' +
         '<p class="q-text" id="pres-qtext"></p>' +
@@ -146,18 +131,11 @@ function renderPresentador(){
         '<button class="btn-secondary" id="btn-prev">◀ Anterior</button>' +
         '<button class="btn-secondary" id="btn-revelar">👁️ Revelar a los equipos</button>' +
         '<button class="btn-secondary" id="btn-next">Siguiente ▶</button>' +
-      '</div>' +
-      '<div class="nav-row"><button class="btn-secondary" id="btn-cambiar-sesion">Cambiar código de sesión</button></div>';
+      '</div>';
 
     document.getElementById('btn-prev').addEventListener('click', function(){ irA(Math.max(0, idx - 1)); });
     document.getElementById('btn-next').addEventListener('click', function(){ irA(Math.min(PREGUNTAS.length - 1, idx + 1)); });
     document.getElementById('btn-revelar').addEventListener('click', function(){ revelado = !revelado; avanzar(); });
-    document.getElementById('btn-cambiar-sesion').addEventListener('click', function(){
-      if(confirm('Esto inicia una sesión nueva (código distinto). ¿Continuar?')){
-        localStorage.removeItem('tp_menti_sesion');
-        renderPresentador();
-      }
-    });
     pintarPregunta();
     cargarResultados();
     if(resultadosTimer) clearInterval(resultadosTimer);
@@ -197,22 +175,19 @@ function renderPresentador(){
    VISTA EQUIPO
    ============================================================ */
 function renderEquipo(){
-  var sesion = localStorage.getItem('tp_menti_sesion_equipo') || '';
+  var sesion = SESION_FIJA;
   var equipo = localStorage.getItem('tp_menti_equipo') || '';
-  if(!sesion || !equipo){
+  if(!equipo){
     app.innerHTML =
       '<div class="hero"><p class="eyebrow">Actividad en vivo · Tema 1</p><h1>Únanse como equipo</h1>' +
-      '<p>Trabajo en equipo. Escriban el código de sesión que les dio el facilitador y el nombre de su equipo.</p></div>' +
+      '<p>Trabajo en equipo. Entren libremente, sin código: solo escriban el nombre de su equipo.</p></div>' +
       '<div class="card">' +
-        '<div class="field"><label for="in-sesion">Código de sesión</label><input type="text" id="in-sesion" placeholder="Ej: PROPEPP-A" autocomplete="off"></div>' +
         '<div class="field"><label for="in-equipo">Nombre del equipo</label><input type="text" id="in-equipo" placeholder="Ej: Equipo Innovación" autocomplete="off"></div>' +
-        '<button class="btn-primary" id="btn-unirse">Unirse a la sesión</button>' +
+        '<button class="btn-primary" id="btn-unirse">Unirse a la actividad</button>' +
       '</div>';
     document.getElementById('btn-unirse').addEventListener('click', function(){
-      var s = document.getElementById('in-sesion').value.trim();
       var e = document.getElementById('in-equipo').value.trim();
-      if(!s || !e){ alert('Complete el código de sesión y el nombre del equipo.'); return; }
-      localStorage.setItem('tp_menti_sesion_equipo', s);
+      if(!e){ alert('Escriban el nombre de su equipo.'); return; }
       localStorage.setItem('tp_menti_equipo', e);
       renderEquipo();
     });
@@ -228,14 +203,13 @@ function renderEquipo(){
 
   function shell(){
     app.innerHTML =
-      '<div class="hero"><p class="eyebrow">Sesión ' + esc(sesion) + ' · Equipo ' + esc(equipo) + '</p>' +
+      '<div class="hero"><p class="eyebrow">Equipo ' + esc(equipo) + '</p>' +
       '<h1>Tema 1 — Transformación Digital e IA</h1>' +
       '<p>Respondan cuando el facilitador muestre la pregunta en la pantalla.</p></div>' +
       '<div class="top-actions"><button class="icon-btn" id="btn-salir" title="Cambiar de equipo">🚪</button></div>' +
       '<div id="q-area" class="card"><div class="wait-box"><div class="big">⏳</div>Esperando al facilitador…</div></div>';
     document.getElementById('btn-salir').addEventListener('click', function(){
-      if(confirm('¿Cambiar de equipo o de sesión?')){
-        localStorage.removeItem('tp_menti_sesion_equipo');
+      if(confirm('¿Cambiar de equipo?')){
         localStorage.removeItem('tp_menti_equipo');
         renderEquipo();
       }
