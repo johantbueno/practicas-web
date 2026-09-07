@@ -527,6 +527,16 @@
             "puntos": "100 pts (retroalimentación)",
             "aprobacion": "Completar los 6 pasos",
             "url": "https://johantbueno.github.io/practicas-web/transformacion-digital-u7/"
+          },
+          {
+            "badge": "Presencial",
+            "unidad": "presencial",
+            "titulo": "Prácticas Presenciales por Institución",
+            "desc": "Las 8 prácticas presenciales del curso (matrices para completar en pantalla, casos prácticos y marco normativo), con un selector de institución: cada institución donde se dicta el curso ve sus propios ejemplos y casos adaptados a su realidad (por ahora INAVI — Instituto Nacional de Auxilios y Viviendas; se irán agregando más instituciones). Se completa individual o en equipo, en 2 horas por unidad, en modalidad presencial. Aprueba por completarla, no por la nota.",
+            "duracion": "8 unidades · 2 horas cada una, individual o en equipo",
+            "puntos": "Retroalimentación del facilitador",
+            "aprobacion": "Completar las matrices de cada unidad",
+            "url": "https://johantbueno.github.io/practicas-web/transformacion-digital-presencial/"
           }
         ]
       },
