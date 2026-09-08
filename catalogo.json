@@ -941,7 +941,7 @@
         "nombre": "Big Data y Análisis de Datos",
         "icono": "🗄️",
         "tipoClase": "taller",
-        "tipoLabel": "1 unidad · orden libre",
+        "tipoLabel": "2 unidades · orden libre",
         "cursoId": "big-data-analisis-ci",
         "practicas": [
           {
@@ -953,6 +953,16 @@
             "puntos": "100 pts (retroalimentación)",
             "aprobacion": "Completar los 5 pasos",
             "url": "https://johantbueno.github.io/practicas-web/big-data-analisis-ci-u1/"
+          },
+          {
+            "badge": "Unidad II",
+            "unidad": "u2",
+            "titulo": "Gestión y Procesamiento de Datos",
+            "desc": "Compare bases de datos relacionales (SQL) y NoSQL clasificando casos reales, comprenda Hadoop/HDFS y Apache Spark, identifique cómo se integran datos de APIs, IoT y redes sociales, y reconozca las medidas de seguridad y gobernanza de datos. Individual o en equipo.",
+            "duracion": "5 pasos · aproximadamente 45 minutos, individual o en equipo",
+            "puntos": "100 pts (retroalimentación)",
+            "aprobacion": "Completar los 5 pasos",
+            "url": "https://johantbueno.github.io/practicas-web/big-data-analisis-ci-u2/"
           }
         ]
       }
