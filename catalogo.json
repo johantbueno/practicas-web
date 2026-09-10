@@ -906,6 +906,16 @@
             "url": "https://johantbueno.github.io/practicas-web/formulacion-proyectos-u2/"
           },
           {
+            "badge": "Unidad II-B",
+            "unidad": "u2b",
+            "titulo": "Diseño de Proyectos mediante Marco Lógico: Caso Práctico",
+            "desc": "Aplique el árbol de problemas, el árbol de objetivos y la Matriz de Marco Lógico a un caso práctico ya planteado (un trámite municipal), con preguntas de emparejar, verdadero/falso y opción múltiple, más una reflexión final. Complementa la Unidad II. Individual o en equipo.",
+            "duracion": "12 preguntas: emparejar + opción múltiple + verdadero/falso + desarrollo · aproximadamente 35-40 minutos, individual o en equipo",
+            "puntos": "100 pts",
+            "aprobacion": "70% mínimo (puede reintentar)",
+            "url": "https://johantbueno.github.io/practicas-web/formulacion-proyectos-u2b/"
+          },
+          {
             "badge": "Unidad III",
             "unidad": "u3",
             "titulo": "Planificación, Presupuesto y Gestión de Riesgos",
