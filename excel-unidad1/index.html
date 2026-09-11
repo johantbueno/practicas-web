@@ -170,6 +170,14 @@ textarea.tall{min-height:150px;}
 @media (max-width:640px){ .field-grid{grid-template-columns:1fr;} }
 
 .step-points{float:right; background:var(--gold); color:#ffffff; font-weight:800; font-size:.72rem; padding:.25rem .6rem; border-radius:999px;}
+.step-progress{display:inline-block; color:var(--muted); font-weight:700; font-size:.72rem; text-transform:uppercase; letter-spacing:.03em; margin-left:.6rem;}
+
+/* CONTENIDO ENRIQUECIDO DE CADA EJERCICIO (objetivo, contexto, pista) */
+.ej-objetivo{font-weight:700; color:var(--primary); margin:0 0 .9rem; font-size:.98rem;}
+.ej-objetivo span{color:var(--navy); text-transform:uppercase; font-size:.72rem; letter-spacing:.03em; display:block; margin-bottom:.15rem; font-weight:800;}
+.ej-contexto{background:var(--bg-body); border-left:3px solid var(--gold); padding:.75rem 1.1rem; border-radius:0 var(--radius-sm) var(--radius-sm) 0; font-size:.88rem; color:var(--secondary); margin:0 0 1.1rem;}
+.hint-box{border:1px dashed var(--border-dark); border-radius:var(--radius-md); padding:.85rem 1.1rem; margin:1.1rem 0; font-size:.85rem; background:var(--bg-body); color:var(--secondary);}
+.hint-box strong{color:var(--navy);}
 
 /* VISTA PREVIA EMBEBIDA DEL EXCEL (solo lectura) */
 .preview-head{display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:.6rem; margin-bottom:.5rem; font-size:.85rem; font-weight:700; color:var(--navy);}
@@ -468,6 +476,15 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
         </div>
         <p style="font-size:.85rem; color:var(--muted); margin-top:.5rem;">¿No ve nada en el recuadro de arriba? Presione <strong>"🔄 Generar una copia nueva"</strong> más arriba — esto crea un enlace nuevo y soluciona el problema en la mayoría de los casos.</p>
       </div>
+
+      <div class="alert info" style="margin-top:1.25rem;">
+        <strong>📥 ¿Sin buena conexión a internet?</strong> Descargue la plantilla en blanco y resuelva los 5 ejercicios en su propio Excel o LibreOffice, sin depender de OneDrive.
+        <div class="btn-row" style="margin-top:.8rem;">
+          <a class="btn-secondary" href="plantilla-offline.xlsx" download="Practica_Excel_Unidad1_INFOTEP.xlsx">📥 Descargar plantilla en blanco (sin internet)</a>
+        </div>
+        <p style="font-size:.82rem; color:var(--muted); margin:.7rem 0 0;">⚠️ Importante: la calificación automática solo lee la copia que se genera arriba con el botón "Generar mi copia de Excel". Si resuelve los ejercicios en esta plantilla descargada, copie sus respuestas a esa copia antes de presionar "Enviar y Calificar".</p>
+      </div>
+
       <h2>Instrucciones generales</h2>
       <ol class="ins-list">
         <li>Revise el <strong>material de estudio de la Unidad I</strong> antes de resolver los ejercicios, si todavía no lo ha hecho.</li>
@@ -506,8 +523,10 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
 
     <!-- ============ PASO 1 ============ -->
     <section id="ej1" class="card">
-      <span class="step-badge">Ejercicio 1 · Vale 14 pts (del Excel)</span>
+      <span class="step-badge">Ejercicio 1 · Vale 14 pts (del Excel)<span class="step-progress">Ejercicio 1 de 5</span></span>
       <h1 style="font-size:1.3rem;">Listado de participantes juegos corporativos</h1>
+      <p class="ej-objetivo"><span>🎯 Objetivo</span>Aplicar una tabla dinámica para resumir datos de un grupo grande sin contar nada a mano.</p>
+      <p class="ej-contexto">💼 <strong>Por qué importa:</strong> en una empresa con cientos de empleados, un coordinador de bienestar necesita saber cuántas personas juegan cada deporte por departamento. A mano tomaría horas revisando fila por fila; con una tabla dinámica, toma segundos.</p>
       <div class="alert info"><strong>Instrucciones (también están dentro de su Excel, en la hoja "Guía paso a paso"):</strong></div>
       <ol class="ins-list">
         <li><strong>Identificar columnas:</strong> Nombre, Apellidos, Departamento, Edad, Deporte, Sexo, Cuota nominal de fondo, Fecha ingreso.</li>
@@ -515,19 +534,22 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
         <li><strong>Ordenar datos:</strong> Usar filtros en Excel para organizar por edad, cuota o fecha de ingreso.</li>
         <li><strong>Generar resumen:</strong> Crear una <strong>tabla dinámica</strong> que muestre cuántos participan por deporte y departamento.</li>
       </ol>
-      <div class="alert gold">Este ejercicio se califica revisando si existe al menos una tabla dinámica en la hoja.</div>
+      <div class="hint-box">💡 <strong>¿Se atascó?</strong> Ubique el cursor dentro del rango de datos antes de ir a Insertar → Tabla dinámica, y arrastre "Deporte" y "Departamento" a las áreas correctas del panel de campos (Filas/Valores).</div>
+      <div class="alert gold">✅ <strong>Cómo se califica:</strong> se revisa si existe al menos una tabla dinámica en la hoja. Tenerla demuestra que puede resumir datos de un grupo sin contarlos manualmente — una habilidad que ahorra horas en cualquier oficina.</div>
       <div class="video-tutorial">
         <div class="video-tutorial-head">🎥 Video tutorial paso a paso (con narración)</div>
         <video controls preload="metadata" playsinline><source src="videos/ejercicio1-tutorial.mp4" type="video/mp4"></video>
       </div>
       <div class="btn-row">
-        <a class="btn-secondary" id="link-abrir-excel-ej1" href="#" target="_blank" rel="noopener">📊 Abrir mi copia de Excel ↗</a>
+        <a class="btn-secondary" id="link-abrir-excel-ej1" href="#" target="_blank" rel="noopener">🚀 Empezar Ejercicio 1 ↗</a>
       </div>
     </section>
 
     <section id="ej2" class="card">
-      <span class="step-badge">Ejercicio 2 · Vale 14 pts (del Excel)</span>
+      <span class="step-badge">Ejercicio 2 · Vale 14 pts (del Excel)<span class="step-progress">Ejercicio 2 de 5</span></span>
       <h1 style="font-size:1.3rem;">Horario semanal</h1>
+      <p class="ej-objetivo"><span>🎯 Objetivo</span>Organizar bloques de tiempo en una cuadrícula, respetando una restricción fija (el recreo).</p>
+      <p class="ej-contexto">💼 <strong>Por qué importa:</strong> todo coordinador académico o de proyectos arma horarios así: bloques fijos, un descanso obligatorio y actividades que nunca deben solaparse. Es la misma lógica detrás de cualquier calendario de clases o de turnos de trabajo.</p>
       <div class="alert info"><strong>Instrucciones (también están dentro de su Excel, en la hoja "Guía paso a paso"):</strong></div>
       <ol class="ins-list">
         <li><strong>Revisar columnas:</strong> Días (lunes a viernes) y horas (8:00 am a 1:00 pm con recreo).</li>
@@ -535,19 +557,22 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
         <li><strong>Respetar recreo:</strong> Dejar el espacio de 10:30 a 11:00 am libre.</li>
         <li><strong>Verificar balance:</strong> Asegurarse de que cada día tenga actividades distribuidas.</li>
       </ol>
-      <div class="alert gold">Este ejercicio se califica revisando cuántos bloques de horario completó y que el recreo quede respetado.</div>
+      <div class="hint-box">💡 <strong>¿Se atascó?</strong> Escriba el nombre de la actividad directamente en la celda donde cruzan el día y la hora — es texto simple, no hace falta ninguna fórmula. Deje el bloque de 10:30–11:00 vacío o escriba "RECREO".</div>
+      <div class="alert gold">✅ <strong>Cómo se califica:</strong> se revisa cuántos bloques de horario completó y que el recreo quede respetado. Un horario bien distribuido evita choques de actividades, igual que en cualquier agenda de oficina.</div>
       <div class="video-tutorial">
         <div class="video-tutorial-head">🎥 Video tutorial paso a paso (con narración)</div>
         <video controls preload="metadata" playsinline><source src="videos/ejercicio2-tutorial.mp4" type="video/mp4"></video>
       </div>
       <div class="btn-row">
-        <a class="btn-secondary" id="link-abrir-excel-ej2" href="#" target="_blank" rel="noopener">📊 Abrir mi copia de Excel ↗</a>
+        <a class="btn-secondary" id="link-abrir-excel-ej2" href="#" target="_blank" rel="noopener">🚀 Empezar Ejercicio 2 ↗</a>
       </div>
     </section>
 
     <section id="ej3" class="card">
-      <span class="step-badge">Ejercicio 3 · Vale 14 pts (del Excel)</span>
+      <span class="step-badge">Ejercicio 3 · Vale 14 pts (del Excel)<span class="step-progress">Ejercicio 3 de 5</span></span>
       <h1 style="font-size:1.3rem;">Notas de Informática</h1>
+      <p class="ej-objetivo"><span>🎯 Objetivo</span>Calcular totales y promedios automáticos con fórmulas, en vez de sumar a mano.</p>
+      <p class="ej-contexto">💼 <strong>Por qué importa:</strong> un facilitador con 30 estudiantes necesita el promedio de cada uno al instante. <code>=SUMA()</code> y <code>=PROMEDIO()</code> son las dos fórmulas que más va a usar en su vida en Excel, para cualquier tipo de reporte de rendimiento.</p>
       <div class="alert info"><strong>Instrucciones (también están dentro de su Excel, en la hoja "Guía paso a paso"):</strong></div>
       <ol class="ins-list">
         <li><strong>Identificar columnas:</strong> Nombre, mod.1 a mod.5, total y promedio.</li>
@@ -555,39 +580,45 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
         <li><strong>Calcular promedio:</strong> Dividir el total entre el número de módulos. Fórmula: <code>=PROMEDIO(B2:F2)</code></li>
         <li><strong>Completar tabla:</strong> Insertar los resultados en las columnas de total y promedio.</li>
       </ol>
-      <div class="alert gold">Este ejercicio se califica comparando el total y el promedio de cada fila contra el resultado correcto.</div>
+      <div class="hint-box">💡 <strong>¿Se atascó?</strong> Si la fórmula da error o el resultado se ve raro, revise que las celdas de notas (mod.1 a mod.5) tengan números, no texto — Excel no puede sumar palabras.</div>
+      <div class="alert gold">✅ <strong>Cómo se califica:</strong> se compara el total y el promedio de cada fila contra el resultado correcto. Si su promedio no coincide, casi siempre falta un número o hay texto donde debería haber una nota.</div>
       <div class="video-tutorial">
         <div class="video-tutorial-head">🎥 Video tutorial paso a paso (con narración)</div>
         <video controls preload="metadata" playsinline><source src="videos/ejercicio3-tutorial.mp4" type="video/mp4"></video>
       </div>
       <div class="btn-row">
-        <a class="btn-secondary" id="link-abrir-excel-ej3" href="#" target="_blank" rel="noopener">📊 Abrir mi copia de Excel ↗</a>
+        <a class="btn-secondary" id="link-abrir-excel-ej3" href="#" target="_blank" rel="noopener">🚀 Empezar Ejercicio 3 ↗</a>
       </div>
     </section>
 
     <section id="ej4" class="card">
-      <span class="step-badge">Ejercicio 4 · Vale 14 pts (del Excel)</span>
+      <span class="step-badge">Ejercicio 4 · Vale 14 pts (del Excel)<span class="step-progress">Ejercicio 4 de 5</span></span>
       <h1 style="font-size:1.3rem;">Lista de clientes potenciales de ATOM</h1>
+      <p class="ej-objetivo"><span>🎯 Objetivo</span>Calcular el valor potencial promedio de cada cliente para decidir a quién dar seguimiento primero.</p>
+      <p class="ej-contexto">💼 <strong>Por qué importa:</strong> en cualquier equipo de ventas, no todos los clientes potenciales valen lo mismo. Calcular el promedio de valor por trimestre es justo lo que un gerente comercial mira primero para enfocar el esfuerzo del equipo.</p>
       <div class="alert info"><strong>Instrucciones (también están dentro de su Excel, en la hoja "Guía paso a paso"):</strong></div>
       <ol class="ins-list">
-        <li><strong>Identificar columnas:</strong> Nombres, Apellidos, Matrícula, Materia, Periodos.</li>
-        <li><strong>Completar periodos:</strong> Ingresar calificaciones o valores en cada periodo.</li>
-        <li><strong>Calcular promedio:</strong> Usar fórmula <code>=PROMEDIO(E2:H2)</code> para obtener el promedio de cada estudiante.</li>
-        <li><strong>Organizar resultados:</strong> Ordenar por materia o matrícula según sea necesario.</li>
+        <li><strong>Identificar columnas:</strong> Nombres, Apellidos, Empresa, Producto de interés y el valor potencial por trimestre (Trim. 1 a Trim. 4).</li>
+        <li><strong>Completar valores:</strong> Ingresar el valor potencial, en pesos (RD$), que representa cada cliente en cada trimestre.</li>
+        <li><strong>Calcular promedio:</strong> Usar fórmula <code>=PROMEDIO(F5:I5)</code> para obtener el valor potencial promedio de cada cliente.</li>
+        <li><strong>Priorizar seguimiento:</strong> Ordenar por la columna Promedio para decidir a qué clientes contactar primero.</li>
       </ol>
-      <div class="alert gold">Este ejercicio se califica comparando el promedio calculado de cada fila contra el resultado correcto.</div>
+      <div class="hint-box">💡 <strong>¿Se atascó?</strong> La fórmula va en la columna Promedio (J), no en las columnas de valores (F a I). Revise que no queden celdas vacías entre los 4 trimestres de un mismo cliente antes de calcular.</div>
+      <div class="alert gold">✅ <strong>Cómo se califica:</strong> se compara el promedio calculado de cada fila contra el resultado correcto. Un promedio bien calculado es exactamente lo que decide, en la vida real, a qué cliente llama primero un equipo de ventas.</div>
       <div class="video-tutorial">
         <div class="video-tutorial-head">🎥 Video tutorial paso a paso (con narración)</div>
         <video controls preload="metadata" playsinline><source src="videos/ejercicio4-tutorial.mp4" type="video/mp4"></video>
       </div>
       <div class="btn-row">
-        <a class="btn-secondary" id="link-abrir-excel-ej4" href="#" target="_blank" rel="noopener">📊 Abrir mi copia de Excel ↗</a>
+        <a class="btn-secondary" id="link-abrir-excel-ej4" href="#" target="_blank" rel="noopener">🚀 Empezar Ejercicio 4 ↗</a>
       </div>
     </section>
 
     <section id="ej5" class="card">
-      <span class="step-badge">Ejercicio 5 · Vale 14 pts (del Excel)</span>
+      <span class="step-badge">Ejercicio 5 · Vale 14 pts (del Excel)<span class="step-progress">Ejercicio 5 de 5</span></span>
       <h1 style="font-size:1.3rem;">Listado de empleados del departamento de ventas</h1>
+      <p class="ej-objetivo"><span>🎯 Objetivo</span>Limpiar una lista de datos: eliminar registros repetidos y ordenarlos alfabéticamente.</p>
+      <p class="ej-contexto">💼 <strong>Por qué importa:</strong> las bases de datos reales casi siempre llegan con nombres duplicados por errores de captura. Limpiarlas antes de usarlas es un paso que se repite en casi cualquier reporte de Recursos Humanos.</p>
       <div class="alert info"><strong>Instrucciones (también están dentro de su Excel, en la hoja "Guía paso a paso"):</strong></div>
       <ol class="ins-list">
         <li><strong>Revisar lista de nombres:</strong> Identificar empleados.</li>
@@ -595,13 +626,14 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
         <li><strong>Ordenar alfabéticamente:</strong> Aplicar orden A-Z para organizar la lista.</li>
         <li><strong>Generar tabla:</strong> Crear una tabla con columnas de nombre, apellido y departamento.</li>
       </ol>
-      <div class="alert gold">Este ejercicio se califica revisando que no queden nombres duplicados y que la lista esté en orden alfabético.</div>
+      <div class="hint-box">💡 <strong>¿Se atascó?</strong> Seleccione toda la tabla (todas las columnas) antes de usar "Quitar duplicados", en la pestaña Datos. Si selecciona solo una columna, puede desordenar el resto de la fila.</div>
+      <div class="alert gold">✅ <strong>Cómo se califica:</strong> se revisa que no queden nombres duplicados y que la lista esté en orden alfabético. Es exactamente lo que hace un asistente de RRHH antes de generar una nómina o un listado oficial.</div>
       <div class="video-tutorial">
         <div class="video-tutorial-head">🎥 Video tutorial paso a paso (con narración)</div>
         <video controls preload="metadata" playsinline><source src="videos/ejercicio5-tutorial.mp4" type="video/mp4"></video>
       </div>
       <div class="btn-row">
-        <a class="btn-secondary" id="link-abrir-excel-ej5" href="#" target="_blank" rel="noopener">📊 Abrir mi copia de Excel ↗</a>
+        <a class="btn-secondary" id="link-abrir-excel-ej5" href="#" target="_blank" rel="noopener">🚀 Empezar Ejercicio 5 ↗</a>
       </div>
     </section>
 
