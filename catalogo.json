@@ -1112,6 +1112,16 @@
             "puntos": "100 pts (retroalimentación)",
             "aprobacion": "Completar los 4 pasos",
             "url": "https://johantbueno.github.io/practicas-web/bpm-transformacion-digital-u1/"
+          },
+          {
+            "badge": "Unidad II",
+            "unidad": "u2",
+            "titulo": "Modelado y Diseño de Procesos con BPMN",
+            "desc": "Modelado en BPMN de un proceso real de su organización: eventos y actividades, gateways de decisión, diagrama completo con pools/lanes y nivel de complejidad de la notación. Individual o en equipo.",
+            "duracion": "4 pasos · aproximadamente 1 hora, individual o en equipo",
+            "puntos": "100 pts (retroalimentación)",
+            "aprobacion": "Completar los 4 pasos",
+            "url": "https://johantbueno.github.io/practicas-web/bpm-transformacion-digital-u2/"
           }
         ]
       }
