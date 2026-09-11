@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Práctica — Excel Básico | Semana 1 | Macro Seguridad</title>
+<meta name="description" content="Práctica interactiva de Excel Básico (Semana 1) para el curso de Macro Seguridad: sumar, restar, multiplicar, dividir, tablas y gráficos, resueltos en un archivo real de Excel con calificación automática.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%8A%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+<style>
+:root{
+  --navy:#1B2A4A; --navy-dark:#101a30; --gold:#D97706;
+  --primary:#0f172a; --secondary:#334155; --muted:#64748b;
+  --bg-body:#f4f7fb; --bg-card:#ffffff; --border-light:#e2e8f0; --border-dark:#cbd5e1;
+  --green:#16a34a; --green-bg:#f0fdf4; --green-border:#22c55e;
+  --amber:#b45309; --amber-bg:#fffbeb; --amber-border:#f59e0b;
+  --red:#b91c1c; --red-bg:#fef2f2; --red-border:#ef4444;
+  --blue-bg:#eff6ff; --blue-border:#3b82f6;
+  --radius-lg:16px; --radius-md:12px; --radius-sm:8px;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.06);
+  --shadow-md:0 4px 6px -1px rgba(0,0,0,.1), 0 2px 4px -2px rgba(0,0,0,.1);
+  --shadow-lg:0 10px 15px -3px rgba(0,0,0,.12), 0 4px 6px -4px rgba(0,0,0,.1);
+  --sidebar-w:290px;
+}
+[data-theme="dark"]{
+  --primary:#f1f5f9; --secondary:#cbd5e1; --muted:#94a3b8;
+  --bg-body:#0b1220; --bg-card:#151f2f; --border-light:#283249; --border-dark:#3a4666;
+  --green-bg:#0c2417; --amber-bg:#2a2108; --red-bg:#2a1212; --blue-bg:#13233f;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.4); --shadow-md:0 4px 6px -1px rgba(0,0,0,.5); --shadow-lg:0 10px 15px -3px rgba(0,0,0,.5);
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{margin:0; background:var(--bg-body); color:var(--secondary); font-family:'Inter',ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif; line-height:1.7;}
+a{color:var(--navy);}
+.skip-link{position:absolute; left:-9999px; top:0; background:var(--navy); color:#fff; padding:.85rem 1.5rem; z-index:2000; border-radius:0 0 10px 0; font-weight:700; text-decoration:none;}
+.skip-link:focus{left:0;}
+a:focus-visible, button:focus-visible, input:focus-visible{outline:2px solid var(--navy); outline-offset:2px; border-radius:4px;}
+
+.wrapper{display:flex; flex-direction:column; min-height:100vh; margin:0 auto;}
+@media (min-width:1024px){ .wrapper{flex-direction:row; align-items:flex-start; max-width:1400px; padding:0 1rem;} }
+
+.sidebar{background:var(--bg-card); padding:1.75rem 1.5rem; border-bottom:1px solid var(--border-light);}
+@media (min-width:1024px){
+  .sidebar{width:var(--sidebar-w); flex-shrink:0; position:sticky; top:1.5rem; height:calc(100vh - 3rem); overflow-y:auto; border-radius:var(--radius-lg); border:1px solid var(--border-light); box-shadow:var(--shadow-md); margin:1.5rem 0;}
+}
+.sidebar-header{display:flex; align-items:center; gap:10px; margin-bottom:1rem; padding-bottom:1rem; border-bottom:1px solid var(--border-light);}
+.sidebar-title{color:var(--primary); font-size:1rem; font-weight:800; text-transform:uppercase; letter-spacing:.04em; margin:0;}
+.header-actions{margin-left:auto; display:flex; gap:.4rem;}
+.icon-btn{background:none; border:1px solid var(--border-light); width:34px; height:34px; border-radius:8px; cursor:pointer; font-size:1rem; display:flex; align-items:center; justify-content:center; color:var(--secondary);}
+.icon-btn:hover{background:var(--bg-body); border-color:var(--border-dark);}
+.nav-toggle{display:none;}
+@media (max-width:1023px){
+  .sidebar-collapsible{display:none;}
+  .sidebar.open .sidebar-collapsible{display:block;}
+  .nav-toggle{display:inline-flex;}
+}
+
+.progress-summary{margin-bottom:1.1rem;}
+.progress-summary-row{display:flex; justify-content:space-between; font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.03em; color:var(--muted); margin-bottom:.35rem;}
+.progress-track{height:6px; border-radius:999px; background:var(--border-light); overflow:hidden;}
+.progress-fill{height:100%; width:0%; background:linear-gradient(90deg,var(--navy),var(--gold)); transition:width .3s ease;}
+
+.nav ul{list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:.2rem;}
+.nav a{text-decoration:none; color:var(--muted); font-size:.88rem; font-weight:500; display:block; padding:.55rem .8rem; border-radius:var(--radius-sm);}
+.nav a:hover{background:var(--bg-body); color:var(--navy);}
+
+.main{flex:1; padding:1.75rem 1rem 6.5rem; max-width:940px; margin:0 auto; width:100%;}
+@media (min-width:1024px){ .main{padding:1.75rem 2.5rem 5.5rem;} }
+
+.card.cover{background:linear-gradient(135deg,var(--navy),var(--navy-dark)); color:#fff; border-radius:var(--radius-lg); padding:2.5rem; margin-bottom:2rem; box-shadow:var(--shadow-lg);}
+.card.cover h1{color:#fff;}
+.cover .eyebrow{text-transform:uppercase; letter-spacing:.08em; font-size:.78rem; font-weight:700; opacity:.85;}
+.cover h1{font-size:1.85rem; font-weight:800; margin:.4rem 0 .3rem; line-height:1.25;}
+.cover p.sub{margin:0 0 1.25rem; opacity:.92; font-size:1rem;}
+.cover-chips{display:flex; flex-wrap:wrap; gap:.6rem; margin-top:1.1rem;}
+.cover-chip{background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.24); border-radius:999px; padding:.4rem .9rem; font-size:.8rem; font-weight:600;}
+
+.card{background:var(--bg-card); padding:2rem; border-radius:var(--radius-lg); box-shadow:var(--shadow-sm); border:1px solid var(--border-light); margin-bottom:2rem; scroll-margin-top:1.25rem;}
+@media (max-width:640px){ .card{padding:1.35rem;} }
+.card h1{font-size:1.6rem; font-weight:800; color:var(--primary); margin:0 0 1.1rem;}
+.card h2{font-size:1.15rem; font-weight:700; color:var(--navy); margin:1.5rem 0 .8rem;}
+.card p{margin:0 0 1rem;}
+.step-badge{display:inline-flex; align-items:center; gap:.4rem; background:var(--blue-bg); color:var(--navy); border:1px solid var(--blue-border); font-weight:700; font-size:.72rem; text-transform:uppercase; letter-spacing:.04em; padding:.3rem .7rem; border-radius:999px; margin-bottom:.9rem;}
+.step-points{float:right; background:var(--gold); color:#fff; font-weight:800; font-size:.72rem; padding:.25rem .6rem; border-radius:999px;}
+.step-progress{display:inline-block; color:var(--muted); font-weight:700; font-size:.72rem; text-transform:uppercase; letter-spacing:.03em; margin-left:.6rem;}
+
+.alert{border-radius:var(--radius-md); padding:1rem 1.25rem; margin:1rem 0; border:1px solid; font-size:.92rem;}
+.alert.info{background:var(--blue-bg); border-color:var(--blue-border);}
+.alert.gold{background:var(--amber-bg); border-color:var(--amber-border);}
+.alert.success{background:var(--green-bg); border-color:var(--green-border);}
+.alert.warn{background:var(--red-bg); border-color:var(--red-border);}
+
+.ej-objetivo{font-weight:700; color:var(--primary); margin:0 0 .9rem; font-size:.98rem;}
+.ej-objetivo span{color:var(--navy); text-transform:uppercase; font-size:.72rem; letter-spacing:.03em; display:block; margin-bottom:.15rem; font-weight:800;}
+.ej-contexto{background:var(--bg-body); border-left:3px solid var(--gold); padding:.75rem 1.1rem; border-radius:0 var(--radius-sm) var(--radius-sm) 0; font-size:.88rem; color:var(--secondary); margin:0 0 1.1rem;}
+.hint-box{border:1px dashed var(--border-dark); border-radius:var(--radius-md); padding:.85rem 1.1rem; margin:1.1rem 0; font-size:.85rem; background:var(--bg-body); color:var(--secondary);}
+.hint-box strong{color:var(--navy);}
+ol.ins-list{padding-left:1.2rem;}
+ol.ins-list li{margin-bottom:.5rem;}
+
+.field{margin-bottom:1rem;}
+.field label{display:block; font-weight:700; font-size:.82rem; color:var(--primary); margin-bottom:.35rem;}
+input[type=text], input[type=email]{
+  width:100%; padding:.55rem .75rem; border:1px solid var(--border-light); border-radius:var(--radius-sm);
+  font-size:1rem; font-family:inherit; background:var(--bg-card); color:var(--primary);
+}
+[data-theme="dark"] input{background:#0f1830;}
+input:focus{border-color:var(--navy); outline:none;}
+
+.preview-head{display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:.6rem; margin-bottom:.5rem; font-size:.85rem; font-weight:700; color:var(--navy);}
+.preview-frame-wrap{position:relative; width:100%; height:min(70vh,560px); min-height:320px; border:1px solid var(--border-light); border-radius:var(--radius-md); overflow:hidden; background:var(--bg-body);}
+.preview-frame-wrap iframe{width:100%; height:100%; border:0; display:block;}
+
+.btn-primary{background:linear-gradient(135deg,var(--navy),var(--navy-dark)); color:#fff; border:none; padding:.9rem 1.6rem; border-radius:var(--radius-md); font-weight:700; font-size:1rem; cursor:pointer; box-shadow:var(--shadow-md); font-family:inherit;}
+.btn-primary:hover{filter:brightness(1.08);}
+.btn-secondary{background:var(--bg-body); color:var(--navy); border:1px solid var(--navy); padding:.7rem 1.2rem; border-radius:var(--radius-md); font-weight:700; font-size:.88rem; cursor:pointer; font-family:inherit;}
+.btn-secondary:hover{background:var(--blue-bg);}
+.btn-row{display:flex; flex-wrap:wrap; gap:.7rem; margin-top:1.25rem;}
+
+#submit-zone{text-align:center; padding:2.25rem 1.5rem;}
+#submit-zone p{max-width:560px; margin:0 auto 1.25rem;}
+.results{display:none;}
+.results.show{display:block;}
+.score-hero{display:flex; flex-wrap:wrap; align-items:center; gap:1.75rem; padding:1.5rem; border-radius:var(--radius-lg); border:1px solid; margin-bottom:1.5rem;}
+.score-hero.pass{background:var(--green-bg); border-color:var(--green-border);}
+.score-hero.warn{background:var(--amber-bg); border-color:var(--amber-border);}
+.score-hero.fail{background:var(--red-bg); border-color:var(--red-border);}
+.score-circle{width:110px; height:110px; border-radius:50%; display:flex; flex-direction:column; align-items:center; justify-content:center; background:var(--bg-card); box-shadow:var(--shadow-md); flex-shrink:0;}
+.score-circle .num{font-size:1.9rem; font-weight:800; color:var(--primary); line-height:1;}
+.score-circle .den{font-size:.72rem; color:var(--muted); font-weight:700;}
+.score-verdict h3{margin:0 0 .3rem; font-size:1.15rem;}
+.score-verdict p{margin:0; font-size:.92rem;}
+.crit{border:1px solid var(--border-light); border-radius:var(--radius-md); padding:1.1rem 1.25rem; margin-bottom:1rem; background:var(--bg-card);}
+.crit-head{display:flex; justify-content:space-between; align-items:center; gap:1rem; margin-bottom:.5rem; flex-wrap:wrap;}
+.crit-head strong{color:var(--primary); font-size:.95rem;}
+.crit-score{font-weight:800; font-size:.9rem; color:var(--navy); white-space:nowrap;}
+.crit ul{margin:.3rem 0 0; padding-left:1.15rem; font-size:.85rem;}
+
+footer.tp-footer{text-align:center; color:var(--muted); font-size:.8rem; padding:2rem 1rem; border-top:1px solid var(--border-light); margin-top:1rem;}
+
+.medal-modal{position:fixed; inset:0; background:rgba(0,0,0,.65); z-index:2000; display:flex; align-items:center; justify-content:center; padding:1rem;}
+.medal-modal[hidden]{display:none;}
+.medal-modal-inner{background:var(--bg-card); border-radius:var(--radius-lg); padding:1.5rem; max-width:420px; width:100%; text-align:center; position:relative; box-shadow:var(--shadow-lg);}
+#medal-canvas{width:100%; max-width:300px; border-radius:12px; margin:.25rem auto 1rem; display:block; box-shadow:var(--shadow-md);}
+#medal-close{position:absolute; top:.75rem; right:.75rem;}
+#confetti-canvas{position:fixed; inset:0; width:100%; height:100%; pointer-events:none; z-index:3000;}
+</style>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Saltar al contenido</a>
+
+<div class="wrapper">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <span style="font-size:1.4rem;">🛡️</span>
+      <p class="sidebar-title">Semana 1 · Excel Básico</p>
+      <div class="header-actions">
+        <button class="icon-btn" id="theme-toggle" type="button" title="Cambiar tema" aria-label="Cambiar tema claro/oscuro">🌙</button>
+        <button class="icon-btn nav-toggle" id="nav-toggle" type="button" title="Abrir menú" aria-label="Abrir menú" aria-expanded="false">☰</button>
+      </div>
+    </div>
+    <div class="sidebar-collapsible">
+      <div class="progress-summary">
+        <div class="progress-summary-row"><span>Progreso</span><span id="progress-count">0/6</span></div>
+        <div class="progress-track"><div class="progress-fill" id="progress-fill-el"></div></div>
+      </div>
+      <nav class="nav" aria-label="Navegación de la práctica">
+        <ul>
+          <li><a href="#portada">🛡️ Portada</a></li>
+          <li><a href="#identificacion">🪪 Su nombre y su copia</a></li>
+          <li><a href="#ej1">Ejercicio 1 · Sumar</a></li>
+          <li><a href="#ej2">Ejercicio 2 · Restar</a></li>
+          <li><a href="#ej3">Ejercicio 3 · Multiplicar</a></li>
+          <li><a href="#ej4">Ejercicio 4 · Dividir</a></li>
+          <li><a href="#ej5">Ejercicio 5 · Tablas</a></li>
+          <li><a href="#ej6">Ejercicio 6 · Gráficos</a></li>
+          <li><a href="#resultado">📤 Enviar y calificar</a></li>
+        </ul>
+      </nav>
+    </div>
+  </aside>
+
+  <main class="main" id="main-content">
+
+    <section id="portada" class="card cover">
+      <p class="eyebrow">Curso de Excel · Macro Seguridad</p>
+      <h1>Semana 1 · Excel Básico</h1>
+      <p class="sub">Fundamentos de Excel: sumar, restar, multiplicar, dividir, tablas y gráficos — resuelva los 6 ejercicios en un archivo real</p>
+      <div class="cover-chips">
+        <span class="cover-chip">No necesita cuenta de Microsoft</span>
+        <span class="cover-chip">Individual</span>
+        <span class="cover-chip">100 pts</span>
+        <span class="cover-chip">Tarea de la Semana 1 (mar/jue)</span>
+      </div>
+    </section>
+
+    <section class="card">
+      <span class="step-badge">Cómo funciona esta práctica</span>
+      <h1 style="font-size:1.3rem;">Un Excel real, no una simulación</h1>
+      <div class="alert success">
+        Esta práctica le genera una <strong>copia real de un archivo de Excel</strong> solo para usted, con los 6 ejercicios de esta semana ya preparados. Ábrala en una pestaña nueva, resuélvalos ahí mismo, y al terminar presione "Enviar y Calificar" en esta página para que el sistema revise su archivo automáticamente.
+      </div>
+    </section>
+
+    <section id="identificacion" class="card">
+      <span class="step-badge">Paso 1 de 2</span>
+      <h1 style="font-size:1.3rem;">Su nombre y su copia de Excel</h1>
+      <div class="field">
+        <label for="ind_nombre">Nombre completo</label>
+        <input type="text" id="ind_nombre" placeholder="Su nombre y apellido">
+      </div>
+      <div id="prov-zone" style="margin-top:1.1rem;">
+        <button class="btn-primary" id="btn-provisionar" type="button">📄 Generar mi copia de Excel</button>
+        <div id="prov-status" style="margin-top:.8rem;"></div>
+      </div>
+      <div id="prov-listo" class="alert success" style="display:none; margin-top:1rem;">
+        <strong>✅ Su copia de Excel ya está lista.</strong> Ábrala con el botón de abajo y trabájela ahí — los cambios se guardan solos.
+        <div class="btn-row" style="margin-top:.8rem;">
+          <a class="btn-primary" id="link-abrir-excel" href="#" target="_blank" rel="noopener">📊 Abrir mi copia de Excel ↗</a>
+        </div>
+      </div>
+      <div id="prov-preview-zone" style="display:none; margin-top:1rem;">
+        <div class="preview-head">
+          <span>👁️ Vista previa (solo lectura)</span>
+          <button class="btn-secondary" id="btn-preview-refresh" type="button">🔄 Actualizar vista</button>
+        </div>
+        <div class="preview-frame-wrap"><iframe id="preview-frame" src="" title="Vista previa de su copia de Excel" loading="lazy"></iframe></div>
+      </div>
+      <h2>Instrucciones generales</h2>
+      <ol class="ins-list">
+        <li>Escriba su nombre arriba y presione <strong>Generar mi copia de Excel</strong>.</li>
+        <li>Abra su copia y resuelva los <strong>6 ejercicios</strong>, cada uno en su propia hoja.</li>
+        <li>Cada hoja tiene una guía de pasos a la derecha de los datos.</li>
+        <li>Al finalizar, vuelva aquí y presione <strong>Enviar y Calificar</strong>.</li>
+      </ol>
+    </section>
+
+    <section id="ej1" class="card">
+      <span class="step-badge">Ejercicio 1 · Vale 15 pts<span class="step-progress">Ejercicio 1 de 6</span></span>
+      <h1 style="font-size:1.25rem;">Gastos operativos por sucursal — Suma</h1>
+      <p class="ej-objetivo"><span>🎯 Objetivo</span>Calcular totales automáticos con la fórmula SUMA.</p>
+      <p class="ej-contexto">💼 <strong>Por qué importa:</strong> cada sucursal reporta gastos de turno día y turno noche por separado — sumar ambos automáticamente es la base de cualquier reporte de gastos.</p>
+      <div class="alert info"><strong>Instrucciones (también están en la hoja, a la derecha de los datos):</strong></div>
+      <ol class="ins-list">
+        <li><strong>Identificar columnas:</strong> Concepto, Gasto Turno Día, Gasto Turno Noche, Total.</li>
+        <li><strong>Calcular total:</strong> Sumar los dos gastos de cada concepto. Fórmula: <code>=SUMA(C5:D5)</code></li>
+        <li><strong>Completar tabla:</strong> Repetir la fórmula para los 5 conceptos.</li>
+      </ol>
+      <div class="hint-box">💡 <strong>¿Se atascó?</strong> Escriba la fórmula en la columna Total (E) y cópiela hacia abajo para las demás filas.</div>
+      <div class="alert gold">✅ <strong>Cómo se califica:</strong> se compara el total de cada fila contra el resultado correcto.</div>
+      <div class="btn-row"><a class="btn-secondary" id="link-abrir-excel-ej1" href="#" target="_blank" rel="noopener">🚀 Empezar Ejercicio 1 ↗</a></div>
+    </section>
+
+    <section id="ej2" class="card">
+      <span class="step-badge">Ejercicio 2 · Vale 15 pts<span class="step-progress">Ejercicio 2 de 6</span></span>
+      <h1 style="font-size:1.25rem;">Control de inventario — Resta</h1>
+      <p class="ej-objetivo"><span>🎯 Objetivo</span>Calcular existencias restantes con la fórmula RESTA.</p>
+      <p class="ej-contexto">💼 <strong>Por qué importa:</strong> todo control de inventario de equipos (radios, chalecos, linternas) depende de restar lo entregado de la existencia inicial.</p>
+      <div class="alert info"><strong>Instrucciones (también están en la hoja, a la derecha de los datos):</strong></div>
+      <ol class="ins-list">
+        <li><strong>Identificar columnas:</strong> Equipo, Existencia Inicial, Entregados, Restante.</li>
+        <li><strong>Calcular restante:</strong> Restar los entregados de la existencia inicial. Fórmula: <code>=C5-D5</code></li>
+        <li><strong>Completar tabla:</strong> Repetir la fórmula para los 5 equipos.</li>
+      </ol>
+      <div class="hint-box">💡 <strong>¿Se atascó?</strong> Ningún resultado debería dar negativo — si le da negativo, revise que restó en el orden correcto.</div>
+      <div class="alert gold">✅ <strong>Cómo se califica:</strong> se compara el restante de cada fila contra el resultado correcto.</div>
+      <div class="btn-row"><a class="btn-secondary" id="link-abrir-excel-ej2" href="#" target="_blank" rel="noopener">🚀 Empezar Ejercicio 2 ↗</a></div>
+    </section>
+
+    <section id="ej3" class="card">
+      <span class="step-badge">Ejercicio 3 · Vale 15 pts<span class="step-progress">Ejercicio 3 de 6</span></span>
+      <h1 style="font-size:1.25rem;">Pago por horas de vigilancia — Multiplicación</h1>
+      <p class="ej-objetivo"><span>🎯 Objetivo</span>Calcular pagos con la fórmula de MULTIPLICACIÓN.</p>
+      <p class="ej-contexto">💼 <strong>Por qué importa:</strong> el pago de cada guardia depende de multiplicar las horas trabajadas por su tarifa — la base de cualquier nómina por hora.</p>
+      <div class="alert info"><strong>Instrucciones (también están en la hoja, a la derecha de los datos):</strong></div>
+      <ol class="ins-list">
+        <li><strong>Identificar columnas:</strong> Guardia, Horas Trabajadas, Tarifa por Hora, Total a Pagar.</li>
+        <li><strong>Calcular pago:</strong> Multiplicar horas por tarifa. Fórmula: <code>=C5*D5</code></li>
+        <li><strong>Completar tabla:</strong> Repetir la fórmula para los 5 guardias.</li>
+      </ol>
+      <div class="hint-box">💡 <strong>¿Se atascó?</strong> Use el asterisco (*) para multiplicar en Excel, no la letra "x".</div>
+      <div class="alert gold">✅ <strong>Cómo se califica:</strong> se compara el pago de cada fila contra el resultado correcto.</div>
+      <div class="btn-row"><a class="btn-secondary" id="link-abrir-excel-ej3" href="#" target="_blank" rel="noopener">🚀 Empezar Ejercicio 3 ↗</a></div>
+    </section>
+
+    <section id="ej4" class="card">
+      <span class="step-badge">Ejercicio 4 · Vale 15 pts<span class="step-progress">Ejercicio 4 de 6</span></span>
+      <h1 style="font-size:1.25rem;">Distribución de personal — División</h1>
+      <p class="ej-objetivo"><span>🎯 Objetivo</span>Distribuir cantidades en partes iguales con la fórmula de DIVISIÓN.</p>
+      <p class="ej-contexto">💼 <strong>Por qué importa:</strong> repartir guardias entre turnos de forma pareja es una decisión operativa diaria en cualquier sucursal.</p>
+      <div class="alert info"><strong>Instrucciones (también están en la hoja, a la derecha de los datos):</strong></div>
+      <ol class="ins-list">
+        <li><strong>Identificar columnas:</strong> Sucursal, Total de Guardias, Número de Turnos, Guardias por Turno.</li>
+        <li><strong>Calcular distribución:</strong> Dividir el total entre los turnos. Fórmula: <code>=C5/D5</code></li>
+        <li><strong>Completar tabla:</strong> Repetir la fórmula para las 5 sucursales.</li>
+      </ol>
+      <div class="hint-box">💡 <strong>¿Se atascó?</strong> Use la diagonal (/) para dividir en Excel.</div>
+      <div class="alert gold">✅ <strong>Cómo se califica:</strong> se compara el resultado de cada fila contra el resultado correcto.</div>
+      <div class="btn-row"><a class="btn-secondary" id="link-abrir-excel-ej4" href="#" target="_blank" rel="noopener">🚀 Empezar Ejercicio 4 ↗</a></div>
+    </section>
+
+    <section id="ej5" class="card">
+      <span class="step-badge">Ejercicio 5 · Vale 20 pts<span class="step-progress">Ejercicio 5 de 6</span></span>
+      <h1 style="font-size:1.25rem;">Registro de incidentes — Tablas (ordenar y filtrar)</h1>
+      <p class="ej-objetivo"><span>🎯 Objetivo</span>Ordenar y filtrar una tabla de datos para encontrar información rápidamente.</p>
+      <p class="ej-contexto">💼 <strong>Por qué importa:</strong> con decenas de incidentes registrados, ordenar por gravedad es lo primero que hace un supervisor para priorizar su atención.</p>
+      <div class="alert info"><strong>Instrucciones (también están en la hoja, a la derecha de los datos):</strong></div>
+      <ol class="ins-list">
+        <li><strong>Convertir en tabla:</strong> Seleccione los datos e Insertar &gt; Tabla.</li>
+        <li><strong>Ordenar:</strong> Use el filtro de la columna Gravedad para ordenar de mayor a menor.</li>
+        <li><strong>Identificar:</strong> Encuentre la fila con Gravedad 5 (el incidente más grave).</li>
+        <li><strong>Responder:</strong> Escriba el nombre de esa sucursal en la celda C16.</li>
+      </ol>
+      <div class="hint-box">💡 <strong>¿Se atascó?</strong> La respuesta es el nombre exacto de una sucursal, tal como aparece en la columna Sucursal.</div>
+      <div class="alert gold">✅ <strong>Cómo se califica:</strong> se compara su respuesta en la celda C16 contra la sucursal correcta.</div>
+      <div class="btn-row"><a class="btn-secondary" id="link-abrir-excel-ej5" href="#" target="_blank" rel="noopener">🚀 Empezar Ejercicio 5 ↗</a></div>
+    </section>
+
+    <section id="ej6" class="card">
+      <span class="step-badge">Ejercicio 6 · Vale 20 pts<span class="step-progress">Ejercicio 6 de 6</span></span>
+      <h1 style="font-size:1.25rem;">Incidentes por sucursal — Gráficos</h1>
+      <p class="ej-objetivo"><span>🎯 Objetivo</span>Representar datos visualmente con un gráfico.</p>
+      <p class="ej-contexto">💼 <strong>Por qué importa:</strong> un gráfico comunica tendencias de un vistazo — mucho más rápido que leer una tabla de números en una reunión.</p>
+      <div class="alert info"><strong>Instrucciones (también están en la hoja, a la derecha de los datos):</strong></div>
+      <ol class="ins-list">
+        <li><strong>Seleccionar datos:</strong> Marque la tabla completa de incidentes por día.</li>
+        <li><strong>Insertar gráfico:</strong> Vaya a Insertar &gt; Gráfico y elija uno de columnas o líneas.</li>
+        <li><strong>Dar formato:</strong> Agregue un título al gráfico.</li>
+      </ol>
+      <div class="hint-box">💡 <strong>¿Se atascó?</strong> Cualquier tipo de gráfico es válido, mientras represente las 3 sucursales y los 5 días.</div>
+      <div class="alert gold">✅ <strong>Cómo se califica:</strong> se revisa si existe al menos un gráfico en la hoja.</div>
+      <div class="btn-row"><a class="btn-secondary" id="link-abrir-excel-ej6" href="#" target="_blank" rel="noopener">🚀 Empezar Ejercicio 6 ↗</a></div>
+    </section>
+
+    <section id="resultado" class="card">
+      <span class="step-badge">Paso final</span>
+      <h1 style="font-size:1.3rem;">Enviar y calificar</h1>
+      <div id="submit-zone">
+        <p>Cuando haya resuelto los 6 ejercicios en su copia de Excel, presione el botón para calificar automáticamente.</p>
+        <button class="btn-primary" id="btn-calificar" type="button">📤 Enviar y Calificar</button>
+      </div>
+      <div class="results" id="results">
+        <div class="score-hero" id="score-hero">
+          <div class="score-circle"><span class="num" id="score-num">0</span><span class="den">/ 100</span></div>
+          <div class="score-verdict"><h3 id="score-title">—</h3><p id="score-desc"></p></div>
+        </div>
+        <div id="crit-list"></div>
+        <div class="btn-row"><button class="btn-primary" id="btn-medal" type="button" style="display:none;">🏅 Ver mi medalla</button></div>
+      </div>
+    </section>
+
+    <footer class="tp-footer">Desarrollado por Johan Tapia, PhD — Curso de Excel, Macro Seguridad</footer>
+  </main>
+</div>
+
+<div class="medal-modal" id="medal-modal" hidden>
+  <div class="medal-modal-inner">
+    <button class="icon-btn" id="medal-close" type="button" aria-label="Cerrar">✕</button>
+    <canvas id="medal-canvas" width="600" height="600"></canvas>
+    <div class="btn-row" style="justify-content:center;">
+      <button class="btn-secondary" id="medal-download" type="button">⬇️ Descargar</button>
+      <button class="btn-secondary" id="medal-share" type="button">📤 Compartir</button>
+    </div>
+  </div>
+</div>
+<canvas id="confetti-canvas" hidden></canvas>
+
+<script>
+function val(id){ var e = document.getElementById(id); return e ? e.value.trim() : ''; }
+function filled(v){ return !!(v && v.length > 0); }
+function escapeHtml(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+function fetchWithTimeout(url, opts, ms){
+  var controller = new AbortController();
+  var timer = setTimeout(function(){ controller.abort(); }, ms);
+  return fetch(url, Object.assign({}, opts, { signal: controller.signal })).finally(function(){ clearTimeout(timer); });
+}
+function animarNumero(el, target, duration){
+  var start = 0, t0 = performance.now();
+  function step(t){
+    var p = Math.min(1, (t - t0) / duration);
+    el.textContent = Math.round(start + (target - start) * p);
+    if(p < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+function fireConfetti(){
+  if(typeof confetti !== 'function') return;
+  var end = Date.now() + 2200;
+  (function frame(){
+    confetti({ particleCount: 4, angle: 60, spread: 60, origin: { x: 0 } });
+    confetti({ particleCount: 4, angle: 120, spread: 60, origin: { x: 1 } });
+    if(Date.now() < end) requestAnimationFrame(frame);
+  })();
+}
+
+/* ---------- Tema y menú ---------- */
+(function(){
+  var toggle = document.getElementById('theme-toggle');
+  var saved = null; try{ saved = localStorage.getItem('msb_theme'); }catch(e){}
+  if(saved) document.documentElement.setAttribute('data-theme', saved);
+  toggle.addEventListener('click', function(){
+    var cur = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', cur);
+    try{ localStorage.setItem('msb_theme', cur); }catch(e){}
+  });
+  document.getElementById('nav-toggle').addEventListener('click', function(){
+    document.getElementById('sidebar').classList.toggle('open');
+  });
+})();
+
+var AI_BASE = 'https://n8n-inap.167.88.36.13.sslip.io/webhook';
+var N8N_APROVISIONAR_URL = AI_BASE + '/excel-aprovisionar-macroseg-basico';
+var N8N_CALIFICAR_URL = AI_BASE + '/excel-calificar-macroseg-basico';
+var PROV_KEY = 'msb_excelbasico_provision_v1';
+
+function provisionState(){
+  var raw; try{ raw = localStorage.getItem(PROV_KEY); }catch(e){ raw = null; }
+  if(!raw) return null;
+  try{ return JSON.parse(raw); }catch(e){ return null; }
+}
+function saveProvisionState(data){
+  try{ data.provisionedAt = data.provisionedAt || Date.now(); localStorage.setItem(PROV_KEY, JSON.stringify(data)); }catch(e){}
+}
+function abrirExcelPopup(e){
+  e.preventDefault();
+  var url = this.getAttribute('href');
+  if(!url || url === '#') return;
+  var w = Math.min(1400, window.screen.availWidth - 80);
+  var h = Math.min(900, window.screen.availHeight - 80);
+  var win = window.open(url, 'excelPractica', 'width=' + w + ',height=' + h + ',resizable=yes,scrollbars=yes,toolbar=yes,location=yes');
+  if(win){ win.focus(); } else { alert('El navegador bloqueó la ventana emergente. Permita ventanas emergentes para este sitio y vuelva a hacer clic.'); }
+}
+function applyProvisionUI(data){
+  if(!data || !data.embedUrl) return;
+  document.querySelectorAll('a[id^="link-abrir-excel"]').forEach(function(a){
+    a.href = data.embedUrl;
+    a.removeEventListener('click', abrirExcelPopup);
+    a.addEventListener('click', abrirExcelPopup);
+  });
+  document.getElementById('prov-listo').style.display = 'block';
+  document.getElementById('btn-provisionar').textContent = '🔄 Generar una copia nueva';
+  if(data.previewUrl){
+    document.getElementById('preview-frame').src = data.previewUrl;
+    document.getElementById('prov-preview-zone').style.display = 'block';
+  }
+}
+document.getElementById('btn-preview-refresh').addEventListener('click', function(){
+  var frame = document.getElementById('preview-frame');
+  var url = frame.getAttribute('src');
+  if(!url) return;
+  frame.src = 'about:blank';
+  setTimeout(function(){ frame.src = url; }, 50);
+});
+(function initProvision(){ var existing = provisionState(); if(existing) applyProvisionUI(existing); })();
+
+document.getElementById('btn-provisionar').addEventListener('click', function(){
+  var nombre = val('ind_nombre');
+  if(!filled(nombre)){ alert('Escriba su nombre completo antes de generar su copia de Excel.'); document.getElementById('ind_nombre').focus(); return; }
+  var btn = this, status = document.getElementById('prov-status');
+  btn.disabled = true;
+  status.innerHTML = '<span style="color:var(--muted);">⏳ Generando su copia de Excel, puede tardar hasta 20 segundos…</span>';
+  fetchWithTimeout(N8N_APROVISIONAR_URL, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ nombre: nombre }) }, 60000)
+    .then(function(res){ if(!res.ok) throw new Error('HTTP ' + res.status); return res.json(); })
+    .then(function(data){
+      if(!data || !data.ok) throw new Error((data && data.error) || 'respuesta inválida');
+      saveProvisionState(data); applyProvisionUI(data);
+      status.innerHTML = '<span style="color:var(--green);">✔ Listo.</span>';
+    })
+    .catch(function(err){ status.innerHTML = '<span style="color:var(--red);">No se pudo generar su copia de Excel (' + (err && err.message ? err.message : 'error') + '). Intente de nuevo.</span>'; })
+    .finally(function(){ btn.disabled = false; });
+});
+
+function calificarPractico(fileId, fileName){
+  return fetchWithTimeout(N8N_CALIFICAR_URL, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ fileId: fileId, fileName: fileName }) }, 45000)
+    .then(function(res){ if(!res.ok) throw new Error('HTTP ' + res.status); return res.json(); })
+    .then(function(data){ return (data && data.resultado) ? data.resultado : null; })
+    .catch(function(){ return null; });
+}
+
+var EJ_LABELS = ['Ejercicio 1 · Suma','Ejercicio 2 · Resta','Ejercicio 3 · Multiplicación','Ejercicio 4 · División','Ejercicio 5 · Tablas','Ejercicio 6 · Gráficos'];
+
+function renderResults(resultado){
+  var hero = document.getElementById('score-hero'), title = document.getElementById('score-title'), desc = document.getElementById('score-desc'), num = document.getElementById('score-num');
+  var total = resultado ? (resultado.totalPractico || 0) : 0;
+  animarNumero(num, total, 900);
+  hero.classList.remove('pass','warn','fail');
+  var provOk = !!provisionState();
+  var medalBtn = document.getElementById('btn-medal');
+
+  if(!provOk){
+    hero.classList.add('fail'); title.textContent = '🔴 Falta generar su copia de Excel';
+    desc.textContent = 'Vuelva al inicio de la página y presione "Generar mi copia de Excel" antes de enviar.';
+    medalBtn.style.display = 'none';
+  } else if(!resultado){
+    hero.classList.add('warn'); title.textContent = '🟠 No se pudo leer su archivo de Excel';
+    desc.textContent = 'Espere unos segundos (Excel guarda solo) y presione "Enviar y Calificar" de nuevo.';
+    medalBtn.style.display = 'none';
+  } else if(total >= 70){
+    hero.classList.add('pass'); title.textContent = '✅ Práctica Aprobada';
+    desc.textContent = 'Nota: ' + total + ' / 100 pts.';
+    medalBtn.style.display = 'inline-flex'; fireConfetti();
+  } else {
+    hero.classList.add('warn'); title.textContent = '🟠 Aún no alcanza el mínimo';
+    desc.textContent = 'Nota: ' + total + ' / 100 pts. Revise los ejercicios con menos puntos abajo.';
+    medalBtn.style.display = 'none';
+  }
+
+  var html = '';
+  if(resultado){
+    ['ejercicio1','ejercicio2','ejercicio3','ejercicio4','ejercicio5','ejercicio6'].forEach(function(k, i){
+      var e = resultado[k]; if(!e) return;
+      html += '<div class="crit"><div class="crit-head"><strong>' + EJ_LABELS[i] + '</strong><span class="crit-score">' + e.pts + ' / ' + e.max + ' pts</span></div><ul><li>' + escapeHtml(e.detalle || '') + '</li></ul></div>';
+    });
+  }
+  document.getElementById('crit-list').innerHTML = html;
+  document.getElementById('results').classList.add('show');
+}
+
+document.getElementById('btn-calificar').addEventListener('click', function(){
+  var btn = this, prov = provisionState();
+  btn.disabled = true; btn.textContent = '⏳ Calificando…';
+  var finish = function(resultado){ renderResults(resultado); btn.disabled = false; btn.textContent = '📤 Enviar y Calificar'; document.getElementById('resultado').scrollIntoView({behavior:'smooth'}); };
+  if(!prov){ finish(null); return; }
+  calificarPractico(prov.fileId, prov.fileName).then(finish);
+});
+
+/* ---------- Medalla digital ---------- */
+function nombreIdentificacion(){ return val('ind_nombre') || 'Estudiante'; }
+function dibujarMedalla(nombre, nota){
+  var c = document.getElementById('medal-canvas'), ctx = c.getContext('2d');
+  var w = c.width, h = c.height;
+  ctx.clearRect(0,0,w,h);
+  var grad = ctx.createLinearGradient(0,0,w,h);
+  grad.addColorStop(0,'#1B2A4A'); grad.addColorStop(1,'#101a30');
+  ctx.fillStyle = grad; ctx.fillRect(0,0,w,h);
+  ctx.strokeStyle = '#D97706'; ctx.lineWidth = 10; ctx.strokeRect(15,15,w-30,h-30);
+  ctx.fillStyle = '#fff'; ctx.textAlign = 'center';
+  ctx.font = '800 34px Inter, sans-serif'; ctx.fillText('MACRO SEGURIDAD', w/2, 100);
+  ctx.font = '700 22px Inter, sans-serif'; ctx.fillStyle = '#D97706'; ctx.fillText('Excel Básico · Semana 1', w/2, 145);
+  ctx.font = '900 90px Inter, sans-serif'; ctx.fillStyle = '#fff';
+  var nivel = nota >= 90 ? '🥇' : nota >= 80 ? '🥈' : '🥉';
+  ctx.fillText(nivel, w/2, 280);
+  ctx.font = '800 30px Inter, sans-serif'; ctx.fillText(nombre, w/2, 360);
+  ctx.font = '700 24px Inter, sans-serif'; ctx.fillStyle = '#D97706'; ctx.fillText(nota + ' / 100 pts', w/2, 400);
+  ctx.font = '500 16px Inter, sans-serif'; ctx.fillStyle = 'rgba(255,255,255,.7)'; ctx.fillText('Desarrollado por Johan Tapia, PhD', w/2, 550);
+}
+document.getElementById('btn-medal').addEventListener('click', function(){
+  var nota = parseInt(document.getElementById('score-num').textContent, 10) || 0;
+  dibujarMedalla(nombreIdentificacion(), nota);
+  document.getElementById('medal-modal').hidden = false;
+});
+document.getElementById('medal-close').addEventListener('click', function(){ document.getElementById('medal-modal').hidden = true; });
+document.getElementById('medal-download').addEventListener('click', function(){
+  var c = document.getElementById('medal-canvas');
+  var a = document.createElement('a'); a.href = c.toDataURL('image/png'); a.download = 'medalla-excel-basico.png'; a.click();
+});
+document.getElementById('medal-share').addEventListener('click', function(){
+  var c = document.getElementById('medal-canvas');
+  c.toBlob(function(blob){
+    var file = new File([blob], 'medalla-excel-basico.png', { type: 'image/png' });
+    if(navigator.share && navigator.canShare && navigator.canShare({ files:[file] })){
+      navigator.share({ files:[file], title:'Mi medalla de Excel Básico' }).catch(function(){});
+    } else {
+      var a = document.createElement('a'); a.href = c.toDataURL('image/png'); a.download = 'medalla-excel-basico.png'; a.click();
+    }
+  });
+});
+</script>
+</body>
+</html>

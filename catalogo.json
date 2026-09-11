@@ -1116,5 +1116,31 @@
         ]
       }
     ]
+  },
+  {
+    "nombre": "Macro Seguridad",
+    "icono": "🛡️",
+    "cursos": [
+      {
+        "nombre": "Excel Básico e Intermedio",
+        "icono": "📊",
+        "tipoClase": "secuencial",
+        "tipoLabel": "Curso secuencial · por semanas",
+        "esSecuencial": true,
+        "cursoId": "macroseguridad-excel",
+        "practicas": [
+          {
+            "badge": "Semana 1",
+            "unidad": "basico",
+            "titulo": "Excel Básico — Fundamentos",
+            "desc": "Práctica en un archivo de Excel real (sin necesidad de cuenta de Microsoft): sumar, restar, multiplicar y dividir aplicados a operaciones de sucursales de seguridad, ordenar/filtrar un registro de incidentes, y crear un gráfico. Individual.",
+            "duracion": "6 ejercicios · tarea de la Semana 1",
+            "puntos": "100 pts",
+            "aprobacion": "70% mínimo",
+            "url": "https://johantbueno.github.io/practicas-web/excel-macroseg-basico/"
+          }
+        ]
+      }
+    ]
   }
 ]
