@@ -1122,6 +1122,36 @@
             "puntos": "100 pts (retroalimentación)",
             "aprobacion": "Completar los 4 pasos",
             "url": "https://johantbueno.github.io/practicas-web/bpm-transformacion-digital-u2/"
+          },
+          {
+            "badge": "Unidad III",
+            "unidad": "u3",
+            "titulo": "Análisis y Mejora de Procesos",
+            "desc": "Análisis de un proceso real con evidencia: clasificación VA/VAN/SVA, desperdicios Lean (DOWNTIME), causa raíz con 5 Porqués, mejoras priorizadas y KPIs con meta. Individual o en equipo.",
+            "duracion": "4 pasos · aproximadamente 1 hora, individual o en equipo",
+            "puntos": "100 pts (retroalimentación)",
+            "aprobacion": "Completar los 4 pasos",
+            "url": "https://johantbueno.github.io/practicas-web/bpm-transformacion-digital-u3/"
+          },
+          {
+            "badge": "Unidad IV",
+            "unidad": "u4",
+            "titulo": "Automatización y Control de Procesos",
+            "desc": "Propuesta de automatización de un proceso real: elección de herramienta BPMS/RPA, dashboard de control (BAM) con alarma, y gobierno del proceso (process owner). Individual o en equipo.",
+            "duracion": "4 pasos · aproximadamente 1 hora, individual o en equipo",
+            "puntos": "100 pts (retroalimentación)",
+            "aprobacion": "Completar los 4 pasos",
+            "url": "https://johantbueno.github.io/practicas-web/bpm-transformacion-digital-u4/"
+          },
+          {
+            "badge": "Proyecto de Cierre",
+            "unidad": "proyecto",
+            "titulo": "Integración final del curso",
+            "desc": "Borrador guiado de su proyecto final: integra fundamentos, modelado BPMN, análisis y mejora, y automatización y control de un proceso real, en las 4 secciones de su documento final. Individual o en grupos de hasta 3 personas.",
+            "duracion": "4 pasos · resumen de las 4 secciones del proyecto",
+            "puntos": "100 pts (retroalimentación)",
+            "aprobacion": "Completar los 4 pasos",
+            "url": "https://johantbueno.github.io/practicas-web/bpm-transformacion-digital-proyecto/"
           }
         ]
       }
