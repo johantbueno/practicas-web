@@ -926,7 +926,7 @@ document.getElementById('btn-submit').addEventListener('click', function(){
   var faltan = ALL_QUESTIONS.length - allAnsweredCount();
   if(faltan > 0){
     alert('Todavía faltan ' + faltan + ' pregunta(s) por responder. Complételas antes de enviar.');
-    document.getElementById('problemas').scrollIntoView({ behavior:'smooth' });
+    document.getElementById('resumen-ml').scrollIntoView({ behavior:'smooth' });
     return;
   }
   var result = computeScore();
@@ -945,7 +945,7 @@ document.getElementById('btn-retry').addEventListener('click', function(){
   updateProgress();
   document.getElementById('results').classList.remove('show');
   var aiBox = document.getElementById('ai-review'); aiBox.style.display='none'; aiBox.innerHTML='';
-  document.getElementById('problemas').scrollIntoView({ behavior:'smooth' });
+  document.getElementById('resumen-ml').scrollIntoView({ behavior:'smooth' });
 });
 document.getElementById('btn-print').addEventListener('click', function(){ window.print(); });
 document.getElementById('btn-print-2').addEventListener('click', function(){ window.print(); });
