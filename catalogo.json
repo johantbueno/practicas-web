@@ -872,7 +872,7 @@
         "nombre": "Diplomado en Formulación y Gestión de Proyectos",
         "icono": "📊",
         "tipoClase": "taller",
-        "tipoLabel": "5 prácticas · orden libre",
+        "tipoLabel": "8 prácticas · orden libre",
         "cursoId": "formulacion-proyectos-ci",
         "practicas": [
           {
@@ -926,6 +926,16 @@
             "url": "https://johantbueno.github.io/practicas-web/formulacion-proyectos-u3/"
           },
           {
+            "badge": "Unidad III-B",
+            "unidad": "u3b",
+            "titulo": "Planificación, Presupuesto y Gestión de Riesgos: Caso Práctico",
+            "desc": "Aplique un cronograma, un presupuesto por rubro y una matriz de riesgos a un caso práctico ya planteado (continuación del caso del Ayuntamiento de Villamar de la Unidad II-B), con preguntas de opción múltiple, verdadero/falso y emparejar, más una reflexión final. Complementa la Unidad III. Individual o en equipo.",
+            "duracion": "12 preguntas: emparejar + opción múltiple + V/F + desarrollo · aproximadamente 50-55 minutos, individual o en equipo",
+            "puntos": "100 pts",
+            "aprobacion": "70% mínimo (puede reintentar)",
+            "url": "https://johantbueno.github.io/practicas-web/formulacion-proyectos-u3b/"
+          },
+          {
             "badge": "Unidad IV",
             "unidad": "u4",
             "titulo": "Monitoreo, Evaluación y Herramientas para la Gestión de Proyectos",
@@ -936,6 +946,16 @@
             "url": "https://johantbueno.github.io/practicas-web/formulacion-proyectos-u4/"
           },
           {
+            "badge": "Unidad IV-B",
+            "unidad": "u4b",
+            "titulo": "Monitoreo, Evaluación y Herramientas para la Gestión: Caso Práctico",
+            "desc": "Aplique un plan de monitoreo, un plan de evaluación y la selección de herramientas digitales a un caso práctico ya planteado (continuación del caso del Ayuntamiento de Villamar), con preguntas de opción múltiple, verdadero/falso y emparejar, más una reflexión final. Complementa la Unidad IV. Individual o en equipo.",
+            "duracion": "12 preguntas: emparejar + opción múltiple + V/F + desarrollo · aproximadamente 50-55 minutos, individual o en equipo",
+            "puntos": "100 pts",
+            "aprobacion": "70% mínimo (puede reintentar)",
+            "url": "https://johantbueno.github.io/practicas-web/formulacion-proyectos-u4b/"
+          },
+          {
             "badge": "Trabajo Final",
             "unidad": "final",
             "titulo": "Trabajo Final — Perfil de Proyecto Integrador",
@@ -944,6 +964,16 @@
             "puntos": "100 pts (retroalimentación)",
             "aprobacion": "Completar los 7 pasos",
             "url": "https://johantbueno.github.io/practicas-web/formulacion-proyectos-final/"
+          },
+          {
+            "badge": "Trabajo Final-B",
+            "unidad": "finalb",
+            "titulo": "Perfil de Proyecto Integrador: Caso Práctico de Repaso",
+            "desc": "Repase, sobre el caso ya resuelto del Ayuntamiento de Villamar, la coherencia entre el resumen ejecutivo, el Marco Lógico, el cronograma, el presupuesto, los riesgos y el plan de monitoreo y evaluación, antes de consolidar su propio Trabajo Final. No otorga el certificado del diplomado. Individual o en equipo.",
+            "duracion": "12 preguntas: emparejar + opción múltiple + V/F + desarrollo · aproximadamente 50-55 minutos, individual o en equipo",
+            "puntos": "100 pts",
+            "aprobacion": "70% mínimo (puede reintentar)",
+            "url": "https://johantbueno.github.io/practicas-web/formulacion-proyectos-finalb/"
           }
         ]
       },
