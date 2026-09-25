@@ -1129,7 +1129,7 @@
         "nombre": "BPM para la Transformación Digital de Procesos",
         "icono": "⚙️",
         "tipoClase": "secuencial",
-        "tipoLabel": "Curso secuencial · 4 unidades + proyecto",
+        "tipoLabel": "Curso secuencial · 7 unidades + proyecto",
         "esSecuencial": true,
         "cursoId": "bpm-transformacion-digital",
         "practicas": [
@@ -1172,6 +1172,36 @@
             "puntos": "100 pts (retroalimentación)",
             "aprobacion": "Completar los 4 pasos",
             "url": "https://johantbueno.github.io/practicas-web/bpm-transformacion-digital-u4/"
+          },
+          {
+            "badge": "Unidad V",
+            "unidad": "u5",
+            "titulo": "Gestión del Cambio y Adopción en la Transformación Digital",
+            "desc": "Diagnóstico ADKAR de los grupos afectados por su proceso automatizado, dos pasos del modelo de Kotter aplicados, una causa de resistencia al cambio con su mitigación, y el caso Cero Burocracia. Individual o en equipo.",
+            "duracion": "4 pasos · aproximadamente 1 hora, individual o en equipo",
+            "puntos": "100 pts (retroalimentación)",
+            "aprobacion": "Completar los 4 pasos",
+            "url": "https://johantbueno.github.io/practicas-web/bpm-transformacion-digital-u5/"
+          },
+          {
+            "badge": "Unidad VI",
+            "unidad": "u6",
+            "titulo": "Madurez de Procesos y Process Mining",
+            "desc": "Diseño de un log de eventos de su proceso, elección del tipo de minería de procesos aplicable, autoevaluación de madurez con evidencia, y decisión del siguiente paso de transformación digital. Individual o en equipo.",
+            "duracion": "4 pasos · aproximadamente 1 hora, individual o en equipo",
+            "puntos": "100 pts (retroalimentación)",
+            "aprobacion": "Completar los 4 pasos",
+            "url": "https://johantbueno.github.io/practicas-web/bpm-transformacion-digital-u6/"
+          },
+          {
+            "badge": "Unidad VII",
+            "unidad": "u7",
+            "titulo": "Hiperautomatización e IA Aplicada a BPM",
+            "desc": "Identificación de una tarea candidata a un agente de IA, un punto de control humano obligatorio, riesgos éticos con su gobernanza, y el puente hacia el Proyecto de Cierre. Individual o en equipo.",
+            "duracion": "4 pasos · aproximadamente 1 hora, individual o en equipo",
+            "puntos": "100 pts (retroalimentación)",
+            "aprobacion": "Completar los 4 pasos",
+            "url": "https://johantbueno.github.io/practicas-web/bpm-transformacion-digital-u7/"
           },
           {
             "badge": "Proyecto de Cierre",
