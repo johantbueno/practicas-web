@@ -872,7 +872,7 @@
         "nombre": "Diplomado en Formulación y Gestión de Proyectos",
         "icono": "📊",
         "tipoClase": "taller",
-        "tipoLabel": "8 prácticas · orden libre",
+        "tipoLabel": "11 prácticas · orden libre",
         "cursoId": "formulacion-proyectos-ci",
         "practicas": [
           {
@@ -954,6 +954,26 @@
             "puntos": "100 pts",
             "aprobacion": "70% mínimo (puede reintentar)",
             "url": "https://johantbueno.github.io/practicas-web/formulacion-proyectos-u4b/"
+          },
+          {
+            "badge": "Unidad V-1",
+            "unidad": "u5-1",
+            "titulo": "Proyectos de Inversión Pública: Conceptos Básicos y Ciclo de Vida (Caso Práctico)",
+            "desc": "Aplique a un caso municipal los conceptos de proyecto de inversión pública, sus características, la diferencia con una obra de mantenimiento, la rentabilidad social y las fases del ciclo de vida, con preguntas de emparejar, opción múltiple y verdadero/falso, más una reflexión final. Individual o en equipo.",
+            "duracion": "12 preguntas: emparejar + opción múltiple + V/F + desarrollo · aproximadamente 40 minutos, individual o en equipo",
+            "puntos": "100 pts",
+            "aprobacion": "70% mínimo (puede reintentar)",
+            "url": "https://johantbueno.github.io/practicas-web/formulacion-proyectos-u5-1/"
+          },
+          {
+            "badge": "Unidad V-2",
+            "unidad": "u5-2",
+            "titulo": "Etapa de Preinversión: Perfil del Proyecto (Caso Práctico)",
+            "desc": "Aplique a un caso municipal lo aprendido sobre la etapa de preinversión y el perfil del proyecto (propósito, contenido, características y próximo paso), con preguntas de emparejar, opción múltiple y verdadero/falso, más una reflexión final. Individual o en equipo.",
+            "duracion": "12 preguntas: emparejar + opción múltiple + V/F + desarrollo · aproximadamente 40 minutos, individual o en equipo",
+            "puntos": "100 pts",
+            "aprobacion": "70% mínimo (puede reintentar)",
+            "url": "https://johantbueno.github.io/practicas-web/formulacion-proyectos-u5-2/"
           },
           {
             "badge": "Trabajo Final",
