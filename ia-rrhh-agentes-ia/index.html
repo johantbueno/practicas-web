@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Agentes de IA para el trabajo: Claude Code y Antigravity | IA Aplicada a Recursos Humanos</title>
+<meta name="description" content="Práctica teórica con 2 videos y cuestionario de 15 preguntas con retroalimentación inmediata sobre agentes de IA, Claude Code y Antigravity.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A7%A0%3C/text%3E%3C/svg%3E">
+<style>
+:root{--teal:#0d7377;--teal-d:#093638;--lime:#8dc63f;--ink:#0f172a;--txt:#334155;--muted:#556275;--bg:#f4f7fb;--card:#fff;--line:#d5dde8;--ok:#166534;--ok-bg:#f0fdf4;--ok-b:#22c55e;--bad:#991b1b;--bad-bg:#fef2f2;--bad-b:#ef4444;--warn-bg:#fffbeb;--warn-b:#f59e0b;--warn:#92400e}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--txt);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.6;font-size:16px;padding:0 env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
+.wrap{max-width:820px;margin:0 auto;padding:16px}
+a{color:var(--teal)}
+a:focus-visible,button:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid #0b57d0;outline-offset:2px;border-radius:6px}
+.cover{background:linear-gradient(135deg,var(--teal-d),var(--teal));color:#fff;border-radius:16px;padding:24px 20px;margin-bottom:16px}
+.badge{display:inline-block;font-size:.75rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);padding:3px 10px;border-radius:999px}
+.cover h1{margin:.6rem 0 .5rem;font-size:1.55rem;line-height:1.25}
+.cover p{margin:0 0 .8rem;color:#e6f6f6}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{background:#fff;color:var(--teal-d);font-weight:600;font-size:.82rem;padding:4px 12px;border-radius:999px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:16px;box-shadow:0 1px 2px rgba(0,0,0,.05)}
+h2{margin:0 0 .5rem;font-size:1.2rem;color:var(--ink)}
+.step{display:inline-block;background:var(--teal);color:#fff;font-weight:700;font-size:.78rem;border-radius:999px;padding:2px 10px;margin-bottom:.4rem}
+label{display:block;font-weight:600;color:var(--ink);margin:.7rem 0 .25rem}
+input[type=text],input[type=email]{width:100%;font-size:16px;min-height:44px;padding:8px 12px;border:1.5px solid #8a97ab;border-radius:10px;background:#fff;color:var(--ink)}
+.hint{font-size:.85rem;color:var(--muted)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;padding:8px 18px;border-radius:10px;border:1.5px solid var(--teal);font-size:1rem;font-weight:700;cursor:pointer;background:var(--teal);color:#fff}
+.btn.sec{background:#fff;color:var(--teal-d)}
+.btn[disabled]{opacity:.55;cursor:not-allowed}
+.row{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+.video{position:relative;width:100%;aspect-ratio:16/9;background:#000;border-radius:12px;overflow:hidden}
+.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.attr{font-size:.88rem;margin:.6rem 0 0}
+.pbar{height:10px;background:#e2e8f0;border-radius:999px;overflow:hidden;margin:6px 0 12px}
+.pbar>div{height:100%;width:0;background:linear-gradient(90deg,var(--teal),var(--lime));transition:width .3s}
+.qmeta{display:flex;justify-content:space-between;font-size:.88rem;color:var(--muted);font-weight:600}
+fieldset{border:0;margin:0;padding:0;min-width:0}
+legend{font-size:1.08rem;font-weight:700;color:var(--ink);padding:0;margin-bottom:10px}
+.opt{display:flex;gap:10px;align-items:flex-start;min-height:48px;padding:10px 12px;margin:0 0 8px;border:1.5px solid var(--line);border-radius:10px;cursor:pointer;font-weight:500;color:var(--txt);background:#fff}
+.opt input{width:22px;height:22px;margin:2px 0 0;flex:none;accent-color:var(--teal)}
+.opt.sel{border-color:var(--teal);background:#eefafa}
+.opt.ok{border-color:var(--ok-b);background:var(--ok-bg)}
+.opt.bad{border-color:var(--bad-b);background:var(--bad-bg)}
+.fb{margin-top:10px;padding:12px 14px;border-radius:10px;border-left:5px solid;font-size:.97rem}
+.fb.ok{background:var(--ok-bg);border-color:var(--ok-b);color:var(--ok)}
+.fb.bad{background:var(--bad-bg);border-color:var(--bad-b);color:var(--bad)}
+.fb.warn{background:var(--warn-bg);border-color:var(--warn-b);color:var(--warn)}
+.hero{text-align:center;border-radius:14px;padding:18px;margin-bottom:12px}
+.hero.pass{background:var(--ok-bg);border:1.5px solid var(--ok-b)}
+.hero.fail{background:var(--bad-bg);border:1.5px solid var(--bad-b)}
+.score{font-size:3rem;font-weight:800;color:var(--ink);line-height:1}
+ul.rev{list-style:none;margin:0;padding:0}
+ul.rev li{padding:8px 0;border-bottom:1px solid var(--line)}
+.m-modal{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:50;display:flex;align-items:center;justify-content:center;padding:16px}
+.m-modal[hidden]{display:none}
+.m-in{background:#fff;border-radius:14px;padding:16px;max-width:420px;width:100%;text-align:center;max-height:100vh;overflow:auto}
+#medal-canvas{width:100%;max-width:300px;border-radius:10px;display:block;margin:8px auto}
+#confetti{position:fixed;inset:0;pointer-events:none;z-index:60;width:100%;height:100%}
+footer{text-align:center;font-size:.85rem;color:var(--muted);padding:10px 0 24px}
+[hidden]{display:none!important}
+.sr{position:absolute;left:-9999px}
+</style>
+</head>
+<body>
+<a class="sr" href="#main">Saltar al contenido</a>
+<div class="wrap">
+<header class="cover">
+  <span class="badge">Práctica teórica</span>
+  <h1>Agentes de IA para el trabajo: Claude Code y Antigravity</h1>
+  <p>Curso «Inteligencia Artificial Aplicada a Recursos Humanos» · Comunicación Integral</p>
+  <div class="chips"><span class="chip">2 videos · 15 preguntas</span><span class="chip">100 pts · aprueba con 70%</span><span class="chip">Aprox. 45-60 minutos</span></div>
+</header>
+
+<main id="main">
+<section class="card" id="sec-datos">
+  <span class="step">Antes de empezar</span>
+  <h2>Sus datos</h2>
+  <p class="hint">Esta práctica es de orden libre. Si ya revisó el material de estudio (video o sesión presencial) puede ir directo al cuestionario; si no, vea primero el video de abajo.</p>
+  <label for="nombre">Nombre completo (obligatorio)</label>
+  <input type="text" id="nombre" autocomplete="name" aria-required="true">
+  <label for="correo">Correo (opcional)</label>
+  <input type="email" id="correo" autocomplete="email" inputmode="email">
+  <p id="datos-err" class="fb bad" role="alert" hidden>Escriba su nombre completo para continuar.</p>
+</section>
+
+<section class="card" id="sec-video">
+  <span class="step">Paso 1</span>
+  <h2>Parte 1: ¿Qué es un agente de IA?</h2>
+  <p><strong>Qué observar:</strong> en qué se diferencia un agente de un chat convencional, qué significa descomponer una tarea y cómo pueden colaborar varios agentes con roles distintos.</p>
+  <div class="video"><iframe src="https://www.youtube-nocookie.com/embed/VSBtZBnEwSc" title="Que son Agentes IA y como funcionan (Maestro IA)" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+  <p class="attr">Video de terceros: «Que son Agentes IA y cómo funcionan, explicado claro y fácil», canal <strong>Maestro IA</strong> (8 min, en español). Se usa con fines educativos. Si el video no se reproduce, ábralo en YouTube: <a href="https://www.youtube.com/watch?v=VSBtZBnEwSc" target="_blank" rel="noopener">Abrir en YouTube</a>.</p>
+
+  <h2 style="margin-top:22px">Parte 2: Claude Code y Antigravity en la práctica</h2>
+  <p><strong>Qué observar:</strong> cómo es un entorno de trabajo con agentes (Antigravity, el IDE de Google), qué son las carpetas de proyecto, la terminal y las habilidades (skills), y con qué modelos se conecta. Claude Code funciona con la misma lógica: usted le da un objetivo y una carpeta de trabajo, y el agente lee, propone y ejecuta con su permiso.</p>
+  <div class="video"><iframe src="https://www.youtube-nocookie.com/embed/CRC4DZFzXlM" title="Que es Google Antigravity y como empezar a usarlo desde cero (Juanjo Digital)" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+  <p class="attr">Video de terceros: «Qué es GOOGLE ANTIGRAVITY y cómo empezar a usarlo DESDE CERO | Primeros pasos con AGENTES IA REALES», canal <strong>Juanjo Digital</strong> (24 min, en español). Se usa con fines educativos. Si el video no se reproduce, ábralo en YouTube: <a href="https://www.youtube.com/watch?v=CRC4DZFzXlM" target="_blank" rel="noopener">Abrir en YouTube</a>.</p>
+  <details style="margin-top:10px"><summary style="min-height:40px;cursor:pointer;font-weight:600">Ideas clave para repasar</summary>
+    <ul>
+      <li><strong>Agente vs. chatbot:</strong> el chatbot responde mensajes; el agente persigue un objetivo en varios pasos y decide qué hacer.</li>
+      <li><strong>Herramientas y terminal:</strong> lo que le permite actuar (leer archivos, ejecutar comandos, navegar, buscar).</li>
+      <li><strong>Contexto, memoria y skills:</strong> trabaja con una ventana limitada; por eso se le dan notas, archivos de apoyo y habilidades reutilizables.</li>
+      <li><strong>Permisos y supervisión humana:</strong> las acciones sensibles se aprueban; usted revisa el resultado.</li>
+    </ul>
+  </details>
+</section>
+
+<section class="card" id="sec-quiz">
+  <span class="step">Paso 2</span>
+  <h2>Cuestionario</h2>
+  <div id="quiz-intro">
+    <p>Son 15 preguntas, una a la vez (las primeras sobre la Parte 1 y los conceptos generales; las últimas sobre la Parte 2). Elija una opción, presione <strong>Comprobar</strong> y lea la retroalimentación. Cada pregunta vale 6 o 7 puntos y el total es de 100.</p>
+    <button class="btn" id="btn-start" type="button">Comenzar cuestionario</button>
+  </div>
+  <div id="quiz-body" hidden>
+    <div class="qmeta"><span id="q-num">Pregunta 1 de 15</span><span id="q-pts">0 pts</span></div>
+    <div class="pbar" role="progressbar" aria-label="Progreso del cuestionario" aria-valuemin="0" aria-valuemax="15" aria-valuenow="0" id="pbar"><div id="pfill"></div></div>
+    <fieldset id="q-field"><legend id="q-text"></legend><div id="q-opts"></div></fieldset>
+    <div id="q-fb" aria-live="polite" role="status"></div>
+    <div class="row"><button class="btn" id="btn-check" type="button">Comprobar</button><button class="btn sec" id="btn-next" type="button" hidden>Siguiente</button></div>
+  </div>
+</section>
+
+<section class="card" id="sec-res" hidden>
+  <span class="step">Resultado</span>
+  <div id="hero" class="hero"><div class="score"><span id="score-num">0</span><span style="font-size:1.2rem"> / 100</span></div><h2 id="score-title" style="margin-top:.5rem"></h2><p id="score-desc" style="margin:0"></p></div>
+  <h2 style="font-size:1.05rem">Qué conceptos reforzar</h2>
+  <div id="refuerzo"></div>
+  <details style="margin:10px 0"><summary style="min-height:40px;cursor:pointer;font-weight:600">Ver el detalle de las 15 preguntas</summary><ul class="rev" id="revlist"></ul></details>
+  <div class="row">
+    <button class="btn" id="btn-medal" type="button" hidden>Ver mi medalla</button>
+    <button class="btn" id="btn-send" type="button">Enviar resultado</button>
+    <button class="btn sec" id="btn-txt" type="button">Descargar resultado (.txt)</button>
+    <button class="btn sec" id="btn-redo" type="button">Intentar de nuevo</button>
+  </div>
+  <div id="send-status" aria-live="polite" role="status" style="margin-top:12px"></div>
+</section>
+</main>
+<footer>Desarrollado por Johan Tapia, PhD</footer>
+</div>
+
+<div class="m-modal" id="medal-modal" hidden role="dialog" aria-modal="true" aria-labelledby="medal-h">
+  <div class="m-in"><h2 id="medal-h">¡Felicidades!</h2><canvas id="medal-canvas" width="600" height="680" role="img" aria-label="Medalla de finalización"></canvas>
+  <div class="row" style="justify-content:center"><button class="btn" id="medal-dl" type="button">Descargar PNG</button><button class="btn sec" id="medal-share" type="button">Compartir</button><button class="btn sec" id="medal-close" type="button">Cerrar</button></div></div>
+</div>
+<canvas id="confetti" aria-hidden="true"></canvas>
+
+<script>
+var CURSO='ia-rrhh-ci', UNIDAD='agentes-ia';
+var WEBHOOK='https://n8n-inap.167.88.36.13.sslip.io/webhook/inap-grade';
+var PTS=function(q){return q.id%3===0?6:7}, SEND_TIMEOUT=90000, KEY='ia_rrhh_agentes_ia_v2';
+var PREGUNTAS=[
+{id:1,concepto:'Agente frente a chatbot',t:'¿Cuál es la diferencia principal entre un agente de IA y un chatbot convencional?',
+ o:['El agente persigue un objetivo en varios pasos, decide qué hacer y puede usar herramientas; el chatbot responde a cada mensaje','El agente solo funciona sin conexión a internet y el chatbot necesita internet','El chatbot siempre es más preciso porque no usa herramientas','No existe ninguna diferencia, son nombres distintos para lo mismo'],c:0,
+ ok:'Correcto porque el agente va más allá de responder: planifica, ejecuta pasos y usa herramientas para lograr un objetivo.',
+ no:'Revisa: la diferencia no es la conexión ni la precisión, sino la capacidad de actuar en varios pasos hacia un objetivo.'},
+{id:2,concepto:'Qué combina un agente',t:'Verdadero o falso: según el video, un agente de IA combina un modelo de lenguaje con memoria y objetivos específicos para resolver procesos de varios pasos.',
+ o:['Verdadero','Falso','Solo es verdadero cuando hay varios agentes','Solo es verdadero para tareas de programación'],c:0,
+ ok:'Correcto porque el modelo de lenguaje aporta el razonamiento y la memoria y los objetivos le dan continuidad al trabajo.',
+ no:'Revisa: un agente no es solo un modelo de lenguaje; se le añaden memoria y objetivos para resolver procesos de varios pasos.'},
+{id:3,concepto:'Descomposición de tareas',t:'¿Qué significa «descomponer una tarea» en el trabajo de un agente?',
+ o:['Dividir un objetivo grande en pasos más pequeños que se pueden ejecutar y comprobar','Borrar la tarea cuando es muy larga','Pedirle al usuario que haga la tarea por su cuenta','Repetir la misma respuesta varias veces'],c:0,
+ ok:'Correcto porque al dividir el objetivo en pasos, el agente puede planificar, ejecutar y verificar cada parte.',
+ no:'Revisa: descomponer es dividir un objetivo grande en pasos menores y ordenados, no abandonarlo ni repetirlo.'},
+{id:4,concepto:'Colaboración multiagente',t:'En una colaboración multiagente, ¿cómo suelen trabajar los agentes?',
+ o:['Con roles distintos, por ejemplo uno que planifica y otro que ejecuta','Todos hacen exactamente lo mismo al mismo tiempo','Solo uno trabaja y los demás se apagan','Se reemplazan entre sí cada minuto sin comunicarse'],c:0,
+ ok:'Correcto porque repartir roles (planificador y ejecutor) permite optimizar el resultado.',
+ no:'Revisa: en la colaboración multiagente cada agente tiene un rol, como planificador o ejecutor, y trabajan en conjunto.'},
+{id:5,concepto:'Herramientas del agente',t:'En el contexto de un agente de IA, ¿qué es una «herramienta»?',
+ o:['Una capacidad que le permite actuar, como leer archivos, ejecutar comandos o buscar información','Un manual de instrucciones impreso para el usuario','Un tipo de pantalla o monitor especial','Una contraseña que protege al modelo'],c:0,
+ ok:'Correcto porque las herramientas son lo que permite al agente pasar de «decir» a «hacer».',
+ no:'Revisa: las herramientas son capacidades de acción (leer y editar archivos, ejecutar comandos, navegar o buscar), no objetos físicos ni claves.'},
+{id:6,concepto:'Contexto y memoria',t:'Verdadero o falso: un agente de IA recuerda todo para siempre, sin límite, aunque la conversación sea muy larga.',
+ o:['Falso: trabaja con un contexto limitado, por eso se le dan notas y archivos de apoyo','Verdadero: su memoria no tiene ningún límite','Verdadero, pero solo si el usuario no cierra la ventana','Falso: no recuerda nada ni siquiera durante la misma tarea'],c:0,
+ ok:'Correcto porque el contexto es limitado; por eso se usan archivos de instrucciones y notas de traspaso para no perder información.',
+ no:'Revisa: el agente sí recuerda dentro de su contexto, pero este es limitado; por eso conviene darle notas y archivos de apoyo.'},
+{id:7,concepto:'Permisos y supervisión',t:'Un agente va a ejecutar una acción sensible, como borrar archivos o enviar un correo a nombre suyo. ¿Qué es lo recomendable?',
+ o:['Que pida su permiso y usted lo apruebe antes de que la acción se ejecute','Dejar que lo haga todo automáticamente para ganar tiempo','Desactivar todos los permisos para no ver avisos','Esperar a ver qué pasa y corregir después'],c:0,
+ ok:'Correcto porque las acciones que no se pueden deshacer deben pasar por una aprobación humana.',
+ no:'Revisa: las acciones sensibles o irreversibles deben requerir su aprobación; la supervisión humana es parte del uso responsable.'},
+{id:8,concepto:'Claude Code y Antigravity',t:'¿Cuál afirmación sobre Claude Code y Antigravity es correcta?',
+ o:['Claude Code es un agente de Anthropic y Antigravity es el entorno de desarrollo con agentes de Google (Gemini); ambos pueden leer y modificar archivos de un proyecto','Los dos son hojas de cálculo creadas por Microsoft','Claude Code es de Google y Antigravity es de Anthropic','Ninguno puede modificar archivos, solo conversan'],c:0,
+ ok:'Correcto porque ambos son agentes con herramientas: uno de Anthropic y otro de Google basado en Gemini.',
+ no:'Revisa: Claude Code es de Anthropic y Antigravity es de Google (Gemini); los dos son agentes que trabajan sobre los archivos de un proyecto.'},
+{id:9,concepto:'Revisar siempre el resultado',t:'El agente informa «tarea terminada, todo quedó correcto». ¿Qué debe hacer usted?',
+ o:['Revisar el resultado, porque el agente puede equivocarse o inventar datos aun con mucha seguridad','Aceptarlo sin mirar, porque un agente nunca se equivoca','Borrarlo y empezar siempre de cero','Enviarlo directamente a su jefe'],c:0,
+ ok:'Correcto porque la responsabilidad del resultado es de la persona; el agente puede equivocarse y presentar errores con seguridad.',
+ no:'Revisa: los agentes pueden cometer errores o inventar información; siempre hay que revisar antes de usar o enviar el resultado.'},
+{id:10,concepto:'Datos personales y decisiones sobre personas',t:'En Recursos Humanos, ¿qué práctica es la más adecuada al usar un agente de IA?',
+ o:['Proteger los datos personales y dejar que las decisiones sobre las personas las tome y las revise un humano','Pegar la nómina completa con cédulas en cualquier herramienta para ahorrar tiempo','Dejar que el agente decida solo a quién contratar o despedir','Compartir su acceso con otras personas para que también lo usen'],c:0,
+ ok:'Correcto porque los datos del personal son sensibles y las decisiones que afectan a personas requieren supervisión humana.',
+ no:'Revisa: los datos personales se protegen y las decisiones sobre contratar o despedir no se delegan por completo a un agente.'}
+,
+{id:11,concepto:'Qué es Antigravity',t:'Según el segundo video, ¿qué distingue a Antigravity de usar ChatGPT, Gemini o Claude solo para conversar?',
+ o:['Pasa de una IA que solo responde en texto a agentes que ejecutan tareas reales dentro de un proyecto','Solo sirve para traducir textos a otros idiomas','Funciona únicamente en el celular','Reemplaza al usuario y no necesita instrucciones'],c:0,
+ ok:'Correcto porque en un entorno de agentes la IA no solo responde: trabaja sobre los archivos del proyecto y ejecuta tareas reales.',
+ no:'Revisa: la diferencia está en que el agente ejecuta tareas reales dentro de un proyecto, en lugar de limitarse a responder en texto.'},
+{id:12,concepto:'Carpetas y proyectos',t:'¿Para qué sirve abrir una carpeta o proyecto dentro de un entorno como Antigravity?',
+ o:['Para que el agente tenga un espacio de trabajo con los archivos sobre los que debe leer, crear y modificar','Para que la IA borre automáticamente todo lo que contiene','Para esconder los archivos del usuario','Para conectarse a internet más rápido'],c:0,
+ ok:'Correcto porque la carpeta del proyecto define el espacio y el contexto de trabajo del agente.',
+ no:'Revisa: la carpeta o proyecto es el espacio de trabajo del agente, con los archivos que puede leer y modificar.'},
+{id:13,concepto:'La terminal y sus riesgos',t:'¿Por qué aparece la terminal en herramientas con agentes, y qué implica para usted?',
+ o:['Porque permite al agente ejecutar comandos reales; por eso conviene revisar y aprobar lo que va a ejecutar','Porque es un adorno de la interfaz que no hace nada','Porque solo sirve para escribir mensajes de chat','Porque evita que el agente cometa errores'],c:0,
+ ok:'Correcto porque con la terminal el agente actúa de verdad sobre el equipo, y esa capacidad exige supervisión humana.',
+ no:'Revisa: la terminal es donde se ejecutan comandos reales; por eso hay que revisar y aprobar lo que el agente va a ejecutar.'},
+{id:14,concepto:'Habilidades (skills)',t:'En el video, ¿qué es una «habilidad» (skill) para un agente de IA?',
+ o:['Una instrucción reutilizable que le enseña al agente a realizar cierto tipo de tarea de forma consistente','Un permiso para saltarse la supervisión humana','Un tipo de teclado especial','Una versión más barata del modelo'],c:0,
+ ok:'Correcto porque las skills guardan instrucciones reutilizables para que el agente repita una tarea con el mismo criterio.',
+ no:'Revisa: una skill es una instrucción reutilizable que enseña al agente a hacer una tarea; no es un permiso ni un dispositivo.'},
+{id:15,concepto:'Modelos de IA conectables',t:'Verdadero o falso: un entorno como Antigravity solo puede trabajar con un único modelo de IA y no admite conectar otros.',
+ o:['Falso: puede conectarse a distintos modelos, como Gemini, Claude u otros','Verdadero: siempre usa un solo modelo fijo','Verdadero, pero solo en la versión de pago','Falso: no usa ningún modelo de IA'],c:0,
+ ok:'Correcto porque estos entornos permiten elegir y conectar distintos modelos según la necesidad.',
+ no:'Revisa: según el video, el entorno se puede conectar con modelos como Gemini, Claude u otros; no depende de uno solo.'}
+];
+var S;
+function $(i){return document.getElementById(i)}
+function load(){try{S=JSON.parse(localStorage.getItem(KEY)||'null')}catch(e){S=null}
+ if(!S||typeof S!=='object')S={nombre:'',correo:'',idx:-1,ans:{},done:false,sent:false};}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function shuffle(n){var a=[],i,j,t;for(i=0;i<n;i++)a.push(i);for(i=n-1;i>0;i--){j=Math.floor(Math.random()*(i+1));t=a[i];a[i]=a[j];a[j]=t}return a}
+function score(){var s=0;PREGUNTAS.forEach(function(q){var a=S.ans[q.id];if(a&&a.checked&&a.sel===q.c)s+=PTS(q)});return s}
+function answered(){return PREGUNTAS.filter(function(q){return S.ans[q.id]&&S.ans[q.id].checked}).length}
+function renderQ(){
+ var q=PREGUNTAS[S.idx],a=S.ans[q.id];
+ if(!a){a=S.ans[q.id]={order:shuffle(q.o.length),sel:null,checked:false};save()}
+ $('q-num').textContent='Pregunta '+(S.idx+1)+' de '+PREGUNTAS.length;
+ $('q-pts').textContent='Esta pregunta: '+PTS(q)+' pts · Acumulado: '+score()+' pts';
+ $('q-text').textContent=q.t;
+ var h='';a.order.forEach(function(oi){
+  var cls='opt'+(a.checked?(oi===q.c?' ok':(a.sel===oi?' bad':'')):(a.sel===oi?' sel':''));
+  h+='<label class="'+cls+'"><input type="radio" name="opt" value="'+oi+'"'+(a.sel===oi?' checked':'')+(a.checked?' disabled':'')+'><span>'+esc(q.o[oi])+'</span></label>';});
+ $('q-opts').innerHTML=h;
+ var fb=$('q-fb');
+ if(a.checked){var ok=a.sel===q.c;fb.innerHTML='<div class="fb '+(ok?'ok':'bad')+'"><strong>'+(ok?'':'Incorrecto. ')+'</strong>'+esc(ok?q.ok:q.no+(' La respuesta correcta es: «'+q.o[q.c]+'».'))+'</div>';}
+ else fb.innerHTML='';
+ $('btn-check').hidden=a.checked;
+ $('btn-next').hidden=!a.checked;
+ $('btn-next').textContent=S.idx===PREGUNTAS.length-1?'Ver resultado':'Siguiente';
+ var n=answered();$('pfill').style.width=(n*100/PREGUNTAS.length)+'%';$('pbar').setAttribute('aria-valuenow',n);
+}
+function showQuiz(){$('quiz-intro').hidden=true;$('quiz-body').hidden=false;renderQ()}
+function check(){
+ var q=PREGUNTAS[S.idx],a=S.ans[q.id],r=document.querySelector('input[name=opt]:checked');
+ if(!r){$('q-fb').innerHTML='<div class="fb warn">Elija una opción antes de comprobar.</div>';return}
+ a.sel=parseInt(r.value,10);a.checked=true;save();renderQ();
+}
+function next(){if(S.idx<PREGUNTAS.length-1){S.idx++;save();renderQ();$('q-text').scrollIntoView({block:'center'})}else finish()}
+function finish(){S.done=true;save();renderRes();$('sec-res').scrollIntoView({behavior:'smooth'})}
+function payload(){
+ var pasos={},crit=[];
+ PREGUNTAS.forEach(function(q,i){var a=S.ans[q.id]||{},ok=a.checked&&a.sel===q.c;
+  pasos['paso'+(i+1)]={criterio:'P'+(i+1)+'. '+q.concepto,max:PTS(q),respuestas:{'Pregunta':q.t,'Respuesta elegida':(a.sel!=null?q.o[a.sel]:'(sin responder)'),'Resultado':ok?'correcta':'incorrecta'}};
+  crit.push({titulo:'P'+(i+1)+'. '+q.concepto,puntaje:ok?PTS(q):0,max:PTS(q)});});
+ var t=score();
+ return{estudiante:{nombre:S.nombre,correo:S.correo||'',integrantes:'',modalidad:'individual'},institucion:'',curso:CURSO,unidad:UNIDAD,aprobado_por_completitud:t>=70,pasos:pasos,local:{total:t,criterios:crit}};
+}
+function renderRes(){
+ $('sec-res').hidden=false;
+ var t=score(),pass=t>=70;
+ $('score-num').textContent=t;
+ $('hero').className='hero '+(pass?'pass':'fail');
+ $('score-title').textContent=pass?'Práctica aprobada':'Todavía no alcanza el 70% requerido';
+ $('score-desc').textContent=pass?'Obtuvo '+t+' de 100 puntos; supera el mínimo de 70.':'Obtuvo '+t+' de 100 puntos. Repase los conceptos indicados y vuelva a intentarlo.';
+ var fallos=PREGUNTAS.filter(function(q){var a=S.ans[q.id];return !(a&&a.checked&&a.sel===q.c)});
+ $('refuerzo').innerHTML=fallos.length?'<ul>'+fallos.map(function(q){return'<li>'+esc(q.concepto)+'</li>'}).join('')+'</ul>':'<p>Ninguno: respondió correctamente todos los conceptos.</p>';
+ $('revlist').innerHTML=PREGUNTAS.map(function(q,i){var a=S.ans[q.id]||{},ok=a.checked&&a.sel===q.c;return'<li><strong>'+(i+1)+'. '+esc(q.concepto)+':</strong> '+(ok?'correcta':'incorrecta')+'</li>'}).join('');
+ $('btn-medal').hidden=!pass;
+ if(pass&&!S.celebrado){S.celebrado=true;save();confetti()}
+ if(S.sent)$('send-status').innerHTML='<div class="fb ok">Resultado enviado a su facilitador.</div>';
+}
+var sending=false;
+function send(){
+ if(sending)return;sending=true;
+ var b=$('btn-send'),st=$('send-status');b.disabled=true;
+ st.innerHTML='<div class="fb warn">Enviando su resultado…</div>';
+ var ctl=('AbortController' in window)?new AbortController():null,tm=setTimeout(function(){if(ctl)ctl.abort()},SEND_TIMEOUT);
+ fetch(WEBHOOK,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload()),signal:ctl?ctl.signal:undefined})
+ .then(function(r){window.__lastHttp=r.status;if(!r.ok)throw new Error('HTTP '+r.status);return r.json().catch(function(){return{ok:true}})})
+ .then(function(d){if(d&&d.ok===false)throw new Error(d.error||'respuesta no válida');S.sent=true;save();st.innerHTML='<div class="fb ok">Resultado enviado a su facilitador. Su nota es '+score()+' / 100.</div>';b.textContent='Enviar de nuevo'})
+ .catch(function(){st.innerHTML='<div class="fb bad"><strong>No se pudo enviar el resultado</strong> (conexión lenta o servicio no disponible). Su nota se conserva: <strong>'+score()+' / 100</strong>. Puede descargar el resultado en .txt y presionar «Reintentar envío».</div>';b.textContent='Reintentar envío'})
+ .then(function(){clearTimeout(tm);sending=false;b.disabled=false});
+}
+function txt(){
+ var L=['Agentes de IA para el trabajo: Claude Code y Antigravity','Curso: IA Aplicada a Recursos Humanos (Comunicación Integral)','Participante: '+S.nombre,'Correo: '+(S.correo||'(no indicado)'),'Fecha: '+new Date().toLocaleString('es-DO'),'Puntaje: '+score()+' / 100 ('+(score()>=70?'aprobado':'no aprobado')+')',''];
+ PREGUNTAS.forEach(function(q,i){var a=S.ans[q.id]||{};L.push((i+1)+'. '+q.concepto+': '+(a.checked&&a.sel===q.c?'correcta':'incorrecta'))});
+ L.push('','Desarrollado por Johan Tapia, PhD');
+ var bl=new Blob([L.join('\r\n')],{type:'text/plain;charset=utf-8'}),a=document.createElement('a');
+ a.href=URL.createObjectURL(bl);a.download='resultado-agentes-ia.txt';document.body.appendChild(a);a.click();document.body.removeChild(a);setTimeout(function(){URL.revokeObjectURL(a.href)},1000);
+}
+var TEMA={icono:'🧠',f1:'#0d3b3f',f2:'#062023',cl:'#d9f99d',me:'#8dc63f',os:'#4d7c0f',la:'#8dc63f'};
+function laurel(ctx,cx,cy,r,col){for(var l=-1;l<=1;l+=2){ctx.save();ctx.translate(cx,cy);ctx.scale(l,1);ctx.strokeStyle=col;ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(r*.72,r*.78);ctx.quadraticCurveTo(r*1.28,0,r*.92,-r*.9);ctx.stroke();
+ for(var i=0;i<7;i++){var t=i/6,px=r*.72*(1-t)+r*.92*t,py=r*.78*(1-t)-r*.9*t;ctx.save();ctx.translate(px,py);ctx.rotate(-.6+t*1.15);ctx.beginPath();ctx.ellipse(0,0,13,6,0,0,Math.PI*2);ctx.fillStyle=col;ctx.globalAlpha=.85;ctx.fill();ctx.restore()}ctx.restore()}}
+function wrap(ctx,text,x,y,mw,lh){var w=text.split(' '),line='',ls=[];w.forEach(function(p){var tst=line+p+' ';if(ctx.measureText(tst).width>mw&&line){ls.push(line.trim());line=p+' '}else line=tst});ls.push(line.trim());ls.forEach(function(l,i){ctx.fillText(l,x,y+i*lh)})}
+function drawMedal(){
+ var c=$('medal-canvas'),ctx=c.getContext('2d'),W=c.width,H=c.height,T=TEMA;
+ var g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,T.f1);g.addColorStop(1,T.f2);ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+ ctx.textAlign='center';ctx.fillStyle=T.la;ctx.font='bold 18px sans-serif';ctx.fillText('CERTIFICADO DE FINALIZACIÓN',W/2,55);
+ var cx=W/2,cy=300,r=150;laurel(ctx,cx,cy,r+25,T.la);
+ var rg=ctx.createRadialGradient(cx-50,cy-50,10,cx,cy,r);rg.addColorStop(0,T.cl);rg.addColorStop(.6,T.me);rg.addColorStop(1,T.os);
+ ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.fillStyle=rg;ctx.fill();ctx.lineWidth=8;ctx.strokeStyle=T.os;ctx.stroke();
+ ctx.beginPath();ctx.arc(cx,cy,r-20,0,Math.PI*2);ctx.lineWidth=3;ctx.strokeStyle='rgba(255,255,255,.35)';ctx.stroke();
+ ctx.fillStyle=T.f1;ctx.font='bold 82px sans-serif';ctx.fillText(T.icono,cx,cy+28);
+ ctx.fillStyle='#fff';ctx.font='bold 30px sans-serif';ctx.fillText('PRÁCTICA COMPLETADA',W/2,cy+r+65);
+ ctx.fillStyle=T.la;ctx.font='600 21px sans-serif';wrap(ctx,'Agentes de IA para el trabajo: Claude Code y Antigravity',W/2,cy+r+100,W-100,26);
+ ctx.fillStyle='#cbd5e1';ctx.font='17px sans-serif';ctx.fillText('IA Aplicada a Recursos Humanos',W/2,cy+r+165);
+ ctx.fillStyle='#fff';ctx.font='bold 24px sans-serif';ctx.fillText(S.nombre||'Participante',W/2,cy+r+205);
+ ctx.fillStyle='#94a3b8';ctx.font='14px sans-serif';ctx.fillText('Johan Tapia, PhD · '+new Date().toLocaleDateString('es-DO'),W/2,cy+r+235);
+}
+function medalName(){return 'medalla-'+((S.nombre||'participante').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')||'participante')+'-agentes-ia.png'}
+function confetti(){
+ try{if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+ var c=$('confetti'),x=c.getContext('2d');c.width=innerWidth;c.height=innerHeight;
+ var cols=['#0d7377','#8dc63f','#d9f99d','#5eead4','#ffffff'],ps=[];
+ for(var i=0;i<90;i++)ps.push({x:Math.random()*c.width,y:-20-Math.random()*c.height*.5,vx:(Math.random()-.5)*3,vy:2+Math.random()*3,s:5+Math.random()*6,c:cols[i%cols.length],r:Math.random()*6});
+ var f=0;(function loop(){x.clearRect(0,0,c.width,c.height);ps.forEach(function(p){p.x+=p.vx;p.y+=p.vy;p.r+=.1;x.fillStyle=p.c;x.save();x.translate(p.x,p.y);x.rotate(p.r);x.fillRect(-p.s/2,-p.s/2,p.s,p.s*.6);x.restore()});
+  if(++f<150)requestAnimationFrame(loop);else x.clearRect(0,0,c.width,c.height)})();}catch(e){}
+}
+function reset(){if(!confirm('Se borrarán sus respuestas para volver a intentarlo. ¿Continuar?'))return;
+ S.ans={};S.idx=0;S.done=false;S.sent=false;S.celebrado=false;save();$('sec-res').hidden=true;$('send-status').innerHTML='';$('btn-send').textContent='Enviar resultado';renderQ();$('sec-quiz').scrollIntoView({behavior:'smooth'})}
+window.addEventListener('DOMContentLoaded',function(){
+ load();$('nombre').value=S.nombre||'';$('correo').value=S.correo||'';
+ $('nombre').addEventListener('input',function(){S.nombre=this.value;save()});
+ $('correo').addEventListener('input',function(){S.correo=this.value;save()});
+ $('btn-start').addEventListener('click',function(){
+  S.nombre=$('nombre').value.trim();S.correo=$('correo').value.trim();
+  if(!S.nombre){$('datos-err').hidden=false;$('nombre').focus();$('sec-datos').scrollIntoView({behavior:'smooth'});return}
+  $('datos-err').hidden=true;if(S.idx<0)S.idx=0;save();showQuiz()});
+ $('q-opts').addEventListener('change',function(e){var a=S.ans[PREGUNTAS[S.idx].id];if(!a||a.checked)return;a.sel=parseInt(e.target.value,10);save();
+  Array.prototype.forEach.call(document.querySelectorAll('#q-opts .opt'),function(l){l.classList.toggle('sel',l.querySelector('input').checked)})});
+ $('btn-check').addEventListener('click',check);$('btn-next').addEventListener('click',next);
+ $('btn-send').addEventListener('click',send);$('btn-txt').addEventListener('click',txt);$('btn-redo').addEventListener('click',reset);
+ $('btn-medal').addEventListener('click',function(){drawMedal();$('medal-modal').hidden=false;$('medal-close').focus()});
+ $('medal-close').addEventListener('click',function(){$('medal-modal').hidden=true;$('btn-medal').focus()});
+ document.addEventListener('keydown',function(e){if(e.key==='Escape')$('medal-modal').hidden=true});
+ $('medal-dl').addEventListener('click',function(){var a=document.createElement('a');a.href=$('medal-canvas').toDataURL('image/png');a.download=medalName();document.body.appendChild(a);a.click();document.body.removeChild(a)});
+ $('medal-share').addEventListener('click',function(){$('medal-canvas').toBlob(function(bl){var f=new File([bl],medalName(),{type:'image/png'});
+  if(navigator.canShare&&navigator.canShare({files:[f]}))navigator.share({files:[f],title:'¡Completé mi práctica!',text:'Completé la práctica «Agentes de IA para el trabajo: Claude Code y Antigravity».'}).catch(function(){});
+  else{var a=document.createElement('a');a.href=URL.createObjectURL(bl);a.download=medalName();document.body.appendChild(a);a.click();document.body.removeChild(a);alert('Su navegador no permite compartir directamente. Se descargó la imagen para que la comparta manualmente.')}})});
+ if(S.idx>=0&&Object.keys(S.ans).length){showQuiz();if(S.done||answered()===PREGUNTAS.length){S.done=true;renderRes()}}
+});
+</script>
+</body>
+</html>

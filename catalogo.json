@@ -803,7 +803,7 @@
         "nombre": "Inteligencia Artificial Aplicada a Recursos Humanos",
         "icono": "🧠",
         "tipoClase": "taller",
-        "tipoLabel": "6 prácticas · orden libre",
+        "tipoLabel": "8 prácticas · orden libre",
         "cursoId": "ia-rrhh-ci",
         "practicas": [
           {
@@ -875,6 +875,16 @@
             "puntos": "100 pts",
             "aprobacion": "70% mínimo (puede reintentar)",
             "url": "https://johantbueno.github.io/practicas-web/ia-rrhh-plataforma/"
+          },
+          {
+            "badge": "Práctica teórica",
+            "unidad": "agentes-ia",
+            "titulo": "Agentes de IA para el trabajo: Claude Code y Antigravity",
+            "desc": "Vea dos videos (qué es un agente de IA; Claude Code y Antigravity en la práctica) y responda un cuestionario de 15 preguntas con retroalimentación inmediata: qué es un agente de IA frente a un chatbot, herramientas, contexto y memoria, permisos, supervisión humana y por qué siempre se revisa lo que produce. Individual.",
+            "duracion": "2 videos + 15 preguntas · aproximadamente 45-60 minutos, individual",
+            "puntos": "100 pts",
+            "aprobacion": "70% mínimo (puede reintentar)",
+            "url": "https://johantbueno.github.io/practicas-web/ia-rrhh-agentes-ia/"
           }
         ]
       },
