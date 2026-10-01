@@ -803,7 +803,7 @@
         "nombre": "Inteligencia Artificial Aplicada a Recursos Humanos",
         "icono": "🧠",
         "tipoClase": "taller",
-        "tipoLabel": "5 unidades · orden libre",
+        "tipoLabel": "6 prácticas · orden libre",
         "cursoId": "ia-rrhh-ci",
         "practicas": [
           {
@@ -865,6 +865,16 @@
             "puntos": "100 pts (retroalimentación)",
             "aprobacion": "Completar los 5 pasos",
             "url": "https://johantbueno.github.io/practicas-web/ia-rrhh-u5/"
+          },
+          {
+            "badge": "Práctica con la plataforma",
+            "unidad": "plataforma",
+            "titulo": "Plataforma de RR. HH. del Gabinete de Políticas Sociales: Práctica con Datos Reales",
+            "desc": "Trabaje como analista del Departamento de Recursos Humanos del Gabinete de Coordinación de Políticas Sociales en la plataforma RRHH Virtual, con la nómina real publicada: diagnostique la plantilla, cree una unidad, reclute, seleccione e incorpore personal y consulte a María. Su trabajo en la plataforma se verifica automáticamente. Individual.",
+            "duracion": "12 hitos en la plataforma + reflexión · aproximadamente 60-75 minutos, individual",
+            "puntos": "100 pts",
+            "aprobacion": "70% mínimo (puede reintentar)",
+            "url": "https://johantbueno.github.io/practicas-web/ia-rrhh-plataforma/"
           }
         ]
       },
