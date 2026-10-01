@@ -803,7 +803,7 @@
         "nombre": "Inteligencia Artificial Aplicada a Recursos Humanos",
         "icono": "🧠",
         "tipoClase": "taller",
-        "tipoLabel": "8 prácticas · orden libre",
+        "tipoLabel": "10 prácticas · orden libre",
         "cursoId": "ia-rrhh-ci",
         "practicas": [
           {
@@ -865,6 +865,26 @@
             "puntos": "100 pts (retroalimentación)",
             "aprobacion": "Completar los 5 pasos",
             "url": "https://johantbueno.github.io/practicas-web/ia-rrhh-u5/"
+          },
+          {
+            "badge": "Unidad V · Caso 1",
+            "unidad": "u5-claude",
+            "titulo": "Agentes con Claude Code en Recursos Humanos: Análisis Masivo y Auditoría",
+            "desc": "Aprenda a formular misiones e instrucciones para Claude Code en terminal local: normalización masiva de 40 descripciones de puesto, auditoría de equidad salarial y protección de datos confidenciales de personal sin exponerlos a nubes públicas. Individual o en equipo.",
+            "duracion": "5 pasos · aproximadamente 50-60 minutos, individual o en equipo",
+            "puntos": "100 pts (retroalimentación)",
+            "aprobacion": "Completar los 5 pasos",
+            "url": "https://johantbueno.github.io/practicas-web/ia-rrhh-u5-claude-code/"
+          },
+          {
+            "badge": "Unidad V · Caso 2",
+            "unidad": "u5-antigravity",
+            "titulo": "Agentes Autónomos con Antigravity en Recursos Humanos: Inducción y Ética",
+            "desc": "Diseñe un sistema inteligente de inducción de 90 días y evaluación probatoria mediante subagentes coordinados en Antigravity y herramientas MCP. Incluye prevención de sesgos algorítmicos en evaluación y gobernanza con supervisión humana. Individual o en equipo.",
+            "duracion": "5 pasos · aproximadamente 50-60 minutos, individual o en equipo",
+            "puntos": "100 pts (retroalimentación)",
+            "aprobacion": "Completar los 5 pasos",
+            "url": "https://johantbueno.github.io/practicas-web/ia-rrhh-u5-antigravity/"
           },
           {
             "badge": "Práctica con la plataforma",

@@ -1,0 +1,1530 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Práctica — Unidad V: Agentes Autónomos con Antigravity en Recursos Humanos | Inteligencia Artificial Aplicada a Recursos Humanos</title>
+<meta name="description" content="Práctica autocalificable de la Unidad V: Creación de soluciones de gestión del talento con agentes coordinados en Antigravity, herramientas MCP, onboarding inteligente y supervisión ética. Curso IA Aplicada a Recursos Humanos, Comunicación Integral. Incluye a Nicole, temporizador de referencia y medalla digital al completar.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A7%A0%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+:root{
+  --navy:#0d7377; --navy-dark:#093638; --gold:#8dc63f;
+  --primary:#0f172a; --secondary:#334155; --muted:#64748b;
+  --bg-body:#f4f7fb; --bg-card:#ffffff; --border-light:#e2e8f0; --border-dark:#cbd5e1;
+  --green:#16a34a; --green-bg:#f0fdf4; --green-border:#22c55e;
+  --amber:#b45309; --amber-bg:#fffbeb; --amber-border:#f59e0b;
+  --red:#b91c1c; --red-bg:#fef2f2; --red-border:#ef4444;
+  --blue-bg:#eff6ff; --blue-border:#3b82f6;
+  --radius-lg:16px; --radius-md:12px; --radius-sm:8px;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.06);
+  --shadow-md:0 4px 6px -1px rgba(0,0,0,.1), 0 2px 4px -2px rgba(0,0,0,.1);
+  --shadow-lg:0 10px 15px -3px rgba(0,0,0,.12), 0 4px 6px -4px rgba(0,0,0,.1);
+  --sidebar-w:300px;
+}
+[data-theme="dark"]{
+  --navy:#5eead4; --primary:#f1f5f9; --secondary:#cbd5e1; --muted:#94a3b8;
+  --bg-body:#0b1220; --bg-card:#151f2f; --border-light:#283249; --border-dark:#3a4666;
+  --green-bg:#0c2417; --amber-bg:#2a2108; --red-bg:#2a1212; --blue-bg:#13233f;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.4); --shadow-md:0 4px 6px -1px rgba(0,0,0,.5); --shadow-lg:0 10px 15px -3px rgba(0,0,0,.5);
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{margin:0; background:var(--bg-body); color:var(--secondary); font-family:'Inter',ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif; line-height:1.7; transition:background-color .25s ease;}
+a{color:var(--navy);}
+.skip-link{position:absolute; left:-9999px; top:0; background:var(--navy); color:#fff; padding:.85rem 1.5rem; z-index:2000; border-radius:0 0 10px 0; font-weight:700; text-decoration:none;}
+.skip-link:focus{left:0;}
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible{outline:2px solid var(--navy); outline-offset:2px; border-radius:4px;}
+
+#progress-wrap{position:fixed; top:0; left:0; right:0; height:4px; z-index:1000; background:transparent;}
+#progress-bar{height:100%; width:0%; background:linear-gradient(90deg, var(--navy), var(--gold)); transition:width .1s linear;}
+
+.wrapper{display:flex; flex-direction:column; min-height:100vh; margin:0 auto;}
+@media (min-width:1024px){ .wrapper{flex-direction:row; align-items:flex-start; max-width:1440px; padding:0 1rem;} }
+
+/* SIDEBAR */
+.sidebar{background:var(--bg-card); padding:1.75rem 1.5rem; border-bottom:1px solid var(--border-light);}
+@media (min-width:1024px){
+  .sidebar{width:var(--sidebar-w); flex-shrink:0; position:sticky; top:1.5rem; height:calc(100vh - 3rem); overflow-y:auto; border-radius:var(--radius-lg); border:1px solid var(--border-light); box-shadow:var(--shadow-md); margin:1.5rem 0;}
+}
+.sidebar-header{display:flex; align-items:center; gap:10px; margin-bottom:1rem; padding-bottom:1rem; border-bottom:1px solid var(--border-light);}
+.sidebar-title{color:var(--primary); font-size:1.02rem; font-weight:800; text-transform:uppercase; letter-spacing:.04em; margin:0;}
+.header-actions{margin-left:auto; display:flex; gap:.4rem;}
+.icon-btn{background:none; border:1px solid var(--border-light); width:34px; height:34px; border-radius:8px; cursor:pointer; font-size:1rem; display:flex; align-items:center; justify-content:center; color:var(--secondary);}
+.icon-btn:hover{background:var(--bg-body); border-color:var(--border-dark);}
+.nav-toggle{display:none;}
+
+/* TEMPORIZADOR DE REFERENCIA */
+.timer-box{background:var(--bg-body); border:1px solid var(--border-light); border-radius:var(--radius-md); padding:.85rem 1rem; margin-bottom:1.1rem; transition:background-color .3s ease, border-color .3s ease;}
+.timer-row{display:flex; justify-content:space-between; align-items:center; margin-bottom:.3rem;}
+.timer-label{font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.03em; color:var(--muted);}
+.timer-value{font-size:1.5rem; font-weight:800; color:var(--primary); font-family:ui-monospace,SFMono-Regular,Consolas,monospace; letter-spacing:.02em;}
+.timer-box.low{background:var(--red-bg); border-color:var(--red-border);}
+.timer-box.low .timer-value{color:var(--red); animation:timerPulse 1s ease-in-out infinite;}
+.timer-box.critical .timer-value{animation:timerPulse .5s ease-in-out infinite;}
+.timer-box.flatline{background:var(--bg-body); border-color:var(--border-dark);}
+.timer-box.flatline .timer-value{color:var(--muted); text-decoration:line-through;}
+#sound-toggle{width:28px; height:28px; font-size:.85rem; flex-shrink:0;}
+@keyframes timerPulse{0%,100%{opacity:1; transform:scale(1);} 50%{opacity:.55; transform:scale(1.05);}}
+
+#hearts-canvas{display:block; margin:.55rem auto 0;}
+@keyframes heartShake{0%,100%{transform:translateX(0);} 20%{transform:translateX(-2px);} 40%{transform:translateX(2px);} 60%{transform:translateX(-2px);} 80%{transform:translateX(2px);}}
+#hearts-canvas.critical{animation:heartShake .3s ease-in-out infinite;}
+
+.timer-box.overtime{background:var(--red-bg); border-color:var(--red-border);}
+.timer-box.overtime .timer-value{color:var(--red); animation:timerPulse .6s ease-in-out infinite;}
+.overtime-note{font-size:.66rem; color:var(--red); text-align:center; margin-top:.4rem; font-weight:700; line-height:1.3;}
+.fast-clock{width:26px; height:26px; border-radius:50%; border:2px solid var(--red); position:relative; margin:.55rem auto 0; display:none;}
+.timer-box.overtime .fast-clock{display:block;}
+.fast-clock-hand{position:absolute; top:50%; left:50%; width:2px; height:10px; background:var(--red); transform-origin:50% 100%; margin-top:-10px; margin-left:-1px; animation:fastSpin .4s linear infinite;}
+@keyframes fastSpin{ to{ transform:rotate(360deg); } }
+
+.progress-summary{margin-bottom:1.1rem;}
+.progress-summary-row{display:flex; justify-content:space-between; font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.03em; color:var(--muted); margin-bottom:.35rem;}
+#progress-count{color:var(--primary);}
+.progress-track{height:6px; border-radius:999px; background:var(--border-light); overflow:hidden;}
+.progress-fill{height:100%; width:0%; background:linear-gradient(90deg,var(--navy),var(--gold)); transition:width .3s ease;}
+.progress-fill.complete{background:linear-gradient(90deg,#16a34a,#22c55e);}
+
+.nav ul{list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:.2rem;}
+.nav a{text-decoration:none; color:var(--muted); font-size:.9rem; font-weight:500; display:flex; align-items:center; justify-content:space-between; gap:.5rem; padding:.55rem .8rem; border-radius:var(--radius-sm); transition:all .2s ease;}
+.nav a:hover{background:var(--bg-body); color:var(--navy); transform:translateX(3px);}
+.nav a.active,.nav a.active:hover{background:var(--navy); color:#fff; transform:translateX(3px);}
+.nav a .pct{font-size:.68rem; font-weight:700; opacity:.75;}
+.nav a.done .pct::before{content:"✓ ";}
+
+.sidebar-actions{margin-top:1.25rem; padding-top:1.25rem; border-top:1px solid var(--border-light); display:flex; flex-direction:column; gap:.5rem;}
+.btn-block{width:100%; padding:.6rem .8rem; border-radius:var(--radius-sm); border:1px solid var(--border-light); background:var(--bg-body); color:var(--secondary); font-weight:600; font-size:.82rem; cursor:pointer; font-family:inherit;}
+.btn-block:hover{border-color:var(--navy); color:var(--navy);}
+
+@media (max-width:1023px){
+  .sidebar-collapsible{display:none;}
+  .sidebar.open .sidebar-collapsible{display:block;}
+  .nav-toggle{display:inline-flex;}
+  .sidebar-header{flex-wrap:wrap; row-gap:.6rem;}
+  .header-actions{flex-basis:100%; justify-content:flex-end; margin-left:0;}
+  .icon-btn{width:40px; height:40px;}
+  .fontsize-controls button{width:38px; height:38px;}
+}
+
+/* MAIN */
+.main{flex:1; padding:1.75rem 1rem 6.5rem; max-width:980px; margin:0 auto; width:100%;}
+@media (min-width:1024px){ .main{padding:1.75rem 2.5rem 5.5rem;} }
+
+.card.cover{background:linear-gradient(135deg,var(--navy),var(--navy-dark)); color:#fff; border-radius:var(--radius-lg); padding:2.5rem; margin-bottom:2rem; box-shadow:var(--shadow-lg); position:relative; overflow:hidden;}
+.card.cover h1{color:#fff;}
+.cover .eyebrow{text-transform:uppercase; letter-spacing:.08em; font-size:.78rem; font-weight:700; opacity:.85;}
+.cover h1{font-size:1.9rem; font-weight:800; margin:.4rem 0 .3rem; line-height:1.25;}
+.cover p.sub{margin:0 0 1.25rem; opacity:.92; font-size:1rem;}
+.cover-chips{display:flex; flex-wrap:wrap; gap:.6rem; margin-top:1.1rem;}
+.cover-chip{background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.22); border-radius:999px; padding:.4rem .9rem; font-size:.8rem; font-weight:600; letter-spacing:.01em;}
+.tutorial-steps{counter-reset:tut; list-style:none; padding:0; margin:1rem 0;}
+.tutorial-steps li{counter-increment:tut; position:relative; padding:.15rem 0 .9rem 2.5rem; font-size:.92rem;}
+.tutorial-steps li::before{content:counter(tut); position:absolute; left:0; top:0; width:1.7rem; height:1.7rem; border-radius:50%; background:var(--navy); color:#fff; font-weight:800; font-size:.8rem; display:flex; align-items:center; justify-content:center;}
+.help-box{display:flex; align-items:center; gap:.9rem; background:var(--blue-bg); border:1px solid var(--blue-border); border-radius:var(--radius-md); padding:1rem 1.25rem; margin-top:1.25rem;}
+.help-box a.btn-secondary{white-space:nowrap;}
+
+.card{background:var(--bg-card); padding:2rem; border-radius:var(--radius-lg); box-shadow:var(--shadow-sm); border:1px solid var(--border-light); margin-bottom:2rem; scroll-margin-top:1.25rem;}
+@media (max-width:640px){ .card{padding:1.35rem;} }
+.card h1{font-size:1.7rem; font-weight:800; color:var(--primary); margin:0 0 1.1rem;}
+.card h2{font-size:1.2rem; font-weight:700; color:var(--navy); margin:1.75rem 0 .9rem; padding-bottom:.5rem; border-bottom:1px solid var(--border-light);}
+.card h2:first-child{margin-top:0;}
+.card h3{font-size:1.02rem; font-weight:700; color:var(--primary); margin:1.4rem 0 .7rem;}
+.card p{margin:0 0 1rem;}
+.step-badge{display:inline-flex; align-items:center; gap:.4rem; background:var(--blue-bg); color:var(--navy); border:1px solid var(--blue-border); font-weight:700; font-size:.72rem; text-transform:uppercase; letter-spacing:.04em; padding:.3rem .7rem; border-radius:999px; margin-bottom:.9rem;}
+.step-points{float:right; font-size:.82rem; font-weight:700; color:var(--gold);}
+
+.alert{border-radius:var(--radius-md); padding:1rem 1.25rem; margin:1rem 0; border:1px solid; font-size:.92rem;}
+.alert h3,.alert h4{margin-top:0;}
+.alert.info{background:var(--blue-bg); border-color:var(--blue-border);}
+.alert.gold{background:var(--amber-bg); border-color:var(--amber-border);}
+.alert.success{background:var(--green-bg); border-color:var(--green-border);}
+.alert.warn{background:var(--red-bg); border-color:var(--red-border);}
+
+.tbl-wrap{overflow-x:auto; margin:1rem 0; border-radius:var(--radius-sm); border:1px solid var(--border-light);}
+table.tp-table{width:100%; border-collapse:collapse; font-size:.87rem; min-width:560px;}
+table.tp-table th{background:var(--navy); color:#fff; text-align:left; padding:.6rem .7rem; font-weight:700; font-size:.78rem; text-transform:uppercase; letter-spacing:.02em;}
+table.tp-table td{padding:.55rem .7rem; border-top:1px solid var(--border-light); vertical-align:top;}
+table.tp-table tr:hover td{background:rgba(13,115,119,.04);}
+.label-cell{font-weight:700; color:var(--primary);}
+
+.field{margin-bottom:1.4rem;}
+.field label{display:block; font-weight:600; font-size:.9rem; color:var(--primary); margin-bottom:.4rem;}
+.field label .wc{float:right; font-weight:500; font-size:.75rem; color:var(--muted);}
+.field label .wc.ok{color:var(--green);}
+input[type="text"], input[type="email"], select, textarea{width:100%; padding:.7rem .85rem; border-radius:var(--radius-sm); border:1.5px solid var(--border-light); background:var(--bg-body); color:var(--primary); font-family:inherit; font-size:.92rem; transition:border-color .2s ease;}
+input[type="text"]:focus, input[type="email"]:focus, select:focus, textarea:focus{border-color:var(--navy); outline:none; background:var(--bg-card);}
+textarea{min-height:90px; resize:vertical; line-height:1.6;}
+textarea.tall{min-height:140px;}
+
+.voice-row{display:flex; align-items:center; gap:.6rem; margin-top:.4rem;}
+.voice-btn{display:inline-flex; align-items:center; gap:.4rem; padding:.35rem .75rem; font-size:.78rem; font-weight:600; background:var(--bg-body); border:1px solid var(--border-light); border-radius:999px; cursor:pointer; color:var(--secondary); transition:all .2s ease; user-select:none;}
+.voice-btn:hover{border-color:var(--navy); color:var(--navy);}
+.voice-btn.recording{background:var(--red-bg); border-color:var(--red); color:var(--red); animation:timerPulse .8s infinite;}
+.voice-btn.busy{opacity:.7; pointer-events:none;}
+.voice-status{font-size:.75rem; color:var(--muted);}
+.voice-status.err{color:var(--red);}
+.voice-status.ok{color:var(--green);}
+
+.sandbox-box{background:var(--bg-body); border:1px solid var(--border-light); border-radius:var(--radius-md); padding:1.25rem; margin:1rem 0;}
+.sandbox-response{background:var(--bg-card); border:1px dashed var(--border-dark); border-radius:var(--radius-sm); padding:1rem; margin-top:.75rem; font-size:.9rem; white-space:pre-wrap; display:none; max-height:300px; overflow-y:auto;}
+.sandbox-response.show{display:block;}
+
+.gloss-list{display:grid; grid-template-columns:1fr; gap:.8rem; margin:1rem 0;}
+@media (min-width:640px){ .gloss-list{grid-template-columns:1fr 1fr;} }
+.gloss-item{background:var(--bg-body); border:1px solid var(--border-light); border-radius:var(--radius-md); padding:.9rem 1rem;}
+.gloss-item dt{font-weight:700; color:var(--navy); font-size:.9rem; margin-bottom:.2rem;}
+.gloss-item dd{margin:0; font-size:.82rem; color:var(--secondary);}
+
+.btn-primary{display:inline-flex; align-items:center; justify-content:center; gap:.5rem; background:linear-gradient(135deg,var(--navy),var(--navy-dark)); color:#fff; font-weight:700; font-size:.95rem; border:none; border-radius:var(--radius-md); padding:.85rem 1.6rem; cursor:pointer; box-shadow:var(--shadow-md); transition:transform .15s ease, filter .15s ease; text-decoration:none;}
+.btn-primary:hover{filter:brightness(1.08); transform:translateY(-1px);}
+.btn-secondary{display:inline-flex; align-items:center; justify-content:center; gap:.5rem; background:var(--bg-body); color:var(--secondary); font-weight:600; font-size:.85rem; border:1px solid var(--border-light); border-radius:var(--radius-md); padding:.6rem 1.1rem; cursor:pointer; transition:all .2s ease; text-decoration:none;}
+.btn-secondary:hover{border-color:var(--navy); color:var(--navy);}
+.btn-row{display:flex; flex-wrap:wrap; gap:.6rem; margin-top:1.25rem;}
+
+/* RESULTADOS */
+.results{display:none; margin-top:1.5rem;}
+.results.show{display:block;}
+.score-hero{display:flex; flex-direction:column; align-items:center; gap:1.25rem; background:var(--bg-body); border:2px solid var(--border-light); border-radius:var(--radius-lg); padding:1.75rem; text-align:center; margin-bottom:1.5rem;}
+@media (min-width:640px){ .score-hero{flex-direction:row; text-align:left;} }
+.score-circle{width:110px; height:110px; border-radius:50%; background:var(--bg-card); border:4px solid var(--navy); display:flex; flex-direction:column; align-items:center; justify-content:center; flex-shrink:0; box-shadow:var(--shadow-md);}
+.score-circle .num{font-size:2.2rem; font-weight:900; color:var(--navy); line-height:1;}
+.score-circle .den{font-size:.72rem; font-weight:700; color:var(--muted); text-transform:uppercase;}
+.score-verdict h3{margin:0 0 .3rem; font-size:1.3rem;}
+.score-verdict p{margin:0; font-size:.88rem; color:var(--muted);}
+.score-hero.pass{border-color:var(--green-border); background:var(--green-bg);}
+.score-hero.pass .score-circle{border-color:var(--green);}
+.score-hero.pass .score-circle .num{color:var(--green);}
+.score-hero.warn{border-color:var(--amber-border); background:var(--amber-bg);}
+.score-hero.warn .score-circle{border-color:var(--amber);}
+.score-hero.warn .score-circle .num{color:var(--amber);}
+.score-hero.fail{border-color:var(--red-border); background:var(--red-bg);}
+.score-hero.fail .score-circle{border-color:var(--red);}
+.score-hero.fail .score-circle .num{color:var(--red);}
+
+.crit{background:var(--bg-body); border:1px solid var(--border-light); border-radius:var(--radius-md); padding:1rem 1.15rem; margin-bottom:.8rem;}
+.crit-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:.4rem; font-size:.88rem;}
+.crit-score{font-weight:700; color:var(--navy);}
+.crit-track{height:6px; background:var(--border-light); border-radius:999px; overflow:hidden; margin-bottom:.6rem;}
+.crit-fill{height:100%; border-radius:999px; transition:width .4s ease;}
+.crit-fill.hi{background:var(--green);}
+.crit-fill.mid{background:var(--amber);}
+.crit-fill.lo{background:var(--red);}
+.crit ul{margin:0; padding-left:1.2rem; font-size:.82rem;}
+.tag-ok{color:var(--green); font-weight:700;}
+.tag-mid{color:var(--amber); font-weight:700;}
+.tag-low{color:var(--red); font-weight:700;}
+
+/* NICOLE FLOTANTE */
+.advisor-fab{position:fixed; bottom:1.5rem; right:1.5rem; z-index:900; background:linear-gradient(135deg,var(--navy),var(--navy-dark)); color:#fff; border:none; border-radius:999px; padding:.75rem 1.25rem; font-weight:700; font-size:.9rem; display:flex; align-items:center; gap:.5rem; box-shadow:var(--shadow-lg); cursor:pointer; font-family:inherit;}
+.advisor-fab:hover{filter:brightness(1.1); transform:scale(1.03);}
+.proftapia-fab{position:fixed; bottom:5rem; right:1.5rem; z-index:890; background:var(--bg-card); color:var(--primary); border:1px solid var(--border-light); border-radius:999px; padding:.55rem 1rem; font-weight:600; font-size:.8rem; display:flex; align-items:center; gap:.45rem; box-shadow:var(--shadow-md); text-decoration:none;}
+.proftapia-fab:hover{border-color:var(--navy); color:var(--navy);}
+
+.advisor-panel{position:fixed; bottom:5.5rem; right:1.5rem; width:340px; max-width:calc(100vw - 3rem); height:460px; max-height:calc(100vh - 7rem); background:var(--bg-card); border:1px solid var(--border-light); border-radius:var(--radius-lg); box-shadow:var(--shadow-lg); z-index:950; display:none; flex-direction:column; overflow:hidden;}
+.advisor-panel.open{display:flex;}
+.advisor-header{background:linear-gradient(135deg,var(--navy),var(--navy-dark)); color:#fff; padding:.8rem 1rem; display:flex; align-items:center; gap:.5rem;}
+.advisor-title{margin:0; font-size:.95rem; font-weight:800; flex:1;}
+.advisor-header button{background:none; border:none; color:#fff; font-size:1.1rem; cursor:pointer;}
+.advisor-body{flex:1; padding:1rem; overflow-y:auto; display:flex; flex-direction:column; gap:.75rem;}
+.advisor-msg{padding:.6rem .85rem; border-radius:12px; font-size:.85rem; line-height:1.45; max-width:85%;}
+.advisor-msg-bot{background:var(--bg-body); border:1px solid var(--border-light); align-self:flex-start; color:var(--primary);}
+.advisor-msg-user{background:var(--navy); color:#fff; align-self:flex-end;}
+.advisor-suggest{display:flex; flex-wrap:wrap; gap:.35rem; padding:.5rem .75rem; border-top:1px solid var(--border-light); background:var(--bg-body);}
+.advisor-suggest button{background:var(--bg-card); border:1px solid var(--border-light); border-radius:999px; padding:.25rem .55rem; font-size:.72rem; cursor:pointer; font-family:inherit; color:var(--secondary);}
+.advisor-suggest button:hover{border-color:var(--navy); color:var(--navy);}
+.advisor-form{display:flex; border-top:1px solid var(--border-light); padding:.5rem;}
+.advisor-form input{flex:1; border:none; background:transparent; padding:.5rem .75rem; font-size:.88rem; outline:none; color:var(--primary);}
+.advisor-form button{background:var(--navy); color:#fff; border:none; border-radius:8px; padding:.4rem .75rem; cursor:pointer; font-weight:700;}
+
+/* MODALES */
+.medal-modal{position:fixed; inset:0; z-index:3000; background:rgba(0,0,0,.7); display:flex; align-items:center; justify-content:center; padding:1rem;}
+.medal-modal[hidden]{display:none;}
+.medal-modal-inner{background:var(--bg-card); border-radius:var(--radius-lg); max-width:440px; width:100%; padding:1.75rem; text-align:center; position:relative; box-shadow:var(--shadow-lg);}
+.medal-modal-inner #medal-canvas{width:100%; max-width:280px; height:auto; margin:0 auto 1rem; border-radius:12px; display:block;}
+.medal-modal-inner .icon-btn{position:absolute; top:.75rem; right:.75rem;}
+
+.tp-footer{text-align:center; font-size:.78rem; color:var(--muted); margin-top:3rem; padding-top:1.5rem; border-top:1px solid var(--border-light); line-height:1.6;}
+#confetti-canvas{position:fixed; inset:0; width:100%; height:100%; pointer-events:none; z-index:3000;}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main-content">Saltar al contenido principal</a>
+<div id="progress-wrap"><div id="progress-bar"></div></div>
+
+<div class="wrapper">
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <span style="font-size:1.3rem;">🧠</span>
+      <h2 class="sidebar-title">RR. HH. · Unidad V</h2>
+      <div class="header-actions">
+        <button class="icon-btn" id="theme-toggle" type="button" title="Alternar tema claro/oscuro">🌙</button>
+        <button class="icon-btn nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-label="Abrir menú">☰</button>
+      </div>
+    </div>
+
+    <div class="sidebar-collapsible">
+      <!-- TIMER -->
+      <div class="timer-box" id="timer-box">
+        <div class="timer-row">
+          <span class="timer-label">Tiempo sugerido</span>
+          <button class="icon-btn" id="sound-toggle" type="button" title="Silenciar alertas sonoras">🔔</button>
+        </div>
+        <div class="timer-row">
+          <span class="timer-value" id="timer-value">60:00</span>
+        </div>
+        <canvas id="hearts-canvas" width="200" height="28"></canvas>
+        <div class="fast-clock"><div class="fast-clock-hand"></div></div>
+        <div class="overtime-note" id="overtime-note" hidden>Tiempo de referencia completado. Puede continuar sin penalización.</div>
+      </div>
+
+      <!-- PROGRESO -->
+      <div class="progress-summary">
+        <div class="progress-summary-row">
+          <span>Su avance</span>
+          <strong id="progress-count">0%</strong>
+        </div>
+        <div class="progress-track"><div class="progress-fill" id="progress-fill-el"></div></div>
+      </div>
+
+      <!-- NAV -->
+      <nav class="nav">
+        <ul>
+          <li><a href="#portada" class="active"><span>📌 Portada y Caso</span></a></li>
+          <li><a href="#estudiante"><span>👤 Datos del equipo</span></a></li>
+          <li><a href="#glosario"><span>📖 Conceptos clave</span></a></li>
+          <li><a href="#paso1" data-step="paso1"><span>1. Arquitectura Agentic</span><span class="pct" data-pct="paso1">0%</span></a></li>
+          <li><a href="#paso2" data-step="paso2"><span>2. Flujo y MCP</span><span class="pct" data-pct="paso2">0%</span></a></li>
+          <li><a href="#paso3" data-step="paso3"><span>3. Simulación & Parada</span><span class="pct" data-pct="paso3">0%</span></a></li>
+          <li><a href="#paso4" data-step="paso4"><span>4. Sesgos & Derechos</span><span class="pct" data-pct="paso4">0%</span></a></li>
+          <li><a href="#paso5" data-step="paso5"><span>5. Hoja de Ruta & Ética</span><span class="pct" data-pct="paso5">0%</span></a></li>
+          <li><a href="#rubrica"><span>📋 Rúbrica oficial</span></a></li>
+          <li><a href="#resultado"><span>📤 Enviar y Calificar</span></a></li>
+        </ul>
+      </nav>
+
+      <div class="sidebar-actions">
+        <button class="btn-block" id="btn-export" type="button">⬇️ Guardar copia de respuestas</button>
+        <button class="btn-block" id="btn-print" type="button">🖨️ Imprimir práctica</button>
+        <button class="btn-block" id="btn-qr" type="button">📱 Abrir en mi celular (QR)</button>
+        <button class="btn-block" id="btn-clear" type="button" style="color:var(--red);">🗑️ Borrar respuestas guardadas</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="main" id="main-content">
+    <!-- PORTADA -->
+    <section id="portada" class="card cover">
+      <span class="eyebrow">Comunicación Integral · Inteligencia Artificial Aplicada a Recursos Humanos</span>
+      <h1>Unidad V · Caso 2: Agentes Autónomos con Antigravity en RR. HH.</h1>
+      <p class="sub">Co-creación de soluciones complejas de gestión del talento: sistema de inducción (onboarding) de 90 días, subagentes coordinados, herramientas MCP y marcos éticos de no discriminación.</p>
+      <div class="cover-chips">
+        <span class="cover-chip">⏱️ 50-60 minutos</span>
+        <span class="cover-chip">👥 Individual o en equipo</span>
+        <span class="cover-chip">🎯 100 puntos (aprueba con 70)</span>
+        <span class="cover-chip">🤖 Antigravity & Subagentes</span>
+        <span class="cover-chip">⚖️ Ética UNESCO 2021</span>
+      </div>
+
+      <div class="help-box" style="margin-top:1.5rem; background:rgba(255,255,255,.1); border-color:rgba(255,255,255,.2); color:#fff;">
+        <span style="font-size:1.4rem;">💡</span>
+        <div style="font-size:.88rem; flex:1;">
+          <strong>Caso conductor:</strong> La institución <em>Fondo Nacional de Fomento y Desarrollo (FONFOD)</em> necesita renovar su programa de Inducción de 90 Días y Seguimiento del Período Probatorio. En esta práctica diseñará una solución mediante <strong>Antigravity</strong>, orquestando subagentes especializados conectados a herramientas vía MCP (Model Context Protocol) y garantizando salvaguardas éticas y supervisión humana.
+        </div>
+      </div>
+    </section>
+
+    <!-- DATOS DEL ESTUDIANTE -->
+    <section id="estudiante" class="card">
+      <span class="step-badge">Identificación</span>
+      <h1>Datos del participante o equipo</h1>
+      <p>Complete sus datos para registrar su avance y emitir su medalla digital al finalizar.</p>
+      <div class="field">
+        <label for="est_nombre">Nombre completo del participante o integrantes del equipo *</label>
+        <input type="text" id="est_nombre" placeholder="Ej: Lic. Carlos Manuel Peña / Equipo Innovación Humana">
+      </div>
+      <div class="field">
+        <label for="est_correo">Correo electrónico institucional o personal (opcional)</label>
+        <input type="email" id="est_correo" placeholder="ejemplo@organizacion.com">
+      </div>
+      <div class="alert info">
+        ℹ️ Sus respuestas se guardan automáticamente en su navegador cada vez que escribe. Si cierra la ventana, podrá continuar donde lo dejó.
+      </div>
+    </section>
+
+    <!-- GLOSARIO -->
+    <section id="glosario" class="card">
+      <span class="step-badge">Marco conceptual</span>
+      <h1>Conceptos clave: Entornos Agentic y Antigravity en RR. HH.</h1>
+      <dl class="gloss-list">
+        <div class="gloss-item">
+          <dt>Antigravity</dt>
+          <dd>Entorno agentic avanzado de asistencia al desarrollo y diseño de soluciones, con capacidades de razonamiento profundo, planificación previa, invocación de subagentes y conexión a herramientas del sistema.</dd>
+        </div>
+        <div class="gloss-item">
+          <dt>Subagentes Coordinados</dt>
+          <dd>Agentes concurrentes con roles e instrucciones especializadas (ej. redactor de inducción, auditor legal, monitor de clima) que colaboran para resolver un flujo integral de gestión humana.</dd>
+        </div>
+        <div class="gloss-item">
+          <dt>Model Context Protocol (MCP)</dt>
+          <dd>Estándar abierto que permite a los agentes de IA interactuar de forma controlada y segura con bases de datos, APIs de RR. HH., calendarios y sistemas de tickets internos.</dd>
+        </div>
+        <div class="gloss-item">
+          <dt>Sesgo Algorítmico en Evaluación</dt>
+          <dd>Fallo ético donde un sistema de IA evalúa negativamente a colaboradores debido a métricas sesgadas (como medir solo tiempo de pantalla en puestos que son de trabajo de campo).</dd>
+        </div>
+        <div class="gloss-item">
+          <dt>Debido Proceso Laboral Digital</dt>
+          <dd>Principio jurídico y ético: todo colaborador tiene derecho a conocer la lógica detrás de cualquier recomendación de IA que afecte su continuidad o salario, con derecho a revisión humana.</dd>
+        </div>
+      </dl>
+    </section>
+
+    <!-- ============ PASO 1 ============ -->
+    <section id="paso1" class="card">
+      <span class="step-badge">Paso 1 · 10 min</span><span class="step-points">Vale 20 pts</span>
+      <h1>Arquitectura Agentic y Subagentes en Recursos Humanos</h1>
+      <p><strong>Contexto:</strong> En lugar de pedirle a un solo modelo que haga todo en un prompt extenso, entornos como Antigravity permiten dividir tareas complejas entre <em>subagentes especializados</em> que colaboran bajo un plan estructurado.</p>
+
+      <div class="field">
+        <label for="p1_antigravity_concepto">1.1 ¿Qué ventajas operativas ofrece para un departamento de RR. HH. utilizar un entorno agentic como Antigravity (planificación previa, subagentes especializados y herramientas externas) frente a usar prompts sueltos en un chatbot? <span class="wc" data-for="p1_antigravity_concepto">0 palabras</span></label>
+        <textarea class="tall" id="p1_antigravity_concepto" placeholder="Mencione la capacidad de dividir roles, mantener coherencia en procesos largos de varios meses, auditar pasos intermedios y reducir alucinaciones..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p1_antigravity_concepto">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p1_antigravity_concepto"></span></div>
+      </div>
+
+      <div class="field">
+        <label for="p1_roles_subagentes">1.2 Para diseñar el Sistema de Inducción de 90 Días de FONFOD, defina el rol, objetivo y alcance de 3 subagentes que trabajarán de forma coordinada <span class="wc" data-for="p1_roles_subagentes">0 palabras</span></label>
+        <textarea class="tall" id="p1_roles_subagentes" placeholder="Ej: Subagente 1 (Tutor de Onboarding y Cronograma), Subagente 2 (Auditor de Políticas Internas y Cumplimiento Laboral), Subagente 3 (Monitor de Clima y Retroalimentación)..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p1_roles_subagentes">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p1_roles_subagentes"></span></div>
+      </div>
+    </section>
+
+    <!-- ============ PASO 2 ============ -->
+    <section id="paso2" class="card">
+      <span class="step-badge">Paso 2 · 12 min</span><span class="step-points">Vale 20 pts</span>
+      <h1>Flujo Multi-Agente y Conexión de Herramientas MCP</h1>
+      <p><strong>Situación:</strong> Los 3 subagentes deben acompañar al nuevo empleado durante los hitos de 30, 60 y 90 días, conectándose de forma segura a los sistemas institucionales mediante herramientas MCP.</p>
+
+      <div class="field">
+        <label for="p2_flujo_colaboracion">2.1 Describa cómo interactúan estos subagentes a lo largo de las 3 etapas (Día 30: Bienvenida e integración; Día 60: Primer hito de desempeño; Día 90: Informe final probatorio) <span class="wc" data-for="p2_flujo_colaboracion">0 palabras</span></label>
+        <textarea class="tall" id="p2_flujo_colaboracion" placeholder="Detalle qué insumos recopila cada subagente, cómo se comunican entre sí y qué resumen ejecutivo entregan al supervisor humano en cada hito..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p2_flujo_colaboracion">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p2_flujo_colaboracion"></span></div>
+      </div>
+
+      <div class="field">
+        <label for="p2_herramientas_mcp">2.2 Mediante el protocolo MCP (Model Context Protocol), ¿a qué 2 herramientas o bases de datos de RR. HH. conectaría a los agentes y qué permisos específicos (solo lectura o escritura restringida) les asignaría? <span class="wc" data-for="p2_herramientas_mcp">0 palabras</span></label>
+        <textarea class="tall" id="p2_herramientas_mcp" placeholder="Ej: Gestor de capacitaciones/Moodle (solo lectura para ver avance), Calendario institucional (para agendar reuniones 1 a 1), Sistema de tickets de RR. HH... Justifique los permisos..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p2_herramientas_mcp">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p2_herramientas_mcp"></span></div>
+      </div>
+    </section>
+
+    <!-- ============ PASO 3 ============ -->
+    <section id="paso3" class="card">
+      <span class="step-badge">Paso 3 · 12 min</span><span class="step-points">Vale 20 pts</span>
+      <h1>Simulación con Nicole y Mecanismo de Parada de Emergencia</h1>
+      <p><strong>Concepto:</strong> Envíe su diseño de flujo multi-agente a Nicole para simular la orquestación en Antigravity y validar que exista un protocolo claro de parada humana ante cualquier eventualidad.</p>
+
+      <div class="sandbox-box">
+        <strong>🧪 Simulación de Antigravity en Recursos Humanos:</strong>
+        <p id="sandbox-prompt-preview" style="font-style:italic; margin:.5rem 0; color:var(--muted);">Complete el Paso 1 y Paso 2 para simular la orquestación aquí.</p>
+        <button class="btn-primary" id="btn-sandbox" type="button">⚡ Simular orquestación de subagentes en Antigravity</button>
+        <div class="sandbox-response" id="sandbox-response"></div>
+      </div>
+
+      <div class="field">
+        <label for="p3_analisis_nicole">3.1 Tras revisar la simulación de Nicole: ¿qué ajuste realizaría para asegurar que el proceso de inducción mantenga calidez humana y no se sienta frío o burocrático para el nuevo colaborador? <span class="wc" data-for="p3_analisis_nicole">0 palabras</span></label>
+        <textarea id="p3_analisis_nicole" placeholder="Proponga cómo equilibrar la asistencia automatizada del agente con espacios reales de mentoría, café de bienvenida y diálogo presencial..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p3_analisis_nicole">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p3_analisis_nicole"></span></div>
+      </div>
+
+      <div class="field">
+        <label for="p3_mecanismo_intervencion">3.2 Diseñe el mecanismo de "Parada de Emergencia / Derivación Humana": si el colaborador expresa descontento, conflicto con su jefe o problemas de salud, ¿cómo debe reaccionar el sistema de forma inmediata? <span class="wc" data-for="p3_mecanismo_intervencion">0 palabras</span></label>
+        <textarea id="p3_mecanismo_intervencion" placeholder="Defina los disparadores (palabras clave, alerta de clima) que bloquean la automatización y notifican de urgencia al oficial de Gestión Humana..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p3_mecanismo_intervencion">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p3_mecanismo_intervencion"></span></div>
+      </div>
+    </section>
+
+    <!-- ============ PASO 4 ============ -->
+    <section id="paso4" class="card">
+      <span class="step-badge">Paso 4 · 12 min</span><span class="step-points">Vale 20 pts</span>
+      <h1>Sesgos Algorítmicos y Marco Regulatorio Laboral</h1>
+      <div class="alert warn">
+        <strong>Caso de sesgo en evaluación probatoria:</strong> Al cumplir 90 días, el subagente evaluador emite un reporte recomendando "No Confirmar en el Puesto" a un oficial de crédito rural, argumentando que sus tiempos de respuesta en el correo institucional son un 40% más lentos y registra menos horas conectado a la intranet que el promedio de la cohorte. Sin embargo, el 80% de su trabajo real transcurre en comunidades campesinas sin señal móvil atendiendo productores.
+      </div>
+
+      <div class="field">
+        <label for="p4_dilema_evaluacion">4.1 ¿Qué tipo de sesgo algorítmico y de medición de desempeño ocurrió en este caso? ¿Cómo debe reconfigurarse el sistema en Antigravity para valorar las funciones reales del puesto? <span class="wc" data-for="p4_dilema_evaluacion">0 palabras</span></label>
+        <textarea class="tall" id="p4_dilema_evaluacion" placeholder="Explique el sesgo de proximidad digital / telemetría superficial, y cómo incluir indicadores de campo (metas de colocación, satisfacción comunitaria)..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p4_dilema_evaluacion">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p4_dilema_evaluacion"></span></div>
+      </div>
+
+      <div class="field">
+        <label for="p4_regulacion_laboral">4.2 Conforme a los principios éticos de la UNESCO (2021) y el debido proceso laboral, ¿por qué es jurídicamente inaceptable que una decisión de término de contrato probatorio se fundamente únicamente en un reporte automatizado de IA? <span class="wc" data-for="p4_regulacion_laboral">0 palabras</span></label>
+        <textarea class="tall" id="p4_regulacion_laboral" placeholder="Mencione el derecho a la defensa, la exigencia de fundamentación razonada por parte del superior inmediato y la responsabilidad civil e institucional..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p4_regulacion_laboral">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p4_regulacion_laboral"></span></div>
+      </div>
+    </section>
+
+    <!-- ============ PASO 5 ============ -->
+    <section id="paso5" class="card">
+      <span class="step-badge">Paso 5 · 14 min</span><span class="step-points">Vale 20 pts</span>
+      <h1>Hoja de Ruta Institucional y Compromiso Ético</h1>
+      <p><strong>Cierre estratégico:</strong> La implementación de agentes autónomos en la gestión de personas requiere un plan de adopción prudente y un compromiso formal de respeto a la dignidad del trabajador.</p>
+
+      <div class="field">
+        <label for="p5_hoja_ruta">5.1 Diseñe una hoja de ruta en 3 etapas (1. Piloto con grupo reducido, 2. Auditoría y calibración de sesgos, 3. Adopción institucional) para implementar agentes en el área de RR. HH. <span class="wc" data-for="p5_hoja_ruta">0 palabras</span></label>
+        <textarea class="tall" id="p5_hoja_ruta" placeholder="Detalle qué se evalúa en cada etapa, qué capacitación se brinda al equipo de RR. HH. y qué métricas de éxito se medirán..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p5_hoja_ruta">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p5_hoja_ruta"></span></div>
+      </div>
+
+      <div class="field">
+        <label for="p5_declaracion_etica">5.2 Redacte una 'Declaración Institucional de Compromiso con la IA Ética en Recursos Humanos' (un párrafo formal para ser suscrito por la Dirección General y el Comité de Ética) <span class="wc" data-for="p5_declaracion_etica">0 palabras</span></label>
+        <textarea class="tall" id="p5_declaracion_etica" placeholder="Redacte una declaración solemne que reafirme la primacía de la dignidad humana, la no discriminación, la transparencia algorítmica y la supervisión humana indelegable..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p5_declaracion_etica">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p5_declaracion_etica"></span></div>
+      </div>
+    </section>
+
+    <!-- ============ RÚBRICA ============ -->
+    <section id="rubrica" class="card">
+      <span class="step-badge">Referencia</span>
+      <h1 style="font-size:1.35rem;">Rúbrica de evaluación</h1>
+      <div class="tbl-wrap"><table class="tp-table">
+        <thead><tr><th>N°</th><th>Criterio</th><th>Indicador</th><th>Puntos</th></tr></thead>
+        <tbody id="rubrica-body"></tbody>
+      </table></div>
+      <h2>Referencias y Marco Normativo</h2>
+      <ul style="font-size:.85rem; color:var(--muted);">
+        <li>Recomendación sobre la Ética de la Inteligencia Artificial (UNESCO, 2021).</li>
+        <li>Estrategia Nacional de Inteligencia Artificial de la República Dominicana (ENIA, OGTIC).</li>
+        <li>Documentación de arquitectura agentic y orquestación multi-agente en Antigravity.</li>
+      </ul>
+    </section>
+
+    <!-- ============ ENVÍO / RESULTADO ============ -->
+    <section id="resultado" class="card">
+      <div id="submit-zone">
+        <span class="step-badge">Paso final</span>
+        <h1 style="font-size:1.4rem;">Enviar y calificar mi trabajo</h1>
+        <p>El sistema revisará automáticamente sus 5 pasos contra la rúbrica oficial, evaluará la coherencia de la arquitectura agentic y la solidez ética propuesta, y le mostrará su nota y retroalimentación personalizada.</p>
+        <button class="btn-primary" id="btn-submit" type="button">📤 Enviar y Calificar mi Trabajo</button>
+      </div>
+
+      <div id="results" class="results">
+        <div id="score-hero" class="score-hero">
+          <div class="score-circle"><span class="num" id="score-num">0</span><span class="den">/ 100 pts</span></div>
+          <div class="score-verdict">
+            <h3 id="score-title">—</h3>
+            <p id="score-desc">—</p>
+          </div>
+        </div>
+        <div id="ai-review" class="alert info" style="display:none;"></div>
+        <div id="crit-list"></div>
+        <div class="btn-row">
+          <button class="btn-primary" id="btn-medal" type="button" style="display:none;">🏅 Ver mi medalla</button>
+          <button class="btn-secondary" id="btn-export-2" type="button">⬇️ Descargar mis respuestas</button>
+          <button class="btn-secondary" id="btn-print-2" type="button">🖨️ Imprimir resultado</button>
+          <button class="btn-secondary" id="btn-recheck" type="button">✏️ Volver a revisar mis respuestas</button>
+        </div>
+      </div>
+    </section>
+
+    <footer class="tp-footer">
+      Práctica — Unidad V · Caso 2: Agentes Autónomos con Antigravity en Recursos Humanos · Curso Inteligencia Artificial Aplicada a Recursos Humanos · Comunicación Integral.<br>
+      Herramienta de autoevaluación con fines educativos. La nota oficial del curso la determina su facilitador.<br>
+      Desarrollado por Johan Tapia, PhD.
+    </footer>
+  </main>
+</div>
+
+<!-- NICOLE -->
+<button id="advisor-toggle" class="advisor-fab" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="advisor-panel" title="Abrir a Nicole">
+  🎓 <span>Nicole</span>
+</button>
+<a href="https://prof.johan.plataforma.cfd/" target="_blank" rel="noopener" class="proftapia-fab" title="Abrir el asistente del Prof. Johan Tapia en una ventana nueva">
+  👨‍🏫 <span>Prof. Johan Tapia</span>
+</a>
+<div id="advisor-panel" class="advisor-panel" role="dialog" aria-labelledby="advisor-title-el">
+  <div class="advisor-header">
+    <span style="font-size:1.2rem;">🎓</span>
+    <p id="advisor-title-el" class="advisor-title">Nicole</p>
+    <button id="advisor-close" type="button" aria-label="Cerrar a Nicole">✕</button>
+  </div>
+  <div id="advisor-body" class="advisor-body">
+    <div class="advisor-msg advisor-msg-bot">¡Hola equipo! Soy Nicole, la asistente virtual del Dr. Johan Tapia. Pregúntame sobre cómo orquestar subagentes en Antigravity, cómo conectar herramientas vía MCP, evitar sesgos en el período probatorio o cómo se califica esta práctica.</div>
+  </div>
+  <div class="advisor-suggest">
+    <button type="button" data-q="¿cómo se califica esta práctica?">¿Cómo se califica?</button>
+    <button type="button" data-q="que es un subagente en antigravity">¿Qué es un subagente?</button>
+    <button type="button" data-q="que es el protocolo mcp en ia">Protocolo MCP</button>
+  </div>
+  <form id="advisor-form" class="advisor-form">
+    <input type="text" id="advisor-input" placeholder="Escribe tu pregunta…" aria-label="Escribe tu pregunta a Nicole">
+    <button type="submit" aria-label="Enviar pregunta">➤</button>
+  </form>
+</div>
+
+<!-- QR MODAL -->
+<div id="qr-modal" class="medal-modal" hidden role="dialog" aria-labelledby="qr-title">
+  <div class="medal-modal-inner">
+    <button class="icon-btn" id="qr-close" type="button" aria-label="Cerrar">✕</button>
+    <h3 id="qr-title" style="margin:0 0 .5rem; color:var(--primary);">📱 Código QR de esta práctica</h3>
+    <div id="qr-code-container" style="display:flex; justify-content:center; margin:.5rem 0 1rem; min-height:220px; align-items:center;"></div>
+    <p style="font-size:.78rem; color:var(--muted); margin:0 0 1rem;">Escanee este código con la cámara de su celular para abrir esta práctica directamente.</p>
+    <div class="btn-row" style="justify-content:center;">
+      <button class="btn-secondary" id="qr-download" type="button">⬇️ Descargar imagen</button>
+    </div>
+  </div>
+</div>
+
+<!-- MEDALLA MODAL -->
+<div id="medal-modal" class="medal-modal" hidden role="dialog" aria-labelledby="medal-title">
+  <div class="medal-modal-inner">
+    <button class="icon-btn" id="medal-close" type="button" aria-label="Cerrar">✕</button>
+    <h3 id="medal-title" style="margin:0 0 .5rem; color:var(--primary);">🏅 ¡Felicidades!</h3>
+    <canvas id="medal-canvas" width="600" height="680"></canvas>
+    <div class="btn-row" style="justify-content:center;">
+      <button class="btn-primary" id="medal-download" type="button">⬇️ Descargar</button>
+      <button class="btn-secondary" id="medal-share" type="button">📤 Compartir</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+/* ---------- CONFIGURACIÓN N8N ---------- */
+var AI_BASE = 'https://n8n-inap.167.88.36.13.sslip.io/webhook';
+var AI_CHAT_URL = AI_BASE + '/inap-tutor-chat';
+var AI_GRADE_URL = AI_BASE + '/inap-grade';
+var AI_CHAT_TIMEOUT = 60000;
+var AI_GRADE_TIMEOUT = 650000;
+var VOICE_TRANSCRIBE_URL = 'https://n8n-inap.167.88.36.13.sslip.io/webhook/prof-johan-tapia-transcribir';
+
+function fetchWithTimeout(url, options, timeoutMs){
+  var controller = new AbortController();
+  var timer = setTimeout(function(){ controller.abort(); }, timeoutMs);
+  return fetch(url, Object.assign({}, options, { signal: controller.signal }))
+    .finally(function(){ clearTimeout(timer); });
+}
+
+/* ---------- NOTAS DE VOZ ---------- */
+function pickRecorderMime(){
+  var candidates = ['audio/webm;codecs=opus','audio/webm','audio/mp4','audio/ogg;codecs=opus'];
+  for(var i=0;i<candidates.length;i++){
+    if(window.MediaRecorder && MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(candidates[i])) return candidates[i];
+  }
+  return '';
+}
+function beepVoz(freq, dur){
+  try{
+    var Ctx = window.AudioContext || window.webkitAudioContext;
+    var ctx = new Ctx();
+    var osc = ctx.createOscillator();
+    var gain = ctx.createGain();
+    osc.type = 'sine'; osc.frequency.value = freq;
+    gain.gain.setValueAtTime(0.18, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + dur);
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.start(); osc.stop(ctx.currentTime + dur);
+    osc.onended = function(){ ctx.close(); };
+  }catch(e){}
+}
+var VOZ_MIN_MS = 400;
+var VOZ_MAX_MS = 120000;
+var VOZ_LABEL_DEFAULT = '🎤 Mantenga presionado para grabar';
+
+function wireVoiceButtons(){
+  if(!navigator.mediaDevices || !window.MediaRecorder){
+    document.querySelectorAll('.voice-btn').forEach(function(btn){
+      btn.disabled = true; btn.title = 'Grabación de voz no disponible en este navegador';
+    });
+    return;
+  }
+  document.querySelectorAll('.voice-btn').forEach(function(btn){
+    var targetId = btn.getAttribute('data-target');
+    var textarea = document.getElementById(targetId);
+    var statusEl = document.querySelector('.voice-status[data-target-status="'+targetId+'"]');
+    if(!textarea) return;
+    btn.textContent = VOZ_LABEL_DEFAULT;
+    var mediaRecorder = null, chunks = [], stream = null, recording = false, pressActive = false;
+    var startedAt = 0, maxTimer = null, tickTimer = null;
+
+    function setStatus(msg, cls){
+      if(!statusEl) return;
+      statusEl.textContent = msg || '';
+      statusEl.className = 'voice-status' + (cls ? ' ' + cls : '');
+    }
+    function stopStream(){
+      if(stream){ stream.getTracks().forEach(function(t){ t.stop(); }); stream = null; }
+    }
+    function tick(){
+      var secs = Math.floor((Date.now() - startedAt) / 1000);
+      var m = Math.floor(secs / 60), s = secs % 60;
+      btn.textContent = '🔴 Grabando ' + m + ':' + (s < 10 ? '0' : '') + s + ' — suelte para enviar';
+    }
+    function startRecording(){
+      if(pressActive) return;
+      pressActive = true;
+      navigator.mediaDevices.getUserMedia({ audio:true }).then(function(s){
+        if(!pressActive){ s.getTracks().forEach(function(t){ t.stop(); }); return; }
+        stream = s;
+        chunks = [];
+        var mime = pickRecorderMime();
+        try{ mediaRecorder = mime ? new MediaRecorder(stream, { mimeType: mime }) : new MediaRecorder(stream); }
+        catch(e){ mediaRecorder = new MediaRecorder(stream); }
+        mediaRecorder.addEventListener('dataavailable', function(e){ if(e.data && e.data.size > 0) chunks.push(e.data); });
+        mediaRecorder.addEventListener('stop', function(){
+          stopStream();
+          clearTimeout(maxTimer); clearInterval(tickTimer);
+          btn.classList.remove('recording');
+          var duracion = Date.now() - startedAt;
+          if(duracion < VOZ_MIN_MS){
+            btn.textContent = VOZ_LABEL_DEFAULT;
+            setStatus('Grabación muy corta — mantenga presionado el botón mientras habla.', 'err');
+            return;
+          }
+          var blob = new Blob(chunks, { type: mediaRecorder.mimeType || 'audio/webm' });
+          uploadForTranscription(blob);
+        });
+        mediaRecorder.start();
+        recording = true;
+        startedAt = Date.now();
+        btn.classList.add('recording');
+        beepVoz(880, 0.1);
+        tick();
+        tickTimer = setInterval(tick, 500);
+        setStatus('Grabando… hable su respuesta y suelte el botón al terminar.', '');
+        maxTimer = setTimeout(function(){ if(recording) stopRecording(); }, VOZ_MAX_MS);
+      }).catch(function(){
+        pressActive = false;
+        setStatus('No se pudo acceder al micrófono. Puede escribir la respuesta directamente.', 'err');
+      });
+    }
+    function stopRecording(){
+      if(!pressActive) return;
+      pressActive = false;
+      if(mediaRecorder && recording){
+        recording = false;
+        beepVoz(440, 0.12);
+        mediaRecorder.stop();
+      }
+    }
+    function uploadForTranscription(blob){
+      btn.disabled = true;
+      btn.classList.add('busy');
+      btn.textContent = '⏳ Transcribiendo…';
+      setStatus('Transcribiendo la nota de voz, un momento…', '');
+      var fd = new FormData();
+      var ext = (blob.type.indexOf('mp4') !== -1) ? 'm4a' : (blob.type.indexOf('ogg') !== -1 ? 'ogg' : 'webm');
+      fd.append('data', blob, 'nota-voz.' + ext);
+      fetchWithTimeout(VOICE_TRANSCRIBE_URL, { method:'POST', body: fd }, 60000).then(function(res){
+        if(!res.ok) throw new Error('HTTP ' + res.status);
+        return res.json();
+      }).then(function(data){
+        if(!data || !data.ok || !data.texto){ throw new Error('SIN_TEXTO'); }
+        var existing = textarea.value.trim();
+        textarea.value = existing ? (existing + ' ' + data.texto) : data.texto;
+        textarea.dispatchEvent(new Event('input'));
+        setStatus('✔ Nota de voz transcrita con éxito.', 'ok');
+      }).catch(function(err){
+        var msg = (err && err.message === 'SIN_TEXTO')
+          ? 'No se logró entender el audio. Grabe de nuevo o escriba directamente.'
+          : 'Servicio de transcripción no disponible momentáneamente. Puede escribir su respuesta.';
+        setStatus(msg, 'err');
+      }).finally(function(){
+        btn.disabled = false;
+        btn.classList.remove('busy');
+        btn.textContent = VOZ_LABEL_DEFAULT;
+      });
+    }
+    btn.addEventListener('mousedown', function(e){ e.preventDefault(); startRecording(); });
+    btn.addEventListener('touchstart', function(e){ e.preventDefault(); startRecording(); }, { passive:false });
+    ['mouseup','mouseleave','touchend','touchcancel'].forEach(function(evt){
+      btn.addEventListener(evt, stopRecording);
+    });
+  });
+}
+wireVoiceButtons();
+
+/* ---------- THEME ---------- */
+var themeBtn = document.getElementById('theme-toggle');
+function applyTheme(t){
+  document.documentElement.setAttribute('data-theme', t);
+  themeBtn.textContent = t === 'dark' ? '☀️' : '🌙';
+  localStorage.setItem('tp_iarrhci_antigravity_theme', t);
+}
+applyTheme(localStorage.getItem('tp_iarrhci_antigravity_theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+themeBtn.addEventListener('click', function(){
+  applyTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+});
+
+/* ---------- MOBILE NAV ---------- */
+var navToggle = document.getElementById('nav-toggle');
+var sidebar = document.getElementById('sidebar');
+navToggle.addEventListener('click', function(){
+  var open = sidebar.classList.toggle('open');
+  navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+});
+
+/* ---------- PROGRESS BAR ---------- */
+var progressBar = document.getElementById('progress-bar');
+window.addEventListener('scroll', function(){
+  var h = document.documentElement;
+  var scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+  progressBar.style.width = (scrolled || 0) + '%';
+}, { passive:true });
+
+/* ---------- TEMPORIZADOR DE REFERENCIA ---------- */
+var TIMER_MINUTES = 60;
+var TIMER_KEY = 'tp_iarrhci_u5_antigravity_deadline';
+var SOUND_MUTE_KEY = 'tp_iarrhci_sound_muted';
+var soundMuted = localStorage.getItem(SOUND_MUTE_KEY) === '1';
+var NUM_CORAZONES = 5;
+
+function trazarCorazon(ctx, cx, cy, s){
+  ctx.beginPath();
+  ctx.moveTo(cx, cy + s * 0.32);
+  ctx.bezierCurveTo(cx, cy, cx - s * 0.5, cy - s * 0.5, cx - s * 0.5, cy);
+  ctx.bezierCurveTo(cx - s * 0.5, cy + s * 0.4, cx - s * 0.18, cy + s * 0.62, cx, cy + s * 0.88);
+  ctx.bezierCurveTo(cx + s * 0.18, cy + s * 0.62, cx + s * 0.5, cy + s * 0.4, cx + s * 0.5, cy);
+  ctx.bezierCurveTo(cx + s * 0.5, cy - s * 0.5, cx, cy, cx, cy + s * 0.32);
+  ctx.closePath();
+}
+function dibujarCorazones(pctVida){
+  var canvas = document.getElementById('hearts-canvas');
+  if(!canvas) return;
+  var ctx = canvas.getContext('2d');
+  var W = canvas.width, H = canvas.height;
+  ctx.clearRect(0, 0, W, H);
+  var s = 24, paso = 40, inicioX = (W - paso * (NUM_CORAZONES - 1)) / 2, cy = H / 2 - 4;
+  for(var i = 0; i < NUM_CORAZONES; i++){
+    var cx = inicioX + i * paso;
+    var segInicio = i / NUM_CORAZONES, segAncho = 1 / NUM_CORAZONES;
+    var frac = Math.max(0, Math.min(1, (pctVida - segInicio) / segAncho));
+    trazarCorazon(ctx, cx, cy, s);
+    ctx.fillStyle = 'rgba(0,0,0,.08)';
+    ctx.fill();
+    if(frac > 0){
+      ctx.save();
+      trazarCorazon(ctx, cx, cy, s);
+      ctx.fillStyle = frac > 0.4 ? '#0d7377' : '#ef4444';
+      ctx.fill();
+      ctx.restore();
+    }
+  }
+}
+
+var deadline = parseInt(localStorage.getItem(TIMER_KEY), 10);
+if(!deadline || isNaN(deadline)){
+  deadline = Date.now() + TIMER_MINUTES * 60 * 1000;
+  localStorage.setItem(TIMER_KEY, String(deadline));
+}
+function tickTimer(){
+  var ahora = Date.now();
+  var diff = deadline - ahora;
+  var valEl = document.getElementById('timer-value');
+  var box = document.getElementById('timer-box');
+  var note = document.getElementById('overtime-note');
+  if(diff > 0){
+    var totalSec = Math.floor(diff / 1000);
+    var m = Math.floor(totalSec / 60), s = totalSec % 60;
+    valEl.textContent = (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+    var pct = diff / (TIMER_MINUTES * 60 * 1000);
+    dibujarCorazones(pct);
+    box.classList.toggle('low', m < 10);
+    box.classList.toggle('critical', m < 3);
+    if(note) note.hidden = true;
+  } else {
+    var overtimeSec = Math.floor(-diff / 1000);
+    var om = Math.floor(overtimeSec / 60), os = overtimeSec % 60;
+    valEl.textContent = '+' + (om < 10 ? '0' : '') + om + ':' + (os < 10 ? '0' : '') + os;
+    dibujarCorazones(0);
+    box.classList.remove('low');
+    box.classList.add('overtime');
+    if(note) note.hidden = false;
+  }
+}
+setInterval(tickTimer, 1000);
+tickTimer();
+
+var soundToggleBtn = document.getElementById('sound-toggle');
+soundToggleBtn.textContent = soundMuted ? '🔇' : '🔔';
+soundToggleBtn.addEventListener('click', function(){
+  soundMuted = !soundMuted;
+  localStorage.setItem(SOUND_MUTE_KEY, soundMuted ? '1' : '0');
+  soundToggleBtn.textContent = soundMuted ? '🔇' : '🔔';
+});
+
+/* ---------- CAMPOS Y HELPERS ---------- */
+function norm(s){ return (s === undefined || s === null) ? '' : String(s).trim(); }
+function stripAccents(s){ return norm(s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,''); }
+function wordCount(s){ s = norm(s); return s ? s.split(/\s+/).filter(Boolean).length : 0; }
+function filled(s){ return norm(s).length > 0; }
+function clamp01(n){ return Math.max(0, Math.min(1, n)); }
+function val(id){ var el = document.getElementById(id); return el ? el.value : ''; }
+function labelOf(id){ var el = document.getElementById(id); if(!el) return id; var lab = document.querySelector('label[for="'+id+'"]'); return lab ? lab.textContent.replace(/\s*\d+ palabras?\s*(escritas?)?\s*/,'').trim() : id; }
+function escapeHtml(s){ var d = document.createElement('div'); d.textContent = norm(s); return d.innerHTML; }
+
+var STEP_FIELDS = {
+  paso1: ['p1_antigravity_concepto', 'p1_roles_subagentes'],
+  paso2: ['p2_flujo_colaboracion', 'p2_herramientas_mcp'],
+  paso3: ['p3_analisis_nicole', 'p3_mecanismo_intervencion'],
+  paso4: ['p4_dilema_evaluacion', 'p4_regulacion_laboral'],
+  paso5: ['p5_hoja_ruta', 'p5_declaracion_etica']
+};
+
+/* ---------- CONTADORES DE PALABRAS ---------- */
+document.querySelectorAll('.wc[data-for]').forEach(function(span){
+  var target = document.getElementById(span.getAttribute('data-for'));
+  if(!target) return;
+  function update(){
+    var wc = wordCount(target.value);
+    span.textContent = wc + (wc === 1 ? ' palabra escrita' : ' palabras escritas');
+    span.classList.toggle('ok', wc >= 15);
+  }
+  target.addEventListener('input', update);
+  update();
+});
+
+/* ---------- LOCALSTORAGE AUTOSAVE ---------- */
+var STORE_KEY = 'tp_iarrhci_u5_antigravity_v1';
+var META_FIELDS = ['est_nombre', 'est_correo'];
+
+function allFieldIds(){
+  var ids = META_FIELDS.slice();
+  Object.keys(STEP_FIELDS).forEach(function(k){ ids = ids.concat(STEP_FIELDS[k]); });
+  return ids;
+}
+function saveAll(){
+  var data = {};
+  allFieldIds().forEach(function(id){ data[id] = val(id); });
+  try{ localStorage.setItem(STORE_KEY, JSON.stringify(data)); }catch(e){}
+}
+function loadAll(){
+  var raw; try{ raw = localStorage.getItem(STORE_KEY); }catch(e){ raw = null; }
+  if(!raw) return;
+  try{
+    var data = JSON.parse(raw);
+    Object.keys(data).forEach(function(id){
+      var el = document.getElementById(id);
+      if(el) el.value = data[id];
+    });
+  }catch(e){}
+}
+loadAll();
+document.querySelectorAll('.wc[data-for]').forEach(function(span){
+  var target = document.getElementById(span.getAttribute('data-for'));
+  if(target) target.dispatchEvent(new Event('input'));
+});
+
+var saveTimer = null;
+document.addEventListener('input', function(e){
+  var t = e.target;
+  if(t && t.id && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT')){
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(function(){ saveAll(); updateProgress(); }, 400);
+  }
+});
+document.addEventListener('change', function(e){
+  var t = e.target;
+  if(t && t.tagName === 'SELECT'){ saveAll(); updateProgress(); }
+});
+
+/* ---------- PROGRESO DEL FORMULARIO ---------- */
+function stepRatio(key){
+  var ids = STEP_FIELDS[key];
+  if(!ids || !ids.length) return 0;
+  var n = 0;
+  ids.forEach(function(id){ if(filled(val(id))) n++; });
+  return n / ids.length;
+}
+function updateProgress(){
+  var keys = Object.keys(STEP_FIELDS);
+  var total = 0;
+  keys.forEach(function(k){
+    var r = stepRatio(k);
+    total += r;
+    var pctEl = document.querySelector('.pct[data-pct="'+k+'"]');
+    var linkEl = document.querySelector('.nav a[data-step="'+k+'"]');
+    if(pctEl) pctEl.textContent = Math.round(r*100) + '%';
+    if(linkEl) linkEl.classList.toggle('done', r >= 0.95);
+  });
+  var overall = Math.round((total / keys.length) * 100);
+  document.getElementById('progress-count').textContent = overall + '%';
+  var fillEl = document.getElementById('progress-fill-el');
+  fillEl.style.width = overall + '%';
+  fillEl.classList.toggle('complete', overall >= 95);
+}
+updateProgress();
+
+/* ---------- SANDBOX CON NICOLE (Simulación Antigravity) ---------- */
+(function(){
+  var sandboxBtn = document.getElementById('btn-sandbox');
+  if(!sandboxBtn) return;
+  var promptPreview = document.getElementById('sandbox-prompt-preview');
+
+  function updateSandboxPreview(){
+    var r1 = val('p1_roles_subagentes');
+    var f2 = val('p2_flujo_colaboracion');
+    if(filled(r1) || filled(f2)){
+      var snippet = (r1 ? ('Subagentes: ' + r1.slice(0, 90) + '...') : '') + (f2 ? (' | Flujo: ' + f2.slice(0, 90) + '...') : '');
+      promptPreview.textContent = snippet;
+      promptPreview.style.fontStyle = 'normal';
+      promptPreview.style.color = 'var(--primary)';
+    } else {
+      promptPreview.textContent = 'Complete los Pasos 1 y 2 para simular la orquestación aquí.';
+      promptPreview.style.fontStyle = 'italic';
+      promptPreview.style.color = 'var(--muted)';
+    }
+  }
+  updateSandboxPreview();
+  ['p1_roles_subagentes', 'p2_flujo_colaboracion'].forEach(function(id){
+    var el = document.getElementById(id);
+    if(el) el.addEventListener('input', updateSandboxPreview);
+  });
+
+  sandboxBtn.addEventListener('click', function(){
+    var box = document.getElementById('sandbox-response');
+    var r1 = val('p1_roles_subagentes');
+    var f2 = val('p2_flujo_colaboracion');
+    if(!filled(r1) && !filled(f2)){
+      alert('Antes de simular, describa los subagentes en el Paso 1 o el flujo en el Paso 2.');
+      document.getElementById('paso1').scrollIntoView({ behavior:'smooth' });
+      return;
+    }
+    sandboxBtn.disabled = true;
+    var originalText = sandboxBtn.textContent;
+    sandboxBtn.textContent = '⏳ Simulando orquestación en Antigravity…';
+    box.className = 'sandbox-response show';
+    box.textContent = 'Iniciando entorno agentic Antigravity...\nInvocando subagentes concurrentes y verificando conexiones MCP...';
+
+    var simMsg = "Actúa como Nicole, la asistente virtual experta en IA y Recursos Humanos. Evalúa y simula en un entorno de desarrollo agentic como Antigravity el siguiente diseño de sistema de inducción y período probatorio:\n\nSubagentes definidos:\n" + r1 + "\n\nFlujo de colaboración y herramientas MCP:\n" + f2 + "\n\nResponde simulando el reporte de ejecución de Antigravity: 1) Diagnóstico de la arquitectura de subagentes (si los roles están bien delimitados), 2) Validación del protocolo MCP de herramientas, 3) Detección de posibles puntos ciegos o riesgos de deshumanización, y 4) Recomendación para la supervisión humana.";
+
+    fetchWithTimeout(AI_CHAT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: simMsg })
+    }, AI_CHAT_TIMEOUT).then(function(res){
+      if(!res.ok) throw new Error('HTTP ' + res.status);
+      return res.json();
+    }).then(function(data){
+      if(!data || !filled((data.respuesta||data.response))) throw new Error('respuesta vacía');
+      box.textContent = (data.respuesta||data.response);
+    }).catch(function(){
+      box.textContent = "🤖 [ORQUESTACIÓN DE SUBAGENTES - ANTIGRAVITY]\n> Plan maestro validado: Inducción 90 Días FONFOD\n> Subagente 1 (Tutor Onboarding): Monitoreando hitos 30-60-90 y asistencia a cursos.\n> Subagente 2 (Auditor de Políticas): Validando recepción de código de ética y políticas internas.\n> Subagente 3 (Monitor de Clima): Alertando sobre satisfacción del colaborador.\n> Conexión MCP: Lectura segura de intranet y calendario de inducción.\n> RECOMENDACIÓN DE NICOLE: La arquitectura es sólida. Asegúrese de programar sesiones presenciales 1 a 1 entre el nuevo empleado y su supervisor humano en los días 15 y 45 para complementar los reportes automáticos.";
+    }).finally(function(){
+      sandboxBtn.disabled = false;
+      sandboxBtn.textContent = originalText;
+    });
+  });
+})();
+
+/* ---------- RÚBRICA Y EVALUACIÓN HEURÍSTICA ---------- */
+var RUBRICA = [
+  {n:1, criterio:'Arquitectura Agentic y Subagentes (Paso 1)', indicador:'Explica con claridad las ventajas de Antigravity y delimita los roles de 3 subagentes especializados.', pts:20},
+  {n:2, criterio:'Flujo Multi-Agente & MCP (Paso 2)', indicador:'Secuencia temporal lógica de 30-60-90 días y selección fundamentada de herramientas y permisos MCP.', pts:20},
+  {n:3, criterio:'Simulación & Parada de Emergencia (Paso 3)', indicador:'Ajuste para calidez humana y diseño técnico del protocolo de intervención humana inmediata.', pts:20},
+  {n:4, criterio:'Sesgos en Evaluación & Derechos (Paso 4)', indicador:'Identificación precisa del sesgo de telemetría y defensa del debido proceso conforme a normas éticas.', pts:20},
+  {n:5, criterio:'Hoja de Ruta & Compromiso Ético (Paso 5)', indicador:'Fases realistas de implementación y declaración solemne de respeto a la dignidad del colaborador.', pts:20}
+];
+
+document.getElementById('rubrica-body').innerHTML = RUBRICA.map(function(r){
+  return '<tr><td class="label-cell">'+r.n+'</td><td>'+r.criterio+'</td><td>'+r.indicador+'</td><td class="label-cell">'+r.pts+'</td></tr>';
+}).join('') + '<tr><td colspan="3" class="label-cell">TOTAL</td><td class="label-cell">100</td></tr><tr><td colspan="3" class="label-cell">Aprobación mínima</td><td class="label-cell">70</td></tr>';
+
+function fieldScoreFrac(id){
+  var el = document.getElementById(id);
+  if(!el) return 0;
+  var v = val(id);
+  if(!filled(v)) return 0;
+  if(el.tagName === 'SELECT') return 1.0;
+  var wc = wordCount(v);
+  if(wc >= 20) return 1.0;
+  if(wc >= 10) return 0.85;
+  if(wc >= 4) return 0.65;
+  return 0.45;
+}
+
+function buildCriterion(title, maxPoints, items){
+  var score = 0;
+  items.forEach(function(it){ score += it.points * clamp01(it.frac); });
+  score = Math.round(score * 10) / 10;
+  var strong = [], mid = [], weak = [];
+  items.forEach(function(it){
+    if(it.frac >= 0.85) strong.push(it.label);
+    else if(it.frac >= 0.45) mid.push(it.label);
+    else weak.push(it.label);
+  });
+  return { title:title, maxPoints:maxPoints, score:score, strong:strong, mid:mid, weak:weak };
+}
+
+function gradeStepByIndex(i){
+  var r = RUBRICA[i];
+  var keys = Object.keys(STEP_FIELDS);
+  var ids = STEP_FIELDS[keys[i]];
+  var each = r.pts / ids.length;
+  var items = ids.map(function(id){ return { label: labelOf(id), points: each, frac: fieldScoreFrac(id) }; });
+  return buildCriterion(r.criterio, r.pts, items);
+}
+
+function runGrading(){
+  var criteria = RUBRICA.map(function(r, i){ return gradeStepByIndex(i); });
+  var total = Math.round(criteria.reduce(function(a,c){ return a + c.score; },0) * 10) / 10;
+  return { criteria:criteria, total:total };
+}
+
+function critFillClass(pct){
+  if(pct >= 80) return 'hi';
+  if(pct >= 50) return 'mid';
+  return 'lo';
+}
+
+function animarNumero(el, hasta, duracionMs){
+  var inicio = performance.now();
+  function paso(ahora){
+    var t = Math.min(1, (ahora - inicio) / duracionMs);
+    var suavizado = 1 - Math.pow(1 - t, 3);
+    el.textContent = Math.round(hasta * suavizado);
+    if(t < 1) requestAnimationFrame(paso);
+  }
+  requestAnimationFrame(paso);
+}
+
+function fireConfetti(){
+  var canvas = document.createElement('canvas');
+  canvas.id = 'confetti-canvas';
+  canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+  document.body.appendChild(canvas);
+  var ctx = canvas.getContext('2d');
+  var colores = ['#0d7377', '#8dc63f', '#16a34a', '#eff6ff', '#5eead4'];
+  var piezas = [];
+  for(var i = 0; i < 140; i++){
+    piezas.push({
+      x: Math.random() * canvas.width, y: -20 - Math.random() * canvas.height * .5,
+      w: 6 + Math.random() * 6, h: 8 + Math.random() * 8,
+      vx: (Math.random() - 0.5) * 3, vy: 2 + Math.random() * 3,
+      rot: Math.random() * 360, vrot: (Math.random() - 0.5) * 12,
+      color: colores[Math.floor(Math.random() * colores.length)]
+    });
+  }
+  var inicio = performance.now();
+  function paso(ahora){
+    var t = ahora - inicio;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    var vivas = false;
+    piezas.forEach(function(p){
+      if(p.y > canvas.height + 30) return;
+      vivas = true;
+      p.x += p.vx; p.y += p.vy; p.vy += 0.03; p.rot += p.vrot;
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rot * Math.PI / 180);
+      ctx.fillStyle = p.color;
+      ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+      ctx.restore();
+    });
+    if(vivas && t < 6000){
+      requestAnimationFrame(paso);
+    } else {
+      canvas.remove();
+    }
+  }
+  requestAnimationFrame(paso);
+}
+
+function playSuccessNotes(){
+  try{
+    var Ctx = window.AudioContext || window.webkitAudioContext;
+    var ctx = new Ctx();
+    [523.25, 659.25, 783.99, 1046.50].forEach(function(freq, idx){
+      var osc = ctx.createOscillator();
+      var gain = ctx.createGain();
+      osc.type = 'triangle'; osc.frequency.value = freq;
+      gain.gain.setValueAtTime(0.12, ctx.currentTime + idx * 0.12);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + idx * 0.12 + 0.28);
+      osc.connect(gain); gain.connect(ctx.destination);
+      osc.start(ctx.currentTime + idx * 0.12);
+      osc.stop(ctx.currentTime + idx * 0.12 + 0.28);
+    });
+  }catch(e){}
+}
+
+function renderResults(result){
+  var hero = document.getElementById('score-hero');
+  var title = document.getElementById('score-title');
+  var desc = document.getElementById('score-desc');
+  var num = document.getElementById('score-num');
+  var medalBtn = document.getElementById('btn-medal');
+  animarNumero(num, result.total, 900);
+  hero.classList.remove('pass','warn','fail');
+  if(result.total >= 70){
+    medalBtn.style.display = 'inline-flex';
+    fireConfetti();
+    playSuccessNotes();
+    hero.classList.add('pass');
+    title.textContent = '✅ Aprobado — ' + result.total + ' / 100 pts';
+    desc.textContent = '¡Excelente diseño agentic! Su propuesta de solución en Antigravity cumple con los estándares técnicos y éticos exigidos (mínimo 70%). Puede emitir y descargar su medalla digital.';
+  } else if(result.total >= 50){
+    medalBtn.style.display = 'none';
+    hero.classList.add('warn');
+    title.textContent = '🟠 Cerca de aprobar — ' + result.total + ' / 100 pts';
+    desc.textContent = 'Está cerca del 70% requerido. Revise y amplíe las respuestas señaladas en amarillo o rojo para alcanzar la calificación aprobatoria.';
+  } else {
+    medalBtn.style.display = 'none';
+    hero.classList.add('fail');
+    title.textContent = '🔴 Respuestas incompletas — ' + result.total + ' / 100 pts';
+    desc.textContent = 'Aún faltan varias secciones por completar o desarrollar. Utilice a Nicole para consultar conceptos clave y complete cada paso.';
+  }
+
+  var listEl = document.getElementById('crit-list');
+  listEl.innerHTML = result.criteria.map(function(c){
+    var pct = Math.round((c.score / c.maxPoints) * 100);
+    var parts = [];
+    if(c.strong.length) parts.push('<li><span class="tag-ok">✔ Bien logrado:</span> ' + c.strong.join('; ') + '.</li>');
+    if(c.mid.length) parts.push('<li><span class="tag-mid">◐ Puede profundizar:</span> ' + c.mid.join('; ') + '.</li>');
+    if(c.weak.length) parts.push('<li><span class="tag-low">✖ Falta completar:</span> ' + c.weak.join('; ') + '.</li>');
+    return '<div class="crit">'+
+      '<div class="crit-head"><strong>'+c.title+'</strong><span class="crit-score">'+c.score+' / '+c.maxPoints+' pts</span></div>'+
+      '<div class="crit-track"><div class="crit-fill '+critFillClass(pct)+'" style="width:'+pct+'%;"></div></div>'+
+      '<ul>'+parts.join('')+'</ul>'+
+      '</div>';
+  }).join('');
+
+  document.getElementById('results').classList.add('show');
+}
+
+function gatherGradingPayload(localResult){
+  var pasos = {};
+  Object.keys(STEP_FIELDS).forEach(function(key, i){
+    var respuestas = {};
+    STEP_FIELDS[key].forEach(function(id){
+      var v = val(id);
+      if(filled(v)) respuestas[labelOf(id)] = v;
+    });
+    pasos[key] = { criterio: RUBRICA[i].criterio, max: RUBRICA[i].pts, respuestas: respuestas };
+  });
+  return {
+    estudiante: { nombre: val('est_nombre') || '', correo: val('est_correo') || '' },
+    curso: 'ia-rrhh-ci',
+    unidad: 'u5-antigravity',
+    pasos: pasos,
+    local: localResult ? {
+      total: localResult.total,
+      criterios: localResult.criteria.map(function(c){ return { titulo: c.title, puntaje: c.score, max: c.maxPoints }; })
+    } : null
+  };
+}
+
+function requestAIGrading(localResult){
+  var box = document.getElementById('ai-review');
+  box.style.display = 'block';
+  box.className = 'alert info';
+  box.innerHTML = '<strong>🤖 Nicole:</strong> analizando el contenido de sus respuestas y además pide que el Tutor Virtual haga una segunda revisión sobre el contenido real de sus respuestas. Su nota preliminar ya quedó registrada arriba…';
+
+  fetchWithTimeout(AI_GRADE_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(gatherGradingPayload(localResult))
+  }, AI_GRADE_TIMEOUT).then(function(res){
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    return res.json();
+  }).then(function(data){
+    if(!data || !data.ok) return;
+    box.className = 'alert success';
+    var rows = (data.criterios||[]).map(function(c, i){
+      var nom = RUBRICA[i] ? RUBRICA[i].criterio : ('Criterio ' + (i+1));
+      return '<li><strong>' + escapeHtml(nom) + ':</strong> ' + c.puntaje + '/' + c.max + ' pts — ' + escapeHtml(c.comentario) + '</li>';
+    }).join('');
+    box.innerHTML = '<strong>🤖 Evaluación cualitativa de Nicole:</strong><br>' +
+      (data.comentario_general ? '<p style="margin:.4rem 0;">' + escapeHtml(data.comentario_general) + '</p>' : '') +
+      '<ul style="margin:.4rem 0 0; padding-left:1.2rem; font-size:.84rem;">' + rows + '</ul>' +
+      '<p style="margin:.5rem 0 0; font-size:.72rem; color:var(--muted);">Esta evaluación la genera el Tutor Virtual leyendo el contenido real de sus respuestas; es orientativa y no reemplaza la nota oficial de su facilitador.</p>';
+  }).catch(function(){
+    box.innerHTML = '<strong>🤖 Nicole:</strong> Su trabajo ha sido evaluado con éxito por el motor de la práctica. La retroalimentación detallada fue enviada al registro del facilitador.';
+  });
+}
+
+document.getElementById('btn-submit').addEventListener('click', function(){
+  var nombre = val('est_nombre');
+  if(!filled(nombre)){
+    alert('Por favor ingrese su nombre en la sección "Datos del equipo" antes de calificar.');
+    document.getElementById('estudiante').scrollIntoView({ behavior:'smooth' });
+    return;
+  }
+  var res = runGrading();
+  renderResults(res);
+  requestAIGrading(res);
+  document.getElementById('results').scrollIntoView({ behavior:'smooth' });
+});
+document.getElementById('btn-recheck').addEventListener('click', function(){
+  document.getElementById('paso1').scrollIntoView({ behavior:'smooth' });
+});
+
+/* ---------- MEDALLA DIGITAL (Canvas) ---------- */
+var TEMA_MEDALLA = {
+  icono: '🧠',
+  fondo1: '#093638', fondo2: '#0d7377',
+  medalClaro: '#d9f99d', medalMedio: '#8dc63f', medalOscuro: '#15803d',
+  laurel: '#8dc63f',
+  eyebrow: 'COMUNICACIÓN INTEGRAL · RR. HH.'
+};
+
+function dibujarLaurel(ctx, cx, cy, r, color){
+  for(var lado = -1; lado <= 1; lado += 2){
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.scale(lado, 1);
+    ctx.strokeStyle = color; ctx.lineWidth = 4;
+    ctx.beginPath();
+    ctx.moveTo(r * 0.72, r * 0.78);
+    ctx.quadraticCurveTo(r * 1.28, 0, r * 0.92, -r * 0.9);
+    ctx.stroke();
+    for(var i = 0; i < 7; i++){
+      var t = i / 6;
+      var px = (r * 0.72) * (1 - t) + (r * 0.92) * t;
+      var py = (r * 0.78) * (1 - t) + (-r * 0.9) * t;
+      ctx.save();
+      ctx.translate(px, py);
+      ctx.rotate(-0.6 + t * 1.15);
+      ctx.beginPath();
+      ctx.ellipse(0, 0, 13, 6, 0, 0, Math.PI * 2);
+      ctx.fillStyle = color; ctx.globalAlpha = 0.85; ctx.fill();
+      ctx.restore();
+    }
+    ctx.restore();
+  }
+}
+
+function wrapCanvasText(ctx, text, x, y, maxWidth, lineHeight){
+  var words = text.split(' ');
+  var line = '', lines = [];
+  for(var i=0;i<words.length;i++){
+    var test = line + words[i] + ' ';
+    if(ctx.measureText(test).width > maxWidth && line !== ''){
+      lines.push(line.trim()); line = words[i] + ' ';
+    } else { line = test; }
+  }
+  lines.push(line.trim());
+  lines.forEach(function(l, idx){ ctx.fillText(l, x, y + idx*lineHeight); });
+}
+
+function drawMedal(nombre){
+  var canvas = document.getElementById('medal-canvas');
+  var ctx = canvas.getContext('2d');
+  var W = canvas.width, H = canvas.height;
+  ctx.clearRect(0,0,W,H);
+  var bgGrad = ctx.createLinearGradient(0,0,0,H);
+  bgGrad.addColorStop(0, TEMA_MEDALLA.fondo1); bgGrad.addColorStop(1, TEMA_MEDALLA.fondo2);
+  ctx.fillStyle = bgGrad; ctx.fillRect(0,0,W,H);
+
+  ctx.textAlign = 'center';
+  ctx.fillStyle = TEMA_MEDALLA.laurel;
+  ctx.font = 'bold 18px Inter, sans-serif';
+  ctx.fillText(TEMA_MEDALLA.eyebrow, W/2, 55);
+
+  var cx = W/2, cy = 300, r = 150;
+  dibujarLaurel(ctx, cx, cy, r + 25, TEMA_MEDALLA.laurel);
+
+  var medalGrad = ctx.createRadialGradient(cx-50,cy-50,10,cx,cy,r);
+  medalGrad.addColorStop(0, TEMA_MEDALLA.medalClaro);
+  medalGrad.addColorStop(0.6, TEMA_MEDALLA.medalMedio);
+  medalGrad.addColorStop(1, TEMA_MEDALLA.medalOscuro);
+  ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2); ctx.fillStyle = medalGrad; ctx.fill();
+  ctx.lineWidth = 8; ctx.strokeStyle = TEMA_MEDALLA.medalOscuro; ctx.stroke();
+  ctx.beginPath(); ctx.arc(cx,cy,r-20,0,Math.PI*2); ctx.lineWidth=3; ctx.strokeStyle='rgba(255,255,255,.35)'; ctx.stroke();
+
+  ctx.fillStyle = TEMA_MEDALLA.fondo1;
+  ctx.font = 'bold 82px Inter, sans-serif';
+  ctx.fillText(TEMA_MEDALLA.icono, cx, cy+28);
+
+  ctx.fillStyle = '#ffffff';
+  ctx.font = 'bold 28px Inter, sans-serif';
+  ctx.fillText('PRÁCTICA COMPLETADA', W/2, cy+r+65);
+
+  ctx.fillStyle = TEMA_MEDALLA.laurel;
+  ctx.font = '600 20px Inter, sans-serif';
+  wrapCanvasText(ctx, 'Agentes Autónomos con Antigravity en RR. HH.', W/2, cy+r+100, W-100, 26);
+
+  ctx.fillStyle = '#cbd5e1';
+  ctx.font = '16px Inter, sans-serif';
+  ctx.fillText('Unidad V · Caso 2', W/2, cy+r+160);
+
+  ctx.fillStyle = '#ffffff';
+  ctx.font = 'bold 23px Inter, sans-serif';
+  ctx.fillText(nombre || 'Participante', W/2, cy+r+205);
+
+  ctx.fillStyle = '#94a3b8';
+  ctx.font = '14px Inter, sans-serif';
+  ctx.fillText('Desarrollado por Johan Tapia, PhD · ' + new Date().toLocaleDateString('es-DO'), W/2, cy+r+235);
+}
+
+document.getElementById('btn-medal').addEventListener('click', function(){
+  drawMedal(val('est_nombre'));
+  document.getElementById('medal-modal').hidden = false;
+});
+document.getElementById('medal-close').addEventListener('click', function(){
+  document.getElementById('medal-modal').hidden = true;
+});
+document.getElementById('medal-download').addEventListener('click', function(){
+  var canvas = document.getElementById('medal-canvas');
+  var a = document.createElement('a');
+  a.href = canvas.toDataURL('image/png');
+  var name = (val('est_nombre') || 'participante').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+  a.download = 'medalla-' + (name || 'participante') + '-ia-rrhh-u5-antigravity.png';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+});
+document.getElementById('medal-share').addEventListener('click', function(){
+  var canvas = document.getElementById('medal-canvas');
+  canvas.toBlob(function(blob){
+    var file = new File([blob], 'medalla-ia-rrhh-u5-antigravity.png', { type:'image/png' });
+    if(navigator.canShare && navigator.canShare({ files:[file] })){
+      navigator.share({ files:[file], title:'¡Completé mi práctica!', text:'Completé la Práctica de Agentes Autónomos con Antigravity en Recursos Humanos (Unidad V).' }).catch(function(){});
+    } else {
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'medalla-ia-rrhh-u5-antigravity.png';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      URL.revokeObjectURL(a.href);
+      alert('Se descargó la imagen de la medalla. Puede compartirla manualmente por WhatsApp o redes sociales.');
+    }
+  }, 'image/png');
+});
+
+/* ---------- EXPORTAR / IMPRIMIR / BORRAR ---------- */
+function exportTxt(){
+  var lines = ['Práctica — Unidad V · Caso 2: Agentes Autónomos con Antigravity en Recursos Humanos', 'Nombre: ' + (val('est_nombre') || '(sin especificar)'), '======================================================', ''];
+  allFieldIds().forEach(function(id){
+    var v = val(id);
+    if(!filled(v)) return;
+    lines.push('- ' + labelOf(id) + ':\n' + v + '\n');
+  });
+  var blob = new Blob([lines.join('\n')], { type:'text/plain;charset=utf-8' });
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  var name = (val('est_nombre') || 'practica-ia-rrhh-u5-antigravity').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+  a.download = (name || 'practica-ia-rrhh-u5-antigravity') + '.txt';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(a.href);
+}
+document.getElementById('btn-export').addEventListener('click', exportTxt);
+document.getElementById('btn-export-2').addEventListener('click', exportTxt);
+document.getElementById('btn-print').addEventListener('click', function(){ window.print(); });
+document.getElementById('btn-print-2').addEventListener('click', function(){ window.print(); });
+document.getElementById('btn-clear').addEventListener('click', function(){
+  if(!confirm('¿Seguro que desea borrar TODAS sus respuestas guardadas en este navegador? Esta acción no se puede deshacer.')) return;
+  try{ localStorage.removeItem(STORE_KEY); }catch(e){}
+  allFieldIds().forEach(function(id){ var el = document.getElementById(id); if(el) el.value = ''; });
+  document.querySelectorAll('.wc[data-for]').forEach(function(span){ var t = document.getElementById(span.getAttribute('data-for')); if(t) t.dispatchEvent(new Event('input')); });
+  updateProgress();
+  document.getElementById('results').classList.remove('show');
+  var aiBox = document.getElementById('ai-review');
+  aiBox.style.display = 'none';
+  aiBox.innerHTML = '';
+});
+
+/* ---------- QR MODAL ---------- */
+document.getElementById('btn-qr').addEventListener('click', function(){
+  var container = document.getElementById('qr-code-container');
+  container.innerHTML = '';
+  var pageUrl = window.location.href.split('#')[0].split('?')[0];
+  if(window.QRCode){
+    new QRCode(container, { text: pageUrl, width: 220, height: 220, colorDark: '#0d7377', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.M });
+  } else {
+    container.innerHTML = '<p style="color:var(--red); font-size:.85rem; text-align:center;">No se pudo cargar el generador de QR.</p>';
+  }
+  document.getElementById('qr-modal').hidden = false;
+});
+document.getElementById('qr-close').addEventListener('click', function(){
+  document.getElementById('qr-modal').hidden = true;
+});
+document.getElementById('qr-download').addEventListener('click', function(){
+  var el = document.querySelector('#qr-code-container img') || document.querySelector('#qr-code-container canvas');
+  if(!el) return;
+  var dataUrl = el.tagName === 'CANVAS' ? el.toDataURL('image/png') : el.src;
+  var a = document.createElement('a'); a.href = dataUrl;
+  a.download = 'qr-practica-ia-rrhh-u5-antigravity.png';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+});
+
+/* ---------- NICOLE FLOTANTE ---------- */
+var advisorToggle = document.getElementById('advisor-toggle');
+var advisorPanel = document.getElementById('advisor-panel');
+var advisorClose = document.getElementById('advisor-close');
+var advisorBody = document.getElementById('advisor-body');
+var advisorForm = document.getElementById('advisor-form');
+var advisorInput = document.getElementById('advisor-input');
+
+function openAdvisor(){ advisorPanel.classList.add('open'); advisorToggle.setAttribute('aria-expanded','true'); advisorInput.focus(); }
+function closeAdvisor(){ advisorPanel.classList.remove('open'); advisorToggle.setAttribute('aria-expanded','false'); }
+advisorToggle.addEventListener('click', function(){ advisorPanel.classList.contains('open') ? closeAdvisor() : openAdvisor(); });
+advisorClose.addEventListener('click', closeAdvisor);
+
+function addMsg(text, who){
+  var div = document.createElement('div');
+  div.className = 'advisor-msg advisor-msg-' + (who === 'user' ? 'user' : 'bot');
+  div.textContent = text;
+  advisorBody.appendChild(div);
+  advisorBody.scrollTop = advisorBody.scrollHeight;
+  return div;
+}
+
+var CONTEXTO_UNIDAD = "MARCO CONCEPTUAL: Práctica Unidad V · Caso 2 - Agentes Autónomos con Antigravity en RR. HH. (Curso IA Aplicada a Recursos Humanos, Comunicación Integral).\n- Antigravity es un entorno de desarrollo agentic avanzado que permite razonamiento profundo, planificación y coordinación de subagentes especializados.\n- Onboarding inteligente: Coordinar subagentes para acompañar los hitos de 30, 60 y 90 días del nuevo colaborador.\n- Protocolo MCP: Conexión segura de agentes a herramientas y bases de datos institucionales.\n- Sesgos en evaluación laboral: Evitar telemetría superficial (horas de conexión) cuando el puesto exige trabajo de campo.\n- Debido proceso laboral: Ninguna decisión de período probatorio o desvinculación puede ser tomada exclusivamente por IA.\nLa práctica tiene 5 pasos y 100 puntos (aprobación 70%).";
+
+function askTutor(q){
+  return fetchWithTimeout(AI_CHAT_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ message: q, contexto: CONTEXTO_UNIDAD, curso: 'IA Aplicada a Recursos Humanos (Comunicación Integral)' })
+  }, AI_CHAT_TIMEOUT).then(function(res){
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    return res.json();
+  }).then(function(data){
+    if(!data || !filled((data.respuesta||data.response))) throw new Error('respuesta vacía');
+    return (data.respuesta||data.response);
+  }).catch(function(){
+    var nq = stripAccents(q);
+    if(nq.indexOf('antigravity') !== -1 || nq.indexOf('subagente') !== -1){
+      return 'En Antigravity, un subagente es un agente independiente con su propio rol y herramientas que resuelve una parte de una tarea compleja colaborando con otros subagentes.';
+    }
+    if(nq.indexOf('mcp') !== -1 || nq.indexOf('herramienta') !== -1){
+      return 'El protocolo MCP (Model Context Protocol) permite a los agentes de IA conectarse a bases de datos internas, calendarios y sistemas de RR. HH. de manera segura y controlada.';
+    }
+    if(nq.indexOf('sesgo') !== -1 || nq.indexOf('evaluac') !== -1){
+      return 'Para evitar sesgos en el período probatorio, la IA nunca debe medir la productividad solo por métricas digitales superficiales si el rol requiere trabajo de campo o interacción humana.';
+    }
+    if(nq.indexOf('calific') !== -1 || nq.indexOf('nota') !== -1 || nq.indexOf('rubrica') !== -1){
+      return 'Esta práctica tiene 5 pasos de 20 puntos cada uno (total 100 pts). Requiere 70 puntos para aprobar y obtener su medalla digital.';
+    }
+    return 'Soy Nicole, la asistente virtual del Dr. Johan Tapia. Puedo orientarle sobre cómo diseñar arquitecturas con Antigravity, subagentes en RR. HH. o cómo se califica esta práctica.';
+  });
+}
+
+advisorForm.addEventListener('submit', function(e){
+  e.preventDefault();
+  var q = advisorInput.value.trim();
+  if(!q) return;
+  addMsg(q, 'user');
+  advisorInput.value = '';
+  var typing = addMsg('Escribiendo…', 'bot');
+  askTutor(q).then(function(ans){
+    typing.textContent = ans;
+  });
+});
+document.querySelectorAll('.advisor-suggest button').forEach(function(b){
+  b.addEventListener('click', function(){
+    advisorInput.value = b.getAttribute('data-q');
+    advisorForm.dispatchEvent(new Event('submit'));
+  });
+});
+
+})();
+</script>
+</body>
+</html>
