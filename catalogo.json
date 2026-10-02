@@ -1244,6 +1244,16 @@
             "url": "https://johantbueno.github.io/practicas-web/bpm-transformacion-digital-u5/"
           },
           {
+            "badge": "Práctica V · PHVA",
+            "unidad": "u5b",
+            "titulo": "Ciclo de Deming (PHVA): Planear, Hacer, Verificar, Actuar",
+            "desc": "Práctica basada en el video del Ciclo de Deming: plan de acción 5W2H, ejecución y seguimiento, verificación con herramientas de calidad y decisión de estandarizar o iniciar un nuevo ciclo, sobre un proceso real. Individual o en equipo.",
+            "duracion": "4 pasos · aproximadamente 1 hora, individual o en equipo",
+            "puntos": "100 pts (retroalimentación)",
+            "aprobacion": "Completar los 4 pasos",
+            "url": "https://johantbueno.github.io/practicas-web/bpm-transformacion-digital-u5b/"
+          },
+          {
             "badge": "Unidad VI",
             "unidad": "u6",
             "titulo": "Madurez de Procesos y Process Mining",
