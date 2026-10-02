@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Política de privacidad — rclone-johan</title>
+<meta name="description" content="Política de privacidad de rclone-johan, aplicación OAuth de uso personal para respaldar archivos propios en Google Drive.">
+<style>
+  :root { --bg:#f7f8fa; --card:#ffffff; --text:#1d2430; --muted:#5b6575; --line:#dfe3ea; --accent:#1a5fb4; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#12161c; --card:#1a2029; --text:#e6e9ef; --muted:#9aa5b5; --line:#2a3340; --accent:#7db3ff; } }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; }
+  main { max-width:720px; margin:0 auto; padding:32px 16px 56px; }
+  h1 { font-size:1.7rem; margin:0 0 4px; }
+  .sub { color:var(--muted); margin:0 0 24px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:20px 22px; margin:16px 0; }
+  h2 { font-size:1.1rem; margin:0 0 8px; }
+  p, li { margin:6px 0; }
+  a { color:var(--accent); }
+  footer { color:var(--muted); font-size:.9rem; margin-top:28px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Política de privacidad</h1>
+  <p class="sub">rclone-johan · Vigente desde el 2 de octubre de 2026</p>
+
+  <section class="card">
+    <h2>1. Quién y para qué</h2>
+    <p><strong>rclone-johan</strong> es una aplicación OAuth de uso personal creada por Johan Tapia. Su único propósito es permitir que <a href="https://rclone.org/" rel="noopener">rclone</a>, ejecutado en el computador del propio autor, respalde y sincronice archivos del autor con su propia cuenta de Google Drive. Solo la usan cuentas del propio autor.</p>
+  </section>
+
+  <section class="card">
+    <h2>2. Datos a los que se accede</h2>
+    <p>Con la autorización del titular de la cuenta, la aplicación accede a los archivos y carpetas de su Google Drive (permiso <code>https://www.googleapis.com/auth/drive</code>). Se usa únicamente para listar, subir, comparar, mover y verificar archivos de respaldo del propio titular.</p>
+  </section>
+
+  <section class="card">
+    <h2>3. Cómo se usan y dónde se guardan</h2>
+    <ul>
+      <li>Los archivos viajan directamente entre el computador del titular y Google Drive. <strong>No pasan por ningún servidor del autor</strong> ni de terceros.</li>
+      <li>La credencial de acceso (token) se guarda únicamente en el archivo de configuración local de rclone, en el computador del titular.</li>
+      <li>No se recopilan datos de navegación, analítica ni identificadores publicitarios.</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>4. Compartir y transferir datos</h2>
+    <p>No se venden, alquilan, comparten ni transfieren datos de usuario a terceros. No se usan para publicidad ni para entrenar modelos de inteligencia artificial.</p>
+  </section>
+
+  <section class="card">
+    <h2>5. Cumplimiento con la política de datos de Google</h2>
+    <p>El uso y la transferencia que rclone-johan haga de la información recibida de las API de Google se ajustará a la <a href="https://developers.google.com/terms/api-services-user-data-policy" rel="noopener">Política de Datos de Usuario de los Servicios de API de Google</a>, incluidos los requisitos de Uso Limitado.</p>
+    <p lang="en">rclone-johan's use and transfer to any other app of information received from Google APIs will adhere to the <a href="https://developers.google.com/terms/api-services-user-data-policy" rel="noopener">Google API Services User Data Policy</a>, including the Limited Use requirements.</p>
+  </section>
+
+  <section class="card">
+    <h2>6. Retención, revocación y eliminación</h2>
+    <p>El titular puede revocar el acceso en cualquier momento desde <a href="https://myaccount.google.com/permissions" rel="noopener">myaccount.google.com/permissions</a>, y eliminar la credencial local borrando el remoto de la configuración de rclone. Los archivos de respaldo viven en el Google Drive del propio titular y se rigen por los controles de su cuenta.</p>
+  </section>
+
+  <section class="card">
+    <h2>7. Cambios y contacto</h2>
+    <p>Esta política puede actualizarse; la fecha de vigencia figura arriba. Contacto: <a href="https://github.com/johantbueno/practicas-web/issues" rel="noopener">github.com/johantbueno/practicas-web/issues</a>.</p>
+    <p><a href="./">← Volver al inicio</a></p>
+  </section>
+
+  <footer>Johan Tapia</footer>
+</main>
+</body>
+</html>

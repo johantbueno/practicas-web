@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>rclone-johan — Respaldo personal a Google Drive</title>
+<meta name="description" content="Aplicación OAuth de uso personal de Johan Tapia para respaldar sus propios archivos en su propia cuenta de Google Drive con rclone.">
+<style>
+  :root { --bg:#f7f8fa; --card:#ffffff; --text:#1d2430; --muted:#5b6575; --line:#dfe3ea; --accent:#1a5fb4; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#12161c; --card:#1a2029; --text:#e6e9ef; --muted:#9aa5b5; --line:#2a3340; --accent:#7db3ff; } }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; }
+  main { max-width:720px; margin:0 auto; padding:32px 16px 56px; }
+  h1 { font-size:1.7rem; margin:0 0 4px; }
+  .sub { color:var(--muted); margin:0 0 24px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:20px 22px; margin:16px 0; }
+  h2 { font-size:1.1rem; margin:0 0 8px; }
+  p, li { margin:6px 0; }
+  a { color:var(--accent); }
+  footer { color:var(--muted); font-size:.9rem; margin-top:28px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>rclone-johan</h1>
+  <p class="sub">Herramienta personal de respaldo a Google Drive</p>
+
+  <section class="card">
+    <h2>¿Qué es?</h2>
+    <p><strong>rclone-johan</strong> es el nombre de una aplicación OAuth de <strong>uso estrictamente personal</strong>, creada por Johan Tapia (docente e investigador) para que el programa de código abierto <a href="https://rclone.org/" rel="noopener">rclone</a>, instalado en su propio computador, pueda copiar y respaldar sus <strong>propios</strong> archivos en su <strong>propia</strong> cuenta de Google Drive.</p>
+  </section>
+
+  <section class="card">
+    <h2>¿Qué no es?</h2>
+    <ul>
+      <li>No es un servicio público ni un producto para terceros: no hay registro de usuarios ni cuentas ajenas.</li>
+      <li>No tiene servidor ni base de datos propios: todo ocurre entre el computador del propietario y su Google Drive.</li>
+      <li>No recopila, vende, comparte ni analiza datos de nadie.</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>Permiso que solicita y para qué</h2>
+    <p>Acceso a Google Drive (ver, editar, crear y eliminar archivos) <strong>solo para respaldar y mantener actualizadas copias</strong> de las carpetas del propietario en su Drive, y para verificar que esas copias coinciden con los originales.</p>
+  </section>
+
+  <section class="card">
+    <h2>Más información</h2>
+    <p><a href="privacidad.html">Política de privacidad</a></p>
+    <p>Contacto: <a href="https://github.com/johantbueno/practicas-web/issues" rel="noopener">github.com/johantbueno/practicas-web/issues</a></p>
+  </section>
+
+  <footer>Johan Tapia · Última actualización: 2 de octubre de 2026</footer>
+</main>
+</body>
+</html>
