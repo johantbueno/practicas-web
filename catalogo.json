@@ -264,6 +264,75 @@
             "url": "https://johantbueno.github.io/practicas-web/powerbi-infotep-u1/"
           }
         ]
+      },
+      {
+        "nombre": "Manejador de Microsoft Excel Básico",
+        "icono": "📊",
+        "tipoClase": "curso",
+        "tipoLabel": "Curso · 5 unidades y proyecto final",
+        "cursoId": "excel-basico-infotep",
+        "practicas": [
+          {
+            "badge": "Proyecto final",
+            "unidad": "proyecto",
+            "titulo": "Nómina quincenal de una pyme",
+            "desc": "Práctica en un archivo de Excel real (sin necesidad de cuenta de Microsoft), con escenario de nómina dominicana y 3 niveles de reto creciente (Nivel 1, 2 y 3). Calificación automática al instante. Individual.",
+            "duracion": "3 niveles · aproximadamente 90 minutos",
+            "puntos": "100 pts",
+            "aprobacion": "Obtener al menos el 80 % de los puntos",
+            "url": "https://johantbueno.github.io/practicas-web/excel-basico-proyecto/"
+          },
+          {
+            "badge": "Unidad I",
+            "unidad": "u1",
+            "titulo": "Entorno de trabajo, datos y formatos",
+            "desc": "Práctica en un archivo de Excel real (sin necesidad de cuenta de Microsoft), con escenario de nómina dominicana y 3 niveles de reto creciente (Nivel 1, 2 y 3). Calificación automática al instante. Individual.",
+            "duracion": "3 niveles · aproximadamente 60 minutos",
+            "puntos": "70 pts",
+            "aprobacion": "Obtener al menos el 80 % de los puntos",
+            "url": "https://johantbueno.github.io/practicas-web/excel-basico-u1/"
+          },
+          {
+            "badge": "Unidad II",
+            "unidad": "u2",
+            "titulo": "Fórmulas, funciones y referencias",
+            "desc": "Práctica en un archivo de Excel real (sin necesidad de cuenta de Microsoft), con escenario de nómina dominicana y 3 niveles de reto creciente (Nivel 1, 2 y 3). Calificación automática al instante. Individual.",
+            "duracion": "3 niveles · aproximadamente 60 minutos",
+            "puntos": "70 pts",
+            "aprobacion": "Obtener al menos el 80 % de los puntos",
+            "url": "https://johantbueno.github.io/practicas-web/excel-basico-u2/"
+          },
+          {
+            "badge": "Unidad III",
+            "unidad": "u3",
+            "titulo": "Función SI y formato condicional",
+            "desc": "Práctica en un archivo de Excel real (sin necesidad de cuenta de Microsoft), con escenario de nómina dominicana y 3 niveles de reto creciente (Nivel 1, 2 y 3). Calificación automática al instante. Individual.",
+            "duracion": "3 niveles · aproximadamente 60 minutos",
+            "puntos": "70 pts",
+            "aprobacion": "Obtener al menos el 80 % de los puntos",
+            "url": "https://johantbueno.github.io/practicas-web/excel-basico-u3/"
+          },
+          {
+            "badge": "Unidad IV",
+            "unidad": "u4",
+            "titulo": "Gráficos e impresión",
+            "desc": "Práctica en un archivo de Excel real (sin necesidad de cuenta de Microsoft), con escenario de nómina dominicana y 3 niveles de reto creciente (Nivel 1, 2 y 3). Calificación automática al instante. Individual.",
+            "duracion": "3 niveles · aproximadamente 60 minutos",
+            "puntos": "70 pts",
+            "aprobacion": "Obtener al menos el 80 % de los puntos",
+            "url": "https://johantbueno.github.io/practicas-web/excel-basico-u4/"
+          },
+          {
+            "badge": "Unidad V",
+            "unidad": "u5",
+            "titulo": "Tablas, orden, filtros y listas",
+            "desc": "Práctica en un archivo de Excel real (sin necesidad de cuenta de Microsoft), con escenario de nómina dominicana y 3 niveles de reto creciente (Nivel 1, 2 y 3). Calificación automática al instante. Individual.",
+            "duracion": "3 niveles · aproximadamente 60 minutos",
+            "puntos": "70 pts",
+            "aprobacion": "Obtener al menos el 80 % de los puntos",
+            "url": "https://johantbueno.github.io/practicas-web/excel-basico-u5/"
+          }
+        ]
       }
     ]
   },
