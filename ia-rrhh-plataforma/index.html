@@ -169,6 +169,17 @@ ol.ins-list li{margin-bottom:.5rem;}
 .btn-secondary{background:var(--bg-body); color:var(--navy); border:1px solid var(--navy); padding:.7rem 1.2rem; border-radius:var(--radius-md); font-weight:700; font-size:.88rem; cursor:pointer; font-family:inherit;}
 .btn-secondary:hover{background:var(--blue-bg);}
 .btn-row{display:flex; flex-wrap:wrap; gap:.7rem; margin-top:1.25rem;}
+.cred-card{background:var(--bg-card); border:2px solid var(--navy); border-radius:var(--radius-md); padding:1.25rem; margin:1.1rem 0; box-shadow:var(--shadow-md);}
+.cred-header{display:flex; align-items:center; justify-content:space-between; gap:.6rem; margin-bottom:.9rem; padding-bottom:.7rem; border-bottom:1px solid var(--border-light); flex-wrap:wrap;}
+.cred-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:.85rem; margin-bottom:.9rem;}
+.cred-item{background:var(--bg-body); border:1px solid var(--border-light); border-radius:var(--radius-sm); padding:.75rem .9rem; display:flex; flex-direction:column; justify-content:space-between; gap:.35rem;}
+.cred-label{font-size:.72rem; font-weight:700; text-transform:uppercase; color:var(--muted); letter-spacing:.03em;}
+.cred-val-row{display:flex; align-items:center; justify-content:space-between; gap:.5rem;}
+.cred-val{font-family:ui-monospace,SFMono-Regular,Consolas,monospace; font-weight:800; font-size:1.02rem; color:var(--primary); word-break:break-all;}
+.cred-badge{display:inline-block; font-size:.7rem; font-weight:700; padding:.15rem .45rem; border-radius:4px; background:var(--amber-bg); color:var(--amber); border:1px solid var(--amber-border); width:fit-content;}
+.login-steps{counter-reset:loginstep; list-style:none; padding:0; margin:1rem 0;}
+.login-steps li{counter-increment:loginstep; position:relative; padding:.4rem 0 .9rem 2.6rem; font-size:.92rem;}
+.login-steps li::before{content:counter(loginstep); position:absolute; left:0; top:.35rem; width:1.75rem; height:1.75rem; border-radius:50%; background:linear-gradient(135deg,var(--navy),var(--navy-dark)); color:#fff; font-weight:800; font-size:.82rem; display:flex; align-items:center; justify-content:center; box-shadow:var(--shadow-sm);}
 
 #submit-zone{text-align:center; padding:2.25rem 1.5rem;}
 #submit-zone p{max-width:560px; margin:0 auto 1.25rem;}
@@ -356,8 +367,8 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
       <h1 style="font-size:1.35rem;">Cómo usar esta plataforma</h1>
       <p><strong>Concepto:</strong> esta práctica <strong>no es un cuestionario</strong>: usted va a trabajar dentro de una plataforma real de Recursos Humanos (RRHH Virtual) y esta página comprobará lo que hizo allí. La plataforma contiene la <strong>nómina real publicada del Gabinete de Coordinación de Políticas Sociales (mayo 2026, datos abiertos)</strong>; los candidatos, en cambio, son ficticios. Todo lo que haga queda registrado a su nombre.</p>
       <ol class="ins-list">
-        <li>Su facilitador le asigna un <strong>número de participante</strong> (del 01 al 30). Escríbalo en el recuadro del <strong>Paso 1</strong> de la sección <strong>«Su misión»</strong>: la página le mostrará, listos para copiar, su <strong>usuario y su contraseña</strong> y sus cédulas de práctica.</li>
-        <li>Siga el <strong>Paso 2</strong> para entrar: pulse <strong>«Ir a la plataforma»</strong> (se abre en otra pestaña), inicie sesión con ese usuario y esa contraseña y realice los 12 hitos, en el orden que quiera.</li>
+        <li>Su facilitador le asigna un <strong>número de participante único</strong> (del 01 al 30, por ejemplo según el orden de la lista). Escríbalo en el <strong>Paso 1</strong> de la sección <strong>«Su misión»</strong>: la página le generará de inmediato su <strong>correo institucional, su contraseña lista para copiar con un clic</strong> y sus 5 cédulas de práctica. <em>(No use el número de otro compañero para no pisarse el trabajo)</em>.</li>
+        <li>Siga el <strong>Paso 2</strong> para entrar: pulse <strong>«Ir a la plataforma»</strong> (se abre en otra pestaña: <code>rrhhvirtual.plataformajt.com</code>). <strong>NO busque registrarse ni crear cuenta</strong>: las 30 cuentas ya están creadas. Inicie sesión directamente con su usuario y contraseña (con la <strong>P</strong> mayúscula: <code>Practica2026</code>) y realice los 12 hitos.</li>
         <li>Regrese a esta página y pulse <strong>«Verificar mi progreso»</strong> (no necesita escribir nada más). Puede hacerlo <strong>las veces que quiera</strong> mientras avanza.</li>
         <li>¿Se perdió en algún paso? Pulse <strong>«Ayuda de Nicole»</strong> junto a ese hito: Nicole le explica, botón por botón, qué hacer en la plataforma.</li>
         <li>Al final escriba la <strong>reflexión</strong> y pulse <strong>«Enviar y calificar»</strong>.</li>
@@ -427,25 +438,51 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
       </ul>
       <p><strong>Dónde está cada cosa:</strong> el menú lateral de la plataforma tiene Dashboard, Unidades, Cargos, Empleados, Vacantes, Candidatos y Postulaciones. Las acciones de crear o registrar abren una <strong>ventana (diálogo)</strong>: la llena y la confirma con su botón «Guardar …». Las postulaciones se ven en un <strong>tablero por etapas</strong> (menú «Postulaciones», o «Ver postulaciones» en cada vacante). María es el botón redondo abajo a la derecha. En el Dashboard hay un cuadro «Estado del ciclo en el sistema» que le muestra qué pasos ya tienen datos.</p>
       <h2>Paso 1 · Su número de participante</h2>
-      <p>Su facilitador le dirá qué número le tocó. Escríbalo aquí (de 01 a 30): con él se arman su usuario, sus cédulas de práctica y la verificación de su trabajo.</p>
+      <div class="alert gold" style="margin:.8rem 0;">
+        <strong style="display:flex; align-items:center; gap:.4rem;">⚠️ Regla indispensable antes de comenzar:</strong>
+        <p style="margin:.35rem 0 0; font-size:.9rem;">
+          <strong>Cada alumno debe usar únicamente su número asignado (del 01 al 30):</strong> Su facilitador se lo indicará en clase (por ejemplo, según el orden de la lista de asistencia o Moodle). <strong>No elija un número al azar ni use el de un compañero</strong>, porque todos los que compartan el mismo número trabajarán sobre la misma bandeja y se sobreescribirán las unidades, cargos y postulaciones mutuamente.
+        </p>
+      </div>
+      <p>Escriba aquí su número asignado (de 01 a 30): con él se arman su usuario institucional, su contraseña, sus cédulas únicas de práctica y la verificación automática de su trabajo.</p>
       <div class="field" style="max-width:20rem;">
-        <label for="rrhh_numero">Su número de participante</label>
+        <label for="rrhh_numero">Su número de participante (01 al 30)</label>
         <input type="text" id="rrhh_numero" inputmode="numeric" maxlength="2" placeholder="Ej: 07">
       </div>
-      <h2>Paso 2 · Cómo entrar a la plataforma</h2>
-      <div class="alert info" id="caja-acceso">Escriba su número de participante para ver su usuario y su contraseña.</div>
-      <ol class="ins-list">
-        <li>Pulse el botón <strong>«Ir a la plataforma»</strong>. Se abre una pestaña nueva con una pantalla que dice <strong>«RRHH Virtual»</strong>.</li>
-        <li>En <strong>«Correo institucional»</strong> escriba (o pegue) su <strong>usuario</strong> y en <strong>«Contraseña»</strong> la contraseña del recuadro de arriba, tal cual (todo en minúsculas), y pulse <strong>«Entrar»</strong>.</li>
-        <li>Verá a la izquierda el menú con <strong>Dashboard, Unidades, Cargos, Empleados, Vacantes, Candidatos y Postulaciones</strong>. ¡Ya está dentro!</li>
-        <li>Si dice <em>«Correo o contraseña incorrectos»</em>, revise que su número esté bien escrito arriba; si dice <em>«Demasiados intentos»</em>, espere un minuto y vuelva a intentar.</li>
-      </ol>
-      <div class="btn-row">
-        <a class="btn-primary" href="https://rrhhvirtual.plataformajt.com" target="_blank" rel="noopener" style="text-decoration:none; display:inline-flex; align-items:center;">🚀 Ir a la plataforma</a>
+
+      <h2>Paso 2 · Cómo entrar a la plataforma RRHH Virtual</h2>
+      <div id="caja-acceso">
+        <div class="alert warn" style="margin:1rem 0;">
+          👉 <strong>Escriba su número de participante arriba (de 01 a 30)</strong> para ver sus datos de acceso listos para copiar.
+        </div>
       </div>
-      <div class="alert warn" style="margin-top:1rem;">
-        <strong>¿Su navegador muestra un error de seguridad o «ERR_SSL_PROTOCOL_ERROR»?</strong> Es un problema temporal de caché de internet. Use esta dirección alternativa, que es la misma plataforma:
-        <a href="https://rrhhpractica.2.25.118.181.sslip.io" target="_blank" rel="noopener"><strong>rrhhpractica.2.25.118.181.sslip.io</strong></a>
+
+      <div class="alert info" style="margin:1.1rem 0;">
+        <strong style="display:flex; align-items:center; gap:.4rem;">🚫 ¡NO busque registrarse ni crear cuenta!</strong>
+        <p style="margin:.35rem 0 0; font-size:.9rem;">
+          La plataforma ya tiene creadas las 30 cuentas de práctica. En la pantalla de inicio de sesión <strong>no existe opción de registro</strong>: usted únicamente debe <strong>iniciar sesión</strong> con el correo y la contraseña que le muestra el recuadro superior.
+        </p>
+      </div>
+
+      <h3 style="font-size:1.05rem; margin:1.25rem 0 .5rem; color:var(--primary);">Paso a paso para entrar a la plataforma:</h3>
+      <ol class="login-steps">
+        <li><strong>Abra la plataforma:</strong> Pulse el botón <strong>«🚀 Ir a la plataforma»</strong> que tiene aquí abajo (se abrirá en una pestaña nueva: <code>https://rrhhvirtual.plataformajt.com</code>). Aparecerá la pantalla de <strong>«RRHH Virtual · Gabinete de Coordinación de Políticas Sociales»</strong>.</li>
+        <li><strong>Escriba su Correo institucional:</strong> En el campo <em>«Correo institucional»</em>, pegue o escriba su usuario asignado (por ejemplo: <code>participante07@practica.test</code>). Puede presionar el botón <strong>«Copiar»</strong> en su ficha de credenciales de arriba.</li>
+        <li><strong>Escriba la Contraseña:</strong> En el campo <em>«Contraseña»</em>, pegue o escriba <code>Practica2026</code>. <em>(¡Atención: la primera letra es una <strong>P mayúscula</strong>; si la escribe toda en minúsculas el sistema no le dará acceso!)</em>.</li>
+        <li><strong>Pulse «Entrar»:</strong> Al hacer clic en <strong>«Entrar»</strong>, accederá al sistema y verá a la izquierda el menú con <em>Dashboard, Unidades, Cargos, Empleados, Vacantes, Candidatos y Postulaciones</em>. Además, el primer hito de la práctica (<strong>Iniciar sesión</strong>) se dará por cumplido automáticamente otorgándole sus primeros 3 puntos al verificar.</li>
+      </ol>
+
+      <div class="btn-row">
+        <a class="btn-primary" href="https://rrhhvirtual.plataformajt.com" target="_blank" rel="noopener" style="text-decoration:none; display:inline-flex; align-items:center; gap:.5rem;">🚀 Ir a la plataforma (rrhhvirtual.plataformajt.com)</a>
+      </div>
+
+      <div class="alert info" style="margin-top:1.25rem;">
+        <strong>🛠️ Preguntas frecuentes y resolución de problemas al entrar:</strong>
+        <ul style="margin:.4rem 0 0; padding-left:1.2rem; font-size:.88rem;">
+          <li><strong>¿Dice <em>«Correo o contraseña incorrectos»</em>?</strong> Verifique que la contraseña tenga la letra <strong>P</strong> en mayúscula (<code>Practica2026</code>), que el usuario termine en <code>@practica.test</code> y que no haya espacios en blanco sobrantes antes o después. Le recomendamos usar los botones «Copiar».</li>
+          <li><strong>¿Dice <em>«Demasiados intentos»</em>?</strong> Por seguridad, si varios participantes fallan la clave consecutivamente desde la misma red WiFi de la institución, el sistema pausa temporalmente los accesos. Solo espere <strong>60 segundos</strong> sin presionar botones y vuelva a pulsar «Entrar».</li>
+          <li><strong>¿Problemas de red o error de certificado en su institución?</strong> Si la red local de su institución tiene dificultades para resolver el dominio principal, puede ingresar a la misma plataforma a través de la dirección alternativa directa: <a href="https://rrhhpractica.2.25.118.181.sslip.io" target="_blank" rel="noopener"><strong>https://rrhhpractica.2.25.118.181.sslip.io</strong></a>.</li>
+        </ul>
       </div>
       <h2>Los 12 hitos</h2>
       <ol class="ins-list" id="hitos-lista"></ol>
@@ -734,18 +771,64 @@ function renderAcceso(){
   var como = document.getElementById('verificando-como');
   var nn = numeroParticipante();
   if(!nn){
-    caja.className = 'alert warn';
-    caja.textContent = 'Escriba su número de participante (de 01 a 30) para ver su usuario y su contraseña.';
+    caja.innerHTML = '<div class="alert warn" style="margin:1rem 0;">' +
+      '👉 <strong>Escriba su número de participante arriba (de 01 a 30)</strong> para ver sus datos de acceso listos para copiar.' +
+      '</div>';
     como.textContent = 'Escriba su número de participante en «Su misión» para poder verificar.';
     return;
   }
-  caja.className = 'alert success';
-  caja.innerHTML = '<strong>Su acceso a la plataforma</strong><br>' +
-    'Dirección: <strong>' + escapeHtml(PLATAFORMA_URL.replace('https://','')) + '</strong><br>' +
-    'Usuario: <strong>' + escapeHtml(usuarioActual()) + '</strong> <button type="button" class="btn-secondary" data-copiar="usuario" style="padding:.25rem .7rem; min-height:40px;">Copiar</button><br>' +
-    'Contraseña: <strong>' + escapeHtml(PASSWORD_PRACTICA) + '</strong> <button type="button" class="btn-secondary" data-copiar="clave" style="padding:.25rem .7rem; min-height:40px;">Copiar</button>';
+  caja.innerHTML = '<div class="cred-card">' +
+    '<div class="cred-header">' +
+      '<div style="display:flex; align-items:center; gap:.5rem;">' +
+        '<span style="font-size:1.4rem;">🪪</span>' +
+        '<h3 style="margin:0; font-size:1.05rem; color:var(--primary);">Credenciales Asignadas · Participante <span style="color:var(--navy);">' + escapeHtml(nn) + '</span></h3>' +
+      '</div>' +
+      '<span class="cover-chip" style="background:var(--green-bg); color:var(--green); border-color:var(--green-border); font-size:.75rem; padding:.2rem .65rem;">Cuenta activa y lista</span>' +
+    '</div>' +
+    '<div class="cred-grid">' +
+      '<div class="cred-item">' +
+        '<span class="cred-label">🌐 Dirección de la plataforma</span>' +
+        '<div class="cred-val-row">' +
+          '<span class="cred-val" style="font-size:.92rem;">' + escapeHtml(PLATAFORMA_URL.replace('https://','')) + '</span>' +
+          '<a href="' + escapeHtml(PLATAFORMA_URL) + '" target="_blank" rel="noopener" class="btn-secondary" style="padding:.25rem .6rem; font-size:.78rem; text-decoration:none; white-space:nowrap;">Abrir ↗</a>' +
+        '</div>' +
+      '</div>' +
+      '<div class="cred-item">' +
+        '<span class="cred-label">👤 Correo institucional (Usuario)</span>' +
+        '<div class="cred-val-row">' +
+          '<span class="cred-val" style="font-size:.95rem;">' + escapeHtml(usuarioActual()) + '</span>' +
+          '<button type="button" class="btn-secondary" data-copiar="usuario" style="padding:.25rem .6rem; font-size:.78rem; white-space:nowrap;">Copiar</button>' +
+        '</div>' +
+      '</div>' +
+      '<div class="cred-item">' +
+        '<span class="cred-label">🔑 Contraseña (clave de acceso)</span>' +
+        '<div class="cred-val-row">' +
+          '<span class="cred-val">' + escapeHtml(PASSWORD_PRACTICA) + '</span>' +
+          '<button type="button" class="btn-secondary" data-copiar="clave" style="padding:.25rem .6rem; font-size:.78rem; white-space:nowrap;">Copiar</button>' +
+        '</div>' +
+        '<span class="cred-badge">⚠️ Ojo: la letra P es mayúscula</span>' +
+      '</div>' +
+      '<div class="cred-item">' +
+        '<span class="cred-label">🏷️ Código de práctica</span>' +
+        '<div class="cred-val-row">' +
+          '<span class="cred-val">' + escapeHtml(CODIGO_PRACTICA) + '</span>' +
+          '<button type="button" class="btn-secondary" data-copiar="codigo" style="padding:.25rem .6rem; font-size:.78rem; white-space:nowrap;">Copiar</button>' +
+        '</div>' +
+        '<span style="font-size:.7rem; color:var(--muted);">Se envía automáticamente al verificar</span>' +
+      '</div>' +
+    '</div>' +
+    '<div style="background:var(--blue-bg); border:1px solid var(--blue-border); border-radius:var(--radius-sm); padding:.6rem .8rem; font-size:.82rem; color:var(--secondary); display:flex; align-items:center; gap:.5rem;">' +
+      '<span>💡</span>' +
+      '<span><strong>Consejo:</strong> Use los botones <strong>Copiar</strong> para pegar directamente en la plataforma con <code>Ctrl + V</code> y evitar equivocaciones.</span>' +
+    '</div>' +
+  '</div>';
+
   caja.querySelectorAll('[data-copiar]').forEach(function(b){
-    b.addEventListener('click', function(){ copiarTexto(b.getAttribute('data-copiar') === 'usuario' ? usuarioActual() : PASSWORD_PRACTICA, b); });
+    b.addEventListener('click', function(){
+      var tipo = b.getAttribute('data-copiar');
+      var valToCopy = (tipo === 'usuario') ? usuarioActual() : (tipo === 'clave' ? PASSWORD_PRACTICA : CODIGO_PRACTICA);
+      copiarTexto(valToCopy, b);
+    });
   });
   como.textContent = 'Se verificará el trabajo del usuario ' + usuarioActual() + '.';
 }
@@ -983,6 +1066,11 @@ document.getElementById('btn-clear').addEventListener('click', function(){
   document.getElementById('results').classList.remove('show');
 });
 document.getElementById('rrhh_numero').addEventListener('input', renderCandidatos);
+document.getElementById('rrhh_numero').addEventListener('change', function(){
+  var nn = numeroParticipante();
+  if(nn) this.value = nn;
+  saveMeta();
+});
 
 /* ---------- RÚBRICA TABLE ---------- */
 var RUBRICA = HITOS_BASE.map(function(h, i){ return { n:i+1, criterio:h.titulo, indicador:h.como, pts:h.max }; })
@@ -1351,7 +1439,7 @@ function askTutor(q){ return askTutorAI(q).catch(function(){ return answerFor(q)
 var QA = [
   {"kw":["calific","nota","puntaje","rubrica","aprobar","minimo","aprobacion","70"],"a":"Vale 100 puntos: 90 por los 12 hitos en la plataforma (sesion 3, Dashboard 9, unidad 8, cargo 8, vacante 10, candidatos 9, CV 6, postulaciones 9, etapas 8, convertir 10, contratacion directa 5, Maria 5) y 10 por la reflexion. Se aprueba con 70. Puede verificar cuantas veces quiera y reenviar."},
   {"kw":["por donde","empiezo","empezar","hola","quien eres","que puedes hacer"],"a":"Soy Nicole, la asistente virtual del Dr. Johan Tapia. Empiece asi: 1) pulse Ir a la plataforma e inicie sesion con su usuario y contrasena; 2) abra Dashboard y conteste el diagnostico; 3) Unidades -> Crear -> Guardar unidad; 4) Cargos -> Crear -> Guardar cargo; 5) Vacantes -> Crear vacante -> Guardar vacante. Despues siguen los candidatos y el menu Postulaciones. Digame en que paso esta y le explico boton por boton."},
-  {"kw":["iniciar","sesion","entrar","entro","ingresar","acceso","contrasena","login","credencial","usuario","correo","codigo"],"a":"Escriba su numero de participante (01 a 30) en el Paso 1 de Su mision: la pagina le muestra su usuario (por ejemplo participante07@practica.test) y la contrasena Practica2026. Pulse Ir a la plataforma; en la pantalla RRHH Virtual escriba el usuario en Correo institucional y la contrasena, y pulse Entrar. Si dice Correo o contrasena incorrectos, revise su numero; si dice Demasiados intentos, espere un minuto."},
+  {"kw":["iniciar","sesion","entrar","entro","ingresar","acceso","contrasena","login","credencial","usuario","correo","codigo"],"a":"Escriba su numero de participante (01 a 30) en el Paso 1 de Su mision: la pagina le muestra su usuario (por ejemplo participante07@practica.test) y la contrasena Practica2026 (ojo: la P es mayuscula). NO busque registrarse, las 30 cuentas ya estan creadas. Pulse Ir a la plataforma; en la pantalla RRHH Virtual pegue el usuario en Correo institucional y la contrasena, y pulse Entrar. Si dice Correo o contrasena incorrectos, revise su numero y que la P sea mayuscula; si dice Demasiados intentos, espere 60 segundos."},
   {"kw":["dashboard","diagnostico","top unidades","predomina"],"a":"Abra Dashboard en el menu lateral y deje el filtro Tipo de servidor en Todos. Mire Unidades con mas personal (la primera es la que tiene mas servidores), Servidores por tipo (fijo, militar, pasante) y Servidores por sexo. Luego conteste las 3 preguntas en la seccion Verifique su progreso. Arriba hay ademas un cuadro Estado del ciclo en el sistema que le muestra que pasos ya tienen datos."},
   {"kw":["unidad","unidades","oficina"],"a":"En el menu lateral abra Unidades y pulse el boton Crear: se abre una ventana. En Nombre escriba Oficina de Seguimiento de Programas Sociales mas sus iniciales, en Tipo de unidad elija Departamento y pulse Guardar unidad. Debe aparecer en la lista."},
   {"kw":["cargo","cargos","mi cargo","analista"],"a":"Abra Cargos y pulse Crear: se abre una ventana. En Nombre del cargo escriba Analista de Seguimiento, en Tipo de servidor elija Fijo, en Unidad organizativa elija LA SUYA (la que acaba de crear, con sus iniciales) y pulse Guardar cargo."},
