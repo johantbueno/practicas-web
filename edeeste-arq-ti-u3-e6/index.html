@@ -301,6 +301,50 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
   .timer-box.overtime .timer-value{animation:none;}
   .fast-clock-hand{animation:none;}
 }
+
+/* ===== V2: aprenda primero, decisiones, video interactivo ===== */
+.learn{border:1px solid var(--blue-border); background:var(--blue-bg); border-radius:var(--radius-md); padding:1rem 1.1rem; margin:.4rem 0 1.1rem;}
+.learn-h{font-weight:800; font-size:.85rem; letter-spacing:.02em; color:var(--primary); margin-bottom:.55rem;}
+.learn dl{margin:0; display:grid; gap:.55rem;}
+.learn dt{font-weight:800; font-size:.72rem; text-transform:uppercase; letter-spacing:.06em; color:var(--navy);}
+.learn dd{margin:.1rem 0 0; font-size:.92rem; line-height:1.55; color:var(--secondary);}
+.learn dd.ej{border-left:3px solid var(--gold); padding-left:.7rem; font-style:italic;}
+.case-box{border:1px solid var(--amber-border); background:var(--amber-bg); border-radius:var(--radius-md); padding:1rem 1.1rem; margin:.4rem 0 1rem;}
+.case-box h3{margin:.1rem 0 .5rem; font-size:1.02rem; color:var(--primary);}
+.case-box p{margin:.4rem 0; font-size:.92rem; line-height:1.6; color:var(--secondary);}
+.case-box .tag{display:inline-block; font-size:.7rem; font-weight:800; text-transform:uppercase; letter-spacing:.06em; color:var(--amber); margin-bottom:.2rem;}
+.decision{border:1px solid var(--border-light); border-radius:var(--radius-md); padding:1rem 1.1rem; margin:1rem 0; background:var(--bg-card);}
+.decision>.d-title{font-weight:800; color:var(--primary); font-size:.95rem; margin-bottom:.3rem;}
+.decision>.d-sit{font-size:.92rem; line-height:1.55; color:var(--secondary); margin-bottom:.7rem;}
+.choice-group{display:grid; gap:.5rem;}
+select[hidden]{display:none !important;}
+.choice-btn{display:flex; gap:.6rem; align-items:flex-start; text-align:left; width:100%; padding:.7rem .85rem; border:2px solid var(--border-dark); background:var(--bg-card); color:var(--primary); border-radius:var(--radius-sm); font:inherit; font-size:.9rem; line-height:1.45; cursor:pointer; min-height:44px;}
+.choice-btn:hover:not(:disabled){border-color:var(--navy);}
+.choice-btn .ltr{flex:0 0 auto; font-weight:800; color:var(--navy);}
+.choice-btn.sel{border-color:var(--navy); background:var(--blue-bg);}
+.choice-btn.ok{border-color:var(--green-border); background:var(--green-bg);}
+.choice-btn.bad{border-color:var(--red-border); background:var(--red-bg);}
+.choice-btn:disabled{cursor:default; opacity:.95;}
+.choice-fb{margin-top:.7rem; padding:.7rem .85rem; border-radius:var(--radius-sm); font-size:.9rem; line-height:1.5; display:none; border:1px solid var(--border-dark); background:var(--bg-body); color:var(--secondary);}
+.choice-fb.show{display:block;}
+.choice-fb.ok{border-color:var(--green-border); background:var(--green-bg);}
+.choice-fb.bad{border-color:var(--red-border); background:var(--red-bg);}
+.choice-fb b{color:var(--primary);}
+.vid-wrap{position:relative; width:100%; aspect-ratio:16/9; background:#000; border-radius:var(--radius-md); overflow:hidden; margin:.4rem 0;}
+.vid-wrap iframe,.vid-wrap #ytp{position:absolute; inset:0; width:100%; height:100%; border:0;}
+.vid-meta{display:flex; flex-wrap:wrap; gap:.5rem 1rem; align-items:center; justify-content:space-between; font-size:.82rem; color:var(--muted); margin:.3rem 0 .6rem;}
+.vid-meta a{color:var(--navy); font-weight:700;}
+.vq-stage{margin-top:.6rem;}
+.vq{display:none; border:2px solid var(--gold); border-radius:var(--radius-md); padding:1rem 1.1rem; background:var(--bg-card);}
+.vq.active,.vq.static{display:block;}
+.vq.static{margin:.8rem 0; border-color:var(--border-dark);}
+.vq .vq-h{font-size:.72rem; font-weight:800; text-transform:uppercase; letter-spacing:.06em; color:var(--amber); margin-bottom:.3rem;}
+.vq .vq-q{font-weight:700; color:var(--primary); margin-bottom:.7rem; font-size:.95rem;}
+.vq-next{margin-top:.7rem; display:none;}
+.vq-next.show{display:inline-block;}
+.vq-status{font-size:.85rem; font-weight:700; color:var(--primary);}
+@media (max-width:640px){.learn,.case-box,.decision,.vq{padding:.85rem .8rem;}}
+
 </style>
 </head>
 <body>
@@ -330,7 +374,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
           <span class="timer-label">⏱️ Tiempo sugerido</span>
           <button class="icon-btn" id="sound-toggle" type="button" title="Silenciar o activar el sonido" aria-label="Silenciar o activar el sonido del temporizador">🔔</button>
         </div>
-        <div class="timer-value" id="timer-value">50:00</div>
+        <div class="timer-value" id="timer-value">60:00</div>
         <canvas id="hearts-canvas" width="230" height="40" aria-hidden="true"></canvas>
         <div class="fast-clock" id="fast-clock" aria-hidden="true"><div class="fast-clock-hand"></div></div>
         <div class="overtime-note" id="overtime-note" hidden>⏱️ Tiempo de referencia — no afecta su calificación</div>
@@ -344,11 +388,12 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
 
       <nav class="nav" aria-label="Navegación de la práctica"><ul><li><a href="#portada">🧠 Portada e instrucciones</a></li>
           <li><a href="#marco-conceptual">📚 Marco conceptual</a></li>
-          <li><a href="#paso1" data-step="paso1">Paso 1 · Verifique su comprensión <span class="pct" data-pct="paso1">0%</span></a></li>
-          <li><a href="#paso2" data-step="paso2">Paso 2 · Clasifique 6 elementos en el Modelo Purdue <span class="pct" data-pct="paso2">0%</span></a></li>
-          <li><a href="#paso3" data-step="paso3">Paso 3 · Caso: auditoría de accesos y puentes en subestación San Pedro <span class="pct" data-pct="paso3">0%</span></a></li>
-          <li><a href="#paso4" data-step="paso4">Paso 4 · Practique con Nicole <span class="pct" data-pct="paso4">0%</span></a></li>
-          <li><a href="#paso5" data-step="paso5">Paso 5 · Reflexión final <span class="pct" data-pct="paso5">0%</span></a></li>
+          <li><a href="#paso1" data-step="paso1">Paso 1 · Video con preguntas: TI vs. OT <span class="pct" data-pct="paso1">0%</span></a></li>
+          <li><a href="#paso2" data-step="paso2">Paso 2 · Verifique su comprensión <span class="pct" data-pct="paso2">0%</span></a></li>
+          <li><a href="#paso3" data-step="paso3">Paso 3 · Clasifique 6 elementos en el Modelo Purdue <span class="pct" data-pct="paso3">0%</span></a></li>
+          <li><a href="#paso4" data-step="paso4">Paso 4 · Caso de decisiones: acceso remoto de proveedores <span class="pct" data-pct="paso4">0%</span></a></li>
+          <li><a href="#paso5" data-step="paso5">Paso 5 · Practique con Nicole <span class="pct" data-pct="paso5">0%</span></a></li>
+          <li><a href="#paso6" data-step="paso6">Paso 6 · Reflexión final <span class="pct" data-pct="paso6">0%</span></a></li>
           <li><a href="#rubrica">🧮 Rúbrica de evaluación</a></li>
           <li><a href="#resultado">📤 Enviar y calificar</a></li></ul></nav>
 
@@ -371,7 +416,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
       <div class="cover-chips">
         <span class="cover-chip">Lunes 26 de octubre de 2026</span>
         <span class="cover-chip">100 pts · aprobación mínima 70</span>
-        <span class="cover-chip">Dura aproximadamente 50 minutos</span>
+        <span class="cover-chip">Dura aproximadamente 60 minutos</span>
         <span class="cover-chip">Gana una medalla digital al terminar</span>
       </div>
     </section>
@@ -379,13 +424,13 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
     <section class="card">
       <span class="step-badge">Para el personal técnico de TI y OT de EDEESTE</span>
       <h1 style="font-size:1.35rem;">Práctica de la segunda hora del encuentro</h1>
-      <div class="alert success">Esta práctica se realiza justo después de la explicación teórica del encuentro (6:00 a 7:00 p. m.). Dispone de aproximadamente 50 minutos. Combina preguntas de selección, clasificación y un caso aplicado a EDEESTE, con retroalimentación inmediata.</div>
+      <div class="alert success">Esta práctica se realiza justo después de la explicación teórica del encuentro (6:00 a 7:00 p. m.). Dispone de aproximadamente 60 minutos. Combina un video con preguntas, preguntas de selección, clasificación y un caso de decisiones aplicado a una distribuidora ficticia, con retroalimentación inmediata.</div>
     </section>
 
     <section class="card" id="tutorial">
       <span class="step-badge">Tutorial</span>
       <h1 style="font-size:1.35rem;">Cómo usar esta plataforma</h1>
-      <p><strong>Concepto:</strong> esta práctica se realiza <strong>después de la explicación teórica del encuentro</strong> (presentación PPT). Tiene 5 pasos, cada uno explicado con palabras simples y ejemplos, y espacio para sus respuestas — puede escribir directamente o grabar una nota de voz.</p>
+      <p><strong>Concepto:</strong> esta práctica se realiza <strong>después de la explicación teórica del encuentro</strong> (presentación PPT). Tiene 6 pasos, cada uno explicado con palabras simples y ejemplos, y espacio para sus respuestas — puede escribir directamente o grabar una nota de voz.</p>
 
       <h2>Dos formas de responder cada pregunta</h2>
       <p><strong>Definición:</strong> cada campo de respuesta larga acepta texto escrito o una nota de voz transcrita automáticamente.</p>
@@ -402,7 +447,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
       </ol>
 
       <h2>La medalla digital al terminar</h2>
-      <p>Cuando complete los 5 pasos y presione <strong>Enviar y Calificar</strong>, va a poder generar una <strong>medalla digital</strong> con su nombre para descargar o compartir por WhatsApp, correo o redes sociales, como evidencia de haber completado esta práctica — puede adjuntarla en la actividad correspondiente de Moodle si su facilitador se lo solicita.</p>
+      <p>Cuando complete los 6 pasos y presione <strong>Enviar y Calificar</strong>, va a poder generar una <strong>medalla digital</strong> con su nombre para descargar o compartir por WhatsApp, correo o redes sociales, como evidencia de haber completado esta práctica — puede adjuntarla en la actividad correspondiente de Moodle si su facilitador se lo solicita.</p>
 
       <h2>Progreso, guardado y aprobación</h2>
       <p>Sus respuestas se guardan automáticamente en este navegador mientras trabaja. Puede cerrar la página y volver más tarde a completar otra pregunta. Al presionar <strong>Enviar y Calificar</strong>, el sistema le da una nota preliminar orientativa y comentarios al instante.</p>
@@ -431,7 +476,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
       <h2>Instrucciones generales</h2>
       <ol class="ins-list">
         <li>Tenga a mano la <strong>presentación del encuentro</strong>: esta práctica retoma directamente sus conceptos.</li>
-        <li>Complete los <strong>5 pasos</strong> en el orden indicado, por escrito o por nota de voz.</li>
+        <li>Complete los <strong>6 pasos</strong> en el orden indicado, por escrito o por nota de voz.</li>
         <li>Los casos de esta práctica son <strong>ilustrativos</strong> y se basan en una distribuidora como EDEESTE; puede usar su propia experiencia.</li>
         <li><strong>Nunca escriba información confidencial real</strong> (contraseñas, direcciones IP reales de la red, planos o datos de clientes) en ningún campo de esta práctica ni en ninguna herramienta de IA — use siempre ejemplos genéricos.</li>
         <li>Al finalizar, presione <strong>Enviar y Calificar</strong>: el sistema revisará su trabajo y le dará una nota y retroalimentación inmediata.</li>
@@ -451,22 +496,35 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
 
     <!-- ============ PASO1 ============ -->
     <section id="paso1" class="card">
-      <span class="step-badge">Paso 1 · 10 min</span><span class="step-points">Vale 25 pts</span>
+      <span class="step-badge">Paso 1 · 14 min</span><span class="step-points">Vale 20 pts</span>
+      <h1>Video con preguntas: TI vs. OT</h1>
+<div class="learn"><div class="learn-h">📘 Aprenda primero</div><dl><div><dt>Concepto</dt><dd>Por qué la ciberseguridad de OT no se gestiona como la de TI.</dd></div><div><dt>Definición</dt><dd>El video usa una línea de embotellado, pero las ideas aplican a una subestación: los controladores (PLC/relés) son deterministas y duran décadas, mientras los servidores TI se renuevan cada pocos años; y en OT manda la disponibilidad. Se pausa 4 veces con una pregunta.</dd></div><div><dt>Ejemplo</dt><dd class="ej">En TI, ante la sospecha de un intruso, se apaga el servidor; en una subestación, apagar el SCADA para «protegerlo» puede dejar sin servicio a miles de clientes.</dd></div><div><dt>Dónde lo vio</dt><dd>Refuerza la Unidad 3 · diapositivas 6-8 (IT frente a OT, tríada C-I-D vs. D-I-C, ciclo de vida).</dd></div></dl></div>      <div class="vid-meta"><span>🎬 <strong>Ciberseguridad OT #1: diferencias entre el mundo TI y el mundo OT</strong> · Fábricas Digitales · 12 min</span><a href="https://www.youtube.com/watch?v=k64VMOIwErc" target="_blank" rel="noopener">Ver en YouTube ↗</a></div>
+<div id="vid-note"></div>
+<div class="vid-wrap" id="vid-wrap"><div id="ytp"></div></div>
+<p class="vq-status" id="vq-status" style="margin:.5rem 0;"></p>
+<div class="vq-stage">
+<div class="vq" id="vq_v_q1"><div class="vq-h">Pregunta 1 de 4 · minuto 3:40</div><div class="vq-q"><label for="v_q1" style="display:inline;margin:0;font-size:inherit;color:inherit;">Según el video, ¿qué características distinguen a un PLC (control industrial) de un servidor de oficina?</label></div><select id="v_q1" hidden aria-hidden="true"><option value=""></option><option value="A. Es más barato y se reemplaza cada año">A. Es más barato y se reemplaza cada año</option><option value="B. No necesita funcionar de forma continua">B. No necesita funcionar de forma continua</option><option value="C. Se instala siempre en un centro de datos climatizado">C. Se instala siempre en un centro de datos climatizado</option><option value="D. Debe ser determinista en el tiempo y soportar vibraciones, temperaturas variables y ambientes duros">D. Debe ser determinista en el tiempo y soportar vibraciones, temperaturas variables y ambientes duros</option></select><div class="choice-group" data-for="v_q1"><button type="button" class="choice-btn" data-v="A. Es más barato y se reemplaza cada año"><span class="ltr">A.</span><span>Es más barato y se reemplaza cada año</span></button><button type="button" class="choice-btn" data-v="B. No necesita funcionar de forma continua"><span class="ltr">B.</span><span>No necesita funcionar de forma continua</span></button><button type="button" class="choice-btn" data-v="C. Se instala siempre en un centro de datos climatizado"><span class="ltr">C.</span><span>Se instala siempre en un centro de datos climatizado</span></button><button type="button" class="choice-btn" data-v="D. Debe ser determinista en el tiempo y soportar vibraciones, temperaturas variables y ambientes duros"><span class="ltr">D.</span><span>Debe ser determinista en el tiempo y soportar vibraciones, temperaturas variables y ambientes duros</span></button></div><div class="choice-fb" id="v_q1_fb" aria-live="polite"></div><button type="button" class="btn-primary vq-next" id="v_q1_next">▶ Continuar el video</button></div>
+<div class="vq" id="vq_v_q2"><div class="vq-h">Pregunta 2 de 4 · minuto 4:18</div><div class="vq-q"><label for="v_q2" style="display:inline;margin:0;font-size:inherit;color:inherit;">¿Cómo compara el video el ciclo de vida de OT con el de TI?</label></div><select id="v_q2" hidden aria-hidden="true"><option value=""></option><option value="A. OT: unos 20 años con recambios garantizados · TI: cambio cada unos 5 años">A. OT: unos 20 años con recambios garantizados · TI: cambio cada unos 5 años</option><option value="B. OT: 1 año · TI: 20 años">B. OT: 1 año · TI: 20 años</option><option value="C. Ambos duran exactamente lo mismo">C. Ambos duran exactamente lo mismo</option><option value="D. OT: 5 años · TI: 30 años">D. OT: 5 años · TI: 30 años</option></select><div class="choice-group" data-for="v_q2"><button type="button" class="choice-btn" data-v="A. OT: unos 20 años con recambios garantizados · TI: cambio cada unos 5 años"><span class="ltr">A.</span><span>OT: unos 20 años con recambios garantizados · TI: cambio cada unos 5 años</span></button><button type="button" class="choice-btn" data-v="B. OT: 1 año · TI: 20 años"><span class="ltr">B.</span><span>OT: 1 año · TI: 20 años</span></button><button type="button" class="choice-btn" data-v="C. Ambos duran exactamente lo mismo"><span class="ltr">C.</span><span>Ambos duran exactamente lo mismo</span></button><button type="button" class="choice-btn" data-v="D. OT: 5 años · TI: 30 años"><span class="ltr">D.</span><span>OT: 5 años · TI: 30 años</span></button></div><div class="choice-fb" id="v_q2_fb" aria-live="polite"></div><button type="button" class="btn-primary vq-next" id="v_q2_next">▶ Continuar el video</button></div>
+<div class="vq" id="vq_v_q3"><div class="vq-h">Pregunta 3 de 4 · minuto 8:00</div><div class="vq-q"><label for="v_q3" style="display:inline;margin:0;font-size:inherit;color:inherit;">En el ejemplo del video, ante la sospecha de que alguien accede a las métricas de producción, ¿qué se prioriza en el mundo de OT?</label></div><select id="v_q3" hidden aria-hidden="true"><option value=""></option><option value="A. La disponibilidad: no se detiene la producción y se remedia en paralelo">A. La disponibilidad: no se detiene la producción y se remedia en paralelo</option><option value="B. Apagar y desconectar todo de inmediato">B. Apagar y desconectar todo de inmediato</option><option value="C. La confidencialidad por encima de todo">C. La confidencialidad por encima de todo</option><option value="D. Esperar a la próxima auditoría anual">D. Esperar a la próxima auditoría anual</option></select><div class="choice-group" data-for="v_q3"><button type="button" class="choice-btn" data-v="A. La disponibilidad: no se detiene la producción y se remedia en paralelo"><span class="ltr">A.</span><span>La disponibilidad: no se detiene la producción y se remedia en paralelo</span></button><button type="button" class="choice-btn" data-v="B. Apagar y desconectar todo de inmediato"><span class="ltr">B.</span><span>Apagar y desconectar todo de inmediato</span></button><button type="button" class="choice-btn" data-v="C. La confidencialidad por encima de todo"><span class="ltr">C.</span><span>La confidencialidad por encima de todo</span></button><button type="button" class="choice-btn" data-v="D. Esperar a la próxima auditoría anual"><span class="ltr">D.</span><span>Esperar a la próxima auditoría anual</span></button></div><div class="choice-fb" id="v_q3_fb" aria-live="polite"></div><button type="button" class="btn-primary vq-next" id="v_q3_next">▶ Continuar el video</button></div>
+<div class="vq" id="vq_v_q4"><div class="vq-h">Pregunta 4 de 4 · minuto 10:30</div><div class="vq-q"><label for="v_q4" style="display:inline;margin:0;font-size:inherit;color:inherit;">Según el video, ¿qué riesgo introduce un integrador que conecta un módem 3G/4G a la línea de control para dar soporte remoto?</label></div><select id="v_q4" hidden aria-hidden="true"><option value=""></option><option value="A. Mejora la segmentación de la red">A. Mejora la segmentación de la red</option><option value="B. Reduce la superficie de ataque">B. Reduce la superficie de ataque</option><option value="C. Deja una puerta trasera que no se contempla en la evaluación de riesgo">C. Deja una puerta trasera que no se contempla en la evaluación de riesgo</option><option value="D. Ninguno, porque el 4G siempre está cifrado">D. Ninguno, porque el 4G siempre está cifrado</option></select><div class="choice-group" data-for="v_q4"><button type="button" class="choice-btn" data-v="A. Mejora la segmentación de la red"><span class="ltr">A.</span><span>Mejora la segmentación de la red</span></button><button type="button" class="choice-btn" data-v="B. Reduce la superficie de ataque"><span class="ltr">B.</span><span>Reduce la superficie de ataque</span></button><button type="button" class="choice-btn" data-v="C. Deja una puerta trasera que no se contempla en la evaluación de riesgo"><span class="ltr">C.</span><span>Deja una puerta trasera que no se contempla en la evaluación de riesgo</span></button><button type="button" class="choice-btn" data-v="D. Ninguno, porque el 4G siempre está cifrado"><span class="ltr">D.</span><span>Ninguno, porque el 4G siempre está cifrado</span></button></div><div class="choice-fb" id="v_q4_fb" aria-live="polite"></div><button type="button" class="btn-primary vq-next" id="v_q4_next">▶ Continuar el video</button></div>
+</div>
+    </section>
+
+<section id="paso2" class="card">
+      <span class="step-badge">Paso 2 · 8 min</span><span class="step-points">Vale 15 pts</span>
       <h1>Verifique su comprensión</h1>
-      <p><strong>Concepto:</strong> seis preguntas de selección sobre el Modelo Purdue y la DMZ Industrial.</p>
-      <div class="field"><label for="p1_q1">1. ¿Qué nivel de Purdue alberga los relés de protección (IED) y las RTU de subestación?</label><select id="p1_q1"><option value="">Seleccione…</option><option value="Nivel 0">Nivel 0</option><option value="Nivel 1 (Control básico)">Nivel 1 (Control básico)</option><option value="Nivel 3 (Operaciones)">Nivel 3 (Operaciones)</option><option value="Nivel 4 (TI corporativa)">Nivel 4 (TI corporativa)</option></select></div>
+<div class="learn"><div class="learn-h">📘 Aprenda primero</div><dl><div><dt>Concepto</dt><dd>Modelo Purdue y DMZ industrial (nivel 3.5).</dd></div><div><dt>Definición</dt><dd>El Modelo Purdue organiza la planta en niveles: 0 proceso físico, 1 control básico (IED, RTU), 2 supervisión de área (HMI), 3 operaciones (SCADA/ADMS), 4 TI corporativa. Entre TI y OT se coloca una DMZ industrial (nivel 3.5): ahí viven los servidores de salto (Jump Host con MFA), el historiador réplica y los parches. Regla de oro: cero comunicación directa entre TI y OT; se usan dos firewalls de fabricantes distintos, y está PROHIBIDO el enrutamiento IP directo, las VPN que aterrizan en el nivel 3 o 2, las consultas de bases de datos cruzadas sin mediación y compartir credenciales del Active Directory corporativo en OT.</dd></div><div><dt>Ejemplo</dt><dd class="ej">Un analista comercial no consulta el historiador SCADA: consulta una réplica en la DMZ 3.5, que recibe los datos desde OT y no permite ninguna conexión de regreso.</dd></div><div><dt>Dónde lo vio</dt><dd>Unidad 3 · diapositivas 9-12 (niveles de Purdue), 14-16 (DMZ 3.5 y regla de oro) y 17 (acceso remoto con MFA).</dd></div></dl></div>      <div class="field"><label for="p1_q1">1. ¿Qué nivel de Purdue alberga los relés de protección (IED) y las RTU de subestación?</label><select id="p1_q1"><option value="">Seleccione…</option><option value="Nivel 0">Nivel 0</option><option value="Nivel 1 (Control básico)">Nivel 1 (Control básico)</option><option value="Nivel 3 (Operaciones)">Nivel 3 (Operaciones)</option><option value="Nivel 4 (TI corporativa)">Nivel 4 (TI corporativa)</option></select></div>
       <div class="field"><label for="p1_q2">2. ¿Cuál es la función primordial de la DMZ Industrial (Nivel 3.5)?</label><select id="p1_q2"><option value="">Seleccione…</option><option value="Conectar la subestación a internet">Conectar la subestación a internet</option><option value="Evitar cualquier conexión directa entre la red corporativa (TI) y la red de control (OT)">Evitar cualquier conexión directa entre la red corporativa (TI) y la red de control (OT)</option><option value="Alojar el servidor de correo electrónico">Alojar el servidor de correo electrónico</option><option value="Reemplazar los cortafuegos perimetrales">Reemplazar los cortafuegos perimetrales</option></select></div>
       <div class="field"><label for="p1_q3">3. ¿Cómo debe acceder un ingeniero desde la red corporativa o VPN para configurar un IED en subestación?</label><select id="p1_q3"><option value="">Seleccione…</option><option value="Directo por SSH a la IP del IED">Directo por SSH a la IP del IED</option><option value="Conectándose primero a un Jump Host en la DMZ 3.5 con MFA">Conectándose primero a un Jump Host en la DMZ 3.5 con MFA</option><option value="Mediante Wi-Fi público en la subestación">Mediante Wi-Fi público en la subestación</option><option value="Usando AnyDesk sin contraseña">Usando AnyDesk sin contraseña</option></select></div>
       <div class="field"><label for="p1_q4">4. ¿Por qué se recomienda utilizar firewalls de distintos fabricantes en la DMZ Industrial?</label><select id="p1_q4"><option value="">Seleccione…</option><option value="Para que los cables no se confundan">Para que los cables no se confundan</option><option value="Para evitar que una misma vulnerabilidad comprometa ambos perímetros (defensa en profundidad)">Para evitar que una misma vulnerabilidad comprometa ambos perímetros (defensa en profundidad)</option><option value="Porque es un requisito de la factura eléctrica">Porque es un requisito de la factura eléctrica</option><option value="Para pagar doble soporte">Para pagar doble soporte</option></select></div>
       <div class="field"><label for="p1_q5">5. ¿Cómo debe transferirse la información del historiador SCADA hacia los analistas del área comercial (TI)?</label><select id="p1_q5"><option value="">Seleccione…</option><option value="Conectando el software comercial directo a la base de datos SCADA">Conectando el software comercial directo a la base de datos SCADA</option><option value="Mediante un historiador réplica ubicado en la DMZ 3.5 que consulta el OT y es leído por TI">Mediante un historiador réplica ubicado en la DMZ 3.5 que consulta el OT y es leído por TI</option><option value="Enviando capturas de pantalla por correo">Enviando capturas de pantalla por correo</option><option value="Abriendo el puerto de base de datos en internet">Abriendo el puerto de base de datos en internet</option></select></div>
-      <div class="field"><label for="p1_q6">6. ¿Qué práctica está estrictamente prohibida en la arquitectura de convergencia IT/OT?</label><select id="p1_q6"><option value="">Seleccione…</option><option value="Tener servidores con tarjetas de red &#x27;dual-homed&#x27; puenteando TI y OT">Tener servidores con tarjetas de red &#x27;dual-homed&#x27; puenteando TI y OT</option><option value="Utilizar cables de fibra óptica">Utilizar cables de fibra óptica</option><option value="Segmentar por VLAN">Segmentar por VLAN</option><option value="Configurar autenticación multifactor">Configurar autenticación multifactor</option></select></div>
+      <div class="field"><label for="p1_q6">6. Según la «regla de oro» de la convergencia IT/OT, ¿qué práctica está PROHIBIDA?</label><select id="p1_q6"><option value="">Seleccione…</option><option value="Túneles VPN que aterricen directamente en el Nivel 3 o 2">Túneles VPN que aterricen directamente en el Nivel 3 o 2</option><option value="Autenticación en dos etapas a través de Jump Hosts">Autenticación en dos etapas a través de Jump Hosts</option><option value="Un Active Directory o LDAP independiente y exclusivo para OT">Un Active Directory o LDAP independiente y exclusivo para OT</option><option value="Réplicas de datos y servicios proxy en la DMZ 3.5">Réplicas de datos y servicios proxy en la DMZ 3.5</option></select></div>
     </section>
 
-<section id="paso2" class="card">
-      <span class="step-badge">Paso 2 · 10 min</span><span class="step-points">Vale 25 pts</span>
+<section id="paso3" class="card">
+      <span class="step-badge">Paso 3 · 6 min</span><span class="step-points">Vale 15 pts</span>
       <h1>Clasifique 6 elementos en el Modelo Purdue</h1>
-      <p><strong>Concepto:</strong> ubique cada componente de la red eléctrica en su nivel correspondiente.</p>
-      <div class="field"><label for="p2_s1">Transformador de potencia e interruptor de 69 kV</label><select id="p2_s1"><option value="">Seleccione…</option><option value="Nivel 0 · Proceso físico">Nivel 0 · Proceso físico</option><option value="Nivel 1 · Control básico">Nivel 1 · Control básico</option><option value="Nivel 2 · Supervisión de área">Nivel 2 · Supervisión de área</option><option value="Nivel 3 · Operaciones de red">Nivel 3 · Operaciones de red</option><option value="Nivel 3.5 · DMZ Industrial">Nivel 3.5 · DMZ Industrial</option><option value="Nivel 4 · TI Corporativa">Nivel 4 · TI Corporativa</option></select></div>
+<div class="learn"><div class="learn-h">📘 Aprenda primero</div><dl><div><dt>Concepto</dt><dd>Clasificar cada elemento en su nivel de Purdue.</dd></div><div><dt>Definición</dt><dd>Se ubica un elemento según su función: lo que opera el proceso físico (transformador, interruptor) es nivel 0; los equipos que miden y protegen (relé IED, reconectador) son nivel 1; la HMI local y los gateways son nivel 2; el servidor central SCADA/ADMS es nivel 3; el Jump Host y el historiador réplica son nivel 3.5; el CIS y el correo son nivel 4.</dd></div><div><dt>Ejemplo</dt><dd class="ej">La pantalla táctil del operador en la caseta de la subestación es nivel 2 (supervisión de área); el servidor SCADA del centro de control, nivel 3.</dd></div><div><dt>Dónde lo vio</dt><dd>Unidad 3 · diapositivas 10, 11, 12, 14 y 15.</dd></div></dl></div>      <div class="field"><label for="p2_s1">Transformador de potencia e interruptor de 69 kV</label><select id="p2_s1"><option value="">Seleccione…</option><option value="Nivel 0 · Proceso físico">Nivel 0 · Proceso físico</option><option value="Nivel 1 · Control básico">Nivel 1 · Control básico</option><option value="Nivel 2 · Supervisión de área">Nivel 2 · Supervisión de área</option><option value="Nivel 3 · Operaciones de red">Nivel 3 · Operaciones de red</option><option value="Nivel 3.5 · DMZ Industrial">Nivel 3.5 · DMZ Industrial</option><option value="Nivel 4 · TI Corporativa">Nivel 4 · TI Corporativa</option></select></div>
       <div class="field"><label for="p2_s2">Relé de protección digital (IED) y reconectador de poste</label><select id="p2_s2"><option value="">Seleccione…</option><option value="Nivel 0 · Proceso físico">Nivel 0 · Proceso físico</option><option value="Nivel 1 · Control básico">Nivel 1 · Control básico</option><option value="Nivel 2 · Supervisión de área">Nivel 2 · Supervisión de área</option><option value="Nivel 3 · Operaciones de red">Nivel 3 · Operaciones de red</option><option value="Nivel 3.5 · DMZ Industrial">Nivel 3.5 · DMZ Industrial</option><option value="Nivel 4 · TI Corporativa">Nivel 4 · TI Corporativa</option></select></div>
       <div class="field"><label for="p2_s3">HMI táctil local del operador en caseta de subestación</label><select id="p2_s3"><option value="">Seleccione…</option><option value="Nivel 0 · Proceso físico">Nivel 0 · Proceso físico</option><option value="Nivel 1 · Control básico">Nivel 1 · Control básico</option><option value="Nivel 2 · Supervisión de área">Nivel 2 · Supervisión de área</option><option value="Nivel 3 · Operaciones de red">Nivel 3 · Operaciones de red</option><option value="Nivel 3.5 · DMZ Industrial">Nivel 3.5 · DMZ Industrial</option><option value="Nivel 4 · TI Corporativa">Nivel 4 · TI Corporativa</option></select></div>
       <div class="field"><label for="p2_s4">Servidor central SCADA / ADMS en el CCO</label><select id="p2_s4"><option value="">Seleccione…</option><option value="Nivel 0 · Proceso físico">Nivel 0 · Proceso físico</option><option value="Nivel 1 · Control básico">Nivel 1 · Control básico</option><option value="Nivel 2 · Supervisión de área">Nivel 2 · Supervisión de área</option><option value="Nivel 3 · Operaciones de red">Nivel 3 · Operaciones de red</option><option value="Nivel 3.5 · DMZ Industrial">Nivel 3.5 · DMZ Industrial</option><option value="Nivel 4 · TI Corporativa">Nivel 4 · TI Corporativa</option></select></div>
@@ -474,28 +532,26 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
       <div class="field"><label for="p2_s6">Sistema comercial CIS y correo corporativo</label><select id="p2_s6"><option value="">Seleccione…</option><option value="Nivel 0 · Proceso físico">Nivel 0 · Proceso físico</option><option value="Nivel 1 · Control básico">Nivel 1 · Control básico</option><option value="Nivel 2 · Supervisión de área">Nivel 2 · Supervisión de área</option><option value="Nivel 3 · Operaciones de red">Nivel 3 · Operaciones de red</option><option value="Nivel 3.5 · DMZ Industrial">Nivel 3.5 · DMZ Industrial</option><option value="Nivel 4 · TI Corporativa">Nivel 4 · TI Corporativa</option></select></div>
     </section>
 
-<section id="paso3" class="card">
-      <span class="step-badge">Paso 3 · 15 min</span><span class="step-points">Vale 30 pts</span>
-      <h1>Caso: auditoría de accesos y puentes en subestación San Pedro</h1>
-      <p><strong>Concepto:</strong> elimine brechas de convergencia IT/OT en una subestación de EDEESTE.</p>
-      <div class="alert gold"><strong>Caso ilustrativo:</strong> una auditoría técnica en la subestación San Pedro de Macorís detecta dos hallazgos críticos: un proveedor instaló un módem 4G directo al switch de relés para soporte remoto sin pasar por TI, y un servidor del OMS en la red comercial tiene una tarjeta de red conectada directamente al switch SCADA para recibir disparos de interruptores.</div>
-      <div class="field"><label for="p3_a">a) Explique por qué el módem 4G y la tarjeta dual-homed violan el Modelo Purdue y qué riesgo operacional representan <span class="wc" data-for="p3_a">0 palabras</span></label><textarea class="tall" id="p3_a" placeholder="El módem 4G y la tarjeta dual-homed violan Purdue porque... El riesgo operacional es..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="p3_a">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p3_a"></span></div></div>
-      <div class="field"><label for="p3_b">b) Diseñe el flujo correcto para que el proveedor ingrese de forma segura según las mejores prácticas (VPN, DMZ 3.5, Jump Host, MFA, sesiones grabadas) <span class="wc" data-for="p3_b">0 palabras</span></label><textarea class="tall" id="p3_b" placeholder="El flujo seguro consiste en: 1) VPN corporativa con MFA..., 2) Conexión a Jump Host en DMZ 3.5..., 3)..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="p3_b">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p3_b"></span></div></div>
-      <div class="field"><label for="p3_c">c) Proponga la solución para que el OMS reciba eventos de falla del SCADA sin conectar directamente ambas redes corporativa y de control <span class="wc" data-for="p3_c">0 palabras</span></label><textarea class="tall" id="p3_c" placeholder="Para el OMS propongo utilizar un bróker de eventos o servidor intermedio en la DMZ 3.5 que..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="p3_c">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p3_c"></span></div></div>
-    </section>
-
 <section id="paso4" class="card">
-      <span class="step-badge">Paso 4 · 5 min</span><span class="step-points">Vale 10 pts</span>
-      <h1>Practique con Nicole</h1>
-      <p><strong>Concepto:</strong> pongamos a prueba lo aprendido conversando con Nicole.</p>
-      <div class="sandbox-box"><strong>🧪 Pregúntele a Nicole:</strong><p style="font-style:italic; margin:.5rem 0;">Ej: "¿Por qué no se debe usar una tarjeta dual-homed entre TI y OT?"</p><input type="text" id="sandbox_input" placeholder="Escriba aquí su pregunta sobre Modelo Purdue, DMZ Industrial 3.5 o Jump Host con MFA..." style="margin-bottom:.75rem;"><button class="btn-primary" id="btn-sandbox" type="button">🧪 Enviar a Nicole y ver la respuesta</button><div class="sandbox-response" id="sandbox-response"></div></div><div class="field"><label for="p4_reflexion">¿Qué le respondió Nicole y le pareció acertado? <span class="wc" data-for="p4_reflexion">0 palabras</span></label><textarea class="tall" id="p4_reflexion" placeholder="Nicole respondió que..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="p4_reflexion">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p4_reflexion"></span></div></div><div class="field"><label for="p4_mejora">¿Qué otra pregunta del tema le gustaría explorar? <span class="wc" data-for="p4_mejora">0 palabras</span></label><textarea class="tall" id="p4_mejora" placeholder="Me gustaría preguntar sobre..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="p4_mejora">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p4_mejora"></span></div></div>
+      <span class="step-badge">Paso 4 · 20 min</span><span class="step-points">Vale 35 pts</span>
+      <h1>Caso de decisiones: acceso remoto de proveedores</h1>
+<div class="learn"><div class="learn-h">📘 Aprenda primero</div><dl><div><dt>Concepto</dt><dd>Diseñar el límite TI/OT: segmentar, mediar y controlar el acceso.</dd></div><div><dt>Definición</dt><dd>Un diseño seguro no se basa en «más firewall», sino en tres principios: ninguna conexión directa entre niveles (todo pasa por la DMZ 3.5), acceso de terceros mediado por un servidor de salto con MFA y sesiones temporales y auditadas, y controles compensatorios para los equipos antiguos que no admiten autenticación moderna.</dd></div><div><dt>Ejemplo</dt><dd class="ej">El proveedor de reconectadores no recibe una VPN con acceso a la red OT: se conecta a un portal en la DMZ, autentica con MFA, el sistema le abre una sesión de 2 horas al equipo autorizado y graba todo lo que hace.</dd></div><div><dt>Dónde lo vio</dt><dd>Unidad 3 · diapositivas 14-17 (DMZ, regla de oro y acceso remoto con MFA), 20 (caso real: intrusión por conectividad directa) y 40 (zonas y conductos).</dd></div></dl></div>      <div class="case-box"><span class="tag">Caso ficticio</span><h3>Rediseño de la seguridad IT/OT y del acceso remoto de terceros en DISCARIBE S.A. (empresa ficticia)</h3><p>DISCARIBE S.A. atiende a unos 700,000 clientes. Su centro de control (ADMS/SCADA) se comunica con 20 subestaciones y 300 reconectadores. Un único firewall genérico separa la red corporativa de la de operaciones.</p><p>Durante un mantenimiento, el portátil de un ingeniero del proveedor de reconectadores —infectado antes— se conectó por la VPN tradicional, que termina dentro de la red OT. El malware intentó moverse hacia los servidores de supervisión usando credenciales de administración compartidas. El equipo de seguridad aisló la sesión a tiempo, pero la gerencia suspendió todo acceso de terceros hasta que usted y su equipo propongan un rediseño. Decida en tres puntos.</p></div>
+      <div class="decision"><div class="d-title"><label for="d1" style="display:inline;margin:0;font-size:inherit;color:inherit;">Decisión 1 · Límite entre TI y OT</label></div><div class="d-sit">Solo hay un firewall genérico entre la red corporativa (nivel 4) y operaciones (nivel 3). No existe una zona intermedia.</div><select id="d1" hidden aria-hidden="true"><option value=""></option><option value="A. Aislar totalmente la red OT (air gap) y mover datos y parches con memorias USB.">A. Aislar totalmente la red OT (air gap) y mover datos y parches con memorias USB.</option><option value="B. Crear una DMZ industrial (nivel 3.5) con Jump Host, historiador réplica y servidor de parches, protegida por dos firewalls de distinto fabricante, sin comunicación directa TI–OT.">B. Crear una DMZ industrial (nivel 3.5) con Jump Host, historiador réplica y servidor de parches, protegida por dos firewalls de distinto fabricante, sin comunicación directa TI–OT.</option><option value="C. Reemplazar el firewall por un modelo más potente con reglas amplias hacia los servicios de OT.">C. Reemplazar el firewall por un modelo más potente con reglas amplias hacia los servicios de OT.</option></select><div class="choice-group" data-for="d1"><button type="button" class="choice-btn" data-v="A. Aislar totalmente la red OT (air gap) y mover datos y parches con memorias USB."><span class="ltr">A.</span><span>Aislar totalmente la red OT (air gap) y mover datos y parches con memorias USB.</span></button><button type="button" class="choice-btn" data-v="B. Crear una DMZ industrial (nivel 3.5) con Jump Host, historiador réplica y servidor de parches, protegida por dos firewalls de distinto fabricante, sin comunicación directa TI–OT."><span class="ltr">B.</span><span>Crear una DMZ industrial (nivel 3.5) con Jump Host, historiador réplica y servidor de parches, protegida por dos firewalls de distinto fabricante, sin comunicación directa TI–OT.</span></button><button type="button" class="choice-btn" data-v="C. Reemplazar el firewall por un modelo más potente con reglas amplias hacia los servicios de OT."><span class="ltr">C.</span><span>Reemplazar el firewall por un modelo más potente con reglas amplias hacia los servicios de OT.</span></button></div><div class="choice-fb" id="d1_fb" aria-live="polite"></div></div>
+      <div class="decision"><div class="d-title"><label for="d2" style="display:inline;margin:0;font-size:inherit;color:inherit;">Decisión 2 · Acceso remoto de proveedores</label></div><div class="d-sit">Los contratistas entran por una VPN que les da dirección IP dentro de la red OT y usan cuentas compartidas («admin_mantenimiento»).</div><select id="d2" hidden aria-hidden="true"><option value=""></option><option value="A. Mantener la VPN, pero cambiar la contraseña compartida cada mes.">A. Mantener la VPN, pero cambiar la contraseña compartida cada mes.</option><option value="B. Permitir la VPN solo desde las direcciones IP fijas de los proveedores, con lista blanca.">B. Permitir la VPN solo desde las direcciones IP fijas de los proveedores, con lista blanca.</option><option value="C. Terminar el acceso en la DMZ 3.5: MFA resistente al phishing, acceso solo al Jump Host, sesión temporal ligada a un ticket (just-in-time), credenciales gestionadas por un sistema de acceso privilegiado y sesiones grabadas.">C. Terminar el acceso en la DMZ 3.5: MFA resistente al phishing, acceso solo al Jump Host, sesión temporal ligada a un ticket (just-in-time), credenciales gestionadas por un sistema de acceso privilegiado y sesiones grabadas.</option></select><div class="choice-group" data-for="d2"><button type="button" class="choice-btn" data-v="A. Mantener la VPN, pero cambiar la contraseña compartida cada mes."><span class="ltr">A.</span><span>Mantener la VPN, pero cambiar la contraseña compartida cada mes.</span></button><button type="button" class="choice-btn" data-v="B. Permitir la VPN solo desde las direcciones IP fijas de los proveedores, con lista blanca."><span class="ltr">B.</span><span>Permitir la VPN solo desde las direcciones IP fijas de los proveedores, con lista blanca.</span></button><button type="button" class="choice-btn" data-v="C. Terminar el acceso en la DMZ 3.5: MFA resistente al phishing, acceso solo al Jump Host, sesión temporal ligada a un ticket (just-in-time), credenciales gestionadas por un sistema de acceso privilegiado y sesiones grabadas."><span class="ltr">C.</span><span>Terminar el acceso en la DMZ 3.5: MFA resistente al phishing, acceso solo al Jump Host, sesión temporal ligada a un ticket (just-in-time), credenciales gestionadas por un sistema de acceso privilegiado y sesiones grabadas.</span></button></div><div class="choice-fb" id="d2_fb" aria-live="polite"></div></div>
+      <div class="decision"><div class="d-title"><label for="d3" style="display:inline;margin:0;font-size:inherit;color:inherit;">Decisión 3 · Relés antiguos que no admiten MFA</label></div><div class="d-sit">Los IED y relés del nivel 1 en subestaciones no admiten agentes de software ni autenticación multifactor nativa.</div><select id="d3" hidden aria-hidden="true"><option value=""></option><option value="A. Reemplazar todos los IED de inmediato por modelos con MFA, antes de reabrir cualquier acceso.">A. Reemplazar todos los IED de inmediato por modelos con MFA, antes de reabrir cualquier acceso.</option><option value="B. Aceptar el riesgo: como no admiten agentes, no se hace nada por ahora.">B. Aceptar el riesgo: como no admiten agentes, no se hace nada por ahora.</option><option value="C. Controles compensatorios: acceso únicamente desde el Jump Host de la DMZ con MFA y grabación, filtrado de protocolos industriales, puertos de switch deshabilitados y con seguridad por MAC, y control físico de la subestación.">C. Controles compensatorios: acceso únicamente desde el Jump Host de la DMZ con MFA y grabación, filtrado de protocolos industriales, puertos de switch deshabilitados y con seguridad por MAC, y control físico de la subestación.</option></select><div class="choice-group" data-for="d3"><button type="button" class="choice-btn" data-v="A. Reemplazar todos los IED de inmediato por modelos con MFA, antes de reabrir cualquier acceso."><span class="ltr">A.</span><span>Reemplazar todos los IED de inmediato por modelos con MFA, antes de reabrir cualquier acceso.</span></button><button type="button" class="choice-btn" data-v="B. Aceptar el riesgo: como no admiten agentes, no se hace nada por ahora."><span class="ltr">B.</span><span>Aceptar el riesgo: como no admiten agentes, no se hace nada por ahora.</span></button><button type="button" class="choice-btn" data-v="C. Controles compensatorios: acceso únicamente desde el Jump Host de la DMZ con MFA y grabación, filtrado de protocolos industriales, puertos de switch deshabilitados y con seguridad por MAC, y control físico de la subestación."><span class="ltr">C.</span><span>Controles compensatorios: acceso únicamente desde el Jump Host de la DMZ con MFA y grabación, filtrado de protocolos industriales, puertos de switch deshabilitados y con seguridad por MAC, y control físico de la subestación.</span></button></div><div class="choice-fb" id="d3_fb" aria-live="polite"></div></div>
+      <div class="field"><label for="d_just">Explique cómo su rediseño habría contenido el incidente del portátil infectado y por qué la operación de la red no se detiene mientras se aplican los controles. <span class="wc" data-for="d_just">0 palabras</span></label><textarea class="tall" id="d_just" placeholder="Con la DMZ 3.5 el portátil... el acceso por Jump Host con MFA impide... las credenciales ya no son compartidas porque... la operación continúa porque..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="d_just">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="d_just"></span></div></div>
     </section>
 
 <section id="paso5" class="card">
       <span class="step-badge">Paso 5 · 5 min</span><span class="step-points">Vale 10 pts</span>
+      <h1>Practique con Nicole</h1>
+<div class="learn"><div class="learn-h">📘 Aprenda primero</div><dl><div><dt>Concepto</dt><dd>Preguntar bien a un asistente virtual de IA.</dd></div><div><dt>Definición</dt><dd>Nicole es la asistente virtual de la práctica: responde dudas sobre los conceptos del encuentro. Una buena pregunta es específica, da el contexto (una distribuidora, una subestación) y pide un ejemplo o una comparación.</dd></div><div><dt>Ejemplo</dt><dd class="ej">Pregunta débil: «explícame SCADA». Pregunta sólida: «¿Qué diferencia hay entre dos sistemas de una distribuidora?»  — la segunda obtiene una respuesta aplicada y comparada.</dd></div></dl></div>      <div class="sandbox-box"><strong>🧪 Pregúntele a Nicole:</strong><p style="font-style:italic; margin:.5rem 0;">Ej: "¿Por qué no se debe permitir una VPN que llegue directo al Nivel 3 de Purdue?"</p><input type="text" id="sandbox_input" placeholder="Escriba aquí su pregunta sobre Modelo Purdue, DMZ Industrial 3.5 o Jump Host con MFA..." style="margin-bottom:.75rem;"><button class="btn-primary" id="btn-sandbox" type="button">🧪 Enviar a Nicole y ver la respuesta</button><div class="sandbox-response" id="sandbox-response"></div></div><div class="field"><label for="p4_reflexion">¿Qué le respondió Nicole y le pareció acertado? <span class="wc" data-for="p4_reflexion">0 palabras</span></label><textarea class="tall" id="p4_reflexion" placeholder="Nicole respondió que..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="p4_reflexion">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p4_reflexion"></span></div></div><div class="field"><label for="p4_mejora">¿Qué otra pregunta del tema le gustaría explorar? <span class="wc" data-for="p4_mejora">0 palabras</span></label><textarea class="tall" id="p4_mejora" placeholder="Me gustaría preguntar sobre..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="p4_mejora">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p4_mejora"></span></div></div>
+    </section>
+
+<section id="paso6" class="card">
+      <span class="step-badge">Paso 6 · 3 min</span><span class="step-points">Vale 5 pts</span>
       <h1>Reflexión final</h1>
-      <p><strong>Concepto:</strong> cierre con una reflexión breve sobre lo aprendido.</p>
-      <div class="field"><label for="p5_r1">¿Qué aprendió hoy sobre la segmentación Purdue y la DMZ 3.5 que no conocía? <span class="wc" data-for="p5_r1">0 palabras</span></label><textarea class="tall" id="p5_r1" placeholder="Aprendí que..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="p5_r1">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p5_r1"></span></div></div>
+<div class="learn"><div class="learn-h">📘 Aprenda primero</div><dl><div><dt>Concepto</dt><dd>Reflexión final (metacognición).</dd></div><div><dt>Definición</dt><dd>Es detenerse a explicar con sus propias palabras qué comprendió y dónde lo aplicará. Convierte lo practicado en aprendizaje que se recuerda y se transfiere al trabajo.</dd></div><div><dt>Ejemplo</dt><dd class="ej">«Aprendí que un sistema corporativo no debe conectarse directo a la red de control. Esta semana revisaré en mi área qué sistemas intercambian datos y si pasan por una zona intermedia.»</dd></div></dl></div>      <div class="field"><label for="p5_r1">¿Qué aprendió hoy sobre la segmentación Purdue y la DMZ 3.5 que no conocía? <span class="wc" data-for="p5_r1">0 palabras</span></label><textarea class="tall" id="p5_r1" placeholder="Aprendí que..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="p5_r1">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p5_r1"></span></div></div>
       <div class="field"><label for="p5_r2">¿Qué conexión o acceso remoto de su entorno de trabajo auditaría primero? <span class="wc" data-for="p5_r2">0 palabras</span></label><textarea class="tall" id="p5_r2" placeholder="Esta semana pienso aplicarlo en..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="p5_r2">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p5_r2"></span></div></div>
     </section>
 
@@ -516,7 +572,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
       <div id="submit-zone">
         <span class="step-badge">Paso final</span>
         <h1 style="font-size:1.4rem;">Enviar y calificar mi trabajo</h1>
-        <p>El sistema revisará automáticamente sus 5 pasos contra la rúbrica oficial y le mostrará su nota, el detalle por criterio y retroalimentación personalizada.</p>
+        <p>El sistema revisará automáticamente sus 6 pasos contra la rúbrica oficial y le mostrará su nota, el detalle por criterio y retroalimentación personalizada.</p>
         <button class="btn-primary" id="btn-submit" type="button">📤 Enviar y Calificar mi Trabajo</button>
       </div>
 
@@ -841,7 +897,7 @@ var io = new IntersectionObserver(function(entries){
 sections.forEach(function(s){ io.observe(s); });
 
 /* ---------- TEMPORIZADOR DE REFERENCIA (no cierra la práctica) ---------- */
-var TIMER_MINUTES = 50;
+var TIMER_MINUTES = 60;
 var TIMER_KEY = 'tp_iarrhci_u1_deadline';
 var SOUND_MUTE_KEY = 'tp_iarrhci_sound_muted';
 var soundMuted = localStorage.getItem(SOUND_MUTE_KEY) === '1';
@@ -1029,11 +1085,12 @@ function escapeHtml(s){ var d = document.createElement('div'); d.textContent = n
 
 /* ---------- CAMPOS DE CADA PASO ---------- */
 var STEP_FIELDS = {
-  paso1: ['p1_q1','p1_q2','p1_q3','p1_q4','p1_q5','p1_q6'],
-  paso2: ['p2_s1','p2_s2','p2_s3','p2_s4','p2_s5','p2_s6'],
-  paso3: ['p3_a','p3_b','p3_c'],
-  paso4: ['p4_reflexion','p4_mejora'],
-  paso5: ['p5_r1','p5_r2']
+  paso1: ['v_q1','v_q2','v_q3','v_q4'],
+  paso2: ['p1_q1','p1_q2','p1_q3','p1_q4','p1_q5','p1_q6'],
+  paso3: ['p2_s1','p2_s2','p2_s3','p2_s4','p2_s5','p2_s6'],
+  paso4: ['d1','d2','d3','d_just'],
+  paso5: ['p4_reflexion','p4_mejora'],
+  paso6: ['p5_r1','p5_r2']
 };
 
 /* ---------- WORD COUNTERS ---------- */
@@ -1184,11 +1241,12 @@ updateProgress();
 
 /* ---------- RÚBRICA TABLE ---------- */
 var RUBRICA = [
-  {n:1, criterio:"Verifique su comprensión (Paso 1)", indicador:"Seis preguntas de selección sobre el Modelo Purdue y la DMZ Industrial.", pts:25},
-  {n:2, criterio:"Clasifique 6 elementos en el Modelo Purdue (Paso 2)", indicador:"Ubique cada componente de la red eléctrica en su nivel correspondiente.", pts:25},
-  {n:3, criterio:"Caso: auditoría de accesos y puentes en subestación San Pedro (Paso 3)", indicador:"Elimine brechas de convergencia IT/OT en una subestación de EDEESTE.", pts:30},
-  {n:4, criterio:"Practique con Nicole (Paso 4)", indicador:"Pongamos a prueba lo aprendido conversando con Nicole.", pts:10},
-  {n:5, criterio:"Reflexión final (Paso 5)", indicador:"Cierre con una reflexión breve sobre lo aprendido.", pts:10}
+  {n:1, criterio:"Video con preguntas: TI vs. OT (Paso 1)", indicador:"Mire el video y responda las preguntas que lo pausan.", pts:20},
+  {n:2, criterio:"Verifique su comprensión (Paso 2)", indicador:"Seis preguntas de selección sobre el Modelo Purdue y la DMZ Industrial.", pts:15},
+  {n:3, criterio:"Clasifique 6 elementos en el Modelo Purdue (Paso 3)", indicador:"Ubique cada componente de la red eléctrica en su nivel correspondiente.", pts:15},
+  {n:4, criterio:"Caso de decisiones: acceso remoto de proveedores (Paso 4)", indicador:"Tome decisiones en un caso ficticio y justifíquelas con la teoría.", pts:35},
+  {n:5, criterio:"Practique con Nicole (Paso 5)", indicador:"Pongamos a prueba lo aprendido conversando con Nicole.", pts:10},
+  {n:6, criterio:"Reflexión final (Paso 6)", indicador:"Cierre con una reflexión breve sobre lo aprendido.", pts:5}
 ];
 document.getElementById('rubrica-body').innerHTML = RUBRICA.map(function(r){
   return '<tr><td class="label-cell">'+r.n+'</td><td>'+r.criterio+'</td><td>'+r.indicador+'</td><td class="label-cell">'+r.pts+'</td></tr>';
@@ -1215,12 +1273,14 @@ function buildCriterion(title, maxPoints, items){
   return { title:title, maxPoints:maxPoints, score:score, strong:strong, mid:mid, weak:weak };
 }
 
-var ANSWER_KEY = {"p1_q1": "Nivel 1 (Control básico)", "p1_q2": "Evitar cualquier conexión directa entre la red corporativa (TI) y la red de control (OT)", "p1_q3": "Conectándose primero a un Jump Host en la DMZ 3.5 con MFA", "p1_q4": "Para evitar que una misma vulnerabilidad comprometa ambos perímetros (defensa en profundidad)", "p1_q5": "Mediante un historiador réplica ubicado en la DMZ 3.5 que consulta el OT y es leído por TI", "p1_q6": "Tener servidores con tarjetas de red 'dual-homed' puenteando TI y OT", "p2_s1": "Nivel 0 · Proceso físico", "p2_s2": "Nivel 1 · Control básico", "p2_s3": "Nivel 2 · Supervisión de área", "p2_s4": "Nivel 3 · Operaciones de red", "p2_s5": "Nivel 3.5 · DMZ Industrial", "p2_s6": "Nivel 4 · TI Corporativa"};
-var ANSWER_WHY = {"p1_q1": "El Nivel 1 ejecuta las funciones de control básico, protecciones y automatismos directos.", "p1_q2": "La DMZ 3.5 interrumpe el enrutamiento directo: toda comunicación termina y se reenvía por servidores proxy intermedios.", "p1_q3": "El Jump Host con autenticación multifactor es el único punto de salto autorizado hacia el entorno OT.", "p1_q4": "La diversidad de fabricantes asegura que un exploit de día cero que vulnere el cortafuegos IT sea detenido por el cortafuegos OT.", "p1_q5": "El historiador espejo en la DMZ recibe réplicas desde OT y atiende consultas desde TI sin exponer el servidor de tiempo real.", "p1_q6": "Las tarjetas de red 'dual-homed' crean un puente directo a nivel de sistema operativo anulando toda la protección de los firewalls.", "p2_s1": "Nivel 0: el proceso físico primario donde fluye la alta y media tensión.", "p2_s2": "Nivel 1: dispositivos de control directo, medición y protección.", "p2_s3": "Nivel 2: supervisión y mando local a nivel de subestación o celda.", "p2_s4": "Nivel 3: operaciones centrales de supervisión, análisis y despacho del sistema eléctrico.", "p2_s5": "Nivel 3.5: zona intermedia de desmilitarización y servicios compartidos controlados.", "p2_s6": "Nivel 4: aplicaciones empresariales, comerciales y administrativas de la corporación."};
-var MIN_WORDS = {"p3_a": 40, "p3_b": 35, "p3_c": 30, "p5_r1": 20, "p5_r2": 20, "p4_reflexion": 20, "p4_mejora": 20};
+var CHOICE_SCORE = {"d1": {"A. Aislar totalmente la red OT (air gap) y mover datos y parches con memorias USB.": 0.15, "B. Crear una DMZ industrial (nivel 3.5) con Jump Host, historiador réplica y servidor de parches, protegida por dos firewalls de distinto fabricante, sin comunicación directa TI–OT.": 1, "C. Reemplazar el firewall por un modelo más potente con reglas amplias hacia los servicios de OT.": 0.4}, "d2": {"A. Mantener la VPN, pero cambiar la contraseña compartida cada mes.": 0.15, "B. Permitir la VPN solo desde las direcciones IP fijas de los proveedores, con lista blanca.": 0.45, "C. Terminar el acceso en la DMZ 3.5: MFA resistente al phishing, acceso solo al Jump Host, sesión temporal ligada a un ticket (just-in-time), credenciales gestionadas por un sistema de acceso privilegiado y sesiones grabadas.": 1}, "d3": {"A. Reemplazar todos los IED de inmediato por modelos con MFA, antes de reabrir cualquier acceso.": 0.45, "B. Aceptar el riesgo: como no admiten agentes, no se hace nada por ahora.": 0.15, "C. Controles compensatorios: acceso únicamente desde el Jump Host de la DMZ con MFA y grabación, filtrado de protocolos industriales, puertos de switch deshabilitados y con seguridad por MAC, y control físico de la subestación.": 1}};
+var ANSWER_KEY = {"v_q1": "D. Debe ser determinista en el tiempo y soportar vibraciones, temperaturas variables y ambientes duros", "v_q2": "A. OT: unos 20 años con recambios garantizados · TI: cambio cada unos 5 años", "v_q3": "A. La disponibilidad: no se detiene la producción y se remedia en paralelo", "v_q4": "C. Deja una puerta trasera que no se contempla en la evaluación de riesgo", "p1_q1": "Nivel 1 (Control básico)", "p1_q2": "Evitar cualquier conexión directa entre la red corporativa (TI) y la red de control (OT)", "p1_q3": "Conectándose primero a un Jump Host en la DMZ 3.5 con MFA", "p1_q4": "Para evitar que una misma vulnerabilidad comprometa ambos perímetros (defensa en profundidad)", "p1_q5": "Mediante un historiador réplica ubicado en la DMZ 3.5 que consulta el OT y es leído por TI", "p1_q6": "Túneles VPN que aterricen directamente en el Nivel 3 o 2", "p2_s1": "Nivel 0 · Proceso físico", "p2_s2": "Nivel 1 · Control básico", "p2_s3": "Nivel 2 · Supervisión de área", "p2_s4": "Nivel 3 · Operaciones de red", "p2_s5": "Nivel 3.5 · DMZ Industrial", "p2_s6": "Nivel 4 · TI Corporativa", "d1": "B. Crear una DMZ industrial (nivel 3.5) con Jump Host, historiador réplica y servidor de parches, protegida por dos firewalls de distinto fabricante, sin comunicación directa TI–OT.", "d2": "C. Terminar el acceso en la DMZ 3.5: MFA resistente al phishing, acceso solo al Jump Host, sesión temporal ligada a un ticket (just-in-time), credenciales gestionadas por un sistema de acceso privilegiado y sesiones grabadas.", "d3": "C. Controles compensatorios: acceso únicamente desde el Jump Host de la DMZ con MFA y grabación, filtrado de protocolos industriales, puertos de switch deshabilitados y con seguridad por MAC, y control físico de la subestación."};
+var ANSWER_WHY = {"v_q1": "En OT se necesita conocer el tiempo máximo de respuesta y funcionar en condiciones severas, algo muy distinto a un servidor en un centro de datos.", "v_q2": "Los equipos de operación se amortizan en 20-30 años, por eso conviven generaciones antiguas y obsoletas con equipos nuevos; en TI se renueva cada 5 años.", "v_q3": "En OT «la disponibilidad es lo que manda»; en TI se sacrificaría disponibilidad para proteger la confidencialidad.", "v_q4": "Esos accesos improvisados son puertas traseras que evitan las defensas. Por eso el acceso de terceros debe pasar por un Jump Host con MFA en la DMZ industrial.", "p1_q1": "El Nivel 1 ejecuta las funciones de control básico, protecciones y automatismos directos.", "p1_q2": "La DMZ 3.5 interrumpe el enrutamiento directo: toda comunicación termina y se reenvía por servidores proxy intermedios.", "p1_q3": "El Jump Host con autenticación multifactor es el único punto de salto autorizado hacia el entorno OT.", "p1_q4": "La diversidad de fabricantes asegura que un exploit de día cero que vulnere el cortafuegos IT sea detenido por el cortafuegos OT.", "p1_q5": "El historiador espejo en la DMZ recibe réplicas desde OT y atiende consultas desde TI sin exponer el servidor de tiempo real.", "p1_q6": "La VPN que aterriza en Nivel 3 o 2 crea una conexión directa TI–OT que salta la DMZ. Las otras tres son prácticas correctas de la diapositiva 16.", "p2_s1": "Nivel 0: el proceso físico primario donde fluye la alta y media tensión.", "p2_s2": "Nivel 1: dispositivos de control directo, medición y protección.", "p2_s3": "Nivel 2: supervisión y mando local a nivel de subestación o celda.", "p2_s4": "Nivel 3: operaciones centrales de supervisión, análisis y despacho del sistema eléctrico.", "p2_s5": "Nivel 3.5: zona intermedia de desmilitarización y servicios compartidos controlados.", "p2_s6": "Nivel 4: aplicaciones empresariales, comerciales y administrativas de la corporación.", "d1": "La DMZ industrial (nivel 3.5) concentra los servicios de intercambio; el doble firewall con motores distintos evita que una misma vulnerabilidad comprometa ambos perímetros.", "d2": "El acceso remoto seguro media la sesión (Jump Host + MFA), evita el alcance directo de red, usa credenciales individuales o gestionadas y registra todo; así se contiene un equipo infectado.", "d3": "Cuando un activo no puede protegerse a sí mismo, se rodea de controles compensatorios (zonas y conductos, intermediario con MFA, filtrado y seguridad física) hasta poder reemplazarlo."};
+var MIN_WORDS = {"d_just": 45, "p5_r1": 20, "p5_r2": 20, "p4_reflexion": 20, "p4_mejora": 20};
 function fieldFrac(id){
   var v = val(id);
   if(!filled(v)) return 0;
+  if(CHOICE_SCORE.hasOwnProperty(id)) return CHOICE_SCORE[id].hasOwnProperty(norm(v)) ? CHOICE_SCORE[id][norm(v)] : 0.2;
   if(ANSWER_KEY.hasOwnProperty(id)) return norm(v) === ANSWER_KEY[id] ? 1 : 0.25;
   if(MIN_WORDS.hasOwnProperty(id)) return clamp01(wordCount(v) / MIN_WORDS[id]);
   return 1;
@@ -1779,6 +1839,108 @@ function fireConfetti(){
 }
 
 
+
+window.CHOICE_DATA = {"d1": {"kind": "decision", "key": "B. Crear una DMZ industrial (nivel 3.5) con Jump Host, historiador réplica y servidor de parches, protegida por dos firewalls de distinto fabricante, sin comunicación directa TI–OT.", "why": "La DMZ industrial (nivel 3.5) concentra los servicios de intercambio; el doble firewall con motores distintos evita que una misma vulnerabilidad comprometa ambos perímetros.", "opts": [{"v": "A. Aislar totalmente la red OT (air gap) y mover datos y parches con memorias USB.", "fb": "Corta la integración con el negocio y las memorias USB se convierten en el nuevo vector de infección."}, {"v": "B. Crear una DMZ industrial (nivel 3.5) con Jump Host, historiador réplica y servidor de parches, protegida por dos firewalls de distinto fabricante, sin comunicación directa TI–OT.", "fb": "Ningún tráfico cruza directamente: un fallo o exploit de un firewall no abre la puerta a ambos lados."}, {"v": "C. Reemplazar el firewall por un modelo más potente con reglas amplias hacia los servicios de OT.", "fb": "Mejora el rendimiento, pero sigue habiendo conexiones directas TI–OT y un único punto de falla de seguridad."}]}, "d2": {"kind": "decision", "key": "C. Terminar el acceso en la DMZ 3.5: MFA resistente al phishing, acceso solo al Jump Host, sesión temporal ligada a un ticket (just-in-time), credenciales gestionadas por un sistema de acceso privilegiado y sesiones grabadas.", "why": "El acceso remoto seguro media la sesión (Jump Host + MFA), evita el alcance directo de red, usa credenciales individuales o gestionadas y registra todo; así se contiene un equipo infectado.", "opts": [{"v": "A. Mantener la VPN, pero cambiar la contraseña compartida cada mes.", "fb": "El portátil infectado seguiría teniendo alcance de red directo hacia OT; solo cambia la contraseña que ya conocen varias personas."}, {"v": "B. Permitir la VPN solo desde las direcciones IP fijas de los proveedores, con lista blanca.", "fb": "Reduce el ruido, pero un portátil comprometido dentro de esa IP seguiría llegando a la red OT."}, {"v": "C. Terminar el acceso en la DMZ 3.5: MFA resistente al phishing, acceso solo al Jump Host, sesión temporal ligada a un ticket (just-in-time), credenciales gestionadas por un sistema de acceso privilegiado y sesiones grabadas.", "fb": "El dispositivo del proveedor nunca alcanza directamente a los activos OT; cada acción queda auditada y se puede cortar en tiempo real."}]}, "d3": {"kind": "decision", "key": "C. Controles compensatorios: acceso únicamente desde el Jump Host de la DMZ con MFA y grabación, filtrado de protocolos industriales, puertos de switch deshabilitados y con seguridad por MAC, y control físico de la subestación.", "why": "Cuando un activo no puede protegerse a sí mismo, se rodea de controles compensatorios (zonas y conductos, intermediario con MFA, filtrado y seguridad física) hasta poder reemplazarlo.", "opts": [{"v": "A. Reemplazar todos los IED de inmediato por modelos con MFA, antes de reabrir cualquier acceso.", "fb": "Es lo ideal a largo plazo, pero es inviable en costo y plazo, y detiene el mantenimiento de las subestaciones por meses."}, {"v": "B. Aceptar el riesgo: como no admiten agentes, no se hace nada por ahora.", "fb": "Los equipos más críticos quedan accesibles desde cualquier punto con las credenciales conocidas."}, {"v": "C. Controles compensatorios: acceso únicamente desde el Jump Host de la DMZ con MFA y grabación, filtrado de protocolos industriales, puertos de switch deshabilitados y con seguridad por MAC, y control físico de la subestación.", "fb": "Se protege el activo sin tocarlo: la autenticación se exige en el punto intermedio y se reduce el riesgo mientras se planifica el reemplazo."}]}, "v_q1": {"kind": "video", "key": "D. Debe ser determinista en el tiempo y soportar vibraciones, temperaturas variables y ambientes duros", "why": "En OT se necesita conocer el tiempo máximo de respuesta y funcionar en condiciones severas, algo muy distinto a un servidor en un centro de datos.", "opts": [{"v": "A. Es más barato y se reemplaza cada año", "fb": ""}, {"v": "B. No necesita funcionar de forma continua", "fb": ""}, {"v": "C. Se instala siempre en un centro de datos climatizado", "fb": ""}, {"v": "D. Debe ser determinista en el tiempo y soportar vibraciones, temperaturas variables y ambientes duros", "fb": ""}]}, "v_q2": {"kind": "video", "key": "A. OT: unos 20 años con recambios garantizados · TI: cambio cada unos 5 años", "why": "Los equipos de operación se amortizan en 20-30 años, por eso conviven generaciones antiguas y obsoletas con equipos nuevos; en TI se renueva cada 5 años.", "opts": [{"v": "A. OT: unos 20 años con recambios garantizados · TI: cambio cada unos 5 años", "fb": ""}, {"v": "B. OT: 1 año · TI: 20 años", "fb": ""}, {"v": "C. Ambos duran exactamente lo mismo", "fb": ""}, {"v": "D. OT: 5 años · TI: 30 años", "fb": ""}]}, "v_q3": {"kind": "video", "key": "A. La disponibilidad: no se detiene la producción y se remedia en paralelo", "why": "En OT «la disponibilidad es lo que manda»; en TI se sacrificaría disponibilidad para proteger la confidencialidad.", "opts": [{"v": "A. La disponibilidad: no se detiene la producción y se remedia en paralelo", "fb": ""}, {"v": "B. Apagar y desconectar todo de inmediato", "fb": ""}, {"v": "C. La confidencialidad por encima de todo", "fb": ""}, {"v": "D. Esperar a la próxima auditoría anual", "fb": ""}]}, "v_q4": {"kind": "video", "key": "C. Deja una puerta trasera que no se contempla en la evaluación de riesgo", "why": "Esos accesos improvisados son puertas traseras que evitan las defensas. Por eso el acceso de terceros debe pasar por un Jump Host con MFA en la DMZ industrial.", "opts": [{"v": "A. Mejora la segmentación de la red", "fb": ""}, {"v": "B. Reduce la superficie de ataque", "fb": ""}, {"v": "C. Deja una puerta trasera que no se contempla en la evaluación de riesgo", "fb": ""}, {"v": "D. Ninguno, porque el 4G siempre está cifrado", "fb": ""}]}};
+window.VIDEO_DATA = {"id": "k64VMOIwErc", "cues": [{"id": "v_q1", "t": 220}, {"id": "v_q2", "t": 258}, {"id": "v_q3", "t": 480}, {"id": "v_q4", "t": 630}]};
+
+/* ===== V2: decisiones y video interactivo ===== */
+(function(){
+  var CHOICE = window.CHOICE_DATA || {};
+  function opt(id, v){ var arr = (CHOICE[id] && CHOICE[id].opts) || []; for(var i=0;i<arr.length;i++){ if(arr[i].v === v) return arr[i]; } return null; }
+  function showFb(id, locked){
+    var box = document.getElementById(id + '_fb'); if(!box) return;
+    var v = val(id); var o = opt(id, v);
+    if(!o){ box.className = 'choice-fb'; box.innerHTML = ''; return; }
+    var best = CHOICE[id].key === v;
+    if(CHOICE[id].kind === 'video'){
+      box.className = 'choice-fb show ' + (best ? 'ok' : 'bad');
+      box.innerHTML = (best ? '<b>✔ Correcto.</b> ' : '<b>✖ No es la opción correcta.</b> La respuesta era: <b>' + esc(CHOICE[id].key) + '</b>. ') + esc(CHOICE[id].why);
+    } else {
+      box.className = 'choice-fb show';
+      box.innerHTML = '<b>Consecuencia de su decisión:</b> ' + esc(o.fb) + '<br><small>Al final de la práctica verá cuál era la decisión más sólida según la teoría y por qué.</small>';
+    }
+  }
+  function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  function syncGroup(g){
+    var id = g.getAttribute('data-for'); var v = val(id);
+    var kind = CHOICE[id] && CHOICE[id].kind;
+    g.querySelectorAll('.choice-btn').forEach(function(b){
+      var on = b.getAttribute('data-v') === v;
+      b.classList.toggle('sel', on && kind !== 'video');
+      if(kind === 'video' && v){
+        b.disabled = true;
+        b.classList.toggle('ok', b.getAttribute('data-v') === CHOICE[id].key);
+        b.classList.toggle('bad', on && v !== CHOICE[id].key);
+      }
+    });
+    showFb(id);
+  }
+  document.querySelectorAll('.choice-group').forEach(function(g){
+    g.addEventListener('click', function(e){
+      var b = e.target.closest('.choice-btn'); if(!b || b.disabled) return;
+      var id = g.getAttribute('data-for'); var sel = document.getElementById(id);
+      sel.value = b.getAttribute('data-v');
+      sel.dispatchEvent(new Event('change', {bubbles:true}));
+      syncGroup(g);
+      if(CHOICE[id] && CHOICE[id].kind === 'video'){ var nx = document.getElementById(id + '_next'); if(nx) nx.classList.add('show'); updateVidStatus(); }
+    });
+    syncGroup(g);
+  });
+
+  /* ---- video interactivo ---- */
+  var VID = window.VIDEO_DATA; if(!VID) return;
+  var player = null, timer = null, activeId = null, ready = false, ytFailed = false;
+  function answered(id){ return filled(val(id)); }
+  function updateVidStatus(){
+    var n = VID.cues.filter(function(c){ return answered(c.id); }).length;
+    var st = document.getElementById('vq-status'); if(st) st.textContent = 'Preguntas del video respondidas: ' + n + ' de ' + VID.cues.length;
+  }
+  function hideAll(){ document.querySelectorAll('.vq').forEach(function(q){ q.classList.remove('active'); }); activeId = null; }
+  function showQ(c){
+    hideAll(); activeId = c.id;
+    var q = document.getElementById('vq_' + c.id); q.classList.add('active');
+    try{ if(document.fullscreenElement) document.exitFullscreen(); }catch(e){}
+    q.scrollIntoView({behavior:'smooth', block:'center'});
+    var nx = document.getElementById(c.id + '_next'); if(nx && answered(c.id)) nx.classList.add('show');
+  }
+  function tick(){
+    if(!player || !player.getCurrentTime || activeId) return;
+    var t = player.getCurrentTime();
+    for(var i=0;i<VID.cues.length;i++){
+      var c = VID.cues[i];
+      if(!answered(c.id) && t >= c.t){ player.pauseVideo(); showQ(c); return; }
+    }
+  }
+  function startPoll(){ if(!timer) timer = setInterval(tick, 400); }
+  function onState(e){
+    if(e.data === 1){ startPoll(); }  // PLAYING
+    if(e.data === 1 && activeId && !answered(activeId)){ player.pauseVideo(); }
+  }
+  document.querySelectorAll('.vq-next').forEach(function(b){
+    b.addEventListener('click', function(){
+      hideAll(); updateVidStatus();
+      if(player && player.playVideo) player.playVideo();
+      var w = document.getElementById('vid-wrap'); if(w) w.scrollIntoView({behavior:'smooth', block:'center'});
+    });
+  });
+  function goStatic(){
+    if(ytFailed) return; ytFailed = true;
+    var n = document.getElementById('vid-note');
+    if(n) n.innerHTML = '<div class="alert warn">No se pudo cargar el reproductor interactivo. Abra el video con el enlace «Ver en YouTube», véalo completo y responda aquí las preguntas.</div>';
+    document.querySelectorAll('.vq').forEach(function(q){ q.classList.add('static'); q.classList.add('active'); });
+    document.querySelectorAll('.vq-next').forEach(function(b){ b.style.display = 'none'; });
+  }
+  window.onYouTubeIframeAPIReady = function(){
+    try{
+      player = new YT.Player('ytp', { videoId: VID.id, playerVars:{ rel:0, modestbranding:1, playsinline:1, origin: location.origin, cc_lang_pref:'es', hl:'es' },
+        events:{ onReady:function(){ ready = true; window._ytp = player; }, onStateChange:onState, onError:function(){ goStatic(); } } });
+    }catch(e){ goStatic(); }
+  };
+  var s = document.createElement('script'); s.src = 'https://www.youtube.com/iframe_api'; s.onerror = goStatic; document.head.appendChild(s);
+  setTimeout(function(){ if(!ready) goStatic(); }, 9000);
+  window._vidDebug = { setPlayer: function(p){ player = p; }, tick: tick };
+  updateVidStatus();
+})();
 
 })();
 </script>

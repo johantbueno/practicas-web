@@ -301,6 +301,50 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
   .timer-box.overtime .timer-value{animation:none;}
   .fast-clock-hand{animation:none;}
 }
+
+/* ===== V2: aprenda primero, decisiones, video interactivo ===== */
+.learn{border:1px solid var(--blue-border); background:var(--blue-bg); border-radius:var(--radius-md); padding:1rem 1.1rem; margin:.4rem 0 1.1rem;}
+.learn-h{font-weight:800; font-size:.85rem; letter-spacing:.02em; color:var(--primary); margin-bottom:.55rem;}
+.learn dl{margin:0; display:grid; gap:.55rem;}
+.learn dt{font-weight:800; font-size:.72rem; text-transform:uppercase; letter-spacing:.06em; color:var(--navy);}
+.learn dd{margin:.1rem 0 0; font-size:.92rem; line-height:1.55; color:var(--secondary);}
+.learn dd.ej{border-left:3px solid var(--gold); padding-left:.7rem; font-style:italic;}
+.case-box{border:1px solid var(--amber-border); background:var(--amber-bg); border-radius:var(--radius-md); padding:1rem 1.1rem; margin:.4rem 0 1rem;}
+.case-box h3{margin:.1rem 0 .5rem; font-size:1.02rem; color:var(--primary);}
+.case-box p{margin:.4rem 0; font-size:.92rem; line-height:1.6; color:var(--secondary);}
+.case-box .tag{display:inline-block; font-size:.7rem; font-weight:800; text-transform:uppercase; letter-spacing:.06em; color:var(--amber); margin-bottom:.2rem;}
+.decision{border:1px solid var(--border-light); border-radius:var(--radius-md); padding:1rem 1.1rem; margin:1rem 0; background:var(--bg-card);}
+.decision>.d-title{font-weight:800; color:var(--primary); font-size:.95rem; margin-bottom:.3rem;}
+.decision>.d-sit{font-size:.92rem; line-height:1.55; color:var(--secondary); margin-bottom:.7rem;}
+.choice-group{display:grid; gap:.5rem;}
+select[hidden]{display:none !important;}
+.choice-btn{display:flex; gap:.6rem; align-items:flex-start; text-align:left; width:100%; padding:.7rem .85rem; border:2px solid var(--border-dark); background:var(--bg-card); color:var(--primary); border-radius:var(--radius-sm); font:inherit; font-size:.9rem; line-height:1.45; cursor:pointer; min-height:44px;}
+.choice-btn:hover:not(:disabled){border-color:var(--navy);}
+.choice-btn .ltr{flex:0 0 auto; font-weight:800; color:var(--navy);}
+.choice-btn.sel{border-color:var(--navy); background:var(--blue-bg);}
+.choice-btn.ok{border-color:var(--green-border); background:var(--green-bg);}
+.choice-btn.bad{border-color:var(--red-border); background:var(--red-bg);}
+.choice-btn:disabled{cursor:default; opacity:.95;}
+.choice-fb{margin-top:.7rem; padding:.7rem .85rem; border-radius:var(--radius-sm); font-size:.9rem; line-height:1.5; display:none; border:1px solid var(--border-dark); background:var(--bg-body); color:var(--secondary);}
+.choice-fb.show{display:block;}
+.choice-fb.ok{border-color:var(--green-border); background:var(--green-bg);}
+.choice-fb.bad{border-color:var(--red-border); background:var(--red-bg);}
+.choice-fb b{color:var(--primary);}
+.vid-wrap{position:relative; width:100%; aspect-ratio:16/9; background:#000; border-radius:var(--radius-md); overflow:hidden; margin:.4rem 0;}
+.vid-wrap iframe,.vid-wrap #ytp{position:absolute; inset:0; width:100%; height:100%; border:0;}
+.vid-meta{display:flex; flex-wrap:wrap; gap:.5rem 1rem; align-items:center; justify-content:space-between; font-size:.82rem; color:var(--muted); margin:.3rem 0 .6rem;}
+.vid-meta a{color:var(--navy); font-weight:700;}
+.vq-stage{margin-top:.6rem;}
+.vq{display:none; border:2px solid var(--gold); border-radius:var(--radius-md); padding:1rem 1.1rem; background:var(--bg-card);}
+.vq.active,.vq.static{display:block;}
+.vq.static{margin:.8rem 0; border-color:var(--border-dark);}
+.vq .vq-h{font-size:.72rem; font-weight:800; text-transform:uppercase; letter-spacing:.06em; color:var(--amber); margin-bottom:.3rem;}
+.vq .vq-q{font-weight:700; color:var(--primary); margin-bottom:.7rem; font-size:.95rem;}
+.vq-next{margin-top:.7rem; display:none;}
+.vq-next.show{display:inline-block;}
+.vq-status{font-size:.85rem; font-weight:700; color:var(--primary);}
+@media (max-width:640px){.learn,.case-box,.decision,.vq{padding:.85rem .8rem;}}
+
 </style>
 </head>
 <body>
@@ -330,7 +374,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
           <span class="timer-label">⏱️ Tiempo sugerido</span>
           <button class="icon-btn" id="sound-toggle" type="button" title="Silenciar o activar el sonido" aria-label="Silenciar o activar el sonido del temporizador">🔔</button>
         </div>
-        <div class="timer-value" id="timer-value">50:00</div>
+        <div class="timer-value" id="timer-value">60:00</div>
         <canvas id="hearts-canvas" width="230" height="40" aria-hidden="true"></canvas>
         <div class="fast-clock" id="fast-clock" aria-hidden="true"><div class="fast-clock-hand"></div></div>
         <div class="overtime-note" id="overtime-note" hidden>⏱️ Tiempo de referencia — no afecta su calificación</div>
@@ -344,11 +388,12 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
 
       <nav class="nav" aria-label="Navegación de la práctica"><ul><li><a href="#portada">🧠 Portada e instrucciones</a></li>
           <li><a href="#marco-conceptual">📚 Marco conceptual</a></li>
-          <li><a href="#paso1" data-step="paso1">Paso 1 · Verifique su comprensión <span class="pct" data-pct="paso1">0%</span></a></li>
-          <li><a href="#paso2" data-step="paso2">Paso 2 · Relacione cada protocolo con su capa, puerto y función <span class="pct" data-pct="paso2">0%</span></a></li>
-          <li><a href="#paso3" data-step="paso3">Paso 3 · Caso: mitigación de inyección de comandos en enlace IEC 104 <span class="pct" data-pct="paso3">0%</span></a></li>
-          <li><a href="#paso4" data-step="paso4">Paso 4 · Practique con Nicole <span class="pct" data-pct="paso4">0%</span></a></li>
-          <li><a href="#paso5" data-step="paso5">Paso 5 · Reflexión final <span class="pct" data-pct="paso5">0%</span></a></li>
+          <li><a href="#paso1" data-step="paso1">Paso 1 · Video con preguntas: Introducción a IEC 61850 <span class="pct" data-pct="paso1">0%</span></a></li>
+          <li><a href="#paso2" data-step="paso2">Paso 2 · Verifique su comprensión <span class="pct" data-pct="paso2">0%</span></a></li>
+          <li><a href="#paso3" data-step="paso3">Paso 3 · Relacione cada protocolo con su capa, puerto y función <span class="pct" data-pct="paso3">0%</span></a></li>
+          <li><a href="#paso4" data-step="paso4">Paso 4 · Caso de decisiones: ciberataque en «Bahía Este» <span class="pct" data-pct="paso4">0%</span></a></li>
+          <li><a href="#paso5" data-step="paso5">Paso 5 · Practique con Nicole <span class="pct" data-pct="paso5">0%</span></a></li>
+          <li><a href="#paso6" data-step="paso6">Paso 6 · Reflexión final <span class="pct" data-pct="paso6">0%</span></a></li>
           <li><a href="#rubrica">🧮 Rúbrica de evaluación</a></li>
           <li><a href="#resultado">📤 Enviar y calificar</a></li></ul></nav>
 
@@ -371,7 +416,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
       <div class="cover-chips">
         <span class="cover-chip">Miércoles 28 de octubre de 2026</span>
         <span class="cover-chip">100 pts · aprobación mínima 70</span>
-        <span class="cover-chip">Dura aproximadamente 50 minutos</span>
+        <span class="cover-chip">Dura aproximadamente 60 minutos</span>
         <span class="cover-chip">Gana una medalla digital al terminar</span>
       </div>
     </section>
@@ -379,13 +424,13 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
     <section class="card">
       <span class="step-badge">Para el personal técnico de TI y OT de EDEESTE</span>
       <h1 style="font-size:1.35rem;">Práctica de la segunda hora del encuentro</h1>
-      <div class="alert success">Esta práctica se realiza justo después de la explicación teórica del encuentro (6:00 a 7:00 p. m.). Dispone de aproximadamente 50 minutos. Combina preguntas de selección, clasificación y un caso aplicado a EDEESTE, con retroalimentación inmediata.</div>
+      <div class="alert success">Esta práctica se realiza justo después de la explicación teórica del encuentro (6:00 a 7:00 p. m.). Dispone de aproximadamente 60 minutos. Combina un video con preguntas, preguntas de selección, clasificación y un caso de decisiones aplicado a una distribuidora ficticia, con retroalimentación inmediata.</div>
     </section>
 
     <section class="card" id="tutorial">
       <span class="step-badge">Tutorial</span>
       <h1 style="font-size:1.35rem;">Cómo usar esta plataforma</h1>
-      <p><strong>Concepto:</strong> esta práctica se realiza <strong>después de la explicación teórica del encuentro</strong> (presentación PPT). Tiene 5 pasos, cada uno explicado con palabras simples y ejemplos, y espacio para sus respuestas — puede escribir directamente o grabar una nota de voz.</p>
+      <p><strong>Concepto:</strong> esta práctica se realiza <strong>después de la explicación teórica del encuentro</strong> (presentación PPT). Tiene 6 pasos, cada uno explicado con palabras simples y ejemplos, y espacio para sus respuestas — puede escribir directamente o grabar una nota de voz.</p>
 
       <h2>Dos formas de responder cada pregunta</h2>
       <p><strong>Definición:</strong> cada campo de respuesta larga acepta texto escrito o una nota de voz transcrita automáticamente.</p>
@@ -402,7 +447,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
       </ol>
 
       <h2>La medalla digital al terminar</h2>
-      <p>Cuando complete los 5 pasos y presione <strong>Enviar y Calificar</strong>, va a poder generar una <strong>medalla digital</strong> con su nombre para descargar o compartir por WhatsApp, correo o redes sociales, como evidencia de haber completado esta práctica — puede adjuntarla en la actividad correspondiente de Moodle si su facilitador se lo solicita.</p>
+      <p>Cuando complete los 6 pasos y presione <strong>Enviar y Calificar</strong>, va a poder generar una <strong>medalla digital</strong> con su nombre para descargar o compartir por WhatsApp, correo o redes sociales, como evidencia de haber completado esta práctica — puede adjuntarla en la actividad correspondiente de Moodle si su facilitador se lo solicita.</p>
 
       <h2>Progreso, guardado y aprobación</h2>
       <p>Sus respuestas se guardan automáticamente en este navegador mientras trabaja. Puede cerrar la página y volver más tarde a completar otra pregunta. Al presionar <strong>Enviar y Calificar</strong>, el sistema le da una nota preliminar orientativa y comentarios al instante.</p>
@@ -431,7 +476,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
       <h2>Instrucciones generales</h2>
       <ol class="ins-list">
         <li>Tenga a mano la <strong>presentación del encuentro</strong>: esta práctica retoma directamente sus conceptos.</li>
-        <li>Complete los <strong>5 pasos</strong> en el orden indicado, por escrito o por nota de voz.</li>
+        <li>Complete los <strong>6 pasos</strong> en el orden indicado, por escrito o por nota de voz.</li>
         <li>Los casos de esta práctica son <strong>ilustrativos</strong> y se basan en una distribuidora como EDEESTE; puede usar su propia experiencia.</li>
         <li><strong>Nunca escriba información confidencial real</strong> (contraseñas, direcciones IP reales de la red, planos o datos de clientes) en ningún campo de esta práctica ni en ninguna herramienta de IA — use siempre ejemplos genéricos.</li>
         <li>Al finalizar, presione <strong>Enviar y Calificar</strong>: el sistema revisará su trabajo y le dará una nota y retroalimentación inmediata.</li>
@@ -451,10 +496,24 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
 
     <!-- ============ PASO1 ============ -->
     <section id="paso1" class="card">
-      <span class="step-badge">Paso 1 · 10 min</span><span class="step-points">Vale 25 pts</span>
+      <span class="step-badge">Paso 1 · 17 min</span><span class="step-points">Vale 20 pts</span>
+      <h1>Video con preguntas: Introducción a IEC 61850</h1>
+<div class="learn"><div class="learn-h">📘 Aprenda primero</div><dl><div><dt>Concepto</dt><dd>Qué es IEC 61850 y por qué cambió la comunicación en subestaciones.</dd></div><div><dt>Definición</dt><dd>IEC 61850 estandariza cómo se comunican los equipos de una subestación, con un modelo común de datos y un lenguaje de configuración. En el video verá sus niveles, su lenguaje de configuración y cómo reemplaza cientos de cables de cobre por pocas fibras. (Los subtítulos automáticos del video tienen errores; guíese por el audio.) Se pausa 4 veces con una pregunta.</dd></div><div><dt>Ejemplo</dt><dd class="ej">Antes, cada fabricante tenía su protocolo propio; hoy un relé de un fabricante y un gateway de otro se entienden porque ambos hablan el mismo modelo estándar.</dd></div><div><dt>Dónde lo vio</dt><dd>Refuerza la Unidad 3 · diapositivas 23-25 (de los buses seriales a Ethernet, IEC 61850 y bus de estación vs. bus de proceso).</dd></div></dl></div>      <div class="vid-meta"><span>🎬 <strong>Introducción al estándar IEC 61850</strong> · Axon Group · 15 min</span><a href="https://www.youtube.com/watch?v=C_hVEOrEim4" target="_blank" rel="noopener">Ver en YouTube ↗</a></div>
+<div id="vid-note"></div>
+<div class="vid-wrap" id="vid-wrap"><div id="ytp"></div></div>
+<p class="vq-status" id="vq-status" style="margin:.5rem 0;"></p>
+<div class="vq-stage">
+<div class="vq" id="vq_v_q1"><div class="vq-h">Pregunta 1 de 4 · minuto 1:40</div><div class="vq-q"><label for="v_q1" style="display:inline;margin:0;font-size:inherit;color:inherit;">Según el video, ¿cuántos niveles de monitoreo y control define la norma para la subestación?</label></div><select id="v_q1" hidden aria-hidden="true"><option value=""></option><option value="A. Seis">A. Seis</option><option value="B. Diez">B. Diez</option><option value="C. Cuatro (patio, bahía, estación y operación)">C. Cuatro (patio, bahía, estación y operación)</option><option value="D. Uno solo">D. Uno solo</option></select><div class="choice-group" data-for="v_q1"><button type="button" class="choice-btn" data-v="A. Seis"><span class="ltr">A.</span><span>Seis</span></button><button type="button" class="choice-btn" data-v="B. Diez"><span class="ltr">B.</span><span>Diez</span></button><button type="button" class="choice-btn" data-v="C. Cuatro (patio, bahía, estación y operación)"><span class="ltr">C.</span><span>Cuatro (patio, bahía, estación y operación)</span></button><button type="button" class="choice-btn" data-v="D. Uno solo"><span class="ltr">D.</span><span>Uno solo</span></button></div><div class="choice-fb" id="v_q1_fb" aria-live="polite"></div><button type="button" class="btn-primary vq-next" id="v_q1_next">▶ Continuar el video</button></div>
+<div class="vq" id="vq_v_q2"><div class="vq-h">Pregunta 2 de 4 · minuto 8:28</div><div class="vq-q"><label for="v_q2" style="display:inline;margin:0;font-size:inherit;color:inherit;">¿Para qué sirve el lenguaje de configuración que presenta el video?</label></div><select id="v_q2" hidden aria-hidden="true"><option value=""></option><option value="A. Para dar compatibilidad entre fabricantes y configurar cualquier equipo sin conocer la forma de trabajar de cada fabricante">A. Para dar compatibilidad entre fabricantes y configurar cualquier equipo sin conocer la forma de trabajar de cada fabricante</option><option value="B. Para cifrar todos los mensajes de la red">B. Para cifrar todos los mensajes de la red</option><option value="C. Para medir la corriente eléctrica">C. Para medir la corriente eléctrica</option><option value="D. Para facturar a los clientes">D. Para facturar a los clientes</option></select><div class="choice-group" data-for="v_q2"><button type="button" class="choice-btn" data-v="A. Para dar compatibilidad entre fabricantes y configurar cualquier equipo sin conocer la forma de trabajar de cada fabricante"><span class="ltr">A.</span><span>Para dar compatibilidad entre fabricantes y configurar cualquier equipo sin conocer la forma de trabajar de cada fabricante</span></button><button type="button" class="choice-btn" data-v="B. Para cifrar todos los mensajes de la red"><span class="ltr">B.</span><span>Para cifrar todos los mensajes de la red</span></button><button type="button" class="choice-btn" data-v="C. Para medir la corriente eléctrica"><span class="ltr">C.</span><span>Para medir la corriente eléctrica</span></button><button type="button" class="choice-btn" data-v="D. Para facturar a los clientes"><span class="ltr">D.</span><span>Para facturar a los clientes</span></button></div><div class="choice-fb" id="v_q2_fb" aria-live="polite"></div><button type="button" class="btn-primary vq-next" id="v_q2_next">▶ Continuar el video</button></div>
+<div class="vq" id="vq_v_q3"><div class="vq-h">Pregunta 3 de 4 · minuto 10:25</div><div class="vq-q"><label for="v_q3" style="display:inline;margin:0;font-size:inherit;color:inherit;">El video insiste en la interoperabilidad. ¿Qué significa?</label></div><select id="v_q3" hidden aria-hidden="true"><option value=""></option><option value="A. Que el operador deba configurar cada protocolo a mano">A. Que el operador deba configurar cada protocolo a mano</option><option value="B. Que equipos de distintos fabricantes puedan interactuar y entenderse con descripciones abiertas y estándar">B. Que equipos de distintos fabricantes puedan interactuar y entenderse con descripciones abiertas y estándar</option><option value="C. Que todos los equipos sean del mismo fabricante">C. Que todos los equipos sean del mismo fabricante</option><option value="D. Que los equipos no necesiten comunicarse">D. Que los equipos no necesiten comunicarse</option></select><div class="choice-group" data-for="v_q3"><button type="button" class="choice-btn" data-v="A. Que el operador deba configurar cada protocolo a mano"><span class="ltr">A.</span><span>Que el operador deba configurar cada protocolo a mano</span></button><button type="button" class="choice-btn" data-v="B. Que equipos de distintos fabricantes puedan interactuar y entenderse con descripciones abiertas y estándar"><span class="ltr">B.</span><span>Que equipos de distintos fabricantes puedan interactuar y entenderse con descripciones abiertas y estándar</span></button><button type="button" class="choice-btn" data-v="C. Que todos los equipos sean del mismo fabricante"><span class="ltr">C.</span><span>Que todos los equipos sean del mismo fabricante</span></button><button type="button" class="choice-btn" data-v="D. Que los equipos no necesiten comunicarse"><span class="ltr">D.</span><span>Que los equipos no necesiten comunicarse</span></button></div><div class="choice-fb" id="v_q3_fb" aria-live="polite"></div><button type="button" class="btn-primary vq-next" id="v_q3_next">▶ Continuar el video</button></div>
+<div class="vq" id="vq_v_q4"><div class="vq-h">Pregunta 4 de 4 · minuto 11:36</div><div class="vq-q"><label for="v_q4" style="display:inline;margin:0;font-size:inherit;color:inherit;">Según el video, ¿qué ocurre con el cableado al migrar a la comunicación de IEC 61850?</label></div><select id="v_q4" hidden aria-hidden="true"><option value=""></option><option value="A. Se agregan más cables de cobre">A. Se agregan más cables de cobre</option><option value="B. Desaparece toda comunicación">B. Desaparece toda comunicación</option><option value="C. Se reemplaza la fibra por cables seriales">C. Se reemplaza la fibra por cables seriales</option><option value="D. Cientos de cables de cobre se reemplazan por pocas fibras ópticas, con mejores tiempos y redundancia">D. Cientos de cables de cobre se reemplazan por pocas fibras ópticas, con mejores tiempos y redundancia</option></select><div class="choice-group" data-for="v_q4"><button type="button" class="choice-btn" data-v="A. Se agregan más cables de cobre"><span class="ltr">A.</span><span>Se agregan más cables de cobre</span></button><button type="button" class="choice-btn" data-v="B. Desaparece toda comunicación"><span class="ltr">B.</span><span>Desaparece toda comunicación</span></button><button type="button" class="choice-btn" data-v="C. Se reemplaza la fibra por cables seriales"><span class="ltr">C.</span><span>Se reemplaza la fibra por cables seriales</span></button><button type="button" class="choice-btn" data-v="D. Cientos de cables de cobre se reemplazan por pocas fibras ópticas, con mejores tiempos y redundancia"><span class="ltr">D.</span><span>Cientos de cables de cobre se reemplazan por pocas fibras ópticas, con mejores tiempos y redundancia</span></button></div><div class="choice-fb" id="v_q4_fb" aria-live="polite"></div><button type="button" class="btn-primary vq-next" id="v_q4_next">▶ Continuar el video</button></div>
+</div>
+    </section>
+
+<section id="paso2" class="card">
+      <span class="step-badge">Paso 2 · 8 min</span><span class="step-points">Vale 15 pts</span>
       <h1>Verifique su comprensión</h1>
-      <p><strong>Concepto:</strong> seis preguntas de selección sobre protocolos eléctricos y ciberseguridad.</p>
-      <div class="field"><label for="p1_q1">1. ¿Por qué los mensajes GOOSE se transmiten directamente sobre la Capa 2 de Ethernet (sin cabeceras IP ni TCP)?</label><select id="p1_q1"><option value="">Seleccione…</option><option value="Para ahorrar memoria RAM">Para ahorrar memoria RAM</option><option value="Para eliminar el retardo de la pila de red y garantizar entregas en menos de 4 ms">Para eliminar el retardo de la pila de red y garantizar entregas en menos de 4 ms</option><option value="Porque Ethernet no soporta IP">Porque Ethernet no soporta IP</option><option value="Para que viajen por internet">Para que viajen por internet</option></select></div>
+<div class="learn"><div class="learn-h">📘 Aprenda primero</div><dl><div><dt>Concepto</dt><dd>Protocolos industriales y por qué son vulnerables.</dd></div><div><dt>Definición</dt><dd>GOOSE y Sampled Values viajan directo sobre Ethernet (Capa 2, sin IP) para ganar velocidad; MMS usa TCP 102; IEC 60870-5-104 usa TCP 2404; DNP3 se asocia al puerto 20000. Protocolos como Modbus, DNP3 tradicional e IEC 104 se diseñaron sin autenticación ni cifrado. IEC 62351 agrega seguridad: por ejemplo, firmas/HMAC en GOOSE (sin cifrar la carga, para respetar los 4 ms) y DNP3 SAv5 con desafío-respuesta criptográfico para los comandos.</dd></div><div><dt>Ejemplo</dt><dd class="ej">Cualquiera con acceso a la red de la subestación podría enviar un GOOSE falso o un comando 104 si el protocolo no autentica el origen: de ahí la importancia de segmentar y de IEC 62351.</dd></div><div><dt>Dónde lo vio</dt><dd>Unidad 3 · diapositivas 26-28 (GOOSE, SV, MMS), 30 (IEC 104), 31 (IEC 62351), 32 (DNP3 y SAv5) y 33 (vulnerabilidades en protocolos legacy).</dd></div></dl></div>      <div class="field"><label for="p1_q1">1. ¿Por qué los mensajes GOOSE se transmiten directamente sobre la Capa 2 de Ethernet (sin cabeceras IP ni TCP)?</label><select id="p1_q1"><option value="">Seleccione…</option><option value="Para ahorrar memoria RAM">Para ahorrar memoria RAM</option><option value="Para eliminar el retardo de la pila de red y garantizar entregas en menos de 4 ms">Para eliminar el retardo de la pila de red y garantizar entregas en menos de 4 ms</option><option value="Porque Ethernet no soporta IP">Porque Ethernet no soporta IP</option><option value="Para que viajen por internet">Para que viajen por internet</option></select></div>
       <div class="field"><label for="p1_q2">2. ¿Qué puerto TCP utiliza por estándar el protocolo de telecontrol IEC 60870-5-104?</label><select id="p1_q2"><option value="">Seleccione…</option><option value="TCP puerto 80">TCP puerto 80</option><option value="TCP puerto 102">TCP puerto 102</option><option value="TCP puerto 2404">TCP puerto 2404</option><option value="TCP puerto 20000">TCP puerto 20000</option></select></div>
       <div class="field"><label for="p1_q3">3. ¿Cuál es la principal vulnerabilidad histórica de protocolos como Modbus, DNP3 tradicional e IEC 104?</label><select id="p1_q3"><option value="">Seleccione…</option><option value="Son demasiado rápidos">Son demasiado rápidos</option><option value="Fueron diseñados sin autenticación de origen ni cifrado en texto plano">Fueron diseñados sin autenticación de origen ni cifrado en texto plano</option><option value="Requieren cables muy gruesos">Requieren cables muy gruesos</option><option value="Solo funcionan en corriente alterna">Solo funcionan en corriente alterna</option></select></div>
       <div class="field"><label for="p1_q4">4. ¿Qué mecanismo añade la norma IEC 62351-6 a los mensajes GOOSE para protegerlos sin violar el límite de 4 ms?</label><select id="p1_q4"><option value="">Seleccione…</option><option value="Cifrado simétrico AES-256 de todo el paquete">Cifrado simétrico AES-256 de todo el paquete</option><option value="Códigos de autenticación de mensajes (HMAC) sin cifrado de carga útil">Códigos de autenticación de mensajes (HMAC) sin cifrado de carga útil</option><option value="Contraseña en texto claro">Contraseña en texto claro</option><option value="Bloqueo de puertos UDP">Bloqueo de puertos UDP</option></select></div>
@@ -462,11 +521,10 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
       <div class="field"><label for="p1_q6">6. ¿Qué equipo de patio digitaliza las señales analógicas de transformadores de medida para enviarlas como Sampled Values?</label><select id="p1_q6"><option value="">Seleccione…</option><option value="Servidor de correo">Servidor de correo</option><option value="Merging Unit (Unidad de Fusión)">Merging Unit (Unidad de Fusión)</option><option value="Switch de oficina no administrado">Switch de oficina no administrado</option><option value="Medidor monofásico residencial">Medidor monofásico residencial</option></select></div>
     </section>
 
-<section id="paso2" class="card">
-      <span class="step-badge">Paso 2 · 10 min</span><span class="step-points">Vale 25 pts</span>
+<section id="paso3" class="card">
+      <span class="step-badge">Paso 3 · 6 min</span><span class="step-points">Vale 15 pts</span>
       <h1>Relacione cada protocolo con su capa, puerto y función</h1>
-      <p><strong>Concepto:</strong> asocie cada protocolo con su perfil de comunicación exacto.</p>
-      <div class="field"><label for="p2_s1">GOOSE (IEC 61850)</label><select id="p2_s1"><option value="">Seleccione…</option><option value="Capa 2 Ethernet · EtherType 0x88B8 · Disparos entre relés &lt; 4 ms">Capa 2 Ethernet · EtherType 0x88B8 · Disparos entre relés &lt; 4 ms</option><option value="Capa 2 Ethernet · EtherType 0x88BA · Ondas digitalizadas de corriente/tensión">Capa 2 Ethernet · EtherType 0x88BA · Ondas digitalizadas de corriente/tensión</option><option value="Capa 4 TCP · Puerto 102 · Monitoreo y supervisión cliente/servidor">Capa 4 TCP · Puerto 102 · Monitoreo y supervisión cliente/servidor</option><option value="Capa 4 TCP · Puerto 2404 · Telecontrol WAN subestación-centro de control">Capa 4 TCP · Puerto 2404 · Telecontrol WAN subestación-centro de control</option><option value="Capa 4 TCP · Puerto 20000 · Desafío-respuesta criptográfico contra falsos comandos">Capa 4 TCP · Puerto 20000 · Desafío-respuesta criptográfico contra falsos comandos</option><option value="Capa 2 / Capa 4 UDP 319-320 · Sincronización sub-microsegundo con GPS">Capa 2 / Capa 4 UDP 319-320 · Sincronización sub-microsegundo con GPS</option></select></div>
+<div class="learn"><div class="learn-h">📘 Aprenda primero</div><dl><div><dt>Concepto</dt><dd>Relacionar cada protocolo con su capa, puerto y función.</dd></div><div><dt>Definición</dt><dd>GOOSE: Capa 2, EtherType 0x88B8, disparos entre relés. SV: Capa 2, 0x88BA, ondas digitalizadas. MMS: TCP 102, supervisión cliente/servidor. IEC 104: TCP 2404, telecontrol entre subestación y centro. DNP3 seguro: TCP 20000, desafío-respuesta. PTP: sincronización con precisión sub-microsegundo.</dd></div><div><dt>Ejemplo</dt><dd class="ej">Si en Wireshark ve tramas con EtherType 0x88B8, son GOOSE; si ve TCP al puerto 2404, es telecontrol IEC 104 hacia el centro de control.</dd></div><div><dt>Dónde lo vio</dt><dd>Unidad 3 · diapositivas 26-30 y 34 (comparativa integral de protocolos).</dd></div></dl></div>      <div class="field"><label for="p2_s1">GOOSE (IEC 61850)</label><select id="p2_s1"><option value="">Seleccione…</option><option value="Capa 2 Ethernet · EtherType 0x88B8 · Disparos entre relés &lt; 4 ms">Capa 2 Ethernet · EtherType 0x88B8 · Disparos entre relés &lt; 4 ms</option><option value="Capa 2 Ethernet · EtherType 0x88BA · Ondas digitalizadas de corriente/tensión">Capa 2 Ethernet · EtherType 0x88BA · Ondas digitalizadas de corriente/tensión</option><option value="Capa 4 TCP · Puerto 102 · Monitoreo y supervisión cliente/servidor">Capa 4 TCP · Puerto 102 · Monitoreo y supervisión cliente/servidor</option><option value="Capa 4 TCP · Puerto 2404 · Telecontrol WAN subestación-centro de control">Capa 4 TCP · Puerto 2404 · Telecontrol WAN subestación-centro de control</option><option value="Capa 4 TCP · Puerto 20000 · Desafío-respuesta criptográfico contra falsos comandos">Capa 4 TCP · Puerto 20000 · Desafío-respuesta criptográfico contra falsos comandos</option><option value="Capa 2 / Capa 4 UDP 319-320 · Sincronización sub-microsegundo con GPS">Capa 2 / Capa 4 UDP 319-320 · Sincronización sub-microsegundo con GPS</option></select></div>
       <div class="field"><label for="p2_s2">Sampled Values (SV)</label><select id="p2_s2"><option value="">Seleccione…</option><option value="Capa 2 Ethernet · EtherType 0x88B8 · Disparos entre relés &lt; 4 ms">Capa 2 Ethernet · EtherType 0x88B8 · Disparos entre relés &lt; 4 ms</option><option value="Capa 2 Ethernet · EtherType 0x88BA · Ondas digitalizadas de corriente/tensión">Capa 2 Ethernet · EtherType 0x88BA · Ondas digitalizadas de corriente/tensión</option><option value="Capa 4 TCP · Puerto 102 · Monitoreo y supervisión cliente/servidor">Capa 4 TCP · Puerto 102 · Monitoreo y supervisión cliente/servidor</option><option value="Capa 4 TCP · Puerto 2404 · Telecontrol WAN subestación-centro de control">Capa 4 TCP · Puerto 2404 · Telecontrol WAN subestación-centro de control</option><option value="Capa 4 TCP · Puerto 20000 · Desafío-respuesta criptográfico contra falsos comandos">Capa 4 TCP · Puerto 20000 · Desafío-respuesta criptográfico contra falsos comandos</option><option value="Capa 2 / Capa 4 UDP 319-320 · Sincronización sub-microsegundo con GPS">Capa 2 / Capa 4 UDP 319-320 · Sincronización sub-microsegundo con GPS</option></select></div>
       <div class="field"><label for="p2_s3">MMS (IEC 61850)</label><select id="p2_s3"><option value="">Seleccione…</option><option value="Capa 2 Ethernet · EtherType 0x88B8 · Disparos entre relés &lt; 4 ms">Capa 2 Ethernet · EtherType 0x88B8 · Disparos entre relés &lt; 4 ms</option><option value="Capa 2 Ethernet · EtherType 0x88BA · Ondas digitalizadas de corriente/tensión">Capa 2 Ethernet · EtherType 0x88BA · Ondas digitalizadas de corriente/tensión</option><option value="Capa 4 TCP · Puerto 102 · Monitoreo y supervisión cliente/servidor">Capa 4 TCP · Puerto 102 · Monitoreo y supervisión cliente/servidor</option><option value="Capa 4 TCP · Puerto 2404 · Telecontrol WAN subestación-centro de control">Capa 4 TCP · Puerto 2404 · Telecontrol WAN subestación-centro de control</option><option value="Capa 4 TCP · Puerto 20000 · Desafío-respuesta criptográfico contra falsos comandos">Capa 4 TCP · Puerto 20000 · Desafío-respuesta criptográfico contra falsos comandos</option><option value="Capa 2 / Capa 4 UDP 319-320 · Sincronización sub-microsegundo con GPS">Capa 2 / Capa 4 UDP 319-320 · Sincronización sub-microsegundo con GPS</option></select></div>
       <div class="field"><label for="p2_s4">IEC 60870-5-104</label><select id="p2_s4"><option value="">Seleccione…</option><option value="Capa 2 Ethernet · EtherType 0x88B8 · Disparos entre relés &lt; 4 ms">Capa 2 Ethernet · EtherType 0x88B8 · Disparos entre relés &lt; 4 ms</option><option value="Capa 2 Ethernet · EtherType 0x88BA · Ondas digitalizadas de corriente/tensión">Capa 2 Ethernet · EtherType 0x88BA · Ondas digitalizadas de corriente/tensión</option><option value="Capa 4 TCP · Puerto 102 · Monitoreo y supervisión cliente/servidor">Capa 4 TCP · Puerto 102 · Monitoreo y supervisión cliente/servidor</option><option value="Capa 4 TCP · Puerto 2404 · Telecontrol WAN subestación-centro de control">Capa 4 TCP · Puerto 2404 · Telecontrol WAN subestación-centro de control</option><option value="Capa 4 TCP · Puerto 20000 · Desafío-respuesta criptográfico contra falsos comandos">Capa 4 TCP · Puerto 20000 · Desafío-respuesta criptográfico contra falsos comandos</option><option value="Capa 2 / Capa 4 UDP 319-320 · Sincronización sub-microsegundo con GPS">Capa 2 / Capa 4 UDP 319-320 · Sincronización sub-microsegundo con GPS</option></select></div>
@@ -474,28 +532,26 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
       <div class="field"><label for="p2_s6">PTP (IEEE 1588v2)</label><select id="p2_s6"><option value="">Seleccione…</option><option value="Capa 2 Ethernet · EtherType 0x88B8 · Disparos entre relés &lt; 4 ms">Capa 2 Ethernet · EtherType 0x88B8 · Disparos entre relés &lt; 4 ms</option><option value="Capa 2 Ethernet · EtherType 0x88BA · Ondas digitalizadas de corriente/tensión">Capa 2 Ethernet · EtherType 0x88BA · Ondas digitalizadas de corriente/tensión</option><option value="Capa 4 TCP · Puerto 102 · Monitoreo y supervisión cliente/servidor">Capa 4 TCP · Puerto 102 · Monitoreo y supervisión cliente/servidor</option><option value="Capa 4 TCP · Puerto 2404 · Telecontrol WAN subestación-centro de control">Capa 4 TCP · Puerto 2404 · Telecontrol WAN subestación-centro de control</option><option value="Capa 4 TCP · Puerto 20000 · Desafío-respuesta criptográfico contra falsos comandos">Capa 4 TCP · Puerto 20000 · Desafío-respuesta criptográfico contra falsos comandos</option><option value="Capa 2 / Capa 4 UDP 319-320 · Sincronización sub-microsegundo con GPS">Capa 2 / Capa 4 UDP 319-320 · Sincronización sub-microsegundo con GPS</option></select></div>
     </section>
 
-<section id="paso3" class="card">
-      <span class="step-badge">Paso 3 · 15 min</span><span class="step-points">Vale 30 pts</span>
-      <h1>Caso: mitigación de inyección de comandos en enlace IEC 104</h1>
-      <p><strong>Concepto:</strong> asegure el telecontrol WAN entre una subestación y el CCO de EDEESTE.</p>
-      <div class="alert gold"><strong>Caso ilustrativo:</strong> una prueba de seguridad sobre el enlace de telecontrol WAN entre la subestación Hato Mayor y el CCO demostró que un atacante conectado a un segmento de microondas intermedio puede capturar paquetes IEC 104 en texto plano e inyectar un comando 'Select Before Operate' falso para disparar un interruptor general.</div>
-      <div class="field"><label for="p3_a">a) Explique el vector de ataque por el cual el atacante pudo inyectar el comando IEC 104 y por qué la RTU lo aceptó sin rechazo <span class="wc" data-for="p3_a">0 palabras</span></label><textarea class="tall" id="p3_a" placeholder="El vector de ataque se basa en... y la RTU lo aceptó porque..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="p3_a">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p3_a"></span></div></div>
-      <div class="field"><label for="p3_b">b) Describa la solución técnica basada en IEC 62351-3 (túnel TLS) o IPsec para proteger el canal WAN de telecontrol <span class="wc" data-for="p3_b">0 palabras</span></label><textarea class="tall" id="p3_b" placeholder="La solución consiste en implementar IEC 62351-3 o túneles IPsec mediante... garantizando confidencialidad y..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="p3_b">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p3_b"></span></div></div>
-      <div class="field"><label for="p3_c">c) ¿Por qué no se debe utilizar cifrado simétrico pesado para mensajes GOOSE dentro del bus de proceso y cuál es la solución recomendada por IEC 62351-6? <span class="wc" data-for="p3_c">0 palabras</span></label><textarea class="tall" id="p3_c" placeholder="No se usa cifrado pesado en GOOSE porque... En su lugar, IEC 62351-6 recomienda..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="p3_c">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p3_c"></span></div></div>
-    </section>
-
 <section id="paso4" class="card">
-      <span class="step-badge">Paso 4 · 5 min</span><span class="step-points">Vale 10 pts</span>
-      <h1>Practique con Nicole</h1>
-      <p><strong>Concepto:</strong> pongamos a prueba lo aprendido conversando con Nicole.</p>
-      <div class="sandbox-box"><strong>🧪 Pregúntele a Nicole:</strong><p style="font-style:italic; margin:.5rem 0;">Ej: "¿Por qué GOOSE no usa TCP/IP y cómo se protege con IEC 62351?"</p><input type="text" id="sandbox_input" placeholder="Escriba aquí su pregunta sobre protocolos IEC 61850, IEC 104, DNP3 o la norma de seguridad IEC 62351..." style="margin-bottom:.75rem;"><button class="btn-primary" id="btn-sandbox" type="button">🧪 Enviar a Nicole y ver la respuesta</button><div class="sandbox-response" id="sandbox-response"></div></div><div class="field"><label for="p4_reflexion">¿Qué le respondió Nicole y le pareció acertado? <span class="wc" data-for="p4_reflexion">0 palabras</span></label><textarea class="tall" id="p4_reflexion" placeholder="Nicole respondió que..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="p4_reflexion">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p4_reflexion"></span></div></div><div class="field"><label for="p4_mejora">¿Qué otra pregunta del tema le gustaría explorar? <span class="wc" data-for="p4_mejora">0 palabras</span></label><textarea class="tall" id="p4_mejora" placeholder="Me gustaría preguntar sobre..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="p4_mejora">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p4_mejora"></span></div></div>
+      <span class="step-badge">Paso 4 · 20 min</span><span class="step-points">Vale 35 pts</span>
+      <h1>Caso de decisiones: ciberataque en «Bahía Este»</h1>
+<div class="learn"><div class="learn-h">📘 Aprenda primero</div><dl><div><dt>Concepto</dt><dd>Proteger protocolos que no fueron diseñados con seguridad.</dd></div><div><dt>Definición</dt><dd>Los protocolos industriales priorizan la velocidad y la disponibilidad; la seguridad se agrega por capas: segmentación y filtrado, monitoreo pasivo, autenticación y cifrado donde el tiempo lo permite (TLS en MMS e IEC 104, según IEC 62351-3/4; HMAC en GOOSE/SV, según 62351-6; SAv5 en DNP3) y control de acceso por roles.</dd></div><div><dt>Ejemplo</dt><dd class="ej">Cifrar un mensaje GOOSE completo agrega retardo y podría violar el límite de 4 ms; por eso se autentica con un código (HMAC) sin cifrar la carga útil.</dd></div><div><dt>Dónde lo vio</dt><dd>Unidad 3 · diapositivas 26-28, 31 (IEC 62351), 32 (DNP3 SAv5), 33 y 36 (diseño de red para una subestación tipo).</dd></div></dl></div>      <div class="case-box"><span class="tag">Caso ficticio</span><h3>Ciberataque coordinado en la subestación «Bahía Este» 138/12.8 kV de CaribGrid (empresa ficticia)</h3><p>CaribGrid Distribución atiende a unos 750,000 clientes. Conecta sus subestaciones con el centro de operaciones por enlaces IP/4G. En «Bahía Este» (138/12.8 kV) los relés se comunican por GOOSE y Sampled Values en la red de proceso, y por MMS e IEC 104 hacia el SCADA.</p><p>En plena demanda alta ocurren tres eventos: un relé de distancia abre un interruptor sin causa; los relés de los alimentadores se bloquean al ver el ancho de banda saltar de ~0.01 % a 85 % con tramas GOOSE de 1,522 bytes; y llegan comandos MMS de escritura desde direcciones desconocidas, sin cifrar. Usted lidera la respuesta técnica.</p></div>
+      <div class="decision"><div class="d-title"><label for="d1" style="display:inline;margin:0;font-size:inherit;color:inherit;">Decisión 1 · Contener la inundación de tramas GOOSE</label></div><div class="d-sit">La red de proceso está saturada por tramas GOOSE inyectadas y los relés pierden sus mensajes legítimos. Hay que recuperar la protección sin dejar la subestación a ciegas.</div><select id="d1" hidden aria-hidden="true"><option value=""></option><option value="A. Aumentar de 100 Mbps a 1 Gbps los enlaces y seguir igual.">A. Aumentar de 100 Mbps a 1 Gbps los enlaces y seguir igual.</option><option value="B. Desconectar toda la subestación de la red y operar manualmente de forma indefinida.">B. Desconectar toda la subestación de la red y operar manualmente de forma indefinida.</option><option value="C. Filtrar en los switches (puertos de acceso, direcciones multicast y APPID permitidos, seguridad por puerto), segmentar con VLAN y desplegar monitoreo pasivo de detección de intrusiones en la red de proceso.">C. Filtrar en los switches (puertos de acceso, direcciones multicast y APPID permitidos, seguridad por puerto), segmentar con VLAN y desplegar monitoreo pasivo de detección de intrusiones en la red de proceso.</option></select><div class="choice-group" data-for="d1"><button type="button" class="choice-btn" data-v="A. Aumentar de 100 Mbps a 1 Gbps los enlaces y seguir igual."><span class="ltr">A.</span><span>Aumentar de 100 Mbps a 1 Gbps los enlaces y seguir igual.</span></button><button type="button" class="choice-btn" data-v="B. Desconectar toda la subestación de la red y operar manualmente de forma indefinida."><span class="ltr">B.</span><span>Desconectar toda la subestación de la red y operar manualmente de forma indefinida.</span></button><button type="button" class="choice-btn" data-v="C. Filtrar en los switches (puertos de acceso, direcciones multicast y APPID permitidos, seguridad por puerto), segmentar con VLAN y desplegar monitoreo pasivo de detección de intrusiones en la red de proceso."><span class="ltr">C.</span><span>Filtrar en los switches (puertos de acceso, direcciones multicast y APPID permitidos, seguridad por puerto), segmentar con VLAN y desplegar monitoreo pasivo de detección de intrusiones en la red de proceso.</span></button></div><div class="choice-fb" id="d1_fb" aria-live="polite"></div></div>
+      <div class="decision"><div class="d-title"><label for="d2" style="display:inline;margin:0;font-size:inherit;color:inherit;">Decisión 2 · Comandos MMS y telecontrol sin protección</label></div><div class="d-sit">El tráfico MMS (TCP 102) y el IEC 104 del gateway viajan sin cifrar y aceptan escrituras sin autenticar al cliente.</div><select id="d2" hidden aria-hidden="true"><option value=""></option><option value="A. Cambiar el puerto 102 a otro puerto para que no lo encuentren.">A. Cambiar el puerto 102 a otro puerto para que no lo encuentren.</option><option value="B. Aceptar el riesgo porque la red de estación es «interna».">B. Aceptar el riesgo porque la red de estación es «interna».</option><option value="C. Usar TLS con autenticación mutua mediante certificados y control de acceso por roles (IEC 62351-3/4/8) en MMS e IEC 104.">C. Usar TLS con autenticación mutua mediante certificados y control de acceso por roles (IEC 62351-3/4/8) en MMS e IEC 104.</option></select><div class="choice-group" data-for="d2"><button type="button" class="choice-btn" data-v="A. Cambiar el puerto 102 a otro puerto para que no lo encuentren."><span class="ltr">A.</span><span>Cambiar el puerto 102 a otro puerto para que no lo encuentren.</span></button><button type="button" class="choice-btn" data-v="B. Aceptar el riesgo porque la red de estación es «interna»."><span class="ltr">B.</span><span>Aceptar el riesgo porque la red de estación es «interna».</span></button><button type="button" class="choice-btn" data-v="C. Usar TLS con autenticación mutua mediante certificados y control de acceso por roles (IEC 62351-3/4/8) en MMS e IEC 104."><span class="ltr">C.</span><span>Usar TLS con autenticación mutua mediante certificados y control de acceso por roles (IEC 62351-3/4/8) en MMS e IEC 104.</span></button></div><div class="choice-fb" id="d2_fb" aria-live="polite"></div></div>
+      <div class="decision"><div class="d-title"><label for="d3" style="display:inline;margin:0;font-size:inherit;color:inherit;">Decisión 3 · GOOSE y SV sin cifrar</label></div><div class="d-sit">GOOSE y Sampled Values no se cifran por diseño. Hay que reducir el riesgo de mensajes falsos sin romper el límite de 4 ms.</div><select id="d3" hidden aria-hidden="true"><option value=""></option><option value="A. Cifrar todo el mensaje GOOSE y SV con cifrado completo.">A. Cifrar todo el mensaje GOOSE y SV con cifrado completo.</option><option value="B. Autenticación del mensaje con código HMAC sin cifrar la carga (IEC 62351-6), segmentación por VLAN y, para disparos críticos, un canal independiente de validación cruzada.">B. Autenticación del mensaje con código HMAC sin cifrar la carga (IEC 62351-6), segmentación por VLAN y, para disparos críticos, un canal independiente de validación cruzada.</option><option value="C. Dejarlos como están: al ir por Capa 2 no pueden ser atacados.">C. Dejarlos como están: al ir por Capa 2 no pueden ser atacados.</option></select><div class="choice-group" data-for="d3"><button type="button" class="choice-btn" data-v="A. Cifrar todo el mensaje GOOSE y SV con cifrado completo."><span class="ltr">A.</span><span>Cifrar todo el mensaje GOOSE y SV con cifrado completo.</span></button><button type="button" class="choice-btn" data-v="B. Autenticación del mensaje con código HMAC sin cifrar la carga (IEC 62351-6), segmentación por VLAN y, para disparos críticos, un canal independiente de validación cruzada."><span class="ltr">B.</span><span>Autenticación del mensaje con código HMAC sin cifrar la carga (IEC 62351-6), segmentación por VLAN y, para disparos críticos, un canal independiente de validación cruzada.</span></button><button type="button" class="choice-btn" data-v="C. Dejarlos como están: al ir por Capa 2 no pueden ser atacados."><span class="ltr">C.</span><span>Dejarlos como están: al ir por Capa 2 no pueden ser atacados.</span></button></div><div class="choice-fb" id="d3_fb" aria-live="polite"></div></div>
+      <div class="field"><label for="d_just">Explique por qué GOOSE y SV viajan sin cifrar y cómo los protegería sin violar los 4 ms, usando al menos dos controles de las normas IEC 62351 o IEC 62443. <span class="wc" data-for="d_just">0 palabras</span></label><textarea class="tall" id="d_just" placeholder="Viajan en Capa 2 para ganar velocidad... Los protegería con autenticación HMAC porque... además aplicaría segmentación por... y monitoreo..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="d_just">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="d_just"></span></div></div>
     </section>
 
 <section id="paso5" class="card">
       <span class="step-badge">Paso 5 · 5 min</span><span class="step-points">Vale 10 pts</span>
+      <h1>Practique con Nicole</h1>
+<div class="learn"><div class="learn-h">📘 Aprenda primero</div><dl><div><dt>Concepto</dt><dd>Preguntar bien a un asistente virtual de IA.</dd></div><div><dt>Definición</dt><dd>Nicole es la asistente virtual de la práctica: responde dudas sobre los conceptos del encuentro. Una buena pregunta es específica, da el contexto (una distribuidora, una subestación) y pide un ejemplo o una comparación.</dd></div><div><dt>Ejemplo</dt><dd class="ej">Pregunta débil: «explícame SCADA». Pregunta sólida: «¿Qué diferencia hay entre dos sistemas de una distribuidora?»  — la segunda obtiene una respuesta aplicada y comparada.</dd></div></dl></div>      <div class="sandbox-box"><strong>🧪 Pregúntele a Nicole:</strong><p style="font-style:italic; margin:.5rem 0;">Ej: "¿Por qué GOOSE no usa TCP/IP y cómo se protege con IEC 62351?"</p><input type="text" id="sandbox_input" placeholder="Escriba aquí su pregunta sobre protocolos IEC 61850, IEC 104, DNP3 o la norma de seguridad IEC 62351..." style="margin-bottom:.75rem;"><button class="btn-primary" id="btn-sandbox" type="button">🧪 Enviar a Nicole y ver la respuesta</button><div class="sandbox-response" id="sandbox-response"></div></div><div class="field"><label for="p4_reflexion">¿Qué le respondió Nicole y le pareció acertado? <span class="wc" data-for="p4_reflexion">0 palabras</span></label><textarea class="tall" id="p4_reflexion" placeholder="Nicole respondió que..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="p4_reflexion">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p4_reflexion"></span></div></div><div class="field"><label for="p4_mejora">¿Qué otra pregunta del tema le gustaría explorar? <span class="wc" data-for="p4_mejora">0 palabras</span></label><textarea class="tall" id="p4_mejora" placeholder="Me gustaría preguntar sobre..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="p4_mejora">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p4_mejora"></span></div></div>
+    </section>
+
+<section id="paso6" class="card">
+      <span class="step-badge">Paso 6 · 3 min</span><span class="step-points">Vale 5 pts</span>
       <h1>Reflexión final</h1>
-      <p><strong>Concepto:</strong> cierre con una reflexión breve sobre lo aprendido.</p>
-      <div class="field"><label for="p5_r1">¿Qué aspecto de los protocolos de telecontrol le resultó más relevante en este encuentro? <span class="wc" data-for="p5_r1">0 palabras</span></label><textarea class="tall" id="p5_r1" placeholder="Aprendí que..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="p5_r1">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p5_r1"></span></div></div>
+<div class="learn"><div class="learn-h">📘 Aprenda primero</div><dl><div><dt>Concepto</dt><dd>Reflexión final (metacognición).</dd></div><div><dt>Definición</dt><dd>Es detenerse a explicar con sus propias palabras qué comprendió y dónde lo aplicará. Convierte lo practicado en aprendizaje que se recuerda y se transfiere al trabajo.</dd></div><div><dt>Ejemplo</dt><dd class="ej">«Aprendí que un sistema corporativo no debe conectarse directo a la red de control. Esta semana revisaré en mi área qué sistemas intercambian datos y si pasan por una zona intermedia.»</dd></div></dl></div>      <div class="field"><label for="p5_r1">¿Qué aspecto de los protocolos de telecontrol le resultó más relevante en este encuentro? <span class="wc" data-for="p5_r1">0 palabras</span></label><textarea class="tall" id="p5_r1" placeholder="Aprendí que..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="p5_r1">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p5_r1"></span></div></div>
       <div class="field"><label for="p5_r2">¿Qué protocolo de su red eléctrica propondrá asegurar prioritariamente? <span class="wc" data-for="p5_r2">0 palabras</span></label><textarea class="tall" id="p5_r2" placeholder="Esta semana pienso aplicarlo en..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="p5_r2">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p5_r2"></span></div></div>
     </section>
 
@@ -516,7 +572,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
       <div id="submit-zone">
         <span class="step-badge">Paso final</span>
         <h1 style="font-size:1.4rem;">Enviar y calificar mi trabajo</h1>
-        <p>El sistema revisará automáticamente sus 5 pasos contra la rúbrica oficial y le mostrará su nota, el detalle por criterio y retroalimentación personalizada.</p>
+        <p>El sistema revisará automáticamente sus 6 pasos contra la rúbrica oficial y le mostrará su nota, el detalle por criterio y retroalimentación personalizada.</p>
         <button class="btn-primary" id="btn-submit" type="button">📤 Enviar y Calificar mi Trabajo</button>
       </div>
 
@@ -841,7 +897,7 @@ var io = new IntersectionObserver(function(entries){
 sections.forEach(function(s){ io.observe(s); });
 
 /* ---------- TEMPORIZADOR DE REFERENCIA (no cierra la práctica) ---------- */
-var TIMER_MINUTES = 50;
+var TIMER_MINUTES = 60;
 var TIMER_KEY = 'tp_iarrhci_u1_deadline';
 var SOUND_MUTE_KEY = 'tp_iarrhci_sound_muted';
 var soundMuted = localStorage.getItem(SOUND_MUTE_KEY) === '1';
@@ -1029,11 +1085,12 @@ function escapeHtml(s){ var d = document.createElement('div'); d.textContent = n
 
 /* ---------- CAMPOS DE CADA PASO ---------- */
 var STEP_FIELDS = {
-  paso1: ['p1_q1','p1_q2','p1_q3','p1_q4','p1_q5','p1_q6'],
-  paso2: ['p2_s1','p2_s2','p2_s3','p2_s4','p2_s5','p2_s6'],
-  paso3: ['p3_a','p3_b','p3_c'],
-  paso4: ['p4_reflexion','p4_mejora'],
-  paso5: ['p5_r1','p5_r2']
+  paso1: ['v_q1','v_q2','v_q3','v_q4'],
+  paso2: ['p1_q1','p1_q2','p1_q3','p1_q4','p1_q5','p1_q6'],
+  paso3: ['p2_s1','p2_s2','p2_s3','p2_s4','p2_s5','p2_s6'],
+  paso4: ['d1','d2','d3','d_just'],
+  paso5: ['p4_reflexion','p4_mejora'],
+  paso6: ['p5_r1','p5_r2']
 };
 
 /* ---------- WORD COUNTERS ---------- */
@@ -1184,11 +1241,12 @@ updateProgress();
 
 /* ---------- RÚBRICA TABLE ---------- */
 var RUBRICA = [
-  {n:1, criterio:"Verifique su comprensión (Paso 1)", indicador:"Seis preguntas de selección sobre protocolos eléctricos y ciberseguridad.", pts:25},
-  {n:2, criterio:"Relacione cada protocolo con su capa, puerto y función (Paso 2)", indicador:"Asocie cada protocolo con su perfil de comunicación exacto.", pts:25},
-  {n:3, criterio:"Caso: mitigación de inyección de comandos en enlace IEC 104 (Paso 3)", indicador:"Asegure el telecontrol WAN entre una subestación y el CCO de EDEESTE.", pts:30},
-  {n:4, criterio:"Practique con Nicole (Paso 4)", indicador:"Pongamos a prueba lo aprendido conversando con Nicole.", pts:10},
-  {n:5, criterio:"Reflexión final (Paso 5)", indicador:"Cierre con una reflexión breve sobre lo aprendido.", pts:10}
+  {n:1, criterio:"Video con preguntas: Introducción a IEC 61850 (Paso 1)", indicador:"Mire el video y responda las preguntas que lo pausan.", pts:20},
+  {n:2, criterio:"Verifique su comprensión (Paso 2)", indicador:"Seis preguntas de selección sobre protocolos eléctricos y ciberseguridad.", pts:15},
+  {n:3, criterio:"Relacione cada protocolo con su capa, puerto y función (Paso 3)", indicador:"Asocie cada protocolo con su perfil de comunicación exacto.", pts:15},
+  {n:4, criterio:"Caso de decisiones: ciberataque en «Bahía Este» (Paso 4)", indicador:"Tome decisiones en un caso ficticio y justifíquelas con la teoría.", pts:35},
+  {n:5, criterio:"Practique con Nicole (Paso 5)", indicador:"Pongamos a prueba lo aprendido conversando con Nicole.", pts:10},
+  {n:6, criterio:"Reflexión final (Paso 6)", indicador:"Cierre con una reflexión breve sobre lo aprendido.", pts:5}
 ];
 document.getElementById('rubrica-body').innerHTML = RUBRICA.map(function(r){
   return '<tr><td class="label-cell">'+r.n+'</td><td>'+r.criterio+'</td><td>'+r.indicador+'</td><td class="label-cell">'+r.pts+'</td></tr>';
@@ -1215,12 +1273,14 @@ function buildCriterion(title, maxPoints, items){
   return { title:title, maxPoints:maxPoints, score:score, strong:strong, mid:mid, weak:weak };
 }
 
-var ANSWER_KEY = {"p1_q1": "Para eliminar el retardo de la pila de red y garantizar entregas en menos de 4 ms", "p1_q2": "TCP puerto 2404", "p1_q3": "Fueron diseñados sin autenticación de origen ni cifrado en texto plano", "p1_q4": "Códigos de autenticación de mensajes (HMAC) sin cifrado de carga útil", "p1_q5": "Mediante un protocolo de desafío-respuesta criptográfico antes de ejecutar el comando", "p1_q6": "Merging Unit (Unidad de Fusión)", "p2_s1": "Capa 2 Ethernet · EtherType 0x88B8 · Disparos entre relés < 4 ms", "p2_s2": "Capa 2 Ethernet · EtherType 0x88BA · Ondas digitalizadas de corriente/tensión", "p2_s3": "Capa 4 TCP · Puerto 102 · Monitoreo y supervisión cliente/servidor", "p2_s4": "Capa 4 TCP · Puerto 2404 · Telecontrol WAN subestación-centro de control", "p2_s5": "Capa 4 TCP · Puerto 20000 · Desafío-respuesta criptográfico contra falsos comandos", "p2_s6": "Capa 2 / Capa 4 UDP 319-320 · Sincronización sub-microsegundo con GPS"};
-var ANSWER_WHY = {"p1_q1": "Al evitar el procesamiento de la pila IP/TCP, GOOSE asegura latencias deterministas ultrarrápidas (< 4 ms).", "p1_q2": "IEC 104 utiliza el puerto 2404/TCP asignado por IANA; MMS usa el 102 y DNP3 el 20000.", "p1_q3": "Asumían redes aisladas ('seguridad por oscuridad'); cualquier equipo que inyecte un comando válido es obedecido.", "p1_q4": "El HMAC valida la autenticidad e integridad en menos de 1 ms sin el retardo computacional de cifrar el payload.", "p1_q5": "El IED emite un desafío criptográfico HMAC-SHA256 que el centro de control debe responder correctamente para validar la orden.", "p1_q6": "La Merging Unit digitaliza las salidas de transformadores de corriente y tensión y las publica como tramas SV.", "p2_s1": "GOOSE: mensajes multicast críticos en Capa 2 para disparos y enclavamientos.", "p2_s2": "Sampled Values: publicación continua de muestras analógicas digitalizadas en Capa 2.", "p2_s3": "MMS: supervisión, parametrización y control cliente/servidor sobre TCP puerto 102.", "p2_s4": "IEC 104: telecontrol y telemetría sobre redes WAN mediante TCP puerto 2404.", "p2_s5": "DNP3 SAv5: añade desafío-respuesta seguro con HMAC sobre puerto 20000.", "p2_s6": "PTP: sincronización horaria con precisión inferior a 1 microsegundo."};
-var MIN_WORDS = {"p3_a": 40, "p3_b": 35, "p3_c": 30, "p5_r1": 20, "p5_r2": 20, "p4_reflexion": 20, "p4_mejora": 20};
+var CHOICE_SCORE = {"d1": {"A. Aumentar de 100 Mbps a 1 Gbps los enlaces y seguir igual.": 0.15, "B. Desconectar toda la subestación de la red y operar manualmente de forma indefinida.": 0.35, "C. Filtrar en los switches (puertos de acceso, direcciones multicast y APPID permitidos, seguridad por puerto), segmentar con VLAN y desplegar monitoreo pasivo de detección de intrusiones en la red de proceso.": 1}, "d2": {"A. Cambiar el puerto 102 a otro puerto para que no lo encuentren.": 0.2, "B. Aceptar el riesgo porque la red de estación es «interna».": 0.1, "C. Usar TLS con autenticación mutua mediante certificados y control de acceso por roles (IEC 62351-3/4/8) en MMS e IEC 104.": 1}, "d3": {"A. Cifrar todo el mensaje GOOSE y SV con cifrado completo.": 0.3, "B. Autenticación del mensaje con código HMAC sin cifrar la carga (IEC 62351-6), segmentación por VLAN y, para disparos críticos, un canal independiente de validación cruzada.": 1, "C. Dejarlos como están: al ir por Capa 2 no pueden ser atacados.": 0.1}};
+var ANSWER_KEY = {"v_q1": "C. Cuatro (patio, bahía, estación y operación)", "v_q2": "A. Para dar compatibilidad entre fabricantes y configurar cualquier equipo sin conocer la forma de trabajar de cada fabricante", "v_q3": "B. Que equipos de distintos fabricantes puedan interactuar y entenderse con descripciones abiertas y estándar", "v_q4": "D. Cientos de cables de cobre se reemplazan por pocas fibras ópticas, con mejores tiempos y redundancia", "p1_q1": "Para eliminar el retardo de la pila de red y garantizar entregas en menos de 4 ms", "p1_q2": "TCP puerto 2404", "p1_q3": "Fueron diseñados sin autenticación de origen ni cifrado en texto plano", "p1_q4": "Códigos de autenticación de mensajes (HMAC) sin cifrado de carga útil", "p1_q5": "Mediante un protocolo de desafío-respuesta criptográfico antes de ejecutar el comando", "p1_q6": "Merging Unit (Unidad de Fusión)", "p2_s1": "Capa 2 Ethernet · EtherType 0x88B8 · Disparos entre relés < 4 ms", "p2_s2": "Capa 2 Ethernet · EtherType 0x88BA · Ondas digitalizadas de corriente/tensión", "p2_s3": "Capa 4 TCP · Puerto 102 · Monitoreo y supervisión cliente/servidor", "p2_s4": "Capa 4 TCP · Puerto 2404 · Telecontrol WAN subestación-centro de control", "p2_s5": "Capa 4 TCP · Puerto 20000 · Desafío-respuesta criptográfico contra falsos comandos", "p2_s6": "Capa 2 / Capa 4 UDP 319-320 · Sincronización sub-microsegundo con GPS", "d1": "C. Filtrar en los switches (puertos de acceso, direcciones multicast y APPID permitidos, seguridad por puerto), segmentar con VLAN y desplegar monitoreo pasivo de detección de intrusiones en la red de proceso.", "d2": "C. Usar TLS con autenticación mutua mediante certificados y control de acceso por roles (IEC 62351-3/4/8) en MMS e IEC 104.", "d3": "B. Autenticación del mensaje con código HMAC sin cifrar la carga (IEC 62351-6), segmentación por VLAN y, para disparos críticos, un canal independiente de validación cruzada."};
+var ANSWER_WHY = {"v_q1": "La norma ordena la subestación en cuatro niveles: patio (equipo primario), bahía, estación y operación (centro de control).", "v_q2": "El lenguaje de configuración (SCL) describe la subestación en un archivo estándar que entiende cualquier herramienta compatible.", "v_q3": "Interoperabilidad: diferentes fabricantes pueden operar juntos porque las capacidades de los equipos se describen de forma estándar.", "v_q4": "Los 200-300 cables de cobre se sustituyen por cuatro o cinco fibras ópticas: mejores tiempos, mejor redundancia y menos equipos con entradas.", "p1_q1": "Al evitar el procesamiento de la pila IP/TCP, GOOSE asegura latencias deterministas ultrarrápidas (< 4 ms).", "p1_q2": "IEC 104 utiliza el puerto 2404/TCP asignado por IANA; MMS usa el 102 y DNP3 el 20000.", "p1_q3": "Asumían redes aisladas ('seguridad por oscuridad'); cualquier equipo que inyecte un comando válido es obedecido.", "p1_q4": "El HMAC valida la autenticidad e integridad en menos de 1 ms sin el retardo computacional de cifrar el payload.", "p1_q5": "El IED emite un desafío criptográfico HMAC-SHA256 que el centro de control debe responder correctamente para validar la orden.", "p1_q6": "La Merging Unit digitaliza las salidas de transformadores de corriente y tensión y las publica como tramas SV.", "p2_s1": "GOOSE: mensajes multicast críticos en Capa 2 para disparos y enclavamientos.", "p2_s2": "Sampled Values: publicación continua de muestras analógicas digitalizadas en Capa 2.", "p2_s3": "MMS: supervisión, parametrización y control cliente/servidor sobre TCP puerto 102.", "p2_s4": "IEC 104: telecontrol y telemetría sobre redes WAN mediante TCP puerto 2404.", "p2_s5": "DNP3 SAv5: añade desafío-respuesta seguro con HMAC sobre puerto 20000.", "p2_s6": "PTP: sincronización horaria con precisión inferior a 1 microsegundo.", "d1": "GOOSE no es enrutable ni cifrado: la defensa está en la red (filtrado, segmentación, seguridad por puerto) y en el monitoreo pasivo que no introduce retardo.", "d2": "IEC 62351 agrega TLS con autenticación mutua y control de acceso basado en roles a MMS e IEC 104, donde el tiempo permite cifrar.", "d3": "La seguridad en GOOSE/SV se logra con autenticación ligera (HMAC), no con cifrado completo, más segmentación y validación independiente en los disparos críticos."};
+var MIN_WORDS = {"d_just": 45, "p5_r1": 20, "p5_r2": 20, "p4_reflexion": 20, "p4_mejora": 20};
 function fieldFrac(id){
   var v = val(id);
   if(!filled(v)) return 0;
+  if(CHOICE_SCORE.hasOwnProperty(id)) return CHOICE_SCORE[id].hasOwnProperty(norm(v)) ? CHOICE_SCORE[id][norm(v)] : 0.2;
   if(ANSWER_KEY.hasOwnProperty(id)) return norm(v) === ANSWER_KEY[id] ? 1 : 0.25;
   if(MIN_WORDS.hasOwnProperty(id)) return clamp01(wordCount(v) / MIN_WORDS[id]);
   return 1;
@@ -1779,6 +1839,108 @@ function fireConfetti(){
 }
 
 
+
+window.CHOICE_DATA = {"d1": {"kind": "decision", "key": "C. Filtrar en los switches (puertos de acceso, direcciones multicast y APPID permitidos, seguridad por puerto), segmentar con VLAN y desplegar monitoreo pasivo de detección de intrusiones en la red de proceso.", "why": "GOOSE no es enrutable ni cifrado: la defensa está en la red (filtrado, segmentación, seguridad por puerto) y en el monitoreo pasivo que no introduce retardo.", "opts": [{"v": "A. Aumentar de 100 Mbps a 1 Gbps los enlaces y seguir igual.", "fb": "Retrasa el colapso, pero el atacante puede volver a saturar y la red sigue sin filtrar el origen de las tramas."}, {"v": "B. Desconectar toda la subestación de la red y operar manualmente de forma indefinida.", "fb": "Detiene el ataque, pero deja la protección y la supervisión fuera de servicio y no corrige la causa."}, {"v": "C. Filtrar en los switches (puertos de acceso, direcciones multicast y APPID permitidos, seguridad por puerto), segmentar con VLAN y desplegar monitoreo pasivo de detección de intrusiones en la red de proceso.", "fb": "Se bloquea el tráfico no autorizado sin añadir latencia a los mensajes legítimos y se gana visibilidad del ataque."}]}, "d2": {"kind": "decision", "key": "C. Usar TLS con autenticación mutua mediante certificados y control de acceso por roles (IEC 62351-3/4/8) en MMS e IEC 104.", "why": "IEC 62351 agrega TLS con autenticación mutua y control de acceso basado en roles a MMS e IEC 104, donde el tiempo permite cifrar.", "opts": [{"v": "A. Cambiar el puerto 102 a otro puerto para que no lo encuentren.", "fb": "Es seguridad por oscuridad: un escaneo lo vuelve a descubrir y el protocolo sigue sin autenticación."}, {"v": "B. Aceptar el riesgo porque la red de estación es «interna».", "fb": "Un solo equipo comprometido dentro de la red basta para escribir parámetros y enviar comandos."}, {"v": "C. Usar TLS con autenticación mutua mediante certificados y control de acceso por roles (IEC 62351-3/4/8) en MMS e IEC 104.", "fb": "Solo clientes autenticados y autorizados pueden leer o escribir; los comandos quedan protegidos y auditables."}]}, "d3": {"kind": "decision", "key": "B. Autenticación del mensaje con código HMAC sin cifrar la carga (IEC 62351-6), segmentación por VLAN y, para disparos críticos, un canal independiente de validación cruzada.", "why": "La seguridad en GOOSE/SV se logra con autenticación ligera (HMAC), no con cifrado completo, más segmentación y validación independiente en los disparos críticos.", "opts": [{"v": "A. Cifrar todo el mensaje GOOSE y SV con cifrado completo.", "fb": "Mejora la confidencialidad, pero el cifrado agrega retardo y puede romper los tiempos de disparo."}, {"v": "B. Autenticación del mensaje con código HMAC sin cifrar la carga (IEC 62351-6), segmentación por VLAN y, para disparos críticos, un canal independiente de validación cruzada.", "fb": "Se detectan mensajes falsos o modificados sin superar el tiempo de transferencia, y un disparo crítico exige dos fuentes coherentes."}, {"v": "C. Dejarlos como están: al ir por Capa 2 no pueden ser atacados.", "fb": "Cualquier equipo conectado a la misma red puede inyectar tramas; fue lo que ocurrió en el incidente."}]}, "v_q1": {"kind": "video", "key": "C. Cuatro (patio, bahía, estación y operación)", "why": "La norma ordena la subestación en cuatro niveles: patio (equipo primario), bahía, estación y operación (centro de control).", "opts": [{"v": "A. Seis", "fb": ""}, {"v": "B. Diez", "fb": ""}, {"v": "C. Cuatro (patio, bahía, estación y operación)", "fb": ""}, {"v": "D. Uno solo", "fb": ""}]}, "v_q2": {"kind": "video", "key": "A. Para dar compatibilidad entre fabricantes y configurar cualquier equipo sin conocer la forma de trabajar de cada fabricante", "why": "El lenguaje de configuración (SCL) describe la subestación en un archivo estándar que entiende cualquier herramienta compatible.", "opts": [{"v": "A. Para dar compatibilidad entre fabricantes y configurar cualquier equipo sin conocer la forma de trabajar de cada fabricante", "fb": ""}, {"v": "B. Para cifrar todos los mensajes de la red", "fb": ""}, {"v": "C. Para medir la corriente eléctrica", "fb": ""}, {"v": "D. Para facturar a los clientes", "fb": ""}]}, "v_q3": {"kind": "video", "key": "B. Que equipos de distintos fabricantes puedan interactuar y entenderse con descripciones abiertas y estándar", "why": "Interoperabilidad: diferentes fabricantes pueden operar juntos porque las capacidades de los equipos se describen de forma estándar.", "opts": [{"v": "A. Que el operador deba configurar cada protocolo a mano", "fb": ""}, {"v": "B. Que equipos de distintos fabricantes puedan interactuar y entenderse con descripciones abiertas y estándar", "fb": ""}, {"v": "C. Que todos los equipos sean del mismo fabricante", "fb": ""}, {"v": "D. Que los equipos no necesiten comunicarse", "fb": ""}]}, "v_q4": {"kind": "video", "key": "D. Cientos de cables de cobre se reemplazan por pocas fibras ópticas, con mejores tiempos y redundancia", "why": "Los 200-300 cables de cobre se sustituyen por cuatro o cinco fibras ópticas: mejores tiempos, mejor redundancia y menos equipos con entradas.", "opts": [{"v": "A. Se agregan más cables de cobre", "fb": ""}, {"v": "B. Desaparece toda comunicación", "fb": ""}, {"v": "C. Se reemplaza la fibra por cables seriales", "fb": ""}, {"v": "D. Cientos de cables de cobre se reemplazan por pocas fibras ópticas, con mejores tiempos y redundancia", "fb": ""}]}};
+window.VIDEO_DATA = {"id": "C_hVEOrEim4", "cues": [{"id": "v_q1", "t": 100}, {"id": "v_q2", "t": 508}, {"id": "v_q3", "t": 625}, {"id": "v_q4", "t": 696}]};
+
+/* ===== V2: decisiones y video interactivo ===== */
+(function(){
+  var CHOICE = window.CHOICE_DATA || {};
+  function opt(id, v){ var arr = (CHOICE[id] && CHOICE[id].opts) || []; for(var i=0;i<arr.length;i++){ if(arr[i].v === v) return arr[i]; } return null; }
+  function showFb(id, locked){
+    var box = document.getElementById(id + '_fb'); if(!box) return;
+    var v = val(id); var o = opt(id, v);
+    if(!o){ box.className = 'choice-fb'; box.innerHTML = ''; return; }
+    var best = CHOICE[id].key === v;
+    if(CHOICE[id].kind === 'video'){
+      box.className = 'choice-fb show ' + (best ? 'ok' : 'bad');
+      box.innerHTML = (best ? '<b>✔ Correcto.</b> ' : '<b>✖ No es la opción correcta.</b> La respuesta era: <b>' + esc(CHOICE[id].key) + '</b>. ') + esc(CHOICE[id].why);
+    } else {
+      box.className = 'choice-fb show';
+      box.innerHTML = '<b>Consecuencia de su decisión:</b> ' + esc(o.fb) + '<br><small>Al final de la práctica verá cuál era la decisión más sólida según la teoría y por qué.</small>';
+    }
+  }
+  function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  function syncGroup(g){
+    var id = g.getAttribute('data-for'); var v = val(id);
+    var kind = CHOICE[id] && CHOICE[id].kind;
+    g.querySelectorAll('.choice-btn').forEach(function(b){
+      var on = b.getAttribute('data-v') === v;
+      b.classList.toggle('sel', on && kind !== 'video');
+      if(kind === 'video' && v){
+        b.disabled = true;
+        b.classList.toggle('ok', b.getAttribute('data-v') === CHOICE[id].key);
+        b.classList.toggle('bad', on && v !== CHOICE[id].key);
+      }
+    });
+    showFb(id);
+  }
+  document.querySelectorAll('.choice-group').forEach(function(g){
+    g.addEventListener('click', function(e){
+      var b = e.target.closest('.choice-btn'); if(!b || b.disabled) return;
+      var id = g.getAttribute('data-for'); var sel = document.getElementById(id);
+      sel.value = b.getAttribute('data-v');
+      sel.dispatchEvent(new Event('change', {bubbles:true}));
+      syncGroup(g);
+      if(CHOICE[id] && CHOICE[id].kind === 'video'){ var nx = document.getElementById(id + '_next'); if(nx) nx.classList.add('show'); updateVidStatus(); }
+    });
+    syncGroup(g);
+  });
+
+  /* ---- video interactivo ---- */
+  var VID = window.VIDEO_DATA; if(!VID) return;
+  var player = null, timer = null, activeId = null, ready = false, ytFailed = false;
+  function answered(id){ return filled(val(id)); }
+  function updateVidStatus(){
+    var n = VID.cues.filter(function(c){ return answered(c.id); }).length;
+    var st = document.getElementById('vq-status'); if(st) st.textContent = 'Preguntas del video respondidas: ' + n + ' de ' + VID.cues.length;
+  }
+  function hideAll(){ document.querySelectorAll('.vq').forEach(function(q){ q.classList.remove('active'); }); activeId = null; }
+  function showQ(c){
+    hideAll(); activeId = c.id;
+    var q = document.getElementById('vq_' + c.id); q.classList.add('active');
+    try{ if(document.fullscreenElement) document.exitFullscreen(); }catch(e){}
+    q.scrollIntoView({behavior:'smooth', block:'center'});
+    var nx = document.getElementById(c.id + '_next'); if(nx && answered(c.id)) nx.classList.add('show');
+  }
+  function tick(){
+    if(!player || !player.getCurrentTime || activeId) return;
+    var t = player.getCurrentTime();
+    for(var i=0;i<VID.cues.length;i++){
+      var c = VID.cues[i];
+      if(!answered(c.id) && t >= c.t){ player.pauseVideo(); showQ(c); return; }
+    }
+  }
+  function startPoll(){ if(!timer) timer = setInterval(tick, 400); }
+  function onState(e){
+    if(e.data === 1){ startPoll(); }  // PLAYING
+    if(e.data === 1 && activeId && !answered(activeId)){ player.pauseVideo(); }
+  }
+  document.querySelectorAll('.vq-next').forEach(function(b){
+    b.addEventListener('click', function(){
+      hideAll(); updateVidStatus();
+      if(player && player.playVideo) player.playVideo();
+      var w = document.getElementById('vid-wrap'); if(w) w.scrollIntoView({behavior:'smooth', block:'center'});
+    });
+  });
+  function goStatic(){
+    if(ytFailed) return; ytFailed = true;
+    var n = document.getElementById('vid-note');
+    if(n) n.innerHTML = '<div class="alert warn">No se pudo cargar el reproductor interactivo. Abra el video con el enlace «Ver en YouTube», véalo completo y responda aquí las preguntas.</div>';
+    document.querySelectorAll('.vq').forEach(function(q){ q.classList.add('static'); q.classList.add('active'); });
+    document.querySelectorAll('.vq-next').forEach(function(b){ b.style.display = 'none'; });
+  }
+  window.onYouTubeIframeAPIReady = function(){
+    try{
+      player = new YT.Player('ytp', { videoId: VID.id, playerVars:{ rel:0, modestbranding:1, playsinline:1, origin: location.origin, cc_lang_pref:'es', hl:'es' },
+        events:{ onReady:function(){ ready = true; window._ytp = player; }, onStateChange:onState, onError:function(){ goStatic(); } } });
+    }catch(e){ goStatic(); }
+  };
+  var s = document.createElement('script'); s.src = 'https://www.youtube.com/iframe_api'; s.onerror = goStatic; document.head.appendChild(s);
+  setTimeout(function(){ if(!ready) goStatic(); }, 9000);
+  window._vidDebug = { setPlayer: function(p){ player = p; }, tick: tick };
+  updateVidStatus();
+})();
 
 })();
 </script>

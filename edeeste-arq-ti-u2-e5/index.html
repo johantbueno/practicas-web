@@ -301,6 +301,50 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
   .timer-box.overtime .timer-value{animation:none;}
   .fast-clock-hand{animation:none;}
 }
+
+/* ===== V2: aprenda primero, decisiones, video interactivo ===== */
+.learn{border:1px solid var(--blue-border); background:var(--blue-bg); border-radius:var(--radius-md); padding:1rem 1.1rem; margin:.4rem 0 1.1rem;}
+.learn-h{font-weight:800; font-size:.85rem; letter-spacing:.02em; color:var(--primary); margin-bottom:.55rem;}
+.learn dl{margin:0; display:grid; gap:.55rem;}
+.learn dt{font-weight:800; font-size:.72rem; text-transform:uppercase; letter-spacing:.06em; color:var(--navy);}
+.learn dd{margin:.1rem 0 0; font-size:.92rem; line-height:1.55; color:var(--secondary);}
+.learn dd.ej{border-left:3px solid var(--gold); padding-left:.7rem; font-style:italic;}
+.case-box{border:1px solid var(--amber-border); background:var(--amber-bg); border-radius:var(--radius-md); padding:1rem 1.1rem; margin:.4rem 0 1rem;}
+.case-box h3{margin:.1rem 0 .5rem; font-size:1.02rem; color:var(--primary);}
+.case-box p{margin:.4rem 0; font-size:.92rem; line-height:1.6; color:var(--secondary);}
+.case-box .tag{display:inline-block; font-size:.7rem; font-weight:800; text-transform:uppercase; letter-spacing:.06em; color:var(--amber); margin-bottom:.2rem;}
+.decision{border:1px solid var(--border-light); border-radius:var(--radius-md); padding:1rem 1.1rem; margin:1rem 0; background:var(--bg-card);}
+.decision>.d-title{font-weight:800; color:var(--primary); font-size:.95rem; margin-bottom:.3rem;}
+.decision>.d-sit{font-size:.92rem; line-height:1.55; color:var(--secondary); margin-bottom:.7rem;}
+.choice-group{display:grid; gap:.5rem;}
+select[hidden]{display:none !important;}
+.choice-btn{display:flex; gap:.6rem; align-items:flex-start; text-align:left; width:100%; padding:.7rem .85rem; border:2px solid var(--border-dark); background:var(--bg-card); color:var(--primary); border-radius:var(--radius-sm); font:inherit; font-size:.9rem; line-height:1.45; cursor:pointer; min-height:44px;}
+.choice-btn:hover:not(:disabled){border-color:var(--navy);}
+.choice-btn .ltr{flex:0 0 auto; font-weight:800; color:var(--navy);}
+.choice-btn.sel{border-color:var(--navy); background:var(--blue-bg);}
+.choice-btn.ok{border-color:var(--green-border); background:var(--green-bg);}
+.choice-btn.bad{border-color:var(--red-border); background:var(--red-bg);}
+.choice-btn:disabled{cursor:default; opacity:.95;}
+.choice-fb{margin-top:.7rem; padding:.7rem .85rem; border-radius:var(--radius-sm); font-size:.9rem; line-height:1.5; display:none; border:1px solid var(--border-dark); background:var(--bg-body); color:var(--secondary);}
+.choice-fb.show{display:block;}
+.choice-fb.ok{border-color:var(--green-border); background:var(--green-bg);}
+.choice-fb.bad{border-color:var(--red-border); background:var(--red-bg);}
+.choice-fb b{color:var(--primary);}
+.vid-wrap{position:relative; width:100%; aspect-ratio:16/9; background:#000; border-radius:var(--radius-md); overflow:hidden; margin:.4rem 0;}
+.vid-wrap iframe,.vid-wrap #ytp{position:absolute; inset:0; width:100%; height:100%; border:0;}
+.vid-meta{display:flex; flex-wrap:wrap; gap:.5rem 1rem; align-items:center; justify-content:space-between; font-size:.82rem; color:var(--muted); margin:.3rem 0 .6rem;}
+.vid-meta a{color:var(--navy); font-weight:700;}
+.vq-stage{margin-top:.6rem;}
+.vq{display:none; border:2px solid var(--gold); border-radius:var(--radius-md); padding:1rem 1.1rem; background:var(--bg-card);}
+.vq.active,.vq.static{display:block;}
+.vq.static{margin:.8rem 0; border-color:var(--border-dark);}
+.vq .vq-h{font-size:.72rem; font-weight:800; text-transform:uppercase; letter-spacing:.06em; color:var(--amber); margin-bottom:.3rem;}
+.vq .vq-q{font-weight:700; color:var(--primary); margin-bottom:.7rem; font-size:.95rem;}
+.vq-next{margin-top:.7rem; display:none;}
+.vq-next.show{display:inline-block;}
+.vq-status{font-size:.85rem; font-weight:700; color:var(--primary);}
+@media (max-width:640px){.learn,.case-box,.decision,.vq{padding:.85rem .8rem;}}
+
 </style>
 </head>
 <body>
@@ -330,7 +374,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
           <span class="timer-label">⏱️ Tiempo sugerido</span>
           <button class="icon-btn" id="sound-toggle" type="button" title="Silenciar o activar el sonido" aria-label="Silenciar o activar el sonido del temporizador">🔔</button>
         </div>
-        <div class="timer-value" id="timer-value">50:00</div>
+        <div class="timer-value" id="timer-value">60:00</div>
         <canvas id="hearts-canvas" width="230" height="40" aria-hidden="true"></canvas>
         <div class="fast-clock" id="fast-clock" aria-hidden="true"><div class="fast-clock-hand"></div></div>
         <div class="overtime-note" id="overtime-note" hidden>⏱️ Tiempo de referencia — no afecta su calificación</div>
@@ -344,11 +388,12 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
 
       <nav class="nav" aria-label="Navegación de la práctica"><ul><li><a href="#portada">🧠 Portada e instrucciones</a></li>
           <li><a href="#marco-conceptual">📚 Marco conceptual</a></li>
-          <li><a href="#paso1" data-step="paso1">Paso 1 · Verifique su comprensión <span class="pct" data-pct="paso1">0%</span></a></li>
-          <li><a href="#paso2" data-step="paso2">Paso 2 · Asigne el nivel BIA (1 a 4) a cada sistema <span class="pct" data-pct="paso2">0%</span></a></li>
-          <li><a href="#paso3" data-step="paso3">Paso 3 · Caso: un huracán sobre la región este <span class="pct" data-pct="paso3">0%</span></a></li>
-          <li><a href="#paso4" data-step="paso4">Paso 4 · Practique con Nicole <span class="pct" data-pct="paso4">0%</span></a></li>
-          <li><a href="#paso5" data-step="paso5">Paso 5 · Reflexión final <span class="pct" data-pct="paso5">0%</span></a></li>
+          <li><a href="#paso1" data-step="paso1">Paso 1 · Video con preguntas: Continuidad y DRP <span class="pct" data-pct="paso1">0%</span></a></li>
+          <li><a href="#paso2" data-step="paso2">Paso 2 · Verifique su comprensión <span class="pct" data-pct="paso2">0%</span></a></li>
+          <li><a href="#paso3" data-step="paso3">Paso 3 · Asigne el nivel BIA (1 a 4) a cada sistema <span class="pct" data-pct="paso3">0%</span></a></li>
+          <li><a href="#paso4" data-step="paso4">Paso 4 · Caso de decisiones: Operación Ciclón-X <span class="pct" data-pct="paso4">0%</span></a></li>
+          <li><a href="#paso5" data-step="paso5">Paso 5 · Practique con Nicole <span class="pct" data-pct="paso5">0%</span></a></li>
+          <li><a href="#paso6" data-step="paso6">Paso 6 · Reflexión final <span class="pct" data-pct="paso6">0%</span></a></li>
           <li><a href="#rubrica">🧮 Rúbrica de evaluación</a></li>
           <li><a href="#resultado">📤 Enviar y calificar</a></li></ul></nav>
 
@@ -371,7 +416,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
       <div class="cover-chips">
         <span class="cover-chip">Miércoles 21 de octubre de 2026</span>
         <span class="cover-chip">100 pts · aprobación mínima 70</span>
-        <span class="cover-chip">Dura aproximadamente 50 minutos</span>
+        <span class="cover-chip">Dura aproximadamente 60 minutos</span>
         <span class="cover-chip">Gana una medalla digital al terminar</span>
       </div>
     </section>
@@ -379,13 +424,13 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
     <section class="card">
       <span class="step-badge">Para el personal técnico de TI y OT de EDEESTE</span>
       <h1 style="font-size:1.35rem;">Práctica de la segunda hora del encuentro</h1>
-      <div class="alert success">Esta práctica se realiza justo después de la explicación teórica del encuentro (6:00 a 7:00 p. m.). Dispone de aproximadamente 50 minutos. Combina preguntas de selección, clasificación y un caso aplicado a EDEESTE, con retroalimentación inmediata.</div>
+      <div class="alert success">Esta práctica se realiza justo después de la explicación teórica del encuentro (6:00 a 7:00 p. m.). Dispone de aproximadamente 60 minutos. Combina un video con preguntas, preguntas de selección, clasificación y un caso de decisiones aplicado a una distribuidora ficticia, con retroalimentación inmediata.</div>
     </section>
 
     <section class="card" id="tutorial">
       <span class="step-badge">Tutorial</span>
       <h1 style="font-size:1.35rem;">Cómo usar esta plataforma</h1>
-      <p><strong>Concepto:</strong> esta práctica se realiza <strong>después de la explicación teórica del encuentro</strong> (presentación PPT). Tiene 5 pasos, cada uno explicado con palabras simples y ejemplos, y espacio para sus respuestas — puede escribir directamente o grabar una nota de voz.</p>
+      <p><strong>Concepto:</strong> esta práctica se realiza <strong>después de la explicación teórica del encuentro</strong> (presentación PPT). Tiene 6 pasos, cada uno explicado con palabras simples y ejemplos, y espacio para sus respuestas — puede escribir directamente o grabar una nota de voz.</p>
 
       <h2>Dos formas de responder cada pregunta</h2>
       <p><strong>Definición:</strong> cada campo de respuesta larga acepta texto escrito o una nota de voz transcrita automáticamente.</p>
@@ -402,7 +447,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
       </ol>
 
       <h2>La medalla digital al terminar</h2>
-      <p>Cuando complete los 5 pasos y presione <strong>Enviar y Calificar</strong>, va a poder generar una <strong>medalla digital</strong> con su nombre para descargar o compartir por WhatsApp, correo o redes sociales, como evidencia de haber completado esta práctica — puede adjuntarla en la actividad correspondiente de Moodle si su facilitador se lo solicita.</p>
+      <p>Cuando complete los 6 pasos y presione <strong>Enviar y Calificar</strong>, va a poder generar una <strong>medalla digital</strong> con su nombre para descargar o compartir por WhatsApp, correo o redes sociales, como evidencia de haber completado esta práctica — puede adjuntarla en la actividad correspondiente de Moodle si su facilitador se lo solicita.</p>
 
       <h2>Progreso, guardado y aprobación</h2>
       <p>Sus respuestas se guardan automáticamente en este navegador mientras trabaja. Puede cerrar la página y volver más tarde a completar otra pregunta. Al presionar <strong>Enviar y Calificar</strong>, el sistema le da una nota preliminar orientativa y comentarios al instante.</p>
@@ -431,7 +476,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
       <h2>Instrucciones generales</h2>
       <ol class="ins-list">
         <li>Tenga a mano la <strong>presentación del encuentro</strong>: esta práctica retoma directamente sus conceptos.</li>
-        <li>Complete los <strong>5 pasos</strong> en el orden indicado, por escrito o por nota de voz.</li>
+        <li>Complete los <strong>6 pasos</strong> en el orden indicado, por escrito o por nota de voz.</li>
         <li>Los casos de esta práctica son <strong>ilustrativos</strong> y se basan en una distribuidora como EDEESTE; puede usar su propia experiencia.</li>
         <li><strong>Nunca escriba información confidencial real</strong> (contraseñas, direcciones IP reales de la red, planos o datos de clientes) en ningún campo de esta práctica ni en ninguna herramienta de IA — use siempre ejemplos genéricos.</li>
         <li>Al finalizar, presione <strong>Enviar y Calificar</strong>: el sistema revisará su trabajo y le dará una nota y retroalimentación inmediata.</li>
@@ -451,10 +496,24 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
 
     <!-- ============ PASO1 ============ -->
     <section id="paso1" class="card">
-      <span class="step-badge">Paso 1 · 10 min</span><span class="step-points">Vale 25 pts</span>
+      <span class="step-badge">Paso 1 · 14 min</span><span class="step-points">Vale 20 pts</span>
+      <h1>Video con preguntas: Continuidad y DRP</h1>
+<div class="learn"><div class="learn-h">📘 Aprenda primero</div><dl><div><dt>Concepto</dt><dd>RPO, RTO y continuidad de negocio.</dd></div><div><dt>Definición</dt><dd>El video distingue respaldo, recuperación ante desastres (DRP) y continuidad de negocio, y explica con ejemplos qué significan el RPO (hasta qué punto en el tiempo recuperar datos) y el RTO (qué tan rápido volver a operar). Se pausa 4 veces con una pregunta.</dd></div><div><dt>Ejemplo</dt><dd class="ej">Si el último respaldo fue anoche a las 8 p. m. y el sistema falla a las 3 p. m. del día siguiente, se pierden 19 horas de datos: ese es el RPO real; la solución de recuperación define también el RTO.</dd></div><div><dt>Dónde lo vio</dt><dd>Refuerza la Unidad 2 · diapositivas 46-47 (BIA, RTO/RPO y DRP).</dd></div></dl></div>      <div class="vid-meta"><span>🎬 <strong>Fundamentos de continuidad de negocio y DRP</strong> · Andrés Hurtado · Sartre Solutions · 12 min</span><a href="https://www.youtube.com/watch?v=g4yAKTuHZl0" target="_blank" rel="noopener">Ver en YouTube ↗</a></div>
+<div id="vid-note"></div>
+<div class="vid-wrap" id="vid-wrap"><div id="ytp"></div></div>
+<p class="vq-status" id="vq-status" style="margin:.5rem 0;"></p>
+<div class="vq-stage">
+<div class="vq" id="vq_v_q1"><div class="vq-h">Pregunta 1 de 4 · minuto 2:12</div><div class="vq-q"><label for="v_q1" style="display:inline;margin:0;font-size:inherit;color:inherit;">Según el video, ¿qué define el RPO (Recovery Point Objective)?</label></div><select id="v_q1" hidden aria-hidden="true"><option value=""></option><option value="A. El costo mensual del respaldo">A. El costo mensual del respaldo</option><option value="B. La cantidad de usuarios que acceden al sistema">B. La cantidad de usuarios que acceden al sistema</option><option value="C. El punto en el tiempo al que se pueden recuperar los datos, es decir, cuánta información se puede perder">C. El punto en el tiempo al que se pueden recuperar los datos, es decir, cuánta información se puede perder</option><option value="D. El tiempo máximo que se tarda en reiniciar un servidor">D. El tiempo máximo que se tarda en reiniciar un servidor</option></select><div class="choice-group" data-for="v_q1"><button type="button" class="choice-btn" data-v="A. El costo mensual del respaldo"><span class="ltr">A.</span><span>El costo mensual del respaldo</span></button><button type="button" class="choice-btn" data-v="B. La cantidad de usuarios que acceden al sistema"><span class="ltr">B.</span><span>La cantidad de usuarios que acceden al sistema</span></button><button type="button" class="choice-btn" data-v="C. El punto en el tiempo al que se pueden recuperar los datos, es decir, cuánta información se puede perder"><span class="ltr">C.</span><span>El punto en el tiempo al que se pueden recuperar los datos, es decir, cuánta información se puede perder</span></button><button type="button" class="choice-btn" data-v="D. El tiempo máximo que se tarda en reiniciar un servidor"><span class="ltr">D.</span><span>El tiempo máximo que se tarda en reiniciar un servidor</span></button></div><div class="choice-fb" id="v_q1_fb" aria-live="polite"></div><button type="button" class="btn-primary vq-next" id="v_q1_next">▶ Continuar el video</button></div>
+<div class="vq" id="vq_v_q2"><div class="vq-h">Pregunta 2 de 4 · minuto 3:16</div><div class="vq-q"><label for="v_q2" style="display:inline;margin:0;font-size:inherit;color:inherit;">El video dice que hoy existen soluciones que permiten reducir el RPO. ¿Cuáles?</label></div><select id="v_q2" hidden aria-hidden="true"><option value=""></option><option value="A. Copias de seguridad continuas, que permiten volver atrás pocos minutos en lugar de esperar al respaldo de 8 o 24 horas antes">A. Copias de seguridad continuas, que permiten volver atrás pocos minutos en lugar de esperar al respaldo de 8 o 24 horas antes</option><option value="B. Hacer un solo respaldo mensual">B. Hacer un solo respaldo mensual</option><option value="C. Apagar los servidores por las noches">C. Apagar los servidores por las noches</option><option value="D. Guardar copias solo en papel">D. Guardar copias solo en papel</option></select><div class="choice-group" data-for="v_q2"><button type="button" class="choice-btn" data-v="A. Copias de seguridad continuas, que permiten volver atrás pocos minutos en lugar de esperar al respaldo de 8 o 24 horas antes"><span class="ltr">A.</span><span>Copias de seguridad continuas, que permiten volver atrás pocos minutos en lugar de esperar al respaldo de 8 o 24 horas antes</span></button><button type="button" class="choice-btn" data-v="B. Hacer un solo respaldo mensual"><span class="ltr">B.</span><span>Hacer un solo respaldo mensual</span></button><button type="button" class="choice-btn" data-v="C. Apagar los servidores por las noches"><span class="ltr">C.</span><span>Apagar los servidores por las noches</span></button><button type="button" class="choice-btn" data-v="D. Guardar copias solo en papel"><span class="ltr">D.</span><span>Guardar copias solo en papel</span></button></div><div class="choice-fb" id="v_q2_fb" aria-live="polite"></div><button type="button" class="btn-primary vq-next" id="v_q2_next">▶ Continuar el video</button></div>
+<div class="vq" id="vq_v_q3"><div class="vq-h">Pregunta 3 de 4 · minuto 5:18</div><div class="vq-q"><label for="v_q3" style="display:inline;margin:0;font-size:inherit;color:inherit;">Según el video, ¿qué indica el RTO (objetivo de tiempo de recuperación)?</label></div><select id="v_q3" hidden aria-hidden="true"><option value=""></option><option value="A. El número de servidores del centro de datos">A. El número de servidores del centro de datos</option><option value="B. Qué tan rápido se necesita recuperar el servicio: una hora, seis horas, un día…">B. Qué tan rápido se necesita recuperar el servicio: una hora, seis horas, un día…</option><option value="C. Qué datos se perderán en un desastre">C. Qué datos se perderán en un desastre</option><option value="D. Cuántas copias de seguridad se guardan">D. Cuántas copias de seguridad se guardan</option></select><div class="choice-group" data-for="v_q3"><button type="button" class="choice-btn" data-v="A. El número de servidores del centro de datos"><span class="ltr">A.</span><span>El número de servidores del centro de datos</span></button><button type="button" class="choice-btn" data-v="B. Qué tan rápido se necesita recuperar el servicio: una hora, seis horas, un día…"><span class="ltr">B.</span><span>Qué tan rápido se necesita recuperar el servicio: una hora, seis horas, un día…</span></button><button type="button" class="choice-btn" data-v="C. Qué datos se perderán en un desastre"><span class="ltr">C.</span><span>Qué datos se perderán en un desastre</span></button><button type="button" class="choice-btn" data-v="D. Cuántas copias de seguridad se guardan"><span class="ltr">D.</span><span>Cuántas copias de seguridad se guardan</span></button></div><div class="choice-fb" id="v_q3_fb" aria-live="polite"></div><button type="button" class="btn-primary vq-next" id="v_q3_next">▶ Continuar el video</button></div>
+<div class="vq" id="vq_v_q4"><div class="vq-h">Pregunta 4 de 4 · minuto 7:38</div><div class="vq-q"><label for="v_q4" style="display:inline;margin:0;font-size:inherit;color:inherit;">¿En qué consiste, según el video, una solución de continuidad de negocio?</label></div><select id="v_q4" hidden aria-hidden="true"><option value=""></option><option value="A. En comprar un servidor más grande">A. En comprar un servidor más grande</option><option value="B. En replicar datos y aplicaciones hacia un sistema activo en espera (sitio alterno) para seguir operando durante el desastre">B. En replicar datos y aplicaciones hacia un sistema activo en espera (sitio alterno) para seguir operando durante el desastre</option><option value="C. En guardar un respaldo en un disco externo y restaurarlo después">C. En guardar un respaldo en un disco externo y restaurarlo después</option><option value="D. En esperar a que termine el desastre para reiniciar">D. En esperar a que termine el desastre para reiniciar</option></select><div class="choice-group" data-for="v_q4"><button type="button" class="choice-btn" data-v="A. En comprar un servidor más grande"><span class="ltr">A.</span><span>En comprar un servidor más grande</span></button><button type="button" class="choice-btn" data-v="B. En replicar datos y aplicaciones hacia un sistema activo en espera (sitio alterno) para seguir operando durante el desastre"><span class="ltr">B.</span><span>En replicar datos y aplicaciones hacia un sistema activo en espera (sitio alterno) para seguir operando durante el desastre</span></button><button type="button" class="choice-btn" data-v="C. En guardar un respaldo en un disco externo y restaurarlo después"><span class="ltr">C.</span><span>En guardar un respaldo en un disco externo y restaurarlo después</span></button><button type="button" class="choice-btn" data-v="D. En esperar a que termine el desastre para reiniciar"><span class="ltr">D.</span><span>En esperar a que termine el desastre para reiniciar</span></button></div><div class="choice-fb" id="v_q4_fb" aria-live="polite"></div><button type="button" class="btn-primary vq-next" id="v_q4_next">▶ Continuar el video</button></div>
+</div>
+    </section>
+
+<section id="paso2" class="card">
+      <span class="step-badge">Paso 2 · 8 min</span><span class="step-points">Vale 15 pts</span>
       <h1>Verifique su comprensión</h1>
-      <p><strong>Concepto:</strong> seis preguntas de selección sobre centros de datos, nube y continuidad.</p>
-      <div class="field"><label for="p1_q1">1. ¿Qué disponibilidad ofrece un centro de datos Tier III?</label><select id="p1_q1"><option value="">Seleccione…</option><option value="99.671 %">99.671 %</option><option value="99.982 %">99.982 %</option><option value="99.995 %">99.995 %</option><option value="100 %">100 %</option></select></div>
+<div class="learn"><div class="learn-h">📘 Aprenda primero</div><dl><div><dt>Concepto</dt><dd>Centro de datos, virtualización y nube híbrida: dónde vive cada sistema.</dd></div><div><dt>Definición</dt><dd>El Tier mide la disponibilidad del centro de datos (Tier III = mantenimiento concurrente, 99.982 %). El PUE mide su eficiencia energética (conviene menos de 1.5). La virtualización permite mover máquinas virtuales encendidas (vMotion). En la nube, PaaS entrega, por ejemplo, una base de datos gestionada. En una distribuidora, SCADA/ADMS/EMS se quedan on-premise por latencia y criticidad; y los datos fuera del país requieren cláusulas de soberanía.</dd></div><div><dt>Ejemplo</dt><dd class="ej">El portal de clientes y el análisis de datos pueden subir a la nube (escalan según demanda); el SCADA se queda en el centro de datos propio, porque no puede depender de un enlace a internet.</dd></div><div><dt>Dónde lo vio</dt><dd>Unidad 2 · diapositivas 35 (Tiers), 36 (PUE), 37 (virtualización), 41 (IaaS, PaaS, SaaS), 42 (nube híbrida) y 44-45 (soberanía y clasificación de datos).</dd></div></dl></div>      <div class="field"><label for="p1_q1">1. ¿Qué disponibilidad ofrece un centro de datos Tier III?</label><select id="p1_q1"><option value="">Seleccione…</option><option value="99.671 %">99.671 %</option><option value="99.982 %">99.982 %</option><option value="99.995 %">99.995 %</option><option value="100 %">100 %</option></select></div>
       <div class="field"><label for="p1_q2">2. ¿Qué carga debe permanecer prioritariamente on-premise en una distribuidora?</label><select id="p1_q2"><option value="">Seleccione…</option><option value="SCADA / ADMS / EMS">SCADA / ADMS / EMS</option><option value="Portal de autoservicio">Portal de autoservicio</option><option value="Chatbot comercial">Chatbot comercial</option><option value="Correo de marketing">Correo de marketing</option></select></div>
       <div class="field"><label for="p1_q3">3. ¿Qué mecanismo mueve una máquina virtual encendida entre servidores sin cortar el servicio?</label><select id="p1_q3"><option value="">Seleccione…</option><option value="vMotion / Live Migration">vMotion / Live Migration</option><option value="Un respaldo diario">Un respaldo diario</option><option value="Reiniciar el servidor">Reiniciar el servidor</option><option value="Copiar a USB">Copiar a USB</option></select></div>
       <div class="field"><label for="p1_q4">4. ¿Qué modelo de servicio en la nube es una base de datos gestionada como servicio?</label><select id="p1_q4"><option value="">Seleccione…</option><option value="IaaS">IaaS</option><option value="PaaS">PaaS</option><option value="SaaS">SaaS</option><option value="On-premise">On-premise</option></select></div>
@@ -462,11 +521,10 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
       <div class="field"><label for="p1_q6">6. ¿Qué valor de PUE debe aspirar a tener una utility eléctrica?</label><select id="p1_q6"><option value="">Seleccione…</option><option value="Menor a 1.5">Menor a 1.5</option><option value="Mayor a 3">Mayor a 3</option><option value="Exactamente 5">Exactamente 5</option><option value="No se mide">No se mide</option></select></div>
     </section>
 
-<section id="paso2" class="card">
-      <span class="step-badge">Paso 2 · 10 min</span><span class="step-points">Vale 25 pts</span>
+<section id="paso3" class="card">
+      <span class="step-badge">Paso 3 · 6 min</span><span class="step-points">Vale 15 pts</span>
       <h1>Asigne el nivel BIA (1 a 4) a cada sistema</h1>
-      <p><strong>Concepto:</strong> clasifique cada sistema según su criticidad.</p>
-      <div class="field"><label for="p2_s1">SCADA / ADMS / telecomunicaciones de despacho</label><select id="p2_s1"><option value="">Seleccione…</option><option value="Nivel 1 · Ultra crítico">Nivel 1 · Ultra crítico</option><option value="Nivel 2 · Crítico">Nivel 2 · Crítico</option><option value="Nivel 3 · Esencial">Nivel 3 · Esencial</option><option value="Nivel 4 · Soporte">Nivel 4 · Soporte</option></select></div>
+<div class="learn"><div class="learn-h">📘 Aprenda primero</div><dl><div><dt>Concepto</dt><dd>BIA: asignar el nivel de criticidad (1 a 4) a cada sistema.</dd></div><div><dt>Definición</dt><dd>El Análisis de Impacto en el Negocio (BIA) mide qué pasa si un sistema se detiene y lo clasifica: Nivel 1 ultra crítico (SCADA/ADMS), Nivel 2 crítico (OMS, call center de averías), Nivel 3 esencial (CIS, ERP), Nivel 4 soporte (correo, intranet). Cada nivel tiene su RTO (cuánto tiempo puede estar caído) y su RPO (cuántos datos puede perder).</dd></div><div><dt>Ejemplo</dt><dd class="ej">Si el ERP está caído 4 horas, se retrasan compras; si el SCADA está caído 4 horas, se pierde la operación de la red y la seguridad de las cuadrillas: por eso uno es Nivel 3 y el otro Nivel 1.</dd></div><div><dt>Dónde lo vio</dt><dd>Unidad 2 · diapositiva 46 (BIA y criticidad: RTO y RPO) y Unidad 4 · diapositivas 9-14 (BIA y niveles de criticidad).</dd></div></dl></div>      <div class="field"><label for="p2_s1">SCADA / ADMS / telecomunicaciones de despacho</label><select id="p2_s1"><option value="">Seleccione…</option><option value="Nivel 1 · Ultra crítico">Nivel 1 · Ultra crítico</option><option value="Nivel 2 · Crítico">Nivel 2 · Crítico</option><option value="Nivel 3 · Esencial">Nivel 3 · Esencial</option><option value="Nivel 4 · Soporte">Nivel 4 · Soporte</option></select></div>
       <div class="field"><label for="p2_s2">OMS (gestión de interrupciones)</label><select id="p2_s2"><option value="">Seleccione…</option><option value="Nivel 1 · Ultra crítico">Nivel 1 · Ultra crítico</option><option value="Nivel 2 · Crítico">Nivel 2 · Crítico</option><option value="Nivel 3 · Esencial">Nivel 3 · Esencial</option><option value="Nivel 4 · Soporte">Nivel 4 · Soporte</option></select></div>
       <div class="field"><label for="p2_s3">Call center de recepción de averías</label><select id="p2_s3"><option value="">Seleccione…</option><option value="Nivel 1 · Ultra crítico">Nivel 1 · Ultra crítico</option><option value="Nivel 2 · Crítico">Nivel 2 · Crítico</option><option value="Nivel 3 · Esencial">Nivel 3 · Esencial</option><option value="Nivel 4 · Soporte">Nivel 4 · Soporte</option></select></div>
       <div class="field"><label for="p2_s4">CIS (facturación y cobro)</label><select id="p2_s4"><option value="">Seleccione…</option><option value="Nivel 1 · Ultra crítico">Nivel 1 · Ultra crítico</option><option value="Nivel 2 · Crítico">Nivel 2 · Crítico</option><option value="Nivel 3 · Esencial">Nivel 3 · Esencial</option><option value="Nivel 4 · Soporte">Nivel 4 · Soporte</option></select></div>
@@ -474,28 +532,26 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
       <div class="field"><label for="p2_s6">Correo corporativo e intranet</label><select id="p2_s6"><option value="">Seleccione…</option><option value="Nivel 1 · Ultra crítico">Nivel 1 · Ultra crítico</option><option value="Nivel 2 · Crítico">Nivel 2 · Crítico</option><option value="Nivel 3 · Esencial">Nivel 3 · Esencial</option><option value="Nivel 4 · Soporte">Nivel 4 · Soporte</option></select></div>
     </section>
 
-<section id="paso3" class="card">
-      <span class="step-badge">Paso 3 · 15 min</span><span class="step-points">Vale 30 pts</span>
-      <h1>Caso: un huracán sobre la región este</h1>
-      <p><strong>Concepto:</strong> plantee ubicación, recuperación y riesgos (escenario ilustrativo).</p>
-      <div class="alert gold"><strong>Escenario ilustrativo:</strong> se pronostica un huracán sobre la región este. EDEESTE debe asegurar la continuidad de sus sistemas y revisar qué datos y servicios pueden estar en la nube.</div>
-      <div class="field"><label for="p3_a">a) Indique qué sistemas dejaría on-premise y cuáles podrían estar en la nube, con una razón para cada grupo <span class="wc" data-for="p3_a">0 palabras</span></label><textarea class="tall" id="p3_a" placeholder="On-premise: ... porque...; en la nube: ... porque..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="p3_a">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p3_a"></span></div></div>
-      <div class="field"><label for="p3_b">b) Defina RTO y RPO para el SCADA y la estrategia de replicación (síncrona o asíncrona) y el centro de respaldo <span class="wc" data-for="p3_b">0 palabras</span></label><textarea class="tall" id="p3_b" placeholder="El RTO sería... el RPO...; usaría replicación... con un centro de respaldo a..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="p3_b">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p3_b"></span></div></div>
-      <div class="field"><label for="p3_c">c) Explique un riesgo de usar una nube extranjera sin cláusulas de soberanía y cómo lo mitigaría <span class="wc" data-for="p3_c">0 palabras</span></label><textarea class="tall" id="p3_c" placeholder="El riesgo es... lo mitigaría con..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="p3_c">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p3_c"></span></div></div>
-    </section>
-
 <section id="paso4" class="card">
-      <span class="step-badge">Paso 4 · 5 min</span><span class="step-points">Vale 10 pts</span>
-      <h1>Practique con Nicole</h1>
-      <p><strong>Concepto:</strong> pongamos a prueba lo aprendido conversando con Nicole.</p>
-      <div class="sandbox-box"><strong>🧪 Pregúntele a Nicole:</strong><p style="font-style:italic; margin:.5rem 0;">Ej: "¿Por qué el SCADA no se lleva a la nube pública?"</p><input type="text" id="sandbox_input" placeholder="Escriba aquí su pregunta sobre centros de datos, nube híbrida, BIA, RTO o RPO..." style="margin-bottom:.75rem;"><button class="btn-primary" id="btn-sandbox" type="button">🧪 Enviar a Nicole y ver la respuesta</button><div class="sandbox-response" id="sandbox-response"></div></div><div class="field"><label for="p4_reflexion">¿Qué le respondió Nicole y le pareció acertado? <span class="wc" data-for="p4_reflexion">0 palabras</span></label><textarea class="tall" id="p4_reflexion" placeholder="Nicole respondió que..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="p4_reflexion">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p4_reflexion"></span></div></div><div class="field"><label for="p4_mejora">¿Qué otra pregunta del tema le gustaría explorar? <span class="wc" data-for="p4_mejora">0 palabras</span></label><textarea class="tall" id="p4_mejora" placeholder="Me gustaría preguntar sobre..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="p4_mejora">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p4_mejora"></span></div></div>
+      <span class="step-badge">Paso 4 · 20 min</span><span class="step-points">Vale 35 pts</span>
+      <h1>Caso de decisiones: Operación Ciclón-X</h1>
+<div class="learn"><div class="learn-h">📘 Aprenda primero</div><dl><div><dt>Concepto</dt><dd>Decidir infraestructura y continuidad antes del desastre.</dd></div><div><dt>Definición</dt><dd>Ante un huracán, las decisiones de infraestructura se toman con el BIA: qué sistemas son críticos, qué RTO/RPO exigen y qué estrategia (sitio alterno, replicación, nube) los cumple dentro del presupuesto. La mejor arquitectura no es la más cara, sino la que cumple el RTO/RPO de cada nivel.</dd></div><div><dt>Ejemplo</dt><dd class="ej">Replicar todo en tiempo real a otra región cuesta y congestiona el enlace; replicar de forma síncrona solo los sistemas Nivel 1 y respaldar el resto con menor frecuencia cumple los objetivos con el mismo enlace.</dd></div><div><dt>Dónde lo vio</dt><dd>Unidad 2 · diapositivas 35, 42, 46, 47 y 49 (caso: un huracán sobre el centro de control).</dd></div></dl></div>      <div class="case-box"><span class="tag">Caso ficticio</span><h3>Operación Ciclón-X: nube, centro de datos y continuidad en CaribeGrid (empresa ficticia)</h3><p>CaribGrid abastece a 450,000 clientes con 2,500 km de redes aéreas y subterráneas. Dispone de USD 3.5 millones y 6 meses para modernizar su infraestructura de TI antes de la temporada ciclónica.</p><p>Operaciones exige mantener el control local del SCADA por latencia y autonomía; TI y Finanzas impulsan migrar masivamente a la nube para bajar costos fijos. Se pronostica un huracán categoría 4 que llegará en 48 horas. Decida en tres momentos.</p></div>
+      <div class="decision"><div class="d-title"><label for="d1" style="display:inline;margin:0;font-size:inherit;color:inherit;">Decisión 1 · Nivel del centro de datos principal</label></div><div class="d-sit">El centro de datos aloja el núcleo SCADA/EMS y las telecomunicaciones. Finanzas propone quedarse en Tier II; Operaciones exige un Tier IV certificado.</div><select id="d1" hidden aria-hidden="true"><option value=""></option><option value="A. Mantener Tier II con mejoras menores y destinar el resto a licencias.">A. Mantener Tier II con mejoras menores y destinar el resto a licencias.</option><option value="B. Construir Tier IV con tolerancia total a fallos y rutas físicamente separadas (2N).">B. Construir Tier IV con tolerancia total a fallos y rutas físicamente separadas (2N).</option><option value="C. Diseñar Tier III: mantenibilidad concurrente con componentes redundantes N+1 y doble vía de distribución.">C. Diseñar Tier III: mantenibilidad concurrente con componentes redundantes N+1 y doble vía de distribución.</option></select><div class="choice-group" data-for="d1"><button type="button" class="choice-btn" data-v="A. Mantener Tier II con mejoras menores y destinar el resto a licencias."><span class="ltr">A.</span><span>Mantener Tier II con mejoras menores y destinar el resto a licencias.</span></button><button type="button" class="choice-btn" data-v="B. Construir Tier IV con tolerancia total a fallos y rutas físicamente separadas (2N)."><span class="ltr">B.</span><span>Construir Tier IV con tolerancia total a fallos y rutas físicamente separadas (2N).</span></button><button type="button" class="choice-btn" data-v="C. Diseñar Tier III: mantenibilidad concurrente con componentes redundantes N+1 y doble vía de distribución."><span class="ltr">C.</span><span>Diseñar Tier III: mantenibilidad concurrente con componentes redundantes N+1 y doble vía de distribución.</span></button></div><div class="choice-fb" id="d1_fb" aria-live="polite"></div></div>
+      <div class="decision"><div class="d-title"><label for="d2" style="display:inline;margin:0;font-size:inherit;color:inherit;">Decisión 2 · Qué va en la nube y qué se queda en casa</label></div><div class="d-sit">Finanzas pide llevar el 100 % de los sistemas a una región de nube pública internacional para eliminar servidores locales.</div><select id="d2" hidden aria-hidden="true"><option value=""></option><option value="A. Nube híbrida: SCADA/OT de baja latencia y procesamiento local on-premise; ERP, CRM, facturación y analítica en la nube.">A. Nube híbrida: SCADA/OT de baja latencia y procesamiento local on-premise; ERP, CRM, facturación y analítica en la nube.</option><option value="B. Migrar todo, incluido el SCADA y la telemetría, a una región de nube fuera del país.">B. Migrar todo, incluido el SCADA y la telemetría, a una región de nube fuera del país.</option><option value="C. Mantener el 100 % en el centro de datos propio y rechazar cualquier servicio de nube.">C. Mantener el 100 % en el centro de datos propio y rechazar cualquier servicio de nube.</option></select><div class="choice-group" data-for="d2"><button type="button" class="choice-btn" data-v="A. Nube híbrida: SCADA/OT de baja latencia y procesamiento local on-premise; ERP, CRM, facturación y analítica en la nube."><span class="ltr">A.</span><span>Nube híbrida: SCADA/OT de baja latencia y procesamiento local on-premise; ERP, CRM, facturación y analítica en la nube.</span></button><button type="button" class="choice-btn" data-v="B. Migrar todo, incluido el SCADA y la telemetría, a una región de nube fuera del país."><span class="ltr">B.</span><span>Migrar todo, incluido el SCADA y la telemetría, a una región de nube fuera del país.</span></button><button type="button" class="choice-btn" data-v="C. Mantener el 100 % en el centro de datos propio y rechazar cualquier servicio de nube."><span class="ltr">C.</span><span>Mantener el 100 % en el centro de datos propio y rechazar cualquier servicio de nube.</span></button></div><div class="choice-fb" id="d2_fb" aria-live="polite"></div></div>
+      <div class="decision"><div class="d-title"><label for="d3" style="display:inline;margin:0;font-size:inherit;color:inherit;">Decisión 3 · Faltan 48 horas para el huracán</label></div><div class="d-sit">El BIA fija para los sistemas Nivel 1 (SCADA, base de datos ERP, directorio) un RTO menor a 1 hora y RPO cercano a cero. Hay que definir la estrategia de conmutación antes de que falle la red principal.</div><select id="d3" hidden aria-hidden="true"><option value=""></option><option value="A. Replicar toda la infraestructura, crítica o no, a la nube por el internet público sin priorización.">A. Replicar toda la infraestructura, crítica o no, a la nube por el internet público sin priorización.</option><option value="B. Respaldo local en cintas y discos y apagado preventivo total de los servidores.">B. Respaldo local en cintas y discos y apagado preventivo total de los servidores.</option><option value="C. Replicación continua y conmutación automática (failover) de los sistemas Nivel 1 a un entorno de recuperación aislado, con secuencia de restauración por niveles y operación local autónoma.">C. Replicación continua y conmutación automática (failover) de los sistemas Nivel 1 a un entorno de recuperación aislado, con secuencia de restauración por niveles y operación local autónoma.</option></select><div class="choice-group" data-for="d3"><button type="button" class="choice-btn" data-v="A. Replicar toda la infraestructura, crítica o no, a la nube por el internet público sin priorización."><span class="ltr">A.</span><span>Replicar toda la infraestructura, crítica o no, a la nube por el internet público sin priorización.</span></button><button type="button" class="choice-btn" data-v="B. Respaldo local en cintas y discos y apagado preventivo total de los servidores."><span class="ltr">B.</span><span>Respaldo local en cintas y discos y apagado preventivo total de los servidores.</span></button><button type="button" class="choice-btn" data-v="C. Replicación continua y conmutación automática (failover) de los sistemas Nivel 1 a un entorno de recuperación aislado, con secuencia de restauración por niveles y operación local autónoma."><span class="ltr">C.</span><span>Replicación continua y conmutación automática (failover) de los sistemas Nivel 1 a un entorno de recuperación aislado, con secuencia de restauración por niveles y operación local autónoma.</span></button></div><div class="choice-fb" id="d3_fb" aria-live="polite"></div></div>
+      <div class="field"><label for="d_just">Si el huracán destruye el 60 % de la red aérea e inunda el centro de datos secundario, justifique ante la junta el orden de recuperación y por qué el SCADA siguió operando localmente mientras el ERP se restauraba en la nube. <span class="wc" data-for="d_just">0 palabras</span></label><textarea class="tall" id="d_just" placeholder="El BIA define niveles: primero se recuperó... El SCADA se mantuvo local porque... El ERP en la nube se restauró... RTO y RPO..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="d_just">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="d_just"></span></div></div>
     </section>
 
 <section id="paso5" class="card">
       <span class="step-badge">Paso 5 · 5 min</span><span class="step-points">Vale 10 pts</span>
+      <h1>Practique con Nicole</h1>
+<div class="learn"><div class="learn-h">📘 Aprenda primero</div><dl><div><dt>Concepto</dt><dd>Preguntar bien a un asistente virtual de IA.</dd></div><div><dt>Definición</dt><dd>Nicole es la asistente virtual de la práctica: responde dudas sobre los conceptos del encuentro. Una buena pregunta es específica, da el contexto (una distribuidora, una subestación) y pide un ejemplo o una comparación.</dd></div><div><dt>Ejemplo</dt><dd class="ej">Pregunta débil: «explícame SCADA». Pregunta sólida: «¿Qué diferencia hay entre dos sistemas de una distribuidora?»  — la segunda obtiene una respuesta aplicada y comparada.</dd></div></dl></div>      <div class="sandbox-box"><strong>🧪 Pregúntele a Nicole:</strong><p style="font-style:italic; margin:.5rem 0;">Ej: "¿Por qué el SCADA no se lleva a la nube pública?"</p><input type="text" id="sandbox_input" placeholder="Escriba aquí su pregunta sobre centros de datos, nube híbrida, BIA, RTO o RPO..." style="margin-bottom:.75rem;"><button class="btn-primary" id="btn-sandbox" type="button">🧪 Enviar a Nicole y ver la respuesta</button><div class="sandbox-response" id="sandbox-response"></div></div><div class="field"><label for="p4_reflexion">¿Qué le respondió Nicole y le pareció acertado? <span class="wc" data-for="p4_reflexion">0 palabras</span></label><textarea class="tall" id="p4_reflexion" placeholder="Nicole respondió que..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="p4_reflexion">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p4_reflexion"></span></div></div><div class="field"><label for="p4_mejora">¿Qué otra pregunta del tema le gustaría explorar? <span class="wc" data-for="p4_mejora">0 palabras</span></label><textarea class="tall" id="p4_mejora" placeholder="Me gustaría preguntar sobre..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="p4_mejora">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p4_mejora"></span></div></div>
+    </section>
+
+<section id="paso6" class="card">
+      <span class="step-badge">Paso 6 · 3 min</span><span class="step-points">Vale 5 pts</span>
       <h1>Reflexión final</h1>
-      <p><strong>Concepto:</strong> cierre con una reflexión breve sobre lo aprendido.</p>
-      <div class="field"><label for="p5_r1">¿Qué aprendió sobre infraestructura y continuidad que no sabía antes? <span class="wc" data-for="p5_r1">0 palabras</span></label><textarea class="tall" id="p5_r1" placeholder="Aprendí que..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="p5_r1">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p5_r1"></span></div></div>
+<div class="learn"><div class="learn-h">📘 Aprenda primero</div><dl><div><dt>Concepto</dt><dd>Reflexión final (metacognición).</dd></div><div><dt>Definición</dt><dd>Es detenerse a explicar con sus propias palabras qué comprendió y dónde lo aplicará. Convierte lo practicado en aprendizaje que se recuerda y se transfiere al trabajo.</dd></div><div><dt>Ejemplo</dt><dd class="ej">«Aprendí que un sistema corporativo no debe conectarse directo a la red de control. Esta semana revisaré en mi área qué sistemas intercambian datos y si pasan por una zona intermedia.»</dd></div></dl></div>      <div class="field"><label for="p5_r1">¿Qué aprendió sobre infraestructura y continuidad que no sabía antes? <span class="wc" data-for="p5_r1">0 palabras</span></label><textarea class="tall" id="p5_r1" placeholder="Aprendí que..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="p5_r1">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p5_r1"></span></div></div>
       <div class="field"><label for="p5_r2">¿Qué sistema de su área revisaría primero con la matriz BIA? <span class="wc" data-for="p5_r2">0 palabras</span></label><textarea class="tall" id="p5_r2" placeholder="Esta semana pienso aplicarlo en..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="p5_r2">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p5_r2"></span></div></div>
     </section>
 
@@ -516,7 +572,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
       <div id="submit-zone">
         <span class="step-badge">Paso final</span>
         <h1 style="font-size:1.4rem;">Enviar y calificar mi trabajo</h1>
-        <p>El sistema revisará automáticamente sus 5 pasos contra la rúbrica oficial y le mostrará su nota, el detalle por criterio y retroalimentación personalizada.</p>
+        <p>El sistema revisará automáticamente sus 6 pasos contra la rúbrica oficial y le mostrará su nota, el detalle por criterio y retroalimentación personalizada.</p>
         <button class="btn-primary" id="btn-submit" type="button">📤 Enviar y Calificar mi Trabajo</button>
       </div>
 
@@ -841,7 +897,7 @@ var io = new IntersectionObserver(function(entries){
 sections.forEach(function(s){ io.observe(s); });
 
 /* ---------- TEMPORIZADOR DE REFERENCIA (no cierra la práctica) ---------- */
-var TIMER_MINUTES = 50;
+var TIMER_MINUTES = 60;
 var TIMER_KEY = 'tp_iarrhci_u1_deadline';
 var SOUND_MUTE_KEY = 'tp_iarrhci_sound_muted';
 var soundMuted = localStorage.getItem(SOUND_MUTE_KEY) === '1';
@@ -1029,11 +1085,12 @@ function escapeHtml(s){ var d = document.createElement('div'); d.textContent = n
 
 /* ---------- CAMPOS DE CADA PASO ---------- */
 var STEP_FIELDS = {
-  paso1: ['p1_q1','p1_q2','p1_q3','p1_q4','p1_q5','p1_q6'],
-  paso2: ['p2_s1','p2_s2','p2_s3','p2_s4','p2_s5','p2_s6'],
-  paso3: ['p3_a','p3_b','p3_c'],
-  paso4: ['p4_reflexion','p4_mejora'],
-  paso5: ['p5_r1','p5_r2']
+  paso1: ['v_q1','v_q2','v_q3','v_q4'],
+  paso2: ['p1_q1','p1_q2','p1_q3','p1_q4','p1_q5','p1_q6'],
+  paso3: ['p2_s1','p2_s2','p2_s3','p2_s4','p2_s5','p2_s6'],
+  paso4: ['d1','d2','d3','d_just'],
+  paso5: ['p4_reflexion','p4_mejora'],
+  paso6: ['p5_r1','p5_r2']
 };
 
 /* ---------- WORD COUNTERS ---------- */
@@ -1184,11 +1241,12 @@ updateProgress();
 
 /* ---------- RÚBRICA TABLE ---------- */
 var RUBRICA = [
-  {n:1, criterio:"Verifique su comprensión (Paso 1)", indicador:"Seis preguntas de selección sobre centros de datos, nube y continuidad.", pts:25},
-  {n:2, criterio:"Asigne el nivel BIA (1 a 4) a cada sistema (Paso 2)", indicador:"Clasifique cada sistema según su criticidad.", pts:25},
-  {n:3, criterio:"Caso: un huracán sobre la región este (Paso 3)", indicador:"Plantee ubicación, recuperación y riesgos (escenario ilustrativo).", pts:30},
-  {n:4, criterio:"Practique con Nicole (Paso 4)", indicador:"Pongamos a prueba lo aprendido conversando con Nicole.", pts:10},
-  {n:5, criterio:"Reflexión final (Paso 5)", indicador:"Cierre con una reflexión breve sobre lo aprendido.", pts:10}
+  {n:1, criterio:"Video con preguntas: Continuidad y DRP (Paso 1)", indicador:"Mire el video y responda las preguntas que lo pausan.", pts:20},
+  {n:2, criterio:"Verifique su comprensión (Paso 2)", indicador:"Seis preguntas de selección sobre centros de datos, nube y continuidad.", pts:15},
+  {n:3, criterio:"Asigne el nivel BIA (1 a 4) a cada sistema (Paso 3)", indicador:"Clasifique cada sistema según su criticidad.", pts:15},
+  {n:4, criterio:"Caso de decisiones: Operación Ciclón-X (Paso 4)", indicador:"Tome decisiones en un caso ficticio y justifíquelas con la teoría.", pts:35},
+  {n:5, criterio:"Practique con Nicole (Paso 5)", indicador:"Pongamos a prueba lo aprendido conversando con Nicole.", pts:10},
+  {n:6, criterio:"Reflexión final (Paso 6)", indicador:"Cierre con una reflexión breve sobre lo aprendido.", pts:5}
 ];
 document.getElementById('rubrica-body').innerHTML = RUBRICA.map(function(r){
   return '<tr><td class="label-cell">'+r.n+'</td><td>'+r.criterio+'</td><td>'+r.indicador+'</td><td class="label-cell">'+r.pts+'</td></tr>';
@@ -1215,12 +1273,14 @@ function buildCriterion(title, maxPoints, items){
   return { title:title, maxPoints:maxPoints, score:score, strong:strong, mid:mid, weak:weak };
 }
 
-var ANSWER_KEY = {"p1_q1": "99.982 %", "p1_q2": "SCADA / ADMS / EMS", "p1_q3": "vMotion / Live Migration", "p1_q4": "PaaS", "p1_q5": "Otra jurisdicción y pérdida de control sobre los datos", "p1_q6": "Menor a 1.5", "p2_s1": "Nivel 1 · Ultra crítico", "p2_s2": "Nivel 2 · Crítico", "p2_s3": "Nivel 2 · Crítico", "p2_s4": "Nivel 3 · Esencial", "p2_s5": "Nivel 3 · Esencial", "p2_s6": "Nivel 4 · Soporte"};
-var ANSWER_WHY = {"p1_q1": "Tier III: 99.982 % (≈ 1.6 horas al año).", "p1_q2": "Por latencia, autonomía y soberanía de datos.", "p1_q3": "Migración en caliente dentro del clúster de alta disponibilidad.", "p1_q4": "PaaS ofrece una plataforma gestionada (por ejemplo bases de datos).", "p1_q5": "Los datos quedan sujetos a otra jurisdicción y es difícil auditar o salir del servicio.", "p1_q6": "PUE = energía total ÷ energía de los equipos de TI.", "p2_s1": "RTO < 15 min y RPO = 0.", "p2_s2": "RTO < 1-2 h y RPO < 15 min.", "p2_s3": "Se agrupa con el OMS en el nivel crítico.", "p2_s4": "RTO < 8 h y RPO < 1 h.", "p2_s5": "Nivel esencial junto con CIS y EAM.", "p2_s6": "RTO de 24 a 48 horas."};
-var MIN_WORDS = {"p3_a": 40, "p3_b": 35, "p3_c": 30, "p5_r1": 20, "p5_r2": 20, "p4_reflexion": 20, "p4_mejora": 20};
+var CHOICE_SCORE = {"d1": {"A. Mantener Tier II con mejoras menores y destinar el resto a licencias.": 0.45, "B. Construir Tier IV con tolerancia total a fallos y rutas físicamente separadas (2N).": 0.15, "C. Diseñar Tier III: mantenibilidad concurrente con componentes redundantes N+1 y doble vía de distribución.": 1}, "d2": {"A. Nube híbrida: SCADA/OT de baja latencia y procesamiento local on-premise; ERP, CRM, facturación y analítica en la nube.": 1, "B. Migrar todo, incluido el SCADA y la telemetría, a una región de nube fuera del país.": 0.15, "C. Mantener el 100 % en el centro de datos propio y rechazar cualquier servicio de nube.": 0.5}, "d3": {"A. Replicar toda la infraestructura, crítica o no, a la nube por el internet público sin priorización.": 0.15, "B. Respaldo local en cintas y discos y apagado preventivo total de los servidores.": 0.4, "C. Replicación continua y conmutación automática (failover) de los sistemas Nivel 1 a un entorno de recuperación aislado, con secuencia de restauración por niveles y operación local autónoma.": 1}};
+var ANSWER_KEY = {"v_q1": "C. El punto en el tiempo al que se pueden recuperar los datos, es decir, cuánta información se puede perder", "v_q2": "A. Copias de seguridad continuas, que permiten volver atrás pocos minutos en lugar de esperar al respaldo de 8 o 24 horas antes", "v_q3": "B. Qué tan rápido se necesita recuperar el servicio: una hora, seis horas, un día…", "v_q4": "B. En replicar datos y aplicaciones hacia un sistema activo en espera (sitio alterno) para seguir operando durante el desastre", "p1_q1": "99.982 %", "p1_q2": "SCADA / ADMS / EMS", "p1_q3": "vMotion / Live Migration", "p1_q4": "PaaS", "p1_q5": "Otra jurisdicción y pérdida de control sobre los datos", "p1_q6": "Menor a 1.5", "p2_s1": "Nivel 1 · Ultra crítico", "p2_s2": "Nivel 2 · Crítico", "p2_s3": "Nivel 2 · Crítico", "p2_s4": "Nivel 3 · Esencial", "p2_s5": "Nivel 3 · Esencial", "p2_s6": "Nivel 4 · Soporte", "d1": "C. Diseñar Tier III: mantenibilidad concurrente con componentes redundantes N+1 y doble vía de distribución.", "d2": "A. Nube híbrida: SCADA/OT de baja latencia y procesamiento local on-premise; ERP, CRM, facturación y analítica en la nube.", "d3": "C. Replicación continua y conmutación automática (failover) de los sistemas Nivel 1 a un entorno de recuperación aislado, con secuencia de restauración por niveles y operación local autónoma."};
+var ANSWER_WHY = {"v_q1": "El RPO es el punto de recuperación en el tiempo: hasta qué momento se pueden recuperar los datos (por ejemplo, el último respaldo).", "v_q2": "Con copias continuas se puede regresar a un punto de 5, 10 o 15 minutos antes, en vez de depender del último respaldo nocturno.", "v_q3": "El RTO es el tiempo objetivo para recuperar; depende de la estrategia y de la solución de recuperación elegida.", "v_q4": "La continuidad replica datos y aplicaciones en un sitio alterno en standby; en un desastre se activa ese sitio para mantener la operación.", "p1_q1": "Tier III: 99.982 % (≈ 1.6 horas al año).", "p1_q2": "Por latencia, autonomía y soberanía de datos.", "p1_q3": "Migración en caliente dentro del clúster de alta disponibilidad.", "p1_q4": "PaaS ofrece una plataforma gestionada (por ejemplo bases de datos).", "p1_q5": "Los datos quedan sujetos a otra jurisdicción y es difícil auditar o salir del servicio.", "p1_q6": "PUE = energía total ÷ energía de los equipos de TI.", "p2_s1": "RTO < 15 min y RPO = 0.", "p2_s2": "RTO < 1-2 h y RPO < 15 min.", "p2_s3": "Se agrupa con el OMS en el nivel crítico.", "p2_s4": "RTO < 8 h y RPO < 1 h.", "p2_s5": "Nivel esencial junto con CIS y EAM.", "p2_s6": "RTO de 24 a 48 horas.", "d1": "Tier II exige paradas para mantenimiento; Tier III añade mantenibilidad concurrente; Tier IV agrega tolerancia a fallos con mayor costo y complejidad. Para una utility con plazo y presupuesto acotados, Tier III equilibra disponibilidad y viabilidad.", "d2": "La clasificación de cargas y datos define el lugar: lo que exige baja latencia y operación autónoma (SCADA/OT) permanece on-premise; lo elástico y no crítico en tiempo real (ERP, analítica) se aprovecha en la nube. Es la lógica de la nube híbrida.", "d3": "Las estrategias se derivan del BIA: RTO/RPO por nivel, replicación proporcional a la criticidad y un orden de recuperación priorizado. Replicar todo sin criterio o apagar todo contradice el BIA."};
+var MIN_WORDS = {"d_just": 45, "p5_r1": 20, "p5_r2": 20, "p4_reflexion": 20, "p4_mejora": 20};
 function fieldFrac(id){
   var v = val(id);
   if(!filled(v)) return 0;
+  if(CHOICE_SCORE.hasOwnProperty(id)) return CHOICE_SCORE[id].hasOwnProperty(norm(v)) ? CHOICE_SCORE[id][norm(v)] : 0.2;
   if(ANSWER_KEY.hasOwnProperty(id)) return norm(v) === ANSWER_KEY[id] ? 1 : 0.25;
   if(MIN_WORDS.hasOwnProperty(id)) return clamp01(wordCount(v) / MIN_WORDS[id]);
   return 1;
@@ -1779,6 +1839,108 @@ function fireConfetti(){
 }
 
 
+
+window.CHOICE_DATA = {"d1": {"kind": "decision", "key": "C. Diseñar Tier III: mantenibilidad concurrente con componentes redundantes N+1 y doble vía de distribución.", "why": "Tier II exige paradas para mantenimiento; Tier III añade mantenibilidad concurrente; Tier IV agrega tolerancia a fallos con mayor costo y complejidad. Para una utility con plazo y presupuesto acotados, Tier III equilibra disponibilidad y viabilidad.", "opts": [{"v": "A. Mantener Tier II con mejoras menores y destinar el resto a licencias.", "fb": "Cada mantenimiento de tableros o UPS obliga a apagar SCADA y gestión comercial, y persisten rutas únicas de distribución."}, {"v": "B. Construir Tier IV con tolerancia total a fallos y rutas físicamente separadas (2N).", "fb": "Consume casi todo el presupuesto y supera el plazo: no estará listo para la temporada ciclónica."}, {"v": "C. Diseñar Tier III: mantenibilidad concurrente con componentes redundantes N+1 y doble vía de distribución.", "fb": "Permite mantenimiento sin parar la operación, termina a tiempo y dentro del presupuesto con una disponibilidad de 99.982 %."}]}, "d2": {"kind": "decision", "key": "A. Nube híbrida: SCADA/OT de baja latencia y procesamiento local on-premise; ERP, CRM, facturación y analítica en la nube.", "why": "La clasificación de cargas y datos define el lugar: lo que exige baja latencia y operación autónoma (SCADA/OT) permanece on-premise; lo elástico y no crítico en tiempo real (ERP, analítica) se aprovecha en la nube. Es la lógica de la nube híbrida.", "opts": [{"v": "A. Nube híbrida: SCADA/OT de baja latencia y procesamiento local on-premise; ERP, CRM, facturación y analítica en la nube.", "fb": "El control de la red responde en milisegundos, opera aunque caiga el enlace externo, y los sistemas comerciales ganan elasticidad y ahorro."}, {"v": "B. Migrar todo, incluido el SCADA y la telemetría, a una región de nube fuera del país.", "fb": "Reduce servidores, pero la latencia sube y se puede perder el control de las subestaciones si el enlace internacional falla durante el huracán."}, {"v": "C. Mantener el 100 % en el centro de datos propio y rechazar cualquier servicio de nube.", "fb": "Se conserva el control total, pero se satura el centro de datos, se encarece la analítica y es difícil escalar el ERP en la facturación."}]}, "d3": {"kind": "decision", "key": "C. Replicación continua y conmutación automática (failover) de los sistemas Nivel 1 a un entorno de recuperación aislado, con secuencia de restauración por niveles y operación local autónoma.", "why": "Las estrategias se derivan del BIA: RTO/RPO por nivel, replicación proporcional a la criticidad y un orden de recuperación priorizado. Replicar todo sin criterio o apagar todo contradice el BIA.", "opts": [{"v": "A. Replicar toda la infraestructura, crítica o no, a la nube por el internet público sin priorización.", "fb": "Congestiona el canal en pleno evento, falla la replicación del SCADA y se incumplen RTO y RPO."}, {"v": "B. Respaldo local en cintas y discos y apagado preventivo total de los servidores.", "fb": "Protege físicamente los datos, pero deja a la empresa ciega durante la emergencia y el RTO se extiende a días."}, {"v": "C. Replicación continua y conmutación automática (failover) de los sistemas Nivel 1 a un entorno de recuperación aislado, con secuencia de restauración por niveles y operación local autónoma.", "fb": "Los sistemas críticos se recuperan en menos de 1 hora con copias limpias, y los circuitos vitales (hospitales, refugios) siguen alimentados."}]}, "v_q1": {"kind": "video", "key": "C. El punto en el tiempo al que se pueden recuperar los datos, es decir, cuánta información se puede perder", "why": "El RPO es el punto de recuperación en el tiempo: hasta qué momento se pueden recuperar los datos (por ejemplo, el último respaldo).", "opts": [{"v": "A. El costo mensual del respaldo", "fb": ""}, {"v": "B. La cantidad de usuarios que acceden al sistema", "fb": ""}, {"v": "C. El punto en el tiempo al que se pueden recuperar los datos, es decir, cuánta información se puede perder", "fb": ""}, {"v": "D. El tiempo máximo que se tarda en reiniciar un servidor", "fb": ""}]}, "v_q2": {"kind": "video", "key": "A. Copias de seguridad continuas, que permiten volver atrás pocos minutos en lugar de esperar al respaldo de 8 o 24 horas antes", "why": "Con copias continuas se puede regresar a un punto de 5, 10 o 15 minutos antes, en vez de depender del último respaldo nocturno.", "opts": [{"v": "A. Copias de seguridad continuas, que permiten volver atrás pocos minutos en lugar de esperar al respaldo de 8 o 24 horas antes", "fb": ""}, {"v": "B. Hacer un solo respaldo mensual", "fb": ""}, {"v": "C. Apagar los servidores por las noches", "fb": ""}, {"v": "D. Guardar copias solo en papel", "fb": ""}]}, "v_q3": {"kind": "video", "key": "B. Qué tan rápido se necesita recuperar el servicio: una hora, seis horas, un día…", "why": "El RTO es el tiempo objetivo para recuperar; depende de la estrategia y de la solución de recuperación elegida.", "opts": [{"v": "A. El número de servidores del centro de datos", "fb": ""}, {"v": "B. Qué tan rápido se necesita recuperar el servicio: una hora, seis horas, un día…", "fb": ""}, {"v": "C. Qué datos se perderán en un desastre", "fb": ""}, {"v": "D. Cuántas copias de seguridad se guardan", "fb": ""}]}, "v_q4": {"kind": "video", "key": "B. En replicar datos y aplicaciones hacia un sistema activo en espera (sitio alterno) para seguir operando durante el desastre", "why": "La continuidad replica datos y aplicaciones en un sitio alterno en standby; en un desastre se activa ese sitio para mantener la operación.", "opts": [{"v": "A. En comprar un servidor más grande", "fb": ""}, {"v": "B. En replicar datos y aplicaciones hacia un sistema activo en espera (sitio alterno) para seguir operando durante el desastre", "fb": ""}, {"v": "C. En guardar un respaldo en un disco externo y restaurarlo después", "fb": ""}, {"v": "D. En esperar a que termine el desastre para reiniciar", "fb": ""}]}};
+window.VIDEO_DATA = {"id": "g4yAKTuHZl0", "cues": [{"id": "v_q1", "t": 132}, {"id": "v_q2", "t": 196}, {"id": "v_q3", "t": 318}, {"id": "v_q4", "t": 458}]};
+
+/* ===== V2: decisiones y video interactivo ===== */
+(function(){
+  var CHOICE = window.CHOICE_DATA || {};
+  function opt(id, v){ var arr = (CHOICE[id] && CHOICE[id].opts) || []; for(var i=0;i<arr.length;i++){ if(arr[i].v === v) return arr[i]; } return null; }
+  function showFb(id, locked){
+    var box = document.getElementById(id + '_fb'); if(!box) return;
+    var v = val(id); var o = opt(id, v);
+    if(!o){ box.className = 'choice-fb'; box.innerHTML = ''; return; }
+    var best = CHOICE[id].key === v;
+    if(CHOICE[id].kind === 'video'){
+      box.className = 'choice-fb show ' + (best ? 'ok' : 'bad');
+      box.innerHTML = (best ? '<b>✔ Correcto.</b> ' : '<b>✖ No es la opción correcta.</b> La respuesta era: <b>' + esc(CHOICE[id].key) + '</b>. ') + esc(CHOICE[id].why);
+    } else {
+      box.className = 'choice-fb show';
+      box.innerHTML = '<b>Consecuencia de su decisión:</b> ' + esc(o.fb) + '<br><small>Al final de la práctica verá cuál era la decisión más sólida según la teoría y por qué.</small>';
+    }
+  }
+  function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  function syncGroup(g){
+    var id = g.getAttribute('data-for'); var v = val(id);
+    var kind = CHOICE[id] && CHOICE[id].kind;
+    g.querySelectorAll('.choice-btn').forEach(function(b){
+      var on = b.getAttribute('data-v') === v;
+      b.classList.toggle('sel', on && kind !== 'video');
+      if(kind === 'video' && v){
+        b.disabled = true;
+        b.classList.toggle('ok', b.getAttribute('data-v') === CHOICE[id].key);
+        b.classList.toggle('bad', on && v !== CHOICE[id].key);
+      }
+    });
+    showFb(id);
+  }
+  document.querySelectorAll('.choice-group').forEach(function(g){
+    g.addEventListener('click', function(e){
+      var b = e.target.closest('.choice-btn'); if(!b || b.disabled) return;
+      var id = g.getAttribute('data-for'); var sel = document.getElementById(id);
+      sel.value = b.getAttribute('data-v');
+      sel.dispatchEvent(new Event('change', {bubbles:true}));
+      syncGroup(g);
+      if(CHOICE[id] && CHOICE[id].kind === 'video'){ var nx = document.getElementById(id + '_next'); if(nx) nx.classList.add('show'); updateVidStatus(); }
+    });
+    syncGroup(g);
+  });
+
+  /* ---- video interactivo ---- */
+  var VID = window.VIDEO_DATA; if(!VID) return;
+  var player = null, timer = null, activeId = null, ready = false, ytFailed = false;
+  function answered(id){ return filled(val(id)); }
+  function updateVidStatus(){
+    var n = VID.cues.filter(function(c){ return answered(c.id); }).length;
+    var st = document.getElementById('vq-status'); if(st) st.textContent = 'Preguntas del video respondidas: ' + n + ' de ' + VID.cues.length;
+  }
+  function hideAll(){ document.querySelectorAll('.vq').forEach(function(q){ q.classList.remove('active'); }); activeId = null; }
+  function showQ(c){
+    hideAll(); activeId = c.id;
+    var q = document.getElementById('vq_' + c.id); q.classList.add('active');
+    try{ if(document.fullscreenElement) document.exitFullscreen(); }catch(e){}
+    q.scrollIntoView({behavior:'smooth', block:'center'});
+    var nx = document.getElementById(c.id + '_next'); if(nx && answered(c.id)) nx.classList.add('show');
+  }
+  function tick(){
+    if(!player || !player.getCurrentTime || activeId) return;
+    var t = player.getCurrentTime();
+    for(var i=0;i<VID.cues.length;i++){
+      var c = VID.cues[i];
+      if(!answered(c.id) && t >= c.t){ player.pauseVideo(); showQ(c); return; }
+    }
+  }
+  function startPoll(){ if(!timer) timer = setInterval(tick, 400); }
+  function onState(e){
+    if(e.data === 1){ startPoll(); }  // PLAYING
+    if(e.data === 1 && activeId && !answered(activeId)){ player.pauseVideo(); }
+  }
+  document.querySelectorAll('.vq-next').forEach(function(b){
+    b.addEventListener('click', function(){
+      hideAll(); updateVidStatus();
+      if(player && player.playVideo) player.playVideo();
+      var w = document.getElementById('vid-wrap'); if(w) w.scrollIntoView({behavior:'smooth', block:'center'});
+    });
+  });
+  function goStatic(){
+    if(ytFailed) return; ytFailed = true;
+    var n = document.getElementById('vid-note');
+    if(n) n.innerHTML = '<div class="alert warn">No se pudo cargar el reproductor interactivo. Abra el video con el enlace «Ver en YouTube», véalo completo y responda aquí las preguntas.</div>';
+    document.querySelectorAll('.vq').forEach(function(q){ q.classList.add('static'); q.classList.add('active'); });
+    document.querySelectorAll('.vq-next').forEach(function(b){ b.style.display = 'none'; });
+  }
+  window.onYouTubeIframeAPIReady = function(){
+    try{
+      player = new YT.Player('ytp', { videoId: VID.id, playerVars:{ rel:0, modestbranding:1, playsinline:1, origin: location.origin, cc_lang_pref:'es', hl:'es' },
+        events:{ onReady:function(){ ready = true; window._ytp = player; }, onStateChange:onState, onError:function(){ goStatic(); } } });
+    }catch(e){ goStatic(); }
+  };
+  var s = document.createElement('script'); s.src = 'https://www.youtube.com/iframe_api'; s.onerror = goStatic; document.head.appendChild(s);
+  setTimeout(function(){ if(!ready) goStatic(); }, 9000);
+  window._vidDebug = { setPlayer: function(p){ player = p; }, tick: tick };
+  updateVidStatus();
+})();
 
 })();
 </script>

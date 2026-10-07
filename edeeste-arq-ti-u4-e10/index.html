@@ -301,6 +301,50 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
   .timer-box.overtime .timer-value{animation:none;}
   .fast-clock-hand{animation:none;}
 }
+
+/* ===== V2: aprenda primero, decisiones, video interactivo ===== */
+.learn{border:1px solid var(--blue-border); background:var(--blue-bg); border-radius:var(--radius-md); padding:1rem 1.1rem; margin:.4rem 0 1.1rem;}
+.learn-h{font-weight:800; font-size:.85rem; letter-spacing:.02em; color:var(--primary); margin-bottom:.55rem;}
+.learn dl{margin:0; display:grid; gap:.55rem;}
+.learn dt{font-weight:800; font-size:.72rem; text-transform:uppercase; letter-spacing:.06em; color:var(--navy);}
+.learn dd{margin:.1rem 0 0; font-size:.92rem; line-height:1.55; color:var(--secondary);}
+.learn dd.ej{border-left:3px solid var(--gold); padding-left:.7rem; font-style:italic;}
+.case-box{border:1px solid var(--amber-border); background:var(--amber-bg); border-radius:var(--radius-md); padding:1rem 1.1rem; margin:.4rem 0 1rem;}
+.case-box h3{margin:.1rem 0 .5rem; font-size:1.02rem; color:var(--primary);}
+.case-box p{margin:.4rem 0; font-size:.92rem; line-height:1.6; color:var(--secondary);}
+.case-box .tag{display:inline-block; font-size:.7rem; font-weight:800; text-transform:uppercase; letter-spacing:.06em; color:var(--amber); margin-bottom:.2rem;}
+.decision{border:1px solid var(--border-light); border-radius:var(--radius-md); padding:1rem 1.1rem; margin:1rem 0; background:var(--bg-card);}
+.decision>.d-title{font-weight:800; color:var(--primary); font-size:.95rem; margin-bottom:.3rem;}
+.decision>.d-sit{font-size:.92rem; line-height:1.55; color:var(--secondary); margin-bottom:.7rem;}
+.choice-group{display:grid; gap:.5rem;}
+select[hidden]{display:none !important;}
+.choice-btn{display:flex; gap:.6rem; align-items:flex-start; text-align:left; width:100%; padding:.7rem .85rem; border:2px solid var(--border-dark); background:var(--bg-card); color:var(--primary); border-radius:var(--radius-sm); font:inherit; font-size:.9rem; line-height:1.45; cursor:pointer; min-height:44px;}
+.choice-btn:hover:not(:disabled){border-color:var(--navy);}
+.choice-btn .ltr{flex:0 0 auto; font-weight:800; color:var(--navy);}
+.choice-btn.sel{border-color:var(--navy); background:var(--blue-bg);}
+.choice-btn.ok{border-color:var(--green-border); background:var(--green-bg);}
+.choice-btn.bad{border-color:var(--red-border); background:var(--red-bg);}
+.choice-btn:disabled{cursor:default; opacity:.95;}
+.choice-fb{margin-top:.7rem; padding:.7rem .85rem; border-radius:var(--radius-sm); font-size:.9rem; line-height:1.5; display:none; border:1px solid var(--border-dark); background:var(--bg-body); color:var(--secondary);}
+.choice-fb.show{display:block;}
+.choice-fb.ok{border-color:var(--green-border); background:var(--green-bg);}
+.choice-fb.bad{border-color:var(--red-border); background:var(--red-bg);}
+.choice-fb b{color:var(--primary);}
+.vid-wrap{position:relative; width:100%; aspect-ratio:16/9; background:#000; border-radius:var(--radius-md); overflow:hidden; margin:.4rem 0;}
+.vid-wrap iframe,.vid-wrap #ytp{position:absolute; inset:0; width:100%; height:100%; border:0;}
+.vid-meta{display:flex; flex-wrap:wrap; gap:.5rem 1rem; align-items:center; justify-content:space-between; font-size:.82rem; color:var(--muted); margin:.3rem 0 .6rem;}
+.vid-meta a{color:var(--navy); font-weight:700;}
+.vq-stage{margin-top:.6rem;}
+.vq{display:none; border:2px solid var(--gold); border-radius:var(--radius-md); padding:1rem 1.1rem; background:var(--bg-card);}
+.vq.active,.vq.static{display:block;}
+.vq.static{margin:.8rem 0; border-color:var(--border-dark);}
+.vq .vq-h{font-size:.72rem; font-weight:800; text-transform:uppercase; letter-spacing:.06em; color:var(--amber); margin-bottom:.3rem;}
+.vq .vq-q{font-weight:700; color:var(--primary); margin-bottom:.7rem; font-size:.95rem;}
+.vq-next{margin-top:.7rem; display:none;}
+.vq-next.show{display:inline-block;}
+.vq-status{font-size:.85rem; font-weight:700; color:var(--primary);}
+@media (max-width:640px){.learn,.case-box,.decision,.vq{padding:.85rem .8rem;}}
+
 </style>
 </head>
 <body>
@@ -330,7 +374,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
           <span class="timer-label">⏱️ Tiempo sugerido</span>
           <button class="icon-btn" id="sound-toggle" type="button" title="Silenciar o activar el sonido" aria-label="Silenciar o activar el sonido del temporizador">🔔</button>
         </div>
-        <div class="timer-value" id="timer-value">50:00</div>
+        <div class="timer-value" id="timer-value">60:00</div>
         <canvas id="hearts-canvas" width="230" height="40" aria-hidden="true"></canvas>
         <div class="fast-clock" id="fast-clock" aria-hidden="true"><div class="fast-clock-hand"></div></div>
         <div class="overtime-note" id="overtime-note" hidden>⏱️ Tiempo de referencia — no afecta su calificación</div>
@@ -346,7 +390,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
           <li><a href="#marco-conceptual">📚 Marco conceptual</a></li>
           <li><a href="#paso1" data-step="paso1">Paso 1 · Verifique su comprensión <span class="pct" data-pct="paso1">0%</span></a></li>
           <li><a href="#paso2" data-step="paso2">Paso 2 · Relacione cada situación con su concepto de gobernanza o cambio <span class="pct" data-pct="paso2">0%</span></a></li>
-          <li><a href="#paso3" data-step="paso3">Paso 3 · Caso: implementación del nuevo ADMS y sustentación de arquitectura <span class="pct" data-pct="paso3">0%</span></a></li>
+          <li><a href="#paso3" data-step="paso3">Paso 3 · Caso de decisiones: Proyecto RedSmart <span class="pct" data-pct="paso3">0%</span></a></li>
           <li><a href="#paso4" data-step="paso4">Paso 4 · Practique con Nicole <span class="pct" data-pct="paso4">0%</span></a></li>
           <li><a href="#paso5" data-step="paso5">Paso 5 · Reflexión final <span class="pct" data-pct="paso5">0%</span></a></li>
           <li><a href="#rubrica">🧮 Rúbrica de evaluación</a></li>
@@ -371,7 +415,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
       <div class="cover-chips">
         <span class="cover-chip">Lunes 9 de noviembre de 2026</span>
         <span class="cover-chip">100 pts · aprobación mínima 70</span>
-        <span class="cover-chip">Dura aproximadamente 50 minutos</span>
+        <span class="cover-chip">Dura aproximadamente 60 minutos</span>
         <span class="cover-chip">Gana una medalla digital al terminar</span>
       </div>
     </section>
@@ -379,7 +423,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
     <section class="card">
       <span class="step-badge">Para el personal técnico de TI y OT de EDEESTE</span>
       <h1 style="font-size:1.35rem;">Práctica de la segunda hora del encuentro</h1>
-      <div class="alert success">Esta práctica se realiza justo después de la explicación teórica del encuentro (6:00 a 7:00 p. m.). Dispone de aproximadamente 50 minutos. Combina preguntas de selección, clasificación y un caso aplicado a EDEESTE, con retroalimentación inmediata.</div>
+      <div class="alert success">Esta práctica se realiza justo después de la explicación teórica del encuentro (6:00 a 7:00 p. m.). Dispone de aproximadamente 60 minutos. Combina un video con preguntas, preguntas de selección, clasificación y un caso de decisiones aplicado a una distribuidora ficticia, con retroalimentación inmediata.</div>
     </section>
 
     <section class="card" id="tutorial">
@@ -453,8 +497,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
     <section id="paso1" class="card">
       <span class="step-badge">Paso 1 · 10 min</span><span class="step-points">Vale 25 pts</span>
       <h1>Verifique su comprensión</h1>
-      <p><strong>Concepto:</strong> seis preguntas de selección sobre ITIL 4, ADKAR, regulación eléctrica y el Proyecto Final.</p>
-      <div class="field"><label for="p1_q1">1. En ITIL 4, ¿qué comité evalúa y autoriza los cambios normales que afectan la infraestructura de producción?</label><select id="p1_q1"><option value="">Seleccione…</option><option value="El sindicato de trabajadores">El sindicato de trabajadores</option><option value="CAB (Change Advisory Board · Comité Asesor de Cambios)">CAB (Change Advisory Board · Comité Asesor de Cambios)</option><option value="El proveedor de internet">El proveedor de internet</option><option value="La mesa de ayuda de nivel 1">La mesa de ayuda de nivel 1</option></select></div>
+<div class="learn"><div class="learn-h">📘 Aprenda primero</div><dl><div><dt>Concepto</dt><dd>Gestión del cambio de TI (ITIL 4) y del cambio de las personas (ADKAR).</dd></div><div><dt>Definición</dt><dd>En ITIL 4 hay tres tipos de cambio: estándar (preautorizado y de bajo riesgo), normal (lo evalúa el CAB, con ventana y plan de reversión obligatorio) y de emergencia (lo aprueba el ECAB de forma ágil). El modelo ADKAR de Prosci describe cómo cambia cada persona: Conciencia (Awareness), Deseo, Conocimiento, Habilidad y Refuerzo; se empieza por crear conciencia. La SIE supervisa los índices SAIDI y SAIFI bajo la Ley 125-01, con posibles penalizaciones.</dd></div><div><dt>Ejemplo</dt><dd class="ej">Actualizar parches de laptops de oficina es un cambio estándar; actualizar la base de datos del SCADA un domingo a las 2:00 a. m. es un cambio normal, con CAB, ventana y reversión; parchear un firewall durante un ataque activo es un cambio de emergencia.</dd></div><div><dt>Dónde lo vio</dt><dd>Unidad 4 · diapositivas 23-25 (ITIL 4, tipología de cambios, ventanas y reversión), 26-28 (ADKAR y caso de la app de despacho), 30-32 (Ley 125-01, SIE, SAIDI y SAIFI) y 36 (Proyecto Final).</dd></div></dl></div>      <div class="field"><label for="p1_q1">1. En ITIL 4, ¿qué comité evalúa y autoriza los cambios normales que afectan la infraestructura de producción?</label><select id="p1_q1"><option value="">Seleccione…</option><option value="El sindicato de trabajadores">El sindicato de trabajadores</option><option value="CAB (Change Advisory Board · Comité Asesor de Cambios)">CAB (Change Advisory Board · Comité Asesor de Cambios)</option><option value="El proveedor de internet">El proveedor de internet</option><option value="La mesa de ayuda de nivel 1">La mesa de ayuda de nivel 1</option></select></div>
       <div class="field"><label for="p1_q2">2. ¿Qué requisito es estrictamente obligatorio para iniciar cualquier cambio normal en un sistema de telecontrol SCADA?</label><select id="p1_q2"><option value="">Seleccione…</option><option value="Pedir permiso a todos los usuarios">Pedir permiso a todos los usuarios</option><option value="Contar con un plan de reversión (Rollback Plan) documentado y probado">Contar con un plan de reversión (Rollback Plan) documentado y probado</option><option value="Tener encendidas todas las luces de la sala">Tener encendidas todas las luces de la sala</option><option value="Haber comprado servidores nuevos">Haber comprado servidores nuevos</option></select></div>
       <div class="field"><label for="p1_q3">3. ¿Cuál es el primer paso según el modelo ADKAR de Prosci al introducir una nueva tecnología en el personal de cuadrillas?</label><select id="p1_q3"><option value="">Seleccione…</option><option value="Comprar las licencias del software">Comprar las licencias del software</option><option value="Awareness (Crear conciencia sobre por qué el cambio es necesario)">Awareness (Crear conciencia sobre por qué el cambio es necesario)</option><option value="Despedir a quienes no sepan usar computadoras">Despedir a quienes no sepan usar computadoras</option><option value="Capacitarlos intensivamente sin explicar los motivos">Capacitarlos intensivamente sin explicar los motivos</option></select></div>
       <div class="field"><label for="p1_q4">4. ¿Qué tipo de cambio en ITIL 4 se aplica cuando un transformador se dispara por falla de firmware y requiere parcheo urgente sin esperar la reunión semanal del CAB?</label><select id="p1_q4"><option value="">Seleccione…</option><option value="Cambio Estándar">Cambio Estándar</option><option value="Cambio Normal postergado">Cambio Normal postergado</option><option value="Cambio de Emergencia (autorizado de forma ágil por el ECAB)">Cambio de Emergencia (autorizado de forma ágil por el ECAB)</option><option value="Cambio no autorizado">Cambio no autorizado</option></select></div>
@@ -463,10 +506,9 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
     </section>
 
 <section id="paso2" class="card">
-      <span class="step-badge">Paso 2 · 10 min</span><span class="step-points">Vale 25 pts</span>
+      <span class="step-badge">Paso 2 · 8 min</span><span class="step-points">Vale 20 pts</span>
       <h1>Relacione cada situación con su concepto de gobernanza o cambio</h1>
-      <p><strong>Concepto:</strong> asocie cada situación práctica con su concepto de ITIL 4, ADKAR o regulación.</p>
-      <div class="field"><label for="p2_s1">Actualización rutinaria de parches de Windows en laptops de oficina de bajo riesgo</label><select id="p2_s1"><option value="">Seleccione…</option><option value="Cambio Estándar (pre-autorizado)">Cambio Estándar (pre-autorizado)</option><option value="Cambio Normal (evaluado por CAB con ventana y rollback)">Cambio Normal (evaluado por CAB con ventana y rollback)</option><option value="Cambio de Emergencia (aprobado por ECAB)">Cambio de Emergencia (aprobado por ECAB)</option><option value="Etapa Deseo (D) de ADKAR">Etapa Deseo (D) de ADKAR</option><option value="Etapa Conocimiento (K) de ADKAR">Etapa Conocimiento (K) de ADKAR</option><option value="Penalización regulatoria de la SIE por SAIDI (Ley 125-01)">Penalización regulatoria de la SIE por SAIDI (Ley 125-01)</option></select></div>
+<div class="learn"><div class="learn-h">📘 Aprenda primero</div><dl><div><dt>Concepto</dt><dd>Relacionar una situación con el concepto de cambio o gobernanza.</dd></div><div><dt>Definición</dt><dd>Cada situación remite a un concepto: una acción de bajo riesgo y repetitiva es un cambio estándar; una de riesgo medio, con planificación, es normal; una urgente por incidente, de emergencia. En ADKAR, mostrar un beneficio personal trabaja el Deseo; un taller práctico trabaja el Conocimiento. Una sanción por exceder las horas de interrupción es una penalización regulatoria por SAIDI.</dd></div><div><dt>Ejemplo</dt><dd class="ej">Demostrar a los linieros que la tableta GPS acorta el tiempo de auxilio ante un accidente es construir Deseo (por qué me conviene); enseñarles a manejarla es Conocimiento.</dd></div><div><dt>Dónde lo vio</dt><dd>Unidad 4 · diapositivas 24 (tipología de cambios), 27-28 (ADKAR) y 31-32 (SIE, SAIDI y SAIFI).</dd></div></dl></div>      <div class="field"><label for="p2_s1">Actualización rutinaria de parches de Windows en laptops de oficina de bajo riesgo</label><select id="p2_s1"><option value="">Seleccione…</option><option value="Cambio Estándar (pre-autorizado)">Cambio Estándar (pre-autorizado)</option><option value="Cambio Normal (evaluado por CAB con ventana y rollback)">Cambio Normal (evaluado por CAB con ventana y rollback)</option><option value="Cambio de Emergencia (aprobado por ECAB)">Cambio de Emergencia (aprobado por ECAB)</option><option value="Etapa Deseo (D) de ADKAR">Etapa Deseo (D) de ADKAR</option><option value="Etapa Conocimiento (K) de ADKAR">Etapa Conocimiento (K) de ADKAR</option><option value="Penalización regulatoria de la SIE por SAIDI (Ley 125-01)">Penalización regulatoria de la SIE por SAIDI (Ley 125-01)</option></select></div>
       <div class="field"><label for="p2_s2">Actualización de versión de base de datos del SCADA un domingo a las 2:00 a. m.</label><select id="p2_s2"><option value="">Seleccione…</option><option value="Cambio Estándar (pre-autorizado)">Cambio Estándar (pre-autorizado)</option><option value="Cambio Normal (evaluado por CAB con ventana y rollback)">Cambio Normal (evaluado por CAB con ventana y rollback)</option><option value="Cambio de Emergencia (aprobado por ECAB)">Cambio de Emergencia (aprobado por ECAB)</option><option value="Etapa Deseo (D) de ADKAR">Etapa Deseo (D) de ADKAR</option><option value="Etapa Conocimiento (K) de ADKAR">Etapa Conocimiento (K) de ADKAR</option><option value="Penalización regulatoria de la SIE por SAIDI (Ley 125-01)">Penalización regulatoria de la SIE por SAIDI (Ley 125-01)</option></select></div>
       <div class="field"><label for="p2_s3">Parche inmediato de firewall durante un ciberataque activo en progreso</label><select id="p2_s3"><option value="">Seleccione…</option><option value="Cambio Estándar (pre-autorizado)">Cambio Estándar (pre-autorizado)</option><option value="Cambio Normal (evaluado por CAB con ventana y rollback)">Cambio Normal (evaluado por CAB con ventana y rollback)</option><option value="Cambio de Emergencia (aprobado por ECAB)">Cambio de Emergencia (aprobado por ECAB)</option><option value="Etapa Deseo (D) de ADKAR">Etapa Deseo (D) de ADKAR</option><option value="Etapa Conocimiento (K) de ADKAR">Etapa Conocimiento (K) de ADKAR</option><option value="Penalización regulatoria de la SIE por SAIDI (Ley 125-01)">Penalización regulatoria de la SIE por SAIDI (Ley 125-01)</option></select></div>
       <div class="field"><label for="p2_s4">Demostrar a los linieros que la tableta GPS agiliza el auxilio en caso de accidente</label><select id="p2_s4"><option value="">Seleccione…</option><option value="Cambio Estándar (pre-autorizado)">Cambio Estándar (pre-autorizado)</option><option value="Cambio Normal (evaluado por CAB con ventana y rollback)">Cambio Normal (evaluado por CAB con ventana y rollback)</option><option value="Cambio de Emergencia (aprobado por ECAB)">Cambio de Emergencia (aprobado por ECAB)</option><option value="Etapa Deseo (D) de ADKAR">Etapa Deseo (D) de ADKAR</option><option value="Etapa Conocimiento (K) de ADKAR">Etapa Conocimiento (K) de ADKAR</option><option value="Penalización regulatoria de la SIE por SAIDI (Ley 125-01)">Penalización regulatoria de la SIE por SAIDI (Ley 125-01)</option></select></div>
@@ -475,27 +517,25 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
     </section>
 
 <section id="paso3" class="card">
-      <span class="step-badge">Paso 3 · 15 min</span><span class="step-points">Vale 30 pts</span>
-      <h1>Caso: implementación del nuevo ADMS y sustentación de arquitectura</h1>
-      <p><strong>Concepto:</strong> integre gobernanza, gestión humana y regulación en el proyecto final.</p>
-      <div class="alert gold"><strong>Caso ilustrativo:</strong> EDEESTE implementará su nuevo sistema ADMS (Advanced Distribution Management System), modernizando el despacho y la interacción con brigadas en campo. Esta transformación tecnológica impacta procesos críticos, exige cambios en subestaciones y requiere una sólida gestión humana.</div>
-      <div class="field"><label for="p3_a">a) Diseñe el procedimiento de gobernanza del cambio: clasificación ITIL 4, rol del CAB y plan de reversión (rollback) con hora de no retorno a las 3:30 a. m. <span class="wc" data-for="p3_a">0 palabras</span></label><textarea class="tall" id="p3_a" placeholder="El procedimiento contempla clasificar la actualización como Cambio Normal..., el CAB evalúa..., y a las 3:30 a. m. se define el rollback si..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="p3_a">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p3_a"></span></div></div>
-      <div class="field"><label for="p3_b">b) Aplique las cinco etapas del modelo ADKAR para vencer la resistencia de los operadores veteranos y cuadrillas de campo <span class="wc" data-for="p3_b">0 palabras</span></label><textarea class="tall" id="p3_b" placeholder="Aplicación de ADKAR: A (Conciencia)..., D (Deseo)..., K (Conocimiento)..., A (Habilidad)..., R (Refuerzo)..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="p3_b">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p3_b"></span></div></div>
-      <div class="field"><label for="p3_c">c) Sintetice los tres pilares de arquitectura que defenderá su equipo en el Proyecto Final para garantizar cumplimiento regulatorio ante la SIE y la Ley 125-01 <span class="wc" data-for="p3_c">0 palabras</span></label><textarea class="tall" id="p3_c" placeholder="Los tres pilares de arquitectura defendidos son: 1) Resiliencia y reducción de SAIDI..., 2) Ciberdefensa según ISA/IEC 62443..., 3) Continuidad según ISO 22301..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="p3_c">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p3_c"></span></div></div>
+      <span class="step-badge">Paso 3 · 25 min</span><span class="step-points">Vale 40 pts</span>
+      <h1>Caso de decisiones: Proyecto RedSmart</h1>
+<div class="learn"><div class="learn-h">📘 Aprenda primero</div><dl><div><dt>Concepto</dt><dd>Liderar el cambio: personas, comunicación y gobernanza antes que tecnología.</dd></div><div><dt>Definición</dt><dd>Un proyecto tecnológico fracasa cuando las personas no entienden por qué cambia su trabajo. El cambio exitoso crea conciencia y deseo (comunicación bidireccional), da conocimiento y habilidad (capacitación y práctica), obtiene victorias tempranas y se refuerza. La gobernanza define quién decide, controla el uso de herramientas no autorizadas y mantiene al regulador informado.</dd></div><div><dt>Ejemplo</dt><dd class="ej">Anunciar un sistema solo con comunicados por correo genera rumores («la IA nos va a reemplazar»). Un piloto en un circuito, con los técnicos como protagonistas y resultados en 90 días, cambia la conversación.</dd></div><div><dt>Dónde lo vio</dt><dd>Unidad 4 · diapositivas 26-28 (cambio organizacional y ADKAR), 30-32 (marco regulatorio y SIE) y 35 (síntesis: cambio humano y rigor normativo).</dd></div></dl></div>      <div class="case-box"><span class="tag">Caso ficticio</span><h3>Transformación digital y gobernanza en Distribuidora Costa Este (empresa ficticia)</h3><p>Distribuidora Costa Este tiene 1,200 colaboradores y 850,000 clientes. Su división de TI (360 personas) es joven y cómoda con lo digital; su división de operaciones y redes (720 técnicos) tiene personal de mayor antigüedad, y solo el 28 % se siente familiarizado con herramientas digitales. Hay 120 mandos medios entre ambas.</p><p>El directorio aprobó el «Proyecto RedSmart 2026»: integrar el SCADA (OT) con la plataforma de datos ERP/GIS (TI) para detectar averías y predecir mantenimiento. La dirección lo anunció con dos comunicados por correo. A las tres semanas circula el rumor de que la automatización eliminará las brigadas de inspección; los técnicos lo ven como una imposición de la oficina de TI; algunos analistas jóvenes usan herramientas de IA externas no autorizadas con datos de carga; y el regulador notificó retrasos en los reportes de calidad. Usted integra el comité asesor y debe decidir tres cosas.</p></div>
+      <div class="decision"><div class="d-title"><label for="d1" style="display:inline;margin:0;font-size:inherit;color:inherit;">Decisión 1 · Rescatar el proyecto desde las personas</label></div><div class="d-sit">Hay resistencia, miedo y silos entre TI y OT. Se debe reencauzar el proyecto.</div><select id="d1" hidden aria-hidden="true"><option value=""></option><option value="A. Exigir por circular que todo el personal use la nueva plataforma desde el próximo mes, con sanciones para quien no la use.">A. Exigir por circular que todo el personal use la nueva plataforma desde el próximo mes, con sanciones para quien no la use.</option><option value="B. Comunicar más fuerte: enviar un tercer y un cuarto comunicado y una capacitación masiva única al final del proyecto.">B. Comunicar más fuerte: enviar un tercer y un cuarto comunicado y una capacitación masiva única al final del proyecto.</option><option value="C. Seguir ADKAR: crear conciencia y deseo con espacios de escucha y duplas TI-OT; capacitar con práctica real; y mostrar una victoria rápida con un piloto en un circuito crítico con resultados medibles en menos de 90 días.">C. Seguir ADKAR: crear conciencia y deseo con espacios de escucha y duplas TI-OT; capacitar con práctica real; y mostrar una victoria rápida con un piloto en un circuito crítico con resultados medibles en menos de 90 días.</option></select><div class="choice-group" data-for="d1"><button type="button" class="choice-btn" data-v="A. Exigir por circular que todo el personal use la nueva plataforma desde el próximo mes, con sanciones para quien no la use."><span class="ltr">A.</span><span>Exigir por circular que todo el personal use la nueva plataforma desde el próximo mes, con sanciones para quien no la use.</span></button><button type="button" class="choice-btn" data-v="B. Comunicar más fuerte: enviar un tercer y un cuarto comunicado y una capacitación masiva única al final del proyecto."><span class="ltr">B.</span><span>Comunicar más fuerte: enviar un tercer y un cuarto comunicado y una capacitación masiva única al final del proyecto.</span></button><button type="button" class="choice-btn" data-v="C. Seguir ADKAR: crear conciencia y deseo con espacios de escucha y duplas TI-OT; capacitar con práctica real; y mostrar una victoria rápida con un piloto en un circuito crítico con resultados medibles en menos de 90 días."><span class="ltr">C.</span><span>Seguir ADKAR: crear conciencia y deseo con espacios de escucha y duplas TI-OT; capacitar con práctica real; y mostrar una victoria rápida con un piloto en un circuito crítico con resultados medibles en menos de 90 días.</span></button></div><div class="choice-fb" id="d1_fb" aria-live="polite"></div></div>
+      <div class="decision"><div class="d-title"><label for="d2" style="display:inline;margin:0;font-size:inherit;color:inherit;">Decisión 2 · Uso de herramientas de IA no autorizadas («Shadow IT»)</label></div><div class="d-sit">Analistas jóvenes procesan datos de carga con herramientas externas no autorizadas, exponiendo a la empresa a riesgos de ciberseguridad y de cumplimiento.</div><select id="d2" hidden aria-hidden="true"><option value=""></option><option value="A. Definir una política y una matriz de responsabilidades (RACI) con un manifiesto de innovación responsable y un entorno aprobado para experimentar.">A. Definir una política y una matriz de responsabilidades (RACI) con un manifiesto de innovación responsable y un entorno aprobado para experimentar.</option><option value="B. Ignorar el tema para no desmotivar a los analistas jóvenes.">B. Ignorar el tema para no desmotivar a los analistas jóvenes.</option><option value="C. Prohibir todo uso de herramientas externas y sancionar a quienes las hayan usado.">C. Prohibir todo uso de herramientas externas y sancionar a quienes las hayan usado.</option></select><div class="choice-group" data-for="d2"><button type="button" class="choice-btn" data-v="A. Definir una política y una matriz de responsabilidades (RACI) con un manifiesto de innovación responsable y un entorno aprobado para experimentar."><span class="ltr">A.</span><span>Definir una política y una matriz de responsabilidades (RACI) con un manifiesto de innovación responsable y un entorno aprobado para experimentar.</span></button><button type="button" class="choice-btn" data-v="B. Ignorar el tema para no desmotivar a los analistas jóvenes."><span class="ltr">B.</span><span>Ignorar el tema para no desmotivar a los analistas jóvenes.</span></button><button type="button" class="choice-btn" data-v="C. Prohibir todo uso de herramientas externas y sancionar a quienes las hayan usado."><span class="ltr">C.</span><span>Prohibir todo uso de herramientas externas y sancionar a quienes las hayan usado.</span></button></div><div class="choice-fb" id="d2_fb" aria-live="polite"></div></div>
+      <div class="decision"><div class="d-title"><label for="d3" style="display:inline;margin:0;font-size:inherit;color:inherit;">Decisión 3 · Notificación del regulador</label></div><div class="d-sit">La SIE notificó retrasos en los reportes de calidad del servicio y advierte que la falta de gobernanza afecta la continuidad. Hay riesgo de penalización por SAIDI/SAIFI.</div><select id="d3" hidden aria-hidden="true"><option value=""></option><option value="A. Pedir al regulador que suspenda la fiscalización hasta que termine el proyecto.">A. Pedir al regulador que suspenda la fiscalización hasta que termine el proyecto.</option><option value="B. Presentar un plan transparente con cronograma, responsables e indicadores de gestión (por ejemplo, capacitación y reportes a tiempo) y de impacto (por ejemplo, SAIDI/SAIFI y precisión de detección de averías).">B. Presentar un plan transparente con cronograma, responsables e indicadores de gestión (por ejemplo, capacitación y reportes a tiempo) y de impacto (por ejemplo, SAIDI/SAIFI y precisión de detección de averías).</option><option value="C. Centrarse únicamente en corregir los reportes atrasados y no informar del proyecto.">C. Centrarse únicamente en corregir los reportes atrasados y no informar del proyecto.</option></select><div class="choice-group" data-for="d3"><button type="button" class="choice-btn" data-v="A. Pedir al regulador que suspenda la fiscalización hasta que termine el proyecto."><span class="ltr">A.</span><span>Pedir al regulador que suspenda la fiscalización hasta que termine el proyecto.</span></button><button type="button" class="choice-btn" data-v="B. Presentar un plan transparente con cronograma, responsables e indicadores de gestión (por ejemplo, capacitación y reportes a tiempo) y de impacto (por ejemplo, SAIDI/SAIFI y precisión de detección de averías)."><span class="ltr">B.</span><span>Presentar un plan transparente con cronograma, responsables e indicadores de gestión (por ejemplo, capacitación y reportes a tiempo) y de impacto (por ejemplo, SAIDI/SAIFI y precisión de detección de averías).</span></button><button type="button" class="choice-btn" data-v="C. Centrarse únicamente en corregir los reportes atrasados y no informar del proyecto."><span class="ltr">C.</span><span>Centrarse únicamente en corregir los reportes atrasados y no informar del proyecto.</span></button></div><div class="choice-fb" id="d3_fb" aria-live="polite"></div></div>
+      <div class="field"><label for="d_just">Sustente su plan: explique con ADKAR cómo reduciría la resistencia del personal técnico de mayor antigüedad y qué indicadores usaría para demostrar resultados a la dirección y al regulador. <span class="wc" data-for="d_just">0 palabras</span></label><textarea class="tall" id="d_just" placeholder="Para crear conciencia haría... el deseo se construye mostrando... el conocimiento y la habilidad con... mediría... indicadores de gestión y de impacto..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="d_just">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="d_just"></span></div></div>
     </section>
 
 <section id="paso4" class="card">
-      <span class="step-badge">Paso 4 · 5 min</span><span class="step-points">Vale 10 pts</span>
+      <span class="step-badge">Paso 4 · 8 min</span><span class="step-points">Vale 10 pts</span>
       <h1>Practique con Nicole</h1>
-      <p><strong>Concepto:</strong> pongamos a prueba lo aprendido conversando con Nicole.</p>
-      <div class="sandbox-box"><strong>🧪 Pregúntele a Nicole:</strong><p style="font-style:italic; margin:.5rem 0;">Ej: "¿Por qué no se debe saltar directo a la capacitación sin crear conciencia según ADKAR?"</p><input type="text" id="sandbox_input" placeholder="Escriba aquí su pregunta sobre habilitación del cambio ITIL 4, comités CAB/ECAB, modelo ADKAR o regulación SIE / Ley 125-01..." style="margin-bottom:.75rem;"><button class="btn-primary" id="btn-sandbox" type="button">🧪 Enviar a Nicole y ver la respuesta</button><div class="sandbox-response" id="sandbox-response"></div></div><div class="field"><label for="p4_reflexion">¿Qué le respondió Nicole y le pareció acertado? <span class="wc" data-for="p4_reflexion">0 palabras</span></label><textarea class="tall" id="p4_reflexion" placeholder="Nicole respondió que..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="p4_reflexion">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p4_reflexion"></span></div></div><div class="field"><label for="p4_mejora">¿Qué otra pregunta del tema le gustaría explorar? <span class="wc" data-for="p4_mejora">0 palabras</span></label><textarea class="tall" id="p4_mejora" placeholder="Me gustaría preguntar sobre..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="p4_mejora">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p4_mejora"></span></div></div>
+<div class="learn"><div class="learn-h">📘 Aprenda primero</div><dl><div><dt>Concepto</dt><dd>Preguntar bien a un asistente virtual de IA.</dd></div><div><dt>Definición</dt><dd>Nicole es la asistente virtual de la práctica: responde dudas sobre los conceptos del encuentro. Una buena pregunta es específica, da el contexto (una distribuidora, una subestación) y pide un ejemplo o una comparación.</dd></div><div><dt>Ejemplo</dt><dd class="ej">Pregunta débil: «explícame SCADA». Pregunta sólida: «¿Qué diferencia hay entre dos sistemas de una distribuidora?»  — la segunda obtiene una respuesta aplicada y comparada.</dd></div></dl></div>      <div class="sandbox-box"><strong>🧪 Pregúntele a Nicole:</strong><p style="font-style:italic; margin:.5rem 0;">Ej: "¿Por qué no se debe saltar directo a la capacitación sin crear conciencia según ADKAR?"</p><input type="text" id="sandbox_input" placeholder="Escriba aquí su pregunta sobre habilitación del cambio ITIL 4, comités CAB/ECAB, modelo ADKAR o regulación SIE / Ley 125-01..." style="margin-bottom:.75rem;"><button class="btn-primary" id="btn-sandbox" type="button">🧪 Enviar a Nicole y ver la respuesta</button><div class="sandbox-response" id="sandbox-response"></div></div><div class="field"><label for="p4_reflexion">¿Qué le respondió Nicole y le pareció acertado? <span class="wc" data-for="p4_reflexion">0 palabras</span></label><textarea class="tall" id="p4_reflexion" placeholder="Nicole respondió que..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="p4_reflexion">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p4_reflexion"></span></div></div><div class="field"><label for="p4_mejora">¿Qué otra pregunta del tema le gustaría explorar? <span class="wc" data-for="p4_mejora">0 palabras</span></label><textarea class="tall" id="p4_mejora" placeholder="Me gustaría preguntar sobre..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="p4_mejora">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p4_mejora"></span></div></div>
     </section>
 
 <section id="paso5" class="card">
-      <span class="step-badge">Paso 5 · 5 min</span><span class="step-points">Vale 10 pts</span>
+      <span class="step-badge">Paso 5 · 4 min</span><span class="step-points">Vale 5 pts</span>
       <h1>Reflexión final</h1>
-      <p><strong>Concepto:</strong> cierre con una reflexión breve sobre lo aprendido.</p>
-      <div class="field"><label for="p5_r1">¿Cuál es el aprendizaje más transformador que se lleva de este curso de Arquitectura TI? <span class="wc" data-for="p5_r1">0 palabras</span></label><textarea class="tall" id="p5_r1" placeholder="Aprendí que..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="p5_r1">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p5_r1"></span></div></div>
+<div class="learn"><div class="learn-h">📘 Aprenda primero</div><dl><div><dt>Concepto</dt><dd>Reflexión final (metacognición).</dd></div><div><dt>Definición</dt><dd>Es detenerse a explicar con sus propias palabras qué comprendió y dónde lo aplicará. Convierte lo practicado en aprendizaje que se recuerda y se transfiere al trabajo.</dd></div><div><dt>Ejemplo</dt><dd class="ej">«Aprendí que un sistema corporativo no debe conectarse directo a la red de control. Esta semana revisaré en mi área qué sistemas intercambian datos y si pasan por una zona intermedia.»</dd></div></dl></div>      <div class="field"><label for="p5_r1">¿Cuál es el aprendizaje más transformador que se lleva de este curso de Arquitectura TI? <span class="wc" data-for="p5_r1">0 palabras</span></label><textarea class="tall" id="p5_r1" placeholder="Aprendí que..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="p5_r1">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p5_r1"></span></div></div>
       <div class="field"><label for="p5_r2">¿Qué propuesta de su Proyecto Final impulsará prioritariamente en EDEESTE? <span class="wc" data-for="p5_r2">0 palabras</span></label><textarea class="tall" id="p5_r2" placeholder="Esta semana pienso aplicarlo en..."></textarea><div class="voice-row"><button type="button" class="voice-btn" data-target="p5_r2">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p5_r2"></span></div></div>
     </section>
 
@@ -841,7 +881,7 @@ var io = new IntersectionObserver(function(entries){
 sections.forEach(function(s){ io.observe(s); });
 
 /* ---------- TEMPORIZADOR DE REFERENCIA (no cierra la práctica) ---------- */
-var TIMER_MINUTES = 50;
+var TIMER_MINUTES = 60;
 var TIMER_KEY = 'tp_iarrhci_u1_deadline';
 var SOUND_MUTE_KEY = 'tp_iarrhci_sound_muted';
 var soundMuted = localStorage.getItem(SOUND_MUTE_KEY) === '1';
@@ -1031,7 +1071,7 @@ function escapeHtml(s){ var d = document.createElement('div'); d.textContent = n
 var STEP_FIELDS = {
   paso1: ['p1_q1','p1_q2','p1_q3','p1_q4','p1_q5','p1_q6'],
   paso2: ['p2_s1','p2_s2','p2_s3','p2_s4','p2_s5','p2_s6'],
-  paso3: ['p3_a','p3_b','p3_c'],
+  paso3: ['d1','d2','d3','d_just'],
   paso4: ['p4_reflexion','p4_mejora'],
   paso5: ['p5_r1','p5_r2']
 };
@@ -1185,10 +1225,10 @@ updateProgress();
 /* ---------- RÚBRICA TABLE ---------- */
 var RUBRICA = [
   {n:1, criterio:"Verifique su comprensión (Paso 1)", indicador:"Seis preguntas de selección sobre ITIL 4, ADKAR, regulación eléctrica y el Proyecto Final.", pts:25},
-  {n:2, criterio:"Relacione cada situación con su concepto de gobernanza o cambio (Paso 2)", indicador:"Asocie cada situación práctica con su concepto de ITIL 4, ADKAR o regulación.", pts:25},
-  {n:3, criterio:"Caso: implementación del nuevo ADMS y sustentación de arquitectura (Paso 3)", indicador:"Integre gobernanza, gestión humana y regulación en el proyecto final.", pts:30},
+  {n:2, criterio:"Relacione cada situación con su concepto de gobernanza o cambio (Paso 2)", indicador:"Asocie cada situación práctica con su concepto de ITIL 4, ADKAR o regulación.", pts:20},
+  {n:3, criterio:"Caso de decisiones: Proyecto RedSmart (Paso 3)", indicador:"Tome decisiones en un caso ficticio y justifíquelas con la teoría.", pts:40},
   {n:4, criterio:"Practique con Nicole (Paso 4)", indicador:"Pongamos a prueba lo aprendido conversando con Nicole.", pts:10},
-  {n:5, criterio:"Reflexión final (Paso 5)", indicador:"Cierre con una reflexión breve sobre lo aprendido.", pts:10}
+  {n:5, criterio:"Reflexión final (Paso 5)", indicador:"Cierre con una reflexión breve sobre lo aprendido.", pts:5}
 ];
 document.getElementById('rubrica-body').innerHTML = RUBRICA.map(function(r){
   return '<tr><td class="label-cell">'+r.n+'</td><td>'+r.criterio+'</td><td>'+r.indicador+'</td><td class="label-cell">'+r.pts+'</td></tr>';
@@ -1215,12 +1255,14 @@ function buildCriterion(title, maxPoints, items){
   return { title:title, maxPoints:maxPoints, score:score, strong:strong, mid:mid, weak:weak };
 }
 
-var ANSWER_KEY = {"p1_q1": "CAB (Change Advisory Board · Comité Asesor de Cambios)", "p1_q2": "Contar con un plan de reversión (Rollback Plan) documentado y probado", "p1_q3": "Awareness (Crear conciencia sobre por qué el cambio es necesario)", "p1_q4": "Cambio de Emergencia (autorizado de forma ágil por el ECAB)", "p1_q5": "Superintendencia de Electricidad (SIE) bajo la Ley 125-01", "p1_q6": "La entrega y sustentación del Proyecto Final Integrador de Arquitectura", "p2_s1": "Cambio Estándar (pre-autorizado)", "p2_s2": "Cambio Normal (evaluado por CAB con ventana y rollback)", "p2_s3": "Cambio de Emergencia (aprobado por ECAB)", "p2_s4": "Etapa Deseo (D) de ADKAR", "p2_s5": "Etapa Conocimiento (K) de ADKAR", "p2_s6": "Penalización regulatoria de la SIE por SAIDI (Ley 125-01)"};
-var ANSWER_WHY = {"p1_q1": "El CAB reúne a líderes técnicos y de operaciones para evaluar riesgos, dependencias y ventanas.", "p1_q2": "Si no existe un plan de rollback probado con hora límite de decisión, el cambio no puede comenzar.", "p1_q3": "Antes de capacitar o exigir herramientas, las personas deben entender qué problema resuelve el cambio y qué pasa si no se hace.", "p1_q4": "El ECAB autoriza intervenciones urgentes para restablecer el servicio vital, documentando los detalles a posteriori.", "p1_q5": "La SIE es el ente regulador facultado por la Ley 125-01 para auditar calidad de servicio y aplicar sanciones tarifarias.", "p1_q6": "El Proyecto Final valida la integración práctica de todas las capas de arquitectura desarrolladas en las 40 horas.", "p2_s1": "Cambios frecuentes, documentados y de muy bajo riesgo.", "p2_s2": "Cambio con impacto operativo que requiere aprobación formal y ventana de mantenimiento.", "p2_s3": "Requiere respuesta inmediata autorizada por el comité de emergencia.", "p2_s4": "Genera la motivación y decisión individual de participar en el cambio.", "p2_s5": "Provee las competencias técnicas y el saber hacer.", "p2_s6": "Consecuencia regulatoria directa por degradación de indicadores de continuidad."};
-var MIN_WORDS = {"p3_a": 40, "p3_b": 35, "p3_c": 30, "p5_r1": 20, "p5_r2": 20, "p4_reflexion": 20, "p4_mejora": 20};
+var CHOICE_SCORE = {"d1": {"A. Exigir por circular que todo el personal use la nueva plataforma desde el próximo mes, con sanciones para quien no la use.": 0.1, "B. Comunicar más fuerte: enviar un tercer y un cuarto comunicado y una capacitación masiva única al final del proyecto.": 0.35, "C. Seguir ADKAR: crear conciencia y deseo con espacios de escucha y duplas TI-OT; capacitar con práctica real; y mostrar una victoria rápida con un piloto en un circuito crítico con resultados medibles en menos de 90 días.": 1}, "d2": {"A. Definir una política y una matriz de responsabilidades (RACI) con un manifiesto de innovación responsable y un entorno aprobado para experimentar.": 1, "B. Ignorar el tema para no desmotivar a los analistas jóvenes.": 0.1, "C. Prohibir todo uso de herramientas externas y sancionar a quienes las hayan usado.": 0.4}, "d3": {"A. Pedir al regulador que suspenda la fiscalización hasta que termine el proyecto.": 0.15, "B. Presentar un plan transparente con cronograma, responsables e indicadores de gestión (por ejemplo, capacitación y reportes a tiempo) y de impacto (por ejemplo, SAIDI/SAIFI y precisión de detección de averías).": 1, "C. Centrarse únicamente en corregir los reportes atrasados y no informar del proyecto.": 0.45}};
+var ANSWER_KEY = {"p1_q1": "CAB (Change Advisory Board · Comité Asesor de Cambios)", "p1_q2": "Contar con un plan de reversión (Rollback Plan) documentado y probado", "p1_q3": "Awareness (Crear conciencia sobre por qué el cambio es necesario)", "p1_q4": "Cambio de Emergencia (autorizado de forma ágil por el ECAB)", "p1_q5": "Superintendencia de Electricidad (SIE) bajo la Ley 125-01", "p1_q6": "La entrega y sustentación del Proyecto Final Integrador de Arquitectura", "p2_s1": "Cambio Estándar (pre-autorizado)", "p2_s2": "Cambio Normal (evaluado por CAB con ventana y rollback)", "p2_s3": "Cambio de Emergencia (aprobado por ECAB)", "p2_s4": "Etapa Deseo (D) de ADKAR", "p2_s5": "Etapa Conocimiento (K) de ADKAR", "p2_s6": "Penalización regulatoria de la SIE por SAIDI (Ley 125-01)", "d1": "C. Seguir ADKAR: crear conciencia y deseo con espacios de escucha y duplas TI-OT; capacitar con práctica real; y mostrar una victoria rápida con un piloto en un circuito crítico con resultados medibles en menos de 90 días.", "d2": "A. Definir una política y una matriz de responsabilidades (RACI) con un manifiesto de innovación responsable y un entorno aprobado para experimentar.", "d3": "B. Presentar un plan transparente con cronograma, responsables e indicadores de gestión (por ejemplo, capacitación y reportes a tiempo) y de impacto (por ejemplo, SAIDI/SAIFI y precisión de detección de averías)."};
+var ANSWER_WHY = {"p1_q1": "El CAB reúne a líderes técnicos y de operaciones para evaluar riesgos, dependencias y ventanas.", "p1_q2": "Si no existe un plan de rollback probado con hora límite de decisión, el cambio no puede comenzar.", "p1_q3": "Antes de capacitar o exigir herramientas, las personas deben entender qué problema resuelve el cambio y qué pasa si no se hace.", "p1_q4": "El ECAB autoriza intervenciones urgentes para restablecer el servicio vital, documentando los detalles a posteriori.", "p1_q5": "La SIE es el ente regulador facultado por la Ley 125-01 para auditar calidad de servicio y aplicar sanciones tarifarias.", "p1_q6": "El Proyecto Final valida la integración práctica de todas las capas de arquitectura desarrolladas en las 40 horas.", "p2_s1": "Cambios frecuentes, documentados y de muy bajo riesgo.", "p2_s2": "Cambio con impacto operativo que requiere aprobación formal y ventana de mantenimiento.", "p2_s3": "Requiere respuesta inmediata autorizada por el comité de emergencia.", "p2_s4": "Genera la motivación y decisión individual de participar en el cambio.", "p2_s5": "Provee las competencias técnicas y el saber hacer.", "p2_s6": "Consecuencia regulatoria directa por degradación de indicadores de continuidad.", "d1": "ADKAR parte de la conciencia y el deseo de cada persona; una victoria temprana y comunicación bidireccional reducen la resistencia, algo que los comunicados unidireccionales no logran.", "d2": "La gobernanza equilibra control e innovación: roles claros (RACI), política de uso aceptable y un entorno autorizado. Prohibir sin alternativa empuja el uso a la sombra.", "d3": "La relación con el regulador se gestiona con transparencia e indicadores: la SIE supervisa SAIDI y SAIFI (Ley 125-01) y valora planes creíbles y medibles."};
+var MIN_WORDS = {"d_just": 45, "p5_r1": 20, "p5_r2": 20, "p4_reflexion": 20, "p4_mejora": 20};
 function fieldFrac(id){
   var v = val(id);
   if(!filled(v)) return 0;
+  if(CHOICE_SCORE.hasOwnProperty(id)) return CHOICE_SCORE[id].hasOwnProperty(norm(v)) ? CHOICE_SCORE[id][norm(v)] : 0.2;
   if(ANSWER_KEY.hasOwnProperty(id)) return norm(v) === ANSWER_KEY[id] ? 1 : 0.25;
   if(MIN_WORDS.hasOwnProperty(id)) return clamp01(wordCount(v) / MIN_WORDS[id]);
   return 1;
@@ -1779,6 +1821,107 @@ function fireConfetti(){
 }
 
 
+
+window.CHOICE_DATA = {"d1": {"kind": "decision", "key": "C. Seguir ADKAR: crear conciencia y deseo con espacios de escucha y duplas TI-OT; capacitar con práctica real; y mostrar una victoria rápida con un piloto en un circuito crítico con resultados medibles en menos de 90 días.", "why": "ADKAR parte de la conciencia y el deseo de cada persona; una victoria temprana y comunicación bidireccional reducen la resistencia, algo que los comunicados unidireccionales no logran.", "opts": [{"v": "A. Exigir por circular que todo el personal use la nueva plataforma desde el próximo mes, con sanciones para quien no la use.", "fb": "Se obtiene cumplimiento formal, pero crece la resistencia y el rumor; los técnicos más experimentados se alejan."}, {"v": "B. Comunicar más fuerte: enviar un tercer y un cuarto comunicado y una capacitación masiva única al final del proyecto.", "fb": "Aumenta la información, pero sigue siendo unidireccional y llega tarde: no genera conciencia ni deseo."}, {"v": "C. Seguir ADKAR: crear conciencia y deseo con espacios de escucha y duplas TI-OT; capacitar con práctica real; y mostrar una victoria rápida con un piloto en un circuito crítico con resultados medibles en menos de 90 días.", "fb": "Los técnicos entienden el porqué, participan y ven resultados; el rumor pierde fuerza y el proyecto gana apoyo."}]}, "d2": {"kind": "decision", "key": "A. Definir una política y una matriz de responsabilidades (RACI) con un manifiesto de innovación responsable y un entorno aprobado para experimentar.", "why": "La gobernanza equilibra control e innovación: roles claros (RACI), política de uso aceptable y un entorno autorizado. Prohibir sin alternativa empuja el uso a la sombra.", "opts": [{"v": "A. Definir una política y una matriz de responsabilidades (RACI) con un manifiesto de innovación responsable y un entorno aprobado para experimentar.", "fb": "Se corta el riesgo sin apagar la iniciativa: los analistas tienen un camino legítimo y los roles quedan claros."}, {"v": "B. Ignorar el tema para no desmotivar a los analistas jóvenes.", "fb": "El riesgo persiste y puede derivar en una fuga de datos o un incumplimiento ante el regulador."}, {"v": "C. Prohibir todo uso de herramientas externas y sancionar a quienes las hayan usado.", "fb": "Reduce el riesgo a corto plazo, pero se pierde la innovación y el uso pasa a hacerse de forma oculta."}]}, "d3": {"kind": "decision", "key": "B. Presentar un plan transparente con cronograma, responsables e indicadores de gestión (por ejemplo, capacitación y reportes a tiempo) y de impacto (por ejemplo, SAIDI/SAIFI y precisión de detección de averías).", "why": "La relación con el regulador se gestiona con transparencia e indicadores: la SIE supervisa SAIDI y SAIFI (Ley 125-01) y valora planes creíbles y medibles.", "opts": [{"v": "A. Pedir al regulador que suspenda la fiscalización hasta que termine el proyecto.", "fb": "Es poco realista y debilita la credibilidad de la empresa."}, {"v": "B. Presentar un plan transparente con cronograma, responsables e indicadores de gestión (por ejemplo, capacitación y reportes a tiempo) y de impacto (por ejemplo, SAIDI/SAIFI y precisión de detección de averías).", "fb": "El regulador ve adaptabilidad con credibilidad: hay compromisos medibles y seguimiento."}, {"v": "C. Centrarse únicamente en corregir los reportes atrasados y no informar del proyecto.", "fb": "Se atiende el síntoma, pero no se demuestra que se está gobernando la causa ni se gana la confianza del regulador."}]}};
+
+/* ===== V2: decisiones y video interactivo ===== */
+(function(){
+  var CHOICE = window.CHOICE_DATA || {};
+  function opt(id, v){ var arr = (CHOICE[id] && CHOICE[id].opts) || []; for(var i=0;i<arr.length;i++){ if(arr[i].v === v) return arr[i]; } return null; }
+  function showFb(id, locked){
+    var box = document.getElementById(id + '_fb'); if(!box) return;
+    var v = val(id); var o = opt(id, v);
+    if(!o){ box.className = 'choice-fb'; box.innerHTML = ''; return; }
+    var best = CHOICE[id].key === v;
+    if(CHOICE[id].kind === 'video'){
+      box.className = 'choice-fb show ' + (best ? 'ok' : 'bad');
+      box.innerHTML = (best ? '<b>✔ Correcto.</b> ' : '<b>✖ No es la opción correcta.</b> La respuesta era: <b>' + esc(CHOICE[id].key) + '</b>. ') + esc(CHOICE[id].why);
+    } else {
+      box.className = 'choice-fb show';
+      box.innerHTML = '<b>Consecuencia de su decisión:</b> ' + esc(o.fb) + '<br><small>Al final de la práctica verá cuál era la decisión más sólida según la teoría y por qué.</small>';
+    }
+  }
+  function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  function syncGroup(g){
+    var id = g.getAttribute('data-for'); var v = val(id);
+    var kind = CHOICE[id] && CHOICE[id].kind;
+    g.querySelectorAll('.choice-btn').forEach(function(b){
+      var on = b.getAttribute('data-v') === v;
+      b.classList.toggle('sel', on && kind !== 'video');
+      if(kind === 'video' && v){
+        b.disabled = true;
+        b.classList.toggle('ok', b.getAttribute('data-v') === CHOICE[id].key);
+        b.classList.toggle('bad', on && v !== CHOICE[id].key);
+      }
+    });
+    showFb(id);
+  }
+  document.querySelectorAll('.choice-group').forEach(function(g){
+    g.addEventListener('click', function(e){
+      var b = e.target.closest('.choice-btn'); if(!b || b.disabled) return;
+      var id = g.getAttribute('data-for'); var sel = document.getElementById(id);
+      sel.value = b.getAttribute('data-v');
+      sel.dispatchEvent(new Event('change', {bubbles:true}));
+      syncGroup(g);
+      if(CHOICE[id] && CHOICE[id].kind === 'video'){ var nx = document.getElementById(id + '_next'); if(nx) nx.classList.add('show'); updateVidStatus(); }
+    });
+    syncGroup(g);
+  });
+
+  /* ---- video interactivo ---- */
+  var VID = window.VIDEO_DATA; if(!VID) return;
+  var player = null, timer = null, activeId = null, ready = false, ytFailed = false;
+  function answered(id){ return filled(val(id)); }
+  function updateVidStatus(){
+    var n = VID.cues.filter(function(c){ return answered(c.id); }).length;
+    var st = document.getElementById('vq-status'); if(st) st.textContent = 'Preguntas del video respondidas: ' + n + ' de ' + VID.cues.length;
+  }
+  function hideAll(){ document.querySelectorAll('.vq').forEach(function(q){ q.classList.remove('active'); }); activeId = null; }
+  function showQ(c){
+    hideAll(); activeId = c.id;
+    var q = document.getElementById('vq_' + c.id); q.classList.add('active');
+    try{ if(document.fullscreenElement) document.exitFullscreen(); }catch(e){}
+    q.scrollIntoView({behavior:'smooth', block:'center'});
+    var nx = document.getElementById(c.id + '_next'); if(nx && answered(c.id)) nx.classList.add('show');
+  }
+  function tick(){
+    if(!player || !player.getCurrentTime || activeId) return;
+    var t = player.getCurrentTime();
+    for(var i=0;i<VID.cues.length;i++){
+      var c = VID.cues[i];
+      if(!answered(c.id) && t >= c.t){ player.pauseVideo(); showQ(c); return; }
+    }
+  }
+  function startPoll(){ if(!timer) timer = setInterval(tick, 400); }
+  function onState(e){
+    if(e.data === 1){ startPoll(); }  // PLAYING
+    if(e.data === 1 && activeId && !answered(activeId)){ player.pauseVideo(); }
+  }
+  document.querySelectorAll('.vq-next').forEach(function(b){
+    b.addEventListener('click', function(){
+      hideAll(); updateVidStatus();
+      if(player && player.playVideo) player.playVideo();
+      var w = document.getElementById('vid-wrap'); if(w) w.scrollIntoView({behavior:'smooth', block:'center'});
+    });
+  });
+  function goStatic(){
+    if(ytFailed) return; ytFailed = true;
+    var n = document.getElementById('vid-note');
+    if(n) n.innerHTML = '<div class="alert warn">No se pudo cargar el reproductor interactivo. Abra el video con el enlace «Ver en YouTube», véalo completo y responda aquí las preguntas.</div>';
+    document.querySelectorAll('.vq').forEach(function(q){ q.classList.add('static'); q.classList.add('active'); });
+    document.querySelectorAll('.vq-next').forEach(function(b){ b.style.display = 'none'; });
+  }
+  window.onYouTubeIframeAPIReady = function(){
+    try{
+      player = new YT.Player('ytp', { videoId: VID.id, playerVars:{ rel:0, modestbranding:1, playsinline:1, origin: location.origin, cc_lang_pref:'es', hl:'es' },
+        events:{ onReady:function(){ ready = true; window._ytp = player; }, onStateChange:onState, onError:function(){ goStatic(); } } });
+    }catch(e){ goStatic(); }
+  };
+  var s = document.createElement('script'); s.src = 'https://www.youtube.com/iframe_api'; s.onerror = goStatic; document.head.appendChild(s);
+  setTimeout(function(){ if(!ready) goStatic(); }, 9000);
+  window._vidDebug = { setPlayer: function(p){ player = p; }, tick: tick };
+  updateVidStatus();
+})();
 
 })();
 </script>
