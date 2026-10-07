@@ -1381,5 +1381,71 @@
         ]
       }
     ]
+  },
+  {
+    "nombre": "INNCORP · Innovación y Resiliencia Corporativa",
+    "icono": "⚡",
+    "cursos": [
+      {
+        "nombre": "Arquitectura TI para Empresas Eléctricas — EDEESTE",
+        "icono": "🏢",
+        "tipoClase": "taller",
+        "tipoLabel": "Programa Corporativo · 10 encuentros",
+        "esSecuencial": false,
+        "cursoId": "edeeste-arquitectura-ti",
+        "practicas": [
+          {
+            "badge": "U1 · Encuentro 1",
+            "unidad": "u1e1",
+            "titulo": "Mapa de sistemas de EDEESTE: de la cadena de valor a la arquitectura",
+            "desc": "Identifique los sistemas esenciales de una distribuidora, separe TI de OT y aplique TOGAF a un evento real de la red.",
+            "duracion": "5 pasos · 50 min",
+            "puntos": "100 pts (retroalimentación)",
+            "aprobacion": "Completar los 5 pasos",
+            "url": "https://portal-practicas.plataformajt.com/edeeste-arq-ti-u1-e1/"
+          },
+          {
+            "badge": "U1 · Encuentro 2",
+            "unidad": "u1e2",
+            "titulo": "Gobierno de TI con COBIT 2019: de la meta empresarial a los objetivos",
+            "desc": "Distinga gobierno de gestión, recorra la cascada de metas y priorice objetivos COBIT para un programa de medición inteligente.",
+            "duracion": "5 pasos · 50 min",
+            "puntos": "100 pts (retroalimentación)",
+            "aprobacion": "Completar los 5 pasos",
+            "url": "https://portal-practicas.plataformajt.com/edeeste-arq-ti-u1-e2/"
+          },
+          {
+            "badge": "U2 · Encuentro 3",
+            "unidad": "u2e3",
+            "titulo": "La red de la subestación: topología, redundancia y protocolos",
+            "desc": "Elija protocolos, redundancia y segmentación para una subestación tipo de EDEESTE de 69/12.47 kV.",
+            "duracion": "5 pasos · 50 min",
+            "puntos": "100 pts (retroalimentación)",
+            "aprobacion": "Completar los 5 pasos",
+            "url": "https://portal-practicas.plataformajt.com/edeeste-arq-ti-u2-e3/"
+          },
+          {
+            "badge": "U2 · Encuentro 4",
+            "unidad": "u2e4",
+            "titulo": "Transporte, redes de campo y medición inteligente: del enlace al QoS",
+            "desc": "Elija tecnologías de transporte, dimensione un enlace y defina la calidad de servicio para la subestación de EDEESTE.",
+            "duracion": "5 pasos · 50 min",
+            "puntos": "100 pts (retroalimentación)",
+            "aprobacion": "Completar los 5 pasos",
+            "url": "https://portal-practicas.plataformajt.com/edeeste-arq-ti-u2-e4/"
+          },
+          {
+            "badge": "U2 · Encuentro 5",
+            "unidad": "u2e5",
+            "titulo": "Centro de datos, nube híbrida y continuidad: BIA, RTO y RPO",
+            "desc": "Decida qué va on-premise y qué va en la nube, clasifique sistemas por criticidad y plantee la recuperación ante un huracán.",
+            "duracion": "5 pasos · 50 min",
+            "puntos": "100 pts (retroalimentación)",
+            "aprobacion": "Completar los 5 pasos",
+            "url": "https://portal-practicas.plataformajt.com/edeeste-arq-ti-u2-e5/"
+          }
+        ]
+      }
+    ]
   }
 ]
