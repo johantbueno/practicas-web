@@ -1443,6 +1443,56 @@
             "puntos": "100 pts (retroalimentación)",
             "aprobacion": "Completar los 5 pasos",
             "url": "https://portal-practicas.plataformajt.com/edeeste-arq-ti-u2-e5/"
+          },
+          {
+            "badge": "U3 · Encuentro 6",
+            "unidad": "u3e6",
+            "titulo": "Convergencia IT/OT, Modelo Purdue y diseño de la DMZ Industrial",
+            "desc": "Segmente la red eléctrica por niveles de Purdue, diseñe la DMZ 3.5 y configure servidores bastión con MFA para evitar accesos indebidos.",
+            "duracion": "5 pasos · 50 min",
+            "puntos": "100 pts (retroalimentación)",
+            "aprobacion": "Completar los 5 pasos",
+            "url": "https://portal-practicas.plataformajt.com/edeeste-arq-ti-u3-e6/"
+          },
+          {
+            "badge": "U3 · Encuentro 7",
+            "unidad": "u3e7",
+            "titulo": "Protocolos industriales y telecontrol: IEC 61850, IEC 60870-5-104 y DNP3",
+            "desc": "Analice el funcionamiento de GOOSE, SV, MMS, IEC 104 y DNP3, identifique sus riesgos y aplique la norma de seguridad IEC 62351.",
+            "duracion": "5 pasos · 50 min",
+            "puntos": "100 pts (retroalimentación)",
+            "aprobacion": "Completar los 5 pasos",
+            "url": "https://portal-practicas.plataformajt.com/edeeste-arq-ti-u3-e7/"
+          },
+          {
+            "badge": "U3 · Encuentro 8",
+            "unidad": "u3e8",
+            "titulo": "Ciberdefensa industrial: ISA/IEC 62443, zonas y conductos, y lecciones de Ucrania",
+            "desc": "Diseñe zonas y conductos con niveles de seguridad (SL), aplique DPI y diodos de datos, y extraiga lecciones de ataques reales a redes eléctricas.",
+            "duracion": "5 pasos · 50 min",
+            "puntos": "100 pts (retroalimentación)",
+            "aprobacion": "Completar los 5 pasos",
+            "url": "https://portal-practicas.plataformajt.com/edeeste-arq-ti-u3-e8/"
+          },
+          {
+            "badge": "U4 · Encuentro 9",
+            "unidad": "u4e9",
+            "titulo": "Continuidad del negocio y DRP: ISO 22301, BIA y respuesta ante huracanes",
+            "desc": "Construya la matriz BIA de 4 niveles, defina RTO y RPO, dimensione el Centro de Control de Respaldo y estructure el DRP de EDEESTE.",
+            "duracion": "5 pasos · 50 min",
+            "puntos": "100 pts (retroalimentación)",
+            "aprobacion": "Completar los 5 pasos",
+            "url": "https://portal-practicas.plataformajt.com/edeeste-arq-ti-u4-e9/"
+          },
+          {
+            "badge": "U4 · Encuentro 10",
+            "unidad": "u4e10",
+            "titulo": "Habilitación del cambio, gobernanza regulatoria y sustentación del Proyecto Final",
+            "desc": "Aplique ITIL 4 y el modelo ADKAR de Prosci, evalúe el marco regulatorio dominicano (SIE, SAIDI/SAIFI) y consolide la arquitectura integral.",
+            "duracion": "5 pasos · 50 min",
+            "puntos": "100 pts (retroalimentación)",
+            "aprobacion": "Completar los 5 pasos",
+            "url": "https://portal-practicas.plataformajt.com/edeeste-arq-ti-u4-e10/"
           }
         ]
       }
