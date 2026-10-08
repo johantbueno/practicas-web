@@ -155,6 +155,24 @@ input:focus{border-color:var(--accent); outline:none;}
 .video-grid iframe{width:100%; aspect-ratio:16/9; border:0; border-radius:var(--radius-md); background:#000;}
 .video-grid p{font-size:.82rem; margin:.35rem 0 0; font-weight:600; color:var(--primary);}
 
+.guia, .video-guia{margin:1.4rem 0;}
+.guia h2, .video-guia h2{font-size:1.05rem; margin:0 0 .75rem;}
+ol.guia-pasos{list-style:none; counter-reset:paso; margin:0 0 .6rem; padding:0;}
+ol.guia-pasos li{counter-increment:paso; position:relative; padding:.7rem 1rem .7rem 3.1rem; margin-bottom:.5rem; background:var(--bg-body); border:1px solid var(--border-light); border-radius:var(--radius-md); font-size:.93rem; line-height:1.55; color:var(--secondary);}
+ol.guia-pasos li::before{content:counter(paso); position:absolute; left:.8rem; top:.65rem; width:1.75rem; height:1.75rem; border-radius:50%; background:var(--accent-dark); color:#fff; font-weight:800; font-size:.85rem; display:flex; align-items:center; justify-content:center;}
+ol.guia-pasos li strong{color:var(--primary);}
+.vg-item{margin-bottom:1rem;}
+.vg-fila{display:flex; flex-wrap:wrap; align-items:center; gap:.5rem .9rem;}
+.vg-btn{background:var(--bg-body); color:var(--navy); border:1px solid var(--navy); padding:.6rem 1rem; border-radius:var(--radius-md); font-weight:700; font-size:.88rem; cursor:pointer; font-family:inherit; text-align:left;}
+.vg-btn:hover{background:var(--blue-bg);}
+.vg-btn .vg-cerrar{display:none;}
+.vg-btn[aria-expanded="true"] .vg-abrir{display:none;}
+.vg-btn[aria-expanded="true"] .vg-cerrar{display:inline;}
+.vg-yt{font-size:.82rem; font-weight:600;}
+.vg-por{font-size:.86rem; color:var(--secondary); margin:.45rem 0 0;}
+.vg-slot{margin-top:.7rem;}
+.vg-slot iframe{width:100%; aspect-ratio:16/9; border:0; border-radius:var(--radius-md); background:#000; display:block;}
+
 #submit-zone{text-align:center; padding:2.25rem 1.5rem;}
 #submit-zone p{max-width:560px; margin:0 auto 1.25rem;}
 .results{display:none;}
@@ -309,6 +327,37 @@ footer.tp-footer{text-align:center; color:var(--muted); font-size:.8rem; padding
       <p class="ej-objetivo"><span>🎯 Objetivo</span>En «Empleados» escribe los datos de los 6 empleados (nombre, departamento, cargo y salario mensual) y conviértelos en una tabla.</p>
       <p class="ej-contexto">💼 <strong>Por qué importa:</strong> Todo empieza por un registro de empleados ordenado en una tabla, con sus datos completos.</p>
       <div class="alert info"><strong>Qué hacer (también está en la hoja de su Excel):</strong> Escribe los datos de los 6 empleados en A4:D9 (están a la derecha) y convierte A3:D9 en una tabla.</div>
+      <div class="guia">
+        <h2>📋 Guía paso a paso</h2>
+        <ol class="guia-pasos">
+          <li>Entre a la hoja <strong>Empleados</strong>. A la derecha (columnas <strong>G a J</strong>) está la lista <strong>Datos para copiar</strong> con nombre, departamento, cargo y salario mensual.</li>
+          <li>Copie esos datos (<strong>G4:J9</strong>, sin el encabezado) con <strong>Ctrl + C</strong> y péguelos en <strong>A4</strong> con <strong>Ctrl + V</strong>. Deben llenar el bloque amarillo <strong>A4:D9</strong>.</li>
+          <li>Compruebe que no queda ninguna celda amarilla vacía y que los salarios de <strong>D4:D9</strong> son números (alineados a la derecha).</li>
+          <li>Seleccione <strong>A3:D9</strong>, con los encabezados, y vaya a <strong>Insertar ▸ Tabla</strong> (o presione <strong>Ctrl + T</strong>).</li>
+          <li>En el cuadro <strong>Crear tabla</strong> marque <strong>La tabla tiene encabezados</strong> y acepte.</li>
+          <li>Compruebe que la lista tomó el aspecto de tabla: bandas de color y flechitas de filtro en los encabezados.</li>
+        </ol>
+        <div class="alert gold">⚠️ <strong>Cuidado:</strong> Pegue desde <strong>A4</strong>, no desde A3: la fila 3 son los encabezados.</div>
+      </div>
+      <div class="video-guia">
+        <h2>🎬 Vea cómo se hace en un ejercicio parecido</h2>
+        <div class="vg-item">
+          <div class="vg-fila">
+            <button type="button" class="vg-btn" data-video="WEoTkcJpoWU" data-titulo="Crear y dar Estilo de formato a una tabla de datos" aria-expanded="false" aria-controls="vg-ej1-1"><span class="vg-abrir">▶ Ver aquí: Crear y dar Estilo de formato a una tabla de datos · 10 min</span><span class="vg-cerrar">⏹ Ocultar el video</span></button>
+            <a class="vg-yt" href="https://www.youtube.com/watch?v=WEoTkcJpoWU" target="_blank" rel="noopener">Abrir en YouTube ↗</a>
+          </div>
+          <p class="vg-por">Vea el primer paso, convertir un rango en tabla, y cómo darle estilo; el final del video es de un nivel más avanzado.</p>
+          <div class="vg-slot" id="vg-ej1-1" hidden></div>
+        </div>
+        <div class="vg-item">
+          <div class="vg-fila">
+            <button type="button" class="vg-btn" data-video="9jnPzmWg678" data-titulo="Los diferentes tipos de pegado especial" aria-expanded="false" aria-controls="vg-ej1-2"><span class="vg-abrir">▶ Ver aquí: Los diferentes tipos de pegado especial · 14 min</span><span class="vg-cerrar">⏹ Ocultar el video</span></button>
+            <a class="vg-yt" href="https://www.youtube.com/watch?v=9jnPzmWg678" target="_blank" rel="noopener">Abrir en YouTube ↗</a>
+          </div>
+          <p class="vg-por">Empiece por la parte de copiar y pegar con atajos de teclado.</p>
+          <div class="vg-slot" id="vg-ej1-2" hidden></div>
+        </div>
+      </div>
       <div class="hint-box">💡 <strong>¿Se atascó?</strong> Seleccione los datos y use Insertar &gt; Tabla, marcando «La tabla tiene encabezados».</div>
       <div class="alert gold">✅ <strong>Cómo se califica:</strong><ul><li>Se revisa que exista una tabla de Excel en la hoja.</li><li>Se revisa que las celdas A4:D9 estén completas.</li><li>Se comparan los valores de D4:D9 con el resultado correcto.</li></ul></div>
       <div class="btn-row"><a class="btn-secondary" id="link-abrir-excel-ej1" href="#" target="_blank" rel="noopener">🚀 Empezar Nivel 1 ↗</a></div>
@@ -320,6 +369,38 @@ footer.tp-footer{text-align:center; color:var(--muted); font-size:.8rem; padding
       <p class="ej-objetivo"><span>🎯 Objetivo</span>En «Nómina Quincenal» calcula el sueldo quincenal (mensual ÷ 2), el descuento de TSS con Parámetros!$B$3 y el neto.</p>
       <p class="ej-contexto">💼 <strong>Por qué importa:</strong> La nómina quincenal calcula el sueldo, el descuento de TSS (con el porcentaje de la hoja Parámetros) y el neto.</p>
       <div class="alert info"><strong>Qué hacer (también está en la hoja de su Excel):</strong> Calcula: C = sueldo quincenal (B ÷ 2); D = descuento de TSS (C × Parámetros!$B$3, referencia absoluta); E = neto (C − D).</div>
+      <div class="guia">
+        <h2>📋 Guía paso a paso</h2>
+        <ol class="guia-pasos">
+          <li>Entre a la hoja <strong>Nómina Quincenal</strong>. La columna <strong>B</strong> ya trae el salario mensual de cada empleado; usted completa <strong>C</strong>, <strong>D</strong> y <strong>E</strong>.</li>
+          <li>En <strong>C4</strong> calcule el sueldo quincenal: escriba <code>=</code>, haga clic en <strong>B4</strong> y escriba <code>/2</code> (dividir entre 2). Presione <strong>Enter</strong>.</li>
+          <li>En <strong>D4</strong> calcule el descuento de TSS: <code>=</code>, clic en <strong>C4</strong>, <code>*</code> y clic en la celda de la tasa, en la hoja <strong>Parámetros</strong> (<strong>B3</strong>).</li>
+          <li>Con el cursor sobre esa referencia presione <strong>F4</strong> para que quede <code>Parámetros!$B$3</code> y presione <strong>Enter</strong>.</li>
+          <li>En <strong>E4</strong> calcule el neto a pagar: <code>=</code>, clic en <strong>C4</strong>, <code>-</code>, clic en <strong>D4</strong> y <strong>Enter</strong>.</li>
+          <li>Seleccione <strong>C4:E4</strong> y arrastre la esquina inferior derecha hasta la fila 9 para copiar las tres fórmulas y completar <strong>C4:E9</strong>.</li>
+          <li>Con <strong>C4:E9</strong> seleccionado, vaya a <strong>Inicio ▸ Número</strong> y elija <strong>Moneda</strong>. En cada fila el neto debe ser menor que el sueldo quincenal.</li>
+        </ol>
+        <div class="alert gold">⚠️ <strong>Cuidado:</strong> Fije la tasa con <code>$</code> (<code>$B$3</code>). Sin ellos, al copiar hacia abajo el descuento sale en cero.</div>
+      </div>
+      <div class="video-guia">
+        <h2>🎬 Vea cómo se hace en un ejercicio parecido</h2>
+        <div class="vg-item">
+          <div class="vg-fila">
+            <button type="button" class="vg-btn" data-video="4tkuAlLjmWE" data-titulo="Uso de operadores (+, -, *, /)" aria-expanded="false" aria-controls="vg-ej2-1"><span class="vg-abrir">▶ Ver aquí: Uso de operadores (+, -, *, /) · 19 min</span><span class="vg-cerrar">⏹ Ocultar el video</span></button>
+            <a class="vg-yt" href="https://www.youtube.com/watch?v=4tkuAlLjmWE" target="_blank" rel="noopener">Abrir en YouTube ↗</a>
+          </div>
+          <p class="vg-por">Repasa la división, la resta y la multiplicación dentro de una fórmula.</p>
+          <div class="vg-slot" id="vg-ej2-1" hidden></div>
+        </div>
+        <div class="vg-item">
+          <div class="vg-fila">
+            <button type="button" class="vg-btn" data-video="WSPU5ghdQTk" data-titulo="Referencias relativas y absolutas y mixtas" aria-expanded="false" aria-controls="vg-ej2-2"><span class="vg-abrir">▶ Ver aquí: Referencias relativas y absolutas y mixtas · 16 min</span><span class="vg-cerrar">⏹ Ocultar el video</span></button>
+            <a class="vg-yt" href="https://www.youtube.com/watch?v=WSPU5ghdQTk" target="_blank" rel="noopener">Abrir en YouTube ↗</a>
+          </div>
+          <p class="vg-por">Vea las partes de referencia relativa y absoluta para fijar la tasa de TSS.</p>
+          <div class="vg-slot" id="vg-ej2-2" hidden></div>
+        </div>
+      </div>
       <div class="hint-box">💡 <strong>¿Se atascó?</strong> Revise que cada fila de C4:E9 tenga el resultado correcto.</div>
       <div class="alert gold">✅ <strong>Cómo se califica:</strong><ul><li>Se comparan los valores de C4:E9 con el resultado correcto.</li><li>Sueldos, descuentos y netos con formato de moneda.</li><li>Descuentos escritos con referencia absoluta a la tasa de Parámetros.</li><li>Netos calculados con fórmula.</li></ul></div>
       <div class="btn-row"><a class="btn-secondary" id="link-abrir-excel-ej2" href="#" target="_blank" rel="noopener">🚀 Empezar Nivel 2 ↗</a></div>
@@ -331,6 +412,47 @@ footer.tp-footer{text-align:center; color:var(--muted); font-size:.8rem; padding
       <p class="ej-objetivo"><span>🎯 Objetivo</span>En «Resumen» calcula el bono por puntualidad con SI (Parámetros!$B$5), el resumen general con funciones y un gráfico de columnas del neto por empleado.</p>
       <p class="ej-contexto">💼 <strong>Por qué importa:</strong> El resumen gerencial, el bono por puntualidad y el gráfico convierten la nómina en un informe listo para presentar.</p>
       <div class="alert info"><strong>Qué hacer (también está en la hoja de su Excel):</strong> C = bono con SI (Parámetros!$B$5 si fue puntual, 0 si no). En B12:B16 calcula el resumen del neto y luego inserta un gráfico de columnas del neto por empleado.</div>
+      <div class="guia">
+        <h2>📋 Guía paso a paso</h2>
+        <ol class="guia-pasos">
+          <li>Entre a la hoja <strong>Resumen</strong>. Tiene el nombre, si fue puntual (Sí/No) y el neto de cada empleado.</li>
+          <li>En <strong>C4</strong> escriba la función <code>SI</code>: si <strong>B4</strong> es «Sí» (entre comillas), el bono de <strong>Parámetros</strong> (celda <strong>B5</strong>, fíjela con <strong>F4</strong>); si no, <code>0</code>.</li>
+          <li>Copie la fórmula hacia abajo para llenar el rango <strong>C4:C9</strong>.</li>
+          <li>En <strong>B12:B16</strong> va el resumen del neto con funciones, en este orden: total (<code>SUMA</code>), promedio (<code>PROMEDIO</code>), mayor (<code>MAX</code>), menor (<code>MIN</code>) y cantidad de empleados (<code>CONTARA</code>).</li>
+          <li>Las cuatro primeras usan el rango del neto, <strong>D4:D9</strong>. La de cantidad (<code>CONTARA</code>) cuenta los nombres de <strong>A4:A9</strong>.</li>
+          <li>Seleccione <strong>A3:A9</strong>, mantenga presionada <strong>Ctrl</strong> y seleccione también <strong>D3:D9</strong> (nombres y neto).</li>
+          <li>Vaya a <strong>Insertar ▸ Gráficos ▸ Columna</strong> y mueva el gráfico a la derecha, desde <strong>F3</strong>, para no tapar los datos.</li>
+          <li>Póngale un título al gráfico. El título y el área de impresión los revisa su facilitador.</li>
+        </ol>
+        <div class="alert gold">⚠️ <strong>Cuidado:</strong> En la función SI, «Sí» lleva tilde y va entre comillas dobles; si lo escribe sin tilde, nadie cumple la condición.</div>
+      </div>
+      <div class="video-guia">
+        <h2>🎬 Vea cómo se hace en un ejercicio parecido</h2>
+        <div class="vg-item">
+          <div class="vg-fila">
+            <button type="button" class="vg-btn" data-video="CQj-Gq_wChs" data-titulo="Función SI" aria-expanded="false" aria-controls="vg-ej3-1"><span class="vg-abrir">▶ Ver aquí: Función SI · 23 min</span><span class="vg-cerrar">⏹ Ocultar el video</span></button>
+            <a class="vg-yt" href="https://www.youtube.com/watch?v=CQj-Gq_wChs" target="_blank" rel="noopener">Abrir en YouTube ↗</a>
+          </div>
+          <p class="vg-por">Vea la parte que explica qué es la función SI y los primeros ejercicios; el final del video es de un nivel más avanzado.</p>
+          <div class="vg-slot" id="vg-ej3-1" hidden></div>
+        </div>
+        <div class="vg-item">
+          <div class="vg-fila">
+            <button type="button" class="vg-btn" data-video="O7ta1U_TuBU" data-titulo="Función CONTAR, CONTARA" aria-expanded="false" aria-controls="vg-ej3-2"><span class="vg-abrir">▶ Ver aquí: Función CONTAR, CONTARA · 15 min</span><span class="vg-cerrar">⏹ Ocultar el video</span></button>
+            <a class="vg-yt" href="https://www.youtube.com/watch?v=O7ta1U_TuBU" target="_blank" rel="noopener">Abrir en YouTube ↗</a>
+          </div>
+          <p class="vg-por">Vea los dos primeros pasos, CONTAR y CONTARA, para la cantidad de empleados; los siguientes son de un nivel más avanzado.</p>
+          <div class="vg-slot" id="vg-ej3-2" hidden></div>
+        </div>
+        <div class="vg-item">
+          <div class="vg-fila">
+            <button type="button" class="vg-btn" data-video="kf1J39-Jo2o" data-titulo="Crear un gráfico de columnas y barras" aria-expanded="false" aria-controls="vg-ej3-3"><span class="vg-abrir">▶ Ver aquí: Crear un gráfico de columnas y barras · 14 min</span><span class="vg-cerrar">⏹ Ocultar el video</span></button>
+            <a class="vg-yt" href="https://www.youtube.com/watch?v=kf1J39-Jo2o" target="_blank" rel="noopener">Abrir en YouTube ↗</a>
+          </div>
+          <p class="vg-por">Muestra cómo crear un gráfico de columnas rápidamente desde una tabla.</p>
+          <div class="vg-slot" id="vg-ej3-3" hidden></div>
+        </div>
+      </div>
       <div class="hint-box">💡 <strong>¿Se atascó?</strong> Escriba una fórmula con la función SI en C4:C9; no escriba el resultado a mano.</div>
       <div class="alert gold">✅ <strong>Cómo se califica:</strong><ul><li>Debe usar una fórmula con SI en C4:C9 (no un número escrito a mano).</li><li>Se comparan los valores de C4:C9 con el resultado correcto.</li><li>Debe usar una fórmula con SUMA o PROMEDIO o MAX en B12:B16 (no un número escrito a mano).</li><li>Se comparan los valores de B12:B16 con el resultado correcto.</li><li>Se revisa que exista un gráfico en la hoja.</li></ul></div>
       <div class="btn-row"><a class="btn-secondary" id="link-abrir-excel-ej3" href="#" target="_blank" rel="noopener">🚀 Empezar Nivel 3 ↗</a></div>
@@ -428,6 +550,26 @@ function lsSet(k, v){ try{ localStorage.setItem(k, v); }catch(e){} }
   // Teléfono o pantalla táctil pequeña: se avisa y se ofrecen los videos de la unidad.
   var tactil = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
   if(tactil && window.innerWidth < 900) document.getElementById('movil-card').classList.add('show');
+})();
+
+/* ---------- Videos de cada nivel: el reproductor se crea solo al hacer clic (no carga ni suena antes) ---------- */
+(function(){
+  document.querySelectorAll('.vg-btn').forEach(function(b){
+    b.addEventListener('click', function(){
+      var slot = document.getElementById(b.getAttribute('aria-controls'));
+      if(!slot) return;
+      if(b.getAttribute('aria-expanded') === 'true'){
+        slot.innerHTML = ''; slot.hidden = true; b.setAttribute('aria-expanded', 'false');
+        return;
+      }
+      var f = document.createElement('iframe');
+      f.src = 'https://www.youtube-nocookie.com/embed/' + b.getAttribute('data-video') + '?rel=0';
+      f.title = b.getAttribute('data-titulo') || 'Video de ayuda';
+      f.setAttribute('allow', 'encrypted-media; picture-in-picture; fullscreen');
+      f.setAttribute('allowfullscreen', '');
+      slot.appendChild(f); slot.hidden = false; b.setAttribute('aria-expanded', 'true');
+    });
+  });
 })();
 
 /* ---------- TEMPORIZADOR DE REFERENCIA (no cierra la práctica) ---------- */

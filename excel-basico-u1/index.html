@@ -155,6 +155,24 @@ input:focus{border-color:var(--accent); outline:none;}
 .video-grid iframe{width:100%; aspect-ratio:16/9; border:0; border-radius:var(--radius-md); background:#000;}
 .video-grid p{font-size:.82rem; margin:.35rem 0 0; font-weight:600; color:var(--primary);}
 
+.guia, .video-guia{margin:1.4rem 0;}
+.guia h2, .video-guia h2{font-size:1.05rem; margin:0 0 .75rem;}
+ol.guia-pasos{list-style:none; counter-reset:paso; margin:0 0 .6rem; padding:0;}
+ol.guia-pasos li{counter-increment:paso; position:relative; padding:.7rem 1rem .7rem 3.1rem; margin-bottom:.5rem; background:var(--bg-body); border:1px solid var(--border-light); border-radius:var(--radius-md); font-size:.93rem; line-height:1.55; color:var(--secondary);}
+ol.guia-pasos li::before{content:counter(paso); position:absolute; left:.8rem; top:.65rem; width:1.75rem; height:1.75rem; border-radius:50%; background:var(--accent-dark); color:#fff; font-weight:800; font-size:.85rem; display:flex; align-items:center; justify-content:center;}
+ol.guia-pasos li strong{color:var(--primary);}
+.vg-item{margin-bottom:1rem;}
+.vg-fila{display:flex; flex-wrap:wrap; align-items:center; gap:.5rem .9rem;}
+.vg-btn{background:var(--bg-body); color:var(--navy); border:1px solid var(--navy); padding:.6rem 1rem; border-radius:var(--radius-md); font-weight:700; font-size:.88rem; cursor:pointer; font-family:inherit; text-align:left;}
+.vg-btn:hover{background:var(--blue-bg);}
+.vg-btn .vg-cerrar{display:none;}
+.vg-btn[aria-expanded="true"] .vg-abrir{display:none;}
+.vg-btn[aria-expanded="true"] .vg-cerrar{display:inline;}
+.vg-yt{font-size:.82rem; font-weight:600;}
+.vg-por{font-size:.86rem; color:var(--secondary); margin:.45rem 0 0;}
+.vg-slot{margin-top:.7rem;}
+.vg-slot iframe{width:100%; aspect-ratio:16/9; border:0; border-radius:var(--radius-md); background:#000; display:block;}
+
 #submit-zone{text-align:center; padding:2.25rem 1.5rem;}
 #submit-zone p{max-width:560px; margin:0 auto 1.25rem;}
 .results{display:none;}
@@ -309,6 +327,36 @@ footer.tp-footer{text-align:center; color:var(--muted); font-size:.8rem; padding
       <p class="ej-objetivo"><span>🎯 Objetivo</span>En «Ejercicio 1» escribe los datos de los 6 empleados (nombre, departamento, cargo, fecha de ingreso y salario mensual) tomándolos de la lista de la derecha.</p>
       <p class="ej-contexto">💼 <strong>Por qué importa:</strong> Una ficha de personal bien escrita es el punto de partida de cualquier nómina: sin datos limpios no hay cálculo confiable.</p>
       <div class="alert info"><strong>Qué hacer (también está en la hoja de su Excel):</strong> Escribe en las celdas amarillas los datos de los 6 empleados. Los datos están a la derecha, en la lista «Datos para copiar».</div>
+      <div class="guia">
+        <h2>📋 Guía paso a paso</h2>
+        <ol class="guia-pasos">
+          <li>Abra su copia de Excel y, en las pestañas de abajo, entre a la hoja <strong>Ejercicio 1</strong>.</li>
+          <li>A la derecha (columnas <strong>G a K</strong>) está la lista <strong>Datos para copiar</strong>: nombre, departamento, cargo, fecha de ingreso y salario de los 6 empleados.</li>
+          <li>Seleccione los datos de esa lista (de <strong>G4</strong> a <strong>K9</strong>, sin el encabezado) y cópielos con <strong>Ctrl + C</strong>.</li>
+          <li>Haga clic en la primera celda amarilla, <strong>A4</strong>, y pegue con <strong>Ctrl + V</strong>. Los datos deben llenar todo el bloque amarillo <strong>A4:E9</strong>. También puede escribirlos a mano, celda por celda.</li>
+          <li>Revise que no quede ninguna celda amarilla vacía. Fíjese en la alineación: el texto queda a la izquierda y los números (como el salario) a la derecha.</li>
+        </ol>
+        <div class="alert gold">⚠️ <strong>Cuidado:</strong> Pegue desde <strong>A4</strong>, no desde A3: la fila 3 tiene los encabezados y no se debe sobrescribir.</div>
+      </div>
+      <div class="video-guia">
+        <h2>🎬 Vea cómo se hace en un ejercicio parecido</h2>
+        <div class="vg-item">
+          <div class="vg-fila">
+            <button type="button" class="vg-btn" data-video="nUEoLCrDZjI" data-titulo="Tipos de datos (texto, números, fechas y monedas)" aria-expanded="false" aria-controls="vg-ej1-1"><span class="vg-abrir">▶ Ver aquí: Tipos de datos (texto, números, fechas y monedas) · 19 min</span><span class="vg-cerrar">⏹ Ocultar el video</span></button>
+            <a class="vg-yt" href="https://www.youtube.com/watch?v=nUEoLCrDZjI" target="_blank" rel="noopener">Abrir en YouTube ↗</a>
+          </div>
+          <p class="vg-por">Explica los tipos de datos (texto, números y fechas) y por qué cada uno se alinea distinto en la celda.</p>
+          <div class="vg-slot" id="vg-ej1-1" hidden></div>
+        </div>
+        <div class="vg-item">
+          <div class="vg-fila">
+            <button type="button" class="vg-btn" data-video="9jnPzmWg678" data-titulo="Los diferentes tipos de pegado especial" aria-expanded="false" aria-controls="vg-ej1-2"><span class="vg-abrir">▶ Ver aquí: Los diferentes tipos de pegado especial · 14 min</span><span class="vg-cerrar">⏹ Ocultar el video</span></button>
+            <a class="vg-yt" href="https://www.youtube.com/watch?v=9jnPzmWg678" target="_blank" rel="noopener">Abrir en YouTube ↗</a>
+          </div>
+          <p class="vg-por">Empiece por la parte de copiar y pegar con atajos de teclado, que es lo que hace en este nivel.</p>
+          <div class="vg-slot" id="vg-ej1-2" hidden></div>
+        </div>
+      </div>
       <div class="hint-box">💡 <strong>¿Se atascó?</strong> Complete todas las celdas amarillas del ejercicio.</div>
       <div class="alert gold">✅ <strong>Cómo se califica:</strong><ul><li>Se revisa que las celdas A4:E9 estén completas.</li></ul></div>
       <div class="btn-row"><a class="btn-secondary" id="link-abrir-excel-ej1" href="#" target="_blank" rel="noopener">🚀 Empezar Nivel 1 ↗</a></div>
@@ -320,6 +368,29 @@ footer.tp-footer{text-align:center; color:var(--muted); font-size:.8rem; padding
       <p class="ej-objetivo"><span>🎯 Objetivo</span>En «Ejercicio 2» escribe el salario mensual (con formato moneda RD$) y el porcentaje de comisión (con formato porcentaje) de cada empleado.</p>
       <p class="ej-contexto">💼 <strong>Por qué importa:</strong> Un sueldo mostrado como moneda y una comisión como porcentaje se leen de un vistazo y evitan errores de interpretación.</p>
       <div class="alert info"><strong>Qué hacer (también está en la hoja de su Excel):</strong> Escribe el salario mensual y el porcentaje de comisión de cada empleado. Dales formato moneda RD$ y porcentaje.</div>
+      <div class="guia">
+        <h2>📋 Guía paso a paso</h2>
+        <ol class="guia-pasos">
+          <li>Entre a la hoja <strong>Ejercicio 2</strong>. Los nombres ya están en la columna A; a la derecha (columnas <strong>E a G</strong>) hay una lista con el salario y la comisión de cada empleado.</li>
+          <li>Copie los salarios (<strong>F4:F9</strong>) y péguelos en la primera celda amarilla de la columna B, <strong>B4</strong>, para llenar <strong>B4:B9</strong>.</li>
+          <li>Copie las comisiones (<strong>G4:G9</strong>) y péguelas en <strong>C4</strong>, para llenar <strong>C4:C9</strong>. Por ahora se verán como decimales (por ejemplo 0,05): falta el formato.</li>
+          <li>Seleccione <strong>B4:B9</strong>, vaya a la pestaña <strong>Inicio</strong>, grupo <strong>Número</strong>, abra la lista de formatos y elija <strong>Moneda</strong>. Si el símbolo sale como $, está bien: lo que se califica es que tenga formato de moneda.</li>
+          <li>Seleccione <strong>C4:C9</strong> y, en <strong>Inicio ▸ Número</strong>, elija <strong>Porcentaje</strong> (o pulse el botón <strong>%</strong>). El 0,05 debe verse como 5%.</li>
+          <li>Si una celda muestra ##### no es un error: ensanche la columna con doble clic en el borde derecho de su encabezado.</li>
+        </ol>
+        <div class="alert gold">⚠️ <strong>Cuidado:</strong> Aplique el porcentaje a números como 0,05. Si escribe 5 y después aplica el formato Porcentaje, Excel lo convierte en 500 %.</div>
+      </div>
+      <div class="video-guia">
+        <h2>🎬 Vea cómo se hace en un ejercicio parecido</h2>
+        <div class="vg-item">
+          <div class="vg-fila">
+            <button type="button" class="vg-btn" data-video="nUEoLCrDZjI" data-titulo="Tipos de datos (texto, números, fechas y monedas)" aria-expanded="false" aria-controls="vg-ej2-1"><span class="vg-abrir">▶ Ver aquí: Tipos de datos (texto, números, fechas y monedas) · 19 min</span><span class="vg-cerrar">⏹ Ocultar el video</span></button>
+            <a class="vg-yt" href="https://www.youtube.com/watch?v=nUEoLCrDZjI" target="_blank" rel="noopener">Abrir en YouTube ↗</a>
+          </div>
+          <p class="vg-por">Mire las partes de «Moneda y contabilidad» y de «Porcentaje», que son los dos formatos de este nivel.</p>
+          <div class="vg-slot" id="vg-ej2-1" hidden></div>
+        </div>
+      </div>
       <div class="hint-box">💡 <strong>¿Se atascó?</strong> Revise que cada fila de B4:B9 tenga el resultado correcto.</div>
       <div class="alert gold">✅ <strong>Cómo se califica:</strong><ul><li>Salarios mensuales correctos.</li><li>Salarios con formato de moneda.</li><li>Porcentajes de comisión correctos.</li><li>Comisiones con formato de porcentaje.</li></ul></div>
       <div class="btn-row"><a class="btn-secondary" id="link-abrir-excel-ej2" href="#" target="_blank" rel="noopener">🚀 Empezar Nivel 2 ↗</a></div>
@@ -331,6 +402,29 @@ footer.tp-footer{text-align:center; color:var(--muted); font-size:.8rem; padding
       <p class="ej-objetivo"><span>🎯 Objetivo</span>En «Ejercicio 3» cuenta cuántos empleados hay por departamento y escribe el resumen en orden alfabético.</p>
       <p class="ej-contexto">💼 <strong>Por qué importa:</strong> Contar cuántas personas hay por departamento es lo primero que pide un gerente para repartir presupuesto.</p>
       <div class="alert info"><strong>Qué hacer (también está en la hoja de su Excel):</strong> Con la lista de empleados de «Ejercicio 1», escribe cuántos empleados tiene cada departamento (en orden alfabético).</div>
+      <div class="guia">
+        <h2>📋 Guía paso a paso</h2>
+        <ol class="guia-pasos">
+          <li>Vaya a la hoja <strong>Ejercicio 1</strong> y observe la columna <strong>Departamento</strong> (la B) de los 6 empleados.</li>
+          <li>Anote cuáles departamentos distintos aparecen (son 4) y cuente cuántos empleados tiene cada uno. Ayuda: apúntelos en un papel mientras cuenta.</li>
+          <li>Ordene los 4 departamentos de la A a la Z. Recuerde que se compara letra por letra: dos nombres que empiezan igual se ordenan por su segunda letra.</li>
+          <li>Entre a la hoja <strong>Ejercicio 3</strong> y escriba los 4 departamentos en <strong>A4:A7</strong>, en ese orden y con las tildes tal como aparecen en la lista.</li>
+          <li>En <strong>B4:B7</strong>, al lado de cada departamento, escriba cuántos empleados contó. Al terminar, el bloque amarillo <strong>A4:B7</strong> debe quedar completo.</li>
+          <li>Compruebe su trabajo: seleccione <strong>B4:B7</strong> y mire la barra de estado de abajo; la <strong>Suma</strong> debe ser 6, el total de empleados.</li>
+        </ol>
+        <div class="alert gold">⚠️ <strong>Cuidado:</strong> Escriba cada departamento exactamente igual que en la lista (con tilde): «Almacen» sin tilde no coincide con «Almacén».</div>
+      </div>
+      <div class="video-guia">
+        <h2>🎬 Vea cómo se hace en un ejercicio parecido</h2>
+        <div class="vg-item">
+          <div class="vg-fila">
+            <button type="button" class="vg-btn" data-video="6e7zCGcIXpI" data-titulo="Ordenar y filtrar alfabéticamente o por valores" aria-expanded="false" aria-controls="vg-ej3-1"><span class="vg-abrir">▶ Ver aquí: Ordenar y filtrar alfabéticamente o por valores · 14 min</span><span class="vg-cerrar">⏹ Ocultar el video</span></button>
+            <a class="vg-yt" href="https://www.youtube.com/watch?v=6e7zCGcIXpI" target="_blank" rel="noopener">Abrir en YouTube ↗</a>
+          </div>
+          <p class="vg-por">Muestra cómo ordenar de la A a la Z y cómo filtrar una columna; filtrar por departamento le sirve para comprobar cuántas filas tiene cada uno.</p>
+          <div class="vg-slot" id="vg-ej3-1" hidden></div>
+        </div>
+      </div>
       <div class="hint-box">💡 <strong>¿Se atascó?</strong> Revise que cada fila de A4:B7 tenga el resultado correcto.</div>
       <div class="alert gold">✅ <strong>Cómo se califica:</strong><ul><li>Se comparan los valores de A4:B7 con el resultado correcto.</li></ul></div>
       <div class="btn-row"><a class="btn-secondary" id="link-abrir-excel-ej3" href="#" target="_blank" rel="noopener">🚀 Empezar Nivel 3 ↗</a></div>
@@ -428,6 +522,26 @@ function lsSet(k, v){ try{ localStorage.setItem(k, v); }catch(e){} }
   // Teléfono o pantalla táctil pequeña: se avisa y se ofrecen los videos de la unidad.
   var tactil = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
   if(tactil && window.innerWidth < 900) document.getElementById('movil-card').classList.add('show');
+})();
+
+/* ---------- Videos de cada nivel: el reproductor se crea solo al hacer clic (no carga ni suena antes) ---------- */
+(function(){
+  document.querySelectorAll('.vg-btn').forEach(function(b){
+    b.addEventListener('click', function(){
+      var slot = document.getElementById(b.getAttribute('aria-controls'));
+      if(!slot) return;
+      if(b.getAttribute('aria-expanded') === 'true'){
+        slot.innerHTML = ''; slot.hidden = true; b.setAttribute('aria-expanded', 'false');
+        return;
+      }
+      var f = document.createElement('iframe');
+      f.src = 'https://www.youtube-nocookie.com/embed/' + b.getAttribute('data-video') + '?rel=0';
+      f.title = b.getAttribute('data-titulo') || 'Video de ayuda';
+      f.setAttribute('allow', 'encrypted-media; picture-in-picture; fullscreen');
+      f.setAttribute('allowfullscreen', '');
+      slot.appendChild(f); slot.hidden = false; b.setAttribute('aria-expanded', 'true');
+    });
+  });
 })();
 
 /* ---------- TEMPORIZADOR DE REFERENCIA (no cierra la práctica) ---------- */

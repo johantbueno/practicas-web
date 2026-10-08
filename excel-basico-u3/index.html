@@ -155,6 +155,24 @@ input:focus{border-color:var(--accent); outline:none;}
 .video-grid iframe{width:100%; aspect-ratio:16/9; border:0; border-radius:var(--radius-md); background:#000;}
 .video-grid p{font-size:.82rem; margin:.35rem 0 0; font-weight:600; color:var(--primary);}
 
+.guia, .video-guia{margin:1.4rem 0;}
+.guia h2, .video-guia h2{font-size:1.05rem; margin:0 0 .75rem;}
+ol.guia-pasos{list-style:none; counter-reset:paso; margin:0 0 .6rem; padding:0;}
+ol.guia-pasos li{counter-increment:paso; position:relative; padding:.7rem 1rem .7rem 3.1rem; margin-bottom:.5rem; background:var(--bg-body); border:1px solid var(--border-light); border-radius:var(--radius-md); font-size:.93rem; line-height:1.55; color:var(--secondary);}
+ol.guia-pasos li::before{content:counter(paso); position:absolute; left:.8rem; top:.65rem; width:1.75rem; height:1.75rem; border-radius:50%; background:var(--accent-dark); color:#fff; font-weight:800; font-size:.85rem; display:flex; align-items:center; justify-content:center;}
+ol.guia-pasos li strong{color:var(--primary);}
+.vg-item{margin-bottom:1rem;}
+.vg-fila{display:flex; flex-wrap:wrap; align-items:center; gap:.5rem .9rem;}
+.vg-btn{background:var(--bg-body); color:var(--navy); border:1px solid var(--navy); padding:.6rem 1rem; border-radius:var(--radius-md); font-weight:700; font-size:.88rem; cursor:pointer; font-family:inherit; text-align:left;}
+.vg-btn:hover{background:var(--blue-bg);}
+.vg-btn .vg-cerrar{display:none;}
+.vg-btn[aria-expanded="true"] .vg-abrir{display:none;}
+.vg-btn[aria-expanded="true"] .vg-cerrar{display:inline;}
+.vg-yt{font-size:.82rem; font-weight:600;}
+.vg-por{font-size:.86rem; color:var(--secondary); margin:.45rem 0 0;}
+.vg-slot{margin-top:.7rem;}
+.vg-slot iframe{width:100%; aspect-ratio:16/9; border:0; border-radius:var(--radius-md); background:#000; display:block;}
+
 #submit-zone{text-align:center; padding:2.25rem 1.5rem;}
 #submit-zone p{max-width:560px; margin:0 auto 1.25rem;}
 .results{display:none;}
@@ -309,6 +327,37 @@ footer.tp-footer{text-align:center; color:var(--muted); font-size:.8rem; padding
       <p class="ej-objetivo"><span>🎯 Objetivo</span>En «Ejercicio 1» escribe con la función SI el bono: el monto de Parámetros!$B$5 si las ventas alcanzan la meta, y 0 si no.</p>
       <p class="ej-contexto">💼 <strong>Por qué importa:</strong> Los bonos por cumplimiento de meta se deciden con una condición: si vendió lo esperado, se paga; si no, no.</p>
       <div class="alert info"><strong>Qué hacer (también está en la hoja de su Excel):</strong> En la columna D escribe una fórmula con SI: si las ventas (B) son mayores o iguales a la meta (C), el bono de Parámetros!$B$5; si no, 0.</div>
+      <div class="guia">
+        <h2>📋 Guía paso a paso</h2>
+        <ol class="guia-pasos">
+          <li>En la hoja <strong>Parámetros</strong>, mire en <strong>B5</strong> el monto del bono por cumplir la meta.</li>
+          <li>Entre a <strong>Ejercicio 1</strong> y haga clic en <strong>D4</strong>. Piense la regla en palabras: «si las ventas (B4) llegan a la meta (C4), se paga el bono; si no, se paga 0».</li>
+          <li>Escriba <code>=SI(</code> y construya sus tres partes separadas por <code>;</code> (o por <code>,</code>, según su Excel): la <strong>condición</strong> (ventas mayores o iguales que la meta, con <code>&gt;=</code>), el <strong>valor si se cumple</strong> y el <strong>valor si no se cumple</strong>.</li>
+          <li>El valor si se cumple es la celda del bono en <strong>Parámetros</strong>: haga clic en ella y presione <strong>F4</strong> para fijarla con <code>$</code>. El valor si no se cumple es <code>0</code>.</li>
+          <li>Cierre el paréntesis, presione <strong>Enter</strong> y copie la fórmula hacia abajo para llenar el rango <strong>D4:D9</strong>.</li>
+          <li>Revise: las personas cuyas ventas no llegan a la meta deben mostrar 0 y las demás el monto del bono.</li>
+        </ol>
+        <div class="alert gold">⚠️ <strong>Cuidado:</strong> Si Excel marca error al separar con coma o con punto y coma, pruebe con el otro signo: depende de la configuración regional. Si su Excel está en inglés, la función se llama <code>IF</code>.</div>
+      </div>
+      <div class="video-guia">
+        <h2>🎬 Vea cómo se hace en un ejercicio parecido</h2>
+        <div class="vg-item">
+          <div class="vg-fila">
+            <button type="button" class="vg-btn" data-video="CQj-Gq_wChs" data-titulo="Función SI" aria-expanded="false" aria-controls="vg-ej1-1"><span class="vg-abrir">▶ Ver aquí: Función SI · 23 min</span><span class="vg-cerrar">⏹ Ocultar el video</span></button>
+            <a class="vg-yt" href="https://www.youtube.com/watch?v=CQj-Gq_wChs" target="_blank" rel="noopener">Abrir en YouTube ↗</a>
+          </div>
+          <p class="vg-por">Vea la parte que explica qué es la función SI y los primeros ejercicios; el final del video es de un nivel más avanzado.</p>
+          <div class="vg-slot" id="vg-ej1-1" hidden></div>
+        </div>
+        <div class="vg-item">
+          <div class="vg-fila">
+            <button type="button" class="vg-btn" data-video="WSPU5ghdQTk" data-titulo="Referencias relativas y absolutas y mixtas" aria-expanded="false" aria-controls="vg-ej1-2"><span class="vg-abrir">▶ Ver aquí: Referencias relativas y absolutas y mixtas · 16 min</span><span class="vg-cerrar">⏹ Ocultar el video</span></button>
+            <a class="vg-yt" href="https://www.youtube.com/watch?v=WSPU5ghdQTk" target="_blank" rel="noopener">Abrir en YouTube ↗</a>
+          </div>
+          <p class="vg-por">Repase la referencia absoluta para fijar la celda del bono con <code>$</code>.</p>
+          <div class="vg-slot" id="vg-ej1-2" hidden></div>
+        </div>
+      </div>
       <div class="hint-box">💡 <strong>¿Se atascó?</strong> Escriba una fórmula con la función SI en D4:D9; no escriba el resultado a mano.</div>
       <div class="alert gold">✅ <strong>Cómo se califica:</strong><ul><li>Debe usar una fórmula con SI en D4:D9 (no un número escrito a mano).</li><li>Se comparan los valores de D4:D9 con el resultado correcto.</li></ul></div>
       <div class="btn-row"><a class="btn-secondary" id="link-abrir-excel-ej1" href="#" target="_blank" rel="noopener">🚀 Empezar Nivel 1 ↗</a></div>
@@ -320,6 +369,28 @@ footer.tp-footer{text-align:center; color:var(--muted); font-size:.8rem; padding
       <p class="ej-objetivo"><span>🎯 Objetivo</span>En «Ejercicio 2» escribe con la función SI el estado de cada vendedor: «Cumple» si alcanza la meta y «No cumple» si no.</p>
       <p class="ej-contexto">💼 <strong>Por qué importa:</strong> Un estado «Cumple» / «No cumple» permite filtrar y revisar rápido a quién se le paga el bono.</p>
       <div class="alert info"><strong>Qué hacer (también está en la hoja de su Excel):</strong> En la columna D escribe una fórmula con SI que muestre «Cumple» si las ventas alcanzan la meta y «No cumple» si no.</div>
+      <div class="guia">
+        <h2>📋 Guía paso a paso</h2>
+        <ol class="guia-pasos">
+          <li>En la hoja <strong>Ejercicio 2</strong>, haga clic en <strong>D4</strong>. La regla es: si las ventas (B4) llegan a la meta (C4) se muestra «Cumple»; si no, «No cumple».</li>
+          <li>Escriba <code>=SI(</code> seguido de la condición (ventas <code>&gt;=</code> meta), el texto si se cumple y el texto si no se cumple, separados por <code>;</code> o por <code>,</code>.</li>
+          <li>Los textos van <strong>entre comillas dobles</strong> y escritos exactamente como «Cumple» y «No cumple» (mayúscula inicial, sin espacios de más).</li>
+          <li>Presione <strong>Enter</strong> y copie la fórmula hacia abajo hasta completar el rango <strong>D4:D9</strong>.</li>
+          <li>Compare con el Nivel 1: quienes recibieron bono allá deben decir «Cumple» aquí.</li>
+        </ol>
+        <div class="alert gold">⚠️ <strong>Cuidado:</strong> Escriba las comillas desde el teclado de Excel. Si las copia de otro programa pueden ser comillas curvas y la fórmula falla.</div>
+      </div>
+      <div class="video-guia">
+        <h2>🎬 Vea cómo se hace en un ejercicio parecido</h2>
+        <div class="vg-item">
+          <div class="vg-fila">
+            <button type="button" class="vg-btn" data-video="CQj-Gq_wChs" data-titulo="Función SI" aria-expanded="false" aria-controls="vg-ej2-1"><span class="vg-abrir">▶ Ver aquí: Función SI · 23 min</span><span class="vg-cerrar">⏹ Ocultar el video</span></button>
+            <a class="vg-yt" href="https://www.youtube.com/watch?v=CQj-Gq_wChs" target="_blank" rel="noopener">Abrir en YouTube ↗</a>
+          </div>
+          <p class="vg-por">Sus ejemplos hacen que la función SI devuelva texto («Aprobado» o «Reprobado»), igual que aquí; el final del video es de un nivel más avanzado.</p>
+          <div class="vg-slot" id="vg-ej2-1" hidden></div>
+        </div>
+      </div>
       <div class="hint-box">💡 <strong>¿Se atascó?</strong> Escriba una fórmula con la función SI en D4:D9; no escriba el resultado a mano.</div>
       <div class="alert gold">✅ <strong>Cómo se califica:</strong><ul><li>Debe usar una fórmula con SI en D4:D9 (no un número escrito a mano).</li><li>Se comparan los valores de D4:D9 con el resultado correcto.</li></ul></div>
       <div class="btn-row"><a class="btn-secondary" id="link-abrir-excel-ej2" href="#" target="_blank" rel="noopener">🚀 Empezar Nivel 2 ↗</a></div>
@@ -331,6 +402,46 @@ footer.tp-footer{text-align:center; color:var(--muted); font-size:.8rem; padding
       <p class="ej-objetivo"><span>🎯 Objetivo</span>En «Ejercicio 3» calcula el pago de horas extras: horas × valor por hora × (1 + el recargo de Parámetros!$B$4). Luego resalta con formato condicional los pagos mayores a RD$1.000.</p>
       <p class="ej-contexto">💼 <strong>Por qué importa:</strong> Las horas extras se pagan con un recargo de ley: calcularlas bien evita reclamos y multas laborales.</p>
       <div class="alert info"><strong>Qué hacer (también está en la hoja de su Excel):</strong> En la columna D calcula el pago: horas extras × valor por hora × (1 + recargo). El recargo está en Parámetros!$B$4 (usa referencia absoluta).</div>
+      <div class="guia">
+        <h2>📋 Guía paso a paso</h2>
+        <ol class="guia-pasos">
+          <li>En <strong>Parámetros</strong>, mire en <strong>B4</strong> el recargo que la ley manda sobre las horas extras (se suma al valor de la hora normal).</li>
+          <li>Entre a <strong>Ejercicio 3</strong> y haga clic en <strong>D4</strong>. El pago es: horas extras × valor por hora × (1 + recargo).</li>
+          <li>Escriba <code>=</code>, haga clic en <strong>B4</strong>, escriba <code>*</code>, haga clic en <strong>C4</strong> y escriba <code>*</code>. Luego abra un paréntesis, escriba <code>1+</code> y haga clic en la celda del recargo en <strong>Parámetros</strong>.</li>
+          <li>Presione <strong>F4</strong> para fijar el recargo con <code>$</code>, cierre el paréntesis y presione <strong>Enter</strong>.</li>
+          <li>Copie la fórmula hacia abajo hasta completar el rango <strong>D4:D9</strong>.</li>
+          <li>Formato condicional: seleccione <strong>D4:D9</strong>, vaya a <strong>Inicio ▸ Formato condicional ▸ Resaltar reglas de celdas ▸ Mayor que…</strong>, escriba <code>1000</code> y acepte.</li>
+          <li>Compruebe que solo se resaltan los pagos mayores a RD$1.000. El formato condicional lo revisa su facilitador; la nota automática mide el cálculo de las horas extras.</li>
+        </ol>
+        <div class="alert gold">⚠️ <strong>Cuidado:</strong> Sin el paréntesis en (1 + recargo), Excel multiplica antes de sumar y el pago sale mal.</div>
+      </div>
+      <div class="video-guia">
+        <h2>🎬 Vea cómo se hace en un ejercicio parecido</h2>
+        <div class="vg-item">
+          <div class="vg-fila">
+            <button type="button" class="vg-btn" data-video="WSPU5ghdQTk" data-titulo="Referencias relativas y absolutas y mixtas" aria-expanded="false" aria-controls="vg-ej3-1"><span class="vg-abrir">▶ Ver aquí: Referencias relativas y absolutas y mixtas · 16 min</span><span class="vg-cerrar">⏹ Ocultar el video</span></button>
+            <a class="vg-yt" href="https://www.youtube.com/watch?v=WSPU5ghdQTk" target="_blank" rel="noopener">Abrir en YouTube ↗</a>
+          </div>
+          <p class="vg-por">Repase la referencia absoluta para fijar el recargo con <code>$</code>.</p>
+          <div class="vg-slot" id="vg-ej3-1" hidden></div>
+        </div>
+        <div class="vg-item">
+          <div class="vg-fila">
+            <button type="button" class="vg-btn" data-video="4tkuAlLjmWE" data-titulo="Uso de operadores (+, -, *, /)" aria-expanded="false" aria-controls="vg-ej3-2"><span class="vg-abrir">▶ Ver aquí: Uso de operadores (+, -, *, /) · 19 min</span><span class="vg-cerrar">⏹ Ocultar el video</span></button>
+            <a class="vg-yt" href="https://www.youtube.com/watch?v=4tkuAlLjmWE" target="_blank" rel="noopener">Abrir en YouTube ↗</a>
+          </div>
+          <p class="vg-por">Repasa los operadores de multiplicar (*) y sumar (+) dentro de una fórmula.</p>
+          <div class="vg-slot" id="vg-ej3-2" hidden></div>
+        </div>
+        <div class="vg-item">
+          <div class="vg-fila">
+            <button type="button" class="vg-btn" data-video="MH9fRDyzX9I" data-titulo="Formato condicional básico (Resaltar Valores mayores, menores o iguales)" aria-expanded="false" aria-controls="vg-ej3-3"><span class="vg-abrir">▶ Ver aquí: Formato condicional básico (Resaltar Valores mayores, menores o iguales) · 15 min</span><span class="vg-cerrar">⏹ Ocultar el video</span></button>
+            <a class="vg-yt" href="https://www.youtube.com/watch?v=MH9fRDyzX9I" target="_blank" rel="noopener">Abrir en YouTube ↗</a>
+          </div>
+          <p class="vg-por">Vea el primer paso, resaltar valores mayores que una cantidad; los demás pasos son extras.</p>
+          <div class="vg-slot" id="vg-ej3-3" hidden></div>
+        </div>
+      </div>
       <div class="hint-box">💡 <strong>¿Se atascó?</strong> Fije la celda del parámetro con $ (referencia absoluta) en las fórmulas de D4:D9.</div>
       <div class="alert gold">✅ <strong>Cómo se califica:</strong><ul><li>Pagos escritos con referencia absoluta al recargo de Parámetros.</li><li>Se comparan los valores de D4:D9 con el resultado correcto.</li></ul></div>
       <div class="btn-row"><a class="btn-secondary" id="link-abrir-excel-ej3" href="#" target="_blank" rel="noopener">🚀 Empezar Nivel 3 ↗</a></div>
@@ -428,6 +539,26 @@ function lsSet(k, v){ try{ localStorage.setItem(k, v); }catch(e){} }
   // Teléfono o pantalla táctil pequeña: se avisa y se ofrecen los videos de la unidad.
   var tactil = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
   if(tactil && window.innerWidth < 900) document.getElementById('movil-card').classList.add('show');
+})();
+
+/* ---------- Videos de cada nivel: el reproductor se crea solo al hacer clic (no carga ni suena antes) ---------- */
+(function(){
+  document.querySelectorAll('.vg-btn').forEach(function(b){
+    b.addEventListener('click', function(){
+      var slot = document.getElementById(b.getAttribute('aria-controls'));
+      if(!slot) return;
+      if(b.getAttribute('aria-expanded') === 'true'){
+        slot.innerHTML = ''; slot.hidden = true; b.setAttribute('aria-expanded', 'false');
+        return;
+      }
+      var f = document.createElement('iframe');
+      f.src = 'https://www.youtube-nocookie.com/embed/' + b.getAttribute('data-video') + '?rel=0';
+      f.title = b.getAttribute('data-titulo') || 'Video de ayuda';
+      f.setAttribute('allow', 'encrypted-media; picture-in-picture; fullscreen');
+      f.setAttribute('allowfullscreen', '');
+      slot.appendChild(f); slot.hidden = false; b.setAttribute('aria-expanded', 'true');
+    });
+  });
 })();
 
 /* ---------- TEMPORIZADOR DE REFERENCIA (no cierra la práctica) ---------- */

@@ -155,6 +155,24 @@ input:focus{border-color:var(--accent); outline:none;}
 .video-grid iframe{width:100%; aspect-ratio:16/9; border:0; border-radius:var(--radius-md); background:#000;}
 .video-grid p{font-size:.82rem; margin:.35rem 0 0; font-weight:600; color:var(--primary);}
 
+.guia, .video-guia{margin:1.4rem 0;}
+.guia h2, .video-guia h2{font-size:1.05rem; margin:0 0 .75rem;}
+ol.guia-pasos{list-style:none; counter-reset:paso; margin:0 0 .6rem; padding:0;}
+ol.guia-pasos li{counter-increment:paso; position:relative; padding:.7rem 1rem .7rem 3.1rem; margin-bottom:.5rem; background:var(--bg-body); border:1px solid var(--border-light); border-radius:var(--radius-md); font-size:.93rem; line-height:1.55; color:var(--secondary);}
+ol.guia-pasos li::before{content:counter(paso); position:absolute; left:.8rem; top:.65rem; width:1.75rem; height:1.75rem; border-radius:50%; background:var(--accent-dark); color:#fff; font-weight:800; font-size:.85rem; display:flex; align-items:center; justify-content:center;}
+ol.guia-pasos li strong{color:var(--primary);}
+.vg-item{margin-bottom:1rem;}
+.vg-fila{display:flex; flex-wrap:wrap; align-items:center; gap:.5rem .9rem;}
+.vg-btn{background:var(--bg-body); color:var(--navy); border:1px solid var(--navy); padding:.6rem 1rem; border-radius:var(--radius-md); font-weight:700; font-size:.88rem; cursor:pointer; font-family:inherit; text-align:left;}
+.vg-btn:hover{background:var(--blue-bg);}
+.vg-btn .vg-cerrar{display:none;}
+.vg-btn[aria-expanded="true"] .vg-abrir{display:none;}
+.vg-btn[aria-expanded="true"] .vg-cerrar{display:inline;}
+.vg-yt{font-size:.82rem; font-weight:600;}
+.vg-por{font-size:.86rem; color:var(--secondary); margin:.45rem 0 0;}
+.vg-slot{margin-top:.7rem;}
+.vg-slot iframe{width:100%; aspect-ratio:16/9; border:0; border-radius:var(--radius-md); background:#000; display:block;}
+
 #submit-zone{text-align:center; padding:2.25rem 1.5rem;}
 #submit-zone p{max-width:560px; margin:0 auto 1.25rem;}
 .results{display:none;}
@@ -309,6 +327,28 @@ footer.tp-footer{text-align:center; color:var(--muted); font-size:.8rem; padding
       <p class="ej-objetivo"><span>🎯 Objetivo</span>En «Ejercicio 1» convierte el rango A3:D9 en una tabla de Excel.</p>
       <p class="ej-contexto">💼 <strong>Por qué importa:</strong> Una tabla de Excel ordena, filtra y se amplía sola al agregar empleados: es la base de cualquier registro de personal.</p>
       <div class="alert info"><strong>Qué hacer (también está en la hoja de su Excel):</strong> Selecciona A3:D9 e insértala como tabla (Insertar &gt; Tabla), con encabezados.</div>
+      <div class="guia">
+        <h2>📋 Guía paso a paso</h2>
+        <ol class="guia-pasos">
+          <li>Entre a la hoja <strong>Ejercicio 1</strong>. La lista de empleados está en <strong>A3:D9</strong>; la fila 3 tiene los encabezados.</li>
+          <li>Seleccione <strong>A3:D9</strong> (con los encabezados) o haga clic en cualquier celda dentro de la lista.</li>
+          <li>Vaya a <strong>Insertar ▸ Tabla</strong> (o presione <strong>Ctrl + T</strong>).</li>
+          <li>En el cuadro <strong>Crear tabla</strong>, compruebe que el rango sea <strong>A3:D9</strong> y que esté marcada la casilla <strong>La tabla tiene encabezados</strong>. Acepte.</li>
+          <li>Compruebe que la lista cambió de aspecto: filas con bandas de color y flechitas de filtro en los encabezados.</li>
+        </ol>
+        <div class="alert gold">⚠️ <strong>Cuidado:</strong> Si olvida marcar «La tabla tiene encabezados», Excel agrega una fila nueva con nombres como «Columna1».</div>
+      </div>
+      <div class="video-guia">
+        <h2>🎬 Vea cómo se hace en un ejercicio parecido</h2>
+        <div class="vg-item">
+          <div class="vg-fila">
+            <button type="button" class="vg-btn" data-video="WEoTkcJpoWU" data-titulo="Crear y dar Estilo de formato a una tabla de datos" aria-expanded="false" aria-controls="vg-ej1-1"><span class="vg-abrir">▶ Ver aquí: Crear y dar Estilo de formato a una tabla de datos · 10 min</span><span class="vg-cerrar">⏹ Ocultar el video</span></button>
+            <a class="vg-yt" href="https://www.youtube.com/watch?v=WEoTkcJpoWU" target="_blank" rel="noopener">Abrir en YouTube ↗</a>
+          </div>
+          <p class="vg-por">Vea el primer paso, convertir un rango en tabla, y cómo darle estilo; el final del video es de un nivel más avanzado.</p>
+          <div class="vg-slot" id="vg-ej1-1" hidden></div>
+        </div>
+      </div>
       <div class="hint-box">💡 <strong>¿Se atascó?</strong> Seleccione los datos y use Insertar &gt; Tabla, marcando «La tabla tiene encabezados».</div>
       <div class="alert gold">✅ <strong>Cómo se califica:</strong><ul><li>Se revisa que exista una tabla de Excel en la hoja.</li></ul></div>
       <div class="btn-row"><a class="btn-secondary" id="link-abrir-excel-ej1" href="#" target="_blank" rel="noopener">🚀 Empezar Nivel 1 ↗</a></div>
@@ -320,6 +360,28 @@ footer.tp-footer{text-align:center; color:var(--muted); font-size:.8rem; padding
       <p class="ej-objetivo"><span>🎯 Objetivo</span>En «Ejercicio 2» ordena la tabla alfabéticamente por apellido (columna A, de A a Z). Los salarios deben quedar junto a su empleado.</p>
       <p class="ej-contexto">💼 <strong>Por qué importa:</strong> Ordenar por apellido sin mezclar los salarios es lo que se hace antes de imprimir un listado.</p>
       <div class="alert info"><strong>Qué hacer (también está en la hoja de su Excel):</strong> Ordena la lista por apellido, de la A a la Z. Cada salario debe quedar al lado de su empleado.</div>
+      <div class="guia">
+        <h2>📋 Guía paso a paso</h2>
+        <ol class="guia-pasos">
+          <li>Entre a la hoja <strong>Ejercicio 2</strong>. Hay dos columnas: apellido y nombre en la <strong>A</strong>, y el salario en la <strong>B</strong>.</li>
+          <li>Seleccione toda la lista, <strong>A3:B9</strong>, con los encabezados. Es importante incluir la columna del salario para que viaje junto con cada empleado.</li>
+          <li>Vaya a <strong>Datos ▸ Ordenar</strong>. En «Ordenar por» elija <strong>Apellido y nombre</strong> y el orden <strong>De A a Z</strong>; marque que los datos tienen encabezados y acepte.</li>
+          <li>Otra forma: convierta la lista en tabla con <strong>Ctrl + T</strong>, abra la flecha del encabezado <strong>Apellido y nombre</strong> y elija <strong>Ordenar de A a Z</strong>.</li>
+          <li>Compruebe que <strong>A4:A9</strong> quedó en orden alfabético y que cada salario de <strong>B4:B9</strong> sigue al lado del mismo empleado.</li>
+        </ol>
+        <div class="alert gold">⚠️ <strong>Cuidado:</strong> Si ordena solo la columna A, los salarios quedan con la persona equivocada y pierde puntos.</div>
+      </div>
+      <div class="video-guia">
+        <h2>🎬 Vea cómo se hace en un ejercicio parecido</h2>
+        <div class="vg-item">
+          <div class="vg-fila">
+            <button type="button" class="vg-btn" data-video="6e7zCGcIXpI" data-titulo="Ordenar y filtrar alfabéticamente o por valores" aria-expanded="false" aria-controls="vg-ej2-1"><span class="vg-abrir">▶ Ver aquí: Ordenar y filtrar alfabéticamente o por valores · 14 min</span><span class="vg-cerrar">⏹ Ocultar el video</span></button>
+            <a class="vg-yt" href="https://www.youtube.com/watch?v=6e7zCGcIXpI" target="_blank" rel="noopener">Abrir en YouTube ↗</a>
+          </div>
+          <p class="vg-por">Vea el paso de ordenar datos en una tabla, de la A a la Z.</p>
+          <div class="vg-slot" id="vg-ej2-1" hidden></div>
+        </div>
+      </div>
       <div class="hint-box">💡 <strong>¿Se atascó?</strong> Use la flecha del encabezado para ordenar de la A a la Z, con los salarios junto a cada empleado.</div>
       <div class="alert gold">✅ <strong>Cómo se califica:</strong><ul><li>Se revisa que la lista A4:A9 esté en orden alfabético.</li><li>Salarios junto a su empleado.</li></ul></div>
       <div class="btn-row"><a class="btn-secondary" id="link-abrir-excel-ej2" href="#" target="_blank" rel="noopener">🚀 Empezar Nivel 2 ↗</a></div>
@@ -331,6 +393,28 @@ footer.tp-footer{text-align:center; color:var(--muted); font-size:.8rem; padding
       <p class="ej-objetivo"><span>🎯 Objetivo</span>En «Ejercicio 3» crea una lista desplegable con los 4 departamentos (están en G4:G7) y elige para cada cargo el departamento que le corresponde.</p>
       <p class="ej-contexto">💼 <strong>Por qué importa:</strong> Una lista desplegable evita que cada persona escriba el departamento a su manera y se rompan los filtros.</p>
       <div class="alert info"><strong>Qué hacer (también está en la hoja de su Excel):</strong> Crea una lista desplegable en C4:C9 con los departamentos de G4:G7 (Datos &gt; Validación de datos &gt; Lista) y elige el departamento de cada cargo.</div>
+      <div class="guia">
+        <h2>📋 Guía paso a paso</h2>
+        <ol class="guia-pasos">
+          <li>Entre a la hoja <strong>Ejercicio 3</strong>. A la derecha, en <strong>G4:G7</strong>, está la lista de los 4 departamentos. Las celdas amarillas <strong>C4:C9</strong> esperan el departamento de cada empleado.</li>
+          <li>Seleccione <strong>C4:C9</strong> y vaya a la pestaña <strong>Datos ▸ Validación de datos</strong>.</li>
+          <li>En <strong>Permitir</strong> elija <strong>Lista</strong>. Haga clic en el cuadro <strong>Origen</strong> y seleccione con el mouse la lista <strong>G4:G7</strong>. Acepte.</li>
+          <li>Ahora cada celda de <strong>C4:C9</strong> muestra una flechita. Para cada empleado, elija el departamento que corresponde a su cargo. La lista desplegable la revisa su facilitador; la nota automática mide que cada cargo tenga el departamento correcto.</li>
+          <li>Pistas: Ventas atiende a los clientes; Almacén guarda y despacha la mercancía; Contabilidad lleva las cuentas; Administración apoya la gestión de la empresa.</li>
+        </ol>
+        <div class="alert gold">⚠️ <strong>Cuidado:</strong> Elija el departamento de la lista en vez de escribirlo a mano: así el texto queda igual que en <strong>G4:G7</strong>.</div>
+      </div>
+      <div class="video-guia">
+        <h2>🎬 Vea cómo se hace en un ejercicio parecido</h2>
+        <div class="vg-item">
+          <div class="vg-fila">
+            <button type="button" class="vg-btn" data-video="-DIaAArEHGE" data-titulo="Validación de datos: Listas desplegables" aria-expanded="false" aria-controls="vg-ej3-1"><span class="vg-abrir">▶ Ver aquí: Validación de datos: Listas desplegables · 7 min</span><span class="vg-cerrar">⏹ Ocultar el video</span></button>
+            <a class="vg-yt" href="https://www.youtube.com/watch?v=-DIaAArEHGE" target="_blank" rel="noopener">Abrir en YouTube ↗</a>
+          </div>
+          <p class="vg-por">Muestra cómo crear una lista desplegable desde un rango de celdas, que es lo que hace aquí.</p>
+          <div class="vg-slot" id="vg-ej3-1" hidden></div>
+        </div>
+      </div>
       <div class="hint-box">💡 <strong>¿Se atascó?</strong> Revise que cada fila de C4:C9 tenga el resultado correcto.</div>
       <div class="alert gold">✅ <strong>Cómo se califica:</strong><ul><li>Se comparan los valores de C4:C9 con el resultado correcto.</li></ul></div>
       <div class="btn-row"><a class="btn-secondary" id="link-abrir-excel-ej3" href="#" target="_blank" rel="noopener">🚀 Empezar Nivel 3 ↗</a></div>
@@ -428,6 +512,26 @@ function lsSet(k, v){ try{ localStorage.setItem(k, v); }catch(e){} }
   // Teléfono o pantalla táctil pequeña: se avisa y se ofrecen los videos de la unidad.
   var tactil = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
   if(tactil && window.innerWidth < 900) document.getElementById('movil-card').classList.add('show');
+})();
+
+/* ---------- Videos de cada nivel: el reproductor se crea solo al hacer clic (no carga ni suena antes) ---------- */
+(function(){
+  document.querySelectorAll('.vg-btn').forEach(function(b){
+    b.addEventListener('click', function(){
+      var slot = document.getElementById(b.getAttribute('aria-controls'));
+      if(!slot) return;
+      if(b.getAttribute('aria-expanded') === 'true'){
+        slot.innerHTML = ''; slot.hidden = true; b.setAttribute('aria-expanded', 'false');
+        return;
+      }
+      var f = document.createElement('iframe');
+      f.src = 'https://www.youtube-nocookie.com/embed/' + b.getAttribute('data-video') + '?rel=0';
+      f.title = b.getAttribute('data-titulo') || 'Video de ayuda';
+      f.setAttribute('allow', 'encrypted-media; picture-in-picture; fullscreen');
+      f.setAttribute('allowfullscreen', '');
+      slot.appendChild(f); slot.hidden = false; b.setAttribute('aria-expanded', 'true');
+    });
+  });
 })();
 
 /* ---------- TEMPORIZADOR DE REFERENCIA (no cierra la práctica) ---------- */
