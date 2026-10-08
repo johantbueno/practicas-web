@@ -333,6 +333,24 @@
             "url": "https://portal-practicas.plataformajt.com/excel-basico-u5/"
           }
         ]
+      },
+      {
+        "nombre": "Concientización en Ciberseguridad",
+        "icono": "🛡️",
+        "tipoClase": "secuencial",
+        "tipoLabel": "Curso puntual · 5 unidades",
+        "cursoId": "ciber-concientizacion",
+        "practicas": [
+          {
+            "badge": "Unidad I",
+            "titulo": "La Dimensión Humana de la Ciberseguridad y la Ingeniería Social",
+            "desc": "Identifique los puestos más vulnerables de su organización, diseñe escenarios de ataque según los 4 gatillos psicológicos, resuelva 4 casos y redacte su Decálogo de Oro de Ciberseguridad Humana. Individual o en equipo.",
+            "duracion": "Aproximadamente 1 hora",
+            "puntos": "100 pts",
+            "aprobacion": "70% mínimo",
+            "url": "https://portal-practicas.plataformajt.com/ciber-concientizacion-u1/"
+          }
+        ]
       }
     ]
   },
