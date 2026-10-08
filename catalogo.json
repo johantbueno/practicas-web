@@ -349,6 +349,51 @@
             "puntos": "100 pts",
             "aprobacion": "70% mínimo",
             "url": "https://portal-practicas.plataformajt.com/ciber-concientizacion-u1/"
+          },
+          {
+            "badge": "Unidad II",
+            "titulo": "Detección y Prevención de Phishing, Smishing y Vishing",
+            "desc": "Clasifique 4 casos de engaño, analice un correo de phishing y un mensaje de smishing con 5 banderas rojas cada uno, lea URLs sospechosas y defina cómo verificar y reportar. Individual o en equipo.",
+            "duracion": "Aproximadamente 1 hora",
+            "puntos": "100 pts",
+            "aprobacion": "70% mínimo",
+            "url": "https://portal-practicas.plataformajt.com/ciber-concientizacion-u2/"
+          },
+          {
+            "badge": "Unidad III",
+            "titulo": "Higiene Digital: Contraseñas Seguras, MFA y Gestores",
+            "desc": "Audite sus hábitos de contraseñas, construya una frase de paso, elija un gestor, active el MFA en dos cuentas críticas y planifique sus códigos de respaldo. Individual o en equipo.",
+            "duracion": "Aproximadamente 1 hora",
+            "puntos": "100 pts",
+            "aprobacion": "70% mínimo",
+            "url": "https://portal-practicas.plataformajt.com/ciber-concientizacion-u3/"
+          },
+          {
+            "badge": "Unidad IV",
+            "titulo": "Navegación Segura, Dispositivos Móviles y Teletrabajo",
+            "desc": "Identifique ataques en redes Wi-Fi públicas y arme su Guía de Bolsillo de Teletrabajo y Movilidad Segura: VPN, cifrado, celulares y memorias USB. Individual o en equipo.",
+            "duracion": "Aproximadamente 1 hora",
+            "puntos": "100 pts",
+            "aprobacion": "70% mínimo",
+            "url": "https://portal-practicas.plataformajt.com/ciber-concientizacion-u4/"
+          },
+          {
+            "badge": "Unidad V",
+            "titulo": "Protección de Datos Personales, Fraude Digital y Denuncia en RD",
+            "desc": "Conozca la Ley 172-13 y los derechos ARCO, identifique fraudes frecuentes, preserve evidencia digital y trace la ruta de denuncia ante DICAT, PEDATEC, CNCS y Prousuario. Individual o en equipo.",
+            "duracion": "Aproximadamente 1 hora",
+            "puntos": "100 pts",
+            "aprobacion": "70% mínimo",
+            "url": "https://portal-practicas.plataformajt.com/ciber-concientizacion-u5/"
+          },
+          {
+            "badge": "Proyecto Final",
+            "titulo": "Proyecto Integrador: Campaña Institucional de Concientización",
+            "desc": "Diseñe una campaña de concientización para su organización en 4 fases: diagnóstico del riesgo humano, anti-phishing, taller de higiene digital y ruta de denuncia con cumplimiento legal. Individual o en equipo.",
+            "duracion": "Aproximadamente 1 hora y 30 minutos",
+            "puntos": "100 pts",
+            "aprobacion": "70% mínimo",
+            "url": "https://portal-practicas.plataformajt.com/ciber-concientizacion-final/"
           }
         ]
       }
