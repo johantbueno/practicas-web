@@ -1406,6 +1406,16 @@
             "url": "https://portal-practicas.plataformajt.com/bpm-transformacion-digital-u7/"
           },
           {
+            "badge": "Video interactivo",
+            "unidad": "video",
+            "titulo": "La mejora de procesos con BPM para la transformación digital",
+            "desc": "Seminario en video con 12 preguntas que pausan la reproducción para reforzar: enfoque a procesos, qué es BPM y sus beneficios, innovación, transformación digital, RPA y BPM vs RPA. Sin nota; individual.",
+            "duracion": "70 min de video · 12 preguntas",
+            "puntos": "Sin puntuación (refuerzo)",
+            "aprobacion": "Responder las 12 preguntas",
+            "url": "https://portal-practicas.plataformajt.com/bpm-transformacion-digital-video-interactivo/"
+          },
+          {
             "badge": "Proyecto de Cierre",
             "unidad": "proyecto",
             "titulo": "Integración final del curso",

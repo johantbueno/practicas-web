@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Video interactivo — La mejora de procesos con BPM | BPM para la Transformación Digital</title>
+<meta name="description" content="Video interactivo del seminario «La mejora de procesos con BPM para obtener la transformación digital en las empresas», con 12 preguntas que pausan el video.">
+<meta name="color-scheme" content="light dark">
+<style>
+:root{--navy:#003877;--gold:#c9982f;--fg:#0f172a;--mut:#475569;--bg:#f4f7fb;--card:#fff;--bd:#cbd5e1;--ok:#166534;--okbg:#f0fdf4;--okbd:#22c55e;--no:#991b1b;--nobg:#fef2f2;--nobd:#ef4444;--sel:#eff6ff}
+@media (prefers-color-scheme:dark){:root{--navy:#7db4ec;--fg:#f1f5f9;--mut:#a8b5c8;--bg:#0b1220;--card:#151f2f;--bd:#3a4666;--ok:#86efac;--okbg:#0c2417;--no:#fca5a5;--nobg:#2a1212;--sel:#13233f}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+.wrap{max-width:1100px;margin:0 auto;padding:16px}
+header h1{font-size:1.35rem;line-height:1.3;margin:.2rem 0;color:var(--navy)}
+header p{margin:.2rem 0 .8rem;color:var(--mut);font-size:.95rem}
+.grid{display:grid;gap:16px;grid-template-columns:1fr}
+@media(min-width:900px){.grid{grid-template-columns:minmax(0,1fr) 280px}}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:14px}
+.player{position:relative;aspect-ratio:16/9;background:#000;border-radius:10px;overflow:hidden}
+.player #yt,.player iframe{position:absolute;inset:0;width:100%;height:100%}
+.badge{position:absolute;top:8px;left:8px;background:rgba(0,0,0,.75);color:#fff;border-radius:999px;padding:3px 12px;font-size:.85rem;display:none;z-index:2}
+.paused .badge{display:block}
+.bar{height:8px;background:var(--bd);border-radius:99px;overflow:hidden;margin:12px 0 4px}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--navy),var(--gold));transition:width .3s}
+.stat{font-size:.88rem;color:var(--mut)}
+#q{margin-top:14px;display:none;border:2px solid var(--gold)}
+#q h2{font-size:.85rem;margin:0 0 4px;color:var(--gold);text-transform:uppercase;letter-spacing:.05em}
+#q .t{font-size:1.1rem;font-weight:600;margin:0 0 10px}
+.opt{display:flex;gap:10px;align-items:flex-start;width:100%;text-align:left;background:var(--card);color:var(--fg);border:2px solid var(--bd);border-radius:10px;padding:11px 12px;margin:8px 0;font:inherit;cursor:pointer;min-height:48px}
+.opt:hover{border-color:var(--navy)}
+.opt.sel{background:var(--sel);border-color:var(--navy)}
+.opt.ok{background:var(--okbg);border-color:var(--okbd)}
+.opt.bad{background:var(--nobg);border-color:var(--nobd)}
+.opt .m{flex:none;width:22px;height:22px;border:2px solid var(--bd);border-radius:50%;margin-top:2px}
+.multi .opt .m{border-radius:5px}
+.opt.sel .m{background:var(--navy);border-color:var(--navy)}
+.fb{display:none;border-radius:10px;padding:10px 12px;margin:10px 0;font-size:.97rem}
+.fb.ok{display:block;background:var(--okbg);color:var(--ok);border:1px solid var(--okbd)}
+.fb.bad{display:block;background:var(--nobg);color:var(--no);border:1px solid var(--nobd)}
+.btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+button.b{background:var(--navy);color:#fff;border:0;border-radius:9px;padding:11px 18px;font:inherit;font-weight:600;cursor:pointer;min-height:44px}
+@media(prefers-color-scheme:dark){button.b{color:#0b1220}}
+button.b.s{background:transparent;color:var(--navy);border:2px solid var(--navy)}
+button.b:disabled{opacity:.45;cursor:default}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+aside h3{margin:0 0 8px;font-size:1rem;color:var(--navy)}
+aside ul{list-style:none;margin:0 0 14px;padding:0}
+aside li button{width:100%;text-align:left;background:none;border:0;color:var(--fg);font:inherit;font-size:.92rem;padding:7px 6px;border-radius:7px;cursor:pointer;display:flex;gap:8px}
+aside li button:hover{background:var(--sel)}
+aside li .tm{color:var(--mut);font-variant-numeric:tabular-nums;flex:none}
+aside li .d{margin-left:auto;flex:none}
+#fin{display:none;text-align:center}
+#fin .n{font-size:2.4rem;font-weight:800;color:var(--navy)}
+.cred{font-size:.82rem;color:var(--mut);margin-top:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>La mejora de procesos con BPM para obtener la transformación digital en las empresas</h1>
+  <p>Video interactivo · Curso <strong>BPM para la Transformación Digital de Procesos</strong>. Mira el seminario: el video se pausa para que respondas 12 preguntas. No hay nota: el objetivo es reforzar lo que acabas de escuchar.</p>
+</header>
+<div class="grid">
+  <main>
+    <div class="card">
+      <div class="player" id="pl"><div id="yt"></div><span class="badge">⏸ Pausa: responde para continuar</span></div>
+      <div class="bar"><i id="pb"></i></div>
+      <div class="stat" id="st" aria-live="polite">Preguntas respondidas: 0 de 12</div>
+    </div>
+    <section class="card" id="q" aria-live="polite">
+      <h2 id="qn"></h2>
+      <p class="t" id="qt"></p>
+      <div id="qo"></div>
+      <div class="fb" id="qf" role="status"></div>
+      <div class="btns"><button class="b" id="bc">Comprobar</button><button class="b s" id="br" style="display:none">Reintentar</button><button class="b" id="bn" style="display:none">Continuar el video ▶</button></div>
+    </section>
+    <section class="card" id="fin" style="margin-top:14px">
+      <p>Resultado a la primera</p><div class="n" id="fn"></div>
+      <p id="ft"></p>
+      <button class="b s" id="bre">Volver a empezar</button>
+    </section>
+    <p class="cred">Fuente del video: seminario de la Escuela Internacional de Innovación Empresarial, a cargo del profesor José Díaz (YouTube). Preguntas y diseño de la actividad: Johan Tapia, PhD.</p>
+  </main>
+  <aside class="card">
+    <h3>Capítulos</h3><ul id="cap"></ul>
+    <h3>Preguntas</h3><ul id="lq"></ul>
+  </aside>
+</div>
+</div>
+<script src="https://www.youtube.com/iframe_api"></script>
+<script>
+var D={"yt": "3EKbIzPEDg8", "cap": [[0, "Bienvenida"], [340, "Presentación del tema"], [570, "1. Por qué trabajar por procesos"], [1270, "2. Qué es BPM y sus beneficios"], [1640, "3. Innovación con uso intensivo de TI"], [2200, "4. Transformación digital basada en BPM"], [2895, "5. Automatización de procesos y RPA"], [3450, "Preguntas y respuestas"]], "q": [{"t": 565, "p": "El profesor compara los procesos no documentados con una «caja negra». ¿Qué significa esto?", "o": [["Se conoce lo que entra y lo que sale, pero el detalle (know-how) vive en la cabeza de las personas y no está documentado", true], ["El proceso está totalmente automatizado y nadie necesita intervenir", false], ["El proceso es confidencial y solo la gerencia puede verlo", false], ["El proceso fue modelado en BPMN pero aún no se ha simulado", false]], "f": "Ejemplo del video: la empresa pesquera sin procesos documentados. Si quienes operan las plantas se van o se enferman, se pierde el conocimiento.", "multi": false}, {"t": 845, "p": "En una organización con enfoque funcional (áreas como «islas» o «feudos»), ¿qué es lo que NO aparece en el organigrama y es lo más importante?", "o": [["El cliente", true], ["El gerente general", false], ["El área de sistemas", false], ["El proveedor", false]], "f": "Sin cliente no existe la empresa: por eso el enfoque a procesos va de extremo a extremo, desde que el cliente pide hasta que se le atiende.", "multi": false}, {"t": 1130, "p": "Una orden de compra no se procesó y se perdió un cliente. Con enfoque a procesos, ¿cuál es la reacción correcta?", "o": [["Analizar y rediseñar el proceso (por ejemplo, añadir eventos y alertas si la orden no se atiende en 48 horas)", true], ["Despedir al encargado de compras", false], ["Aumentar el control de horario del personal", false], ["Esperar a que el error no se repita", false]], "f": "Cuando el problema se repite, el culpable suele ser el proceso, no la persona. Se busca reducir la variación midiendo con indicadores.", "multi": false}, {"t": 1305, "p": "Según el CBOK de ABPMP, ¿cómo se define BPM (Business Process Management)?", "o": [["Una disciplina de gestión que integra la estrategia y los objetivos de la empresa con las expectativas y necesidades de los clientes", true], ["Un software que dibuja diagramas de flujo", false], ["Un robot que ejecuta tareas repetitivas", false], ["Una norma de calidad certificable", false]], "f": "BPM abarca estrategia, cultura, roles, metodologías y herramientas para analizar, diseñar, implementar, controlar y mejorar procesos de extremo a extremo.", "multi": false}, {"t": 1625, "p": "¿Cuáles de estos son beneficios de BPM mencionados en el video? (selecciona todas las correctas)", "o": [["Reducir tiempos y costos", true], ["Incrementar la calidad del servicio", true], ["Mayor exactitud en los pronósticos (se sabe cuánto demora y cuesta cada proceso)", true], ["Eliminar la necesidad de clientes", false], ["Depender más de la oficina de sistemas para cada cambio", false]], "f": "BPM también reduce el tiempo de capacitación de usuarios y las solicitudes de soporte interno, porque la empresa mantiene sus propios procesos.", "multi": true}, {"t": 1865, "p": "¿Cuál es la diferencia entre mejora continua (kaizen) e innovación según el profesor?", "o": [["La mejora continua optimiza lo que ya conozco; la innovación es apropiarse imperfectamente de lo desconocido", true], ["Son sinónimos", false], ["La innovación solo ocurre en empresas de tecnología", false], ["La mejora continua exige siempre comprar nuevo software", false]], "f": "Kaizen = optimizar con los recursos y el conocimiento actuales. Innovación = incorporar algo que antes se desconocía para mejorar la organización.", "multi": false}, {"t": 2190, "p": "Sobre Netflix, Uber o Amazon, el video concluye que la tecnología por sí misma no es el verdadero disruptor. ¿Cuál es la mayor amenaza para cualquier negocio?", "o": [["No centrarse en el cliente", true], ["Tener pocos empleados", false], ["Usar tecnología muy antigua únicamente", false], ["Tener demasiados clientes", false]], "f": "Blockbuster perdió por cobrar multas y no ver que el cliente quería diversión inmediata. El cliente es el eje de los procesos.", "multi": false}, {"t": 2360, "p": "Según el video, ¿qué proporción de empresas que iniciaron procesos de transformación digital han sido exitosas?", "o": [["Alrededor del 50 %", true], ["Casi el 100 %", false], ["Menos del 5 %", false], ["Nadie lo ha medido", false]], "f": "Por eso no basta decidir «voy a transformarme»: se necesita metodología, criterios y herramientas.", "multi": false}, {"t": 2500, "p": "En la transformación digital, ¿qué papel tienen los procesos?", "o": [["Son el núcleo del negocio: si se quiere cambiar el modelo de negocio, hay que cambiar los procesos", true], ["Son un trámite administrativo sin relación con el modelo de negocio", false], ["Solo importan en las áreas operativas", false], ["Se reemplazan por completo con aplicaciones móviles", false]], "f": "Las innovaciones en los procesos son las que permiten que una empresa sea digital y no tradicional. Los BPMS permiten modelar, simular, automatizar, ejecutar, monitorear y optimizar.", "multi": false}, {"t": 2620, "p": "El «principio del cero» del BPM advierte contra automatizar un proceso defectuoso. ¿Qué ocurre si lo hacemos?", "o": [["Se «pavimenta la obsolescencia»: hacemos lo que estaba mal pero más rápido (perdemos clientes más rápido)", true], ["El proceso se corrige solo", false], ["Disminuyen automáticamente los costos", false], ["Mejora la satisfacción del cliente", false]], "f": "Primero se analiza y rediseña el proceso (BPM); después se automatiza. Si no sabes dónde estás, no sabrás a dónde ir.", "multi": false}, {"t": 3060, "p": "¿Qué es RPA y para qué tipo de procesos es candidata?", "o": [["Robotic Process Automation: software (bots) que automatiza tareas repetitivas, como el manejo de datos, reportes y correos en finanzas", true], ["Un método de modelado de procesos con notación BPMN", false], ["Un tipo de contrato con proveedores", false], ["Una certificación de ABPMP", false]], "f": "Surgió alrededor de 2015, dentro de la cuarta revolución industrial. Es candidata cualquier tarea repetitiva y basada en reglas.", "multi": false}, {"t": 3425, "p": "Comparación final: ¿cuál afirmación describe correctamente la relación entre BPM y RPA?", "o": [["RPA optimiza tareas específicas a nivel superficial y es rápido; BPM actúa a nivel estructural y es transformación integral", true], ["RPA reemplaza a BPM porque es más completo", false], ["BPM solo sirve para tareas repetitivas", false], ["Ambos hacen exactamente lo mismo", false]], "f": "Se complementan: BPM define y mejora el proceso de extremo a extremo; RPA automatiza las tareas repetitivas dentro de él.", "multi": false}]};
+var KEY='bpm-video-interactivo-v1';
+function ld(){try{return JSON.parse(localStorage.getItem(KEY))||{}}catch(e){return {}}}
+function sv(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+var S=ld(); S.done=S.done||{}; S.first=S.first||{};
+var $=function(i){return document.getElementById(i)};
+var P,timer,cur=-1,sel=[],checked=false,okNow=false;
+var fm=function(t){var m=Math.floor(t/60),s=t%60;return m+':'+(s<10?'0':'')+s};
+function shuf(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var x=a[i];a[i]=a[j];a[j]=x}return a}
+function stat(){var n=Object.keys(S.done).length;$('st').textContent='Preguntas respondidas: '+n+' de '+D.q.length;
+  $('pb').style.width=Math.round(100*n/D.q.length)+'%';
+  D.q.forEach(function(q,i){var d=$('d'+i);if(d)d.textContent=S.done[i]?'✅':'';});}
+function onYouTubeIframeAPIReady(){
+  P=new YT.Player('yt',{videoId:D.yt,playerVars:{rel:0,modestbranding:1,cc_lang_pref:'es',hl:'es',playsinline:1},
+    events:{onReady:function(){timer=setInterval(tick,250)},onStateChange:function(e){if(e.data===0)fin()}}});
+}
+function tick(){
+  if(!P||!P.getCurrentTime||cur>=0)return;
+  if(P.getPlayerState()!==1)return;
+  var t=P.getCurrentTime();
+  for(var i=0;i<D.q.length;i++){
+    if(!S.done[i]&&t>=D.q[i].t&&t<D.q[i].t+4){ask(i);return}
+  }
+}
+function ask(i){
+  cur=i;P.pauseVideo();$('pl').classList.add('paused');
+  var q=D.q[i];sel=[];checked=false;
+  $('q').style.display='block';
+  $('qn').textContent='Pregunta '+(i+1)+' de '+D.q.length+(q.multi?' · selecciona todas las correctas':'');
+  $('qt').textContent=q.p;
+  var box=$('qo');box.innerHTML='';box.className=q.multi?'multi':'';
+  shuf(q.o.map(function(o,k){return{k:k,t:o[0],c:o[1]}})).forEach(function(o){
+    var b=document.createElement('button');b.className='opt';b.type='button';b.dataset.k=o.k;b.dataset.c=o.c?1:0;
+    b.innerHTML='<span class="m"></span><span></span>';b.lastChild.textContent=o.t;
+    b.onclick=function(){pick(b,q.multi)};box.appendChild(b);
+  });
+  var f=$('qf');f.className='fb';f.textContent='';
+  $('bc').style.display='';$('bc').disabled=true;$('br').style.display='none';$('bn').style.display='none';
+  $('q').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function pick(b,multi){
+  if(checked)return;
+  if(!multi){[].forEach.call($('qo').children,function(x){x.classList.remove('sel')});}
+  b.classList.toggle('sel');
+  $('bc').disabled=!$('qo').querySelector('.sel');
+}
+$('bc').onclick=function(){
+  var q=D.q[cur];checked=true;var all=true;
+  [].forEach.call($('qo').children,function(b){
+    var c=b.dataset.c==='1',s=b.classList.contains('sel');
+    if(c)b.classList.add('ok');else if(s)b.classList.add('bad');
+    if(c!==s)all=false;
+  });
+  okNow=all;
+  if(S.first[cur]===undefined){S.first[cur]=all?1:0}
+  var f=$('qf');f.className='fb '+(all?'ok':'bad');
+  f.textContent=(all?'¡Correcto! ':'No del todo. ')+q.f;
+  $('bc').style.display='none';
+  if(all){S.done[cur]=1;$('bn').style.display='';}else{$('br').style.display='';}
+  sv();stat();
+};
+$('br').onclick=function(){ask(cur)};
+$('bn').onclick=function(){
+  $('q').style.display='none';$('pl').classList.remove('paused');
+  var i=cur;cur=-1;P.playVideo();
+  if(Object.keys(S.done).length===D.q.length)setTimeout(fin,300);
+};
+function fin(){
+  var n=Object.keys(S.done).length;
+  if(n<D.q.length){return}
+  var ok=0;for(var k in S.first)ok+=S.first[k];
+  $('fn').textContent=ok+' / '+D.q.length;
+  $('ft').textContent=ok>=10?'Excelente comprensión del seminario.':ok>=7?'Buen avance. Repasa los capítulos donde fallaste.':'Vuelve a ver los capítulos del menú lateral y repite la actividad.';
+  $('fin').style.display='block';$('fin').scrollIntoView({behavior:'smooth'});
+}
+$('bre').onclick=function(){S={done:{},first:{}};sv();stat();$('fin').style.display='none';P.seekTo(0,true);P.pauseVideo();window.scrollTo({top:0,behavior:'smooth'})};
+D.cap.forEach(function(c){var li=document.createElement('li');li.innerHTML='<button type="button"><span class="tm"></span><span></span></button>';
+  li.querySelector('.tm').textContent=fm(c[0]);li.lastChild.lastChild.textContent=c[1];
+  li.firstChild.onclick=function(){if(cur<0&&P){P.seekTo(c[0],true);P.playVideo()}};$('cap').appendChild(li)});
+D.q.forEach(function(q,i){var li=document.createElement('li');li.innerHTML='<button type="button"><span class="tm"></span><span>Pregunta '+(i+1)+'</span><span class="d" id="d'+i+'"></span></button>';
+  li.querySelector('.tm').textContent=fm(q.t);
+  li.firstChild.onclick=function(){if(cur<0&&P){P.seekTo(Math.max(0,q.t-25),true);P.playVideo()}};$('lq').appendChild(li)});
+stat();
+</script>
+</body>
+</html>
