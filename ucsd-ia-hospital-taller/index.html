@@ -641,7 +641,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
   </div>
   <div class="advisor-suggest">
     <button type="button" data-q="¿cómo se califica esta práctica?">¿Cómo se califica?</button>
-    <button type="button" data-q="que es news2">¿Qué es NEWS2?</button>
+    <button type="button" data-q="explícame la plataforma paso a paso">Explícame la plataforma</button><button type="button" data-q="que es news2">¿Qué es NEWS2?</button>
     <button type="button" data-q="que es el escriba clinico">¿Qué es el escriba?</button>
   </div>
   <form id="advisor-form" class="advisor-form">
@@ -1333,7 +1333,7 @@ function askTutorAI(q){
   return fetchWithTimeout(AI_CHAT_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ message: q, contexto: 'Taller de 1 hora sobre gestión hospitalaria con IA usando HospitalIA (plataforma de demostración con datos ficticios): panel de dirección, People Analytics (riesgo de rotación explicable), turnos y reparto justo de pacientes, escriba clínico (nota SOAP, CIE-10), lectura asistida de imágenes, UCI con NEWS2 y qSOFA, auditoría y gobierno de la IA. Principio: la IA propone, el profesional decide y firma. No des respuestas hechas; guía con preguntas.', curso: 'Gestión hospitalaria con IA' })
+    body: JSON.stringify({ message: q, contexto: 'Eres la profesora que acompaña este taller. Si te piden explicar la plataforma, hazlo paso a paso, en tono de clase, con lenguaje sencillo y un ejemplo por módulo. HospitalIA (https://rrhhsalud.plataformajt.com/login, sin contraseña: se elige un perfil) es un hospital de demostración con datos 100 % ficticios para ver qué aporta la IA a la gerencia hospitalaria. Módulos: 1) Panel de dirección: indicadores (personal, nómina, rotación, ausentismo, UCI) y resumen ejecutivo escrito por IA. 2) People Analytics: riesgo de rotación explicable, para ofrecer apoyo y nunca sancionar. 3) Turnos: cobertura mínima, sugerencia de reemplazo y reparto justo de pacientes por gravedad. 4) Consulta médica con escriba clínico: convierte la conversación en nota SOAP, CIE-10, receta y órdenes; el botón Revisar riesgos detecta confusión de medicamentos parecidos, negaciones invertidas y dosis no dictadas. 5) Imagenología con IA: lee la imagen, marca hallazgos y reordena la cola por urgencia con un tope de seguridad. 6) UCI: NEWS2 y qSOFA en vivo con alerta temprana. 7) Centro de mando de camas: pronóstico de ocupación a 48 horas y escenarios que pasaría si. 8) Auditoría y Centro de IA: quién hizo qué y qué proveedores de IA se usan. Principio que une todo: la IA propone, el profesional decide y firma. No des las respuestas hechas del taller; guía con preguntas.', curso: 'Gestión hospitalaria con IA' })
   }, AI_CHAT_TIMEOUT).then(function(res){
     if(!res.ok) throw new Error('HTTP ' + res.status);
     return res.json();
@@ -1343,12 +1343,13 @@ function askTutorAI(q){
   });
 }
 function askTutor(q){
+  if(/explic\w*.*plataforma|para que sirve|paso a paso|que es hospitalia/.test(stripAccents(q))) return Promise.resolve(answerFor(q));
   return askTutorAI(q).catch(function(){ return answerFor(q); });
 }
 
 var QA = [
   { kw:['calific','nota','puntaje','rubrica','aprobar','minimo'], a:'La nota va de 0 a 100: Pasos 1 a 4 valen 15 pts cada uno; Pasos 5 y 6 valen 20 pts cada uno. La aprobación mínima es 70%. El sistema revisa si las respuestas están completas y bien desarrolladas; su facilitador revisa el contenido real para la nota oficial.' },
-  { kw:['hospitalia','plataforma','demo','datos ficticios'], a:'HospitalIA es una plataforma de demostración con datos 100 % ficticios: dirección, RRHH, turnos, expediente, consulta con escriba, imagenología, UCI y auditoría. Cada paso trae un botón que la abre ya con el perfil correcto, sin contraseña.' },
+  { kw:['hospitalia','plataforma','demo','datos ficticios','para que sirve','paso a paso','explica'], a:'Con gusto, se lo explico como en clase. HospitalIA es un hospital de demostración, con datos 100 % ficticios, para ver qué puede aportar la IA a la gerencia hospitalaria. Se entra sin contraseña en rrhhsalud.plataformajt.com/login eligiendo un perfil. Paso 1, Panel de dirección: reúne personal, nómina, rotación, ausentismo y UCI, y la IA redacta un resumen ejecutivo. Paso 2, People Analytics: estima el riesgo de rotación y muestra sus factores, para ofrecer apoyo y nunca para sancionar. Paso 3, Turnos: marca los huecos de cobertura, sugiere reemplazos y enseña a repartir pacientes por gravedad. Paso 4, Consulta con escriba: la conversación se convierte en nota SOAP, y el botón Revisar riesgos avisa de medicamentos confundidos o negaciones invertidas. Paso 5, Imagenología y UCI: la IA lee la imagen, prioriza la cola de lectura con un tope de seguridad, y la UCI avisa el deterioro con NEWS2. Paso 6, Gobierno: auditoría y Centro de IA, porque quien adopta IA debe saber quién hizo qué. Además está el Centro de camas, con pronóstico a 48 horas. Idea que lo une todo: la IA propone, el profesional decide y firma.' },
   { kw:['people analytics','rotacion','rotación','riesgo de renuncia'], a:'People Analytics usa datos del personal para anticipar problemas, por ejemplo el riesgo de rotación. Lo importante es que el puntaje sea explicable (muestra sus factores) y se use para ofrecer apoyo, nunca para sancionar.' },
   { kw:['turno','cobertura','reparto','acuidad'], a:'El reparto justo no divide pacientes por cantidad: pondera su gravedad (acuidad) y la experiencia de cada enfermera, para que la recién graduada no reciba los casos más críticos. La IA sugiere; la jefa de enfermería aprueba.' },
   { kw:['escriba','soap','cie','consulta'], a:'El escriba clínico convierte la conversación de la consulta en una nota SOAP (Subjetivo, Objetivo, Análisis, Plan) y propone diagnóstico CIE-10, receta y órdenes. El médico siempre revisa y firma: puede haber errores de dosis, omisiones o datos inventados.' },
