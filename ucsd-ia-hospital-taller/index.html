@@ -345,6 +345,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
           <li><a href="#paso4" data-step="paso4">Paso 4 · Consulta con escriba <span class="pct" data-pct="paso4">0%</span></a></li>
           <li><a href="#paso5" data-step="paso5">Paso 5 · Imagen con IA y UCI <span class="pct" data-pct="paso5">0%</span></a></li>
           <li><a href="#paso6" data-step="paso6">Paso 6 · Gobierno y propuesta <span class="pct" data-pct="paso6">0%</span></a></li>
+          <li><a href="#paso7" data-step="paso7">Paso 7 · Módulos avanzados <span class="pct" data-pct="paso7">0%</span></a></li>
           <li><a href="#rubrica">🧮 Rúbrica de evaluación</a></li>
           <li><a href="#resultado">📤 Enviar y calificar</a></li>
         </ul>
@@ -370,7 +371,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
         <span class="cover-chip">🎯 100 pts · 70% aprobación</span>
       </div>
       <button class="speak-btn" data-speak-section="portada-speak" type="button" style="margin-top:1.1rem;">🔊 Escuchar la bienvenida</button>
-      <span id="portada-speak" hidden>Bienvenidos al taller de Gestión hospitalaria con inteligencia artificial. En una hora van a recorrer HospitalIA, una plataforma de demostración con datos ficticios, y van a responder seis pasos cortos. Pueden trabajar solos o en equipo. En cada pregunta pueden escribir la respuesta, o grabar una nota de voz que el sistema convierte en texto. Si tienen dudas, pregúntenle a Nicole, la asistente virtual del Dr. Johan Tapia.</span>
+      <span id="portada-speak" hidden>Bienvenidos al taller de Gestión hospitalaria con inteligencia artificial. En una hora van a recorrer HospitalIA, una plataforma de demostración con datos ficticios, y van a responder siete pasos cortos. Pueden trabajar solos o en equipo. En cada pregunta pueden escribir la respuesta, o grabar una nota de voz que el sistema convierte en texto. Si tienen dudas, pregúntenle a Nicole, la asistente virtual del Dr. Johan Tapia.</span>
     </section>
 
     <section class="card" id="tutorial">
@@ -438,7 +439,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
         <li>Responda con ejemplos concretos de lo que <strong>vio en la pantalla</strong> (cifras, nombres de indicadores, alertas), no con ideas generales.</li>
         <li>En las preguntas de criterio, argumente: diga qué haría <strong>y por qué</strong>.</li>
         <li>Puede cerrar la página y volver más tarde — sus respuestas quedan guardadas en este navegador.</li>
-        <li>Al terminar los 6 pasos, presione <strong>Enviar y Calificar</strong>.</li>
+        <li>Al terminar los 7 pasos, presione <strong>Enviar y Calificar</strong>.</li>
       </ol>
       <div class="alert warn">
         <strong>⚠️ Sobre la calificación automática:</strong> el sistema evalúa si las respuestas están completas y bien desarrolladas. No sustituye la revisión de su facilitador, quien lee el contenido real para la nota oficial.
@@ -539,7 +540,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
     </section>
 
     <section id="paso5" class="card">
-      <span class="step-badge">Paso 5</span><span class="step-points">Vale 20 pts</span>
+      <span class="step-badge">Paso 5</span><span class="step-points">Vale 15 pts</span>
       <button class="speak-btn" data-speak-target="paso5" type="button">🔊 Escuchar este paso</button>
       <h1>Imagenología con IA y alerta temprana en UCI</h1>
       <p><strong>Idea de esta parte:</strong> la IA puede leer una imagen médica y marcar hallazgos, y puede vigilar a los pacientes críticos calculando NEWS2 y qSOFA cada pocos segundos. Aquí el criterio gerencial es clave: cuánto confiar y quién responde.</p>
@@ -558,7 +559,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
     </section>
 
     <section id="paso6" class="card">
-      <span class="step-badge">Paso 6</span><span class="step-points">Vale 20 pts</span>
+      <span class="step-badge">Paso 6</span><span class="step-points">Vale 15 pts</span>
       <button class="speak-btn" data-speak-target="paso6" type="button">🔊 Escuchar este paso</button>
       <h1>Gobierno de la IA y su propuesta como gerente</h1>
       <p><strong>Idea de esta parte:</strong> adoptar IA en un hospital exige reglas: quién accede a qué, qué queda auditado, dónde viven los datos y quién responde por cada decisión.</p>
@@ -573,6 +574,25 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
         <label for="p6_propuesta">Si usted fuera el director de una clínica, ¿qué módulo de HospitalIA implementaría primero, por qué, y cómo mediría en 90 días si funcionó? <span class="wc" data-for="p6_propuesta">0 palabras</span></label>
         <textarea class="tall" id="p6_propuesta" placeholder="Ej: empezaría por... porque...; mediría... "></textarea>
         <div class="voice-row"><button type="button" class="voice-btn" data-target="p6_propuesta">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p6_propuesta"></span></div>
+      </div>
+    </section>
+
+    <section id="paso7" class="card">
+      <span class="step-badge">Paso 7</span><span class="step-points">Vale 10 pts</span>
+      <button class="speak-btn" data-speak-target="paso7" type="button">🔊 Escuchar este paso</button>
+      <h1>Módulos avanzados: equidad, bienestar y decisiones de capacidad</h1>
+      <p><strong>Idea de esta parte:</strong> la IA también puede sesgar, agotar al personal o decidir mal la capacidad. Estos módulos nuevos muestran cómo se <em>audita</em> y se <em>explica</em> la IA.</p>
+      <p><strong>Abra la plataforma:</strong> <a class="btn-secondary" style="display:inline-flex;text-decoration:none;" href="https://rrhhsalud.plataformajt.com/demo/rrhh?next=/equidad" target="_blank" rel="noopener">⚖️ Equidad en selección</a> &nbsp; <a class="btn-secondary" style="display:inline-flex;text-decoration:none;" href="https://rrhhsalud.plataformajt.com/demo/rrhh?next=/bienestar" target="_blank" rel="noopener">💚 Bienestar y burnout</a> &nbsp; <a class="btn-secondary" style="display:inline-flex;text-decoration:none;" href="https://rrhhsalud.plataformajt.com/demo/imagen?next=/imagenologia" target="_blank" rel="noopener">🩻 Cola de imágenes</a> &nbsp; <a class="btn-secondary" style="display:inline-flex;text-decoration:none;" href="https://rrhhsalud.plataformajt.com/demo/director?next=/camas" target="_blank" rel="noopener">🛏️ Centro de camas</a></p>
+      <div class="alert info"><strong>Ejemplo:</strong> en «Equidad en selección», con +0 puntos de prestigio la razón de impacto es 0,78; al subirlo a +15, la razón de las universidades públicas cae y aparece la alerta del 80 %.</div>
+      <div class="field">
+        <label for="p7_equidad">En «Equidad en selección», mueva el control de prestigio de universidad y active la evaluación a ciegas. ¿Qué cambió en la razón de impacto y por qué ocultar el nombre no basta? <span class="wc" data-for="p7_equidad">0 palabras</span></label>
+        <textarea class="tall" id="p7_equidad" placeholder="Ej: al subir el prestigio a..., la razón de... pasó de... a...; ocultar el nombre no basta porque..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p7_equidad">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p7_equidad"></span></div>
+      </div>
+      <div class="field">
+        <label for="p7_nuevos">Elija UNO: la cola de imágenes (tope de seguridad), la revisión de riesgo del escriba (botón 🛡) o el centro de camas (escenarios). Explique qué decisión mejora, qué riesgo trae y quién debe responder. <span class="wc" data-for="p7_nuevos">0 palabras</span></label>
+        <textarea class="tall" id="p7_nuevos" placeholder="Ej: elijo el centro de camas: mejora..., el riesgo es..., responde..."></textarea>
+        <div class="voice-row"><button type="button" class="voice-btn" data-target="p7_nuevos">🎤 Mantenga presionado para grabar</button><span class="voice-status" data-target-status="p7_nuevos"></span></div>
       </div>
     </section>
 
@@ -595,7 +615,7 @@ html[data-fontsize="xgrande"] body{font-size:1.3rem;}
       <div id="submit-zone">
         <span class="step-badge">📤 Paso final</span>
         <h1 style="font-size:1.4rem;">Enviar y calificar mi trabajo</h1>
-        <p>El sistema revisará sus 6 pasos contra la rúbrica y le mostrará su nota, el detalle por criterio y retroalimentación según lo que usted escribió.</p>
+        <p>El sistema revisará sus 7 pasos contra la rúbrica y le mostrará su nota, el detalle por criterio y retroalimentación según lo que usted escribió.</p>
         <button class="btn-primary" id="btn-submit" type="button">📤 Enviar y Calificar mi Trabajo</button>
       </div>
 
@@ -962,7 +982,8 @@ var STEP_FIELDS = {
   paso3: ['p3_cobertura','p3_reparto'],
   paso4: ['p4_observacion','p4_riesgo'],
   paso5: ['p5_imagen','p5_uci'],
-  paso6: ['p6_riesgos','p6_propuesta']
+  paso6: ['p6_riesgos','p6_propuesta'],
+  paso7: ['p7_equidad','p7_nuevos']
 };
 
 /* ---------- MODALIDAD: INDIVIDUAL O EN EQUIPO ---------- */
@@ -1075,8 +1096,9 @@ var RUBRICA = [
   {n:2, criterio:'People Analytics (Paso 2)', indicador:'Hallazgo con sus factores y una acción de apoyo argumentada (no punitiva).', pts:15},
   {n:3, criterio:'Turnos y reparto justo (Paso 3)', indicador:'Criterios de cobertura analizados y reparto de pacientes por gravedad y experiencia.', pts:15},
   {n:4, criterio:'Consulta con escriba clínico (Paso 4)', indicador:'Descripción de lo generado, ahorro estimado y puntos de revisión antes de firmar.', pts:15},
-  {n:5, criterio:'Imagenología con IA y UCI (Paso 5)', indicador:'Hallazgo y límites de la IA en imagen; lectura de NEWS2 y respuesta ante la alerta.', pts:20},
-  {n:6, criterio:'Gobierno de la IA y propuesta (Paso 6)', indicador:'Tres riesgos con controles, y propuesta priorizada con indicador de éxito a 90 días.', pts:20}
+  {n:5, criterio:'Imagenología con IA y UCI (Paso 5)', indicador:'Hallazgo y límites de la IA en imagen; lectura de NEWS2 y respuesta ante la alerta.', pts:15},
+  {n:6, criterio:'Gobierno de la IA y propuesta (Paso 6)', indicador:'Tres riesgos con controles, y propuesta priorizada con indicador de éxito a 90 días.', pts:15},
+  {n:7, criterio:'Módulos avanzados (Paso 7)', indicador:'Efecto del prestigio y la evaluación a ciegas en la equidad, y análisis de un módulo nuevo con su riesgo y su responsable.', pts:10}
 ];
 document.getElementById('rubrica-body').innerHTML = RUBRICA.map(function(r){
   return '<tr><td class="label-cell">'+r.n+'</td><td>'+r.criterio+'</td><td>'+r.indicador+'</td><td class="label-cell">'+r.pts+'</td></tr>';
@@ -1129,20 +1151,27 @@ function gradeStep4(){
   ]);
 }
 function gradeStep5(){
-  return buildCriterion(RUBRICA[4].criterio, 20, [
-    { label:'Hallazgos de la IA en imagen y sus límites', points:10, frac:wordFrac('p5_imagen', 35) },
-    { label:'Lectura de NEWS2 y respuesta ante la alerta', points:10, frac:wordFrac('p5_uci', 35) }
+  return buildCriterion(RUBRICA[4].criterio, 15, [
+    { label:'Hallazgos de la IA en imagen y sus límites', points:8, frac:wordFrac('p5_imagen', 35) },
+    { label:'Lectura de NEWS2 y respuesta ante la alerta', points:7, frac:wordFrac('p5_uci', 35) }
   ]);
 }
 function gradeStep6(){
-  return buildCriterion(RUBRICA[5].criterio, 20, [
-    { label:'Tres riesgos con su control', points:10, frac:wordFrac('p6_riesgos', 45) },
-    { label:'Propuesta priorizada con indicador de éxito', points:10, frac:wordFrac('p6_propuesta', 40) }
+  return buildCriterion(RUBRICA[5].criterio, 15, [
+    { label:'Tres riesgos con su control', points:8, frac:wordFrac('p6_riesgos', 45) },
+    { label:'Propuesta priorizada con indicador de éxito', points:7, frac:wordFrac('p6_propuesta', 40) }
+  ]);
+}
+
+function gradeStep7(){
+  return buildCriterion(RUBRICA[6].criterio, 10, [
+    { label:'Efecto del prestigio y de la evaluación a ciegas', points:5, frac:wordFrac('p7_equidad', 35) },
+    { label:'Análisis de un módulo nuevo con riesgo y responsable', points:5, frac:wordFrac('p7_nuevos', 35) }
   ]);
 }
 
 function runGrading(){
-  var criteria = [gradeStep1(), gradeStep2(), gradeStep3(), gradeStep4(), gradeStep5(), gradeStep6()];
+  var criteria = [gradeStep1(), gradeStep2(), gradeStep3(), gradeStep4(), gradeStep5(), gradeStep6(), gradeStep7()];
   var total = Math.round(criteria.reduce(function(a,c){ return a + c.score; },0) * 10) / 10;
   return { criteria:criteria, total:total };
 }
@@ -1348,8 +1377,8 @@ function askTutor(q){
 }
 
 var QA = [
-  { kw:['calific','nota','puntaje','rubrica','aprobar','minimo'], a:'La nota va de 0 a 100: Pasos 1 a 4 valen 15 pts cada uno; Pasos 5 y 6 valen 20 pts cada uno. La aprobación mínima es 70%. El sistema revisa si las respuestas están completas y bien desarrolladas; su facilitador revisa el contenido real para la nota oficial.' },
-  { kw:['hospitalia','plataforma','demo','datos ficticios','para que sirve','paso a paso','explica'], a:'Con gusto, se lo explico como en clase. HospitalIA es un hospital de demostración, con datos 100 % ficticios, para ver qué puede aportar la IA a la gerencia hospitalaria. Se entra sin contraseña en rrhhsalud.plataformajt.com/login eligiendo un perfil. Paso 1, Panel de dirección: reúne personal, nómina, rotación, ausentismo y UCI, y la IA redacta un resumen ejecutivo. Paso 2, People Analytics: estima el riesgo de rotación y muestra sus factores, para ofrecer apoyo y nunca para sancionar. Paso 3, Turnos: marca los huecos de cobertura, sugiere reemplazos y enseña a repartir pacientes por gravedad. Paso 4, Consulta con escriba: la conversación se convierte en nota SOAP, y el botón Revisar riesgos avisa de medicamentos confundidos o negaciones invertidas. Paso 5, Imagenología y UCI: la IA lee la imagen, prioriza la cola de lectura con un tope de seguridad, y la UCI avisa el deterioro con NEWS2. Paso 6, Gobierno: auditoría y Centro de IA, porque quien adopta IA debe saber quién hizo qué. Además está el Centro de camas, con pronóstico a 48 horas. Idea que lo une todo: la IA propone, el profesional decide y firma.' },
+  { kw:['calific','nota','puntaje','rubrica','aprobar','minimo'], a:'La nota va de 0 a 100: Los Pasos 1 a 6 valen 15 pts cada uno y el Paso 7 vale 10 pts. La aprobación mínima es 70%. El sistema revisa si las respuestas están completas y bien desarrolladas; su facilitador revisa el contenido real para la nota oficial.' },
+  { kw:['hospitalia','plataforma','demo','datos ficticios','para que sirve','paso a paso','explica'], a:'Con gusto, se lo explico como en clase. HospitalIA es un hospital de demostración, con datos 100 % ficticios, para ver qué puede aportar la IA a la gerencia hospitalaria. Se entra sin contraseña en rrhhsalud.plataformajt.com/login eligiendo un perfil. Paso 1, Panel de dirección: reúne personal, nómina, rotación, ausentismo y UCI, y la IA redacta un resumen ejecutivo. Paso 2, People Analytics: estima el riesgo de rotación y muestra sus factores, para ofrecer apoyo y nunca para sancionar. Paso 3, Turnos: marca los huecos de cobertura, sugiere reemplazos y enseña a repartir pacientes por gravedad. Paso 4, Consulta con escriba: la conversación se convierte en nota SOAP, y el botón Revisar riesgos avisa de medicamentos confundidos o negaciones invertidas. Paso 5, Imagenología y UCI: la IA lee la imagen, prioriza la cola de lectura con un tope de seguridad, y la UCI avisa el deterioro con NEWS2. Paso 6, Gobierno: auditoría y Centro de IA, porque quien adopta IA debe saber quién hizo qué. Paso 7, módulos avanzados: equidad en la selección, bienestar y burnout, y el Centro de camas con pronóstico a 48 horas. Idea que lo une todo: la IA propone, el profesional decide y firma.' },
   { kw:['people analytics','rotacion','rotación','riesgo de renuncia'], a:'People Analytics usa datos del personal para anticipar problemas, por ejemplo el riesgo de rotación. Lo importante es que el puntaje sea explicable (muestra sus factores) y se use para ofrecer apoyo, nunca para sancionar.' },
   { kw:['turno','cobertura','reparto','acuidad'], a:'El reparto justo no divide pacientes por cantidad: pondera su gravedad (acuidad) y la experiencia de cada enfermera, para que la recién graduada no reciba los casos más críticos. La IA sugiere; la jefa de enfermería aprueba.' },
   { kw:['escriba','soap','cie','consulta'], a:'El escriba clínico convierte la conversación de la consulta en una nota SOAP (Subjetivo, Objetivo, Análisis, Plan) y propone diagnóstico CIE-10, receta y órdenes. El médico siempre revisa y firma: puede haber errores de dosis, omisiones o datos inventados.' },
@@ -1362,6 +1391,7 @@ var QA = [
   { kw:['paso 3'], a:'El Paso 3 usa turnos: analizar una sugerencia de cobertura y explicar cómo repartiría 12 pacientes entre 3 enfermeras. Vale 15 puntos.' },
   { kw:['paso 4'], a:'El Paso 4 usa la consulta con escriba: qué generó la IA, cuánto ahorra y qué revisar antes de firmar. Vale 15 puntos.' },
   { kw:['paso 5'], a:'El Paso 5 combina la lectura de una sonografía con IA y la alerta NEWS2 en UCI. Vale 20 puntos.' },
+  { kw:['paso 7','equidad','sesgo','burnout','bienestar','camas'], a:'El Paso 7 usa los módulos avanzados: Equidad en selección (razón de impacto y regla del 80 %), Bienestar y burnout, cola de imágenes, riesgo del escriba y centro de camas. Vale 10 puntos. Idea clave: ocultar el nombre no elimina el sesgo, porque variables como la universidad actúan como proxy.' },
   { kw:['paso 6'], a:'El Paso 6 pide tres riesgos con sus controles y su propuesta de implementación a 90 días. Vale 20 puntos.' },
   { kw:['tiempo', 'cuanto dura', 'cuanto tarda', 'hora'], a:'Está pensado para una hora (unos 10 minutos por paso). El reloj del lateral es solo una referencia: puede cerrar la página y volver, sus respuestas quedan guardadas.' },
   { kw:['individual', 'equipo', 'grupo', 'solo'], a:'Puede hacerlo solo/a o en equipo: elija la opción en "¿Cómo va a completar esta práctica?", arriba de la portada.' },

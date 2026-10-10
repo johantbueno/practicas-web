@@ -1584,8 +1584,8 @@
           {
             "badge": "Taller",
             "titulo": "Gestión hospitalaria con IA: explore HospitalIA",
-            "desc": "Recorra HospitalIA, una plataforma de demostración (datos ficticios) con IA para hospitales: panel de dirección, People Analytics, turnos y reparto justo, consulta con escriba clínico, imagenología, UCI con alerta temprana y gobierno de la IA. Seis pasos con preguntas de criterio gerencial. Individual o en equipo.",
-            "duracion": "6 pasos · aproximadamente 1 hora, individual o en equipo",
+            "desc": "Recorra HospitalIA, una plataforma de demostración (datos ficticios) con IA para hospitales: panel de dirección, People Analytics, turnos y reparto justo, consulta con escriba clínico, imagenología, UCI con alerta temprana y gobierno de la IA. Siete pasos con preguntas de criterio gerencial. Individual o en equipo. Incluye módulos avanzados: equidad en la selección, bienestar y burnout, cola de imágenes, riesgo del escriba y centro de camas.",
+            "duracion": "7 pasos · aproximadamente 1 hora, individual o en equipo",
             "puntos": "100 pts (retroalimentación)",
             "aprobacion": "70 %",
             "url": "https://portal-practicas.plataformajt.com/ucsd-ia-hospital-taller/"
