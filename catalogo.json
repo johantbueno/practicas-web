@@ -1197,6 +1197,36 @@
             "url": "https://portal-practicas.plataformajt.com/big-data-analisis-ci-u2/"
           }
         ]
+      },
+      {
+        "nombre": "Finanzas para No Financieros",
+        "icono": "💵",
+        "tipoClase": "taller",
+        "tipoLabel": "Taller · 2 sesiones de 4 horas",
+        "esSecuencial": false,
+        "cursoId": "fnf-ci",
+        "practicas": [
+          {
+            "badge": "Unidad I",
+            "unidad": "u1",
+            "titulo": "Del resultado al efectivo: ingresos, costos, gastos y flujo de caja",
+            "desc": "Clasifique las partidas de un negocio, distinga utilidad de efectivo, arme un flujo de caja y decida sobre una compra de inventario.",
+            "duracion": "5 pasos · 45 min",
+            "puntos": "100 pts (retroalimentación)",
+            "aprobacion": "Completar los 5 pasos",
+            "url": "https://portal-practicas.plataformajt.com/fnf-ci-u1/"
+          },
+          {
+            "badge": "Unidad II",
+            "unidad": "u2",
+            "titulo": "Presupuesto, ROI e indicadores: planificar, medir y decidir",
+            "desc": "Compare un presupuesto con lo real, calcule el retorno de una inversión, mida el cumplimiento de metas y el ciclo de conversión de efectivo.",
+            "duracion": "5 pasos · 45 min",
+            "puntos": "100 pts (retroalimentación)",
+            "aprobacion": "Completar los 5 pasos",
+            "url": "https://portal-practicas.plataformajt.com/fnf-ci-u2/"
+          }
+        ]
       }
     ]
   },
