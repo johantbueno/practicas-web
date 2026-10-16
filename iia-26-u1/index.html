@@ -461,7 +461,7 @@ main li, main p, main dd, main dt, .tp-footer{overflow-wrap:anywhere;}
           <strong>¿Tiene dudas mientras trabaja?</strong><br>
           Puede preguntarle a <strong>Nicole</strong> (botón "🎓 Nicole" abajo a la izquierda), o escribirle al
           <strong>Prof. Johan Tapia</strong>, un asistente aparte, en
-          <a href="https://prof.johan.plataforma.cfd/" target="_blank" rel="noopener">prof.johan.plataforma.cfd</a>.
+          <a href="https://prof.johan.plataformajt.com/" target="_blank" rel="noopener">prof.johan.plataforma.cfd</a>.
         </div>
       </div>
     </section>
@@ -601,7 +601,7 @@ main li, main p, main dd, main dt, .tp-footer{overflow-wrap:anywhere;}
 <button id="advisor-toggle" class="advisor-fab" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="advisor-panel" title="Abrir a Nicole">
   🎓 <span>Nicole</span>
 </button>
-<a href="https://prof.johan.plataforma.cfd/" target="_blank" rel="noopener" class="proftapia-fab" title="Abrir el asistente del Prof. Johan Tapia en una ventana nueva">
+<a href="https://prof.johan.plataformajt.com/" target="_blank" rel="noopener" class="proftapia-fab" title="Abrir el asistente del Prof. Johan Tapia en una ventana nueva">
   👨‍🏫 <span>Prof. Johan Tapia</span>
 </a>
 <div id="advisor-panel" class="advisor-panel" role="dialog" aria-labelledby="advisor-title-el">
@@ -782,7 +782,7 @@ function wireVoiceButtons(){
         if(!res.ok) throw new Error('HTTP ' + res.status);
         return res.json();
       }).then(function(data){
-        if(!data || !data.ok || !data.texto){ throw new Error('SIN_TEXTO'); }
+        if(!data || !data.ok || !data.texto || !/[A-Za-zÁ-ÿ0-9]/.test(data.texto)){ throw new Error('SIN_TEXTO'); }
         var existing = textarea.value.trim();
         textarea.value = existing ? (existing + ' ' + data.texto) : data.texto;
         textarea.dispatchEvent(new Event('input'));
