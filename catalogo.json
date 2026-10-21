@@ -401,7 +401,7 @@
         "nombre": "IA aplicada a MIPYMES — Asesores INFOTEP",
         "icono": "🧭",
         "tipoClase": "taller",
-        "tipoLabel": "Clase 1 + Unidades I a V + laboratorio de 5 casos · con medalla",
+        "tipoLabel": "Clase 1 + Unidades I a V + laboratorio de 5 casos en equipos · con medalla",
         "practicas": [
           {
             "badge": "Clase 1 · A",
@@ -478,7 +478,7 @@
           {
             "badge": "Caso 1",
             "titulo": "Práctica: Taller de soldadura: riesgos y equipos de protección",
-            "desc": "Laboratorio sin IA vs con IA: evaluación de riesgos y relación de EPP por tarea (Seguridad y Salud en el Trabajo). Individual.",
+            "desc": "Laboratorio sin IA vs con IA: evaluación de riesgos y relación de EPP por tarea (Seguridad y Salud en el Trabajo). En equipos de 5, con entrega por equipo.",
             "duracion": "60 minutos",
             "puntos": "100 pts",
             "aprobacion": "70% mínimo",
@@ -487,7 +487,7 @@
           {
             "badge": "Caso 2",
             "titulo": "Práctica: Almacén de repuestos: orden, limpieza y disciplina",
-            "desc": "Laboratorio sin IA vs con IA: lista de chequeo, mapa de 5S e indicador de productividad (Técnica de las 5S). Individual.",
+            "desc": "Laboratorio sin IA vs con IA: lista de chequeo, mapa de 5S e indicador de productividad (Técnica de las 5S). En equipos de 5, con entrega por equipo.",
             "duracion": "60 minutos",
             "puntos": "100 pts",
             "aprobacion": "70% mínimo",
@@ -496,7 +496,7 @@
           {
             "badge": "Caso 3",
             "titulo": "Práctica: Salón de belleza: de la intuición al plan",
-            "desc": "Laboratorio sin IA vs con IA: análisis FODA, marco estratégico y primer POA (Planificación Estratégica). Individual.",
+            "desc": "Laboratorio sin IA vs con IA: análisis FODA, marco estratégico y primer POA (Planificación Estratégica). En equipos de 5, con entrega por equipo.",
             "duracion": "60 minutos",
             "puntos": "100 pts",
             "aprobacion": "70% mínimo",
@@ -505,7 +505,7 @@
           {
             "badge": "Caso 4",
             "titulo": "Práctica: Colmado: primeros pasos digitales",
-            "desc": "Laboratorio sin IA vs con IA: hoja de ruta de 90 días, integración de IA y presencia digital (Transformación Digital en las MIPYMES). Individual.",
+            "desc": "Laboratorio sin IA vs con IA: hoja de ruta de 90 días, integración de IA y presencia digital (Transformación Digital en las MIPYMES). En equipos de 5, con entrega por equipo.",
             "duracion": "60 minutos",
             "puntos": "100 pts",
             "aprobacion": "70% mínimo",
@@ -514,7 +514,7 @@
           {
             "badge": "Caso 5",
             "titulo": "Práctica: Panadería: quejas y protocolo de atención",
-            "desc": "Laboratorio sin IA vs con IA: protocolo de atención, registro de quejas e indicadores (Servicio al Cliente). Individual.",
+            "desc": "Laboratorio sin IA vs con IA: protocolo de atención, registro de quejas e indicadores (Servicio al Cliente). En equipos de 5, con entrega por equipo.",
             "duracion": "60 minutos",
             "puntos": "100 pts",
             "aprobacion": "70% mínimo",
