@@ -15,6 +15,7 @@ header span{font-size:14px;background:rgba(255,255,255,.14);padding:4px 10px;bor
 #stage{position:absolute;inset:48px 0 56px 0;overflow:auto;display:flex;scrollbar-width:thin}
 #holder{position:relative;margin:auto;flex:none}
 #book{box-shadow:0 20px 60px rgba(0,0,0,.55)}
+.pg{background:#fff;overflow:hidden}.pg img{width:100%;height:100%;display:block;user-select:none;-webkit-user-drag:none;image-rendering:auto}
 #pan{position:absolute;inset:0;z-index:3;cursor:grab;display:none;touch-action:none}
 #pan.drag{cursor:grabbing}
 .arrow{position:fixed;top:50%;transform:translateY(-50%);width:46px;height:70px;border:0;background:rgba(255,255,255,.12);color:#fff;font-size:32px;cursor:pointer;border-radius:8px;z-index:6}
@@ -23,35 +24,37 @@ nav{position:fixed;bottom:0;left:0;right:0;height:56px;display:flex;justify-cont
 nav button,nav a{border:0;background:transparent;color:#fff;font-size:22px;min-width:46px;height:44px;border-radius:8px;cursor:pointer;text-decoration:none;display:flex;align-items:center;justify-content:center}
 nav button:hover,nav a:hover{background:rgba(255,255,255,.2)}
 #zl{font-size:14px;min-width:52px;text-align:center}
+#zr{width:150px;accent-color:#E8B010}.lupa{font-size:20px;margin-right:2px}
+#hint{margin-left:auto;font-size:12px;opacity:.8}
 #thumbs{position:fixed;left:0;right:0;bottom:56px;height:130px;background:rgba(0,0,20,.88);display:none;overflow-x:auto;white-space:nowrap;padding:10px;z-index:8}
 #thumbs img{height:108px;margin-right:8px;border:2px solid transparent;border-radius:3px;cursor:pointer;background:#fff}
 #thumbs img.on{border-color:var(--oro)}
 #credit{position:fixed;left:14px;bottom:64px;font-size:12px;opacity:.7;z-index:2}
-@media(max-width:700px){.arrow{display:none}header b{font-size:13px}}
+@media(max-width:700px){#hint{display:none}#zr{width:90px}.arrow{display:none}header b{font-size:13px}}
 </style>
 </head>
 <body>
-<header><b>IA aplicada a MIPYMES · Unidad 1</b><span id="cnt">…</span></header>
+<header><b>IA aplicada a MIPYMES · Unidad 1</b><span id="cnt">…</span><span id="hint">🔍 Zoom: barra inferior, Ctrl+rueda o doble clic</span></header>
 <button class="arrow" id="prev" aria-label="Página anterior">‹</button>
 <button class="arrow" id="next" aria-label="Página siguiente">›</button>
-<div id="stage"><div id="holder"><div id="book"></div><div id="pan"></div></div></div>
+<div id="stage"><div id="holder"><div id="book"><div class="pg" data-density="hard"><img src="p/01.webp" alt="Página 1" decoding="async"></div><div class="pg"><img src="p/02.webp" alt="Página 2" decoding="async"></div><div class="pg"><img src="p/03.webp" alt="Página 3" decoding="async"></div><div class="pg"><img src="p/04.webp" alt="Página 4" decoding="async"></div><div class="pg"><img src="p/05.webp" alt="Página 5" decoding="async"></div><div class="pg"><img src="p/06.webp" alt="Página 6" decoding="async"></div><div class="pg"><img src="p/07.webp" alt="Página 7" decoding="async"></div><div class="pg"><img src="p/08.webp" alt="Página 8" decoding="async"></div><div class="pg"><img src="p/09.webp" alt="Página 9" decoding="async"></div><div class="pg"><img src="p/10.webp" alt="Página 10" decoding="async"></div><div class="pg"><img src="p/11.webp" alt="Página 11" decoding="async"></div><div class="pg"><img src="p/12.webp" alt="Página 12" decoding="async"></div><div class="pg"><img src="p/13.webp" alt="Página 13" decoding="async"></div><div class="pg"><img src="p/14.webp" alt="Página 14" decoding="async"></div><div class="pg"><img src="p/15.webp" alt="Página 15" decoding="async"></div><div class="pg"><img src="p/16.webp" alt="Página 16" decoding="async"></div><div class="pg"><img src="p/17.webp" alt="Página 17" decoding="async"></div><div class="pg"><img src="p/18.webp" alt="Página 18" decoding="async"></div><div class="pg"><img src="p/19.webp" alt="Página 19" decoding="async"></div><div class="pg"><img src="p/20.webp" alt="Página 20" decoding="async"></div><div class="pg"><img src="p/21.webp" alt="Página 21" decoding="async"></div><div class="pg"><img src="p/22.webp" alt="Página 22" decoding="async"></div><div class="pg"><img src="p/23.webp" alt="Página 23" decoding="async"></div><div class="pg"><img src="p/24.webp" alt="Página 24" decoding="async"></div><div class="pg"><img src="p/25.webp" alt="Página 25" decoding="async"></div><div class="pg"><img src="p/26.webp" alt="Página 26" decoding="async"></div><div class="pg" data-density="hard"><img src="p/27.webp" alt="Página 27" decoding="async"></div></div><div id="pan"></div></div></div>
 <div id="thumbs"></div>
 <div id="credit">Johan Tapia, PhD · INFOTEP</div>
 <nav>
   <button id="bthumbs" title="Miniaturas">▦</button>
   <button id="bfirst" title="Ir al inicio">⏮</button>
-  <button id="bzout" title="Alejar (Ctrl + rueda)">−</button>
-  <span id="zl">100%</span>
-  <button id="bzin" title="Acercar (Ctrl + rueda)">＋</button>
+  <span class="lupa">🔍</span><button id="bzout" title="Alejar (tecla -)">−</button>
+  <input id="zr" type="range" min="100" max="400" step="10" value="100" title="Zoom">
+  <button id="bzin" title="Acercar (tecla +)">＋</button><span id="zl">100%</span>
   <button id="bfull" title="Pantalla completa">⛶</button>
   <a id="bpdf" href="guia.pdf" download title="Descargar PDF">⬇</a>
 </nav>
 <script src="page-flip.browser.js"></script>
 <script>
-const N=27, W=595, H=842, RATIO=W/H;
-const imgs=Array.from({length:N},(_,i)=>`p/${String(i+1).padStart(2,'0')}.jpg`);
+const N=27, W=1785, H=2496, RATIO=W/H;
+const imgs=Array.from({length:N},(_,i)=>`p/${String(i+1).padStart(2,'0')}.webp`);
 const $=id=>document.getElementById(id), stage=$('stage');
-let z=1, pf=null, lastKey='';
+let z=1, pf=null; const PAGS=document.getElementById('book').innerHTML;
 const MOBILE=()=>innerWidth<700;
 // tamaño base: la doble página llena el área disponible
 function base(){
@@ -69,13 +72,13 @@ function aplicar(){
   if(!pf){
     pf=new St.PageFlip($('book'),{width:Math.round(W),height:Math.round(H),size:'stretch',minWidth:200,maxWidth:4000,minHeight:280,maxHeight:5600,
       showCover:true,usePortrait:true,maxShadowOpacity:.45,mobileScrollSupport:false,flippingTime:700,autoSize:true});
-    pf.loadFromImages(imgs);pf.on('flip',upd);
+    pf.loadFromHTML(document.querySelectorAll('#book .pg'));pf.on('flip',upd);
   } else pf.update();
   $('pan').style.display=z>1?'block':'none';
-  $('zl').textContent=Math.round(z*100)+'%';
+  $('zl').textContent=Math.round(z*100)+'%';$('zr').value=Math.round(z*100);
   if(z>1){stage.scrollLeft=cx*stage.scrollWidth-stage.clientWidth/2;stage.scrollTop=cy*stage.scrollHeight-stage.clientHeight/2}
 }
-function upd(){const i=pf.getCurrentPageIndex();
+function upd(){if(!pf)return;const i=pf.getCurrentPageIndex();
   $('cnt').textContent=`pág. ${i+1}${(!MOBILE()&&i>0&&i+2<=N)?'–'+(i+2):''} de ${N}`;
   document.querySelectorAll('#thumbs img').forEach((t,k)=>t.classList.toggle('on',k===i||(!MOBILE()&&k===i+1)))}
 function setz(v){z=Math.max(1,Math.min(4,+v.toFixed(2)));aplicar()}
@@ -85,6 +88,7 @@ $('next').onclick=()=>pf.flipNext();$('prev').onclick=()=>pf.flipPrev();$('bfirs
 addEventListener('keydown',e=>{
   if(e.key==='ArrowRight')pf.flipNext();else if(e.key==='ArrowLeft')pf.flipPrev();
   else if(e.key==='+'||e.key==='=')setz(z+.5);else if(e.key==='-')setz(z-.5);else if(e.key==='0')setz(1)});
+$('zr').oninput=e=>setz(e.target.value/100);
 $('bzin').onclick=()=>setz(z+.5);$('bzout').onclick=()=>setz(z-.5);
 stage.addEventListener('wheel',e=>{if(e.ctrlKey||e.metaKey){e.preventDefault();setz(z+(e.deltaY<0?.25:-.25))}},{passive:false});
 // arrastrar para mover la página cuando hay zoom; doble clic o doble toque vuelve a 100 %
@@ -92,8 +96,7 @@ const pan=$('pan');let drag=null;
 pan.addEventListener('pointerdown',e=>{drag={x:e.clientX,y:e.clientY,l:stage.scrollLeft,t:stage.scrollTop};pan.setPointerCapture(e.pointerId);pan.classList.add('drag')});
 pan.addEventListener('pointermove',e=>{if(!drag)return;stage.scrollLeft=drag.l-(e.clientX-drag.x);stage.scrollTop=drag.t-(e.clientY-drag.y)});
 pan.addEventListener('pointerup',()=>{drag=null;pan.classList.remove('drag')});
-pan.addEventListener('dblclick',()=>setz(1));
-$('book').addEventListener('dblclick',()=>setz(2));
+$('holder').addEventListener('dblclick',()=>setz(z>1?1:2));
 $('bfull').onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
 imgs.forEach((s,k)=>{const t=new Image();t.src=s;t.loading='lazy';t.onclick=()=>pf.flip(k);$('thumbs').appendChild(t)});
 $('bthumbs').onclick=()=>{const t=$('thumbs');t.style.display=t.style.display==='block'?'none':'block'};

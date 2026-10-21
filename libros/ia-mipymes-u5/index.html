@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IA aplicada a MIPYMES · Unidad 5</title>
+<style>
+:root{--oro:#E8B010}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%;overflow:hidden;font-family:system-ui,Segoe UI,Arial,sans-serif;color:#fff}
+body{background:radial-gradient(ellipse at 30% 20%,#1a3d9c 0%,#0a1f5e 45%,#050d2e 100%)}
+header{position:fixed;top:0;left:0;right:0;height:48px;display:flex;align-items:center;gap:14px;padding:0 16px;z-index:5}
+header b{font-size:16px}
+header span{font-size:14px;background:rgba(255,255,255,.14);padding:4px 10px;border-radius:6px}
+#stage{position:absolute;inset:48px 0 56px 0;overflow:auto;display:flex;scrollbar-width:thin}
+#holder{position:relative;margin:auto;flex:none}
+#book{box-shadow:0 20px 60px rgba(0,0,0,.55)}
+#pan{position:absolute;inset:0;z-index:3;cursor:grab;display:none;touch-action:none}
+#pan.drag{cursor:grabbing}
+.arrow{position:fixed;top:50%;transform:translateY(-50%);width:46px;height:70px;border:0;background:rgba(255,255,255,.12);color:#fff;font-size:32px;cursor:pointer;border-radius:8px;z-index:6}
+.arrow:hover{background:rgba(255,255,255,.28)}#prev{left:6px}#next{right:6px}
+nav{position:fixed;bottom:0;left:0;right:0;height:56px;display:flex;justify-content:center;align-items:center;gap:6px;background:rgba(0,0,10,.45);z-index:7}
+nav button,nav a{border:0;background:transparent;color:#fff;font-size:22px;min-width:46px;height:44px;border-radius:8px;cursor:pointer;text-decoration:none;display:flex;align-items:center;justify-content:center}
+nav button:hover,nav a:hover{background:rgba(255,255,255,.2)}
+#zl{font-size:14px;min-width:52px;text-align:center}
+#thumbs{position:fixed;left:0;right:0;bottom:56px;height:130px;background:rgba(0,0,20,.88);display:none;overflow-x:auto;white-space:nowrap;padding:10px;z-index:8}
+#thumbs img{height:108px;margin-right:8px;border:2px solid transparent;border-radius:3px;cursor:pointer;background:#fff}
+#thumbs img.on{border-color:var(--oro)}
+#credit{position:fixed;left:14px;bottom:64px;font-size:12px;opacity:.7;z-index:2}
+@media(max-width:700px){.arrow{display:none}header b{font-size:13px}}
+</style>
+</head>
+<body>
+<header><b>IA aplicada a MIPYMES · Unidad 5</b><span id="cnt">…</span></header>
+<button class="arrow" id="prev" aria-label="Página anterior">‹</button>
+<button class="arrow" id="next" aria-label="Página siguiente">›</button>
+<div id="stage"><div id="holder"><div id="book"></div><div id="pan"></div></div></div>
+<div id="thumbs"></div>
+<div id="credit">Johan Tapia, PhD · INFOTEP</div>
+<nav>
+  <button id="bthumbs" title="Miniaturas">▦</button>
+  <button id="bfirst" title="Ir al inicio">⏮</button>
+  <button id="bzout" title="Alejar (Ctrl + rueda)">−</button>
+  <span id="zl">100%</span>
+  <button id="bzin" title="Acercar (Ctrl + rueda)">＋</button>
+  <button id="bfull" title="Pantalla completa">⛶</button>
+  <a id="bpdf" href="guia.pdf" download title="Descargar PDF">⬇</a>
+</nav>
+<script src="page-flip.browser.js"></script>
+<script>
+const N=25, W=595, H=842, RATIO=W/H;
+const imgs=Array.from({length:N},(_,i)=>`p/${String(i+1).padStart(2,'0')}.jpg`);
+const $=id=>document.getElementById(id), stage=$('stage');
+let z=1, pf=null, lastKey='';
+const MOBILE=()=>innerWidth<700;
+// tamaño base: la doble página llena el área disponible
+function base(){
+  const aw=innerWidth-(MOBILE()?8:110), ah=innerHeight-48-56-12;
+  const pages=MOBILE()?1:2;
+  let h=ah, w=h*RATIO*pages;
+  if(w>aw){w=aw;h=w/(RATIO*pages)}
+  return{w:Math.round(w),h:Math.round(h)};
+}
+function aplicar(){
+  const b=base(), w=Math.round(b.w*z), h=Math.round(b.h*z);
+  const cx=(stage.scrollLeft+stage.clientWidth/2)/Math.max(stage.scrollWidth,1), cy=(stage.scrollTop+stage.clientHeight/2)/Math.max(stage.scrollHeight,1);
+  $('holder').style.width=w+'px';$('holder').style.height=h+'px';
+  $('book').style.width=w+'px';$('book').style.height=h+'px';
+  if(!pf){
+    pf=new St.PageFlip($('book'),{width:Math.round(W),height:Math.round(H),size:'stretch',minWidth:200,maxWidth:4000,minHeight:280,maxHeight:5600,
+      showCover:true,usePortrait:true,maxShadowOpacity:.45,mobileScrollSupport:false,flippingTime:700,autoSize:true});
+    pf.loadFromImages(imgs);pf.on('flip',upd);
+  } else pf.update();
+  $('pan').style.display=z>1?'block':'none';
+  $('zl').textContent=Math.round(z*100)+'%';
+  if(z>1){stage.scrollLeft=cx*stage.scrollWidth-stage.clientWidth/2;stage.scrollTop=cy*stage.scrollHeight-stage.clientHeight/2}
+}
+function upd(){const i=pf.getCurrentPageIndex();
+  $('cnt').textContent=`pág. ${i+1}${(!MOBILE()&&i>0&&i+2<=N)?'–'+(i+2):''} de ${N}`;
+  document.querySelectorAll('#thumbs img').forEach((t,k)=>t.classList.toggle('on',k===i||(!MOBILE()&&k===i+1)))}
+function setz(v){z=Math.max(1,Math.min(4,+v.toFixed(2)));aplicar()}
+aplicar();setTimeout(upd,300);
+addEventListener('resize',()=>{aplicar();upd()});
+$('next').onclick=()=>pf.flipNext();$('prev').onclick=()=>pf.flipPrev();$('bfirst').onclick=()=>pf.flip(0);
+addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight')pf.flipNext();else if(e.key==='ArrowLeft')pf.flipPrev();
+  else if(e.key==='+'||e.key==='=')setz(z+.5);else if(e.key==='-')setz(z-.5);else if(e.key==='0')setz(1)});
+$('bzin').onclick=()=>setz(z+.5);$('bzout').onclick=()=>setz(z-.5);
+stage.addEventListener('wheel',e=>{if(e.ctrlKey||e.metaKey){e.preventDefault();setz(z+(e.deltaY<0?.25:-.25))}},{passive:false});
+// arrastrar para mover la página cuando hay zoom; doble clic o doble toque vuelve a 100 %
+const pan=$('pan');let drag=null;
+pan.addEventListener('pointerdown',e=>{drag={x:e.clientX,y:e.clientY,l:stage.scrollLeft,t:stage.scrollTop};pan.setPointerCapture(e.pointerId);pan.classList.add('drag')});
+pan.addEventListener('pointermove',e=>{if(!drag)return;stage.scrollLeft=drag.l-(e.clientX-drag.x);stage.scrollTop=drag.t-(e.clientY-drag.y)});
+pan.addEventListener('pointerup',()=>{drag=null;pan.classList.remove('drag')});
+pan.addEventListener('dblclick',()=>setz(1));
+$('book').addEventListener('dblclick',()=>setz(2));
+$('bfull').onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
+imgs.forEach((s,k)=>{const t=new Image();t.src=s;t.loading='lazy';t.onclick=()=>pf.flip(k);$('thumbs').appendChild(t)});
+$('bthumbs').onclick=()=>{const t=$('thumbs');t.style.display=t.style.display==='block'?'none':'block'};
+</script>
+</body>
+</html>
