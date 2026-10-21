@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Verificar medalla | Introducción a la IA · INFOTEP</title>
+<style>
+:root{--navy:#002068;--gold:#E8B010;--bg:#f4f7fb;--card:#fff;--txt:#0f172a;--muted:#64748b;--ok:#166534;--okbg:#f0fdf4;--bad:#b91c1c;--badbg:#fef2f2;--line:#cbd5e1}
+@media (prefers-color-scheme:dark){:root{--bg:#0b1220;--card:#151f2f;--txt:#f1f5f9;--muted:#94a3b8;--line:#3a4666;--navy:#9db8ff;--okbg:#0c2417;--badbg:#2a1212;--ok:#86efac;--bad:#fca5a5}}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,system-ui,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--txt);padding:16px}
+main{max-width:520px;margin:0 auto;background:var(--card);border-radius:16px;padding:20px;box-shadow:0 4px 12px rgba(0,0,0,.12)}
+h1{font-size:1.25rem;color:var(--navy);margin:0 0 4px}
+p.sub{color:var(--muted);margin:0 0 16px;font-size:.9rem}
+label{display:block;font-weight:600;margin:12px 0 4px;font-size:.9rem}
+input,select{width:100%;padding:11px;border:1px solid var(--line);border-radius:8px;font-size:1rem;background:transparent;color:inherit}
+button{margin-top:16px;width:100%;padding:13px;border:0;border-radius:10px;background:var(--navy);color:#fff;font-size:1rem;font-weight:700;cursor:pointer}
+#res{margin-top:16px;padding:14px;border-radius:10px;display:none;font-weight:600}
+#res.ok{display:block;background:var(--okbg);color:var(--ok)}
+#res.bad{display:block;background:var(--badbg);color:var(--bad)}
+small{display:block;margin-top:14px;color:var(--muted)}
+</style>
+</head>
+<body>
+<main>
+  <h1>🏅 Verificar una medalla</h1>
+  <p class="sub">Escriba lo que dice la medalla del participante. El código debe coincidir con el que calcula esta página.</p>
+  <label for="n">Nombre (como aparece en la medalla)</label><input id="n" autocomplete="off">
+  <label for="u">Unidad</label>
+  <select id="u"><option>Clase 1 · A</option><option>Clase 1 · B</option><option>Clase 1 · C</option><option>Unidad I</option><option>Unidad II</option><option>Unidad III</option><option>Unidad IV</option><option>Unidad V</option></select>
+  <label for="nota">Nota</label><input id="nota" inputmode="decimal" placeholder="100">
+  <label for="f">Fecha (día/mes/año, como en la medalla)</label><input id="f" placeholder="16/10/2026">
+  <label for="c">Código de la medalla</label><input id="c" placeholder="XXXX-XXXX" autocapitalize="characters">
+  <button id="b" type="button">Verificar</button>
+  <div id="res" role="status"></div>
+  <small>Desarrollado por Johan Tapia, PhD. El código es un control de coherencia entre nombre, unidad, nota y fecha; no reemplaza la revisión del facilitador.</small>
+</main>
+<script>
+function codigoMedalla(nombre, unidad, nota, fecha){
+  var s = String(nombre||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]/g,'') + '|' + unidad + '|' + nota + '|' + fecha + '|iia26';
+  var h1 = 0xdeadbeef, h2 = 0x41c6ce57;
+  for(var i = 0; i < s.length; i++){ var c = s.charCodeAt(i); h1 = Math.imul(h1 ^ c, 2654435761); h2 = Math.imul(h2 ^ c, 1597334677); }
+  h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507) ^ Math.imul(h2 ^ (h2 >>> 13), 3266489909);
+  h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^ Math.imul(h1 ^ (h1 >>> 13), 3266489909);
+  var ALF = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789', x = h1 >>> 0, y = h2 >>> 0, n = '';
+  for(var k = 0; k < 4; k++){ n += ALF.charAt(x % ALF.length); x = Math.floor(x / ALF.length); }
+  for(var k2 = 0; k2 < 4; k2++){ n += ALF.charAt(y % ALF.length); y = Math.floor(y / ALF.length); }
+  return n.slice(0, 4) + '-' + n.slice(4);
+}
+function fechaMedalla(){ var d = new Date(); return d.getDate() + '/' + (d.getMonth() + 1) + '/' + d.getFullYear(); }
+window.codigoMedalla = codigoMedalla; window.fechaMedalla = fechaMedalla;
+
+document.getElementById('b').addEventListener('click', function(){
+  var n = document.getElementById('n').value.trim(), u = document.getElementById('u').value;
+  var nota = document.getElementById('nota').value.trim().replace(',', '.'), f = document.getElementById('f').value.trim();
+  var c = document.getElementById('c').value.trim().toUpperCase();
+  var r = document.getElementById('res');
+  if(!n || !nota || !f || !c){ r.className = 'bad'; r.textContent = 'Complete todos los campos.'; return; }
+  var esperado = codigoMedalla(n, u, nota, f);
+  if(esperado === c){ r.className = 'ok'; r.textContent = '✅ La medalla coincide: ' + n + ' · ' + u + ' · nota ' + nota + ' · ' + f + '.'; }
+  else { r.className = 'bad'; r.textContent = '❌ El código no coincide con esos datos. Revise que el nombre, la nota y la fecha estén exactamente como en la medalla.'; }
+});
+</script>
+</body>
+</html>

@@ -396,6 +396,77 @@
             "url": "https://portal-practicas.plataformajt.com/ciber-concientizacion-final/"
           }
         ]
+      },
+      {
+        "nombre": "IA aplicada a MIPYMES — Asesores INFOTEP",
+        "icono": "🧭",
+        "tipoClase": "taller",
+        "tipoLabel": "Clase 1 (3 prácticas) + Unidades I a IV · con medalla",
+        "practicas": [
+          {
+            "badge": "Clase 1 · A",
+            "titulo": "Práctica: De usar ChatGPT a entender la IA",
+            "desc": "Qué es la IA, cómo un modelo de lenguaje lee y responde (tokens, atención, probabilidades) y por qué usar un chat no es saber IA. Incluye el análisis de un video corto con 4 preguntas. Individual.",
+            "duracion": "40 minutos",
+            "puntos": "100 pts",
+            "aprobacion": "70% mínimo",
+            "url": "https://portal-practicas.plataformajt.com/ia-mip-c1-fundamentos/"
+          },
+          {
+            "badge": "Clase 1 · B",
+            "titulo": "Práctica: Prompts y contexto",
+            "desc": "Qué es un prompt y el contexto, los métodos RTF, CARE, RISEN y CO-STAR. Incluye el análisis de un video corto con 4 preguntas y la escritura de su propio prompt con IA. Individual.",
+            "duracion": "40 minutos",
+            "puntos": "100 pts",
+            "aprobacion": "70% mínimo",
+            "url": "https://portal-practicas.plataformajt.com/ia-mip-c1-prompts/"
+          },
+          {
+            "badge": "Clase 1 · C",
+            "titulo": "Práctica: La plataforma del asesor en acción",
+            "desc": "Ficha de la empresa, Niko, Autopiloto del diagnóstico y Redactor IA con una MIPYME ficticia: la IA propone y el asesor decide. Individual.",
+            "duracion": "40 minutos",
+            "puntos": "100 pts",
+            "aprobacion": "70% mínimo",
+            "url": "https://portal-practicas.plataformajt.com/ia-mip-c1-plataforma/"
+          },
+          {
+            "badge": "Unidad I",
+            "titulo": "Práctica: Fundamentos de la IA para el asesor",
+            "desc": "Qué es la IA, en qué se diferencia de la automatización y cómo usarla con seguridad al asesorar MIPYMES; práctica con la ficha y Niko. Individual.",
+            "duracion": "45 minutos",
+            "puntos": "100 pts",
+            "aprobacion": "70% mínimo",
+            "url": "https://portal-practicas.plataformajt.com/ia-mip-u1/"
+          },
+          {
+            "badge": "Unidad II",
+            "titulo": "Práctica: IA generativa en el diagnóstico",
+            "desc": "La IA propone un diagnóstico con evidencia y el asesor lo corrige: práctica con el Autopiloto del diagnóstico. Individual.",
+            "duracion": "45 minutos",
+            "puntos": "100 pts",
+            "aprobacion": "70% mínimo",
+            "url": "https://portal-practicas.plataformajt.com/ia-mip-u2/"
+          },
+          {
+            "badge": "Unidad III",
+            "titulo": "Práctica: Prompts para el trabajo del asesor",
+            "desc": "Rol, contexto, tarea, formato y restricciones; práctica con el Redactor IA y una iteración del prompt. Individual.",
+            "duracion": "45 minutos",
+            "puntos": "100 pts",
+            "aprobacion": "70% mínimo",
+            "url": "https://portal-practicas.plataformajt.com/ia-mip-u3/"
+          },
+          {
+            "badge": "Unidad IV",
+            "titulo": "Práctica: IA para la productividad del asesor",
+            "desc": "Entregables con IA y medición del ahorro de tiempo sin perder calidad. Individual.",
+            "duracion": "45 minutos",
+            "puntos": "100 pts",
+            "aprobacion": "70% mínimo",
+            "url": "https://portal-practicas.plataformajt.com/ia-mip-u4/"
+          }
+        ]
       }
     ]
   },
