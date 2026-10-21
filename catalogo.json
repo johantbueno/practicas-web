@@ -401,7 +401,7 @@
         "nombre": "IA aplicada a MIPYMES — Asesores INFOTEP",
         "icono": "🧭",
         "tipoClase": "taller",
-        "tipoLabel": "Clase 1 (3 prácticas) + Unidades I a IV · con medalla",
+        "tipoLabel": "Clase 1 + Unidades I a V + laboratorio de 5 casos · con medalla",
         "practicas": [
           {
             "badge": "Clase 1 · A",
@@ -465,6 +465,60 @@
             "puntos": "100 pts",
             "aprobacion": "70% mínimo",
             "url": "https://portal-practicas.plataformajt.com/ia-mip-u4/"
+          },
+          {
+            "badge": "Unidad V",
+            "titulo": "Práctica: Su primera skill: de prompts sueltos a un método portable",
+            "desc": "Descripción como disparador, qué va en instrucciones, skill o proyecto, scripts para lo exacto y prueba en 4 pasos; escribe y prueba su primera skill para Gemini y ChatGPT. Individual.",
+            "duracion": "45 minutos",
+            "puntos": "100 pts",
+            "aprobacion": "70% mínimo",
+            "url": "https://portal-practicas.plataformajt.com/ia-mip-u5-skills/"
+          },
+          {
+            "badge": "Caso 1",
+            "titulo": "Práctica: Taller de soldadura: riesgos y equipos de protección",
+            "desc": "Laboratorio sin IA vs con IA: evaluación de riesgos y relación de EPP por tarea (Seguridad y Salud en el Trabajo). Individual.",
+            "duracion": "60 minutos",
+            "puntos": "100 pts",
+            "aprobacion": "70% mínimo",
+            "url": "https://portal-practicas.plataformajt.com/ia-mip-caso1-sst/"
+          },
+          {
+            "badge": "Caso 2",
+            "titulo": "Práctica: Almacén de repuestos: orden, limpieza y disciplina",
+            "desc": "Laboratorio sin IA vs con IA: lista de chequeo, mapa de 5S e indicador de productividad (Técnica de las 5S). Individual.",
+            "duracion": "60 minutos",
+            "puntos": "100 pts",
+            "aprobacion": "70% mínimo",
+            "url": "https://portal-practicas.plataformajt.com/ia-mip-caso2-5s/"
+          },
+          {
+            "badge": "Caso 3",
+            "titulo": "Práctica: Salón de belleza: de la intuición al plan",
+            "desc": "Laboratorio sin IA vs con IA: análisis FODA, marco estratégico y primer POA (Planificación Estratégica). Individual.",
+            "duracion": "60 minutos",
+            "puntos": "100 pts",
+            "aprobacion": "70% mínimo",
+            "url": "https://portal-practicas.plataformajt.com/ia-mip-caso3-planificacion/"
+          },
+          {
+            "badge": "Caso 4",
+            "titulo": "Práctica: Colmado: primeros pasos digitales",
+            "desc": "Laboratorio sin IA vs con IA: hoja de ruta de 90 días, integración de IA y presencia digital (Transformación Digital en las MIPYMES). Individual.",
+            "duracion": "60 minutos",
+            "puntos": "100 pts",
+            "aprobacion": "70% mínimo",
+            "url": "https://portal-practicas.plataformajt.com/ia-mip-caso4-digital/"
+          },
+          {
+            "badge": "Caso 5",
+            "titulo": "Práctica: Panadería: quejas y protocolo de atención",
+            "desc": "Laboratorio sin IA vs con IA: protocolo de atención, registro de quejas e indicadores (Servicio al Cliente). Individual.",
+            "duracion": "60 minutos",
+            "puntos": "100 pts",
+            "aprobacion": "70% mínimo",
+            "url": "https://portal-practicas.plataformajt.com/ia-mip-caso5-servicio/"
           }
         ]
       }
