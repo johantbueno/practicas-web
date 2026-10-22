@@ -1,0 +1,1552 @@
+/* ==========================================================================
+   JohanTube Player - Estilos Oficiales
+   Diseño propio profesional para clases y prácticas interactivas
+   ========================================================================== */
+
+:root {
+  --jt-accent: #0d7377;
+  --jt-accent-hover: #0a5b5e;
+  --jt-accent-light: #4fd1c5;
+  --jt-accent-glow: rgba(79, 209, 197, 0.35);
+
+  --jt-bg: #f5f7fb;
+  --jt-surface: #ffffff;
+  --jt-surface-hover: #f0f3f8;
+  --jt-surface-active: #e2e8f0;
+  --jt-border: #e2e8f0;
+  --jt-border-subtle: #edf2f7;
+
+  --jt-text-primary: #0f172a;
+  --jt-text-secondary: #475569;
+  --jt-text-muted: #64748b;
+  --jt-text-inverse: #ffffff;
+
+  --jt-player-bg: #000000;
+  --jt-ctrl-bg: rgba(15, 23, 42, 0.94);
+  --jt-ctrl-hover: rgba(255, 255, 255, 0.16);
+
+  --jt-radius-sm: 6px;
+  --jt-radius-md: 10px;
+  --jt-radius-lg: 14px;
+  --jt-radius-full: 9999px;
+
+  --jt-font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  --jt-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --jt-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.12);
+  --jt-shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.2);
+
+  --jt-touch-target: 44px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --jt-bg: #0b0f19;
+    --jt-surface: #131b2e;
+    --jt-surface-hover: #1c2640;
+    --jt-surface-active: #243152;
+    --jt-border: #243152;
+    --jt-border-subtle: #1a233a;
+
+    --jt-text-primary: #f8fafc;
+    --jt-text-secondary: #cbd5e1;
+    --jt-text-muted: #8b9bb4;
+
+    --jt-ctrl-bg: rgba(11, 15, 25, 0.95);
+  }
+}
+
+/* Reset y caja */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--jt-bg);
+  color: var(--jt-text-primary);
+  font-family: var(--jt-font);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  overflow-x: hidden;
+}
+
+/* Contenedor general */
+.jt-app {
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 12px 16px calc(32px + env(safe-area-inset-bottom));
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Encabezado */
+.jt-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-bottom: 4px;
+}
+
+.jt-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: inherit;
+  user-select: none;
+}
+
+.jt-logo-icon {
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, var(--jt-accent) 0%, var(--jt-accent-light) 100%);
+  border-radius: var(--jt-radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  box-shadow: 0 2px 8px var(--jt-accent-glow);
+  flex-shrink: 0;
+}
+
+.jt-logo-icon svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+.jt-brand-name {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.jt-brand-badge {
+  font-size: 0.68rem;
+  font-weight: 600;
+  background: var(--jt-accent);
+  color: #fff;
+  padding: 2px 6px;
+  border-radius: var(--jt-radius-full);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.jt-header-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--jt-text-secondary);
+  font-size: 0.95rem;
+}
+
+.jt-video-title {
+  font-weight: 600;
+  color: var(--jt-text-primary);
+}
+
+.jt-part-pill {
+  background: var(--jt-surface);
+  border: 1px solid var(--jt-border);
+  padding: 4px 10px;
+  border-radius: var(--jt-radius-full);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--jt-accent);
+}
+
+/* Layout principal */
+.jt-main-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 380px;
+  gap: 20px;
+  align-items: start;
+}
+
+/* Modo Cine */
+.jt-app.theater-mode .jt-main-layout {
+  grid-template-columns: 1fr;
+}
+
+.jt-app.theater-mode .jt-player-wrapper {
+  max-width: 100%;
+}
+
+.jt-player-column {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+}
+
+/* Contenedor del Reproductor */
+.jt-player-wrapper {
+  width: 100%;
+  position: relative;
+  background: var(--jt-player-bg);
+  border-radius: var(--jt-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--jt-shadow-lg);
+  aspect-ratio: 858 / 358;
+}
+
+@media (max-width: 600px) {
+  .jt-player-wrapper {
+    aspect-ratio: 16 / 9;
+    border-radius: var(--jt-radius-md);
+  }
+}
+
+.jt-player {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  overflow: hidden;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.jt-player:fullscreen {
+  border-radius: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+.jt-player:-webkit-full-screen {
+  border-radius: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+.jt-video {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+  background: #000;
+  cursor: pointer;
+}
+
+/* Capa de subtítulos */
+.jt-captions-layer {
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  bottom: 74px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  pointer-events: none;
+  z-index: 15;
+  transition: bottom 0.2s ease;
+}
+
+.jt-controls-hidden ~ .jt-captions-layer {
+  bottom: 24px;
+}
+
+.jt-caption-cue {
+  background: rgba(0, 0, 0, 0.78);
+  color: #ffffff;
+  font-size: 1.15rem;
+  font-weight: 500;
+  line-height: 1.35;
+  padding: 4px 12px;
+  border-radius: var(--jt-radius-sm);
+  text-align: center;
+  max-width: 85%;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+  word-wrap: break-word;
+}
+
+@media (max-width: 600px) {
+  .jt-caption-cue {
+    font-size: 0.95rem;
+    padding: 3px 8px;
+  }
+}
+
+/* Badge de velocidad táctil 2x */
+.jt-speed-badge {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.85);
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: var(--jt-radius-full);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.15s ease, visibility 0.15s ease;
+  z-index: 25;
+}
+
+.jt-speed-badge.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Animación de ondas para doble toque móvil */
+.jt-ripple-overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 22;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.jt-ripple-overlay.left {
+  left: 0;
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.25) 0%, transparent 70%);
+  border-radius: 0 100% 100% 0 / 50%;
+}
+
+.jt-ripple-overlay.right {
+  right: 0;
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.25) 0%, transparent 70%);
+  border-radius: 100% 0 0 100% / 50%;
+}
+
+.jt-ripple-overlay.animate {
+  opacity: 1;
+  visibility: visible;
+  animation: jtRippleFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.jt-ripple-icon {
+  width: 40px;
+  height: 40px;
+  fill: #fff;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.6));
+}
+
+.jt-ripple-text {
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-top: 4px;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+}
+
+@keyframes jtRippleFade {
+  0% { transform: scale(0.85); opacity: 0.9; }
+  100% { transform: scale(1.1); opacity: 0; }
+}
+
+/* Spinner de buffering */
+.jt-spinner-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.35);
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+  z-index: 20;
+}
+
+.jt-spinner-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.jt-spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid rgba(255, 255, 255, 0.25);
+  border-top-color: var(--jt-accent-light);
+  border-radius: 50%;
+  animation: jtSpin 0.85s linear infinite;
+}
+
+@keyframes jtSpin {
+  to { transform: rotate(360deg); }
+}
+
+/* Mensajes de overlay (Error, Enlace incompleto) */
+.jt-overlay-message {
+  position: absolute;
+  inset: 0;
+  background: rgba(11, 15, 25, 0.92);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+  padding: 24px;
+  z-index: 30;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.jt-overlay-message.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.jt-overlay-icon {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 12px;
+  color: var(--jt-accent-light);
+}
+
+.jt-overlay-icon.danger {
+  color: #f87171;
+}
+
+.jt-overlay-text {
+  font-size: 1.1rem;
+  font-weight: 600;
+  max-width: 440px;
+  line-height: 1.45;
+  margin-bottom: 16px;
+}
+
+.jt-overlay-subtext {
+  font-size: 0.9rem;
+  color: #94a3b8;
+  max-width: 400px;
+  margin-bottom: 16px;
+}
+
+/* Tarjeta superpuesta de Pregunta */
+.jt-question-card {
+  position: absolute;
+  inset: 0;
+  background: rgba(11, 15, 25, 0.88);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 35;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.jt-question-card.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.jt-question-box {
+  background: var(--jt-surface);
+  color: var(--jt-text-primary);
+  border: 1px solid var(--jt-border);
+  border-radius: var(--jt-radius-lg);
+  padding: 24px;
+  max-width: 540px;
+  max-height: 85vh;
+  overflow-y: auto;
+  width: 100%;
+  box-shadow: var(--jt-shadow-lg);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  animation: jtPopIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes jtPopIn {
+  from { transform: scale(0.92); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.jt-question-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--jt-accent);
+}
+
+.jt-question-text {
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--jt-text-primary);
+}
+
+.jt-question-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.jt-question-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.jt-option-btn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--jt-border);
+  color: var(--jt-text-primary);
+  padding: 10px 14px;
+  border-radius: var(--jt-radius-md);
+  font-size: 0.95rem;
+  line-height: 1.4;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.jt-option-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.jt-option-btn.selected {
+  border-color: var(--jt-accent);
+  background: rgba(59, 130, 246, 0.15);
+}
+
+.jt-option-btn.correct {
+  border-color: #10b981 !important;
+  background: rgba(16, 185, 129, 0.18) !important;
+  color: #a7f3d0 !important;
+}
+
+.jt-option-btn.incorrect {
+  border-color: #ef4444 !important;
+  background: rgba(239, 68, 68, 0.18) !important;
+  color: #fca5a5 !important;
+}
+
+.jt-option-btn:disabled {
+  cursor: default;
+  opacity: 0.85;
+}
+
+.jt-textarea {
+  width: 100%;
+  box-sizing: border-box;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--jt-border);
+  border-radius: var(--jt-radius-md);
+  color: var(--jt-text-primary);
+  padding: 12px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  line-height: 1.45;
+  resize: vertical;
+  min-height: 90px;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.jt-textarea:focus {
+  border-color: var(--jt-accent);
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.jt-word-count {
+  font-size: 0.82rem;
+  color: var(--jt-text-muted);
+  text-align: right;
+  margin-top: -4px;
+}
+
+.jt-word-count.valid {
+  color: #10b981;
+  font-weight: 600;
+}
+
+.jt-question-retro {
+  background: rgba(59, 130, 246, 0.08);
+  border-left: 3px solid var(--jt-accent);
+  padding: 10px 14px;
+  border-radius: 4px;
+  font-size: 0.88rem;
+  line-height: 1.45;
+  color: var(--jt-text-secondary);
+}
+
+.jt-question-retro.success {
+  background: rgba(16, 185, 129, 0.08);
+  border-left-color: #10b981;
+}
+
+.jt-question-retro.warning {
+  background: rgba(245, 158, 11, 0.08);
+  border-left-color: #f59e0b;
+}
+
+.jt-question-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+/* Tarjeta final de Fin de Parte */
+.jt-end-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(11, 15, 25, 0.94);
+  backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+  padding: 24px;
+  z-index: 32;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.jt-end-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.jt-end-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.jt-end-countdown {
+  font-size: 0.95rem;
+  color: #94a3b8;
+  margin-bottom: 20px;
+}
+
+.jt-end-countdown span {
+  color: var(--jt-accent-light);
+  font-weight: 700;
+  font-size: 1.15rem;
+}
+
+.jt-end-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* Toast flotante "Continuar donde quedó" */
+.jt-resume-toast {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: rgba(15, 23, 42, 0.95);
+  color: #ffffff;
+  padding: 10px 14px;
+  border-radius: var(--jt-radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: var(--jt-shadow-md);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 28;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+  max-width: calc(100% - 32px);
+}
+
+.jt-resume-toast.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.jt-resume-info {
+  font-size: 0.88rem;
+  line-height: 1.3;
+}
+
+.jt-resume-btn {
+  background: var(--jt-accent);
+  color: #fff;
+  border: none;
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: var(--jt-radius-sm);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s ease;
+}
+
+.jt-resume-btn:hover {
+  background: var(--jt-accent-hover);
+}
+
+.jt-resume-close {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 4px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+}
+
+.jt-resume-close:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* ==========================================================================
+   Barra de Controles
+   ========================================================================== */
+
+.jt-controls {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0 16px 10px 16px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.45) 65%, transparent 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 20;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.jt-controls.jt-controls-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Barra de progreso interactiva */
+.jt-progress-container {
+  position: relative;
+  width: 100%;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  touch-action: none;
+}
+
+.jt-progress-track {
+  position: relative;
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.28);
+  border-radius: var(--jt-radius-full);
+  overflow: visible;
+  transition: height 0.15s ease;
+}
+
+.jt-progress-container:hover .jt-progress-track,
+.jt-progress-container.dragging .jt-progress-track {
+  height: 8px;
+}
+
+.jt-progress-buffer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  background: rgba(255, 255, 255, 0.45);
+  border-radius: var(--jt-radius-full);
+  pointer-events: none;
+}
+
+.jt-progress-hover-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: var(--jt-radius-full);
+  pointer-events: none;
+}
+
+.jt-progress-played {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  background: var(--jt-accent-light);
+  border-radius: var(--jt-radius-full);
+  pointer-events: none;
+}
+
+.jt-progress-thumb {
+  position: absolute;
+  top: 50%;
+  left: 0%;
+  width: 14px;
+  height: 14px;
+  background: #ffffff;
+  border: 2px solid var(--jt-accent);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+  pointer-events: none;
+}
+
+.jt-progress-container:hover .jt-progress-thumb,
+.jt-progress-container.dragging .jt-progress-thumb {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* Marcas de preguntas en la barra */
+.jt-progress-marker {
+  position: absolute;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  background: #facc15;
+  border: 1px solid #000;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* Divisores de capítulos en la barra */
+.jt-chapter-divider {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: #000;
+  transform: translateX(-50%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Tooltip de vista previa (Thumbnail + tiempo) */
+.jt-tooltip {
+  position: absolute;
+  bottom: 30px;
+  left: 0%;
+  transform: translateX(-50%);
+  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: var(--jt-radius-md);
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.12s ease, visibility 0.12s ease;
+  box-shadow: var(--jt-shadow-md);
+  z-index: 25;
+}
+
+.jt-tooltip.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.jt-tooltip-thumb {
+  width: 160px;
+  height: 67px;
+  border-radius: 6px;
+  background-color: #000;
+  background-repeat: no-repeat;
+  display: none;
+  overflow: hidden;
+}
+
+.jt-tooltip-thumb.has-sprite {
+  display: block;
+}
+
+.jt-tooltip-time {
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 2px 6px;
+  letter-spacing: 0.02em;
+}
+
+/* Fila de controles inferiores */
+.jt-controls-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.jt-controls-group {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Botones de control */
+.jt-btn {
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  min-width: var(--jt-touch-target);
+  min-height: var(--jt-touch-target);
+  width: 44px;
+  height: 44px;
+  border-radius: var(--jt-radius-sm);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.15s ease, transform 0.1s ease, color 0.15s ease;
+  position: relative;
+}
+
+.jt-btn:hover {
+  background: var(--jt-ctrl-hover);
+}
+
+.jt-btn:active {
+  transform: scale(0.95);
+}
+
+.jt-btn:disabled {
+  opacity: 0.38;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.jt-btn svg {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+}
+
+/* Botón CC activo */
+.jt-btn.active {
+  color: var(--jt-accent-light);
+}
+
+.jt-btn.active::after {
+  content: "";
+  position: absolute;
+  bottom: 6px;
+  left: 12px;
+  right: 12px;
+  height: 3px;
+  background: var(--jt-accent-light);
+  border-radius: var(--jt-radius-full);
+}
+
+/* Deslizador de volumen */
+.jt-volume-group {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.jt-volume-slider-wrap {
+  width: 0;
+  overflow: hidden;
+  transition: width 0.2s cubic-bezier(0.16, 1, 0.3, 1), margin 0.2s ease;
+  display: flex;
+  align-items: center;
+}
+
+.jt-volume-group:hover .jt-volume-slider-wrap,
+.jt-volume-group:focus-within .jt-volume-slider-wrap,
+.jt-volume-slider-wrap.active {
+  width: 68px;
+  margin-right: 8px;
+}
+
+.jt-volume-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: var(--jt-radius-full);
+  outline: none;
+  cursor: pointer;
+  margin: 0;
+}
+
+.jt-volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+.jt-volume-slider::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: none;
+  cursor: pointer;
+}
+
+/* Indicador de tiempo */
+.jt-time-display {
+  color: #ffffff;
+  font-size: 0.88rem;
+  font-weight: 500;
+  padding: 0 8px;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+  user-select: none;
+}
+
+.jt-time-separator {
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0 4px;
+}
+
+/* Menú de Ajustes Popover */
+.jt-settings-menu {
+  position: absolute;
+  bottom: 56px;
+  right: 12px;
+  width: 250px;
+  background: rgba(19, 27, 46, 0.96);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--jt-radius-md);
+  box-shadow: var(--jt-shadow-lg);
+  padding: 6px 0;
+  color: #fff;
+  z-index: 25;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s ease;
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.jt-settings-menu.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.jt-menu-view {
+  display: none;
+  flex-direction: column;
+}
+
+.jt-menu-view.active {
+  display: flex;
+}
+
+.jt-menu-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.jt-menu-header:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.jt-menu-header svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+.jt-menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  font-size: 0.88rem;
+  color: #e2e8f0;
+  background: transparent;
+  border: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  min-height: 40px;
+  transition: background 0.15s ease;
+}
+
+.jt-menu-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.jt-menu-item-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.jt-menu-item-left svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+  opacity: 0.85;
+}
+
+.jt-menu-item-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #94a3b8;
+  font-size: 0.82rem;
+}
+
+.jt-menu-item.selected .jt-menu-item-right {
+  color: var(--jt-accent-light);
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   Panel Lateral de Pestañas (Escenas, Transcripción, Partes)
+   ========================================================================== */
+
+.jt-sidebar-panel {
+  background: var(--jt-surface);
+  border: 1px solid var(--jt-border);
+  border-radius: var(--jt-radius-lg);
+  box-shadow: var(--jt-shadow-sm);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  height: 520px;
+  min-width: 0;
+}
+
+@media (max-width: 900px) {
+  .jt-main-layout {
+    grid-template-columns: 1fr;
+  }
+  .jt-sidebar-panel {
+    height: 480px;
+  }
+}
+
+/* Cabecera de pestañas */
+.jt-tabs-header {
+  display: flex;
+  border-bottom: 1px solid var(--jt-border);
+  background: var(--jt-surface);
+}
+
+.jt-tab-btn {
+  flex: 1;
+  min-height: 48px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--jt-text-secondary);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 8px;
+  transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+
+.jt-tab-btn:hover {
+  color: var(--jt-text-primary);
+  background: var(--jt-surface-hover);
+}
+
+.jt-tab-btn[aria-selected="true"] {
+  color: var(--jt-accent);
+  border-bottom-color: var(--jt-accent);
+}
+
+.jt-tab-btn svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+/* Contenido de pestañas */
+.jt-tabs-body {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.jt-tab-pane {
+  display: none;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: auto;
+  padding: 12px;
+}
+
+.jt-tab-pane.active {
+  display: flex;
+}
+
+/* Pestaña: Escenas / Capítulos */
+.jt-scenes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.jt-scene-item {
+  display: flex;
+  gap: 12px;
+  padding: 8px;
+  border-radius: var(--jt-radius-md);
+  border: 1px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s ease, border-color 0.15s ease;
+  align-items: center;
+}
+
+.jt-scene-item:hover {
+  background: var(--jt-surface-hover);
+  border-color: var(--jt-border);
+}
+
+.jt-scene-item.active {
+  background: var(--jt-surface-active);
+  border-color: var(--jt-accent);
+}
+
+.jt-scene-thumb {
+  width: 100px;
+  height: 48px;
+  background-color: #000;
+  background-repeat: no-repeat;
+  border-radius: var(--jt-radius-sm);
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.jt-scene-thumb-time {
+  position: absolute;
+  bottom: 2px;
+  right: 4px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 1px 4px;
+  border-radius: 3px;
+}
+
+.jt-scene-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.jt-scene-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--jt-text-primary);
+  line-height: 1.3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.jt-scene-meta {
+  font-size: 0.78rem;
+  color: var(--jt-text-muted);
+}
+
+/* Pestaña: Transcripción */
+.jt-transcript-wrap {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: 10px;
+}
+
+.jt-transcript-search-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.jt-search-input {
+  width: 100%;
+  min-height: 40px;
+  padding: 8px 12px 8px 36px;
+  border: 1px solid var(--jt-border);
+  border-radius: var(--jt-radius-md);
+  background: var(--jt-bg);
+  color: var(--jt-text-primary);
+  font: inherit;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.jt-search-input:focus {
+  border-color: var(--jt-accent);
+  box-shadow: 0 0 0 3px var(--jt-accent-glow);
+}
+
+.jt-search-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  fill: var(--jt-text-muted);
+  pointer-events: none;
+}
+
+.jt-transcript-list {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-right: 4px;
+}
+
+.jt-transcript-item {
+  display: flex;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: var(--jt-radius-sm);
+  cursor: pointer;
+  transition: background 0.15s ease;
+  font-size: 0.88rem;
+  line-height: 1.4;
+  border: 1px solid transparent;
+}
+
+.jt-transcript-item:hover {
+  background: var(--jt-surface-hover);
+}
+
+.jt-transcript-item.active {
+  background: var(--jt-surface-active);
+  border-color: var(--jt-accent);
+  font-weight: 600;
+}
+
+.jt-transcript-time {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--jt-accent);
+  flex-shrink: 0;
+  padding-top: 1px;
+}
+
+.jt-transcript-text {
+  color: var(--jt-text-secondary);
+}
+
+.jt-transcript-item.active .jt-transcript-text {
+  color: var(--jt-text-primary);
+}
+
+/* Pestaña: Partes */
+.jt-parts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+  gap: 10px;
+  padding: 4px;
+}
+
+.jt-part-btn {
+  min-height: 48px;
+  border: 1px solid var(--jt-border);
+  background: var(--jt-surface);
+  color: var(--jt-text-primary);
+  border-radius: var(--jt-radius-md);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+}
+
+.jt-part-btn:hover {
+  background: var(--jt-surface-hover);
+  border-color: var(--jt-accent);
+}
+
+.jt-part-btn:active {
+  transform: scale(0.96);
+}
+
+.jt-part-btn[aria-current="true"] {
+  background: var(--jt-accent);
+  color: #ffffff;
+  border-color: var(--jt-accent);
+  box-shadow: 0 2px 8px var(--jt-accent-glow);
+}
+
+.jt-part-btn-sub {
+  font-size: 0.65rem;
+  opacity: 0.75;
+  text-transform: uppercase;
+}
+
+/* Botones genéricos de UI */
+.jt-btn-primary {
+  background: var(--jt-accent);
+  color: #ffffff;
+  border: 1px solid var(--jt-accent);
+  padding: 8px 16px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  border-radius: var(--jt-radius-md);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: var(--jt-touch-target);
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+
+.jt-btn-primary:hover {
+  background: var(--jt-accent-hover);
+}
+
+.jt-btn-secondary {
+  background: var(--jt-surface);
+  color: var(--jt-text-primary);
+  border: 1px solid var(--jt-border);
+  padding: 8px 16px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  border-radius: var(--jt-radius-md);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: var(--jt-touch-target);
+  transition: background 0.15s ease;
+}
+
+.jt-btn-secondary:hover {
+  background: var(--jt-surface-hover);
+}
+
+/* Pie de página institucional */
+.jt-footer {
+  margin-top: 12px;
+  padding-top: 16px;
+  border-top: 1px solid var(--jt-border-subtle);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: center;
+  color: var(--jt-text-muted);
+  font-size: 0.85rem;
+}
+
+.jt-footer-strong {
+  font-weight: 600;
+  color: var(--jt-text-secondary);
+}
+
+/* Mensajes vacíos / Fallbacks */
+.jt-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 32px 16px;
+  color: var(--jt-text-muted);
+  gap: 8px;
+}
+
+.jt-empty-state svg {
+  width: 32px;
+  height: 32px;
+  fill: currentColor;
+  opacity: 0.6;
+}
+
+/* Accesibilidad y Reducción de Movimiento */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid var(--jt-accent);
+  outline-offset: 2px;
+}

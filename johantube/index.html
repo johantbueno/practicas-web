@@ -1,126 +1,316 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="robots" content="noindex, nofollow">
-<title>JohanTube</title>
-<style>
-:root{--bg:#f4f6fb;--card:#fff;--ink:#14213d;--muted:#5b6785;--accent:#0d7377;--line:#dde3f0}
-@media (prefers-color-scheme:dark){:root{--bg:#0e1424;--card:#172038;--ink:#e8ecf8;--muted:#9aa6c6;--accent:#4fd1c5;--line:#273255}}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5}
-.wrap{max-width:960px;margin:0 auto;padding:12px 16px calc(24px + env(safe-area-inset-bottom))}
-header{display:flex;align-items:center;gap:10px;padding:6px 0 12px}
-header h1{font-size:1.15rem;margin:0}
-header span{color:var(--muted);font-size:.9rem}
-.player{background:#000;border-radius:12px;overflow:hidden;aspect-ratio:858/358;width:100%;position:relative}
-video{width:100%;height:100%;display:block;background:#000}
-.msg{position:absolute;inset:0;display:none;align-items:center;justify-content:center;text-align:center;color:#fff;padding:16px;font-size:1rem}
-.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:12px 0}
-.bar label{color:var(--muted);font-size:.9rem}
-select,button{font:inherit;font-size:1rem;min-height:42px;padding:6px 12px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink)}
-button{cursor:pointer}
-button.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
-.parts{display:grid;grid-template-columns:repeat(auto-fill,minmax(64px,1fr));gap:8px}
-.parts button{min-height:44px}
-.parts button[aria-current="true"]{background:var(--accent);color:#fff;border-color:var(--accent)}
-.note{color:var(--muted);font-size:.85rem;margin-top:14px}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%230d7377'/%3E%3Cpath d='M9.5 8.2v7.6c0 .8.9 1.3 1.6.9l6.2-3.8c.7-.4.7-1.4 0-1.8l-6.2-3.8c-.7-.4-1.6.1-1.6.9z' fill='%23fff'/%3E%3C/svg%3E">
+  <title>JohanTube - Reproductor Educativo</title>
+  <link rel="stylesheet" href="player.css?v=2">
 </head>
 <body>
-<div class="wrap">
-  <header><h1>▶ JohanTube</h1><span id="titulo"></span></header>
-  <div class="player">
-    <video id="v" controls playsinline preload="metadata"></video>
-    <div class="msg" id="msg"></div>
+  <div class="jt-app" id="jt-app">
+    <!-- Encabezado con marca y estado -->
+    <header class="jt-header">
+      <div class="jt-brand">
+        <div class="jt-logo-icon" aria-hidden="true">
+          <!-- Ícono propio original de JohanTube: insignia con play suave -->
+          <svg viewBox="0 0 24 24">
+            <path d="M4 6.5A3.5 3.5 0 0 1 7.5 3h9A3.5 3.5 0 0 1 20 6.5v11a3.5 3.5 0 0 1-3.5 3.5h-9A3.5 3.5 0 0 1 4 17.5v-11z" opacity="0.25" fill="#fff"/>
+            <path d="M9.5 8.2v7.6c0 .8.9 1.3 1.6.9l6.2-3.8c.7-.4.7-1.4 0-1.8l-6.2-3.8c-.7-.4-1.6.1-1.6.9z"/>
+          </svg>
+        </div>
+        <div class="jt-brand-name">
+          <span>JohanTube</span>
+          <span class="jt-brand-badge">Pro</span>
+        </div>
+      </div>
+      <div class="jt-header-meta">
+        <span class="jt-video-title" id="jt-header-title">En busca de la felicidad</span>
+        <span class="jt-part-pill" id="jt-header-part-pill">Parte 1 de 12</span>
+      </div>
+    </header>
+
+    <!-- Layout principal: Reproductor + Barra lateral -->
+    <main class="jt-main-layout">
+      <!-- Columna del reproductor -->
+      <section class="jt-player-column">
+        <div class="jt-player-wrapper" id="jt-player-wrapper">
+          <div class="jt-player" id="jt-player" tabindex="0">
+            <!-- Video HTML5 -->
+            <video class="jt-video" id="jt-video" playsinline preload="metadata"></video>
+
+            <!-- Capa de subtítulos accesibles en pantalla -->
+            <div class="jt-captions-layer" id="jt-captions-layer" aria-live="polite">
+              <span class="jt-caption-cue" id="jt-caption-cue" style="display: none;"></span>
+            </div>
+
+            <!-- Toast flotante: Reanudar posición -->
+            <div class="jt-resume-toast" id="jt-resume-toast">
+              <span class="jt-resume-info" id="jt-resume-text">Continuar donde quedó</span>
+              <button class="jt-resume-btn" id="jt-resume-btn">Reanudar</button>
+              <button class="jt-resume-close" id="jt-resume-close" aria-label="Cerrar aviso">&times;</button>
+            </div>
+
+            <!-- Badge de velocidad temporal por long press -->
+            <div class="jt-speed-badge" id="jt-speed-badge">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M4 18l8.5-6L4 6v12zm9-12v12l8.5-6L13 6z"/></svg>
+              <span>2x</span>
+            </div>
+
+            <!-- Animaciones de doble toque (saltos de 10s) -->
+            <div class="jt-ripple-overlay left" id="jt-ripple-left">
+              <svg class="jt-ripple-icon" viewBox="0 0 24 24"><path d="M11 18V6l-8.5 6 8.5 6zm.5-6l8.5 6V6l-8.5 6z"/></svg>
+              <span class="jt-ripple-text">-10 s</span>
+            </div>
+            <div class="jt-ripple-overlay right" id="jt-ripple-right">
+              <svg class="jt-ripple-icon" viewBox="0 0 24 24"><path d="M4 18l8.5-6L4 6v12zm9-12v12l8.5-6L13 6z"/></svg>
+              <span class="jt-ripple-text">+10 s</span>
+            </div>
+
+            <!-- Spinner de carga / buffering -->
+            <div class="jt-spinner-overlay" id="jt-spinner-overlay">
+              <div class="jt-spinner"></div>
+            </div>
+
+            <!-- Tarjeta superpuesta de Preguntas -->
+            <div class="jt-question-card" id="jt-question-card" role="dialog" aria-modal="true" aria-labelledby="jt-q-title">
+              <div class="jt-question-box">
+                <div class="jt-question-header" id="jt-q-title">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 16h-2v-2h2v2zm1.07-7.75l-.9.92C12.45 11.9 12 12.5 12 14h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H7c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.04-.42 1.99-1.07 2.75z"/></svg>
+                  <span id="jt-question-badge-text">Pregunta interactiva</span>
+                </div>
+                <div class="jt-question-text" id="jt-question-text"></div>
+                <div class="jt-question-body" id="jt-question-body"></div>
+                <div class="jt-question-retro" id="jt-question-retro" style="display: none;"></div>
+                <div class="jt-question-actions">
+                  <button class="jt-btn-primary" id="jt-question-continue" disabled>Continuar</button>
+                  <button class="jt-btn-secondary" id="jt-question-rewind">Ver de nuevo la escena</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pantalla final de cuenta regresiva -->
+            <div class="jt-end-overlay" id="jt-end-overlay">
+              <div class="jt-end-title">Fin de la parte actual</div>
+              <div class="jt-end-countdown">Siguiente parte en <span id="jt-end-seconds">5</span> s...</div>
+              <div class="jt-end-actions">
+                <button class="jt-btn-primary" id="jt-end-next">Ver ahora</button>
+                <button class="jt-btn-secondary" id="jt-end-cancel">Cancelar</button>
+              </div>
+            </div>
+
+            <!-- Overlay de mensajes / errores -->
+            <div class="jt-overlay-message" id="jt-overlay-message">
+              <svg class="jt-overlay-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+              </svg>
+              <div class="jt-overlay-text" id="jt-overlay-text"></div>
+              <div class="jt-overlay-subtext" id="jt-overlay-subtext"></div>
+              <button class="jt-btn-primary" id="jt-overlay-btn" style="display: none;">Reintentar</button>
+            </div>
+
+            <!-- Barra de Controles personalizada -->
+            <div class="jt-controls" id="jt-controls">
+              <!-- Barra de progreso con preview y marcas -->
+              <div class="jt-progress-container" id="jt-progress-container" role="slider" tabindex="0" aria-label="Línea de tiempo" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                <div class="jt-progress-track">
+                  <div class="jt-progress-buffer" id="jt-progress-buffer"></div>
+                  <div class="jt-progress-hover-bar" id="jt-progress-hover-bar"></div>
+                  <div class="jt-progress-played" id="jt-progress-played"></div>
+                  <div class="jt-progress-thumb" id="jt-progress-thumb"></div>
+                  <div id="jt-progress-markers"></div>
+                  <div id="jt-progress-chapters"></div>
+                </div>
+
+                <!-- Tooltip con sprite de miniatura y tiempo -->
+                <div class="jt-tooltip" id="jt-tooltip">
+                  <div class="jt-tooltip-thumb" id="jt-tooltip-thumb"></div>
+                  <span class="jt-tooltip-time" id="jt-tooltip-time">00:00</span>
+                </div>
+              </div>
+
+              <!-- Fila inferior de botones -->
+              <div class="jt-controls-bottom">
+                <div class="jt-controls-group">
+                  <!-- Play / Pausa -->
+                  <button class="jt-btn" id="jt-btn-play" aria-label="Reproducir (espacio/K)">
+                    <svg class="jt-icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    <svg class="jt-icon-pause" viewBox="0 0 24 24" style="display: none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                  </button>
+
+                  <!-- Siguiente parte -->
+                  <button class="jt-btn" id="jt-btn-next" aria-label="Siguiente parte">
+                    <svg viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+                  </button>
+
+                  <!-- Volumen + Slider -->
+                  <div class="jt-volume-group">
+                    <button class="jt-btn" id="jt-btn-mute" aria-label="Silenciar (M)">
+                      <svg class="jt-vol-high" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+                      <svg class="jt-vol-low" viewBox="0 0 24 24" style="display: none;"><path d="M7 9v6h4l5 5V4L11 9H7z"/></svg>
+                      <svg class="jt-vol-muted" viewBox="0 0 24 24" style="display: none;"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
+                    </button>
+                    <div class="jt-volume-slider-wrap">
+                      <input type="range" class="jt-volume-slider" id="jt-volume-slider" min="0" max="1" step="0.05" value="1" aria-label="Volumen">
+                    </div>
+                  </div>
+
+                  <!-- Tiempo actual / total -->
+                  <div class="jt-time-display" id="jt-time-display">00:00 / 00:00</div>
+                </div>
+
+                <div class="jt-controls-group">
+                  <!-- Subtítulos (CC) -->
+                  <button class="jt-btn" id="jt-btn-cc" aria-label="Subtítulos (C)">
+                    <svg viewBox="0 0 24 24"><path d="M19 4H5c-1.11 0-2 .9-2 2v12c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-8 7H9.5v-.5h-2v3h2V13H11v1c0 .55-.45 1-1 1H7c-.55 0-1-.45-1-1v-4c0-.55.45-1 1-1h3c.55 0 1 .45 1 1v1zm7 0h-1.5v-.5h-2v3h2V13H18v1c0 .55-.45 1-1 1h-3c-.55 0-1-.45-1-1v-4c0-.55.45-1 1-1h3c.55 0 1 .45 1 1v1z"/></svg>
+                  </button>
+
+                  <!-- Ajustes (Engranaje) -->
+                  <button class="jt-btn" id="jt-btn-settings" aria-label="Ajustes" aria-haspopup="true">
+                    <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+                  </button>
+
+                  <!-- Modo Cine -->
+                  <button class="jt-btn" id="jt-btn-theater" aria-label="Modo cine (T)">
+                    <svg viewBox="0 0 24 24"><path d="M19 6H5c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 10H5V8h14v8z"/></svg>
+                  </button>
+
+                  <!-- Picture-in-Picture -->
+                  <button class="jt-btn" id="jt-btn-pip" aria-label="Ventana flotante / PiP (I)">
+                    <svg viewBox="0 0 24 24"><path d="M19 11h-8v6h8v-6zm4 8V4.98C23 3.88 22.1 3 21 3H3c-1.1 0-2 .88-2 1.98V19c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2zm-2 .02H3V4.97h18v14.05z"/></svg>
+                  </button>
+
+                  <!-- Pantalla Completa -->
+                  <button class="jt-btn" id="jt-btn-fullscreen" aria-label="Pantalla completa (F)">
+                    <svg class="jt-icon-fs-enter" viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+                    <svg class="jt-icon-fs-exit" viewBox="0 0 24 24" style="display: none;"><path d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/></svg>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Menú Popover de Ajustes -->
+              <div class="jt-settings-menu" id="jt-settings-menu" role="menu">
+                <!-- Vista Principal del Menú -->
+                <div class="jt-menu-view active" id="jt-menu-main">
+                  <button class="jt-menu-item" id="jt-menu-open-speed">
+                    <span class="jt-menu-item-left">
+                      <svg viewBox="0 0 24 24"><path d="M10 8v8l6-4-6-4zm9-5H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg>
+                      <span class="jt-menu-item-text">Velocidad</span>
+                    </span>
+                    <span class="jt-menu-item-right">
+                      <span id="jt-speed-label">Normal</span>
+                      <svg width="14" height="14" viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+                    </span>
+                  </button>
+
+                  <button class="jt-menu-item" id="jt-menu-open-quality">
+                    <span class="jt-menu-item-left">
+                      <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+                      <span class="jt-menu-item-text">Calidad</span>
+                    </span>
+                    <span class="jt-menu-item-right">
+                      <span id="jt-quality-label">Automática</span>
+                      <svg width="14" height="14" viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+                    </span>
+                  </button>
+
+                  <button class="jt-menu-item" id="jt-menu-open-subs">
+                    <span class="jt-menu-item-left">
+                      <svg viewBox="0 0 24 24"><path d="M19 4H5c-1.11 0-2 .9-2 2v12c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-8 7H9.5v-.5h-2v3h2V13H11v1c0 .55-.45 1-1 1H7c-.55 0-1-.45-1-1v-4c0-.55.45-1 1-1h3c.55 0 1 .45 1 1v1zm7 0h-1.5v-.5h-2v3h2V13H18v1c0 .55-.45 1-1 1h-3c-.55 0-1-.45-1-1v-4c0-.55.45-1 1-1h3c.55 0 1 .45 1 1v1z"/></svg>
+                      <span class="jt-menu-item-text">Subtítulos</span>
+                    </span>
+                    <span class="jt-menu-item-right">
+                      <span id="jt-subs-label">Desactivados</span>
+                      <svg width="14" height="14" viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+                    </span>
+                  </button>
+                </div>
+
+                <!-- Submenú Velocidad -->
+                <div class="jt-menu-view" id="jt-menu-speed">
+                  <div class="jt-menu-header" id="jt-back-speed">
+                    <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+                    <span>Velocidad de reproducción</span>
+                  </div>
+                  <button class="jt-menu-item" data-rate="0.5"><span class="jt-menu-item-text">0.5x</span><span class="jt-menu-item-right">✓</span></button>
+                  <button class="jt-menu-item" data-rate="0.75"><span class="jt-menu-item-text">0.75x</span><span class="jt-menu-item-right">✓</span></button>
+                  <button class="jt-menu-item selected" data-rate="1"><span class="jt-menu-item-text">Normal (1x)</span><span class="jt-menu-item-right">✓</span></button>
+                  <button class="jt-menu-item" data-rate="1.25"><span class="jt-menu-item-text">1.25x</span><span class="jt-menu-item-right">✓</span></button>
+                  <button class="jt-menu-item" data-rate="1.5"><span class="jt-menu-item-text">1.5x</span><span class="jt-menu-item-right">✓</span></button>
+                  <button class="jt-menu-item" data-rate="2"><span class="jt-menu-item-text">2x</span><span class="jt-menu-item-right">✓</span></button>
+                </div>
+
+                <!-- Submenú Calidad (se llena dinámicamente) -->
+                <div class="jt-menu-view" id="jt-menu-quality"></div>
+
+                <!-- Submenú Subtítulos -->
+                <div class="jt-menu-view" id="jt-menu-subs">
+                  <div class="jt-menu-header" id="jt-back-subs">
+                    <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+                    <span>Subtítulos</span>
+                  </div>
+                  <button class="jt-menu-item selected" data-sub="off"><span class="jt-menu-item-text">Desactivados</span><span class="jt-menu-item-right">✓</span></button>
+                  <button class="jt-menu-item" data-sub="es"><span class="jt-menu-item-text">Español</span><span class="jt-menu-item-right">✓</span></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Panel Lateral con pestañas: Escenas, Transcripción, Partes -->
+      <aside class="jt-sidebar-panel" aria-label="Panel interactivo">
+        <div class="jt-tabs-header" role="tablist">
+          <button class="jt-tab-btn" id="jt-tab-btn-scenes" role="tab" aria-selected="true" data-tab="jt-tab-scenes">
+            <svg viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-8 12.5v-9l6 4.5-6 4.5z"/></svg>
+            <span>Escenas</span>
+          </button>
+          <button class="jt-tab-btn" id="jt-tab-btn-transcript" role="tab" aria-selected="false" data-tab="jt-tab-transcript">
+            <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></svg>
+            <span>Transcripción</span>
+          </button>
+          <button class="jt-tab-btn" id="jt-tab-btn-parts" role="tab" aria-selected="false" data-tab="jt-tab-parts">
+            <svg viewBox="0 0 24 24"><path d="M4 11h5V5H4v6zm0 7h5v-6H4v6zm6 0h5v-6h-5v6zm6 0h5v-6h-5v6zm-6-7h5V5h-5v6zm6-6v6h5V5h-5z"/></svg>
+            <span>Partes</span>
+          </button>
+        </div>
+
+        <div class="jt-tabs-body">
+          <!-- Pestaña 1: Escenas (Capítulos) -->
+          <div class="jt-tab-pane active" id="jt-tab-scenes" role="tabpanel" aria-labelledby="jt-tab-btn-scenes">
+            <div class="jt-scenes-list" id="jt-scenes-list"></div>
+          </div>
+
+          <!-- Pestaña 2: Transcripción con búsqueda -->
+          <div class="jt-tab-pane" id="jt-tab-transcript" role="tabpanel" aria-labelledby="jt-tab-btn-transcript">
+            <div class="jt-transcript-wrap">
+              <div class="jt-transcript-search-wrap">
+                <svg class="jt-search-icon" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+                <input type="search" class="jt-search-input" id="jt-transcript-search" placeholder="Buscar texto en la parte..." aria-label="Buscar en la transcripción">
+              </div>
+              <div class="jt-transcript-list" id="jt-transcript-list"></div>
+            </div>
+          </div>
+
+          <!-- Pestaña 3: Cuadrícula de Partes 1..12 -->
+          <div class="jt-tab-pane" id="jt-tab-parts" role="tabpanel" aria-labelledby="jt-tab-btn-parts">
+            <div class="jt-parts-grid" id="jt-parts-grid"></div>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <!-- Pie de página institucional -->
+    <footer class="jt-footer">
+      <p class="jt-footer-strong">Material de uso exclusivo de clase. No lo descargue ni lo comparta fuera del grupo.</p>
+      <p>Diseñado para actividades interactivas universitarias y formación directiva.</p>
+    </footer>
   </div>
-  <div class="bar">
-    <button id="ant">◀ Anterior</button>
-    <button id="sig" class="primary">Siguiente ▶</button>
-    <label>Velocidad
-      <select id="vel"><option>0.75</option><option selected>1</option><option>1.25</option><option>1.5</option></select>
-    </label>
-    <label>Calidad
-      <select id="cal"><option value="-1">Automática</option></select>
-    </label>
-  </div>
-  <div class="parts" id="partes"></div>
-  <p class="note">Material de uso exclusivo de clase. No lo descargue ni lo comparta fuera del grupo.</p>
-</div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/hls.js/1.5.13/hls.min.js"></script>
-<script>
-(function(){
-  var BASE = 'https://johantube.167.88.36.13.sslip.io';
-  var VIDEOS = {
-    felicidad: { titulo: 'En busca de la felicidad', partes: 12 }
-  };
-  var q = new URLSearchParams(location.search);
-  var h = new URLSearchParams(location.hash.replace(/^#/, ''));
-  var key = h.get('k') || '';
-  var vid = VIDEOS[q.get('v') || 'felicidad'];
-  var vidId = q.get('v') || 'felicidad';
-  var parte = Math.min(Math.max(parseInt(q.get('p') || '1', 10) || 1, 1), vid ? vid.partes : 1);
-  var t0 = parseFloat(q.get('t') || '0') || 0;
-  var el = document.getElementById('v'), msg = document.getElementById('msg');
-  var hls = null;
-
-  function aviso(t){ msg.textContent = t; msg.style.display = t ? 'flex' : 'none'; }
-  if(!vid || !key){ aviso('Enlace incompleto. Pida a su facilitador el enlace del video.'); return; }
-
-  document.getElementById('titulo').textContent = vid.titulo;
-  var cont = document.getElementById('partes');
-  for(var i = 1; i <= vid.partes; i++){
-    (function(n){
-      var b = document.createElement('button'); b.textContent = n; b.setAttribute('aria-label', 'Parte ' + n);
-      b.onclick = function(){ cargar(n, 0); };
-      cont.appendChild(b);
-    })(i);
-  }
-
-  function url(n){ return BASE + '/' + key + '/' + vidId + '/parte' + String(n).padStart(2, '0') + '/index.m3u8'; }
-
-  function marcar(){
-    Array.prototype.forEach.call(cont.children, function(b, i){ b.setAttribute('aria-current', (i + 1 === parte) ? 'true' : 'false'); });
-    document.getElementById('ant').disabled = parte <= 1;
-    document.getElementById('sig').disabled = parte >= vid.partes;
-  }
-
-  function cargar(n, t){
-    parte = n; aviso(''); marcar();
-    var u = url(n);
-    if(hls){ hls.destroy(); hls = null; }
-    var iniciar = function(){ if(t) el.currentTime = t; el.playbackRate = parseFloat(document.getElementById('vel').value); };
-    if(window.Hls && Hls.isSupported()){
-      hls = new Hls({ maxBufferLength: 20 });
-      hls.loadSource(u); hls.attachMedia(el);
-      hls.on(Hls.Events.MANIFEST_PARSED, function(e, d){
-        var sel = document.getElementById('cal'); sel.length = 1;
-        d.levels.forEach(function(l, i){ var o = document.createElement('option'); o.value = i; o.textContent = l.height + 'p'; sel.appendChild(o); });
-        iniciar();
-      });
-      hls.on(Hls.Events.ERROR, function(e, d){ if(d.fatal) aviso('No se pudo cargar el video. Revise su conexión o pida un enlace nuevo.'); });
-    } else if(el.canPlayType('application/vnd.apple.mpegurl')){
-      el.src = u; el.addEventListener('loadedmetadata', iniciar, { once: true });
-      el.onerror = function(){ aviso('No se pudo cargar el video. Revise su conexión o pida un enlace nuevo.'); };
-    } else { aviso('Este navegador no puede reproducir el video.'); }
-  }
-
-  document.getElementById('ant').onclick = function(){ if(parte > 1) cargar(parte - 1, 0); };
-  document.getElementById('sig').onclick = function(){ if(parte < vid.partes) cargar(parte + 1, 0); };
-  document.getElementById('vel').onchange = function(){ el.playbackRate = parseFloat(this.value); };
-  document.getElementById('cal').onchange = function(){ if(hls) hls.currentLevel = parseInt(this.value, 10); };
-  el.addEventListener('ended', function(){ if(parte < vid.partes) cargar(parte + 1, 0); });
-
-  // La práctica puede incrustar este reproductor y pedirle saltar a un minuto: {saltar:{parte:3, seg:200}}
-  window.addEventListener('message', function(ev){
-    var d = ev.data && ev.data.saltar; if(!d) return;
-    if(d.parte && d.parte !== parte) cargar(d.parte, d.seg || 0); else { el.currentTime = d.seg || 0; el.play(); }
-  });
-
-  cargar(parte, t0);
-})();
-</script>
+  <!-- hls.js v1.5.13 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hls.js/1.5.13/hls.min.js"></script>
+  <!-- Lógica propia del reproductor JohanTube -->
+  <script src="player.js?v=7"></script>
 </body>
 </html>

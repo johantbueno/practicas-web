@@ -1746,6 +1746,41 @@
             "url": "https://portal-practicas.plataformajt.com/ucsd-ia-hospital-taller/"
           }
         ]
+      },
+      {
+        "nombre": "Recursos Humanos y Gerencia — Prof. Nicole",
+        "icono": "🎬",
+        "tipoClase": "taller",
+        "tipoLabel": "3 prácticas con película",
+        "practicas": [
+          {
+            "badge": "Cine y Gerencia",
+            "titulo": "En busca de la felicidad — Selección, resiliencia y evaluación por competencias",
+            "desc": "Análisis interactivo de 4 secciones clave (entrevista en Dean Witter, optimización del tiempo, resiliencia ante la precariedad y contratación final). Video con pausas interactivas para responder dilemas de recursos humanos y selección.",
+            "duracion": "4 secciones · ~30 min",
+            "puntos": "50 pts",
+            "aprobacion": "70 %",
+            "url": "https://johantbueno.github.io/practicas-web/ucsd-rrhh-felicidad/"
+          },
+          {
+            "badge": "Cine y Gerencia",
+            "titulo": "El diablo viste a la moda — Cultura organizacional, inducción y liderazgo autocrático",
+            "desc": "Análisis interactivo de 4 secciones clave (entrevista e inducción en Runway, el suéter azul cerúleo y cultura corporativa, mentoría correctiva de Nigel, y política de poder en París). Pausas reflexivas sobre gestión de talento y clima laboral.",
+            "duracion": "4 secciones · ~30 min",
+            "puntos": "50 pts",
+            "aprobacion": "70 %",
+            "url": "https://johantbueno.github.io/practicas-web/ucsd-rrhh-diablo-moda/"
+          },
+          {
+            "badge": "Cine y Gerencia",
+            "titulo": "El lobo de Wall Street — Liderazgo carismático, incentivos de ventas y compliance ético",
+            "desc": "Análisis interactivo de 4 secciones clave (inducción al corretaje con Mark Hanna, técnica de ventas y guiones estandarizados, discurso motivacional y choque ético con el FBI). Evaluación de incentivos comerciales y gobernanza ética.",
+            "duracion": "4 secciones · ~30 min",
+            "puntos": "50 pts",
+            "aprobacion": "70 %",
+            "url": "https://johantbueno.github.io/practicas-web/ucsd-rrhh-lobo-wallstreet/"
+          }
+        ]
       }
     ]
   }

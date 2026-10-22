@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>El diablo viste a la moda — Cultura organizacional, inducción y liderazgo autocrático | UCSD Gerencia</title>
+  <meta name="description" content="Práctica de análisis de recursos humanos en la revista Runway. Examine las fallas críticas de inducción, el impacto sistémico de la cultura corporativa en el monólogo del suéter azul cerúleo, la mentoría correctiva de Nigel y los dilemas éticos del poder directivo.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0f172a;
+      --secondary: #334155;
+      --muted: #64748b;
+      --bg-body: #0b1120;
+      --bg-card: #151f32;
+      --bg-card-alt: #1c2942;
+      --border: #26354f;
+      --border-light: rgba(255, 255, 255, 0.08);
+      --accent: #0284c7;
+      --accent-dark: #0369a1;
+      --text: #f8fafc;
+      --text-sub: #cbd5e1;
+      --green: #10b981;
+      --red: #ef4444;
+      --gold: #f59e0b;
+      --radius-lg: 16px;
+      --radius-md: 10px;
+      --radius-sm: 6px;
+      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg-body);
+      color: var(--text);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 80px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px 16px;
+    }
+
+    /* HEADER & HERO */
+    .hero {
+      background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px 24px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -40px; right: -40px;
+      width: 180px; height: 180px;
+      background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+      opacity: 0.18;
+      pointer-events: none;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--accent);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 4px 12px;
+      border-radius: 999px;
+      margin-bottom: 12px;
+    }
+    .hero h1 {
+      font-size: clamp(1.4rem, 4vw, 2.1rem);
+      font-weight: 800;
+      line-height: 1.25;
+      margin-bottom: 10px;
+      color: #fff;
+    }
+    .hero p.desc {
+      color: var(--text-sub);
+      font-size: 0.98rem;
+      max-width: 850px;
+      line-height: 1.55;
+      margin-bottom: 18px;
+    }
+    .chips-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .chip {
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid var(--border);
+      color: #e2e8f0;
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: var(--radius-sm);
+    }
+
+    /* CARDS */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow);
+    }
+    .card-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #fff;
+    }
+
+    /* TUTORIAL GUIA */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .step-box {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      padding: 14px;
+    }
+    .step-num {
+      display: inline-block;
+      width: 24px; height: 24px;
+      background: var(--accent);
+      color: #000;
+      font-weight: 800;
+      font-size: 0.82rem;
+      text-align: center;
+      line-height: 24px;
+      border-radius: 50%;
+      margin-bottom: 8px;
+    }
+    .step-box h4 {
+      font-size: 0.92rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+      color: #fff;
+    }
+    .step-box p {
+      font-size: 0.82rem;
+      color: var(--text-sub);
+      line-height: 1.4;
+    }
+
+    /* FORMULARIO ESTUDIANTE */
+    .student-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin-top: 10px;
+    }
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .field label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-sub);
+    }
+    .field label span.req {
+      color: var(--red);
+    }
+    .field input {
+      background: var(--bg-body);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text);
+      padding: 10px 14px;
+      font-size: 16px; /* Evita zoom en iOS */
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+    .field input:focus {
+      border-color: var(--accent);
+    }
+
+    /* REPRODUCTOR IFRAME */
+    .player-section {
+      background: #000;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow);
+    }
+    .player-wrapper {
+      position: relative;
+      padding-top: 56.25%; /* 16:9 ratio */
+      width: 100%;
+      height: 0;
+      background: #000;
+    }
+    .player-wrapper iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: 0;
+    }
+    .no-token-warning {
+      padding: 40px 24px;
+      text-align: center;
+      background: #111827;
+      color: #e5e7eb;
+    }
+    .no-token-warning h3 {
+      font-size: 1.25rem;
+      margin-bottom: 10px;
+      color: var(--gold);
+    }
+    .no-token-warning p {
+      color: #9ca3af;
+      max-width: 500px;
+      margin: 0 auto;
+      font-size: 0.95rem;
+    }
+
+    /* SECCION DE RESULTADOS */
+    .progress-bar-wrap {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 999px;
+      height: 8px;
+      overflow: hidden;
+      margin: 12px 0 18px;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent), var(--green));
+      transition: width 0.3s ease;
+    }
+    .responses-summary {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 16px;
+      font-size: 0.92rem;
+      color: var(--text-sub);
+    }
+    .responses-summary strong {
+      color: #fff;
+    }
+    .open-answers-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 14px;
+    }
+    .open-answer-item {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 16px;
+    }
+    .open-answer-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      font-size: 0.82rem;
+      color: var(--accent);
+      font-weight: 700;
+    }
+    .open-answer-text {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+    .open-answer-textarea {
+      width: 100%;
+      box-sizing: border-box;
+      background: var(--bg-body);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text);
+      padding: 10px;
+      font-size: 16px;
+      font-family: inherit;
+      line-height: 1.45;
+      min-height: 80px;
+      resize: vertical;
+    }
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #000;
+      border: none;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 12px 24px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: opacity 0.2s ease, transform 0.1s ease;
+    }
+    .btn-primary:hover { opacity: 0.92; transform: translateY(-1px); }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text);
+      border: 1px solid var(--border);
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 12px 20px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.2s ease;
+    }
+    .btn-secondary:hover { background: rgba(255, 255, 255, 0.1); }
+
+    /* SUBMISSION STATUS */
+    .submit-status {
+      margin-top: 14px;
+      padding: 12px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 0.9rem;
+      display: none;
+    }
+    .submit-status.success {
+      display: block;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid var(--green);
+      color: #a7f3d0;
+    }
+    .submit-status.error {
+      display: block;
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid var(--red);
+      color: #fca5a5;
+    }
+
+    /* ASISTENTE NICOLE */
+    .nicole-fab {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #1e293b;
+      color: #fff;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+      font-size: 0.88rem;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      z-index: 999;
+      transition: all 0.2s ease;
+    }
+    .nicole-fab:hover { transform: scale(1.04); background: #334155; }
+    .nicole-modal {
+      position: fixed;
+      bottom: 80px;
+      right: 24px;
+      width: min(380px, calc(100vw - 32px));
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      z-index: 1000;
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      max-height: 520px;
+    }
+    .nicole-modal.active { display: flex; }
+    .nicole-header {
+      background: var(--bg-card-alt);
+      padding: 14px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+    }
+    .nicole-header-title {
+      font-weight: 700;
+      font-size: 0.92rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .nicole-close {
+      background: none; border: none; color: var(--muted); cursor: pointer; font-size: 1.1rem;
+    }
+    .nicole-body {
+      padding: 16px;
+      overflow-y: auto;
+      font-size: 0.88rem;
+      color: var(--text-sub);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-height: 380px;
+    }
+    .nicole-bubble {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-light);
+      padding: 10px 14px;
+      border-radius: 12px;
+      line-height: 1.45;
+    }
+    .nicole-chips {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .nicole-chip-btn {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      text-align: left;
+      font-size: 0.82rem;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+    .nicole-chip-btn:hover { background: rgba(255, 255, 255, 0.08); border-color: var(--accent); }
+
+    /* FOOTER */
+    footer {
+      margin-top: 40px;
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      padding-top: 24px;
+    }
+
+    @media (max-width: 640px) {
+      .hero { padding: 24px 16px; }
+      .card { padding: 18px 14px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- PORTADA SOBRIA -->
+    <header class="hero">
+      <div class="badge">👠 Cine y Gerencia · UCSD</div>
+      <h1>El diablo viste a la moda — Cultura organizacional, inducción y liderazgo autocrático</h1>
+      <p class="desc">Práctica de análisis de recursos humanos en la revista Runway. Examine las fallas críticas de inducción, el impacto sistémico de la cultura corporativa en el monólogo del suéter azul cerúleo, la mentoría correctiva de Nigel y los dilemas éticos del poder directivo.</p>
+      <div class="chips-row">
+        <span class="chip">⏱️ 4 secciones · ~30 min</span>
+        <span class="chip">🎬 Película: El diablo viste a la moda</span>
+        <span class="chip">🎓 Curso: Recursos Humanos y Gerencia</span>
+        <span class="chip">👩‍🏫 Profesora: Nicole</span>
+      </div>
+    </header>
+
+    <!-- TUTORIAL CORTO DE USO -->
+    <section class="card">
+      <h2 class="card-title">📖 Guía de uso de la práctica</h2>
+      <div class="steps-grid">
+        <div class="step-box">
+          <span class="step-num">1</span>
+          <h4>Complete sus datos</h4>
+          <p>Indique su nombre y apellido completo para que su profesora pueda calificar su entrega.</p>
+        </div>
+        <div class="step-box">
+          <span class="step-num">2</span>
+          <h4>Observe las 4 secciones</h4>
+          <p>El video está dividido en 4 secciones estratégicas. Cada sección analiza dilemas reales de gestión.</p>
+        </div>
+        <div class="step-box">
+          <span class="step-num">3</span>
+          <h4>Pausa interactiva</h4>
+          <p>El reproductor se pausará solo al llegar a cada pregunta. Responda para poder seguir avanzando.</p>
+        </div>
+        <div class="step-box">
+          <span class="step-num">4</span>
+          <h4>Envío de resultados</h4>
+          <p>Al concluir las 4 secciones, revise sus reflexiones abiertas y pulse "Enviar mis resultados".</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- DATOS DEL ESTUDIANTE -->
+    <section class="card">
+      <h2 class="card-title">👤 Datos del estudiante</h2>
+      <div class="student-grid">
+        <div class="field">
+          <label for="estudiante_nombre">Nombre y Apellido <span class="req">*</span></label>
+          <input type="text" id="estudiante_nombre" placeholder="Ej: Dra. María Pérez" required autocomplete="name">
+        </div>
+        <div class="field">
+          <label for="estudiante_correo">Correo electrónico (opcional)</label>
+          <input type="email" id="estudiante_correo" placeholder="ejemplo@ucsd.edu.do" autocomplete="email">
+        </div>
+        <div class="field">
+          <label for="estudiante_grupo">Grupo o Sección (opcional)</label>
+          <input type="text" id="estudiante_grupo" placeholder="Ej: Grupo A — Cohorte 2026">
+        </div>
+      </div>
+    </section>
+
+    <!-- REPRODUCTOR JOHANTUBE -->
+    <section class="player-section">
+      <div id="player-container">
+        <!-- Inyección dinámica según presencia de clave hash -->
+        <div class="no-token-warning" id="no-token-message" style="display: none;">
+          <h3>🔒 Acceso exclusivo de clase</h3>
+          <p>Por favor use el enlace completo que le envió su profesora para acceder al video interactivo de esta práctica.</p>
+        </div>
+        <div class="player-wrapper" id="player-iframe-wrap" style="display: none;">
+          <iframe id="jt-iframe" title="Reproductor JohanTube" allow="fullscreen; autoplay; encrypted-media"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESULTADOS Y ENVIO -->
+    <section class="card" id="seccion-resultados">
+      <h2 class="card-title">📊 Estado de avance y respuestas registradas</h2>
+      <p style="color: var(--text-sub); font-size: 0.92rem;">
+        Sus respuestas se registran de manera automática a medida que avanza por cada escena en el reproductor.
+      </p>
+
+      <div class="progress-bar-wrap">
+        <div class="progress-bar-fill" id="progress-fill"></div>
+      </div>
+
+      <div class="responses-summary">
+        <div>Preguntas respondidas: <strong id="resp-count">0</strong> de <strong id="resp-total">16</strong></div>
+        <div>Puntaje acumulado: <strong id="score-count">0</strong> pts</div>
+      </div>
+
+      <h3 style="font-size: 1.02rem; font-weight: 700; margin-top: 20px; color: #fff;">📝 Sus reflexiones gerenciales abiertas:</h3>
+      <div class="open-answers-list" id="open-answers-container">
+        <p style="font-size: 0.88rem; color: var(--muted); font-style: italic;">
+          Las respuestas a las preguntas de reflexión aparecerán aquí cuando las complete en el video, permitiéndole revisarlas antes de enviarlas.
+        </p>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn-primary" id="btn-enviar-resultados" type="button" disabled>
+          ✉️ Enviar mis resultados a mi profesora
+        </button>
+        <button class="btn-secondary" id="btn-descargar-txt" type="button" style="display: none;">
+          💾 Descargar mis respuestas (.txt)
+        </button>
+      </div>
+
+      <div class="submit-status" id="submit-status-msg"></div>
+    </section>
+
+    <!-- FOOTER INSTITUCIONAL -->
+    <footer>
+      Desarrollado por Johan Tapia, PhD.
+    </footer>
+  </div>
+
+  <!-- ASISTENTE NICOLE -->
+  <button class="nicole-fab" id="nicole-toggle" type="button" aria-label="Abrir asistente Nicole">
+    🎓 <span>Nicole (Asistente)</span>
+  </button>
+  <div class="nicole-modal" id="nicole-modal">
+    <div class="nicole-header">
+      <span class="nicole-header-title">🎓 Nicole · Asistente Virtual</span>
+      <button class="nicole-close" id="nicole-close" type="button">✕</button>
+    </div>
+    <div class="nicole-body">
+      <div class="nicole-bubble">
+        ¡Hola! Soy <strong>Nicole</strong>, asistente del curso de Recursos Humanos y Gerencia. Estoy aquí para orientarle sobre los conceptos clave de esta práctica de cine.
+      </div>
+      <div class="nicole-chips">
+        <button class="nicole-chip-btn" type="button" data-q="¿Cómo se evalúa esta práctica?">📋 ¿Cómo se evalúa esta práctica?</button>
+        <button class="nicole-chip-btn" type="button" data-q="¿Puedo retroceder el video?">⏪ ¿Puedo retroceder el video?</button>
+        <button class="nicole-chip-btn" type="button" data-q="¿Qué hago si no carga el video?">⚠️ ¿Qué hago si no carga el video?</button>
+        <button class="nicole-chip-btn" type="button" data-q="¿Cómo redactar las reflexiones abiertas?">💡 ¿Cómo redactar las reflexiones abiertas?</button>
+      </div>
+      <div class="nicole-bubble" id="nicole-answer" style="display: none; background: rgba(59, 130, 246, 0.1); border-color: var(--accent);">
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      'use strict';
+
+      var CONFIG = {
+        movie_key: "diablo-moda",
+        pelicula_nombre: "El diablo viste a la moda",
+        slug: "ucsd-rrhh-diablo-moda",
+        webhook_url: "https://n8n-inap.167.88.36.13.sslip.io/webhook/ucsd-rrhh-resultados"
+      };
+
+      // 1. Extracción segura de la llave desde el hash (#k=...)
+      var hashStr = window.location.hash.replace(/^#/, '');
+      var hParams = new URLSearchParams(hashStr);
+      var token = hParams.get('k') || '';
+
+      var noTokenMsg = document.getElementById('no-token-message');
+      var iframeWrap = document.getElementById('player-iframe-wrap');
+      var jtIframe = document.getElementById('jt-iframe');
+
+      if (!token) {
+        noTokenMsg.style.display = 'block';
+        iframeWrap.style.display = 'none';
+      } else {
+        noTokenMsg.style.display = 'none';
+        iframeWrap.style.display = 'block';
+        jtIframe.src = '../johantube/index.html?v=' + encodeURIComponent(CONFIG.movie_key) + '#k=' + encodeURIComponent(token);
+      }
+
+      // 2. Estado de respuestas recolectadas
+      var respuestasRecogidas = {};
+      var totalPreguntasEsperadas = 16;
+      var videoTerminado = false;
+
+      var respCountEl = document.getElementById('resp-count');
+      var scoreCountEl = document.getElementById('score-count');
+      var progressFillEl = document.getElementById('progress-fill');
+      var openAnswersContainer = document.getElementById('open-answers-container');
+      var btnEnviar = document.getElementById('btn-enviar-resultados');
+      var btnDescargar = document.getElementById('btn-descargar-txt');
+      var submitStatusMsg = document.getElementById('submit-status-msg');
+
+      // Escuchar postMessage desde el reproductor JohanTube
+      window.addEventListener('message', function(e) {
+        var d = e.data;
+        if (!d || typeof d !== 'object') return;
+
+        if (d.johantube === 'respuesta') {
+          respuestasRecogidas[d.id] = d;
+          actualizarUIRespuestas();
+        } else if (d.johantube === 'fin') {
+          videoTerminado = true;
+          actualizarUIRespuestas();
+          btnEnviar.disabled = false;
+          var resSec = document.getElementById('seccion-resultados');
+          if (resSec) resSec.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+
+      function actualizarUIRespuestas() {
+        var items = Object.values(respuestasRecogidas);
+        var totalRespondidas = items.length;
+        var puntajeAcumulado = items.reduce(function(acc, cur) { return acc + (cur.puntos || 0); }, 0);
+
+        respCountEl.textContent = totalRespondidas;
+        scoreCountEl.textContent = puntajeAcumulado;
+
+        var pct = Math.min(100, Math.round((totalRespondidas / totalPreguntasEsperadas) * 100));
+        progressFillEl.style.width = pct + '%';
+
+        // Renderizar reflexiones abiertas para edicion/revision
+        var abiertas = items.filter(function(i) { return i.tipo === 'abierta'; });
+        if (abiertas.length > 0) {
+          openAnswersContainer.innerHTML = '';
+          abiertas.forEach(function(a) {
+            var box = document.createElement('div');
+            box.className = 'open-answer-item';
+            box.innerHTML = 
+              '<div class="open-answer-header">' +
+                '<span>Sección ' + (a.seccion || 1) + ' · Reflexión Gerencial</span>' +
+                '<span>' + (a.puntos || 15) + ' pts</span>' +
+              '</div>' +
+              '<div class="open-answer-text">' + a.texto + '</div>' +
+              '<textarea class="open-answer-textarea" data-id="' + a.id + '">' + a.respuesta + '</textarea>';
+
+            var ta = box.querySelector('textarea');
+            ta.addEventListener('input', function() {
+              if (respuestasRecogidas[a.id]) {
+                respuestasRecogidas[a.id].respuesta = ta.value;
+              }
+            });
+            openAnswersContainer.appendChild(box);
+          });
+        }
+
+        if (totalRespondidas > 0) {
+          btnDescargar.style.display = 'inline-flex';
+        }
+        if (totalRespondidas >= 4 || videoTerminado) {
+          btnEnviar.disabled = false;
+        }
+      }
+
+      // 3. Envío al webhook con reintento y fallback
+      btnEnviar.addEventListener('click', function() {
+        var nombre = document.getElementById('estudiante_nombre').value.trim();
+        var correo = document.getElementById('estudiante_correo').value.trim();
+        var grupo = document.getElementById('estudiante_grupo').value.trim();
+
+        if (!nombre) {
+          alert('Por favor ingrese su Nombre y Apellido en la sección superior antes de enviar.');
+          document.getElementById('estudiante_nombre').focus();
+          return;
+        }
+
+        var items = Object.values(respuestasRecogidas);
+        if (items.length === 0) {
+          alert('Aún no ha respondido ninguna pregunta en el video.');
+          return;
+        }
+
+        // Sincronizar texto de textareas de abiertas
+        openAnswersContainer.querySelectorAll('textarea').forEach(function(ta) {
+          var qId = ta.getAttribute('data-id');
+          if (respuestasRecogidas[qId]) {
+            respuestasRecogidas[qId].respuesta = ta.value.trim();
+          }
+        });
+
+        var puntajeTotal = items.reduce(function(acc, cur) { return acc + (cur.totalPuntos || cur.puntos || 10); }, 0);
+        var puntajeObtenido = items.reduce(function(acc, cur) { return acc + (cur.puntos || 0); }, 0);
+
+        var payload = {
+          practica: CONFIG.slug,
+          pelicula: CONFIG.pelicula_nombre,
+          estudiante: nombre,
+          correo: correo || 'no_especificado',
+          grupo: grupo || 'no_especificado',
+          puntaje: puntajeObtenido,
+          total: puntajeTotal,
+          respuestas: items.map(function(r) {
+            return {
+              id: r.id,
+              seccion: r.seccion,
+              tipo: r.tipo,
+              texto: r.texto,
+              respuesta: r.respuesta,
+              correcta: r.correcta,
+              esCorrecta: r.esCorrecta,
+              tema: r.tema || ''
+            };
+          }),
+          fecha: new Date().toISOString()
+        };
+
+        btnEnviar.disabled = true;
+        btnEnviar.textContent = 'Enviando resultados...';
+        submitStatusMsg.className = 'submit-status';
+        submitStatusMsg.style.display = 'none';
+
+        function postConTimeout(intentosRestantes) {
+          var controller = new AbortController();
+          var timeoutId = setTimeout(function() { controller.abort(); }, 30000);
+
+          fetch(CONFIG.webhook_url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+            signal: controller.signal
+          })
+          .then(function(res) {
+            clearTimeout(timeoutId);
+            if (!res.ok) throw new Error('HTTP ' + res.status);
+            return res.text();
+          })
+          .then(function() {
+            btnEnviar.textContent = '✅ ¡Resultados enviados exitosamente!';
+            submitStatusMsg.className = 'submit-status success';
+            submitStatusMsg.textContent = 'Sus respuestas han sido registradas y enviadas a su profesora. ¡Excelente trabajo!';
+          })
+          .catch(function(err) {
+            clearTimeout(timeoutId);
+            if (intentosRestantes > 1) {
+              console.warn('Reintentando envío...', err);
+              setTimeout(function() { postConTimeout(intentosRestantes - 1); }, 2000);
+            } else {
+              btnEnviar.disabled = false;
+              btnEnviar.textContent = 'Reintentar envío';
+              submitStatusMsg.className = 'submit-status error';
+              submitStatusMsg.innerHTML = 
+                'No se pudo conectar con el servidor de recepción de su profesora. ' +
+                'Por favor pulse el botón <strong>"Descargar mis respuestas (.txt)"</strong> y envíe el archivo descargado por correo o mensaje a su profesora.';
+              btnDescargar.style.display = 'inline-flex';
+            }
+          });
+        }
+
+        postConTimeout(2);
+      });
+
+      // 4. Descargar TXT como fallback
+      btnDescargar.addEventListener('click', function() {
+        var nombre = document.getElementById('estudiante_nombre').value.trim() || 'Estudiante';
+        var items = Object.values(respuestasRecogidas);
+        var lineas = [
+          'RESULTADOS DE PRÁCTICA — CURSO RECURSOS HUMANOS Y GERENCIA',
+          'Institución: UCSD (Maestría en Gerencia Moderna de la Salud)',
+          'Película: ' + CONFIG.pelicula_nombre,
+          'Estudiante: ' + nombre,
+          'Correo: ' + (document.getElementById('estudiante_correo').value.trim() || 'N/A'),
+          'Grupo: ' + (document.getElementById('estudiante_grupo').value.trim() || 'N/A'),
+          'Fecha: ' + new Date().toLocaleString(),
+          '==================================================',
+          ''
+        ];
+
+        items.forEach(function(it, idx) {
+          lineas.push((idx + 1) + '. Pregunta [' + it.id + '] (Sección ' + (it.seccion || 1) + '):');
+          lineas.push('   ' + it.texto);
+          lineas.push('   Respuesta: ' + it.respuesta);
+          if (it.tipo === 'opcion' || it.tipo === 'vf') {
+            lineas.push('   Resultado: ' + (it.esCorrecta ? 'CORRECTO' : 'INCORRECTO') + ' (' + (it.puntos || 0) + ' pts)');
+          } else {
+            lineas.push('   Tipo: Reflexión abierta');
+          }
+          lineas.push('');
+        });
+
+        var blob = new Blob([lineas.join('\n')], { type: 'text/plain;charset=utf-8' });
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = 'Respuestas_' + CONFIG.slug + '_' + nombre.replace(/\s+/g, '_') + '.txt';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      });
+
+      // 5. Asistente Nicole Modal
+      var nicoleToggle = document.getElementById('nicole-toggle');
+      var nicoleModal = document.getElementById('nicole-modal');
+      var nicoleClose = document.getElementById('nicole-close');
+      var nicoleAnswer = document.getElementById('nicole-answer');
+
+      var FAQ_RESPUESTAS = {
+        "¿Cómo se evalúa esta práctica?": "La práctica combina preguntas de opción múltiple / verdadero y falso (calificación inmediata) y preguntas abiertas de reflexión gerencial (evaluadas con base en su criterio, uso de conceptos de RR.HH. y extensión mínima de 30 palabras).",
+        "¿Puedo retroceder el video?": "Sí, en cualquier momento puede retroceder con las teclas de flecha, la barra de progreso o el botón 'Ver de nuevo la escena'. Lo que no está permitido es saltar hacia adelante sin haber respondido la pregunta de la escena actual.",
+        "¿Qué hago si no carga el video?": "Asegúrese de estar abriendo la página desde el enlace exacto que le envió su profesora, el cual incluye la clave de seguridad (#k=...). Si el enlace no tiene esa clave, el video permanecerá bloqueado por protección institucional.",
+        "¿Cómo redactar las reflexiones abiertas?": "Analice el dilema desde el rol de un gerente de recursos humanos o director general: mencione competencias, impacto en el clima laboral, alineación estratégica y justifique sus decisiones con argumentos profesionales."
+      };
+
+      nicoleToggle.addEventListener('click', function() {
+        nicoleModal.classList.toggle('active');
+      });
+      nicoleClose.addEventListener('click', function() {
+        nicoleModal.classList.remove('active');
+      });
+
+      document.querySelectorAll('.nicole-chip-btn').forEach(function(b) {
+        b.addEventListener('click', function() {
+          var q = b.getAttribute('data-q');
+          var ans = FAQ_RESPUESTAS[q] || 'Consulte los materiales de apoyo de la clase o contacte a su profesora Nicole.';
+          nicoleAnswer.innerHTML = '<strong>' + q + '</strong><br>' + ans;
+          nicoleAnswer.style.display = 'block';
+        });
+      });
+
+    })();
+  </script>
+</body>
+</html>
