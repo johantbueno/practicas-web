@@ -1550,3 +1550,49 @@ html, body {
   outline: 2px solid var(--jt-accent);
   outline-offset: 2px;
 }
+
+/* ===== Bloqueo de secciones y progreso ===== */
+.jt-part-btn.jt-locked,
+.jt-scene-item.jt-locked {
+  opacity: 0.45;
+  cursor: not-allowed;
+  filter: grayscale(0.6);
+}
+.jt-part-btn.jt-done { border-color: #10b981; color: #10b981; }
+.jt-part-btn.jt-done .jt-part-btn-sub::after { content: " ✓"; }
+.jt-progress-marker.done { opacity: 0.35; }
+.jt-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* ===== Tarjeta de pregunta legible y siempre dentro de la pantalla ===== */
+.jt-question-card {
+  position: fixed;
+  inset: 0;
+  padding: 14px;
+  background: rgba(2, 6, 23, 0.9);
+  align-items: center;
+}
+.jt-question-box {
+  background: #0f172a;
+  color: #f1f5f9;
+  border-color: #334155;
+  max-width: 600px;
+  max-height: 100%;
+  padding: 18px 20px;
+  gap: 12px;
+}
+.jt-question-text { color: #f8fafc; font-size: 1.02rem; }
+.jt-question-header { color: #38bdf8; }
+.jt-option-btn { background: rgba(255, 255, 255, 0.06); border-color: #334155; color: #e2e8f0; padding: 9px 12px; font-size: 0.92rem; }
+.jt-option-btn:hover:not(:disabled) { background: rgba(255, 255, 255, 0.12); }
+.jt-textarea { background: #1e293b; color: #f1f5f9; border-color: #334155; }
+.jt-word-count { color: #94a3b8; }
+.jt-question-retro { color: #cbd5e1; }
+.jt-question-actions { margin-top: 2px; }
+@media (max-width: 600px) {
+  .jt-question-card { padding: 8px; }
+  .jt-question-box { padding: 14px; border-radius: 12px; }
+  .jt-question-text { font-size: 0.96rem; }
+  .jt-option-btn { font-size: 0.88rem; }
+}
+#jt-question-continue:disabled { opacity: 0.4; cursor: not-allowed; filter: grayscale(0.5); }
+.jt-textarea { font-size: 16px; }

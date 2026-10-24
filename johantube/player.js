@@ -156,6 +156,103 @@
     rateBeforePress: 1
   };
 
+  // ===== Progreso persistente: sobrevive a recargas y cortes de internet =====
+  var PROG_KEY = 'johantube_prog_v2_' + vidId;
+  var META_KEY = 'johantube_meta_v2_' + vidId;
+
+  function progVacio() {
+    return { answers: {}, completed: [], drafts: {}, parte: 1, seg: 0 };
+  }
+
+  function loadProgress() {
+    try {
+      var raw = JSON.parse(localStorage.getItem(PROG_KEY) || 'null');
+      if (raw && typeof raw === 'object') {
+        var p = progVacio();
+        if (raw.answers && typeof raw.answers === 'object') p.answers = raw.answers;
+        if (Array.isArray(raw.completed)) p.completed = raw.completed;
+        if (raw.drafts && typeof raw.drafts === 'object') p.drafts = raw.drafts;
+        p.parte = parseInt(raw.parte, 10) || 1;
+        p.seg = parseFloat(raw.seg) || 0;
+        return p;
+      }
+    } catch (e) {}
+    return progVacio();
+  }
+
+  function saveProgress() {
+    try { localStorage.setItem(PROG_KEY, JSON.stringify(state.prog)); } catch (e) {}
+  }
+
+  state.prog = loadProgress();
+  Object.keys(state.prog.answers).forEach(function (id) { state.answeredQuestions[id] = true; });
+  state.reconectando = false;
+  state.metaFallo = false;
+  state.posLista = false;
+  state.resumeAt = 0;
+
+  function seccionCompleta(n) { return state.prog.completed.indexOf(n) !== -1; }
+
+  function primeraIncompleta() {
+    for (var i = 1; i <= state.totalPartes; i++) {
+      if (!seccionCompleta(i)) return i;
+    }
+    return state.totalPartes;
+  }
+
+  // Solo se puede abrir una sección si todas las anteriores están terminadas
+  function puedeAbrir(n) { return n >= 1 && n <= state.totalPartes && n <= primeraIncompleta(); }
+
+  function preguntasDe(n) {
+    return (state.questions || []).filter(function (q) {
+      return (q.seccion === n || q.parte === n);
+    }).sort(function (a, b) { return a.seg - b.seg; });
+  }
+
+  function claveDe(q, n) { return q.id || (n + '_' + q.seg); }
+
+  // Comunicación con la página que incrusta el reproductor
+  function avisarPadre(msg) {
+    msg.vidId = state.vidId;
+    if (window.parent && window.parent !== window) {
+      try { window.parent.postMessage(msg, '*'); } catch (e) {}
+    }
+  }
+
+  function enviarEstado() {
+    avisarPadre({
+      johantube: 'estado',
+      answers: state.prog.answers,
+      completed: state.prog.completed,
+      totalPartes: state.totalPartes,
+      totalPreguntas: (state.questions || []).length
+    });
+  }
+
+  function registrarRespuesta(msg) {
+    msg.johantube = 'respuesta';
+    msg.seccion = state.parte;
+    msg.vidId = state.vidId;
+    state.prog.answers[msg.id] = msg;
+    delete state.prog.drafts[msg.id];
+    state.answeredQuestions[msg.id] = true;
+    saveProgress();
+    renderProgressMarkers();
+    avisarPadre(msg);
+  }
+
+  // Aviso breve dentro del reproductor
+  var toastTimer = null;
+  function avisar(msg, ms) {
+    if (!resumeToast || !resumeText) return;
+    resumeText.textContent = msg;
+    if (resumeBtn) resumeBtn.style.display = 'none';
+    resumeToast.classList.add('active');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { resumeToast.classList.remove('active'); }, ms || 5000);
+    if (resumeClose) resumeClose.onclick = function () { resumeToast.classList.remove('active'); };
+  }
+
   // Formato mm:ss o hh:mm:ss
   function formatTime(seconds) {
     if (isNaN(seconds) || seconds < 0) return '00:00';
@@ -539,19 +636,9 @@
 
   // Límite de avance según preguntas pendientes
   function getMaxAllowedTime() {
-    var partNum = state.parte;
-    var qs = (state.questions || []).filter(function (q) {
-      return (q.seccion === partNum || q.parte === partNum);
-    }).sort(function (a, b) {
-      return a.seg - b.seg;
-    });
-
+    var qs = preguntasDe(state.parte);
     for (var i = 0; i < qs.length; i++) {
-      var q = qs[i];
-      var qId = q.id || (partNum + '_' + q.seg);
-      if (!state.answeredQuestions[qId]) {
-        return q.seg;
-      }
+      if (!state.answeredQuestions[claveDe(qs[i], state.parte)]) return qs[i].seg;
     }
     return (videoEl.duration || state.duration || 999999);
   }
@@ -696,7 +783,7 @@
     });
     partQuestions.forEach(function (q) {
       var dot = document.createElement('div');
-      dot.className = 'jt-progress-marker';
+      dot.className = 'jt-progress-marker' + (state.answeredQuestions[claveDe(q, state.parte)] ? ' done' : '');
       dot.title = 'Pregunta: ' + q.texto;
       var pct = dur > 0 ? (q.seg / dur) * 100 : 0;
       dot.style.left = pct + '%';
@@ -722,23 +809,28 @@
   // Preguntas interactivas durante la reproducción
   function checkQuestions(ct) {
     if (!state.questions || state.questions.length === 0) return;
-    if (state.activeQuestion) return;
-
-    var maxAllowed = getMaxAllowedTime();
-    if (ct >= maxAllowed) {
-      var partNum = state.parte;
-      var qs = state.questions.filter(function (q) {
-        return (q.seccion === partNum || q.parte === partNum);
-      }).sort(function (a, b) { return a.seg - b.seg; });
-
-      for (var i = 0; i < qs.length; i++) {
-        var qItem = qs[i];
-        var qId = qItem.id || (partNum + '_' + qItem.seg);
-        if (!state.answeredQuestions[qId] && ct >= qItem.seg) {
-          triggerQuestion(qItem, qId);
-          break;
-        }
+    if (state.activeQuestion || !state.posLista) return;
+    var qs = preguntasDe(state.parte);
+    for (var i = 0; i < qs.length; i++) {
+      var k = claveDe(qs[i], state.parte);
+      if (!state.answeredQuestions[k]) {
+        if (ct >= qs[i].seg) triggerQuestion(qs[i], k);
+        break;
       }
+    }
+  }
+
+  function reanudarTrasPregunta() {
+    questionCard.classList.remove('active');
+    state.activeQuestion = null;
+    saveProgress();
+    var d = videoEl.duration || 0;
+    if (videoEl.ended || (d > 0 && videoEl.currentTime >= d - 0.3)) {
+      onPartEnded();
+    } else {
+      // Retrocede un instante para no perder la última palabra de la escena
+      try { videoEl.currentTime = Math.max(0, videoEl.currentTime - 0.8); } catch (e) {}
+      videoEl.play().catch(function () {});
     }
   }
 
@@ -746,7 +838,7 @@
     state.activeQuestion = qItem;
     state.shownQuestions[qKey] = true;
     videoEl.pause();
-    videoEl.currentTime = qItem.seg;
+    try { videoEl.currentTime = Math.min(qItem.seg, videoEl.duration || qItem.seg); } catch (e) {}
 
     var badgeText = document.getElementById('jt-question-badge-text');
     var qBody = document.getElementById('jt-question-body');
@@ -767,6 +859,7 @@
       qRetro.textContent = '';
     }
     questionBtnContinue.disabled = true;
+    questionBtnContinue.onclick = reanudarTrasPregunta;
 
     if (qItem.tipo === 'opcion' || qItem.tipo === 'vf') {
       var optsDiv = document.createElement('div');
@@ -777,7 +870,7 @@
         var optBtn = document.createElement('button');
         optBtn.className = 'jt-option-btn';
         optBtn.type = 'button';
-        optBtn.innerHTML = optText;
+        optBtn.textContent = optText;
 
         optBtn.onclick = function () {
           var allBtns = optsDiv.querySelectorAll('.jt-option-btn');
@@ -803,34 +896,22 @@
           if (qRetro) qRetro.style.display = 'block';
           questionBtnContinue.disabled = false;
 
-          state.answeredQuestions[qItem.id || qKey] = true;
-
-          if (window.parent && window.parent !== window) {
-            window.parent.postMessage({
-              johantube: 'respuesta',
-              id: qItem.id,
-              tipo: qItem.tipo,
-              respuesta: optText,
-              opcionIndex: idx,
-              correcta: qItem.correcta,
-              esCorrecta: isCorrect,
-              puntos: isCorrect ? (qItem.puntos || 10) : 0,
-              totalPuntos: qItem.puntos || 10,
-              tema: qItem.tema || '',
-              texto: qItem.texto,
-              seccion: state.parte
-            }, '*');
-          }
+          registrarRespuesta({
+            id: qItem.id,
+            tipo: qItem.tipo,
+            respuesta: optText,
+            opcionIndex: idx,
+            correcta: qItem.correcta,
+            esCorrecta: isCorrect,
+            puntos: isCorrect ? (qItem.puntos || 10) : 0,
+            totalPuntos: qItem.puntos || 10,
+            tema: qItem.tema || '',
+            texto: qItem.texto
+          });
         };
         optsDiv.appendChild(optBtn);
       });
       if (qBody) qBody.appendChild(optsDiv);
-
-      questionBtnContinue.onclick = function () {
-        questionCard.classList.remove('active');
-        state.activeQuestion = null;
-        videoEl.play().catch(function () {});
-      };
     } else if (qItem.tipo === 'abierta') {
       var minWords = qItem.palabras_minimas || 30;
       var ta = document.createElement('textarea');
@@ -858,48 +939,44 @@
           wcDiv.classList.remove('valid');
           questionBtnContinue.disabled = true;
         }
+        // Borrador: si se corta el internet o se recarga, no se pierde lo escrito
+        state.prog.drafts[qItem.id] = ta.value;
+        saveProgress();
       };
 
       questionBtnContinue.onclick = function () {
-        var val = ta.value.trim();
-        state.answeredQuestions[qItem.id || qKey] = true;
-
-        if (window.parent && window.parent !== window) {
-          window.parent.postMessage({
-            johantube: 'respuesta',
-            id: qItem.id,
-            tipo: 'abierta',
-            respuesta: val,
-            correcta: null,
-            esCorrecta: true,
-            puntos: qItem.puntos || 15,
-            totalPuntos: qItem.puntos || 15,
-            tema: qItem.tema || '',
-            texto: qItem.texto,
-            seccion: state.parte
-          }, '*');
-        }
-
-        questionCard.classList.remove('active');
-        state.activeQuestion = null;
-        videoEl.play().catch(function () {});
+        registrarRespuesta({
+          id: qItem.id,
+          tipo: 'abierta',
+          respuesta: ta.value.trim(),
+          correcta: null,
+          esCorrecta: true,
+          puntos: qItem.puntos || 15,
+          totalPuntos: qItem.puntos || 15,
+          tema: qItem.tema || '',
+          texto: qItem.texto
+        });
+        reanudarTrasPregunta();
       };
 
       if (qBody) {
         qBody.appendChild(ta);
         qBody.appendChild(wcDiv);
       }
+      if (state.prog.drafts[qItem.id]) {
+        ta.value = state.prog.drafts[qItem.id];
+        ta.oninput();
+      }
     } else {
       questionBtnContinue.disabled = false;
       questionBtnContinue.onclick = function () {
-        state.answeredQuestions[qItem.id || qKey] = true;
-        questionCard.classList.remove('active');
-        state.activeQuestion = null;
-        videoEl.play().catch(function () {});
+        state.answeredQuestions[claveDe(qItem, state.parte)] = true;
+        reanudarTrasPregunta();
       };
     }
 
     questionCard.classList.add('active');
+    avisarPadre({ johantube: 'pregunta_abierta', id: qItem.id });
   }
 
   questionBtnRewind.onclick = function () {
@@ -911,8 +988,39 @@
   };
 
   // Pantalla de Fin de Parte y cuenta regresiva
+  function siguientePendiente() {
+    var qs = preguntasDe(state.parte);
+    for (var i = 0; i < qs.length; i++) {
+      if (!state.answeredQuestions[claveDe(qs[i], state.parte)]) return qs[i];
+    }
+    return null;
+  }
+
   function onPartEnded() {
+    // Si quedó alguna pregunta sin responder, no se da la sección por terminada
+    var pend = siguientePendiente();
+    if (pend) {
+      triggerQuestion(pend, claveDe(pend, state.parte));
+      return;
+    }
+
+    if (!seccionCompleta(state.parte)) {
+      state.prog.completed.push(state.parte);
+      state.prog.completed.sort(function (a, b) { return a - b; });
+    }
+    state.prog.parte = state.parte < state.totalPartes ? state.parte + 1 : state.parte;
+    state.prog.seg = 0;
+    saveProgress();
+    avisarPadre({ johantube: 'seccion_completa', seccion: state.parte });
+    updateActivePartButtons();
+    renderScenesTab();
+
     if (state.parte < state.totalPartes) {
+      var t = endOverlay.querySelector('.jt-end-title');
+      var c = endOverlay.querySelector('.jt-end-countdown');
+      if (t) t.textContent = 'Sección ' + state.parte + ' completada ✓';
+      if (c) c.innerHTML = 'Siguiente sección en <span id="jt-end-seconds">5</span> s...';
+      endCountdownEl = document.getElementById('jt-end-seconds');
       state.endCountdownSec = 5;
       endCountdownEl.textContent = state.endCountdownSec;
       endOverlay.classList.add('active');
@@ -928,15 +1036,8 @@
         }
       }, 1000);
     } else {
-      // Fin del video completo
-      showOverlayError('¡Completaste todas las secciones!', 'Has llegado al final del material.', false);
-      if (window.parent && window.parent !== window) {
-        window.parent.postMessage({
-          johantube: 'fin',
-          vidId: state.vidId,
-          totalPartes: state.totalPartes
-        }, '*');
-      }
+      showOverlayError('¡Completaste todas las secciones!', 'Tus respuestas están guardadas. Revisa y envía tus resultados en la página.', false);
+      avisarPadre({ johantube: 'fin', totalPartes: state.totalPartes });
     }
   }
 
@@ -951,60 +1052,70 @@
     cargarParte(state.parte + 1, 0, true);
   });
 
-  // Reanudar sesión con localStorage
+  // Guardado de la posición: se retoma exactamente donde se quedó
   var lastSaveTime = 0;
-  function getResumeStorageKey() {
-    return 'johantube_resume_' + state.vidId;
+  function guardarPosicion(force) {
+    if (!state.key || !state.posLista || seccionCompleta(state.parte)) return;
+    var now = Date.now();
+    if (!force && now - lastSaveTime < 2000) return;
+    lastSaveTime = now;
+    var ct = videoEl.currentTime || 0;
+    if (state.activeQuestion) ct = Math.max(0, state.activeQuestion.seg - 6);
+    state.prog.parte = state.parte;
+    state.prog.seg = Math.max(0, Math.floor(ct));
+    saveProgress();
   }
 
-  function saveResumePosition(ct) {
-    var now = Date.now();
-    if (ct > 5 && now - lastSaveTime > 3000) {
-      lastSaveTime = now;
-      try {
-        localStorage.setItem(getResumeStorageKey(), JSON.stringify({
-          parte: state.parte,
-          seg: Math.floor(ct)
-        }));
-      } catch (e) {}
+  function saveResumePosition() { guardarPosicion(false); }
+
+  // Sin internet: el avance queda guardado y se retoma solo al volver la conexión
+  function manejarRedCaida() {
+    state.reconectando = true;
+    state.resumeAt = state.activeQuestion ? state.activeQuestion.seg : (videoEl.currentTime || state.resumeAt || 0);
+    guardarPosicion(true);
+    spinnerEl.classList.remove('active');
+    if (state.activeQuestion) {
+      avisar('Sin conexión. Puedes responder: tu avance está guardado.', 6000);
+    } else {
+      showOverlayError('Sin conexión a internet', 'Tu avance está guardado. Retomaremos solos en cuanto vuelva la conexión.', true);
     }
   }
 
-  function checkResumePrompt() {
-    try {
-      var saved = localStorage.getItem(getResumeStorageKey());
-      if (saved) {
-        var data = JSON.parse(saved);
-        if (data && data.parte && data.seg > 5) {
-          // Mostrar aviso no intrusivo si difiere del punto actual en más de 10s
-          var curT = videoEl.currentTime || 0;
-          if (data.parte !== state.parte || Math.abs(data.seg - curT) > 10) {
-            resumeText.textContent = 'Continuar donde quedó (Parte ' + data.parte + ', ' + formatTime(data.seg) + ')';
-            resumeToast.classList.add('active');
-
-            resumeBtn.onclick = function () {
-              resumeToast.classList.remove('active');
-              if (data.parte !== state.parte) {
-                cargarParte(data.parte, data.seg, true);
-              } else {
-                videoEl.currentTime = data.seg;
-                videoEl.play().catch(function () {});
-              }
-            };
-
-            resumeClose.onclick = function () {
-              resumeToast.classList.remove('active');
-            };
-
-            // Ocultar automáticamente tras 12s
-            setTimeout(function () {
-              resumeToast.classList.remove('active');
-            }, 12000);
-          }
-        }
-      }
-    } catch (e) {}
+  function reintentarCarga() {
+    if (!state.reconectando) return;
+    state.reconectando = false;
+    hideOverlayMessage();
+    var t = state.resumeAt || 0;
+    var reanudar = !state.activeQuestion;
+    if (state.hls && videoEl.readyState > 0) {
+      try {
+        state.hls.startLoad(t);
+        if (reanudar) videoEl.play().catch(function () {});
+        return;
+      } catch (e) {}
+    }
+    spinnerEl.classList.add('active');
+    cargarParte(state.parte, t, reanudar);
   }
+
+  window.addEventListener('online', function () {
+    if (state.metaFallo) arrancar();
+    else reintentarCarga();
+  });
+  window.addEventListener('offline', function () {
+    guardarPosicion(true);
+    avisar('Sin conexión. Tu avance está guardado.', 6000);
+  });
+  setInterval(function () {
+    if (navigator.onLine === false) return;
+    if (state.metaFallo) arrancar();
+    else if (state.reconectando) reintentarCarga();
+  }, 7000);
+  document.addEventListener('visibilitychange', function () {
+    if (document.visibilityState === 'hidden') guardarPosicion(true);
+  });
+  window.addEventListener('pagehide', function () { guardarPosicion(true); });
+  window.addEventListener('beforeunload', function () { guardarPosicion(true); });
 
   // Pestaña Escenas (Capítulos)
   function renderScenesTab() {
@@ -1017,6 +1128,10 @@
         item.className = 'jt-scene-item';
         if (s.n === state.parte) {
           item.classList.add('active');
+        }
+        if (!puedeAbrir(s.n)) {
+          item.classList.add('jt-locked');
+          item.setAttribute('aria-disabled', 'true');
         }
 
         var thumbDiv = document.createElement('div');
@@ -1031,7 +1146,7 @@
 
         var titleDiv = document.createElement('div');
         titleDiv.className = 'jt-scene-title';
-        titleDiv.textContent = 'Sección ' + s.n + ': ' + s.titulo;
+        titleDiv.textContent = (seccionCompleta(s.n) ? '✓ ' : (puedeAbrir(s.n) ? '' : '🔒 ')) + 'Sección ' + s.n + ': ' + s.titulo;
 
         var metaDiv = document.createElement('div');
         metaDiv.className = 'jt-scene-meta';
@@ -1231,9 +1346,15 @@
   function updateActivePartButtons() {
     var btns = partsGrid.querySelectorAll('.jt-part-btn');
     btns.forEach(function (b, idx) {
-      b.setAttribute('aria-current', (idx + 1 === state.parte) ? 'true' : 'false');
+      var n = idx + 1;
+      b.setAttribute('aria-current', (n === state.parte) ? 'true' : 'false');
+      b.classList.toggle('jt-locked', !puedeAbrir(n));
+      b.classList.toggle('jt-done', seccionCompleta(n));
+      b.setAttribute('aria-disabled', puedeAbrir(n) ? 'false' : 'true');
+      b.title = seccionCompleta(n) ? 'Sección completada' : (puedeAbrir(n) ? 'Sección en curso' : 'Bloqueada: termine primero la sección ' + primeraIncompleta());
     });
-    btnNext.disabled = state.parte >= state.totalPartes;
+    btnNext.disabled = state.parte >= state.totalPartes || !seccionCompleta(state.parte);
+    btnNext.title = btnNext.disabled && state.parte < state.totalPartes ? 'Termine esta sección para continuar' : 'Siguiente sección';
   }
 
   // Carga asíncrona de recursos por parte (thumbs, subs, transcripcion)
@@ -1291,43 +1412,48 @@
       });
   }
 
-  // Carga de metadatos globales (meta.json)
+  // Carga de metadatos globales (meta.json). Sin las preguntas no se reproduce nada.
+  function aplicarMeta(meta) {
+    state.meta = meta;
+    if (meta.secciones && Array.isArray(meta.secciones)) {
+      state.useSecciones = true;
+      state.totalPartes = meta.secciones.length;
+    } else if (meta.partes) {
+      state.useSecciones = false;
+      state.totalPartes = meta.partes;
+    }
+    state.questions = meta.preguntas || [];
+    updateHeader();
+    renderProgressMarkers();
+    renderScenesTab();
+    renderPartsGrid();
+  }
+
   function fetchMeta() {
-    return fetch(getMetaUrl())
-      .then(function (res) {
-        if (!res.ok) throw new Error('meta.json not found');
-        return res.json();
-      })
-      .then(function (meta) {
-        state.meta = meta;
-        if (meta.secciones && Array.isArray(meta.secciones)) {
-          state.useSecciones = true;
-          state.totalPartes = meta.secciones.length;
-        } else if (meta.partes) {
-          state.useSecciones = false;
-          state.totalPartes = meta.partes;
-        }
-        if (meta.preguntas) state.questions = meta.preguntas;
-        updateHeader();
-        renderProgressMarkers();
-        renderScenesTab();
-        renderPartsGrid();
-      })
-      .catch(function () {
-        // Fallback sin meta.json
-        state.meta = null;
-        if (VIDEOS_CONFIG[state.vidId] && VIDEOS_CONFIG[state.vidId].secciones) {
-          state.useSecciones = true;
-          state.totalPartes = VIDEOS_CONFIG[state.vidId].secciones;
-        } else {
-          state.useSecciones = false;
-          state.totalPartes = (VIDEOS_CONFIG[state.vidId] && VIDEOS_CONFIG[state.vidId].partes) || 4;
-        }
-        updateHeader();
-        renderProgressMarkers();
-        renderScenesTab();
-        renderPartsGrid();
-      });
+    var intentos = 0;
+    function intentar() {
+      return fetch(getMetaUrl(), { cache: 'no-store' })
+        .then(function (res) {
+          if (!res.ok) throw new Error('meta.json ' + res.status);
+          return res.json();
+        })
+        .then(function (meta) {
+          try { localStorage.setItem(META_KEY, JSON.stringify(meta)); } catch (e) {}
+          return meta;
+        })
+        .catch(function (err) {
+          intentos++;
+          if (intentos < 3) {
+            return new Promise(function (ok) { setTimeout(ok, 1200 * intentos); }).then(intentar);
+          }
+          try {
+            var c = JSON.parse(localStorage.getItem(META_KEY) || 'null');
+            if (c && c.preguntas && c.secciones) return c;
+          } catch (e) {}
+          throw err;
+        });
+    }
+    return intentar().then(aplicarMeta);
   }
 
   // Menú de Calidad en Settings
@@ -1371,7 +1497,24 @@
 
   // Carga de una parte y reproducción
   function cargarParte(n, startTime, autoplay) {
+    n = parseInt(n, 10) || 1;
+    if (!puedeAbrir(n)) {
+      avisar('Primero termine la sección ' + primeraIncompleta() + ' para abrir la ' + n + '.', 5000);
+      return;
+    }
+    // Nunca empezar más adelante de la próxima pregunta pendiente
+    var tope = 0;
+    var pendientes = preguntasDe(n);
+    for (var qi = 0; qi < pendientes.length; qi++) {
+      if (!state.answeredQuestions[claveDe(pendientes[qi], n)]) { tope = pendientes[qi].seg; break; }
+    }
+    if (tope && (startTime || 0) > tope) startTime = Math.max(0, tope - 6);
     state.parte = n;
+    state.posLista = false;
+    state.activeQuestion = null;
+    questionCard.classList.remove('active');
+    clearInterval(state.endCountdownTimer);
+    endOverlay.classList.remove('active');
     hideOverlayMessage();
     try { videoEl.pause(); } catch (e) {}
     try { videoEl.currentTime = startTime || 0; } catch (e) {}
@@ -1394,6 +1537,7 @@
       if (typeof startTime === 'number' && !isNaN(startTime)) {
         videoEl.currentTime = startTime;
       }
+      state.posLista = true;
       videoEl.playbackRate = state.playbackRate;
       renderProgressMarkers();
       renderScenesTab();
@@ -1405,7 +1549,13 @@
     if (window.Hls && window.Hls.isSupported()) {
       var hls = new window.Hls({
         maxBufferLength: 30,
-        enableWorker: true
+        enableWorker: true,
+        manifestLoadingMaxRetry: 4,
+        manifestLoadingRetryDelay: 1000,
+        levelLoadingMaxRetry: 4,
+        levelLoadingRetryDelay: 1000,
+        fragLoadingMaxRetry: 6,
+        fragLoadingRetryDelay: 1000
       });
       state.hls = hls;
       hls.loadSource(videoUrl);
@@ -1428,7 +1578,7 @@
           spinnerEl.classList.remove('active');
           switch (data.type) {
             case window.Hls.ErrorTypes.NETWORK_ERROR:
-              showOverlayError('Error de red al cargar el video', 'Revise su conexión a internet.', true);
+              manejarRedCaida();
               break;
             case window.Hls.ErrorTypes.MEDIA_ERROR:
               hls.recoverMediaError();
@@ -1778,6 +1928,10 @@
         cargarParte(state.parte + 1, 0, true);
       }
     });
+    // Comprobación fina: la pregunta aparece justo al llegar a su momento
+    setInterval(function () {
+      if (!videoEl.paused && !videoEl.seeking) checkQuestions(videoEl.currentTime);
+    }, 100);
 
     btnMute.addEventListener('click', toggleMute);
     volumeSlider.addEventListener('input', function () {
@@ -1790,7 +1944,9 @@
     btnFullscreen.addEventListener('click', toggleFullscreen);
 
     overlayMsgBtn.addEventListener('click', function () {
-      cargarParte(state.parte, 0, true);
+      if (state.metaFallo) { arrancar(); return; }
+      if (state.reconectando) { reintentarCarga(); return; }
+      cargarParte(state.parte, state.prog.seg || 0, true);
     });
 
     // Ocultar PiP si no está soportado
@@ -1812,6 +1968,7 @@
     videoEl.addEventListener('pause', function () {
       updatePlayBtn();
       showControls();
+      guardarPosicion(true);
     });
 
     videoEl.addEventListener('timeupdate', updateProgressBar);
@@ -1853,10 +2010,38 @@
       if (d.pausar) {
         videoEl.pause();
       }
+
+      // { pedirEstado: true }
+      if (d.pedirEstado) {
+        enviarEstado();
+      }
     });
   }
 
   // Inicialización de la aplicación
+  var controlesListos = false;
+
+  function arrancar() {
+    state.metaFallo = false;
+    hideOverlayMessage();
+    fetchMeta().then(function () {
+      var p = state.prog.parte;
+      var t = state.prog.seg;
+      if (q.get('p') || q.get('s')) { p = initialPartParam; t = initialTimeParam; }
+      if (!puedeAbrir(p)) { p = primeraIncompleta(); t = 0; }
+      if (seccionCompleta(p) && p !== state.totalPartes) { p = primeraIncompleta(); t = 0; }
+      cargarParte(p, t, false);
+      enviarEstado();
+      if (t > 5) {
+        avisar('Retomamos donde lo dejaste: sección ' + p + ', minuto ' + formatTime(t) + '. Pulsa ▶ para continuar.', 7000);
+      }
+    }).catch(function () {
+      state.metaFallo = true;
+      spinnerEl.classList.remove('active');
+      showOverlayError('No se pudo cargar la práctica', 'Revise su conexión a internet. Su avance está guardado y se reintentará solo.', true);
+    });
+  }
+
   function init() {
     // Si falta la llave
     if (!state.key) {
@@ -1864,19 +2049,17 @@
       return;
     }
 
-    setupControls();
-    setupSettingsMenu();
-    setupKeyboardShortcuts();
-    setupTouchAndGestures();
-    setupTabs();
-    setupVideoEvents();
-    setupPostMessage();
-
-    // Cargar metadatos y luego la parte inicial
-    fetchMeta().finally(function () {
-      cargarParte(state.parte, initialTimeParam, false);
-      checkResumePrompt();
-    });
+    if (!controlesListos) {
+      controlesListos = true;
+      setupControls();
+      setupSettingsMenu();
+      setupKeyboardShortcuts();
+      setupTouchAndGestures();
+      setupTabs();
+      setupVideoEvents();
+      setupPostMessage();
+    }
+    arrancar();
   }
 
   // Exponer API mínima para inspección y testing local
@@ -1887,7 +2070,8 @@
     setPlaybackRate: setPlaybackRate,
     setQualityLevel: setQualityLevel,
     seekByPercent: seekByPercent,
-    checkResumePrompt: checkResumePrompt
+    puedeAbrir: puedeAbrir,
+    seccionCompleta: seccionCompleta
   };
 
   // Arranque al cargar el DOM

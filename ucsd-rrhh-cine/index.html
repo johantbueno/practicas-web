@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Cine y Gerencia — 3 películas, un análisis de RR.HH. | UCSD</title>
+  <meta name="description" content="Práctica única de Recursos Humanos y Gerencia con tres películas: En busca de la felicidad, El diablo viste a la moda y El lobo de Wall Street.">
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0f172a;
+      --secondary: #334155;
+      --muted: #64748b;
+      --bg-body: #0b1120;
+      --bg-card: #151f32;
+      --bg-card-alt: #1c2942;
+      --border: #26354f;
+      --border-light: rgba(255, 255, 255, 0.08);
+      --accent: __TEMA_ACCENT__;
+      --accent-dark: __TEMA_ACCENT_DARK__;
+      --text: #f8fafc;
+      --text-sub: #cbd5e1;
+      --green: #10b981;
+      --red: #ef4444;
+      --gold: #f59e0b;
+      --radius-lg: 16px;
+      --radius-md: 10px;
+      --radius-sm: 6px;
+      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg-body);
+      color: var(--text);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 80px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px 16px;
+    }
+
+    /* HEADER & HERO */
+    .hero {
+      background: __TEMA_HERO_BG__;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px 24px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -40px; right: -40px;
+      width: 180px; height: 180px;
+      background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+      opacity: 0.18;
+      pointer-events: none;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--accent);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 4px 12px;
+      border-radius: 999px;
+      margin-bottom: 12px;
+    }
+    .hero h1 {
+      font-size: clamp(1.4rem, 4vw, 2.1rem);
+      font-weight: 800;
+      line-height: 1.25;
+      margin-bottom: 10px;
+      color: #fff;
+    }
+    .hero p.desc {
+      color: var(--text-sub);
+      font-size: 0.98rem;
+      max-width: 850px;
+      line-height: 1.55;
+      margin-bottom: 18px;
+    }
+    .chips-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .chip {
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid var(--border);
+      color: #e2e8f0;
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: var(--radius-sm);
+    }
+
+    /* CARDS */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow);
+    }
+    .card-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #fff;
+    }
+
+    /* TUTORIAL GUIA */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .step-box {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      padding: 14px;
+    }
+    .step-num {
+      display: inline-block;
+      width: 24px; height: 24px;
+      background: var(--accent);
+      color: #000;
+      font-weight: 800;
+      font-size: 0.82rem;
+      text-align: center;
+      line-height: 24px;
+      border-radius: 50%;
+      margin-bottom: 8px;
+    }
+    .step-box h4 {
+      font-size: 0.92rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+      color: #fff;
+    }
+    .step-box p {
+      font-size: 0.82rem;
+      color: var(--text-sub);
+      line-height: 1.4;
+    }
+
+    /* FORMULARIO ESTUDIANTE */
+    .student-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin-top: 10px;
+    }
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .field label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-sub);
+    }
+    .field label span.req {
+      color: var(--red);
+    }
+    .field input {
+      background: var(--bg-body);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text);
+      padding: 10px 14px;
+      font-size: 16px; /* Evita zoom en iOS */
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+    .field input:focus {
+      border-color: var(--accent);
+    }
+
+    /* REPRODUCTOR IFRAME */
+    .player-section {
+      background: #000;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow);
+    }
+    .player-wrapper {
+      position: relative;
+      padding-top: 56.25%; /* 16:9 ratio */
+      width: 100%;
+      height: 0;
+      background: #000;
+    }
+    .player-wrapper iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: 0;
+    }
+    .no-token-warning {
+      padding: 40px 24px;
+      text-align: center;
+      background: #111827;
+      color: #e5e7eb;
+    }
+    .no-token-warning h3 {
+      font-size: 1.25rem;
+      margin-bottom: 10px;
+      color: var(--gold);
+    }
+    .no-token-warning p {
+      color: #9ca3af;
+      max-width: 500px;
+      margin: 0 auto;
+      font-size: 0.95rem;
+    }
+
+    /* SECCION DE RESULTADOS */
+    .progress-bar-wrap {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 999px;
+      height: 8px;
+      overflow: hidden;
+      margin: 12px 0 18px;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent), var(--green));
+      transition: width 0.3s ease;
+    }
+    .responses-summary {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 16px;
+      font-size: 0.92rem;
+      color: var(--text-sub);
+    }
+    .responses-summary strong {
+      color: #fff;
+    }
+    .open-answers-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 14px;
+    }
+    .open-answer-item {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 16px;
+    }
+    .open-answer-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      font-size: 0.82rem;
+      color: var(--accent);
+      font-weight: 700;
+    }
+    .open-answer-text {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+    .open-answer-textarea {
+      width: 100%;
+      box-sizing: border-box;
+      background: var(--bg-body);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text);
+      padding: 10px;
+      font-size: 16px;
+      font-family: inherit;
+      line-height: 1.45;
+      min-height: 80px;
+      resize: vertical;
+    }
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #000;
+      border: none;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 12px 24px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: opacity 0.2s ease, transform 0.1s ease;
+    }
+    .btn-primary:hover { opacity: 0.92; transform: translateY(-1px); }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text);
+      border: 1px solid var(--border);
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 12px 20px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.2s ease;
+    }
+    .btn-secondary:hover { background: rgba(255, 255, 255, 0.1); }
+
+    /* SUBMISSION STATUS */
+    .submit-status {
+      margin-top: 14px;
+      padding: 12px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 0.9rem;
+      display: none;
+    }
+    .submit-status.success {
+      display: block;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid var(--green);
+      color: #a7f3d0;
+    }
+    .submit-status.error {
+      display: block;
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid var(--red);
+      color: #fca5a5;
+    }
+
+    /* ASISTENTE NICOLE */
+    .nicole-fab {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #1e293b;
+      color: #fff;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+      font-size: 0.88rem;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      z-index: 999;
+      transition: all 0.2s ease;
+    }
+    .nicole-fab:hover { transform: scale(1.04); background: #334155; }
+    .nicole-modal {
+      position: fixed;
+      bottom: 80px;
+      right: 24px;
+      width: min(380px, calc(100vw - 32px));
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      z-index: 1000;
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      max-height: 520px;
+    }
+    .nicole-modal.active { display: flex; }
+    .nicole-header {
+      background: var(--bg-card-alt);
+      padding: 14px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+    }
+    .nicole-header-title {
+      font-weight: 700;
+      font-size: 0.92rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .nicole-close {
+      background: none; border: none; color: var(--muted); cursor: pointer; font-size: 1.1rem;
+    }
+    .nicole-body {
+      padding: 16px;
+      overflow-y: auto;
+      font-size: 0.88rem;
+      color: var(--text-sub);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-height: 380px;
+    }
+    .nicole-bubble {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-light);
+      padding: 10px 14px;
+      border-radius: 12px;
+      line-height: 1.45;
+    }
+    .nicole-chips {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .nicole-chip-btn {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      text-align: left;
+      font-size: 0.82rem;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+    .nicole-chip-btn:hover { background: rgba(255, 255, 255, 0.08); border-color: var(--accent); }
+
+    /* FOOTER */
+    footer {
+      margin-top: 40px;
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      padding-top: 24px;
+    }
+
+    @media (max-width: 640px) {
+      .hero { padding: 24px 16px; }
+      .card { padding: 18px 14px; }
+    }
+  
+    .movie-tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 0 0 14px; }
+    .movie-tab {
+      background: var(--bg-card); border: 1px solid var(--border); color: var(--text-sub);
+      border-radius: var(--radius-md); padding: 12px 14px; text-align: left; cursor: pointer;
+      font: inherit; transition: border-color .2s, background .2s; min-height: 64px;
+    }
+    .movie-tab:hover { border-color: var(--accent); }
+    .movie-tab[aria-selected="true"] { border-color: var(--accent); background: var(--bg-card-alt); color: #fff; box-shadow: 0 0 0 1px var(--accent) inset; }
+    .movie-tab .mt-name { display: block; font-weight: 700; font-size: .95rem; }
+    .movie-tab .mt-sub { display: block; font-size: .8rem; color: var(--muted); margin-top: 2px; }
+    .movie-tab.done .mt-sub { color: var(--green); }
+    .movie-progress-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 14px 0; }
+    .movie-progress-item { background: var(--bg-card-alt); border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 10px 12px; font-size: .85rem; }
+    .movie-progress-item strong { display: block; color: #fff; }
+    .mini-bar { height: 6px; background: rgba(255,255,255,.08); border-radius: 3px; margin-top: 6px; overflow: hidden; }
+    .mini-bar > div { height: 100%; width: 0; background: var(--accent); transition: width .3s; }
+    .movie-progress-item.done .mini-bar > div { background: var(--green); }
+    .missing-note { font-size: .88rem; color: #fbbf24; margin-top: 10px; }
+    .oa-movie { font-size: .85rem; font-weight: 700; color: var(--accent); margin: 14px 0 4px; }
+    .open-answer-item.short textarea { border-color: var(--red); }
+    .sr-status { position: absolute; left: -9999px; }
+    .player-wrapper { padding-top: 0; height: 700px; }
+    @media (max-width: 900px) { .player-wrapper { height: 88vh; min-height: 560px; max-height: 900px; } }
+    .btn-primary:disabled { background: #334155; color: #94a3b8; opacity: 1; }
+    @media (max-width: 720px) {
+      .movie-tabs, .movie-progress-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="hero">
+      <div class="badge">🎬 Cine y Gerencia · UCSD</div>
+      <h1>Cine y Gerencia: tres películas, un análisis de Recursos Humanos</h1>
+      <p class="desc">Práctica única de la Maestría en Gerencia Moderna de la Salud. Vea tres películas en secciones cortas y responda las preguntas que aparecen al terminar cada escena clave: <strong>En busca de la felicidad</strong> (selección y resiliencia), <strong>El diablo viste a la moda</strong> (cultura, inducción y liderazgo) y <strong>El lobo de Wall Street</strong> (incentivos, liderazgo carismático y compliance).</p>
+      <div class="chips-row">
+        <span class="chip">⏱️ 3 películas · 12 secciones · 48 preguntas</span>
+        <span class="chip">🎓 Curso: Recursos Humanos y Gerencia</span>
+        <span class="chip">👩‍🏫 Profesora: Nicole</span>
+      </div>
+    </header>
+
+    <section class="card">
+      <h2 class="card-title">📖 Cómo funciona</h2>
+      <div class="steps-grid">
+        <div class="step-box"><span class="step-num">1</span><h4>Escriba su nombre</h4><p>Su profesora lo necesita para calificar. Sus datos se guardan en este dispositivo.</p></div>
+        <div class="step-box"><span class="step-num">2</span><h4>Elija una película</h4><p>Puede verlas en el orden que prefiera. Dentro de cada película, las 4 secciones se desbloquean una tras otra.</p></div>
+        <div class="step-box"><span class="step-num">3</span><h4>Responda en cada pausa</h4><p>El video se detiene después de cada escena clave. No se puede avanzar sin responder; sí se puede retroceder.</p></div>
+        <div class="step-box"><span class="step-num">4</span><h4>Si se va el internet</h4><p>No pierde nada: su avance y lo que haya escrito quedan guardados y retoma donde se quedó.</p></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 class="card-title">👤 Datos del estudiante</h2>
+      <div class="student-grid">
+        <div class="field">
+          <label for="estudiante_nombre">Nombre y Apellido <span class="req">*</span></label>
+          <input type="text" id="estudiante_nombre" placeholder="Ej: Dra. María Pérez" required autocomplete="name">
+        </div>
+        <div class="field">
+          <label for="estudiante_correo">Correo electrónico (opcional)</label>
+          <input type="email" id="estudiante_correo" placeholder="ejemplo@ucsd.edu.do" autocomplete="email">
+        </div>
+        <div class="field">
+          <label for="estudiante_grupo">Grupo o Sección (opcional)</label>
+          <input type="text" id="estudiante_grupo" placeholder="Ej: Grupo A — Cohorte 2026">
+        </div>
+      </div>
+    </section>
+
+    <section class="player-section">
+      <div class="movie-tabs" id="movie-tabs" role="tablist" aria-label="Películas de la práctica"></div>
+      <div id="player-container">
+        <div class="no-token-warning" id="no-token-message" style="display: none;">
+          <h3>🔒 Acceso exclusivo de clase</h3>
+          <p>Por favor use el enlace completo que le envió su profesora para acceder al video interactivo de esta práctica.</p>
+        </div>
+        <div class="player-wrapper" id="player-iframe-wrap" style="display: none;">
+          <iframe id="jt-iframe" title="Reproductor JohanTube" allow="fullscreen; autoplay; encrypted-media"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" id="seccion-resultados">
+      <h2 class="card-title">📊 Estado de avance y respuestas registradas</h2>
+      <p style="color: var(--text-sub); font-size: 0.92rem;">Sus respuestas se guardan automáticamente a medida que avanza. Cuando termine las tres películas podrá revisar sus reflexiones y enviarlas.</p>
+
+      <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progress-fill"></div></div>
+      <div class="responses-summary">
+        <div>Preguntas respondidas: <strong id="resp-count">0</strong> de <strong id="resp-total">48</strong></div>
+        <div>Puntaje en preguntas cerradas: <strong id="score-count">0</strong> / <strong id="score-total">0</strong> pts</div>
+      </div>
+      <div class="movie-progress-row" id="movie-progress-row"></div>
+      <div class="missing-note" id="missing-note" style="display:none"></div>
+
+      <h3 style="font-size: 1.02rem; font-weight: 700; margin-top: 20px; color: #fff;">📝 Sus reflexiones gerenciales abiertas</h3>
+      <div class="open-answers-list" id="open-answers-container">
+        <p style="font-size: 0.88rem; color: var(--muted); font-style: italic;">Las respuestas a las reflexiones aparecerán aquí cuando las complete en el video, para que pueda revisarlas antes de enviarlas.</p>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn-primary" id="btn-enviar-resultados" type="button" disabled>✉️ Enviar mis resultados a mi profesora</button>
+        <button class="btn-secondary" id="btn-descargar-txt" type="button" style="display: none;">💾 Descargar mis respuestas (.txt)</button>
+      </div>
+      <div class="submit-status" id="submit-status-msg" role="status" aria-live="polite"></div>
+    </section>
+
+    <footer>Desarrollado por Johan Tapia, PhD.</footer>
+  </div>
+
+  <button class="nicole-fab" id="nicole-toggle" type="button" aria-label="Abrir asistente Nicole">🎓 <span>Nicole (Asistente)</span></button>
+  <div class="nicole-modal" id="nicole-modal">
+    <div class="nicole-header">
+      <span class="nicole-header-title">🎓 Nicole · Asistente Virtual</span>
+      <button class="nicole-close" id="nicole-close" type="button" aria-label="Cerrar">✕</button>
+    </div>
+    <div class="nicole-body">
+      <div class="nicole-bubble">¡Hola! Soy <strong>Nicole</strong>, asistente del curso de Recursos Humanos y Gerencia. Estoy aquí para orientarle sobre esta práctica de cine.</div>
+      <div class="nicole-chips">
+        <button class="nicole-chip-btn" type="button" data-q="¿Cómo se evalúa esta práctica?">📋 ¿Cómo se evalúa esta práctica?</button>
+        <button class="nicole-chip-btn" type="button" data-q="¿Puedo retroceder el video?">⏪ ¿Puedo retroceder el video?</button>
+        <button class="nicole-chip-btn" type="button" data-q="¿Qué pasa si se me va el internet?">📶 ¿Qué pasa si se me va el internet?</button>
+        <button class="nicole-chip-btn" type="button" data-q="¿Cómo redactar las reflexiones abiertas?">💡 ¿Cómo redactar las reflexiones abiertas?</button>
+      </div>
+      <div class="nicole-bubble" id="nicole-answer" style="display: none; background: rgba(59, 130, 246, 0.1); border-color: var(--accent);"></div>
+    </div>
+  </div>
+
+  <script>
+  (function () {
+    'use strict';
+
+    var CONFIG = {
+      slug: 'ucsd-rrhh-cine',
+      webhook_url: 'https://n8n-inap.167.88.36.13.sslip.io/webhook/ucsd-rrhh-resultados',
+      min_palabras: 30
+    };
+    var PELICULAS = [
+      { key: 'felicidad', nombre: 'En busca de la felicidad', corto: 'En busca de la felicidad', total: 16 },
+      { key: 'diablo-moda', nombre: 'El diablo viste a la moda', corto: 'El diablo viste a la moda', total: 16 },
+      { key: 'lobo-wallstreet', nombre: 'El lobo de Wall Street', corto: 'El lobo de Wall Street', total: 16 }
+    ];
+    var LS = { resp: 'ucsd_cine_resp_v1', edit: 'ucsd_cine_edit_v1', est: 'ucsd_cine_est_v1', sel: 'ucsd_cine_sel_v1', pend: 'ucsd_cine_pendiente_v1', enviado: 'ucsd_cine_enviado_v1' };
+
+    function leer(k, def) { try { var v = JSON.parse(localStorage.getItem(k)); return v == null ? def : v; } catch (e) { return def; } }
+    function guardar(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+    function $(id) { return document.getElementById(id); }
+    function contarPalabras(t) { var m = (t || '').trim().match(/\S+/g); return m ? m.length : 0; }
+
+    // 1. Llave de acceso (#k=...)
+    var hParams = new URLSearchParams(window.location.hash.replace(/^#/, ''));
+    var qParams = new URLSearchParams(window.location.search);
+    var token = hParams.get('k') || '';
+    var iframe = $('jt-iframe');
+    var iframeWrap = $('player-iframe-wrap');
+
+    // 2. Estado: respuestas por película + ediciones + progreso por película
+    var porPelicula = leer(LS.resp, {});          // { vid: { id: respuesta } }
+    var ediciones = leer(LS.edit, {});            // { id: texto editado }
+    var estadoPeli = leer(LS.est, {});            // { vid: { completed:[], totalPartes, totalPreguntas } }
+    var seleccion = qParams.get('m') || leer(LS.sel, '');
+
+    function esValida(vid) { return PELICULAS.some(function (p) { return p.key === vid; }); }
+    if (!esValida(seleccion)) {
+      var prim = PELICULAS.filter(function (p) { return respondidas(p.key) < p.total; })[0];
+      seleccion = (prim || PELICULAS[0]).key;
+    }
+
+    function respondidas(vid) { return Object.keys(porPelicula[vid] || {}).length; }
+    function totalDe(p) { var e = estadoPeli[p.key]; return Math.max(p.total, (e && e.totalPreguntas) || 0); }
+
+    // 3. Pestañas de películas
+    var tabsEl = $('movie-tabs');
+    function pintarTabs() {
+      tabsEl.innerHTML = '';
+      PELICULAS.forEach(function (p) {
+        var n = respondidas(p.key), t = totalDe(p);
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'movie-tab' + (n >= t ? ' done' : '');
+        b.setAttribute('role', 'tab');
+        b.setAttribute('aria-selected', p.key === seleccion ? 'true' : 'false');
+        var a = document.createElement('span'); a.className = 'mt-name'; a.textContent = '🎬 ' + p.nombre;
+        var c = document.createElement('span'); c.className = 'mt-sub'; c.textContent = n >= t ? '✓ Completada (' + n + '/' + t + ')' : n + ' de ' + t + ' preguntas';
+        b.appendChild(a); b.appendChild(c);
+        b.addEventListener('click', function () { elegir(p.key); });
+        tabsEl.appendChild(b);
+      });
+    }
+
+    function elegir(vid, forzar) {
+      if (vid === seleccion && !forzar && iframe.getAttribute('src')) return;
+      seleccion = vid; guardar(LS.sel, vid); pintarTabs();
+      if (!token) return;
+      iframe.src = '../johantube/index.html?v=' + encodeURIComponent(vid) + '#k=' + encodeURIComponent(token);
+    }
+
+    if (!token) {
+      $('no-token-message').style.display = 'block';
+      iframeWrap.style.display = 'none';
+    } else {
+      iframeWrap.style.display = 'block';
+    }
+
+    // 4. Mensajes del reproductor (solo se aceptan los del iframe propio)
+    window.addEventListener('message', function (e) {
+      if (!iframe.contentWindow || e.source !== iframe.contentWindow) return;
+      var d = e.data;
+      if (!d || typeof d !== 'object' || !d.johantube || !esValida(d.vidId)) return;
+      var vid = d.vidId;
+      if (d.johantube === 'respuesta') {
+        porPelicula[vid] = porPelicula[vid] || {};
+        porPelicula[vid][d.id] = d;
+        guardar(LS.resp, porPelicula);
+      } else if (d.johantube === 'estado') {
+        porPelicula[vid] = porPelicula[vid] || {};
+        Object.keys(d.answers || {}).forEach(function (id) {
+          if (!porPelicula[vid][id]) porPelicula[vid][id] = d.answers[id];
+        });
+        estadoPeli[vid] = { completed: d.completed || [], totalPartes: d.totalPartes, totalPreguntas: d.totalPreguntas };
+        guardar(LS.resp, porPelicula); guardar(LS.est, estadoPeli);
+      } else if (d.johantube === 'pregunta_abierta') {
+        // en el celular, llevar el reproductor a la vista para que se vea la pregunta completa
+        try { iframeWrap.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (e2) {}
+        return;
+      } else if (d.johantube === 'seccion_completa' || d.johantube === 'fin') {
+        var st = estadoPeli[vid] || { completed: [] };
+        if (d.seccion && st.completed.indexOf(d.seccion) === -1) st.completed.push(d.seccion);
+        estadoPeli[vid] = st; guardar(LS.est, estadoPeli);
+      }
+      actualizar();
+    });
+
+    // 5. Resumen y respuestas abiertas
+    function todas() {
+      var out = [];
+      PELICULAS.forEach(function (p) {
+        var m = porPelicula[p.key] || {};
+        Object.keys(m).forEach(function (id) { var r = m[id]; r.__peli = p; out.push(r); });
+      });
+      out.sort(function (a, b) {
+        return PELICULAS.indexOf(a.__peli) - PELICULAS.indexOf(b.__peli) || (a.seccion || 0) - (b.seccion || 0) || String(a.id).localeCompare(String(b.id));
+      });
+      return out;
+    }
+    function textoFinal(r) { return r.tipo === 'abierta' && ediciones[r.id] != null ? ediciones[r.id] : r.respuesta; }
+
+    var abiertasRenderizadas = '';
+    function actualizar() {
+      var items = todas();
+      var totalEsperado = PELICULAS.reduce(function (a, p) { return a + totalDe(p); }, 0);
+      var cerradas = items.filter(function (i) { return i.tipo !== 'abierta'; });
+      var obtenido = cerradas.reduce(function (a, i) { return a + (i.puntos || 0); }, 0);
+      var posible = cerradas.reduce(function (a, i) { return a + (i.totalPuntos || 10); }, 0);
+
+      $('resp-count').textContent = items.length;
+      $('resp-total').textContent = totalEsperado;
+      $('score-count').textContent = obtenido;
+      $('score-total').textContent = posible;
+      $('progress-fill').style.width = Math.min(100, Math.round(items.length / totalEsperado * 100)) + '%';
+
+      var row = $('movie-progress-row'); row.innerHTML = '';
+      var faltan = [];
+      PELICULAS.forEach(function (p) {
+        var n = respondidas(p.key), t = totalDe(p);
+        var it = document.createElement('div'); it.className = 'movie-progress-item' + (n >= t ? ' done' : '');
+        var s = document.createElement('strong'); s.textContent = p.nombre;
+        var tx = document.createElement('span'); tx.textContent = n >= t ? '✓ Completa' : n + ' de ' + t + ' preguntas';
+        var bar = document.createElement('div'); bar.className = 'mini-bar';
+        var fill = document.createElement('div'); fill.style.width = Math.round(n / t * 100) + '%'; bar.appendChild(fill);
+        it.appendChild(s); it.appendChild(tx); it.appendChild(bar); row.appendChild(it);
+        if (n < t) faltan.push(p.nombre + ' (' + (t - n) + ')');
+      });
+      var nota = $('missing-note');
+      if (faltan.length) { nota.style.display = 'block'; nota.textContent = 'Para enviar, falta completar: ' + faltan.join(' · ') + '.'; }
+      else { nota.style.display = 'none'; }
+
+      var completo = faltan.length === 0;
+      var btn = $('btn-enviar-resultados');
+      if (!btn.dataset.enviando) btn.disabled = !completo;
+      $('btn-descargar-txt').style.display = items.length ? 'inline-flex' : 'none';
+
+      pintarAbiertas(items);
+      pintarTabs();
+    }
+
+    function pintarAbiertas(items) {
+      var cont = $('open-answers-container');
+      var abiertas = items.filter(function (i) { return i.tipo === 'abierta'; });
+      var firma = abiertas.map(function (a) { return a.id; }).join('|');
+      if (firma === abiertasRenderizadas) return;  // no destruir lo que el estudiante está editando
+      abiertasRenderizadas = firma;
+      if (!abiertas.length) return;
+      cont.innerHTML = '';
+      var ultima = null;
+      abiertas.forEach(function (a) {
+        if (ultima !== a.__peli.key) {
+          var h = document.createElement('div'); h.className = 'oa-movie'; h.textContent = '🎬 ' + a.__peli.nombre; cont.appendChild(h); ultima = a.__peli.key;
+        }
+        var box = document.createElement('div'); box.className = 'open-answer-item';
+        var head = document.createElement('div'); head.className = 'open-answer-header';
+        var h1 = document.createElement('span'); h1.textContent = 'Sección ' + (a.seccion || 1) + ' · Reflexión gerencial';
+        var h2 = document.createElement('span'); h2.className = 'oa-wc';
+        head.appendChild(h1); head.appendChild(h2);
+        var tx = document.createElement('div'); tx.className = 'open-answer-text'; tx.textContent = a.texto;
+        var ta = document.createElement('textarea'); ta.className = 'open-answer-textarea'; ta.setAttribute('data-id', a.id);
+        ta.value = textoFinal(a);
+        function contador() {
+          var n = contarPalabras(ta.value);
+          h2.textContent = n + ' / ' + CONFIG.min_palabras + ' palabras';
+          box.classList.toggle('short', n < CONFIG.min_palabras);
+        }
+        ta.addEventListener('input', function () { ediciones[a.id] = ta.value; guardar(LS.edit, ediciones); contador(); });
+        contador();
+        box.appendChild(head); box.appendChild(tx); box.appendChild(ta); cont.appendChild(box);
+      });
+    }
+
+    // 6. Datos del estudiante: se recuerdan en el dispositivo
+    ['estudiante_nombre', 'estudiante_correo', 'estudiante_grupo'].forEach(function (id) {
+      var el = $(id), saved = leer('ucsd_cine_' + id, '');
+      if (saved) el.value = saved;
+      el.addEventListener('input', function () { guardar('ucsd_cine_' + id, el.value); });
+    });
+
+    // 7. Envío con reintentos, cola sin conexión y descarga de respaldo
+    function armarPayload() {
+      var items = todas();
+      var cerradas = items.filter(function (i) { return i.tipo !== 'abierta'; });
+      return {
+        practica: CONFIG.slug,
+        pelicula: 'Cine y Gerencia (3 películas)',
+        estudiante: $('estudiante_nombre').value.trim(),
+        correo: $('estudiante_correo').value.trim() || 'no_especificado',
+        grupo: $('estudiante_grupo').value.trim() || 'no_especificado',
+        puntaje: cerradas.reduce(function (a, i) { return a + (i.puntos || 0); }, 0),
+        total: cerradas.reduce(function (a, i) { return a + (i.totalPuntos || 10); }, 0),
+        respuestas: items.map(function (r) {
+          return { id: r.id, pelicula: r.__peli.nombre, seccion: r.seccion, tipo: r.tipo, texto: r.texto, respuesta: textoFinal(r), correcta: r.correcta, esCorrecta: r.esCorrecta, tema: r.tema || '' };
+        }),
+        fecha: new Date().toISOString()
+      };
+    }
+
+    function estado(msg, clase) { var s = $('submit-status-msg'); s.className = 'submit-status' + (clase ? ' ' + clase : ''); s.style.display = msg ? 'block' : 'none'; s.innerHTML = ''; if (msg) { s.appendChild(document.createTextNode(msg)); } }
+
+    function enviar(payload, intentos) {
+      var btn = $('btn-enviar-resultados');
+      btn.dataset.enviando = '1'; btn.disabled = true; btn.textContent = 'Enviando resultados...';
+      var ctl = new AbortController(); var to = setTimeout(function () { ctl.abort(); }, 30000);
+      return fetch(CONFIG.webhook_url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload), signal: ctl.signal })
+        .then(function (res) { clearTimeout(to); if (!res.ok) throw new Error('HTTP ' + res.status); })
+        .then(function () {
+          delete btn.dataset.enviando; guardar(LS.enviado, new Date().toISOString());
+          try { localStorage.removeItem(LS.pend); } catch (e) {}
+          btn.disabled = false; btn.textContent = '✅ Resultados enviados · Reenviar';
+          estado('Sus respuestas fueron registradas y enviadas a su profesora. ¡Excelente trabajo!', 'success');
+        })
+        .catch(function (err) {
+          clearTimeout(to);
+          if (intentos > 1) return new Promise(function (ok) { setTimeout(ok, 2000); }).then(function () { return enviar(payload, intentos - 1); });
+          delete btn.dataset.enviando; btn.disabled = false; btn.textContent = 'Reintentar envío';
+          guardar(LS.pend, payload);
+          estado('No se pudo conectar. Sus respuestas siguen guardadas y se enviarán solas cuando vuelva el internet, o puede pulsar "Reintentar envío" o descargar el archivo .txt y enviarlo a su profesora.', 'error');
+          $('btn-descargar-txt').style.display = 'inline-flex';
+        });
+    }
+
+    $('btn-enviar-resultados').addEventListener('click', function () {
+      var nombre = $('estudiante_nombre').value.trim();
+      if (!nombre) { alert('Por favor ingrese su Nombre y Apellido en la sección superior antes de enviar.'); $('estudiante_nombre').focus(); return; }
+      var cortas = document.querySelectorAll('.open-answer-item.short');
+      if (cortas.length) { estado('Hay ' + cortas.length + ' reflexión(es) con menos de ' + CONFIG.min_palabras + ' palabras. Complételas antes de enviar.', 'error'); cortas[0].scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
+      estado('');
+      enviar(armarPayload(), 2);
+    });
+
+    window.addEventListener('online', function () {
+      var pend = leer(LS.pend, null);
+      if (pend) enviar(pend, 2);
+    });
+
+    $('btn-descargar-txt').addEventListener('click', function () {
+      var nombre = $('estudiante_nombre').value.trim() || 'Estudiante';
+      var L = ['RESULTADOS DE PRÁCTICA — CURSO RECURSOS HUMANOS Y GERENCIA', 'Institución: UCSD (Maestría en Gerencia Moderna de la Salud)', 'Práctica: Cine y Gerencia (3 películas)',
+        'Estudiante: ' + nombre, 'Correo: ' + ($('estudiante_correo').value.trim() || 'N/A'), 'Grupo: ' + ($('estudiante_grupo').value.trim() || 'N/A'), 'Fecha: ' + new Date().toLocaleString(), '==================================================', ''];
+      todas().forEach(function (it, i) {
+        L.push((i + 1) + '. [' + it.__peli.nombre + '] Sección ' + (it.seccion || 1) + ' (' + it.id + '):');
+        L.push('   ' + it.texto);
+        L.push('   Respuesta: ' + textoFinal(it));
+        L.push(it.tipo === 'abierta' ? '   Tipo: Reflexión abierta' : '   Resultado: ' + (it.esCorrecta ? 'CORRECTO' : 'INCORRECTO') + ' (' + (it.puntos || 0) + ' pts)');
+        L.push('');
+      });
+      var blob = new Blob([L.join('\n')], { type: 'text/plain;charset=utf-8' });
+      var url = URL.createObjectURL(blob); var a = document.createElement('a');
+      a.href = url; a.download = 'Respuestas_Cine_Gerencia_' + nombre.replace(/\s+/g, '_') + '.txt';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+    });
+
+    // 8. Asistente Nicole
+    var FAQ = {
+      '¿Cómo se evalúa esta práctica?': 'Combina preguntas de opción múltiple y verdadero/falso (calificación inmediata) con reflexiones abiertas que revisa su profesora (mínimo 30 palabras, con conceptos de RR.HH. y argumentos propios).',
+      '¿Puedo retroceder el video?': 'Sí, en cualquier momento, con las flechas, la barra de progreso o el botón "Ver de nuevo la escena". Lo que no se permite es saltar hacia adelante sin responder, ni abrir una sección sin terminar la anterior.',
+      '¿Qué pasa si se me va el internet?': 'No pierde nada. Sus respuestas, lo que estaba escribiendo y el minuto exacto del video se guardan en su dispositivo. Al volver la conexión el video retoma solo; si cierra la página, al abrirla de nuevo continúa donde se quedó (use el mismo dispositivo y navegador).',
+      '¿Cómo redactar las reflexiones abiertas?': 'Analice el dilema como gerente de recursos humanos: mencione competencias, clima laboral y alineación estratégica, y justifique sus decisiones con argumentos profesionales.'
+    };
+    $('nicole-toggle').addEventListener('click', function () { $('nicole-modal').classList.toggle('active'); });
+    $('nicole-close').addEventListener('click', function () { $('nicole-modal').classList.remove('active'); });
+    Array.prototype.forEach.call(document.querySelectorAll('.nicole-chip-btn'), function (b) {
+      b.addEventListener('click', function () {
+        var q = b.getAttribute('data-q'), box = $('nicole-answer');
+        box.innerHTML = ''; var s = document.createElement('strong'); s.textContent = q; box.appendChild(s); box.appendChild(document.createElement('br'));
+        box.appendChild(document.createTextNode(FAQ[q] || 'Consulte los materiales de apoyo o contacte a su profesora.')); box.style.display = 'block';
+      });
+    });
+
+    // Arranque
+    pintarTabs(); actualizar();
+    if (token) elegir(seleccion, true);
+    var pend = leer(LS.pend, null);
+    if (pend && navigator.onLine !== false) enviar(pend, 2);
+  })();
+  </script>
+</body>
+</html>
