@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>JohanTube · Tutorial con avatar</title>
+<style>
+  :root { --fondo:#0b1633; --panel:#12214a; --texto:#f3f6ff; --suave:#b9c4e6; --acento:#e8b010; --borde:#243568; }
+  * { box-sizing: border-box; }
+  html, body { margin:0; height:100%; background:var(--fondo); color:var(--texto); font-family: system-ui, "Segoe UI", Roboto, sans-serif; }
+  .marco { display:flex; flex-direction:column; min-height:100%; }
+  header { display:flex; align-items:center; gap:10px; padding:8px 14px; background:var(--panel); border-bottom:1px solid var(--borde); }
+  .marca { font-weight:700; letter-spacing:.2px; }
+  .marca b { color:var(--acento); }
+  h1 { font-size:14px; font-weight:600; margin:0; color:var(--suave); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  main { flex:1; display:flex; align-items:center; justify-content:center; padding:10px; }
+  .caja { width:100%; max-width:980px; }
+  video { width:100%; max-height:calc(100vh - 110px); background:#000; border-radius:8px; display:block; }
+  .barra { display:flex; flex-wrap:wrap; align-items:center; gap:8px; padding:8px 2px; font-size:13px; color:var(--suave); }
+  .barra button, .barra a { background:var(--panel); color:var(--texto); border:1px solid var(--borde); border-radius:6px; padding:5px 10px; font:inherit; cursor:pointer; text-decoration:none; }
+  .barra button[aria-pressed="true"] { background:var(--acento); color:#1a1a1a; border-color:var(--acento); }
+  .barra .fin { margin-left:auto; font-size:12px; }
+  #aviso { text-align:center; padding:30px 16px; line-height:1.5; }
+  [hidden] { display:none !important; }
+</style>
+</head>
+<body>
+<div class="marco">
+  <header><span class="marca">Johan<b>Tube</b></span><h1 id="titulo">Tutorial con avatar</h1></header>
+  <main>
+    <div class="caja" id="caja" hidden>
+      <video id="v" controls playsinline preload="metadata"></video>
+      <div class="barra">
+        <span>Velocidad:</span>
+        <button data-vel="0.75" aria-pressed="false">0,75×</button>
+        <button data-vel="1" aria-pressed="true">1×</button>
+        <button data-vel="1.25" aria-pressed="false">1,25×</button>
+        <button data-vel="1.5" aria-pressed="false">1,5×</button>
+        <a id="abrir" target="_blank" rel="noopener">Abrir en ventana nueva</a>
+        <span class="fin">Johan Tapia, PhD</span>
+      </div>
+    </div>
+    <p id="aviso" hidden></p>
+  </main>
+</div>
+<script>
+(function () {
+  var BASE = "https://johantube.167.88.36.13.sslip.io";
+  var h = new URLSearchParams(location.hash.replace(/^#/, ""));
+  var k = h.get("k"), v = h.get("v"), t = h.get("t");
+  var aviso = document.getElementById("aviso");
+  function error(m) { aviso.textContent = m; aviso.hidden = false; }
+  if (!k || !v || !/^[A-Za-z0-9_\/-]+$/.test(v)) {
+    return error("Acceso exclusivo de clase: usa el enlace completo que te dio tu facilitador.");
+  }
+  if (t) { document.getElementById("titulo").textContent = t; document.title = t + " · JohanTube"; }
+  var ruta = BASE + "/" + encodeURIComponent(k) + "/tutoriales/" + v;
+  var vid = document.getElementById("v");
+  vid.poster = ruta + ".jpg";
+  vid.src = ruta + ".mp4";
+  vid.addEventListener("error", function () {
+    document.getElementById("caja").hidden = true;
+    error("No pude cargar el video. Revisa tu conexión o pide un enlace nuevo a tu facilitador.");
+  });
+  document.getElementById("abrir").href = location.href;
+  document.getElementById("caja").hidden = false;
+  document.querySelectorAll("[data-vel]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      vid.playbackRate = parseFloat(b.dataset.vel);
+      document.querySelectorAll("[data-vel]").forEach(function (x) { x.setAttribute("aria-pressed", x === b); });
+    });
+  });
+})();
+</script>
+</body>
+</html>
