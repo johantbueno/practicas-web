@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Calendario de asesor: tutorial paso a paso</title>
+<link rel="icon" href="data:,">
+<style>
+:root{--bg:#0b1a4a;--ac:#E8B010;--tx:#eef2ff;--mut:#9fb0de;--pnl:#101f55;--lin:rgba(255,255,255,.14);--btn:rgba(255,255,255,.09)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;margin:0;overflow:hidden;background:var(--bg);color:var(--tx);font:15px/1.4 system-ui,"Segoe UI",Roboto,Arial,sans-serif}
+.app{position:fixed;inset:0;display:flex;flex-direction:column;background:radial-gradient(120% 90% at 50% 38%,color-mix(in srgb,var(--bg) 70%,#3a63d6) 0%,var(--bg) 62%,#050c26 100%)}
+header{display:flex;align-items:center;gap:12px;padding:8px 14px;min-height:54px;z-index:5}
+header img{height:34px;max-width:120px;object-fit:contain;background:#fff;border-radius:6px;padding:3px 6px}
+header h1{font-size:16px;margin:0;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pg{background:var(--btn);border-radius:999px;padding:4px 12px;font-size:13px;white-space:nowrap;color:var(--mut)}
+.cta{background:var(--ac);color:#0b1a4a;font-weight:700;text-decoration:none;padding:8px 16px;border-radius:999px;font-size:14px;white-space:nowrap}
+.cta:hover{filter:brightness(1.08)}
+#stage{position:relative;flex:1;min-height:0;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.book{transition:transform .6s ease;will-change:transform}
+.page{background:#fff;overflow:hidden}
+.page img{width:100%;height:100%;display:block;-webkit-user-drag:none;user-select:none;pointer-events:none}
+.page a.lk,#sheet a.lk{position:absolute;display:block;border-radius:3px;background:rgba(232,176,16,.0);transition:background .15s}
+.page a.lk:hover,#sheet a.lk:hover{background:rgba(232,176,16,.28);outline:1px solid rgba(232,176,16,.7)}
+.nav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:84px;border:0;border-radius:10px;background:var(--btn);color:var(--tx);cursor:pointer;z-index:4;display:flex;align-items:center;justify-content:center}
+.nav:hover{background:rgba(255,255,255,.2)}.nav:disabled{opacity:.25;cursor:default}
+#prev{left:8px}#next{right:8px}
+#zoom{position:absolute;inset:0;overflow:hidden;touch-action:none;cursor:grab;z-index:3;display:none}
+#zoom.on{display:block}#zoom.drag{cursor:grabbing}
+#sheet{position:absolute;left:0;top:0;transform-origin:0 0;display:flex;background:#fff;box-shadow:0 10px 50px rgba(0,0,0,.55)}
+#sheet .pp{position:relative;flex:none}
+#sheet img{width:100%;height:100%;display:block;-webkit-user-drag:none;user-select:none;pointer-events:none}
+.zinfo{position:absolute;left:50%;bottom:10px;transform:translateX(-50%);background:rgba(0,0,0,.6);border-radius:999px;padding:4px 14px;font-size:13px;z-index:6;display:none;pointer-events:none}
+.zinfo.on{display:block}
+footer{z-index:5;padding:6px 10px calc(8px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:6px}
+#scrub{width:100%;margin:0;accent-color:var(--ac);height:14px;cursor:pointer}
+.bar{display:flex;align-items:center;gap:6px;justify-content:space-between}
+.grp{display:flex;align-items:center;gap:6px}
+.credito{font-size:12px;color:var(--mut);white-space:nowrap}
+.ib{width:42px;height:42px;border:0;border-radius:10px;background:var(--btn);color:var(--tx);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;flex:none}
+.ib:hover{background:rgba(255,255,255,.2)}.ib.act{background:var(--ac);color:#0b1a4a}.ib:disabled{opacity:.3}
+.ib svg,.nav svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.pin{display:flex;align-items:center;gap:4px;white-space:nowrap;color:var(--mut);font-size:14px}
+.pin input{width:54px;height:38px;border-radius:8px;border:1px solid var(--lin);background:rgba(0,0,0,.25);color:var(--tx);text-align:center;font:inherit}
+#panel{position:absolute;top:0;bottom:0;left:0;width:min(340px,86vw);background:var(--pnl);border-right:1px solid var(--lin);z-index:8;transform:translateX(-102%);transition:transform .25s;display:flex;flex-direction:column;box-shadow:6px 0 30px rgba(0,0,0,.4)}
+#panel.on{transform:none}
+.tabs{display:flex;border-bottom:1px solid var(--lin)}
+.tabs button{flex:1;padding:12px 4px;background:none;border:0;border-bottom:3px solid transparent;color:var(--mut);font:600 14px inherit;cursor:pointer}
+.tabs button.on{color:var(--tx);border-bottom-color:var(--ac)}
+.tabs .x{flex:none;width:44px;font-size:20px}
+.cont{flex:1;overflow:auto;padding:10px}
+.cont[hidden]{display:none}
+.toc a{display:flex;justify-content:space-between;gap:10px;padding:9px 10px;border-radius:8px;color:var(--tx);text-decoration:none;cursor:pointer}
+.toc a:hover,.toc a.cur{background:var(--btn)}
+.toc a span:last-child{color:var(--mut);flex:none}
+.toc a.n2{padding-left:26px;font-size:14px}.toc a.n3{padding-left:42px;font-size:13px}
+.vacio{color:var(--mut);padding:14px 6px}
+.th{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.th button{background:none;border:2px solid transparent;border-radius:8px;padding:4px;color:var(--mut);cursor:pointer;font:12px inherit}
+.th button img{width:100%;display:block;border-radius:3px;background:#fff}
+.th button.cur{border-color:var(--ac);color:var(--tx)}
+#q{width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--lin);background:rgba(0,0,0,.25);color:var(--tx);font:inherit;margin-bottom:8px}
+.res{display:block;width:100%;text-align:left;background:none;border:0;border-bottom:1px solid var(--lin);padding:9px 6px;color:var(--tx);cursor:pointer;font:13px/1.4 inherit}
+.res:hover{background:var(--btn)}.res b{color:var(--ac)}.res mark{background:var(--ac);color:#0b1a4a;border-radius:2px}
+.acerca{border-top:1px solid var(--lin);padding:10px 14px;font-size:12px;color:var(--mut)}
+#mas{position:absolute;right:8px;bottom:78px;background:var(--pnl);border:1px solid var(--lin);border-radius:12px;padding:6px;display:none;flex-direction:column;gap:4px;z-index:9;box-shadow:0 8px 30px rgba(0,0,0,.5)}
+#mas.on{display:flex}
+#mas button,#mas a{display:flex;align-items:center;gap:10px;padding:10px 14px;border:0;background:none;color:var(--tx);font:14px inherit;cursor:pointer;border-radius:8px;text-decoration:none;white-space:nowrap}
+#mas button:hover,#mas a:hover{background:var(--btn)}
+#mas svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.toast{position:absolute;left:50%;top:70px;transform:translateX(-50%);background:#000c;padding:8px 16px;border-radius:999px;z-index:20;font-size:14px;opacity:0;transition:opacity .3s;pointer-events:none}
+.toast.on{opacity:1}
+.m-only{display:none}
+@media (max-width:640px){
+ header{padding:6px 10px;gap:8px;min-height:48px}header h1{font-size:14px}header img{height:28px;max-width:80px}
+ .cta{padding:6px 12px;font-size:13px}.d-only{display:none!important}.m-only{display:inline-flex}
+ .nav{width:34px;height:64px}.credito{display:none}.ib{width:40px;height:40px}
+ header .pg{display:none}.app.zo .nav{display:none}
+ .app:not(.zo) #bZout{display:none}.bar,.grp{gap:4px}.ib{width:38px;height:38px}.pin{font-size:13px}.pin input{width:44px;height:36px}
+}
+:fullscreen header{min-height:44px}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+ <header>
+  <img id="logo" alt="Logo" hidden>
+  <h1 id="tit"></h1>
+  <span class="pg" id="pgInd" aria-live="polite"></span>
+  <a class="cta" id="cta" target="_blank" rel="noopener" hidden></a>
+ </header>
+ <main id="stage">
+  <button class="nav" id="prev" aria-label="Página anterior"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button>
+  <button class="nav" id="next" aria-label="Página siguiente"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button>
+  <div id="zoom"><div id="sheet"></div></div>
+  <div class="zinfo" id="zinfo"></div>
+ <aside id="panel" aria-label="Índice, miniaturas y búsqueda">
+  <div class="tabs"><button data-t="toc" class="on">Índice</button><button data-t="th">Miniaturas</button><button data-t="bq">Buscar</button><button class="x" id="pX" aria-label="Cerrar">✕</button></div>
+  <div class="cont toc" id="c-toc"></div>
+  <div class="cont th" id="c-th" hidden></div>
+  <div class="cont" id="c-bq" hidden><input id="q" type="search" placeholder="Buscar en el libro…" aria-label="Buscar en el libro"><div id="res"></div></div>
+  <div class="acerca" id="acerca"></div>
+ </aside>
+ </main>
+ <footer>
+  <input type="range" id="scrub" min="1" value="1" aria-label="Ir a la página">
+  <div class="bar">
+   <div class="grp">
+    <button class="ib" id="bIdx" aria-label="Índice y miniaturas" title="Índice, miniaturas y búsqueda"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></svg></button>
+    <button class="ib d-only" id="bThumbs" aria-label="Miniaturas" title="Miniaturas"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="1"/><rect x="13" y="4" width="7" height="7" rx="1"/><rect x="4" y="13" width="7" height="7" rx="1"/><rect x="13" y="13" width="7" height="7" rx="1"/></svg></button>
+    <button class="ib d-only" id="bSearch" aria-label="Buscar en el libro" title="Buscar"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="M20 20l-4.5-4.5"/></svg></button>
+   </div>
+   <div class="grp">
+    <button class="ib d-only" id="bFirst" aria-label="Primera página" title="Primera página"><svg viewBox="0 0 24 24"><path d="M6 5v14M18 6l-6 6 6 6"/></svg></button>
+    <button class="ib m-only" id="bPrev2" aria-label="Página anterior"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button>
+    <label class="pin">pág. <input id="pgIn" type="number" min="1" inputmode="numeric" aria-label="Número de página"> <span id="pgTot"></span></label>
+    <button class="ib m-only" id="bNext2" aria-label="Página siguiente"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button>
+    <button class="ib d-only" id="bLast" aria-label="Última página" title="Última página"><svg viewBox="0 0 24 24"><path d="M18 5v14M6 6l6 6-6 6"/></svg></button>
+   </div>
+   <div class="grp">
+    <span class="credito d-only" id="credito"></span>
+    <button class="ib" id="bZout" aria-label="Alejar" title="Alejar (−)"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="M20 20l-4.5-4.5M8.5 11h5"/></svg></button>
+    <button class="ib" id="bZin" aria-label="Acercar" title="Acercar (+)"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="M20 20l-4.5-4.5M8.5 11h5M11 8.5v5"/></svg></button>
+    <button class="ib d-only" id="bSnd" aria-label="Sonido de página" title="Sonido de página"><svg viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 9a4 4 0 010 6M19 6.5a8 8 0 010 11"/></svg></button>
+    <button class="ib d-only" id="bShare" aria-label="Compartir" title="Compartir enlace"><svg viewBox="0 0 24 24"><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.2 10.8l7.6-3.6M8.2 13.2l7.6 3.6"/></svg></button>
+    <a class="ib d-only" id="bDown" aria-label="Descargar PDF" title="Descargar PDF" download hidden><svg viewBox="0 0 24 24"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"/></svg></a>
+    <button class="ib d-only" id="bFs" aria-label="Pantalla completa" title="Pantalla completa (F)"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+    <button class="ib m-only" id="bMore" aria-label="Más opciones"><svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.3"/><circle cx="12" cy="12" r="1.3"/><circle cx="19" cy="12" r="1.3"/></svg></button>
+   </div>
+  </div>
+ </footer>
+ <div id="mas" role="menu">
+  <button id="mFs"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>Pantalla completa</button>
+  <button id="mSnd"><svg viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 9a4 4 0 010 6"/></svg><span>Sonido: sí</span></button>
+  <button id="mShare"><svg viewBox="0 0 24 24"><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.2 10.8l7.6-3.6M8.2 13.2l7.6 3.6"/></svg>Compartir enlace</button>
+  <a id="mDown" download hidden><svg viewBox="0 0 24 24"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"/></svg>Descargar PDF</a>
+ </div>
+ <div class="toast" id="toast"></div>
+</div>
+<script src="vendor/page-flip.browser.js"></script>
+<script>
+"use strict";
+const L = {"titulo": "Calendario de asesor: tutorial paso a paso", "autor": "Johan Tapia, PhD", "n": 12, "ratio": 0.70761, "paginas": [{"t": "TUTORIAL PASO A PASO Calendario de asesor de capacitación Aprende a ver quién está libre, asignar sesiones y llevar las horas de tus facilitadores, con capturas de la aplicación real. Con video de apoyo del Prof. Johan Tapia, PhD. Pulsa el botón dorado de arriba a la derecha para verlo. Calendario de asesor de capacitación · Johan Tapia, PhD 1 / 12", "l": []}, {"t": "Antes de empezar Qué es y cómo usar este libro El calendario junta los horarios de tus facilitadores para que no choquen. QUÉ RESUELVE Antes llevabas las horas de cada facilitador en Excel, Word y WhatsApp. Aquí todo queda en un solo lugar: ves quién está libre, asignas sesiones, cuentas horas y exportas sin repetir trabajo. PARA QUIÉN ES Asesores de capacitación (pasos 1 al 8) y facilitadores (página 11). Los datos de las capturas son ficticios. CÓMO LEER CADA PÁGINA Cada paso trae una captura con recuadros numerados en dorado: el número 1 es lo primero que miras o tocas. Debajo encuentras tres bloques fijos: Qué haces: las acciones, en orden. Definición: el término nuevo, explicado simple. ¿Por qué así?: la razón de hacerlo de esa forma. COLORES DEL CALENDARIO Libre · Ocupado (tu asesoría) · Ocupado (otro compromiso) · Bloqueado (Licencia) · Feriado oficial RUTA RECOMENDADA Entra (1) → mira la semana (2) → busca quién está libre (3) → revisa lo programado (4). Los pasos 5 al 8 los usas cuando tengas que crear facilitadores, cursos, cortes de horas o importar un horario. Calendario de asesor de capacitación · Johan Tapia, PhD 2 / 12", "l": []}, {"t": "Paso 1 de 8 Entra al sistema Tu puerta de entrada al calendario. QUÉ HACES 1. Abre el enlace del Calendario de asesor que te entregó tu coordinador. 2. Escribe tu correo o nombre de usuario y tu contraseña. El ojito te deja ver lo que escribes. 3. Pulsa Entrar al sistema. Si es tu primer ingreso, el sistema te pedirá cambiar la contraseña temporal. DEFINICIÓN Contraseña temporal: clave de un solo uso que te da el sistema para entrar la primera vez y que debes cambiar por una tuya. ¿POR QUÉ ASÍ? Cada asesor ve solo a sus facilitadores. Por eso el acceso es personal: nadie más debe usar tu cuenta. 1 Calendario de asesor de capacitación · Johan Tapia, PhD 3 / 12", "l": []}, {"t": "Paso 2 de 8 Semana de todos El horario de todos tus facilitadores en una sola pantalla. QUÉ HACES 1. En el menú de la izquierda pulsa Semana de todos. 2. Lee los colores de la leyenda: verde es Libre, azul Ocupado (tu asesoría), gris Ocupado (otro compromiso), Bloqueado (Licencia) y naranja Feriado oficial. 3. En la cuadrícula, cada día tiene una columna por facilitador y cada fila es una hora. Usa Semana anterior, Hoy y Semana siguiente, o los botones de cada día, para moverte. 4. Haz clic en un hueco + Libre para asignar una sesión. DEFINICIÓN Cuadrícula horaria: tabla con una fila por hora (de 08:00 a 22:00) y una columna por facilitador y día. ¿POR QUÉ ASÍ? Ver a todos juntos evita abrir un horario por persona y te deja detectar de un vistazo dónde hay espacio. 1 2 3 Calendario de asesor de capacitación · Johan Tapia, PhD 4 / 12", "l": []}, {"t": "Paso 3 de 8 ¿Quién está libre? Encuentra al facilitador disponible para una fecha y hora. QUÉ HACES 1. Pulsa ¿Quién está libre? en el menú. 2. Elige la fecha, la hora de inicio y la hora de fin. 3. Pulsa Consultar disponibilidad. 4. A la izquierda aparecen los facilitadores libres; a la derecha, los ocupados. En un facilitador libre pulsa + Asignar. DEFINICIÓN Choque de horario: cuando un facilitador ya tiene otra sesión en la misma franja que quieres asignar. ¿POR QUÉ ASÍ? Es más rápido preguntarle al sistema quién está libre que revisar semana por semana, y evita asignar a alguien que ya está comprometido. 1 2 Calendario de asesor de capacitación · Johan Tapia, PhD 5 / 12", "l": []}, {"t": "Paso 4 de 8 Horas disponibles y asignadas La lista de las sesiones ya programadas. QUÉ HACES 1. Pulsa Horas Disponibles. 2. En Filtros elige las fechas, el facilitador, el curso, el día de la semana, el intervalo y la jornada. Pulsa Aplicar filtros (o Limpiar filtros para empezar de nuevo). 3. Mira las tarjetas de resumen: horas disponibles, horas asignadas, total de horas y días en el rango. 4. Si necesitas llevarlo contigo, usa Exportar Excel, Exportar PDF, Imprimir o Sincronizar Calendario Móvil. DEFINICIÓN Sincronizar con el calendario móvil: publicar tus sesiones en un enlace que el calendario de tu celular lee y mantiene al día. ¿POR QUÉ ASÍ? Tener las sesiones en el celular te avisa a tiempo y evita olvidar una clase. 1 2 3 Calendario de asesor de capacitación · Johan Tapia, PhD 6 / 12", "l": []}, {"t": "Paso 5 de 8 Mis facilitadores Crea cuentas e invita a los facilitadores con quienes trabajas. QUÉ HACES 1. Pulsa Mis facilitadores. 2. Pulsa + Invitar / Crear facilitador: crea su cuenta con contraseña temporal o envía una solicitud si ya está registrado. 3. En la tabla revisa su estado (Activo o Invitación pendiente), sus cursos, sus horas totales y las horas pendientes. 4. Restablecer clave da una contraseña temporal nueva; Retirar termina el vínculo y Reactivar lo recupera. DEFINICIÓN Vínculo: la relación entre un asesor y un facilitador. Un facilitador puede tener varios asesores y debe aceptar la solicitud. ¿POR QUÉ ASÍ? El vínculo protege la privacidad: solo ves el horario de quienes aceptaron trabajar contigo. 1 2 Calendario de asesor de capacitación · Johan Tapia, PhD 7 / 12", "l": []}, {"t": "Paso 6 de 8 Cursos asignados Qué se imparte, quién lo imparte y cuántas horas tiene. QUÉ HACES 1. Pulsa Cursos asignados. 2. Para registrar uno nuevo pulsa + Nuevo curso y completa empresa, código, capacitación, modalidad, fechas, horas y facilitador. 3. Para encontrar uno usa el buscador y los filtros de modalidad y estado. 4. Un curso sin facilitador aparece como Sin asignar. Con Editar lo cambias. DEFINICIÓN Modalidad: la forma en que se imparte el curso, por ejemplo virtual o presencial. ¿POR QUÉ ASÍ? Llevar las fechas y las horas del curso aquí es lo que permite cuadrar después las horas de cada facilitador. 1 2 Calendario de asesor de capacitación · Johan Tapia, PhD 8 / 12", "l": []}, {"t": "Paso 7 de 8 Horas y pagos El control de las horas trabajadas por periodo. QUÉ HACES 1. Pulsa Horas y Pagos. 2. Para cerrar un periodo pulsa + Registrar corte de horas, elige facilitador, fechas de inicio y fin, y escribe una nota. 3. La fila nueva queda como Pendiente hasta que se liquide; entonces cambia su estado. 4. Usa los filtros para ver un facilitador o un estado. DEFINICIÓN Corte de horas: el cierre de un periodo (por ejemplo, un mes) con el total de horas que trabajó un facilitador. ¿POR QUÉ ASÍ? El sistema cuenta solo horas, no montos. Así el control es simple y no se mezclan cálculos de dinero. 1 2 Calendario de asesor de capacitación · Johan Tapia, PhD 9 / 12", "l": []}, {"t": "Paso 8 de 8 Importar y exportar horarios Trae el horario del SNFP sin escribirlo a mano. QUÉ HACES 1. Pulsa Importar / Exportar. 2. Copia la tabla de facilitadores del SNFP y pégala en el cuadro grande. 3. Pulsa Importar horario al sistema. 4. Para sacar tus datos usa Descargar CSV o Exportar enlace iCal (.ics). DEFINICIÓN Importar: copiar datos que ya existen en otro lugar (aquí, el SNFP) para que el sistema los registre solo. ¿POR QUÉ ASÍ? Al importar, el sistema salta los feriados y se detiene al completar las horas del curso, así que no tienes que contarlas a mano. 1 2 3 Calendario de asesor de capacitación · Johan Tapia, PhD 10 / 12", "l": []}, {"t": "Para facilitadores Si eres facilitador Tu cuenta tiene menos menús: solo lo tuyo. QUÉ HACES 1. En Mi horario ves tu semana y los huecos libres u ocupados. 2. En Mis cursos y horas revisas tus cursos y las horas acumuladas. 3. En Mis asesores aceptas o rechazas las solicitudes de vínculo y puedes retirar a un asesor. ¿POR QUÉ ASÍ? Tú decides con qué asesores trabajas. Un asesor solo ve tu horario cuando aceptas el vínculo. 1 1 Calendario de asesor de capacitación · Johan Tapia, PhD 11 / 12", "l": []}, {"t": "Resumen Lo esencial en una página Guarda esta página: es tu chuleta. Quiero… Menú Ver a todos mis facilitadores en la semana Semana de todos Saber quién puede el martes de 8 a 12 ¿Quién está libre? Ver, filtrar y exportar lo programado Horas Disponibles Crear la cuenta de un facilitador Mis facilitadores Registrar un curso nuevo Cursos asignados Cerrar el mes de un facilitador Horas y Pagos Traer el horario del SNFP Importar / Exportar PRIVACIDAD Si otro asesor comparte un facilitador contigo, de su agenda verás solo Ocupado, sin el detalle del curso ni la empresa. SI ALGO NO SALE No me deja entrar: pide a tu coordinador que restablezca tu clave. No veo a un facilitador: revisa que haya aceptado el vínculo (Estado: Activo). Un hueco aparece Ocupado: puede ser un curso de otro asesor; no podrás ver el detalle. El horario importado no cuadra: comprueba que las horas del curso estén bien escritas. SIGUIENTE PASO Practica con datos de prueba antes de usar los reales. Cuando termines, pulsa Cerrar sesión. Desarrollado por Johan Tapia, PhD. Calendario de asesor de capacitación · Johan Tapia, PhD 12 / 12", "l": []}], "toc": [[1, "Calendario de asesor de", 1], [1, "Qué es y cómo usar este libro", 2], [1, "Entra al sistema", 3], [1, "Semana de todos", 4], [1, "¿Quién está libre?", 5], [1, "Horas disponibles y asignadas", 6], [1, "Mis facilitadores", 7], [1, "Cursos asignados", 8], [1, "Horas y pagos", 9], [1, "Importar y exportar horarios", 10], [1, "Si eres facilitador", 11], [1, "Lo esencial en una página", 12]], "logo": "logo.png", "pdf": "libro.pdf", "color": "#0b1a4a", "acento": "#E8B010", "cta": {"texto": "Ver video", "url": "video.html"}};
+const $ = (s) => document.querySelector(s);
+const pad = (i) => String(i).padStart(3, "0");
+const N = L.n, ratio = L.ratio;
+const stage = $("#stage"), zoomEl = $("#zoom"), sheet = $("#sheet");
+document.documentElement.style.setProperty("--bg", L.color);
+document.documentElement.style.setProperty("--ac", L.acento);
+$("#tit").textContent = L.titulo;
+$("#credito").textContent = "Desarrollado por " + L.autor;
+$("#acerca").textContent = L.titulo + " · Desarrollado por " + L.autor;
+if (L.logo) { const g = $("#logo"); g.src = L.logo; g.hidden = false; }
+if (L.cta) { const c = $("#cta"); c.textContent = L.cta.texto; c.href = L.cta.url; c.hidden = false; }
+if (L.pdf) { for (const id of ["#bDown", "#mDown"]) { const d = $(id); d.href = L.pdf; d.hidden = false; } }
+$("#scrub").max = N; $("#pgIn").max = N; $("#pgTot").textContent = "de " + N;
+
+let pf = null, two = true, pw = 0, ph = 0, idx = 0, zoomOn = false, soundOn = true, ac = null;
+try { if (localStorage.getItem("fb_snd") === "0") soundOn = false; } catch (e) {}
+
+/* ---------- utilidades ---------- */
+function toast(t) { const e = $("#toast"); e.textContent = t; e.classList.add("on"); clearTimeout(toast.h); toast.h = setTimeout(() => e.classList.remove("on"), 1800); }
+const norm = (s) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+function visibles(i) { // índices (0-based) de las páginas a la vista cuando la "izquierda" es i
+  if (!two) return [i];
+  if (i === 0) return [0];
+  return i + 1 < N ? [i, i + 1] : [i];
+}
+function izq(i) { i = Math.max(0, Math.min(N - 1, i)); return !two ? i : (i === 0 ? 0 : (i % 2 === 1 ? i : i - 1)); }
+function linksHtml(pag, parent) {
+  for (const e of L.paginas[pag].l) {
+    const a = document.createElement("a");
+    a.className = "lk";
+    a.style.cssText = `left:${e.x}%;top:${e.y}%;width:${e.w}%;height:${e.h}%`;
+    if (e.u) { a.href = e.u; a.target = "_blank"; a.rel = "noopener"; a.title = e.u; }
+    else { a.href = "#p=" + e.p; a.title = "Ir a la página " + e.p; a.addEventListener("click", (ev) => { ev.preventDefault(); go(e.p - 1); }); }
+    parent.appendChild(a);
+  }
+}
+
+/* ---------- sonido (sintetizado, sin archivos) ---------- */
+function snd() {
+  if (!soundOn) return;
+  try {
+    ac = ac || new (window.AudioContext || window.webkitAudioContext)();
+    if (ac.state === "suspended") ac.resume();
+    const sr = ac.sampleRate, len = Math.floor(sr * 0.32), buf = ac.createBuffer(1, len, sr), d = buf.getChannelData(0);
+    for (let i = 0; i < len; i++) { const t = i / len; d[i] = (Math.random() * 2 - 1) * Math.pow(1 - t, 2.4) * (t < 0.04 ? t / 0.04 : 1); }
+    const s = ac.createBufferSource(); s.buffer = buf;
+    const f = ac.createBiquadFilter(); f.type = "bandpass"; f.frequency.value = 2200; f.Q.value = 0.6;
+    const g = ac.createGain(); g.gain.value = 0.35;
+    s.connect(f); f.connect(g); g.connect(ac.destination); s.start();
+  } catch (e) {}
+}
+function setSnd(v) {
+  soundOn = v; try { localStorage.setItem("fb_snd", v ? "1" : "0"); } catch (e) {}
+  $("#bSnd").classList.toggle("act", v); $("#mSnd span").textContent = "Sonido: " + (v ? "sí" : "no");
+}
+
+/* ---------- libro (StPageFlip) ---------- */
+function medir() {
+  const r = stage.getBoundingClientRect();
+  const aw = r.width - (r.width > 700 ? 120 : 16), ah = r.height - 16; // los lados dejan sitio a las flechas
+  two = aw >= ah * 1.05 && r.width >= 640;
+  let h = two ? Math.min(ah, aw / 2 / ratio) : Math.min(ah, aw / ratio);
+  ph = Math.floor(h); pw = Math.floor(h * ratio);
+}
+function build(start) {
+  if (pf) { try { pf.destroy(); } catch (e) {} pf = null; }
+  medir();
+  const el = document.createElement("div"); el.className = "book";
+  el.style.width = (two ? 2 * pw : pw) + "px"; el.style.height = ph + "px";
+  stage.insertBefore(el, stage.firstChild);
+  const pages = [];
+  for (let i = 0; i < N; i++) {
+    const d = document.createElement("div"); d.className = "page";
+    d.dataset.density = (i === 0 || i === N - 1) ? "hard" : "soft";
+    const im = document.createElement("img"); im.src = "p/" + pad(i + 1) + ".webp"; im.alt = "Página " + (i + 1); im.draggable = false;
+    d.appendChild(im); linksHtml(i, d); pages.push(d);
+  }
+  pf = new St.PageFlip(el, { width: pw, height: ph, size: "fixed", showCover: true, usePortrait: true, autoSize: false,
+    maxShadowOpacity: 0.45, flippingTime: 750, mobileScrollSupport: false, disableFlipByClick: true, clickEventForward: true,
+    swipeDistance: 25, startPage: izq(start) });
+  pf.loadFromHTML(pages);
+  pf.on("flip", (e) => { idx = e.data; actualizar(); });
+  pf.on("changeState", (e) => { if (e.data === "flipping") snd(); });
+  idx = pf.getCurrentPageIndex();
+  el.addEventListener("dblclick", (ev) => { if (!ev.target.closest("a")) abrirZoom(ev.clientX, ev.clientY); });
+  actualizar();
+}
+function actualizar() {
+  const v = visibles(idx), a = v[0] + 1, b = v[v.length - 1] + 1;
+  $("#pgInd").textContent = (a === b ? "pág. " + a : "págs. " + a + "–" + b) + " de " + N;
+  $("#pgIn").value = a; $("#scrub").value = a;
+  $("#prev").disabled = idx <= 0; $("#next").disabled = v[v.length - 1] >= N - 1;
+  const el = stage.querySelector(".book");
+  if (el && !zoomOn) { // centrar la portada y la contraportada cuando están solas
+    let tx = 0;
+    if (two && idx === 0) tx = -25; else if (two && N % 2 === 0 && v[0] === N - 1) tx = 25;
+    el.style.transform = tx ? `translateX(${tx}%)` : "";
+  }
+  document.querySelectorAll(".th button,.toc a").forEach((e) => e.classList.toggle("cur", v.includes(+e.dataset.p - 1)));
+  try { history.replaceState(null, "", "#p=" + a); } catch (e) {}
+}
+function go(i, anim) {
+  i = izq(i);
+  if (zoomOn) { idx = i; try { pf.turnToPage(i); } catch (e) {} snd(); actualizar(); armarHoja(true); return; }
+  if (anim === false || Math.abs(i - idx) > 6) { pf.turnToPage(i); idx = i; actualizar(); snd(); }
+  else pf.flip(i);
+}
+function sig() { const v = visibles(idx); const n = v[v.length - 1] + 1; if (n < N) go(n); }
+function ant() { if (idx <= 0) return; go(two ? (idx <= 2 ? 0 : idx - 2) : idx - 1); }
+
+/* ---------- zoom con arrastre, rueda y pellizco (usa las páginas en alta resolución) ---------- */
+let S = { s: 1, x: 0, y: 0, w: 0, h: 0 };
+const zinfo = $("#zinfo");
+function armarHoja(conservar) {
+  const v = visibles(idx), r = stage.getBoundingClientRect();
+  const aw = r.width - 16, ah = r.height - 16;
+  const k = v.length;
+  const h = Math.min(ah, aw / (k * ratio));
+  S.w = Math.floor(h * ratio * k); S.h = Math.floor(h);
+  sheet.style.width = S.w + "px"; sheet.style.height = S.h + "px"; sheet.innerHTML = "";
+  v.forEach((p) => {
+    const d = document.createElement("div"); d.className = "pp"; d.style.width = (S.w / k) + "px"; d.style.height = S.h + "px";
+    const im = document.createElement("img"); im.src = "p/" + pad(p + 1) + ".webp"; im.alt = "Página " + (p + 1);
+    const hd = new Image(); hd.onload = () => { if (im.isConnected) im.src = hd.src; }; hd.src = "hd/" + pad(p + 1) + ".webp";
+    d.appendChild(im); linksHtml(p, d); sheet.appendChild(d);
+  });
+  if (!conservar) S.s = 1;
+  colocar(r.width / 2, r.height / 2, null);
+}
+function limitar() {
+  const r = stage.getBoundingClientRect(), W = S.w * S.s, H = S.h * S.s;
+  S.x = W <= r.width ? (r.width - W) / 2 : Math.min(0, Math.max(r.width - W, S.x));
+  S.y = H <= r.height ? (r.height - H) / 2 : Math.min(0, Math.max(r.height - H, S.y));
+}
+function pintar() {
+  limitar();
+  sheet.style.transform = `translate(${S.x}px,${S.y}px) scale(${S.s})`;
+  zinfo.textContent = Math.round(S.s * 100) + " %";
+}
+function colocar(cx, cy, previo) { // mantiene fijo el punto (cx,cy) al cambiar de escala
+  if (previo) { S.x = cx - (cx - S.x) * (S.s / previo); S.y = cy - (cy - S.y) * (S.s / previo); }
+  else { S.x = (stage.clientWidth - S.w * S.s) / 2; S.y = (stage.clientHeight - S.h * S.s) / 2; }
+  pintar();
+}
+function zoomA(ns, cx, cy) {
+  ns = Math.max(1, Math.min(5, ns)); const p = S.s; S.s = ns; colocar(cx, cy, p);
+  if (ns <= 1.001) cerrarZoom();
+}
+function abrirZoom(cx, cy) {
+  if (zoomOn) return;
+  zoomOn = true; const r = stage.getBoundingClientRect();
+  armarHoja(false); zoomEl.classList.add("on"); zinfo.classList.add("on");
+  stage.querySelector(".book").style.visibility = "hidden";
+  const ts = 2.2; if (cx != null) zoomA(ts, cx - r.left, cy - r.top); else zoomA(ts, r.width / 2, r.height / 2);
+  $("#bZin").classList.add("act"); $("#app").classList.add("zo");
+}
+function cerrarZoom() {
+  if (!zoomOn) return; zoomOn = false;
+  zoomEl.classList.remove("on"); zinfo.classList.remove("on"); sheet.innerHTML = "";
+  const b = stage.querySelector(".book"); if (b) b.style.visibility = ""; $("#bZin").classList.remove("act"); $("#app").classList.remove("zo");
+  actualizar();
+}
+const ptr = new Map(); let pin0 = null, mov = 0, dx0 = 0, tIni = 0;
+zoomEl.addEventListener("pointerdown", (e) => {
+  ptr.set(e.pointerId, { x: e.clientX, y: e.clientY }); mov = 0; dx0 = e.clientX; tIni = Date.now();
+  if (ptr.size === 2) { const [a, b] = [...ptr.values()]; pin0 = { d: Math.hypot(a.x - b.x, a.y - b.y), s: S.s }; }
+  zoomEl.classList.add("drag");
+});
+zoomEl.addEventListener("pointermove", (e) => {
+  const p = ptr.get(e.pointerId); if (!p) return;
+  const r = stage.getBoundingClientRect();
+  if (ptr.size === 2 && pin0) {
+    ptr.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    const [a, b] = [...ptr.values()], d = Math.hypot(a.x - b.x, a.y - b.y);
+    const prev = S.s; S.s = Math.max(1, Math.min(5, pin0.s * d / pin0.d));
+    colocar((a.x + b.x) / 2 - r.left, (a.y + b.y) / 2 - r.top, prev); mov += 10; return;
+  }
+  const ddx = e.clientX - p.x, ddy = e.clientY - p.y; mov += Math.abs(ddx) + Math.abs(ddy);
+  if (mov > 6) { try { zoomEl.setPointerCapture(e.pointerId); } catch (_) {} }
+  p.x = e.clientX; p.y = e.clientY; S.x += ddx; S.y += ddy; pintar();
+});
+function soltar(e) {
+  if (!ptr.has(e.pointerId)) return;
+  const fin = e.clientX - dx0; ptr.delete(e.pointerId); pin0 = null; zoomEl.classList.remove("drag");
+  if (ptr.size === 0 && S.s <= 1.05 && Math.abs(fin) > 70 && Date.now() - tIni < 600) { fin < 0 ? sig() : ant(); } // deslizar para pasar
+  else if (ptr.size === 0 && S.s < 1.05) cerrarZoom();
+}
+zoomEl.addEventListener("pointerup", soltar); zoomEl.addEventListener("pointercancel", soltar);
+zoomEl.addEventListener("click", (e) => { if (mov > 6) { e.preventDefault(); e.stopPropagation(); } }, true);
+zoomEl.addEventListener("dblclick", (e) => {
+  const r = stage.getBoundingClientRect(); if (e.target.closest("a")) return;
+  S.s > 1.2 ? (S.s = 1, cerrarZoom()) : zoomA(2.6, e.clientX - r.left, e.clientY - r.top);
+});
+zoomEl.addEventListener("wheel", (e) => {
+  e.preventDefault(); const r = stage.getBoundingClientRect();
+  zoomA(S.s * Math.exp(-e.deltaY * (e.ctrlKey ? 0.01 : 0.0018)), e.clientX - r.left, e.clientY - r.top);
+}, { passive: false });
+stage.addEventListener("wheel", (e) => { if (!zoomOn && e.ctrlKey) { e.preventDefault(); abrirZoom(e.clientX, e.clientY); } }, { passive: false });
+function zoomPaso(f) {
+  const r = stage.getBoundingClientRect();
+  if (!zoomOn) { if (f > 1) abrirZoom(null, null); return; }
+  zoomA(S.s * f, r.width / 2, r.height / 2);
+}
+
+/* ---------- panel: índice, miniaturas, búsqueda ---------- */
+function armarPanel() {
+  const toc = $("#c-toc");
+  if (!L.toc.length) toc.innerHTML = '<div class="vacio">Este libro no tiene índice. Usa las miniaturas o la búsqueda.</div>';
+  L.toc.forEach(([nv, t, p]) => {
+    const a = document.createElement("a"); a.dataset.p = p; a.className = "n" + Math.min(nv, 3);
+    a.innerHTML = "<span></span><span>" + p + "</span>"; a.firstChild.textContent = t;
+    a.addEventListener("click", () => { go(p - 1); if (matchMedia("(max-width:640px)").matches) panel(false); });
+    toc.appendChild(a);
+  });
+  const th = $("#c-th");
+  for (let i = 1; i <= N; i++) {
+    const b = document.createElement("button"); b.dataset.p = i; b.setAttribute("aria-label", "Ir a la página " + i);
+    b.innerHTML = '<img loading="lazy" alt=""><div>' + i + "</div>"; b.firstChild.src = "t/" + pad(i) + ".webp";
+    b.addEventListener("click", () => { go(i - 1); if (matchMedia("(max-width:640px)").matches) panel(false); });
+    th.appendChild(b);
+  }
+}
+const idxN = L.paginas.map((p) => norm(p.t));
+let qh = 0;
+$("#q").addEventListener("input", () => {
+  clearTimeout(qh); qh = setTimeout(() => {
+    const q = norm($("#q").value.trim()), out = $("#res"); out.innerHTML = "";
+    if (q.length < 2) return;
+    let c = 0;
+    for (let i = 0; i < N && c < 80; i++) {
+      const k = idxN[i].indexOf(q); if (k < 0) continue; c++;
+      const t = L.paginas[i].t, a = Math.max(0, k - 40), z = Math.min(t.length, k + q.length + 70);
+      const b = document.createElement("button"); b.className = "res";
+      const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;");
+      b.innerHTML = "<b>Pág. " + (i + 1) + "</b> · " + (a ? "…" : "") + esc(t.slice(a, k)) + "<mark>" + esc(t.slice(k, k + q.length)) + "</mark>" + esc(t.slice(k + q.length, z)) + (z < t.length ? "…" : "");
+      b.addEventListener("click", () => { go(i); if (matchMedia("(max-width:640px)").matches) panel(false); });
+      out.appendChild(b);
+    }
+    if (!c) out.innerHTML = '<div class="vacio">Sin resultados.</div>';
+  }, 200);
+});
+function tab(t) {
+  document.querySelectorAll(".tabs [data-t]").forEach((b) => b.classList.toggle("on", b.dataset.t === t));
+  for (const k of ["toc", "th", "bq"]) $("#c-" + k).hidden = k !== t;
+  if (t === "bq") $("#q").focus();
+  if (t === "th") { const c = document.querySelector(".th button.cur"); if (c) c.scrollIntoView({ block: "center" }); }
+}
+function panel(on, t) { $("#panel").classList.toggle("on", on); if (on && t) tab(t); if (on) mas(false); }
+function mas(on) { $("#mas").classList.toggle("on", on); }
+document.querySelectorAll(".tabs [data-t]").forEach((b) => b.addEventListener("click", () => tab(b.dataset.t)));
+$("#pX").onclick = () => panel(false);
+$("#bIdx").onclick = () => panel(!$("#panel").classList.contains("on"), L.toc.length ? "toc" : "th");
+$("#bThumbs").onclick = () => panel(true, "th");
+$("#bSearch").onclick = () => panel(true, "bq");
+
+/* ---------- barra de herramientas ---------- */
+$("#prev").onclick = $("#bPrev2").onclick = ant; $("#next").onclick = $("#bNext2").onclick = sig;
+$("#bFirst").onclick = () => go(0); $("#bLast").onclick = () => go(N - 1);
+$("#bZin").onclick = () => zoomPaso(1.5); $("#bZout").onclick = () => zoomPaso(1 / 1.5);
+$("#scrub").addEventListener("change", (e) => go(+e.target.value - 1));
+$("#pgIn").addEventListener("change", (e) => { const v = Math.max(1, Math.min(N, +e.target.value || 1)); go(v - 1); });
+$("#bSnd").onclick = $("#mSnd").onclick = () => setSnd(!soundOn);
+function compartir() {
+  const url = location.href.split("#")[0] + "#p=" + (visibles(idx)[0] + 1);
+  if (navigator.share) navigator.share({ title: L.titulo, url }).catch(() => {});
+  else if (navigator.clipboard) navigator.clipboard.writeText(url).then(() => toast("Enlace copiado"), () => toast(url));
+  else toast(url);
+  mas(false);
+}
+$("#bShare").onclick = $("#mShare").onclick = compartir;
+const fsEl = document.documentElement, fsOk = !!(fsEl.requestFullscreen || fsEl.webkitRequestFullscreen);
+function fs() {
+  if (!fsOk) { toast("Tu navegador no permite pantalla completa aquí"); return; }
+  if (document.fullscreenElement || document.webkitFullscreenElement) (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+  else (fsEl.requestFullscreen || fsEl.webkitRequestFullscreen).call(fsEl);
+  mas(false);
+}
+$("#bFs").onclick = $("#mFs").onclick = fs;
+if (!fsOk) { $("#bFs").hidden = true; $("#mFs").hidden = true; }
+$("#bMore").onclick = (e) => { e.stopPropagation(); mas(!$("#mas").classList.contains("on")); };
+document.addEventListener("click", (e) => { if (!e.target.closest("#mas")) mas(false); });
+document.addEventListener("keydown", (e) => {
+  if (e.target.matches("input")) { if (e.key === "Escape") e.target.blur(); return; }
+  const k = e.key;
+  if (k === "ArrowRight" || k === "PageDown") sig(); else if (k === "ArrowLeft" || k === "PageUp") ant();
+  else if (k === "Home") go(0); else if (k === "End") go(N - 1);
+  else if (k === "+" || k === "=") zoomPaso(1.5); else if (k === "-") zoomPaso(1 / 1.5);
+  else if (k === "Escape") { if ($("#panel").classList.contains("on")) panel(false); else if (zoomOn) cerrarZoom(); }
+  else if (k === "f" || k === "F") fs(); else if (k === "/") { e.preventDefault(); panel(true, "bq"); }
+});
+let rh = 0;
+window.addEventListener("resize", () => { clearTimeout(rh); rh = setTimeout(() => { const z = zoomOn; if (z) cerrarZoom(); build(idx); }, 180); });
+
+/* ---------- inicio ---------- */
+armarPanel(); setSnd(soundOn);
+const m = /#p=(\d+)/.exec(location.hash);
+build(m ? Math.max(0, Math.min(N - 1, +m[1] - 1)) : 0);
+window.addEventListener("hashchange", () => { const h = /#p=(\d+)/.exec(location.hash); if (h && +h[1] - 1 !== visibles(idx)[0]) go(+h[1] - 1); });
+window.__fb = { go, sig, ant, abrirZoom, cerrarZoom, get estado() { return { idx, two, zoomOn, s: S.s, pw, ph }; } };
+</script>
+</body>
+</html>
