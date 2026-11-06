@@ -521,6 +521,24 @@
             "url": "https://portal-practicas.plataformajt.com/ia-mip-caso5-servicio/"
           }
         ]
+      },
+      {
+        "nombre": "Administrador de Base de Datos — Simulador SQL",
+        "icono": "🗄️",
+        "tipoClase": "taller",
+        "tipoLabel": "3 módulos · orden libre",
+        "practicas": [
+          {
+            "badge": "Módulos 1, 2 y 3",
+            "unidad": "modulos",
+            "titulo": "Simulador SQL autocalificable con medalla",
+            "desc": "Escribe consultas SQL reales en tu navegador sin instalar nada: 16 retos en tres módulos (fundamentos, gestión con SQL y administración avanzada). Cada módulo superado entrega una medalla para subir como evidencia en el aula.",
+            "duracion": "Aproximadamente 1 hora, individual",
+            "puntos": "Se califica al instante",
+            "aprobacion": "Superar todos los retos del módulo y subir la medalla",
+            "url": "https://johantbueno.github.io/practicas-web/abd-2614-sql/"
+          }
+        ]
       }
     ]
   },

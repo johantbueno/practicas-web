@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Práctica SQL autocalificable · ABD 26-14</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js"></script>
+<style>
+:root{--azul:#0B3C6F;--azul2:#1560a8;--oro:#E0A526;--fondo:#F4F7FB;--tx:#1b2735;--ok:#1a8a4a;--mal:#c0392b;--borde:#d5dde8}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,Segoe UI,Arial,sans-serif;background:var(--fondo);color:var(--tx)}
+header{background:var(--azul);color:#fff;padding:18px 16px}
+header h1{margin:0;font-size:1.25rem}header p{margin:4px 0 0;opacity:.85;font-size:.9rem}
+main{max-width:980px;margin:0 auto;padding:16px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.tabs button{border:1px solid var(--azul);background:#fff;color:var(--azul);padding:8px 14px;border-radius:8px;cursor:pointer;font-weight:600}
+.tabs button.on{background:var(--azul);color:#fff}
+.card{background:#fff;border:1px solid var(--borde);border-radius:10px;padding:14px;margin-bottom:12px}
+.nota{background:#fff8e6;border-left:4px solid var(--oro);padding:10px 12px;font-size:.88rem;margin-bottom:12px;border-radius:4px}
+.reto h3{margin:0 0 6px;font-size:1.02rem;color:var(--azul)}
+.reto.hecho{border-color:var(--ok)}.reto.hecho h3::after{content:" · superado";color:var(--ok);font-weight:600}
+textarea{width:100%;min-height:96px;font:14px Consolas,monospace;padding:8px;border:1px solid var(--borde);border-radius:6px;resize:vertical}
+button.run{background:var(--azul2);color:#fff;border:0;padding:8px 16px;border-radius:6px;cursor:pointer;font-weight:600;margin-top:6px}
+button.sec{background:#fff;color:var(--azul);border:1px solid var(--azul);padding:8px 14px;border-radius:6px;cursor:pointer;margin:6px 0 0 6px}
+.msg{margin-top:8px;font-size:.92rem}.msg.ok{color:var(--ok);font-weight:600}.msg.mal{color:var(--mal)}
+table{border-collapse:collapse;font-size:.85rem;margin-top:8px}td,th{border:1px solid var(--borde);padding:3px 8px}th{background:#eef3f9}
+.sc{overflow-x:auto}
+details{margin-top:6px;font-size:.88rem}
+.barra{height:10px;background:#dfe6ef;border-radius:6px;overflow:hidden;margin:6px 0 12px}.barra i{display:block;height:100%;background:var(--ok);width:0;transition:width .3s}
+.medalla input{padding:8px;border:1px solid var(--borde);border-radius:6px;width:min(340px,100%)}
+canvas{max-width:100%;height:auto;border:1px solid var(--borde);border-radius:10px;margin-top:10px}
+code{background:#eef3f9;padding:1px 4px;border-radius:3px}
+</style>
+</head>
+<body>
+<header><h1>Práctica SQL autocalificable</h1><p>Administrador de Base de Datos · ABD 26-14 · Escribe tu consulta, ejecútala y el simulador la califica al instante.</p></header>
+<main>
+<div class="nota"><b>Antes de empezar.</b> Este simulador corre en tu navegador con SQLite, para practicar sin instalar nada. La sintaxis es casi igual a la de SQL Server, con diferencias como <code>LIMIT</code> en lugar de <code>TOP</code>. Tus avances se guardan en este navegador. Al superar todos los retos de un módulo recibes una medalla para subirla como entregable en el aula.</div>
+<div class="tabs" id="tabs"></div>
+<div class="card"><b>Base de ejemplo (tienda).</b> Tablas: <code>producto(id, nombre, categoria, precio, existencia)</code>, <code>cliente(id, nombre, tipo)</code>, <code>pedido(id, cliente_id, fecha, total)</code>, <code>detalle(pedido_id, producto_id, cantidad)</code>. <button class="sec" id="verdatos">Ver datos de ejemplo</button><div id="datos" class="sc"></div></div>
+<div class="barra"><i id="prog"></i></div>
+<div id="retos"></div>
+<div class="card medalla" id="medalla" style="display:none">
+  <h3 style="margin-top:0;color:var(--azul)">Tu medalla</h3>
+  <p>Escribe tu nombre completo, genera la medalla y súbela en la tarea de entrega del módulo.</p>
+  <input id="nombre" placeholder="Nombre y apellido" maxlength="60">
+  <button class="run" id="gen">Generar medalla</button>
+  <div><canvas id="cv" width="640" height="640" style="display:none"></canvas></div>
+  <button class="sec" id="desc" style="display:none;margin-left:0">Descargar PNG</button>
+</div>
+</main>
+<script>
+const SEED=`
+CREATE TABLE producto(id INTEGER PRIMARY KEY,nombre TEXT,categoria TEXT,precio REAL,existencia INTEGER);
+CREATE TABLE cliente(id INTEGER PRIMARY KEY,nombre TEXT,tipo TEXT);
+CREATE TABLE pedido(id INTEGER PRIMARY KEY,cliente_id INTEGER,fecha TEXT,total REAL);
+CREATE TABLE detalle(pedido_id INTEGER,producto_id INTEGER,cantidad INTEGER);
+INSERT INTO producto VALUES(1,'Teclado','Accesorios',650,40),(2,'Ratón','Accesorios',320,80),(3,'Monitor 24"','Pantallas',8900,15),(4,'Monitor 27"','Pantallas',12500,8),(5,'Laptop','Equipos',38500,10),(6,'Impresora','Equipos',7400,12),(7,'Cable HDMI','Accesorios',250,120),(8,'Disco SSD','Almacenamiento',2800,30),(9,'Memoria USB','Almacenamiento',450,90);
+INSERT INTO cliente VALUES(1,'Ana Pérez','Empresa'),(2,'Luis Gómez','Particular'),(3,'Marta Díaz','Empresa'),(4,'Pedro Ruiz','Particular'),(5,'Sofía Mena','Empresa');
+INSERT INTO pedido VALUES(1,1,'2026-01-10',47400),(2,2,'2026-01-15',970),(3,3,'2026-02-03',21400),(4,1,'2026-02-20',3250),(5,4,'2026-03-01',650),(6,3,'2026-03-12',38500);
+INSERT INTO detalle VALUES(1,5,1),(1,3,1),(2,1,1),(2,2,1),(3,4,1),(3,3,1),(4,8,1),(4,9,1),(5,1,1),(6,5,1);
+`;
+const MODULOS={
+ 1:{nombre:"Módulo 1 · Fundamentos",retos:[
+  {t:"Consultar columnas",e:"Muestra únicamente el <b>nombre</b> y el <b>precio</b> de todos los productos.",p:"SELECT columna1, columna2 FROM tabla;",ref:"SELECT nombre, precio FROM producto"},
+  {t:"Filtrar con WHERE",e:"Muestra el nombre de los productos con precio <b>mayor que 5000</b>.",p:"Usa WHERE con el operador >.",ref:"SELECT nombre FROM producto WHERE precio>5000"},
+  {t:"Ordenar resultados",e:"Muestra nombre y precio de los productos de la categoría <b>Accesorios</b>, del más caro al más barato.",p:"WHERE categoria = '...' y ORDER BY precio DESC.",ref:"SELECT nombre, precio FROM producto WHERE categoria='Accesorios' ORDER BY precio DESC"},
+  {t:"Agrupar y contar",e:"Muestra cada <b>categoría</b> con la cantidad de productos que tiene.",p:"COUNT(*) y GROUP BY categoria.",ref:"SELECT categoria, COUNT(*) FROM producto GROUP BY categoria"},
+  {t:"Crear una tabla",e:"Crea la tabla <code>proveedor</code> con las columnas <code>id</code> (entero, clave primaria) y <code>nombre</code> (texto), e inserta 2 proveedores.",p:"CREATE TABLE ... y luego INSERT INTO ... VALUES (...),(...);",ref:"CREATE TABLE proveedor(id INTEGER PRIMARY KEY,nombre TEXT);INSERT INTO proveedor VALUES(1,'A'),(2,'B')",ver:"SELECT COUNT(*) FROM proveedor",cols:"SELECT name FROM pragma_table_info('proveedor') ORDER BY cid"}
+ ]},
+ 2:{nombre:"Módulo 2 · Gestión con SQL",retos:[
+  {t:"Unir tablas (JOIN)",e:"Muestra el <b>nombre del cliente</b> y el <b>total</b> de cada pedido.",p:"INNER JOIN pedido ON pedido.cliente_id = cliente.id.",ref:"SELECT c.nombre, p.total FROM cliente c INNER JOIN pedido p ON p.cliente_id=c.id"},
+  {t:"Totales por cliente",e:"Muestra el nombre de cada cliente con la <b>suma</b> de sus pedidos.",p:"SUM(total) con GROUP BY.",ref:"SELECT c.nombre, SUM(p.total) FROM cliente c JOIN pedido p ON p.cliente_id=c.id GROUP BY c.nombre"},
+  {t:"Filtrar grupos (HAVING)",e:"Muestra los clientes cuya suma de pedidos sea <b>mayor que 20000</b>.",p:"HAVING filtra después de agrupar.",ref:"SELECT c.nombre, SUM(p.total) FROM cliente c JOIN pedido p ON p.cliente_id=c.id GROUP BY c.nombre HAVING SUM(p.total)>20000"},
+  {t:"Insertar datos",e:"Inserta un producto nuevo: id 10, nombre 'Webcam', categoría 'Accesorios', precio 1500, existencia 25.",p:"INSERT INTO producto VALUES (...);",ref:"INSERT INTO producto VALUES(10,'Webcam','Accesorios',1500,25)",ver:"SELECT * FROM producto ORDER BY id"},
+  {t:"Actualizar datos",e:"Sube un <b>10 %</b> el precio de todos los productos de la categoría Pantallas.",p:"UPDATE ... SET precio = precio * 1.10 WHERE ...",ref:"UPDATE producto SET precio=precio*1.10 WHERE categoria='Pantallas'",ver:"SELECT id, ROUND(precio,2) FROM producto ORDER BY id"},
+  {t:"Eliminar datos",e:"Elimina los productos con existencia <b>menor que 10</b>.",p:"DELETE FROM ... WHERE ... (sin WHERE borrarías todo).",ref:"DELETE FROM producto WHERE existencia<10",ver:"SELECT id FROM producto ORDER BY id"}
+ ]},
+ 3:{nombre:"Módulo 3 · Administración avanzada",retos:[
+  {t:"Crear una vista",e:"Crea la vista <code>vista_ventas</code> con el nombre del cliente y el total de cada pedido.",p:"CREATE VIEW nombre AS SELECT ...",ref:"CREATE VIEW vista_ventas AS SELECT c.nombre, p.total FROM cliente c JOIN pedido p ON p.cliente_id=c.id",ver:"SELECT * FROM vista_ventas ORDER BY 1,2"},
+  {t:"Crear un índice",e:"Crea el índice <code>idx_pedido_cliente</code> sobre la columna <code>cliente_id</code> de la tabla pedido.",p:"CREATE INDEX nombre ON tabla(columna);",ref:"CREATE INDEX idx_pedido_cliente ON pedido(cliente_id)",ver:"SELECT name, tbl_name FROM sqlite_master WHERE type='index' AND name='idx_pedido_cliente'"},
+  {t:"Subconsulta",e:"Muestra el nombre de los productos con precio <b>mayor que el promedio</b> de todos.",p:"WHERE precio > (SELECT AVG(precio) FROM producto).",ref:"SELECT nombre FROM producto WHERE precio>(SELECT AVG(precio) FROM producto)"},
+  {t:"Transacción",e:"En una transacción, descuenta 1 unidad de existencia al producto 5 y confirma con COMMIT.",p:"BEGIN; UPDATE ...; COMMIT;",ref:"BEGIN;UPDATE producto SET existencia=existencia-1 WHERE id=5;COMMIT",ver:"SELECT id, existencia FROM producto ORDER BY id"},
+  {t:"Respaldo de una tabla",e:"Crea la tabla <code>producto_respaldo</code> como copia completa de producto.",p:"CREATE TABLE nueva AS SELECT * FROM origen;",ref:"CREATE TABLE producto_respaldo AS SELECT * FROM producto",ver:"SELECT * FROM producto_respaldo ORDER BY id"}
+ ]}
+};
+let SQL,mod=1;
+const $=s=>document.querySelector(s);
+const guard=(k,v)=>{try{if(v===undefined)return JSON.parse(localStorage.getItem(k)||"null");localStorage.setItem(k,JSON.stringify(v))}catch(e){return null}};
+let hechos=guard("abd_hechos")||{};
+function nuevaDB(){const d=new SQL.Database();d.exec(SEED);return d}
+function ultimo(r){return r.length?r[r.length-1]:{columns:[],values:[]}}
+function norm(v){return v.map(f=>JSON.stringify(f.map(x=>typeof x==="number"?Math.round(x*100)/100:x)))}
+function comparar(a,b,ordenado){const x=norm(a),y=norm(b);if(!ordenado){x.sort();y.sort()}return JSON.stringify(x)===JSON.stringify(y)}
+function evaluar(reto,sql){
+  const u=nuevaDB(),r=nuevaDB();
+  let ru;try{ru=u.exec(sql)}catch(e){return{ok:false,error:e.message}}
+  const rr=r.exec(reto.ref);
+  if(reto.ver){
+    let ok=false;
+    try{
+      const a=u.exec(reto.ver),b=r.exec(reto.ver);
+      ok=comparar(ultimo(a).values,ultimo(b).values,true);
+      if(ok&&reto.cols){ok=comparar(ultimo(u.exec(reto.cols)).values,ultimo(r.exec(reto.cols)).values,true)}
+    }catch(e){ok=false}
+    return{ok,res:ultimo(ru),detalle:ok?"":"El estado de la base no coincide con lo pedido. Revisa que hayas creado o modificado lo que se pide."};
+  }
+  const A=ultimo(ru),B=ultimo(rr);
+  if(!A.columns.length)return{ok:false,res:A,detalle:"Tu instrucción no devolvió resultados. Debe ser una consulta SELECT."};
+  const ord=/order by/i.test(reto.ref);
+  const ok=A.values.length===B.values.length&&A.columns.length===B.columns.length&&comparar(A.values,B.values,ord);
+  return{ok,res:A,detalle:ok?"":`Tu resultado tiene ${A.values.length} filas y ${A.columns.length} columnas; se esperaban ${B.values.length} filas y ${B.columns.length} columnas, o los valores no coinciden.`};
+}
+function tabla(r){if(!r||!r.columns.length)return"";return"<div class='sc'><table><tr>"+r.columns.map(c=>"<th>"+esc(c)+"</th>").join("")+"</tr>"+r.values.slice(0,50).map(f=>"<tr>"+f.map(x=>"<td>"+esc(x===null?"NULL":x)+"</td>").join("")+"</tr>").join("")+"</table></div>"}
+function esc(s){return String(s).replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]))}
+function pintar(){
+  document.querySelectorAll(".tabs button").forEach(b=>b.classList.toggle("on",+b.dataset.m===mod));
+  const M=MODULOS[mod],cont=$("#retos");cont.innerHTML="";
+  M.retos.forEach((r,i)=>{
+    const k=mod+"-"+i,d=document.createElement("div");d.className="card reto"+(hechos[k]?" hecho":"");
+    d.innerHTML=`<h3>Reto ${i+1}: ${r.t}</h3><div>${r.e}</div><details><summary>Pista</summary>${r.p}</details><textarea spellcheck="false" placeholder="Escribe tu SQL aquí"></textarea><button class="run">Ejecutar y calificar</button><div class="msg"></div><div class="out"></div>`;
+    const ta=d.querySelector("textarea"),msg=d.querySelector(".msg"),out=d.querySelector(".out");
+    d.querySelector(".run").onclick=()=>{
+      if(!ta.value.trim()){msg.className="msg mal";msg.textContent="Escribe una instrucción SQL primero.";return}
+      const e=evaluar(r,ta.value);
+      if(e.error){msg.className="msg mal";msg.textContent="Error de SQL: "+e.error;out.innerHTML="";return}
+      out.innerHTML=tabla(e.res);
+      if(e.ok){msg.className="msg ok";msg.textContent="Correcto. Reto superado.";hechos[k]=1;guard("abd_hechos",hechos);d.classList.add("hecho");avance()}
+      else{msg.className="msg mal";msg.textContent=e.detalle}
+    };
+    cont.appendChild(d);
+  });
+  avance();
+}
+function avance(){
+  const n=MODULOS[mod].retos.length;let c=0;for(let i=0;i<n;i++)if(hechos[mod+"-"+i])c++;
+  $("#prog").style.width=(c/n*100)+"%";
+  $("#medalla").style.display=c===n?"block":"none";
+}
+function medalla(){
+  const nom=$("#nombre").value.trim();if(nom.length<3){alert("Escribe tu nombre completo.");return}
+  const cv=$("#cv"),g=cv.getContext("2d"),W=640;
+  g.clearRect(0,0,W,W);g.fillStyle="#F4F7FB";g.fillRect(0,0,W,W);
+  g.beginPath();g.arc(W/2,W/2,300,0,7);g.fillStyle="#0B3C6F";g.fill();
+  g.beginPath();g.arc(W/2,W/2,280,0,7);g.lineWidth=10;g.strokeStyle="#E0A526";g.stroke();
+  g.beginPath();g.arc(W/2,W/2,100,0,7);g.fillStyle="#E0A526";g.fill();
+  g.fillStyle="#0B3C6F";g.textAlign="center";g.font="bold 120px Georgia,serif";g.fillText(mod,W/2,W/2+40);
+  g.fillStyle="#fff";g.font="bold 30px system-ui,sans-serif";g.fillText("MEDALLA SQL",W/2,130);
+  g.font="22px system-ui,sans-serif";g.fillText(MODULOS[mod].nombre,W/2,170);
+  g.font="bold 30px Georgia,serif";g.fillText(nom,W/2,470);
+  g.font="18px system-ui,sans-serif";g.fillText("ABD 26-14 · "+MODULOS[mod].retos.length+" de "+MODULOS[mod].retos.length+" retos superados",W/2,510);
+  const f=new Date().toISOString().slice(0,10);g.fillText(f,W/2,540);
+  let h=0;for(const ch of nom+mod+f)h=(h*31+ch.charCodeAt(0))>>>0;
+  g.font="14px Consolas,monospace";g.fillText("Código "+h.toString(36).toUpperCase(),W/2,570);
+  cv.style.display="block";$("#desc").style.display="inline-block";
+}
+$("#gen").onclick=medalla;
+$("#desc").onclick=()=>{const a=document.createElement("a");a.download="medalla_sql_modulo"+mod+".png";a.href=$("#cv").toDataURL("image/png");a.click()};
+$("#verdatos").onclick=()=>{const d=nuevaDB();let h="";for(const t of["producto","cliente","pedido","detalle"])h+="<b>"+t+"</b>"+tabla(ultimo(d.exec("SELECT * FROM "+t)));$("#datos").innerHTML=h};
+for(const m in MODULOS){const b=document.createElement("button");b.textContent=MODULOS[m].nombre;b.dataset.m=m;b.onclick=()=>{mod=+m;$("#cv").style.display="none";$("#desc").style.display="none";pintar()};$("#tabs").appendChild(b)}
+initSqlJs({locateFile:f=>"https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/"+f}).then(S=>{SQL=S;pintar();window.__listo=1}).catch(e=>{$("#retos").innerHTML="<div class='card msg mal'>No se pudo cargar el motor SQL. Revisa tu conexión a internet y recarga la página.</div>"});
+</script>
+</body>
+</html>
