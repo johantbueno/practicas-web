@@ -193,6 +193,22 @@ footer{text-align:center; font-size:.78rem; color:var(--muted); margin-top:2rem;
           texto real. La institución/plantilla no aplica en este modo.
         </div>
       </div>
+      <div class="field" id="campo-fondo" style="display:none">
+        <label for="fondo">Fondo de las diapositivas</label>
+        <select id="fondo" name="fondo">
+          <option value="">Sin fondo (diseño original)</option>
+          <option value="auto">Automático (uno distinto según el tema)</option>
+          <option value="generados-paletas/infotep-azul-amarillo__bandas.png">Azul institucional</option>
+          <option value="generados-paletas/azul-profundo__bandas.png">Azul profundo</option>
+          <option value="generados-paletas/turquesa-verde__olas.png">Turquesa y verde (olas)</option>
+          <option value="generados-paletas/violeta-calido__malla.png">Violeta</option>
+          <option value="generados-paletas/naranja-solar__bandas.png">Naranja solar</option>
+          <option value="generados-paletas/grafito__olas.png">Grafito</option>
+          <option value="generados-paletas/azul-hielo__bandas.png">Azul hielo (claro)</option>
+          <option value="generados-paletas/arena__olas.png">Arena (claro)</option>
+        </select>
+        <div class="hint">La portada y el cierre llevan el fondo con un velo oscuro; las demás diapositivas lo muestran como marco de una tarjeta blanca, para que el texto siempre se lea.</div>
+      </div>
       <div class="grid2">
         <div class="field" id="campo-institucion">
           <label for="institucion">Institución / plantilla</label>
@@ -251,6 +267,7 @@ function actualizarVisibilidadEstilo() {
   hintInfografia.style.display = esInfografia ? 'block' : 'none';
   campoInstitucion.style.opacity = esInfografia ? '.45' : '1';
   institucionSelect.disabled = esInfografia;
+  document.getElementById('campo-fondo').style.display = esInfografia ? 'block' : 'none';
 }
 estiloSelect.addEventListener('change', actualizarVisibilidadEstilo);
 actualizarVisibilidadEstilo();
@@ -439,6 +456,7 @@ form.addEventListener('submit', async (e) => {
   formData.append('material', materialInput.value.trim());
   formData.append('institucion', document.getElementById('institucion').value);
   formData.append('estilo', estiloSelect.value);
+  if (estiloSelect.value === 'infografia') formData.append('fondo', document.getElementById('fondo').value);
   formData.append('num_diapositivas', document.getElementById('num_diapositivas').value);
   formData.append('incluir_imagenes', document.getElementById('incluir_imagenes').checked);
   if (fileInput.files.length) {
