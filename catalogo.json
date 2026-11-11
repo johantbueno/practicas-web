@@ -1370,6 +1370,96 @@
             "url": "https://portal-practicas.plataformajt.com/fnf-ci-u2/"
           }
         ]
+      },
+      {
+        "nombre": "Diplomado Bienestar Laboral y Felicidad",
+        "icono": "🌱",
+        "tipoClase": "diplomado",
+        "tipoLabel": "Diplomado · 8 encuentros de 3 horas",
+        "esSecuencial": false,
+        "cursoId": "dblf",
+        "practicas": [
+          {
+            "badge": "Encuentro 1 · Módulo I",
+            "unidad": "e1",
+            "titulo": "Fundamentos del bienestar y felicidad laboral",
+            "desc": "El participante identificará las dimensiones del bienestar hedónico y eudaimónico para evaluar su perfil laboral mediante el modelo PERMA.",
+            "duracion": "5 pasos · 120 min",
+            "puntos": "100 pts (retroalimentación)",
+            "aprobacion": "Completar los 5 pasos",
+            "url": "https://portal-practicas.plataformajt.com/dblf-e1/"
+          },
+          {
+            "badge": "Encuentro 2 · Módulo I",
+            "unidad": "e2",
+            "titulo": "Clima laboral, satisfacción y factores de bienestar",
+            "desc": "El participante analizará los factores de clima, la teoría de Herzberg y los riesgos psicosociales para diagnosticar su entorno de trabajo.",
+            "duracion": "5 pasos · 120 min",
+            "puntos": "100 pts (retroalimentación)",
+            "aprobacion": "Completar los 5 pasos",
+            "url": "https://portal-practicas.plataformajt.com/dblf-e2/"
+          },
+          {
+            "badge": "Encuentro 3 · Módulo II",
+            "unidad": "e3",
+            "titulo": "Inteligencia emocional en el trabajo",
+            "desc": "El participante autoevaluará las cinco competencias emocionales de Goleman para fortalecer su autorregulación y empatía en las relaciones laborales.",
+            "duracion": "5 pasos · 120 min",
+            "puntos": "100 pts (retroalimentación)",
+            "aprobacion": "Completar los 5 pasos",
+            "url": "https://portal-practicas.plataformajt.com/dblf-e3/"
+          },
+          {
+            "badge": "Encuentro 4 · Módulo II",
+            "unidad": "e4",
+            "titulo": "Estrés, burnout y autocuidado en el trabajo",
+            "desc": "El participante diferenciará el estrés del burnout para estructurar un plan personal de autocuidado y pausas activas durante siete días.",
+            "duracion": "5 pasos · 120 min",
+            "puntos": "100 pts (retroalimentación)",
+            "aprobacion": "Completar los 5 pasos",
+            "url": "https://portal-practicas.plataformajt.com/dblf-e4/"
+          },
+          {
+            "badge": "Encuentro 5 · Módulo III",
+            "unidad": "e5",
+            "titulo": "Comunicación positiva y relaciones saludables en el trabajo",
+            "desc": "El participante aplicará técnicas de escucha activa, asertividad y retroalimentación constructiva para resolver desacuerdos en su equipo.",
+            "duracion": "5 pasos · 120 min",
+            "puntos": "100 pts (retroalimentación)",
+            "aprobacion": "Completar los 5 pasos",
+            "url": "https://portal-practicas.plataformajt.com/dblf-e5/"
+          },
+          {
+            "badge": "Encuentro 6 · Módulo III",
+            "unidad": "e6",
+            "titulo": "Motivación y compromiso organizacional en el trabajo",
+            "desc": "El participante identificará los determinantes del engagement y la teoría de autodeterminación para fomentar la motivación intrínseca en su unidad.",
+            "duracion": "5 pasos · 120 min",
+            "puntos": "100 pts (retroalimentación)",
+            "aprobacion": "Completar los 5 pasos",
+            "url": "https://portal-practicas.plataformajt.com/dblf-e6/"
+          },
+          {
+            "badge": "Encuentro 7 · Módulo IV",
+            "unidad": "e7",
+            "titulo": "Liderazgo positivo y seguridad psicológica en el trabajo",
+            "desc": "El participante identificará las prácticas del liderazgo de servicio y la seguridad psicológica para potenciar las fortalezas de su equipo.",
+            "duracion": "5 pasos · 120 min",
+            "puntos": "100 pts (retroalimentación)",
+            "aprobacion": "Completar los 5 pasos",
+            "url": "https://portal-practicas.plataformajt.com/dblf-e7/"
+          },
+          {
+            "badge": "Encuentro 8 · Módulo IV",
+            "unidad": "e8",
+            "titulo": "Cultura y diseño del plan de bienestar laboral",
+            "desc": "El participante diseñará un borrador de plan de bienestar laboral estructurado con diagnóstico, objetivos, acciones, responsables e indicadores.",
+            "duracion": "5 pasos · 120 min",
+            "puntos": "100 pts (retroalimentación)",
+            "aprobacion": "Completar los 5 pasos",
+            "url": "https://portal-practicas.plataformajt.com/dblf-e8/"
+          }
+        ]
       }
     ]
   },
