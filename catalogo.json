@@ -523,11 +523,61 @@
         ]
       },
       {
-        "nombre": "Administrador de Base de Datos — Simulador SQL",
+        "nombre": "Administrador de Base de Datos — ABD 26-14",
         "icono": "🗄️",
         "tipoClase": "taller",
-        "tipoLabel": "3 módulos · orden libre",
+        "tipoLabel": "5 prácticas por tema + simulador SQL · orden libre · con medalla",
         "practicas": [
+          {
+            "badge": "Práctica 1 · Fundamentos",
+            "unidad": "p1",
+            "titulo": "Claves primarias, foráneas y relaciones entre tablas",
+            "desc": "Diseñe las claves y la relación entre Cliente, Pedido y Producto de una tienda ficticia y explique cada decisión.",
+            "duracion": "5 pasos · 60 min",
+            "puntos": "100 pts",
+            "aprobacion": "Completar los 5 pasos",
+            "url": "https://portal-practicas.plataformajt.com/abd-2614-p1/"
+          },
+          {
+            "badge": "Práctica 2 · Fundamentos (SQL Server)",
+            "unidad": "p2",
+            "titulo": "Crear tablas en SQL Server: CREATE TABLE, tipos de dato y restricciones",
+            "desc": "Escriba el script T-SQL de una base de datos de práctica con su tabla, tipos de dato y restricciones, y compruebe que funciona.",
+            "duracion": "5 pasos · 60 min",
+            "puntos": "100 pts",
+            "aprobacion": "Completar los 5 pasos",
+            "url": "https://portal-practicas.plataformajt.com/abd-2614-p2/"
+          },
+          {
+            "badge": "Práctica 3 · Gestión con SQL",
+            "unidad": "p3",
+            "titulo": "Consultas SQL y unión de tablas con JOIN",
+            "desc": "Escriba consultas con INNER JOIN, LEFT JOIN, GROUP BY y HAVING sobre una base de datos de ejemplo y justifique cada tipo de unión.",
+            "duracion": "5 pasos · 60 min",
+            "puntos": "100 pts",
+            "aprobacion": "Completar los 5 pasos",
+            "url": "https://portal-practicas.plataformajt.com/abd-2614-p3/"
+          },
+          {
+            "badge": "Práctica 4 · Gestión con SQL",
+            "unidad": "p4",
+            "titulo": "Normalización de una base de datos: 1FN, 2FN y 3FN",
+            "desc": "Normalice hasta tercera forma normal el diseño de una academia, proponga las tablas y compruebe con JOIN que no se pierde información.",
+            "duracion": "5 pasos · 60 min",
+            "puntos": "100 pts",
+            "aprobacion": "Completar los 5 pasos",
+            "url": "https://portal-practicas.plataformajt.com/abd-2614-p4/"
+          },
+          {
+            "badge": "Práctica 5 · Administración avanzada",
+            "unidad": "p5",
+            "titulo": "Funciones de ventana, vistas y triggers",
+            "desc": "Escriba una función de ventana, una vista y el esqueleto de un trigger sobre una base de seguros ficticia y planifique cómo probarlos con seguridad.",
+            "duracion": "5 pasos · 60 min",
+            "puntos": "100 pts",
+            "aprobacion": "Completar los 5 pasos",
+            "url": "https://portal-practicas.plataformajt.com/abd-2614-p5/"
+          },
           {
             "badge": "Módulos 1, 2 y 3",
             "unidad": "modulos",
@@ -538,7 +588,8 @@
             "aprobacion": "Superar todos los retos del módulo y subir la medalla",
             "url": "https://johantbueno.github.io/practicas-web/abd-2614-sql/"
           }
-        ]
+        ],
+        "cursoId": "abd-2614"
       },
       {
         "nombre": "Creación de Aplicaciones con IA para Emprendedores",
