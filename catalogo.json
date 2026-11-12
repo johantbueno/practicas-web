@@ -539,6 +539,66 @@
             "url": "https://johantbueno.github.io/practicas-web/abd-2614-sql/"
           }
         ]
+      },
+      {
+        "nombre": "Creación de Aplicaciones con IA para Emprendedores",
+        "icono": "📱",
+        "tipoClase": "taller",
+        "tipoLabel": "5 unidades · orden libre · con medalla",
+        "esSecuencial": false,
+        "cursoId": "apps-ia",
+        "practicas": [
+          {
+            "badge": "Unidad 1 · Pensar en producto",
+            "unidad": "u1",
+            "titulo": "Producto mínimo viable y cartel con código QR",
+            "desc": "Defina el problema de un negocio, empiece con lo esencial y diseñe un cartel con QR que lleve al WhatsApp del negocio.",
+            "duracion": "5 pasos · 60 min",
+            "puntos": "100 pts",
+            "aprobacion": "Completar los 5 pasos",
+            "url": "https://portal-practicas.plataformajt.com/apps-ia-u1/"
+          },
+          {
+            "badge": "Unidad 2 · Diseño y prototipado",
+            "unidad": "u2",
+            "titulo": "Cotizador con ITBIS y margen de ganancia",
+            "desc": "Arme un prototipo de cotizador en Google Sheets: precio con margen, ITBIS del 18 % y total, con apoyo de la IA y verificando cada cálculo.",
+            "duracion": "5 pasos · 60 min",
+            "puntos": "100 pts",
+            "aprobacion": "Completar los 5 pasos",
+            "url": "https://portal-practicas.plataformajt.com/apps-ia-u2/"
+          },
+          {
+            "badge": "Unidad 3 · Construcción sin código",
+            "unidad": "u3",
+            "titulo": "Catálogo web con botón «Pedir por WhatsApp»",
+            "desc": "Cree con apoyo de la IA un catálogo de una sola página, con botón de WhatsApp, y verifique datos y enlaces antes de compartirlo.",
+            "duracion": "5 pasos · 60 min",
+            "puntos": "100 pts",
+            "aprobacion": "Completar los 5 pasos",
+            "url": "https://portal-practicas.plataformajt.com/apps-ia-u3/"
+          },
+          {
+            "badge": "Unidad 4 · Automatización de procesos",
+            "unidad": "u4",
+            "titulo": "Pedidos que se ordenan solos: formulario, hoja y aviso",
+            "desc": "Planifique un flujo con Formulario de Google, hoja de cálculo, aviso por correo y marca de pedidos urgentes, usando la IA y cuidando la privacidad.",
+            "duracion": "5 pasos · 60 min",
+            "puntos": "100 pts",
+            "aprobacion": "Completar los 5 pasos",
+            "url": "https://portal-practicas.plataformajt.com/apps-ia-u4/"
+          },
+          {
+            "badge": "Unidad 5 · Publicación y modelo de negocio",
+            "unidad": "u5",
+            "titulo": "Publicar gratis, asistente local y plan de lanzamiento",
+            "desc": "Publique un catálogo en GitHub Pages, configure las reglas de un asistente de preguntas frecuentes que corre en su computadora y plantee su plan de lanzamiento.",
+            "duracion": "5 pasos · 60 min",
+            "puntos": "100 pts",
+            "aprobacion": "Completar los 5 pasos",
+            "url": "https://portal-practicas.plataformajt.com/apps-ia-u5/"
+          }
+        ]
       }
     ]
   },
