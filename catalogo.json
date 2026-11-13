@@ -650,6 +650,56 @@
             "url": "https://portal-practicas.plataformajt.com/apps-ia-u5/"
           }
         ]
+      },
+      {
+        "nombre": "Introducción a Microsoft Planner",
+        "icono": "📋",
+        "tipoClase": "taller",
+        "tipoLabel": "4 unidades · con medalla · Constructora Castillo R",
+        "esSecuencial": false,
+        "cursoId": "planner",
+        "practicas": [
+          {
+            "badge": "Unidad I",
+            "unidad": "u1",
+            "titulo": "Su primer plan en Planner",
+            "desc": "Cree un plan con depósitos y tareas para organizar una remodelación de Constructora Castillo R.",
+            "duracion": "5 pasos · 45 min",
+            "puntos": "100 pts",
+            "aprobacion": "Completar los 5 pasos",
+            "url": "https://portal-practicas.plataformajt.com/planner-u1/"
+          },
+          {
+            "badge": "Unidad II",
+            "unidad": "u2",
+            "titulo": "Gestión y seguimiento de tareas",
+            "desc": "Asigne responsables, fechas, etiquetas y listas de verificación, y dé seguimiento al avance con las vistas del plan.",
+            "duracion": "5 pasos · 45 min",
+            "puntos": "100 pts",
+            "aprobacion": "Completar los 5 pasos",
+            "url": "https://portal-practicas.plataformajt.com/planner-u2/"
+          },
+          {
+            "badge": "Unidad III",
+            "unidad": "u3",
+            "titulo": "Planner con Microsoft 365",
+            "desc": "Lleve su plan a Teams, organice su día con Mi día y reconozca qué se puede automatizar.",
+            "duracion": "5 pasos · 45 min",
+            "puntos": "100 pts",
+            "aprobacion": "Completar los 5 pasos",
+            "url": "https://portal-practicas.plataformajt.com/planner-u3/"
+          },
+          {
+            "badge": "Unidad IV",
+            "unidad": "u4",
+            "titulo": "De Planner a Project",
+            "desc": "Calcule la ruta crítica de una obra ilustrativa y decida cuándo basta un plan básico y cuándo conviene Planner Premium o Project.",
+            "duracion": "5 pasos · 45 min",
+            "puntos": "100 pts",
+            "aprobacion": "Completar los 5 pasos",
+            "url": "https://portal-practicas.plataformajt.com/planner-u4/"
+          }
+        ]
       }
     ]
   },
