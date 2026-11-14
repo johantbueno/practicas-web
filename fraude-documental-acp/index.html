@@ -77,19 +77,35 @@ document.getElementById('btn').addEventListener('click', function(){
   var linea = m.toUpperCase() + ' | ' + nombre.value.trim() + ' | ' + (area.value.trim() || '-') + ' | ' + R.join(' ');
   document.getElementById('codigo').textContent = linea;
   document.querySelectorAll('#preguntas input').forEach(function(x){ x.disabled = true; });
-  if(m === 'salida'){
-    document.getElementById('ftit').textContent = 'Su resultado';
-    document.getElementById('fnota').innerHTML = '<div class="nota">' + ok + ' de ' + Q.length + '</div>';
-    Q.forEach(function(q, i){
-      document.querySelectorAll('#q' + i + ' .op').forEach(function(l){ var v = l.querySelector('input').value;
-        if(v === q.c) l.classList.add('ok'); else if(v === R[i]) l.classList.add('mal'); });
-      var e = document.createElement('p'); e.className = 'exp'; e.textContent = 'Respuesta correcta: ' + q.c + '. ' + q.e;
-      document.getElementById('q' + i).appendChild(e);
-    });
-  } else {
-    document.getElementById('preguntas').hidden = true;
-    document.getElementById('fnota').innerHTML = '<p>Gracias. Las respuestas correctas se revisan al final de la jornada.</p>';
-  }
+  document.getElementById('ftit').textContent = 'Su resultado';
+  document.getElementById('fnota').innerHTML = '<div class="nota">' + ok + ' de ' + Q.length + '</div>';
+  Q.forEach(function(q, i){
+    document.querySelectorAll('#q' + i + ' .op').forEach(function(l){ var v = l.querySelector('input').value;
+      if(v === q.c) l.classList.add('ok'); else if(v === R[i]) l.classList.add('mal'); });
+    var e = document.createElement('p'); e.className = 'exp'; e.textContent = 'Respuesta correcta: ' + q.c + '. ' + q.e;
+    document.getElementById('q' + i).appendChild(e);
+  });
+  try {
+    var filasCorreo = Q.map(function(q, i){
+      return '<tr><td>' + (i + 1) + '</td><td>' + q.p + '</td><td>' + R[i] + '</td><td>' + q.c + '</td><td>' +
+        (R[i] === q.c ? 'Correcta' : 'Incorrecta') + '</td></tr>';
+    }).join('');
+    var htmlCorreo = '<p><b>' + (m === 'salida' ? 'Examen de SALIDA' : 'Examen de ENTRADA') +
+      '</b> - Fraude Documental y Seguridad Informatica - Atlantic Caribbean Packaging</p>' +
+      '<p>Nombre: ' + nombre.value.trim() + '<br>Area/puesto: ' + (area.value.trim() || '-') +
+      '<br>Resultado: <b>' + ok + ' de ' + Q.length + '</b></p>' +
+      '<table border="1" cellpadding="6" style="border-collapse:collapse;font-family:sans-serif;font-size:13px">' +
+      '<tr><th>#</th><th>Pregunta</th><th>Respondio</th><th>Correcta</th><th>Estado</th></tr>' + filasCorreo + '</table>' +
+      '<p style="color:#888;font-size:12px">Linea: ' + linea + '</p>';
+    fetch('https://n8n-inap.167.88.36.13.sslip.io/webhook/enviar-correo', {
+      method: 'POST', headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        to: 'johantbueno@gmail.com',
+        subject: 'Examen ' + m.toUpperCase() + ': ' + nombre.value.trim() + ' (' + ok + '/' + Q.length + ')',
+        html: htmlCorreo
+      })
+    }).catch(function(){});
+  } catch(errCorreo) {}
   document.getElementById('envio').hidden = true; document.getElementById('datos').hidden = true;
   document.getElementById('prog').hidden = true; document.getElementById('final').hidden = false;
   document.getElementById('final').scrollIntoView();
