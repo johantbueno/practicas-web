@@ -102,7 +102,14 @@ document.getElementById('btn').addEventListener('click', function(){
       body: JSON.stringify({
         to: 'johantbueno@gmail.com',
         subject: 'Examen ' + m.toUpperCase() + ': ' + nombre.value.trim() + ' (' + ok + '/' + Q.length + ')',
-        html: htmlCorreo
+        html: htmlCorreo,
+        reg_modo: m,
+        reg_nombre: nombre.value.trim(),
+        reg_area: (area.value.trim() || '-'),
+        reg_ok: ok,
+        reg_total: Q.length,
+        reg_linea: linea,
+        reg_ts: new Date().toISOString()
       })
     }).catch(function(){});
   } catch(errCorreo) {}
